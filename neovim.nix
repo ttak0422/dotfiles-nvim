@@ -5,7 +5,12 @@
     inputs.loaded-nvim.flakeModule
   ];
   perSystem =
-    params@{ self', system, pkgs, ... }:
+    params@{
+      self',
+      system,
+      pkgs,
+      ...
+    }:
     {
       _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
@@ -40,7 +45,7 @@
         };
 
       bundler-nvim = {
-        default = import ./main.nix params;
+        default = import ./main params;
       };
     };
 }
