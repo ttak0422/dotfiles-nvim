@@ -1,6 +1,7 @@
 { pkgs, ... }:
 let
   inherit (pkgs.lib.strings) concatStringsSep;
+  inherit (pkgs.stdenv) mkDerivation;
   read = builtins.readFile;
 in
 {
@@ -26,13 +27,16 @@ in
     };
   };
   lazy = with pkgs.vimPlugins; rec {
+    plenary = {
+      package = plenary-nvim;
+    };
     treesitter = {
       packages = [ nvim-treesitter ];
       postConfig =
         let
           buildGrammar =
             { language, src }:
-            pkgs.stdenv.mkDerivation {
+            mkDerivation {
               inherit src;
               pname = "custom-grammar-${language}";
               version = "custom";
@@ -103,6 +107,50 @@ in
       hooks = {
         events = [ "InsertEnter" ];
       };
+    };
+    telescope = {
+      packages = [
+        telescope-nvim
+        telescope-fzf-native-nvim
+        telescope-live-grep-args-nvim
+        telescope-sonictemplate-nvim
+        telescope-sg
+      ];
+      depends = [
+        plenary
+        sonictemplate
+      ];
+      postConfig = read ./lua/telescope.lua;
+      extraPackages = with pkgs; [
+        # for live-grep-args
+        ripgrep
+        # for sg
+        ast-grep
+      ];
+      hooks = {
+        commands = [ "Telescope" ];
+      };
+    };
+    sonictemplate = {
+      package = vim-sonictemplate;
+      preConfig =
+        let
+          template = mkDerivation {
+            pname = "sonictemplate";
+            version = "custom";
+            src = ./tmpl/sonic;
+            installPhase = ''
+              mkdir $out
+              cp -r ./* $out
+            '';
+          };
+        in
+        ''
+          vim.g.sonictemplate_vim_template_dir = "${template}"
+          vim.g.sonictemplate_key = 0
+          vim.g.sonictemplate_intelligent_key = 0
+          vim.g.sonictemplate_postfix_key = 0
+        '';
     };
   };
 }

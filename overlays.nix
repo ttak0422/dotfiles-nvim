@@ -1,4 +1,5 @@
 inputs: with inputs; [
+  nix-filter.overlays.default
   (
     final: prev:
     let
@@ -17,6 +18,7 @@ inputs: with inputs; [
         "nixpkgs-stable"
         "systems"
         "flake-parts"
+        "nix-filter"
         "bundler"
         "loaded-nvim"
       ];
@@ -35,7 +37,26 @@ inputs: with inputs; [
               src = getAttr name inputs;
             };
           }) plugins
-        ));
+        ))
+        // {
+          telescope-fzf-native-nvim = buildVimPlugin {
+            pname = "telescope-fzf-native-nvim";
+            version = "overlay";
+            src = inputs.telescope-fzf-native-nvim;
+            buildPhase = "make";
+          };
+          vim-sonictemplate = buildVimPlugin {
+            pname = "vim-sonictemplate";
+            version = "overlay";
+            src = prev.nix-filter {
+              root = inputs.vim-sonictemplate;
+              exclude = [
+                "template/java"
+                "template/make"
+              ];
+            };
+          };
+        };
     }
   )
 ]
