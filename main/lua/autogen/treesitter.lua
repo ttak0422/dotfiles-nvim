@@ -1,4 +1,4 @@
--- [nfnl] Compiled from fnl/treesitter.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] Compiled from main/fnl/treesitter.fnl by https://github.com/Olical/nfnl, do not edit.
 local parser_install_dir = args.parser
 do end (vim.opt.runtimepath):prepend(parser_install_dir)
 local config = require("nvim-treesitter.configs")

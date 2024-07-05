@@ -8,11 +8,8 @@ in
   package = pkgs.pkgs-stable.neovim-unwrapped;
   extraPackages = with pkgs; [ ];
   extraConfig = ''
-    vim.cmd([[
-      ${read ./vim/prelude.vim}
-    ]]);
     (function()
-      ${read ./lua/prelude.lua}
+      ${read ./lua/autogen/prelude.lua}
     end)()
   '';
   after = { };
@@ -23,12 +20,18 @@ in
     };
     config-local = {
       package = nvim-config-local;
-      startupConfig = read ./lua/config-local.lua;
+      startupConfig = read ./lua/autogen/config-local.lua;
     };
   };
   lazy = with pkgs.vimPlugins; rec {
     plenary = {
       package = plenary-nvim;
+    };
+    hookLeader = {
+      postConfig = read ./lua/autogen/hook-leader.lua;
+      hooks = {
+        userEvents = [ "TriggerLeader" ];
+      };
     };
     treesitter = {
       packages = [ nvim-treesitter ];
@@ -98,7 +101,7 @@ in
         {
           code = ''
             require('morimo').load('treesitter')
-            ${read ./lua/treesitter.lua}
+            ${read ./lua/autogen/treesitter.lua}
           '';
           args = {
             parser = toString parserDrv;
@@ -120,7 +123,7 @@ in
         plenary
         sonictemplate
       ];
-      postConfig = read ./lua/telescope.lua;
+      postConfig = read ./lua/autogen/telescope.lua;
       extraPackages = with pkgs; [
         # for live-grep-args
         ripgrep

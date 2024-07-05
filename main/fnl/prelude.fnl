@@ -1,4 +1,11 @@
-(let [opts {;; guifg, guibgの有効化
+;; options
+(let [opts {;; 言語メニューを無効にする
+            :langmenu :none
+            ;; shortmessオプションにsWIcCSを追加
+            :shortmess (.. vim.o.shortmess :sWIcCS)
+            ;; コマンドラインの高さを0に設定
+            :cmdheight 0
+            ;; guifg, guibgの有効化
             :termguicolors true
             ;; モードを非表示
             :showmode false
@@ -13,3 +20,21 @@
   (vim.loader.enable)
   (each [k v (pairs opts)]
     (tset vim.o k v)))
+
+;; keymaps
+(set vim.g.mapleader " ")
+(set vim.g.maplocalleader ",")
+
+(let [map vim.keymap.set
+      opts {:noremap true :silent true}
+      desc (fn [d] {:noremap true :silent true :desc d})
+      N [[:<leader> ":lua vim.cmd('doautocmd User TriggerLeader')<CR>"]
+         [";" ":"]
+         ]
+      V [[";" ":"]
+         ]]
+  ;; normal mode keymaps
+  (each [_ K (ipairs N)]
+    (map :n (. K 1) (. K 2) (or (. K 3) opts)))
+  (each [_ K (ipairs V)]
+    (map :v (. K 1) (. K 2) (or (. K 3) opts))))
