@@ -45,7 +45,7 @@
         };
 
       bundler-nvim = {
-        default = import ./main params;
+        inherit (import ./full params) v9;
       };
     };
 }
