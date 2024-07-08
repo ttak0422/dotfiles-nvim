@@ -27,7 +27,6 @@
 
 (let [map vim.keymap.set
       opts {:noremap true :silent true}
-      desc (fn [d] {:noremap true :silent true :desc d})
       N [[:<leader> ":lua vim.cmd('doautocmd User TriggerLeader')<CR>"]
          [";" ":"]
          ]
@@ -38,3 +37,17 @@
     (map :n (. K 1) (. K 2) (or (. K 3) opts)))
   (each [_ K (ipairs V)]
     (map :v (. K 1) (. K 2) (or (. K 3) opts))))
+
+;; user events
+(var specificFileEnterAutoCmd nil) ;; SpecificFileEnter
+(let [A vim.api
+      gen A.nvim_create_autocmd
+      exec A.nvim_exec_autocmds
+      del A.nvim_del_autocmd]
+  (set specificFileEnterAutoCmd
+       (gen :FileType
+            {:callback (fn []
+                         (if (not= vim.bo.filetype "")
+                             (do
+                               (exec :User {:pattern :SpecificFileEnter})
+                               (del specificFileEnterAutoCmd))))})))
