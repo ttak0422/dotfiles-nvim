@@ -31,8 +31,8 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1720458241,
-        "narHash": "sha256-miEkGQEW/jV/FazNce8wMO1W1DEGHtQzJQ9PJ2DCsCY=",
+        "lastModified": 1720543945,
+        "narHash": "sha256-1yNRXxRbeKO6it8ciHWMtZQyecrkCYapBkBWb+POglM=",
         "path": "/Users/ttak0422/ghq/github.com/ttak0422/bundler",
         "type": "path"
       },

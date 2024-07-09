@@ -321,8 +321,7 @@ in
               hadolint
             ];
           }
-          # TODO: packageのままだとファイルが生成されないバグがある
-          { package = climbdir-nvim; }
+          climbdir-nvim
         ];
         extraPackages = with pkgs; [
           ast-grep
