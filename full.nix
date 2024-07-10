@@ -7,18 +7,11 @@ in
 {
   v9 = {
     package = pkgs.pkgs-stable.neovim-unwrapped;
-    extraPackages = with pkgs; [ ];
+    extraPackages = [ ];
     extraConfig = read ./lua/autogen/prelude.lua;
     after = {
-      plugins = with pkgs.vimPlugins; {
-        # cmp-XXXX plugins are loaded on load of cmp.
-        cmp_buffer = "dofile('${cmp-buffer}/after/plugin/cmp_buffer.lua')";
-        cmp_cmdline = "dofile('${cmp-cmdline}/after/plugin/cmp_cmdline.lua')";
-        cmp_cmdline_history = "dofile('${cmp-cmdline-history}/after/plugin/cmp_cmdline_history.lua')";
-        cmp_nvim_lsp = "dofile('${cmp-nvim-lsp}/after/plugin/cmp_nvim_lsp.lua')";
-        cmp_path = "dofile('${cmp-path}/after/plugin/cmp_path.lua')";
-        cmp_luasnip = "dofile('${cmp_luasnip}/after/plugin/cmp_luasnip.lua')";
-      };
+      plugin = { };
+      ftplugin = { };
     };
     eager = with pkgs.vimPlugins; {
       morimo = {
@@ -192,10 +185,16 @@ in
         postConfig =
           ''
             require("morimo").load("cmp")
+            dofile('${cmp-buffer}/after/plugin/cmp_buffer.lua')
+            dofile('${cmp-cmdline}/after/plugin/cmp_cmdline.lua')
+            dofile('${cmp-cmdline-history}/after/plugin/cmp_cmdline_history.lua')
+            dofile('${cmp-nvim-lsp}/after/plugin/cmp_nvim_lsp.lua')
+            dofile('${cmp-path}/after/plugin/cmp_path.lua')
+            dofile('${cmp_luasnip}/after/plugin/cmp_luasnip.lua')
           ''
           + read ./lua/autogen/cmp.lua;
         hooks = {
-          events = [ "InsertEnter" ];
+          events = [ "LspAttach" ];
         };
       };
       neorg = {
@@ -355,7 +354,7 @@ in
           };
         };
         hooks = {
-          userEvents = [ "SpecificFileEnter" ];
+          events = [ "BufReadPost" ];
         };
       };
       LuaSnip = {

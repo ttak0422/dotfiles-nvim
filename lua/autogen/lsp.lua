@@ -1,4 +1,4 @@
--- [nfnl] Compiled from full/fnl/lsp.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] Compiled from fnl/lsp.fnl by https://github.com/Olical/nfnl, do not edit.
 local on_attach = dofile(args.on_attach_path)
 local capabilities = dofile(args.capabilities_path)
 vim.diagnostic.config({severity_sort = true})
