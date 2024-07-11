@@ -368,6 +368,89 @@ in
           modules = [ "treesj" ];
         };
       };
+      dd = {
+        package = nvim-dd;
+        postConfig = read ./lua/autogen/dd.lua;
+        hooks = {
+          events = [ "InsertEnter" ];
+        };
+      };
+      autopairs = {
+        package = nvim-autopairs;
+        depends = [ treesitter ];
+        postConfig = read ./lua/autogen/autopairs.lua;
+        hooks = {
+          events = [ "InsertEnter" ];
+        };
+      };
+      ambiwidth = {
+        package = vim-ambiwidth;
+        hooks = {
+          events = [ "BufReadPost" ];
+        };
+      };
+      asterisk = {
+        package = vim-asterisk;
+        postConfig = {
+          language = "vim";
+          code = read ./vim/asterisk.vim;
+        };
+        hooks = {
+          events = [ "CursorMoved" ];
+        };
+      };
+      auto-indent = {
+        package = auto-indent-nvim;
+        depends = [ treesitter ];
+        postConfig = read ./lua/autogen/auto-indent.lua;
+        hooks = {
+          events = [ "InsertEnter" ];
+        };
+      };
+      better-escape = {
+        package = better-escape-nvim;
+        postConfig = read ./lua/autogen/better-escape.lua;
+        hooks = {
+          events = [ "InsertEnter" ];
+        };
+      };
+      bqf = {
+        package = nvim-bqf;
+        depends = [
+          treesitter
+          {
+            package = nvim-pqf;
+            postConfig = read ./lua/autogen/pqf.lua;
+          }
+        ];
+        postConfig = read ./lua/autogen/bqf.lua;
+        hooks = {
+          events = [ "QuickFixCmdPost" ];
+        };
+      };
+      bufdel = {
+        package = nvim-bufdel;
+        postConfig = read ./lua/autogen/bufdel.lua;
+        hooks = {
+          commands = [
+            "BufDel"
+            "BufDel!"
+          ];
+        };
+      };
+      codewindow = {
+        package = codewindow-nvim;
+        depends = [ treesitter ];
+        postConfig = {
+          code = read ./lua/autogen/codewindow.lua;
+          args = {
+            exclude_ft_path = ./lua/autogen/exclude_ft.lua;
+          };
+        };
+        hooks = {
+          modules = [ "codewindow" ];
+        };
+      };
     };
   };
 }

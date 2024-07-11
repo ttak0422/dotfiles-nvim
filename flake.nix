@@ -289,6 +289,42 @@
       url = "github:hrsh7th/vim-vsnip-integ";
       flake = false;
     };
+    nvim-dd = {
+      url = "github:yorickpeterse/nvim-dd";
+      flake = false;
+    };
+    nvim-autopairs = {
+      url = "github:windwp/nvim-autopairs";
+      flake = false;
+    };
+    vim-ambiwidth = {
+      url = "github:rbtnn/vim-ambiwidth";
+      flake = false;
+    };
+    vim-asterisk = {
+      url = "github:haya14busa/vim-asterisk";
+      flake = false;
+    };
+    auto-indent-nvim = {
+      url = "github:VidocqH/auto-indent.nvim";
+      flake = false;
+    };
+    better-escape-nvim = {
+      url = "github:max397574/better-escape.nvim";
+      flake = false;
+    };
+    nvim-bqf = {
+      url = "github:/kevinhwang91/nvim-bqf";
+      flake = false;
+    };
+    nvim-pqf = {
+      url = "github:yorickpeterse/nvim-pqf";
+      flake = false;
+    };
+    nvim-bufdel = {
+      url = "github:ojroques/nvim-bufdel";
+      flake = false;
+    };
   };
 
   outputs =

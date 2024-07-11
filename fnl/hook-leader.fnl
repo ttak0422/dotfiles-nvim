@@ -31,7 +31,14 @@
          [:<Leader>tb
           (lcmd "require('lir.float').toggle()")
           (desc "Toggle lir")]
-         [:<Leader>tB (lcmd "require('oil').open()") (desc "Toggle oil")]]]
+         [:<Leader>tB (lcmd "require('oil').open()") (desc "Toggle oil")]
+         ;; buffer
+         [:<leader>q (cmd :BufDel)]
+         [:<leader>Q (cmd :BufDel!)]
+         ;; toggle
+         [:<leader>tm
+          (lcmd "require('codewindow').toggle_minimap()")
+          (desc "toggle minimap")]]]
   (each [_ K (ipairs N)]
     (vim.keymap.set :n (. K 1) (. K 2) (or (. K 3) opts))))
 
