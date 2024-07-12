@@ -33,6 +33,14 @@ in
       nui = {
         package = nui-nvim;
       };
+      denops = {
+        package = denops-vim;
+        preConfig = ''
+          " use latest
+          let g:denops#deno = '${pkgs.deno}/bin/deno'
+          let g:denops#server#deno_args = ['-q', '--no-lock', '-A', '--unstable-kv']
+        '';
+      };
       hookLeader = {
         postConfig = read ./lua/autogen/hook-leader.lua;
         hooks = {
@@ -386,7 +394,7 @@ in
       ambiwidth = {
         package = vim-ambiwidth;
         hooks = {
-          events = [ "BufReadPost" ];
+          userEvents = [ "SpecificFileEnter" ];
         };
       };
       asterisk = {
@@ -449,6 +457,57 @@ in
         };
         hooks = {
           modules = [ "codewindow" ];
+        };
+      };
+      colorizer = {
+        package = nvim-colorizer-lua;
+        postConfig = read ./lua/autogen/colorizer.lua;
+        hooks = {
+          commands = [ "ColorizerToggle" ];
+        };
+      };
+      comment = {
+        package = Comment-nvim;
+        postConfig = read ./lua/autogen/comment.lua;
+        hooks = {
+          events = [
+            "InsertEnter"
+            "CursorMoved"
+          ];
+        };
+      };
+      context-vt = {
+        package = nvim_context_vt;
+        depends = [ treesitter ];
+        postConfig = read ./lua/autogen/context-vt.lua;
+        hooks = {
+          userEvents = [ "SpecificFileEnter" ];
+        };
+      };
+      detour = {
+        package = detour-nvim;
+        hooks = {
+          commands = [
+            "Detour"
+            "DetourCurrentWindow"
+          ];
+        };
+      };
+      diffview = {
+        package = diffview-nvim;
+        depends = [ devicons ];
+        hooks = {
+          commands = [
+            "DiffviewOpen"
+            "DiffviewToggleFiles"
+          ];
+        };
+      };
+      direnv = {
+        package = direnv-vim;
+        postConfig = read ./lua/direnv.lua;
+        hooks = {
+          events = [ "DirChangedPre" ];
         };
       };
     };

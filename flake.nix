@@ -325,6 +325,34 @@
       url = "github:ojroques/nvim-bufdel";
       flake = false;
     };
+    nvim-colorizer-lua = {
+      url = "github:norcalli/nvim-colorizer.lua";
+      flake = false;
+    };
+    Comment-nvim = {
+      url = "github:numToStr/Comment.nvim";
+      flake = false;
+    };
+    nvim_context_vt = {
+      url = "github:haringsrob/nvim_context_vt";
+      flake = false;
+    };
+    denops-vim = {
+      url = "github:vim-denops/denops.vim";
+      flake = false;
+    };
+    detour-nvim = {
+      url = "github:carbon-steel/detour.nvim";
+      flake = false;
+    };
+    diffview-nvim = {
+      url = "github:sindrets/diffview.nvim";
+      flake = false;
+    };
+    direnv-vim = {
+      url = "github:direnv/direnv.vim";
+      flake = false;
+    };
   };
 
   outputs =

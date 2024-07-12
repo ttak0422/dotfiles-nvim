@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "Comment-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1717957420,
+        "narHash": "sha256-h0kPue5Eqd5aeu4VoLH45pF0DmWWo1d8SnLICSQ63zc=",
+        "owner": "numToStr",
+        "repo": "Comment.nvim",
+        "rev": "e30b7f2008e52442154b66f7c519bfd2f1e32acb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numToStr",
+        "repo": "Comment.nvim",
+        "type": "github"
+      }
+    },
     "LuaSnip": {
       "flake": false,
       "locked": {
@@ -63,8 +79,8 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1720714079,
-        "narHash": "sha256-McZmy8FItlp26h+n8B0QTLY++1Ry7pwsqn4DQp21gwg=",
+        "lastModified": 1720714739,
+        "narHash": "sha256-a7raEnKbxXN3UdWAGyds3221KmG4g9XnfYmBbaRxxK4=",
         "path": "/Users/ttak0422/ghq/github.com/ttak0422/bundler",
         "type": "path"
       },
@@ -334,6 +350,38 @@
         "type": "github"
       }
     },
+    "denops-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1719618962,
+        "narHash": "sha256-jAHgw4dTs4BURrSkip8mKQImG4yNPaxAsQv2CBMIH4k=",
+        "owner": "vim-denops",
+        "repo": "denops.vim",
+        "rev": "09e64956c2946bba0a060d0a0aaddde106753bd9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vim-denops",
+        "repo": "denops.vim",
+        "type": "github"
+      }
+    },
+    "detour-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1716854632,
+        "narHash": "sha256-BxwgNCE2jont9ghEeiA/0FOjllXob1vRpD8/vvzbRNw=",
+        "owner": "carbon-steel",
+        "repo": "detour.nvim",
+        "rev": "705b562888e2a7e9d5bac5b858b88d698a049220",
+        "type": "github"
+      },
+      "original": {
+        "owner": "carbon-steel",
+        "repo": "detour.nvim",
+        "type": "github"
+      }
+    },
     "diagflow-nvim": {
       "flake": false,
       "locked": {
@@ -347,6 +395,38 @@
       "original": {
         "owner": "dgagn",
         "repo": "diagflow.nvim",
+        "type": "github"
+      }
+    },
+    "diffview-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1718279802,
+        "narHash": "sha256-SX+ybIzL/w6uyCy4iZKnWnzTFwqB1oXSgyYVAdpdKi8=",
+        "owner": "sindrets",
+        "repo": "diffview.nvim",
+        "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sindrets",
+        "repo": "diffview.nvim",
+        "type": "github"
+      }
+    },
+    "direnv-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1701514458,
+        "narHash": "sha256-Lwwm95UEkS8Q0Qsoh10o3sFn48wf7v7eCX/FJJV1HMI=",
+        "owner": "direnv",
+        "repo": "direnv.vim",
+        "rev": "ab2a7e08dd630060cd81d7946739ac7442a4f269",
+        "type": "github"
+      },
+      "original": {
+        "owner": "direnv",
+        "repo": "direnv.vim",
         "type": "github"
       }
     },
@@ -926,6 +1006,22 @@
         "type": "github"
       }
     },
+    "nvim-colorizer-lua": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1715313687,
+        "narHash": "sha256-gjO89Sx335PqVgceM9DBfcVozNjovC8KML1OZCRNMGw=",
+        "owner": "norcalli",
+        "repo": "nvim-colorizer.lua",
+        "rev": "a065833f35a3a7cc3ef137ac88b5381da2ba302e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "norcalli",
+        "repo": "nvim-colorizer.lua",
+        "type": "github"
+      }
+    },
     "nvim-config-local": {
       "flake": false,
       "locked": {
@@ -1019,6 +1115,22 @@
       "original": {
         "owner": "yorickpeterse",
         "repo": "nvim-pqf",
+        "type": "github"
+      }
+    },
+    "nvim_context_vt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713467001,
+        "narHash": "sha256-EcWSfWx0WYqjc7lT9oOCTOQvNe0wi3J2bFTbb8ks0oQ=",
+        "owner": "haringsrob",
+        "repo": "nvim_context_vt",
+        "rev": "4b89241c19909f18d2f6b58777c413c027600fcc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "haringsrob",
+        "repo": "nvim_context_vt",
         "type": "github"
       }
     },
@@ -1118,6 +1230,7 @@
     },
     "root": {
       "inputs": {
+        "Comment-nvim": "Comment-nvim",
         "LuaSnip": "LuaSnip",
         "auto-indent-nvim": "auto-indent-nvim",
         "better-escape-nvim": "better-escape-nvim",
@@ -1137,7 +1250,11 @@
         "cmp_luasnip": "cmp_luasnip",
         "codewindow-nvim": "codewindow-nvim",
         "conform-nvim": "conform-nvim",
+        "denops-vim": "denops-vim",
+        "detour-nvim": "detour-nvim",
         "diagflow-nvim": "diagflow-nvim",
+        "diffview-nvim": "diffview-nvim",
+        "direnv-vim": "direnv-vim",
         "dressing-nvim": "dressing-nvim",
         "efmls-configs-nvim": "efmls-configs-nvim",
         "flake-parts": "flake-parts_2",
@@ -1166,12 +1283,14 @@
         "nvim-bqf": "nvim-bqf",
         "nvim-bufdel": "nvim-bufdel",
         "nvim-cmp": "nvim-cmp",
+        "nvim-colorizer-lua": "nvim-colorizer-lua",
         "nvim-config-local": "nvim-config-local",
         "nvim-dap-repl-highlights": "nvim-dap-repl-highlights",
         "nvim-dd": "nvim-dd",
         "nvim-lspconfig": "nvim-lspconfig",
         "nvim-nio": "nvim-nio",
         "nvim-pqf": "nvim-pqf",
+        "nvim_context_vt": "nvim_context_vt",
         "oil-nvim": "oil-nvim",
         "oil-vcs-status": "oil-vcs-status",
         "pathlib-nvim": "pathlib-nvim",
