@@ -28,6 +28,15 @@
         flake-parts.follows = "flake-parts";
       };
     };
+    # javaPackages
+    junit-console = {
+      url = "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.2/junit-platform-console-standalone-1.10.2.jar";
+      flake = false;
+    };
+    jol = {
+      url = "https://repo.maven.apache.org/maven2/org/openjdk/jol/jol-cli/0.16/jol-cli-0.16-full.jar";
+      flake = false;
+    };
 
     # plugins
     morimo = {
@@ -439,6 +448,262 @@
     };
     scope-nvim = {
       url = "github:tiagovla/scope.nvim";
+      flake = false;
+    };
+    history-ignore-nvim = {
+      url = "github:yutkat/history-ignore.nvim";
+      flake = false;
+    };
+    hlchunk-nvim = {
+      url = "github:shellRaining/hlchunk.nvim";
+      flake = false;
+    };
+    nvim-hlslens = {
+      url = "github:kevinhwang91/nvim-hlslens";
+      flake = false;
+    };
+    hydra-nvim = {
+      url = "github:nvimtools/hydra.nvim";
+      flake = false;
+    };
+    img-clip-nvim = {
+      url = "github:HakonHarnes/img-clip.nvim";
+      flake = false;
+    };
+    indent-o-matic = {
+      url = "github:Darazaki/indent-o-matic";
+      flake = false;
+    };
+    JABS-nvim = {
+      url = "github:matbme/JABS.nvim";
+      flake = false;
+    };
+    nvim-jdtls = {
+      url = "github:mfussenegger/nvim-jdtls";
+      flake = false;
+    };
+    nvim-lastplace = {
+      url = "github:mrcjkb/nvim-lastplace";
+      flake = false;
+    };
+    sqlite-lua = {
+      url = "github:kkharji/sqlite.lua";
+      flake = false;
+    };
+    marks-nvim = {
+      url = "github:chentoast/marks.nvim";
+      flake = false;
+    };
+    mkdir-nvim = {
+      url = "github:jghauser/mkdir.nvim";
+      flake = false;
+    };
+    mkdnflow-nvim = {
+      url = "github:/jakewvincent/mkdnflow.nvim";
+      flake = false;
+    };
+    nap-nvim = {
+      url = "github:liangxianzhe/nap.nvim";
+      flake = false;
+    };
+    BufferBrowser = {
+      url = "sourcehut:~marcc/BufferBrowser";
+      flake = false;
+    };
+    NeoZoom-lua = {
+      url = "github:nyngwang/NeoZoom.lua";
+      flake = false;
+    };
+    nfnl = {
+      url = "github:Olical/nfnl";
+      flake = false;
+    };
+    noice-nvim = {
+      url = "github:folke/noice.nvim";
+      flake = false;
+    };
+    nvim-notify = {
+      url = "github:rcarriga/nvim-notify";
+      flake = false;
+    };
+    none-ls-nvim = {
+      url = "github:nvimtools/none-ls.nvim";
+      flake = false;
+    };
+    none-ls-extras-nvim = {
+      url = "github:nvimtools/none-ls-extras.nvim";
+      flake = false;
+    };
+    none-ls-shellcheck-nvim = {
+      url = "github:gbprod/none-ls-shellcheck.nvim";
+      flake = false;
+    };
+    none-ls-luacheck-nvim = {
+      url = "github:gbprod/none-ls-luacheck.nvim";
+      flake = false;
+    };
+    numb-nvim = {
+      url = "github:nacro90/numb.nvim";
+      flake = false;
+    };
+    nvim-window = {
+      url = "github:yorickpeterse/nvim-window";
+      flake = false;
+    };
+    octo-nvim = {
+      url = "github:pwntester/octo.nvim";
+      flake = false;
+    };
+    open-nvim = {
+      url = "github:ofirgall/open.nvim";
+      flake = false;
+    };
+    overseer-nvim = {
+      url = "github:stevearc/overseer.nvim";
+      flake = false;
+    };
+    toggleterm-nvim = {
+      url = "github:akinsho/toggleterm.nvim";
+      flake = false;
+    };
+    term-gf-nvim = {
+      url = "github:yutkat/term-gf.nvim";
+      flake = false;
+    };
+    project-nvim = {
+      url = "github:ahmedkhalf/project.nvim";
+      flake = false;
+    };
+    qf-nvim = {
+      url = "github:ten3roberts/qf.nvim";
+      flake = false;
+    };
+    vim-qfreplace = {
+      url = "github:thinca/vim-qfreplace";
+      flake = false;
+    };
+    reacher-nvim = {
+      url = "github:notomo/reacher.nvim";
+      flake = false;
+    };
+    registers-nvim = {
+      url = "github:tversteeg/registers.nvim";
+      flake = false;
+    };
+    rustaceanvim = {
+      url = "github:mrcjkb/rustaceanvim";
+      flake = false;
+    };
+    skkeleton = {
+      url = "github:vim-skk/skkeleton";
+      flake = false;
+    };
+    smart-splits-nvim = {
+      url = "github:mrjones2014/smart-splits.nvim";
+      flake = false;
+    };
+    nvim-spectre = {
+      url = "github:nvim-pack/nvim-spectre";
+      flake = false;
+    };
+    vim-startuptime = {
+      url = "github:dstein64/vim-startuptime";
+      flake = false;
+    };
+    statuscol-nvim = {
+      url = "github:luukvbaal/statuscol.nvim";
+      flake = false;
+    };
+    stickybuf-nvim = {
+      url = "github:stevearc/stickybuf.nvim";
+      flake = false;
+    };
+    tabout-nvim = {
+      url = "github:abecodes/tabout.nvim";
+      flake = false;
+    };
+    tint-nvim = {
+      url = "github:levouh/tint.nvim";
+      flake = false;
+    };
+    todo-comments-nvim = {
+      url = "github:folke/todo-comments.nvim";
+      flake = false;
+    };
+    trouble-nvim = {
+      url = "github:folke/trouble.nvim";
+      flake = false;
+    };
+    toolwindow-nvim = {
+      url = "github:EthanJWright/toolwindow.nvim";
+      flake = false;
+    };
+    denops-translate-vim = {
+      url = "github:skanehira/denops-translate.vim";
+      flake = false;
+    };
+    trim-nvim = {
+      url = "github:cappyzawa/trim.nvim";
+      flake = false;
+    };
+    nvim-ts-autotag = {
+      url = "github:windwp/nvim-ts-autotag";
+      flake = false;
+    };
+    tshjkl-nvim = {
+      url = "github:gsuuon/tshjkl.nvim";
+      flake = false;
+    };
+    nvim-ufo = {
+      url = "github:kevinhwang91/nvim-ufo";
+      flake = false;
+    };
+    indent-blankline-nvim = {
+      url = "github:lukas-reineke/indent-blankline.nvim";
+      flake = false;
+    };
+    undotree = {
+      url = "github:mbbill/undotree";
+      flake = false;
+    };
+    venn-nvim = {
+      url = "github:jbyuki/venn.nvim";
+      flake = false;
+    };
+    vim-markdown = {
+      url = "github:preservim/vim-markdown";
+      flake = false;
+    };
+    vim-nix = {
+      url = "github:LnL7/vim-nix";
+      flake = false;
+    };
+    vimdoc-ja = {
+      url = "github:vim-jp/vimdoc-ja";
+      flake = false;
+    };
+    nvim-vtsls = {
+      url = "github:yioneko/nvim-vtsls";
+      flake = false;
+    };
+    waitevent-nvim = {
+      url = "github:notomo/waitevent.nvim";
+      flake = false;
+    };
+    which-key-nvim = {
+      url = "github:folke/which-key.nvim";
+      flake = false;
+    };
+    nvim-window-picker = {
+      url = "github:s1n7ax/nvim-window-picker";
+      flake = false;
+    };
+    colorful-winsep-nvim = {
+      url = "github:nvim-zh/colorful-winsep.nvim";
+      flake = false;
+    };
+    winshift-nvim = {
+      url = "github:sindrets/winshift.nvim";
       flake = false;
     };
   };

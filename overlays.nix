@@ -30,6 +30,11 @@ inputs: with inputs; [
     in
     {
       pkgs-stable = import nixpkgs-stable { inherit system; };
+
+      javaPackages = prev.javaPackages // {
+        inherit (inputs) jol junit-console;
+      };
+
       vimPlugins =
         prev.vimPlugins
         // (listToAttrs (
