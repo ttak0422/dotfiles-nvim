@@ -139,6 +139,10 @@
       url = "github:ThePrimeagen/harpoon";
       flake = false;
     };
+    harpoon-2 = {
+      url = "github:ThePrimeagen/harpoon/harpoon2";
+      flake = false;
+    };
     neorg = {
       url = "github:nvim-neorg/neorg";
       flake = false;
@@ -351,6 +355,90 @@
     };
     direnv-vim = {
       url = "github:direnv/direnv.vim";
+      flake = false;
+    };
+    nvim-FeMaco-lua = {
+      url = "github:AckslD/nvim-FeMaco.lua";
+      flake = false;
+    };
+    leap-ast-nvim = {
+      url = "github:ggandor/leap-ast.nvim";
+      flake = false;
+    };
+    leap-spooky-nvim = {
+      url = "github:ggandor/leap-spooky.nvim";
+      flake = false;
+    };
+    leap-nvim = {
+      url = "github:ggandor/leap.nvim";
+      flake = false;
+    };
+    vim-repeat = {
+      url = "github:/tpope/vim-repeat";
+      flake = false;
+    };
+    flit-nvim = {
+      url = "github:ggandor/flit.nvim";
+      flake = false;
+    };
+    flow-nvim = {
+      url = "github:arjunmahishi/flow.nvim";
+      flake = false;
+    };
+    nvim-fundo = {
+      url = "github:kevinhwang91/nvim-fundo";
+      flake = false;
+    };
+    promise-async = {
+      url = "github:kevinhwang91/promise-async";
+      flake = false;
+    };
+    gina-vim = {
+      url = "github:lambdalisue/gina.vim";
+      flake = false;
+    };
+    gin-vim = {
+      url = "github:lambdalisue/gin.vim";
+      flake = false;
+    };
+    git-conflict-nvim = {
+      url = "github:akinsho/git-conflict.nvim";
+      flake = false;
+    };
+    gitsigns-nvim = {
+      url = "github:lewis6991/gitsigns.nvim";
+      flake = false;
+    };
+    gopher-nvim = {
+      url = "github:olexsmir/gopher.nvim";
+      flake = false;
+    };
+    goto-preview = {
+      url = "github:rmagatti/goto-preview";
+      flake = false;
+    };
+    harpoonline = {
+      url = "github:abeldekat/harpoonline";
+      flake = false;
+    };
+    haskell-tools-nvim = {
+      url = "github:MrcJkb/haskell-tools.nvim";
+      flake = false;
+    };
+    heirline-nvim = {
+      url = "github:rebelot/heirline.nvim";
+      flake = false;
+    };
+    heirline-components-nvim = {
+      url = "github:Zeioth/heirline-components.nvim";
+      flake = false;
+    };
+    lsp-progress-nvim = {
+      url = "github:linrongbin16/lsp-progress.nvim";
+      flake = false;
+    };
+    scope-nvim = {
+      url = "github:tiagovla/scope.nvim";
       flake = false;
     };
   };

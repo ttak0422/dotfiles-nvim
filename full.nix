@@ -11,7 +11,24 @@ in
     extraConfig = read ./lua/autogen/prelude.lua;
     after = {
       plugin = { };
-      ftplugin = { };
+      ftplugin =
+        let
+          hashkellTools = ''
+            dofile("${pkgs.vimPlugins.haskell-tools-nvim}/ftplugin/haskell.lua")
+          '';
+        in
+        {
+          gina-blame = {
+            language = "vim";
+            code = ''
+              set number
+            '';
+          };
+          cabal = hashkellTools;
+          cabalproject = hashkellTools;
+          cagbal = hashkellTools;
+          lhaskell = hashkellTools;
+        };
     };
     eager = with pkgs.vimPlugins; {
       morimo = {
@@ -508,6 +525,181 @@ in
         postConfig = read ./lua/direnv.lua;
         hooks = {
           events = [ "DirChangedPre" ];
+        };
+      };
+      femaco = {
+        package = nvim-FeMaco-lua;
+        depends = [ treesitter ];
+        postConfig = read ./lua/autogen/femaco.lua;
+        hooks = {
+          commands = [ "FeMaco" ];
+        };
+      };
+      leap = {
+        package = leap-nvim;
+        depends = [ vim-repeat ];
+        postConfig = read ./lua/autogen/leap.lua;
+        hooks = {
+          events = [ "CursorMoved" ];
+        };
+      };
+      flit = {
+        package = flit-nvim;
+        depends = [ leap ];
+        postConfig = read ./lua/autogen/flit.lua;
+        hooks = {
+          events = [ "CursorMoved" ];
+        };
+      };
+      flow = {
+        package = flow-nvim;
+        postConfig = read ./lua/autogen/flow.lua;
+        hooks = {
+          commands = [
+            "FlowRunSelected"
+            "FlowRunFile"
+            "FlowLauncher"
+          ];
+        };
+      };
+      fundo = {
+        package = nvim-fundo;
+        depends = [ promise-async ];
+        postConfig = read ./lua/autogen/fundo.lua;
+        hooks = {
+          userEvents = [ "SpecificFileEnter" ];
+        };
+      };
+      gin = {
+        package = gin-vim;
+        depends = [ denops ];
+        postConfig = read ./lua/autogen/gin.lua;
+        hooks = {
+          commands = [
+            "Gin"
+            "GinBuffer"
+            "GinLog"
+            "GinStatus"
+            "GinDiff"
+            "GinBrowse"
+            "GinBranch"
+          ];
+        };
+        useDenops = true;
+      };
+      gina = {
+        package = gina-vim;
+        postConfig = {
+          language = "vim";
+          code = read ./vim/gina.vim;
+        };
+      };
+      git-conflict = {
+        package = git-conflict-nvim;
+        depends = [ plenary ];
+        postConfig = read ./lua/autogen/git-conflict.lua;
+        hooks = {
+          userEvents = [ "SpecificFileEnter" ];
+        };
+      };
+      gitsigns = {
+        package = gitsigns-nvim;
+        depends = [ plenary ];
+        postConfig =
+          ''
+            require("morimo").load("gitsigns")
+          ''
+          + read ./lua/autogen/gitsigns.lua;
+        hooks = {
+          events = [ "CursorMoved" ];
+        };
+      };
+      gopher = {
+        package = gopher-nvim;
+        depends = [
+          plenary
+          lsp
+          treesitter
+        ];
+        postConfig = read ./lua/autogen/gopher.lua;
+        extraPackages = with pkgs; [
+          gomodifytags
+          impl
+          gotests
+          iferr
+          delve
+        ];
+        hooks = {
+          fileTypes = [
+            "go"
+            "gomod"
+          ];
+        };
+      };
+      goto-preview = {
+        package = pkgs.vimPlugins.goto-preview;
+        postConfig = read ./lua/autogen/goto-preview.lua;
+        hooks = {
+          commands = [ "goto-preview" ];
+        };
+      };
+      harpoon = {
+        package = harpoon-2;
+        depends = [ plenary ];
+        postConfig = read ./lua/autogen/harpoon.lua;
+        hooks = {
+          modules = [ "harpoon" ];
+        };
+      };
+      haskell-tools = {
+        package = haskell-tools-nvim;
+        depends = [
+          plenary
+          lsp
+        ];
+        postConfig = {
+          code = read ./lua/autogen/haskell-tools.lua;
+          args = {
+            on_attach_path = ./lua/autogen/lsp-on-attach.lua;
+            capabilities_path = ./lua/lsp-capabilities.lua;
+          };
+        };
+        extraPackages = with pkgs; [
+          ghc
+          haskellPackages.fourmolu
+          haskellPackages.haskell-language-server
+        ];
+        hooks = {
+          fileTypes = [
+            "cagbal"
+            "cabalproject"
+            "haskell"
+            "lhaskell"
+          ];
+        };
+      };
+      heirline = {
+        packages = [
+          heirline-nvim
+          # heirline-components-nvim
+        ];
+        depends = [
+          plenary
+          scope-nvim
+          gitsigns
+          {
+            package = harpoonline;
+            depends = [ harpoon ];
+            postConfig = read ./lua/autogen/harpoonline.lua;
+          }
+          {
+            package = lsp-progress-nvim;
+            postConfig = read ./lua/autogen/lsp-progress.lua;
+          }
+        ];
+        postConfig = read ./lua/heirline.lua;
+        hooks = {
+          userEvents = [ "SpecificFileEnter" ];
         };
       };
     };

@@ -15,6 +15,8 @@
             :signcolumn :no
             ;; tablineを起動時に非表示
             :showtabline 0
+            ;; statuslineを起動時に非表示
+            :laststatus 0
             :foldlevel 99
             :foldlevelstart 99}]
   (vim.loader.enable)
@@ -39,7 +41,9 @@
     (map :v (. K 1) (. K 2) (or (. K 3) opts))))
 
 ;; user events
-(var specificFileEnterAutoCmd nil) ;; SpecificFileEnter
+(var specificFileEnterAutoCmd nil)
+
+;; SpecificFileEnter
 (let [A vim.api
       gen A.nvim_create_autocmd
       exec A.nvim_exec_autocmds

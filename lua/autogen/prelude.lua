@@ -1,6 +1,6 @@
 -- [nfnl] Compiled from fnl/prelude.fnl by https://github.com/Olical/nfnl, do not edit.
 do
-  local opts = {langmenu = "none", shortmess = (vim.o.shortmess .. "sWIcCS"), cmdheight = 0, termguicolors = true, signcolumn = "no", showtabline = 0, foldlevel = 99, foldlevelstart = 99, number = false, showmode = false}
+  local opts = {langmenu = "none", shortmess = (vim.o.shortmess .. "sWIcCS"), cmdheight = 0, termguicolors = true, signcolumn = "no", showtabline = 0, laststatus = 0, foldlevel = 99, foldlevelstart = 99, showmode = false, number = false}
   vim.loader.enable()
   for k, v in pairs(opts) do
     vim.o[k] = v

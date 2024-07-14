@@ -79,6 +79,20 @@ inputs: with inputs; [
             }
           );
         };
+      gin-vim = buildVimPlugin (
+        base
+        // {
+          pname = "gin-vim";
+          src = inputs.gin-vim;
+          dontPatchShebangs = true;
+          postInstall = ''
+            substituteInPlace \
+            $out/denops/gin/proxy/editor.ts \
+            $out/denops/gin/proxy/askpass.ts \
+            --replace "/usr/bin/env -S deno" "${prev.deno}/bin/deno"
+          '';
+        }
+      );
     }
   )
 ]
