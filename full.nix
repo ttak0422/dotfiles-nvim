@@ -1317,8 +1317,50 @@ in
         };
       };
       ddu = {
-        # TODO: support packageOrComponent
-        packages = [ ];
+        packages = [
+          ddu-ui-ff
+          ddu-ui-filter
+          ddu-source-file
+          ddu-source-file_rec
+          ddu-source-rg
+          ddu-source-ghq
+          ddu-source-file_external
+          ddu-source-mr
+          ddu-filter-fzf
+          ddu-filter-matcher_substring
+          ddu-filter-matcher_hidden
+          ddu-filter-sorter_alpha
+          ddu-filter-converter_hl_dir
+          # ddu-filter-converter_devicon
+          ddu-filter-converter_display_word
+          ddu-kind-file
+          ddu-commands-vim
+        ];
+        depends = [
+          denops
+          mr-vim
+        ];
+        extraPackages = with pkgs; [
+          ripgrep
+          fd
+          fzf
+          ghq
+        ];
+        postConfig = {
+          language = "vim";
+          code = read ./vim/ddu.vim;
+          args = {
+            ts_config = ./denops/ddu.ts;
+          };
+        };
+        hooks = {
+          commands = [
+            "Ddu"
+            "DduRg"
+            "DduRgLive"
+          ];
+        };
+        useDenops = true;
       };
       neotest = {
         # TODO: support packageOrComponent

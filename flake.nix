@@ -706,6 +706,170 @@
       url = "github:sindrets/winshift.nvim";
       flake = false;
     };
+    ddu-vim = {
+      url = "github:Shougo/ddu.vim";
+      flake = false;
+    };
+    ddu-ui-ff = {
+      url = "github:Shougo/ddu-ui-ff";
+      flake = false;
+    };
+    ddu-ui-filter = {
+      url = "github:Shougo/ddu-ui-filer";
+      flake = false;
+    };
+    ddu-source-rg = {
+      url = "github:shun/ddu-source-rg";
+      flake = false;
+    };
+    ddu-commands-vim = {
+      url = "github:Shougo/ddu-commands.vim";
+      flake = false;
+    };
+    ddu-kind-file = {
+      url = "github:Shougo/ddu-kind-file";
+      flake = false;
+    };
+    ddu-source-file_rec = {
+      url = "github:Shougo/ddu-source-file_rec";
+      flake = false;
+    };
+    ddu-source-buffer = {
+      url = "github:shun/ddu-source-buffer";
+      flake = false;
+    };
+    ddu-vim-ui-select = {
+      url = "github:matsui54/ddu-vim-ui-select";
+      flake = false;
+    };
+    ddu-source-file = {
+      url = "github:Shougo/ddu-source-file";
+      flake = false;
+    };
+    ddu-column-filename = {
+      url = "github:Shougo/ddu-column-filename";
+      flake = false;
+    };
+    ddu-filter-kensaku = {
+      url = "github:Milly/ddu-filter-kensaku";
+      flake = false;
+    };
+    ddu-filter-matcher_substring = {
+      url = "github:Shougo/ddu-filter-matcher_substring";
+      flake = false;
+    };
+    ddu-filter-fzf = {
+      url = "github:yuki-yano/ddu-filter-fzf";
+      flake = false;
+    };
+    ddu-filter-merge = {
+      url = "github:Milly/ddu-filter-merge";
+      flake = false;
+    };
+    ddu-filter-converter_display_word = {
+      url = "github:Shougo/ddu-filter-converter_display_word";
+      flake = false;
+    };
+    ddu-source-file_external = {
+      url = "github:matsui54/ddu-source-file_external";
+      flake = false;
+    };
+    ddu-source-file_fd = {
+      url = "github:nabezokodaikon/ddu-source-file_fd";
+      flake = false;
+    };
+    ddu-source-git_stash = {
+      url = "github:peacock0803sz/ddu-source-git_stash";
+      flake = false;
+    };
+    ddu-source-git_diff = {
+      url = "github:kuuote/ddu-source-git_diff";
+      flake = false;
+    };
+    ddu-source-mr = {
+      url = "github:kuuote/ddu-source-mr";
+      flake = false;
+    };
+    ddu-filter-converter_hl_dir = {
+      url = "github:kyoh86/ddu-filter-converter_hl_dir";
+      flake = false;
+    };
+    ddu-filter-sorter_reversed = {
+      url = "github:Shougo/ddu-filter-sorter_reversed";
+      flake = false;
+    };
+    ddu-filter-sorter_alpha = {
+      url = "github:Shougo/ddu-filter-sorter_alpha";
+      flake = false;
+    };
+    ddu-source-command_history = {
+      url = "github:matsui54/ddu-source-command_history";
+      flake = false;
+    };
+    ddu-filter-converter_devicon = {
+      url = "github:uga-rosa/ddu-filter-converter_devicon";
+      flake = false;
+    };
+    ddu-source-git_log = {
+      url = "github:kyoh86/ddu-source-git_log";
+      flake = false;
+    };
+    ddu-source-vim = {
+      url = "github:Shougo/ddu-source-vim";
+      flake = false;
+    };
+    ddu-source-action = {
+      url = "github:Shougo/ddu-source-action";
+      flake = false;
+    };
+    ddu-source-git_status = {
+      url = "github:kuuote/ddu-source-git_status";
+      flake = false;
+    };
+    ddu-source-ghq = {
+      url = "github:4513ECHO/ddu-source-ghq";
+      flake = false;
+    };
+    ddu-filter-zf = {
+      url = "github:hasundue/ddu-filter-zf";
+      flake = false;
+    };
+    ddu-source-custom-list = {
+      url = "github:liquidz/ddu-source-custom-list";
+      flake = false;
+    };
+    ddu-source-register = {
+      url = "github:Shougo/ddu-source-register";
+      flake = false;
+    };
+    ddu-source-file_old = {
+      url = "github:Shougo/ddu-source-file_old";
+      flake = false;
+    };
+    ddu-column-icon_filename = {
+      url = "github:ryota2357/ddu-column-icon_filename";
+      flake = false;
+    };
+    ddu-source-line = {
+      url = "github:Shougo/ddu-source-line";
+      flake = false;
+    };
+    ddu-source-lsp = {
+      url = "github:uga-rosa/ddu-source-lsp";
+      flake = false;
+    };
+    ddu-filter-matcher_hidden = {
+      url = "github:Shougo/ddu-filter-matcher_hidden";
+      flake = false;
+    };
+    ddu-filter-matcher_files = {
+      url = "github:Shougo/ddu-filter-matcher_files";
+      flake = false;
+    };
+    mr-vim = {
+      url = "github:lambdalisue/mr.vim";
+      flake = false;
+    };
   };
 
   outputs =
