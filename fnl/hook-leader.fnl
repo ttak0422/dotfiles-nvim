@@ -19,6 +19,11 @@
          [:<Leader>ha
           (lcmd "require('harpoon'):list():add()")
           (desc "Register file")]
+         ;; mark
+         [:<leader>mq (cmd :MarksQFListBuf) (desc "marks in current buffer")]
+         [:<leader>mQ (cmd :MarksQFListGlobal) (desc "marks in all buffer")]
+         ;; undo
+         [:<leader>U (cmd :UndotreeToggle (desc "toggle undotree"))]
          ;; neorg
          [:<Leader>nn
           (cmd "Neorg journal today")
@@ -38,8 +43,11 @@
          ;; toggle
          [:<leader>tm
           (lcmd "require('codewindow').toggle_minimap()")
-          (desc "toggle minimap")]]]
+          (desc "toggle minimap")]]
+      V [[:<Leader>T (cmd :Translate)] [:<leader>r (cmd :FlowRunSelected)]]]
   (each [_ K (ipairs N)]
+    (vim.keymap.set :n (. K 1) (. K 2) (or (. K 3) opts)))
+  (each [_ K (ipairs V)]
     (vim.keymap.set :n (. K 1) (. K 2) (or (. K 3) opts))))
 
 (vim.schedule (fn []

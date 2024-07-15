@@ -20,14 +20,24 @@ in
         {
           gina-blame = {
             language = "vim";
-            code = ''
-              set number
-            '';
+            code = read ./vim/after/gina-blame.vim;
           };
           cabal = hashkellTools;
           cabalproject = hashkellTools;
           cagbal = hashkellTools;
           lhaskell = hashkellTools;
+          neorg = {
+            language = "vim";
+            code = read ./vim/after/neorg.vim;
+          };
+          ddu-ff = {
+            language = "vim";
+            code = read ./vim/after/ddu-ff.vim;
+          };
+          ddu-ff-filter = {
+            language = "vim";
+            code = read ./vim/after/ddu-ff-filter.vim;
+          };
         };
     };
     # WIP #
@@ -69,6 +79,27 @@ in
         postConfig = read ./lua/autogen/hook-insert.lua;
         hooks = {
           events = [ "InsertEnter" ];
+        };
+      };
+      hookBuffer = {
+        postConfig = read ./lua/autogen/hook-buffer.lua;
+        hooks = {
+          userEvents = [ "SpecificFileEnter" ];
+        };
+      };
+      hookCmdline = {
+        postConfig = read ./lua/autogen/hook-cmdline.lua;
+        hooks = {
+          events = [ "CmdlineEnter" ];
+        };
+      };
+      hookEdit = {
+        postConfig = read ./lua/autogen/hook-edit.lua;
+        hooks = {
+          events = [
+            "InsertEnter"
+            "CursorMoved"
+          ];
         };
       };
       devicons = {
@@ -383,7 +414,33 @@ in
           events = [ "BufReadPost" ];
         };
       };
-      dap = { };
+      dap = {
+        packages = [
+          nvim-dap
+          nvim-dap-virtual-text
+          nvim-dap-repl-highlights
+        ];
+        postConfig = read ./lua/autogen/dap.lua;
+        hooks = {
+          modules = [ "dap" ];
+        };
+      };
+      dap-go = {
+        packages = nvim-dap-go;
+        extraPackages = with pkgs; [ delve ];
+        postConfig = read ./lua/autogen/dap-go.lua;
+        hooks = {
+          fileTypes = [ "go" ];
+        };
+      };
+      dap-ui = {
+        package = nvim-dap-ui;
+        depends = [ dap ];
+        postConfig = read ./lua/autogen/dap-ui.lua;
+        hooks = {
+          modules = [ "dap-ui" ];
+        };
+      };
       LuaSnip = {
         package = pkgs.vimPlugins.LuaSnip;
         postConfig = read ./lua/autogen/luasnip.lua;
@@ -814,6 +871,10 @@ in
         package = marks-nvim;
         postConfig = read ./lua/autogen/marks.lua;
         hooks = {
+          commands = [
+            "MarksQFListBuf"
+            "MarksQFListGlobal"
+          ];
           events = [ "CursorMoved" ];
         };
       };
@@ -1254,6 +1315,21 @@ in
         hooks = {
           commands = [ "WinShift" ];
         };
+      };
+      ddu = {
+        # TODO: support packageOrComponent
+        packages = [ ];
+      };
+      neotest = {
+        # TODO: support packageOrComponent
+        packages = [ ];
+        depends = [
+          plenary
+          nio
+          treesitter
+          lsp
+          dap
+        ];
       };
     };
   };
