@@ -870,6 +870,98 @@
       url = "github:lambdalisue/mr.vim";
       flake = false;
     };
+    neotest-golang = {
+      url = "github:fredrikaverpil/neotest-golang";
+      flake = false;
+    };
+    neotest-vim-test = {
+      url = "github:nvim-neotest/neotest-vim-test";
+      flake = false;
+    };
+    neotest-deno = {
+      url = "github:MarkEmmons/neotest-deno";
+      flake = false;
+    };
+    neotest-haskell = {
+      url = "github:mrcjkb/neotest-haskell";
+      flake = false;
+    };
+    neotest-scala = {
+      url = "github:stevanmilic/neotest-scala";
+      flake = false;
+    };
+    neotest-dotnet = {
+      url = "github:Issafalcon/neotest-dotnet";
+      flake = false;
+    };
+    neotest-elixir = {
+      url = "github:jfpedroza/neotest-elixir";
+      flake = false;
+    };
+    neotest-rust = {
+      url = "github:rouge8/neotest-rust";
+      flake = false;
+    };
+    neotest-pest = {
+      url = "github:theutz/neotest-pest";
+      flake = false;
+    };
+    neotest-phpunit = {
+      url = "github:olimorris/neotest-phpunit";
+      flake = false;
+    };
+    neotest-testthat = {
+      url = "github:shunsambongi/neotest-testthat";
+      flake = false;
+    };
+    neotest-dart = {
+      url = "github:sidlatau/neotest-dart";
+      flake = false;
+    };
+    neotest-minitest = {
+      url = "github:zidhuss/neotest-minitest";
+      flake = false;
+    };
+    neotest-rspec = {
+      url = "github:olimorris/neotest-rspec";
+      flake = false;
+    };
+    neotest-playwright = {
+      url = "github:thenbe/neotest-playwright";
+      flake = false;
+    };
+    neotest-vitest = {
+      url = "github:marilari88/neotest-vitest";
+      flake = false;
+    };
+    neotest-jest = {
+      url = "github:nvim-neotest/neotest-jest";
+      flake = false;
+    };
+    neotest-java = {
+      url = "github:rcasia/neotest-java";
+      flake = false;
+    };
+    neotest-go = {
+      url = "github:nvim-neotest/neotest-go";
+      flake = false;
+    };
+    neotest-plenary = {
+      url = "github:nvim-neotest/neotest-plenary";
+      flake = false;
+    };
+    neotest-python = {
+      url = "github:nvim-neotest/neotest-python";
+      flake = false;
+    };
+    neotest = {
+      url = "github:nvim-neotest/neotest";
+      flake = false;
+    };
+    vim-test = {
+      url = "github:vim-test/vim-test/";
+      flake = false;
+    };
   };
 
   outputs =

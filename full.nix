@@ -1025,6 +1025,7 @@ in
           userEvents = [ "SpecificFileEnter" ];
         };
       };
+      # TODO: modify lazy loading
       overseer = {
         package = overseer-nvim;
         depends = [ toggleterm ];
@@ -1363,15 +1364,52 @@ in
         useDenops = true;
       };
       neotest = {
-        # TODO: support packageOrComponent
-        packages = [ ];
+        packages = [
+          pkgs.vimPlugins.neotest
+          neotest-java
+          neotest-python
+          neotest-plenary
+          # neotest-go
+          neotest-golang
+          neotest-jest
+          neotest-vitest
+          neotest-playwright
+          neotest-rspec
+          neotest-minitest
+          neotest-dart
+          neotest-testthat
+          neotest-phpunit
+          neotest-pest
+          neotest-rust
+          neotest-elixir
+          neotest-dotnet
+          neotest-scala
+          neotest-haskell
+          neotest-deno
+          neotest-vim-test
+        ];
         depends = [
           plenary
           nio
           treesitter
           lsp
           dap
+          vim-test
         ];
+        postConfig = {
+          code = read ./lua/autogen/neotest.lua;
+          args = {
+            junit_jar_path = pkgs.javaPackages.junit-console;
+          };
+        };
+        hooks = {
+          commands = [
+            "Neotest"
+            "NeotestNearest"
+            "NeotestToggleSummary"
+          ];
+          modules = [ "neotest" ];
+        };
       };
     };
   };
