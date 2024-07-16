@@ -913,7 +913,7 @@ in
         };
       };
       neogit = {
-        package = neogit;
+        package = pkgs.vimPlugins.neogit;
         depends = [
           plenary
           diffview
