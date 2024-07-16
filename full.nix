@@ -864,7 +864,7 @@ in
       markdown-preview = {
         package = markdown-preview-nvim;
         hooks = {
-          filetypes = [ "markdown" ];
+          fileTypes = [ "markdown" ];
         };
       };
       marks = {
@@ -889,7 +889,7 @@ in
         depends = [ plenary ];
         postConfig = read ./lua/autogen/mkdnflow.lua;
         hooks = {
-          filetypes = [ "markdown" ];
+          fileTypes = [ "markdown" ];
         };
       };
       BufferBrowser = {
