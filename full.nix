@@ -989,7 +989,7 @@ in
         };
       };
       octo = {
-        package = pkgs.octo-nvim;
+        package = octo-nvim;
         depends = [
           plenary
           devicons
