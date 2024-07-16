@@ -27,5 +27,4 @@ jobs:
 
       - name: flake check
         run: |
-          # nix flake check
-          nix build .#bundler-nvim-v9
+          nix flake check
