@@ -939,7 +939,7 @@ in
         };
       };
       notify = {
-        package = notify-nvim;
+        package = nvim-notify;
         postConfig = read ./lua/autogen/notify.lua;
         hooks = {
           userEvents = [ "SpecificFileEnter" ];
