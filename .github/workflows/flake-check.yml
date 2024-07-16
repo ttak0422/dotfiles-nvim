@@ -19,6 +19,12 @@ jobs:
           name: ttak0422-dotfiles-nvim
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
+      - name: cache inputs
+        run: |
+          nix flake archive --json \
+            | jq -r '.path,(.inputs|to_entries[].value.path)' \
+            | cachix push ttak0422-dotfiles-nvim
+
       - name: flake check
         run: |
           # nix flake check
