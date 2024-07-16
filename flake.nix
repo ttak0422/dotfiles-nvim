@@ -1,9 +1,9 @@
 {
-  # nixConfig = {
-  #   # TODO
-  #   # extra-substituters = "https://cachix.cachix.org";
-  #   # extra-trusted-public-keys = "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM=";
-  # };
+  nixConfig = {
+    extra-substituters = "https://cachix.cachix.org";
+    extra-trusted-public-keys = "ttak0422-dotfiles-nvim.cachix.org-1:LHmQa5l92iTmX+6sKRZOPz2MsunlWcvQfmgFuCjyTmE=";
+    extra-experimental-features = "nix-command flakes";
+  };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
