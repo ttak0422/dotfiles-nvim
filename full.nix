@@ -426,7 +426,7 @@ in
         };
       };
       dap-go = {
-        packages = nvim-dap-go;
+        package = nvim-dap-go;
         extraPackages = with pkgs; [ delve ];
         postConfig = read ./lua/autogen/dap-go.lua;
         hooks = {
