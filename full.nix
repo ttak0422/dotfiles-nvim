@@ -1190,7 +1190,7 @@ in
         };
       };
       toolwindow = {
-        plugin = toolwindow-nvim;
+        package = toolwindow-nvim;
         hooks = {
           modules = [ "toolwindow" ];
         };
