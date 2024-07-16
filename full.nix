@@ -818,7 +818,7 @@ in
         };
       };
       jdtls = {
-        package = jdtls-nvim;
+        package = nvim-jdtls;
         # postConfig = configured in after/ftplugin/java
         depends = [
           lsp
