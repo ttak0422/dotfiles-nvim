@@ -63,11 +63,14 @@ rec {
       };
       denops = {
         package = denops-vim;
-        preConfig = ''
-          " use latest
-          let g:denops#deno = '${pkgs.deno}/bin/deno'
-          let g:denops#server#deno_args = ['-q', '--no-lock', '-A', '--unstable-kv']
-        '';
+        preConfig = {
+          language = "vim";
+          code = ''
+            " use latest
+            let g:denops#deno = '${pkgs.deno}/bin/deno'
+            let g:denops#server#deno_args = ['-q', '--no-lock', '-A', '--unstable-kv']
+          '';
+        };
       };
       hookLeader = {
         postConfig = read ./lua/autogen/hook-leader.lua;
