@@ -16,6 +16,8 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     nix-filter.url = "github:numtide/nix-filter";
 
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
     bundler = {
       url = "github:ttak0422/bundler/v3";
       # url = "path:/Users/ttak0422/ghq/github.com/ttak0422/bundler";

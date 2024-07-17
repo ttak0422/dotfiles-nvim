@@ -1,5 +1,6 @@
 inputs: with inputs; [
   nix-filter.overlays.default
+  neovim-nightly-overlay.overlays.default
   (
     final: prev:
     let
