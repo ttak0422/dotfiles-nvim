@@ -1,10 +1,10 @@
-{ pkgs, ... }:
+{ self', pkgs, ... }:
 let
   inherit (pkgs.lib.strings) concatStringsSep;
   inherit (pkgs.stdenv) mkDerivation;
   read = builtins.readFile;
 in
-{
+rec {
   v9 = {
     package = pkgs.pkgs-stable.neovim-unwrapped;
     extraPackages = [ ];
@@ -1412,5 +1412,8 @@ in
         };
       };
     };
+  };
+  nightly = v9 // {
+    package = self'.packages.loaded-nvim-nightly;
   };
 }

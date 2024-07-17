@@ -42,10 +42,13 @@
           default = common // {
             package = pkgs.pkgs-stable.neovim;
           };
+          nightly = common // {
+            package = pkgs.neovim;
+          };
         };
 
       bundler-nvim = {
-        inherit (import ./full.nix params) v9;
+        inherit (import ./full.nix params) v9 nightly;
       };
     };
 }
