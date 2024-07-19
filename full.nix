@@ -1416,7 +1416,7 @@ rec {
       };
     };
   };
-  nightly = v9 // {
+  v11 = v9 // {
     package = self'.packages.loaded-nvim-nightly;
   };
 }

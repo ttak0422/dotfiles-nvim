@@ -48,7 +48,7 @@
         };
 
       bundler-nvim = {
-        inherit (import ./full.nix params) v9 nightly;
+        inherit (import ./full.nix params) v9 v11;
       };
     };
 }
