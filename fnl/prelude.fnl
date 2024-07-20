@@ -28,6 +28,7 @@
 (set vim.g.maplocalleader ",")
 
 (let [map vim.keymap.set
+      cmd (fn [c] (.. :<cmd> c :<cr>))
       opts {:noremap true :silent true}
       N [[:<leader> ":lua vim.cmd('doautocmd User TriggerLeader')<CR>"]
          [";" ":"]
@@ -37,8 +38,12 @@
   ;; normal mode keymaps
   (each [_ K (ipairs N)]
     (map :n (. K 1) (. K 2) (or (. K 3) opts)))
+  ;; visual mode keymaps
   (each [_ K (ipairs V)]
-    (map :v (. K 1) (. K 2) (or (. K 3) opts))))
+    (map :v (. K 1) (. K 2) (or (. K 3) opts)))
+  ;; term toggle keymaps
+  (for [i 0 9]
+    (map [:n :t :i] (.. :<C- i ">") (cmd (.. "TermToggle " i)) opts)))
 
 ;; user events
 (var specificFileEnterAutoCmd nil)
