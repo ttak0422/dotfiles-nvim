@@ -1,5 +1,5 @@
--- [nfnl] Compiled from full/fnl/lsp-lens.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] Compiled from fnl/lsp-lens.fnl by https://github.com/Olical/nfnl, do not edit.
 local M = require("lsp-lens")
-local sections = {references = true, implementation = true, definition = false}
+local sections = {references = true, implementation = true, definition = false, git_authors = false}
 local ignore_filetype = {"prisma"}
-return M.setup({sections = sections, ignore_filetype = ignore_filetype, enable = false, include_declaration = false})
+return M.setup({enable = true, sections = sections, ignore_filetype = ignore_filetype, include_declaration = false})

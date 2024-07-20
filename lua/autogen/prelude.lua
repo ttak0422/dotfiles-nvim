@@ -13,7 +13,7 @@ do
   end
   C = _1_
   local O = {noremap = true, silent = true}
-  for _, K in ipairs({{"n", "<leader>", ":lua vim.cmd('doautocmd User TriggerLeader')<CR>"}, {"n", ";", ":"}, {"v", ";", ":"}}) do
+  for _, K in ipairs({{"n", "<leader>", ":lua vim.cmd('doautocmd User TriggerLeader')<CR>"}, {{"n", "v"}, ";", ":"}, {"n", "<esc><esc>", C("nohl")}, {"n", "j", "gj"}, {"n", "k", "gk"}}) do
     M(K[1], K[2], K[3], O)
   end
   for i = 0, 9 do
@@ -21,19 +21,23 @@ do
   end
 end
 local specificFileEnterAutoCmd = nil
-local A = vim.api
-local function _2_()
-  local _3_
-  do
-    local F = vim.bo.filetype
-    _3_ = not ((F == "") or (F == "prompt") or (F == "nofile"))
+do
+  local A = vim.api
+  local function _2_()
+    local _3_
+    do
+      local F = vim.bo.filetype
+      _3_ = not ((F == "") or (F == "prompt") or (F == "nofile"))
+    end
+    if _3_ then
+      A.nvim_exec_autocmds("User", {pattern = "SpecificFileEnter"})
+      return A.nvim_del_autocmd(specificFileEnterAutoCmd)
+    else
+      return nil
+    end
   end
-  if _3_ then
-    A.nvim_exec_autocmds("User", {pattern = "SpecificFileEnter"})
-    return A.nvim_del_autocmd(specificFileEnterAutoCmd)
-  else
-    return nil
-  end
+  specificFileEnterAutoCmd = A.nvim_create_autocmd("FileType", {callback = _2_})
 end
-specificFileEnterAutoCmd = A.nvim_create_autocmd("FileType", {callback = _2_})
-return nil
+vim.cmd("colorscheme morimo")
+local M = require("config-local")
+return M.setup({silent = true})

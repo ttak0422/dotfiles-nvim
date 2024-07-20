@@ -1,4 +1,4 @@
--- [nfnl] Compiled from main/fnl/telescope.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] Compiled from fnl/telescope.fnl by https://github.com/Olical/nfnl, do not edit.
 local M = require("telescope")
 local theme = require("telescope.themes")
 local lga_actions = require("telescope-live-grep-args.actions")

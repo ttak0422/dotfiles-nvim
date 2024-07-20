@@ -33,8 +33,10 @@
   (each [_ K (ipairs [[:n
                        :<leader>
                        ":lua vim.cmd('doautocmd User TriggerLeader')<CR>"]
-                      [:n ";" ":"]
-                      [:v ";" ":"]])]
+                      [[:n :v] ";" ":"]
+                      [:n :<esc><esc> (C :nohl)]
+                      [:n :j :gj]
+                      [:n :k :gk]])]
     (M (. K 1) (. K 2) (. K 3) O))
   ;; term toggle keymaps
   (for [i 0 9]
@@ -56,3 +58,7 @@
                                                  (A.nvim_exec_autocmds :User
                                                                        {:pattern :SpecificFileEnter})
                                                  (A.nvim_del_autocmd specificFileEnterAutoCmd))))})))
+
+;; eager configs
+(vim.cmd "colorscheme morimo")
+(let [M (require :config-local)] (M.setup {:silent true}))

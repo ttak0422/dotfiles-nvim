@@ -40,18 +40,26 @@ rec {
           };
         };
     };
-    # WIP #
     eager = with pkgs.vimPlugins; {
       morimo = {
         package = morimo;
-        startupConfig = "vim.cmd([[colorscheme morimo]])";
+        # configured in prelude
+        # startupConfig = "vim.cmd([[colorscheme morimo]])";
       };
       config-local = {
         package = nvim-config-local;
-        startupConfig = read ./lua/autogen/config-local.lua;
+        # configured in prelude
+        # startupConfig = read ./lua/config-local.lua;
       };
     };
+    # WIP #
     lazy = with pkgs.vimPlugins; rec {
+      #
+      #   ___ ___  _ __ ___  _ __ ___   ___  _ __
+      #  / __/ _ \| '_ ` _ \| '_ ` _ \ / _ \| '_ \
+      # | (_| (_) | | | | | | | | | | | (_) | | | |
+      #  \___\___/|_| |_| |_|_| |_| |_|\___/|_| |_|
+      #
       plenary = {
         package = plenary-nvim;
       };
@@ -62,6 +70,7 @@ rec {
         package = nui-nvim;
       };
       denops = {
+        # TODO: use shared server
         package = denops-vim;
         preConfig = {
           language = "vim";
@@ -72,43 +81,47 @@ rec {
           '';
         };
       };
-      hookLeader = {
-        postConfig = read ./lua/autogen/hook-leader.lua;
-        hooks = {
-          userEvents = [ "TriggerLeader" ];
-        };
-      };
-      hookInsert = {
-        postConfig = read ./lua/autogen/hook-insert.lua;
-        hooks = {
-          events = [ "InsertEnter" ];
-        };
-      };
-      hookBuffer = {
-        postConfig = read ./lua/autogen/hook-buffer.lua;
-        hooks = {
-          userEvents = [ "SpecificFileEnter" ];
-        };
-      };
-      hookCmdline = {
-        postConfig = read ./lua/autogen/hook-cmdline.lua;
-        hooks = {
-          events = [ "CmdlineEnter" ];
-        };
-      };
-      hookEdit = {
-        postConfig = read ./lua/autogen/hook-edit.lua;
-        hooks = {
-          events = [
-            "InsertEnter"
-            "CursorMoved"
-          ];
-        };
-      };
       devicons = {
         package = nvim-web-devicons;
         postConfig = read ./lua/autogen/devicons.lua;
       };
+
+      #  _                 _
+      # | |__   ___   ___ | | _____
+      # | '_ \ / _ \ / _ \| |/ / __|
+      # | | | | (_) | (_) |   <\__ \
+      # |_| |_|\___/ \___/|_|\_\___/
+      #
+      hookLeader = {
+        postConfig = read ./lua/autogen/hook-leader.lua;
+        hooks.userEvents = [ "TriggerLeader" ];
+      };
+      hookInsert = {
+        postConfig = read ./lua/autogen/hook-insert.lua;
+        hooks.events = [ "InsertEnter" ];
+      };
+      hookBuffer = {
+        postConfig = read ./lua/autogen/hook-buffer.lua;
+        hooks.userEvents = [ "SpecificFileEnter" ];
+      };
+      hookCmdline = {
+        postConfig = read ./lua/autogen/hook-cmdline.lua;
+        hooks.events = [ "CmdlineEnter" ];
+      };
+      hookEdit = {
+        postConfig = read ./lua/autogen/hook-edit.lua;
+        hooks.events = [
+          "InsertEnter"
+          "CursorMoved"
+        ];
+      };
+
+      #
+      #   ___ ___  _ __ ___
+      #  / __/ _ \| '__/ _ \
+      # | (_| (_) | | |  __/
+      #  \___\___/|_|  \___|
+      #
       treesitter = {
         packages = [ nvim-treesitter ];
         postConfig =
@@ -183,9 +196,7 @@ rec {
               parser = toString parserDrv;
             };
           };
-        hooks = {
-          events = [ "InsertEnter" ];
-        };
+        hooks.userEvents = [ "SpecificFileEnter" ];
       };
       telescope = {
         packages = [
@@ -210,53 +221,13 @@ rec {
           commands = [ "Telescope" ];
         };
       };
-      sonictemplate = {
-        package = vim-sonictemplate;
-        preConfig =
-          let
-            template = mkDerivation {
-              pname = "sonictemplate";
-              version = "custom";
-              src = ./tmpl/sonic;
-              installPhase = ''
-                mkdir $out
-                cp -r ./* $out
-              '';
-            };
-          in
-          ''
-            vim.g.sonictemplate_vim_template_dir = "${template}"
-            vim.g.sonictemplate_key = 0
-            vim.g.sonictemplate_intelligent_key = 0
-            vim.g.sonictemplate_postfix_key = 0
-          '';
-      };
-      cmp = {
-        packages = [
-          nvim-cmp
-          cmp-buffer
-          cmp-cmdline
-          cmp-cmdline-history
-          cmp-nvim-lsp
-          cmp-path
-          cmp_luasnip
-        ];
-        depends = [ LuaSnip ];
-        postConfig =
-          ''
-            require("morimo").load("cmp")
-            dofile('${cmp-buffer}/after/plugin/cmp_buffer.lua')
-            dofile('${cmp-cmdline}/after/plugin/cmp_cmdline.lua')
-            dofile('${cmp-cmdline-history}/after/plugin/cmp_cmdline_history.lua')
-            dofile('${cmp-nvim-lsp}/after/plugin/cmp_nvim_lsp.lua')
-            dofile('${cmp-path}/after/plugin/cmp_path.lua')
-            dofile('${cmp_luasnip}/after/plugin/cmp_luasnip.lua')
-          ''
-          + read ./lua/autogen/cmp.lua;
-        hooks = {
-          events = [ "LspAttach" ];
-        };
-      };
+
+      #  _              _
+      # | |_ ___   ___ | |
+      # | __/ _ \ / _ \| |
+      # | || (_) | (_) | |
+      #  \__\___/ \___/|_|
+      #
       neorg = {
         packages = [
           pkgs.vimPlugins.neorg
@@ -309,30 +280,12 @@ rec {
           modules = [ "oil" ];
         };
       };
-      neogen = {
-        package = pkgs.vimPlugins.neogen;
-        depends = [
-          # vim-vsnip
-          LuaSnip
-          treesitter
-        ];
-        postConfig = read ./lua/autogen/neogen.lua;
-        hooks = {
-          commands = [ "Neogen" ];
-        };
-      };
-      glance = {
-        package = glance-nvim;
-        postConfig = read ./lua/autogen/glance.lua;
-        hooks = {
-          commands = [ "Glance" ];
-        };
-      };
-      dressing = {
-        package = dressing-nvim;
-        postConfig = read ./lua/autogen/dressing.lua;
-        depends = [ telescope ];
-      };
+      #  _
+      # | |___ _ __
+      # | / __| '_ \
+      # | \__ \ |_) |
+      # |_|___/ .__/
+      #       |_|
       lsp = {
         packages = [ nvim-lspconfig ];
         depends = [
@@ -419,6 +372,33 @@ rec {
           events = [ "BufReadPost" ];
         };
       };
+
+      #           _ _ _
+      #   ___  __| (_) |_
+      #  / _ \/ _` | | __|
+      # |  __/ (_| | | |_
+      #  \___|\__,_|_|\__|
+      #
+      neogen = {
+        package = pkgs.vimPlugins.neogen;
+        depends = [
+          # vim-vsnip
+          LuaSnip
+          treesitter
+        ];
+        postConfig = read ./lua/autogen/neogen.lua;
+        hooks = {
+          modules = [ "neogen" ];
+          commands = [ "Neogen" ];
+        };
+      };
+
+      #      _      _
+      #   __| | ___| |__  _   _  __ _
+      #  / _` |/ _ \ '_ \| | | |/ _` |
+      # | (_| |  __/ |_) | |_| | (_| |
+      #  \__,_|\___|_.__/ \__,_|\__, |
+      #                         |___/
       dap = {
         packages = [
           nvim-dap
@@ -444,6 +424,86 @@ rec {
         postConfig = read ./lua/autogen/dap-ui.lua;
         hooks = {
           modules = [ "dap-ui" ];
+        };
+      };
+
+      #  _            _
+      # | |_ ___  ___| |_
+      # | __/ _ \/ __| __|
+      # | ||  __/\__ \ |_
+      #  \__\___||___/\__|
+      #
+
+      #      _         _
+      #  ___| |_ _   _| | ___
+      # / __| __| | | | |/ _ \
+      # \__ \ |_| |_| | |  __/
+      # |___/\__|\__, |_|\___|
+      #          |___/
+      glance = {
+        package = glance-nvim;
+        postConfig = read ./lua/autogen/glance.lua;
+        hooks = {
+          commands = [ "Glance" ];
+        };
+      };
+      dressing = {
+        package = dressing-nvim;
+        postConfig = read ./lua/autogen/dressing.lua;
+        depends = [ telescope ];
+      };
+
+      #  _          _
+      # | |__   ___| |_ __   ___ _ __
+      # | '_ \ / _ \ | '_ \ / _ \ '__|
+      # | | | |  __/ | |_) |  __/ |
+      # |_| |_|\___|_| .__/ \___|_|
+      #              |_|
+      sonictemplate = {
+        package = vim-sonictemplate;
+        preConfig =
+          let
+            template = mkDerivation {
+              pname = "sonictemplate";
+              version = "custom";
+              src = ./tmpl/sonic;
+              installPhase = ''
+                mkdir $out
+                cp -r ./* $out
+              '';
+            };
+          in
+          ''
+            vim.g.sonictemplate_vim_template_dir = "${template}"
+            vim.g.sonictemplate_key = 0
+            vim.g.sonictemplate_intelligent_key = 0
+            vim.g.sonictemplate_postfix_key = 0
+          '';
+      };
+      cmp = {
+        packages = [
+          nvim-cmp
+          cmp-buffer
+          cmp-cmdline
+          cmp-cmdline-history
+          cmp-nvim-lsp
+          cmp-path
+          cmp_luasnip
+        ];
+        depends = [ LuaSnip ];
+        postConfig =
+          ''
+            require("morimo").load("cmp")
+            dofile('${cmp-buffer}/after/plugin/cmp_buffer.lua')
+            dofile('${cmp-cmdline}/after/plugin/cmp_cmdline.lua')
+            dofile('${cmp-cmdline-history}/after/plugin/cmp_cmdline_history.lua')
+            dofile('${cmp-nvim-lsp}/after/plugin/cmp_nvim_lsp.lua')
+            dofile('${cmp-path}/after/plugin/cmp_path.lua')
+            dofile('${cmp_luasnip}/after/plugin/cmp_luasnip.lua')
+          ''
+          + read ./lua/autogen/cmp.lua;
+        hooks = {
+          events = [ "LspAttach" ];
         };
       };
       LuaSnip = {
