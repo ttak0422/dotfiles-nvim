@@ -273,6 +273,7 @@ rec {
           cmp
           treesitter
           telescope
+          dressing
         ];
         postConfig = read ./lua/autogen/neorg.lua;
         hooks = {
@@ -327,6 +328,11 @@ rec {
           commands = [ "Glance" ];
         };
       };
+      dressing = {
+        package = dressing-nvim;
+        postConfig = read ./lua/autogen/dressing.lua;
+        depends = [ telescope ];
+      };
       lsp = {
         packages = [ nvim-lspconfig ];
         depends = [
@@ -346,11 +352,7 @@ rec {
             package = diagflow-nvim;
             postConfig = read ./lua/autogen/diagflow.lua;
           }
-          {
-            package = dressing-nvim;
-            postConfig = read ./lua/autogen/dressing.lua;
-            depends = [ telescope ];
-          }
+          dressing
           cmp
           telescope
           {
@@ -1322,6 +1324,7 @@ rec {
       };
       ddu = {
         packages = [
+          ddu-vim
           ddu-ui-ff
           ddu-ui-filter
           ddu-source-file

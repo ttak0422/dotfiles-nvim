@@ -19,6 +19,16 @@
          [:<Leader>ha
           (lcmd "require('harpoon'):list():add()")
           (desc "Register file")]
+         [:<Leader>fp
+          (cmd "Ddu -name=fd file_fd")
+          (desc "search by file name")]
+         [:<Leader>fP (cmd "Ddu -name=ghq ghq") (desc "search repo (ghq)")]
+         [:<Leader>fru
+          (cmd "Ddu -name=mru mru")
+          (desc "MRU (Most Recently Used files)")]
+         [:<Leader>frw
+          (cmd "Ddu -name=mrw mrw")
+          (desc "MRW (Most Recently Written files)")]
          ;; mark
          [:<leader>mq (cmd :MarksQFListBuf) (desc "marks in current buffer")]
          [:<leader>mQ (cmd :MarksQFListGlobal) (desc "marks in all buffer")]
@@ -30,6 +40,9 @@
           (desc "Enter Neorg (today journal)")]
          [:<Leader>no (cmd "Neorg toc") (desc "Show Neorg TOC")]
          [:<Leader>N (cmd :Neorg) (desc "Enter Neorg")]
+         [:<Leader>fn
+          (cmd "Neorg keybind norg core.integrations.telescope.find_linkable")
+          (desc "find Neorg linkable")]
          ;; git
          [:<Leader>G (cmd :Neogit) (desc "Neovim git client")]
          ;; filter
