@@ -2041,11 +2041,11 @@
     "morimo": {
       "flake": false,
       "locked": {
-        "lastModified": 1717776668,
-        "narHash": "sha256-AmVuY0BzFVGTyMn281/ZVXNYgJL4ait+rFpNsSARw7o=",
+        "lastModified": 1721447757,
+        "narHash": "sha256-eGRSedN4ZaSBvXtZa421teSD/RJYqtEZBut2SUPJ4Ao=",
         "owner": "ttak0422",
         "repo": "morimo",
-        "rev": "a374332bdc93e60ffb121aedc0b6d35f79511688",
+        "rev": "f14de73852cc3f183e2cd601ecaa3b0941cf391f",
         "type": "github"
       },
       "original": {
