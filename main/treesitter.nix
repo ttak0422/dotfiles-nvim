@@ -1,5 +1,6 @@
 { pkgs, ... }:
 let
+  inherit (pkgs.lib.strings) concatStringsSep;
   read = builtins.readFile;
 in
 with pkgs.vimPlugins;
@@ -10,7 +11,7 @@ rec {
       let
         buildGrammar =
           { language, src }:
-          mkDerivation {
+          pkgs.stdenv.mkDerivation {
             inherit src;
             pname = "custom-grammar-${language}";
             version = "custom";

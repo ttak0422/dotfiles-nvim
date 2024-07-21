@@ -1,6 +1,7 @@
 { pkgs, ... }:
 let
   inherit (pkgs) callPackage;
+  read = builtins.readFile;
   treesitter = callPackage ./treesitter.nix { };
 in
 with pkgs.vimPlugins;
@@ -9,7 +10,7 @@ with pkgs.vimPlugins;
     package = vim-sonictemplate;
     preConfig =
       let
-        template = mkDerivation {
+        template = pkgs.stdenv.mkDerivation {
           pname = "sonictemplate";
           version = "custom";
           src = ../tmpl/sonic;
