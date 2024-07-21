@@ -109,6 +109,18 @@ rec {
         hooks.events = [ "CmdlineEnter" ];
       };
       hookEdit = {
+        depends = [
+          {
+            package = nvim-lint;
+                    extraPackages = with pkgs; [ typos checkstyle ];
+            postConfig = read ./lua/autogen/lint.lua;
+          }
+          {
+            package = copilot-lua;
+                    extraPackages = with pkgs; [ nodejs ];
+            postConfig = read ./lua/autogen/copilot.lua;
+          }
+        ];
         postConfig = read ./lua/autogen/hook-edit.lua;
         hooks.events = [
           "InsertEnter"
@@ -217,9 +229,7 @@ rec {
           # for sg
           ast-grep
         ];
-        hooks = {
-          commands = [ "Telescope" ];
-        };
+        hooks.commands = [ "Telescope" ];
       };
 
       #  _              _

@@ -397,6 +397,22 @@
         "type": "github"
       }
     },
+    "copilot-lua": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1718412968,
+        "narHash": "sha256-HC1QZlqEg+RBz/8kjLadafc06UoMAjhh0UO/BWQGMY8=",
+        "owner": "zbirenbaum",
+        "repo": "copilot.lua",
+        "rev": "86537b286f18783f8b67bccd78a4ef4345679625",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zbirenbaum",
+        "repo": "copilot.lua",
+        "type": "github"
+      }
+    },
     "crane": {
       "inputs": {
         "nixpkgs": [
@@ -3011,6 +3027,22 @@
         "type": "github"
       }
     },
+    "nvim-lint": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1719415114,
+        "narHash": "sha256-a9Mfoi1NzQ3b1w1VUqqJZddyCZYyacRnc128t5X3Wb0=",
+        "owner": "mfussenegger",
+        "repo": "nvim-lint",
+        "rev": "efc6fc83f0772283e064c53a8f9fb5645bde0bc0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mfussenegger",
+        "repo": "nvim-lint",
+        "type": "github"
+      }
+    },
     "nvim-lspconfig": {
       "flake": false,
       "locked": {
@@ -3088,6 +3120,22 @@
       "original": {
         "owner": "nvim-pack",
         "repo": "nvim-spectre",
+        "type": "github"
+      }
+    },
+    "nvim-surround": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1719245706,
+        "narHash": "sha256-DCNfT//qMnzIu4V9or3Q39h4XzLz9P4twtHnQHV2rrQ=",
+        "owner": "kylechui",
+        "repo": "nvim-surround",
+        "rev": "ec2dc7671067e0086cdf29c2f5df2dd909d5f71f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kylechui",
+        "repo": "nvim-surround",
         "type": "github"
       }
     },
@@ -3435,6 +3483,7 @@
         "codewindow-nvim": "codewindow-nvim",
         "colorful-winsep-nvim": "colorful-winsep-nvim",
         "conform-nvim": "conform-nvim",
+        "copilot-lua": "copilot-lua",
         "ddu-column-filename": "ddu-column-filename",
         "ddu-column-icon_filename": "ddu-column-icon_filename",
         "ddu-commands-vim": "ddu-commands-vim",
@@ -3578,11 +3627,13 @@
         "nvim-hlslens": "nvim-hlslens",
         "nvim-jdtls": "nvim-jdtls",
         "nvim-lastplace": "nvim-lastplace",
+        "nvim-lint": "nvim-lint",
         "nvim-lspconfig": "nvim-lspconfig",
         "nvim-nio": "nvim-nio",
         "nvim-notify": "nvim-notify",
         "nvim-pqf": "nvim-pqf",
         "nvim-spectre": "nvim-spectre",
+        "nvim-surround": "nvim-surround",
         "nvim-ts-autotag": "nvim-ts-autotag",
         "nvim-ufo": "nvim-ufo",
         "nvim-vtsls": "nvim-vtsls",
@@ -3608,6 +3659,7 @@
         "sqlite-lua": "sqlite-lua",
         "statuscol-nvim": "statuscol-nvim",
         "stickybuf-nvim": "stickybuf-nvim",
+        "surround-ui-nvim": "surround-ui-nvim",
         "systems": "systems",
         "tabout-nvim": "tabout-nvim",
         "telescope-command-palette-nvim": "telescope-command-palette-nvim",
@@ -3779,6 +3831,22 @@
       "original": {
         "owner": "stevearc",
         "repo": "stickybuf.nvim",
+        "type": "github"
+      }
+    },
+    "surround-ui-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721147035,
+        "narHash": "sha256-sUtu+Z20rDh9mefTwvEJVI4g7oL+FuYdY9bmGrWcrM0=",
+        "owner": "roobert",
+        "repo": "surround-ui.nvim",
+        "rev": "40abcba017a943d6d3dd304e523f34a43d80405b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "roobert",
+        "repo": "surround-ui.nvim",
         "type": "github"
       }
     },
