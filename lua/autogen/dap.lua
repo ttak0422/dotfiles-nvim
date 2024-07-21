@@ -14,22 +14,14 @@ do
   local display_callback
   local function _3_(variable, _buf, _stackframe, _node, options)
     if (options.virt_text_pos == "inline") then
-      return (" = " .. variable.value)
+      return (" = " .. (variable.value):gsub("%s+", " "))
     else
-      return (variable.name .. " = " .. variable.value)
+      return (variable.name .. " = " .. (variable.value):gsub("%s+", " "))
     end
   end
   display_callback = _3_
-  local virt_text_pos
-  local function _5_()
-    if (vim.fn.has("nvim-0.10") == 1) then
-      return "inline"
-    else
-      return "eol"
-    end
-  end
-  virt_text_pos = _5_()
-  M.setup({enabled_commands = true, highlight_changed_variables = true, show_stop_reason = true, commented = true, only_first_definition = true, display_callback = display_callback, virt_text_pos = virt_text_pos, virt_text_win_col = nil, virt_lines = false, all_frames = false, clear_on_continue = false, highlight_new_as_changed = false, enabled = false, all_references = false})
+  local virt_text_pos = "inline"
+  M.setup({enabled = true, enabled_commands = true, highlight_changed_variables = true, show_stop_reason = true, only_first_definition = true, display_callback = display_callback, virt_text_pos = virt_text_pos, virt_text_win_col = nil, commented = false, all_references = false, clear_on_continue = false, virt_lines = false, highlight_new_as_changed = false, all_frames = false})
 end
 local M = require("nvim-dap-repl-highlights")
 return M.setup()

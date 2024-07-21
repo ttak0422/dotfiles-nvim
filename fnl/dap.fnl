@@ -9,16 +9,16 @@
 (let [M (require :nvim-dap-virtual-text)
       display_callback (fn [variable _buf _stackframe _node options]
                          (if (= options.virt_text_pos :inline)
-                             (.. " = " variable.value)
-                             (.. variable.name " = " variable.value)))
-      virt_text_pos ((fn []
-                       (if (= (vim.fn.has :nvim-0.10) 1) :inline :eol)))]
-  (M.setup {:enabled false
+                             (.. " = " (variable.value:gsub "%s+" " "))
+                             (.. variable.name " = "
+                                 (variable.value:gsub "%s+" " "))))
+      virt_text_pos :inline]
+  (M.setup {:enabled true
             :enabled_commands true
             :highlight_changed_variables true
             :highlight_new_as_changed false
             :show_stop_reason true
-            :commented true
+            :commented false
             :only_first_definition true
             :all_references false
             :clear_on_continue false

@@ -1382,6 +1382,22 @@
         "type": "github"
       }
     },
+    "fzf-lua": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721537390,
+        "narHash": "sha256-4lbeZLJGrtirPoN85j9iTSTR+BqsGkX6F2BuIJj6iVY=",
+        "owner": "ibhagwan",
+        "repo": "fzf-lua",
+        "rev": "e5c14900e8abaa962f6880853ce0f749b511aa85",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ibhagwan",
+        "repo": "fzf-lua",
+        "type": "github"
+      }
+    },
     "garbage-day-nvim": {
       "flake": false,
       "locked": {
@@ -3535,6 +3551,7 @@
         "flake-parts": "flake-parts_2",
         "flit-nvim": "flit-nvim",
         "flow-nvim": "flow-nvim",
+        "fzf-lua": "fzf-lua",
         "garbage-day-nvim": "garbage-day-nvim",
         "gin-vim": "gin-vim",
         "gina-vim": "gina-vim",

@@ -17,10 +17,10 @@
   (each [k v (pairs opts)]
     (tset vim.o k v)))
 
-; (let [opts {:noremap true :silent true}
-;       desc (fn [d] {:noremap true :silent true :desc d})
-;       cmd (fn [c] (.. :<cmd> c :<cr>))
-;       lcmd (fn [c] (cmd (.. "lua " c)))
-;       N [[]]]
-;   (each [_ k (ipairs N)]
-;     (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts))))
+(let [opts {:noremap true :silent true}
+      desc (fn [d] {:noremap true :silent true :desc d})
+      cmd (fn [c] (.. :<cmd> c :<cr>))
+      lcmd (fn [c] (cmd (.. "lua " c)))
+      N [[:gx (lcmd "require('open').open_cword()")]]]
+  (each [_ k (ipairs N)]
+    (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts))))

@@ -984,6 +984,10 @@
       url = "github:roobert/surround-ui.nvim";
       flake = false;
     };
+    fzf-lua = {
+      url = "github:/ibhagwan/fzf-lua";
+      flake = false;
+    };
   };
 
   outputs =
