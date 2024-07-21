@@ -49,6 +49,7 @@
 
       bundler-nvim = {
         inherit (import ./full.nix params) v9 v11;
+        main = import ./main params;
       };
     };
 }

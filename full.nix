@@ -112,12 +112,15 @@ rec {
         depends = [
           {
             package = nvim-lint;
-                    extraPackages = with pkgs; [ typos checkstyle ];
+            extraPackages = with pkgs; [
+              typos
+              checkstyle
+            ];
             postConfig = read ./lua/autogen/lint.lua;
           }
           {
             package = copilot-lua;
-                    extraPackages = with pkgs; [ nodejs ];
+            extraPackages = with pkgs; [ nodejs ];
             postConfig = read ./lua/autogen/copilot.lua;
           }
         ];
