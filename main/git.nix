@@ -10,6 +10,7 @@ with pkgs.vimPlugins;
   diffview = {
     package = diffview-nvim;
     depends = [ lib.devicons ];
+    postConfig = read ../lua/autogen/diffview.lua;
     hooks.commands = [
       "DiffviewOpen"
       "DiffviewToggleFiles"

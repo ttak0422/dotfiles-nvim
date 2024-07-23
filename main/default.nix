@@ -31,6 +31,14 @@ let
       translate
       ;
     inherit (callPackage ./diagnostic.nix { }) dd trouble;
+    inherit (callPackage ./git.nix { })
+      diffview
+      gina
+      git-conflict
+      gitsigns
+      neogit
+      octo
+      ;
     inherit (callPackage ./search.nix { })
       asterisk
       fzf
