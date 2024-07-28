@@ -46,4 +46,8 @@ with pkgs.vimPlugins;
     postConfig = read ../lua/autogen/hook-window.lua;
     hooks.events = [ "WinNew" ];
   };
+  hookTerm = {
+    postConfig = read ../lua/autogen/hook-term.lua;
+    hooks.events = [ "TermOpen" ];
+  };
 }

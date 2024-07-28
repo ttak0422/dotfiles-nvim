@@ -58,6 +58,7 @@ let
       hookInsert
       hookLeader
       hookWindow
+      hookTerm
       ;
     inherit (callPackage ./input.nix { })
       cmp
