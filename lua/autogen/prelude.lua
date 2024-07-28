@@ -27,7 +27,8 @@ do
     local _3_
     do
       local F = vim.bo.filetype
-      _3_ = not ((F == "") or (F == "prompt") or (F == "nofile"))
+      local B = vim.bo.buftype
+      _3_ = not ((F == "") or (B == "prompt") or (B == "nofile"))
     end
     if _3_ then
       A.nvim_exec_autocmds("User", {pattern = "SpecificFileEnter"})

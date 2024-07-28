@@ -50,10 +50,12 @@
   (set specificFileEnterAutoCmd
        (A.nvim_create_autocmd :FileType
                               {:callback (fn []
-                                           (if (let [F vim.bo.filetype]
+                                           (if (let [F vim.bo.filetype
+                                                       B vim.bo.buftype
+                                                       ]
                                                  (not (or (= F "")
-                                                          (= F :prompt)
-                                                          (= F :nofile))))
+                                                          (= B :prompt)
+                                                          (= B :nofile))))
                                                (do
                                                  (A.nvim_exec_autocmds :User
                                                                        {:pattern :SpecificFileEnter})
