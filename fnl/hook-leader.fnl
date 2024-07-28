@@ -56,7 +56,13 @@
          ;; toggle
          [:<leader>tm
           (lcmd "require('codewindow').toggle_minimap()")
-          (desc "toggle minimap")]]
+          (desc "toggle minimap")]
+         [:<leader>tj
+          (cmd "lua require('treesj').toggle({ split = { recursive = false }})")
+          (desc "toggle split/join")]
+         [:<leader>tJ
+          (cmd "lua require('treesj').toggle({ split = { recursive = true }})")
+          (desc "toggle recursive split/join")]]
       V [[:<Leader>T (cmd :Translate)] [:<leader>r (cmd :FlowRunSelected)]]]
   (each [_ K (ipairs N)]
     (vim.keymap.set :n (. K 1) (. K 2) (or (. K 3) opts)))

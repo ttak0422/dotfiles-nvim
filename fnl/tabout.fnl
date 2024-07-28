@@ -14,5 +14,5 @@
             :default_shift_tab :<C-d>
             :enable_backwards true
             :completion false
-            :ignoreignore_beginning false
+            :ignore_beginning false
             : tabouts}))

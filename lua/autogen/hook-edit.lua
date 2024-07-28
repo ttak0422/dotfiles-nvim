@@ -4,23 +4,19 @@ do
   for k, v in pairs(opts) do
     vim.o[k] = v
   end
+  do end (vim.opt.nrformats):append("unsigned")
 end
 local opts = {noremap = true, silent = true}
-local desc
-local function _1_(d)
-  return {noremap = true, silent = true, desc = d}
-end
-desc = _1_
 local cmd
-local function _2_(c)
+local function _1_(c)
   return ("<cmd>" .. c .. "<cr>")
 end
-cmd = _2_
+cmd = _1_
 local lcmd
-local function _3_(c)
+local function _2_(c)
   return cmd(("lua " .. c))
 end
-lcmd = _3_
+lcmd = _2_
 local N = {{"gx", lcmd("require('open').open_cword()")}}
 for _, k in ipairs(N) do
   vim.keymap.set("n", k[1], k[2], (k[3] or opts))

@@ -1,6 +1,8 @@
 { pkgs, ... }:
 let
+  inherit (pkgs) callPackage;
   read = builtins.readFile;
+  lib = callPackage ./lib.nix { };
 in
 with pkgs.vimPlugins;
 rec {
@@ -30,7 +32,7 @@ rec {
   };
   harpoon = {
     package = harpoon-2;
-    depends = [ plenary ];
+    depends = [ lib.plenary ];
     postConfig = read ../lua/autogen/harpoon.lua;
     hooks.modules = [ "harpoon" ];
   };

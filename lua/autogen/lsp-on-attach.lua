@@ -1,4 +1,4 @@
--- [nfnl] Compiled from full/fnl/lsp-on-attach.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] Compiled from fnl/lsp-on-attach.fnl by https://github.com/Olical/nfnl, do not edit.
 local function _1_(client, bufnr)
   local map = vim.keymap.set
   local cmd
@@ -25,7 +25,6 @@ local function _1_(client, bufnr)
   map("n", "<leader>rn", vim.lsp.buf.rename, desc("rename"))
   map("n", "<leader>ca", vim.lsp.buf.code_action, desc("code action"))
   map("n", "<leader>cc", cmd("Neogen class"), desc("class comment"))
-  map("n", "<leader>J", cmd("lua require('treesj').toggle({ split = { recursive = false }})"), desc("toggle split/join"))
   map("n", "<leader>cf", cmd("Neogen func"), desc("fn comment"))
   if client.supports_method("textDocument/formatting") then
     map("n", "<leader>cF", cmd("Format"), desc("format"))

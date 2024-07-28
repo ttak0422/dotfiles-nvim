@@ -6,7 +6,7 @@ let
   search = callPackage ./search.nix { };
 in
 with pkgs.vimPlugins;
-{
+rec {
   diffview = {
     package = diffview-nvim;
     depends = [ lib.devicons ];

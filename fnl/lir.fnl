@@ -1,17 +1,17 @@
-(let [lir (require :lir)
-      lirGit (require :lir.git_status)
-      actions (require :lir.actions)
+(let [M (setmetatable {:git (require :lir.git_status)
+                       :actions (require :lir.actions)}
+                      {:__index (require :lir)})
       ignore [:.DS_Store]
       devicons {:enable true :highlight_dirname true}
-      mappings {:e actions.edit
-                :<CR> actions.edit
-                :L actions.edit
-                :H actions.up
-                :q actions.quit
-                :<C-c> actions.quit
-                :a actions.newfile
-                :r actions.rename
-                :d actions.delete}
+      mappings {:e M.actions.edit
+                :<CR> M.actions.edit
+                :L M.actions.edit
+                :H M.actions.up
+                :q M.actions.quit
+                :<C-c> M.actions.quit
+                :a M.actions.newfile
+                :r M.actions.rename
+                :d M.actions.delete}
       float {:winblend 0
              :curdir_window {:enable true :highlight_dirname true}
              :win_opts (fn []
@@ -23,5 +23,5 @@
                             :style :minimal
                             :border :none}))
              :hide_cursor true}]
-  (lir.setup {:show_hidden_files true : ignore : devicons : mappings : float})
-  (lirGit.setup {:show_ignored false}))
+  (M.setup {:show_hidden_files true : ignore : devicons : mappings : float})
+  (M.git.setup {:show_ignored false}))

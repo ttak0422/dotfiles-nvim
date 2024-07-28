@@ -19,9 +19,6 @@
     (map :n :<leader>rn vim.lsp.buf.rename (desc :rename))
     (map :n :<leader>ca vim.lsp.buf.code_action (desc "code action"))
     (map :n :<leader>cc (cmd "Neogen class") (desc "class comment"))
-    (map :n :<leader>J
-         (cmd "lua require('treesj').toggle({ split = { recursive = false }})")
-         (desc "toggle split/join"))
     (map :n :<leader>cf (cmd "Neogen func") (desc "fn comment"))
     (if (client.supports_method :textDocument/formatting)
         (map :n :<leader>cF (cmd :Format) (desc :format)))

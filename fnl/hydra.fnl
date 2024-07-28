@@ -17,52 +17,52 @@
                 :on_exit nil
                 :on_key nil})
   ;; window
-  (let [heads [;; move window
-               [:h :<C-w>h {:exit true}]
-               [:j :<C-w>j {:exit true}]
-               [:k :<C-w>k {:exit true}]
-               [:l :<C-w>l {:exit true}]
-               [:w :<C-w>w {:exit true}]
-               [:<C-w> :<C-w>w {:desc false :exit true}]
-               [:p :<C-w>p {:desc false :exit true}]
-               [:<C-h> :<C-w>h]
-               [:<C-j> :<C-w>j]
-               [:<C-k> :<C-w>k]
-               [:<C-l> :<C-w>l]
-               ;; swap window
-               [:H (Cmd "WinShift left")]
-               [:J (Cmd "WinShift down")]
-               [:K (Cmd "WinShift up")]
-               [:L (Cmd "WinShift right")]
-               ;; resize
-               [:e
-                (fn []
-                  ((. (require :smart-splits) :start_resize_mode)))
-                {:desc "resize mode" :exit true}]
-               ;; window picker
-               [:p
-                (fn []
-                  ((. (require :nvim-window) :pick)))
-                {:desc "pick window" :exit true}]
-               ["=" :<C-w>= {:desc :equalize :exit true}]
-               [:<CR>
-                (Cmd :DetourCurrentWindow)
-                {:desc "open popup window" :exit true}]
-               ;; split
-               [:s :<C-w>s {:desc false :exit true}]
-               [:v :<C-w>v {:desc false :exit true}]
-               ;; zoom
-               [:z (Cmd :NeoZoomToggle) {:desc :zoom :exit true}]
-               ;; close
-               [:c :<C-w>c {:desc :close :exit true}]
-               [:o :<C-w>o {:desc "close other" :exit true}]
-               [:<C-o> :<C-w>o {:desc false :exit true}]
-               ;; quit
-               [:<Esc> nil {:desc false :exit true}]
-               [";" nil {:desc false :exit true}]
-               ]
-        config {:invoke_on_body true :hint false}]
-    (Hydra {:name :Windows :mode :n :body :<C-w> : heads : config}))
+  ; (let [heads [;; move window
+  ;              [:h :<C-w>h {:exit true}]
+  ;              [:j :<C-w>j {:exit true}]
+  ;              [:k :<C-w>k {:exit true}]
+  ;              [:l :<C-w>l {:exit true}]
+  ;              [:w :<C-w>w {:exit true}]
+  ;              [:<C-w> :<C-w>w {:desc false :exit true}]
+  ;              [:p :<C-w>p {:desc false :exit true}]
+  ;              [:<C-h> :<C-w>h]
+  ;              [:<C-j> :<C-w>j]
+  ;              [:<C-k> :<C-w>k]
+  ;              [:<C-l> :<C-w>l]
+  ;              ;; swap window
+  ;              [:H (Cmd "WinShift left")]
+  ;              [:J (Cmd "WinShift down")]
+  ;              [:K (Cmd "WinShift up")]
+  ;              [:L (Cmd "WinShift right")]
+  ;              ;; resize
+  ;              [:e
+  ;               (fn []
+  ;                 ((. (require :smart-splits) :start_resize_mode)))
+  ;               {:desc "resize mode" :exit true}]
+  ;              ;; window picker
+  ;              [:p
+  ;               (fn []
+  ;                 ((. (require :nvim-window) :pick)))
+  ;               {:desc "pick window" :exit true}]
+  ;              ["=" :<C-w>= {:desc :equalize :exit true}]
+  ;              [:<CR>
+  ;               (Cmd :DetourCurrentWindow)
+  ;               {:desc "open popup window" :exit true}]
+  ;              ;; split
+  ;              [:s :<C-w>s {:desc false :exit true}]
+  ;              [:v :<C-w>v {:desc false :exit true}]
+  ;              ;; zoom
+  ;              [:z (Cmd :NeoZoomToggle) {:desc :zoom :exit true}]
+  ;              ;; close
+  ;              [:c :<C-w>c {:desc :close :exit true}]
+  ;              [:o :<C-w>o {:desc "close other" :exit true}]
+  ;              [:<C-o> :<C-w>o {:desc false :exit true}]
+  ;              ;; quit
+  ;              [:<Esc> nil {:desc false :exit true}]
+  ;              [";" nil {:desc false :exit true}]
+  ;              ]
+  ;       config {:invoke_on_body true :hint false}]
+  ;   (Hydra {:name :Windows :mode :n :body :<C-w> : heads : config}))
   ;; venn
   (let [heads [[:H "<C-v>h:VBox<CR>"]
                [:J "<C-v>j:VBox<CR>"]

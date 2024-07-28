@@ -1,5 +1,5 @@
 -- [nfnl] Compiled from fnl/diffview.fnl by https://github.com/Olical/nfnl, do not edit.
-local M = setmetatable({actions = require("diffview.actions"), __index = require("diffview")})
+local M = setmetatable({actions = require("diffview.actions")}, {__index = require("diffview")})
 local icons = {folder_closed = "\238\151\191", folder_open = "\238\151\190"}
 local signs = {fold_closed = "\239\145\160", fold_open = "\239\145\188", done = "\226\156\147"}
 local view

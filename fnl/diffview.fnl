@@ -1,5 +1,5 @@
-(let [M (setmetatable {:actions (require :diffview.actions)
-                       :__index (require :diffview)})
+(let [M (setmetatable {:actions (require :diffview.actions)}
+                      {:__index (require :diffview)})
       icons {:folder_closed "" :folder_open ""}
       signs {:fold_closed "" :fold_open "" :done "✓"}
       view (let [default {:layout :diff2_horizontal

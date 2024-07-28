@@ -8,20 +8,12 @@ let
   after = {
     inherit (callPackage ./after.nix { }) ftplugin;
   };
-
   eager = {
     morimo.package = pkgs.vimPlugins.morimo;
     config-local.package = pkgs.vimPlugins.nvim-config-local;
   };
 
   lazy = {
-    inherit (callPackage ./hook.nix { })
-      hookBuffer
-      hookCmdline
-      hookEdit
-      hookInsert
-      hookLeader
-      ;
     inherit (callPackage ./debug.nix { }) dap dap-go dap-ui;
     inherit (callPackage ./denops.nix { })
       ddu
@@ -39,13 +31,129 @@ let
       neogit
       octo
       ;
+    inherit (callPackage ./helper.nix { })
+      direnv
+      fundo
+      history-ignore
+      lastplace
+      mkdir
+      open
+      project
+      registers
+      smart-splits
+      stickybuf
+      todo-comments
+      toolwindow
+      trim
+      vimdoc-ja
+      waitevent
+      whichkey
+      winshift
+      bufdel
+      ;
+    inherit (callPackage ./hook.nix { })
+      hookBuffer
+      hookCmdline
+      hookEdit
+      hookInsert
+      hookLeader
+      hookWindow
+      ;
+    inherit (callPackage ./input.nix { })
+      cmp
+      treesj
+      autopairs
+      better-escape
+      comment
+      indent-o-matic
+      tabout
+      undotree
+      ;
+    inherit (callPackage ./language.nix { })
+      lsp
+      gopher
+      haskell-tools
+      jdtls
+      nfnl
+      null-ls
+      rustaceanvim
+      vim-nix
+      vtsls
+      ;
+    inherit (callPackage ./lib.nix { })
+      plenary
+      nio
+      nui
+      devicons
+      ;
+    inherit (callPackage ./motion.nix { })
+      detour
+      leap
+      flit
+      goto-preview
+      harpoon
+      hydra
+      marks
+      BufferBrowser
+      nap
+      nvim-window
+      ;
+    inherit (callPackage ./outliner.nix { })
+      femaco
+      img-clip
+      markdown-preview
+      mkdnflow
+      venn
+      neorg
+      ;
+    inherit (callPackage ./quickfix.nix { }) bqf qf qfreplace;
     inherit (callPackage ./search.nix { })
+      telescope
       asterisk
-      fzf
       hlslens
       legendary
       reacher
-      telescope
+      fzf
+      ;
+    inherit (callPackage ./snippet.nix { })
+      sonictemplate
+      LuaSnip
+      flow
+      neogen
+      ;
+    inherit (callPackage ./style.nix { })
+      glance
+      dressing
+      ambiwidth
+      codewindow
+      colorizer
+      heirline
+      NeoZoom
+      notify
+      noice
+      numb
+      statuscol
+      tint
+      ufo
+      winsep
+      ;
+    inherit (callPackage ./test.nix { }) neotest;
+    inherit (callPackage ./tool.nix { })
+      jabs
+      toggleterm
+      overseer
+      spectre
+      startuptime
+      window-picker
+      lir
+      oil
+      ;
+    inherit (callPackage ./treesitter.nix { })
+      treesitter
+      auto-indent
+      context-vt
+      hlchunk
+      ts-autotag
       ;
   };
 in

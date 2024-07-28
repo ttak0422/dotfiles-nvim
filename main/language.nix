@@ -146,7 +146,7 @@ rec {
     # postConfig = configured in after/ftplugin/java
     depends = [
       lsp
-      dap
+      debug.dap
     ];
     hooks.fileTypes = [ "java" ];
   };

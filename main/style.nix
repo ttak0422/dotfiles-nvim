@@ -3,12 +3,13 @@ let
   inherit (pkgs) callPackage;
   read = builtins.readFile;
   lib = callPackage ./lib.nix { };
+  git = callPackage ./git.nix { };
   motion = callPackage ./motion.nix { };
   search = callPackage ./search.nix { };
   treesitter = callPackage ./treesitter.nix { };
 in
 with pkgs.vimPlugins;
-{
+rec {
   glance = {
     package = glance-nvim;
     postConfig = read ../lua/autogen/glance.lua;
@@ -46,11 +47,11 @@ with pkgs.vimPlugins;
     ];
     depends = [
       lib.plenary
+      git.gitsigns
       {
         package = scope-nvim;
         postConfig = read ../lua/autogen/scope.lua;
       }
-      gitsigns
       {
         package = harpoonline;
         depends = [ motion.harpoon ];
@@ -104,7 +105,7 @@ with pkgs.vimPlugins;
     package = nvim-ufo;
     depends = [
       promise-async
-      treesitter
+      treesitter.treesitter
     ];
     postConfig = read ../lua/autogen/ufo.lua;
     hooks.userEvents = [ "SpecificFileEnter" ];

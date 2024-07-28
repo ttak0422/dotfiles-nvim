@@ -42,4 +42,8 @@ with pkgs.vimPlugins;
       "CursorMoved"
     ];
   };
+  hookWindow = {
+    postConfig = read ../lua/autogen/hook-window.lua;
+    hooks.events = [ "WinNew" ];
+  };
 }

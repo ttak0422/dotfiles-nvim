@@ -15,10 +15,11 @@
             ;; 短径選択を寛容に
             :virtualedit :block}]
   (each [k v (pairs opts)]
-    (tset vim.o k v)))
+    (tset vim.o k v))
+  (vim.opt.nrformats:append :unsigned))
 
 (let [opts {:noremap true :silent true}
-      desc (fn [d] {:noremap true :silent true :desc d})
+      ;; desc (fn [d] {:noremap true :silent true :desc d})
       cmd (fn [c] (.. :<cmd> c :<cr>))
       lcmd (fn [c] (cmd (.. "lua " c)))
       N [[:gx (lcmd "require('open').open_cword()")]]]

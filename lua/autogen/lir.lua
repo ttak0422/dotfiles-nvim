@@ -1,10 +1,8 @@
--- [nfnl] Compiled from full/fnl/lir.fnl by https://github.com/Olical/nfnl, do not edit.
-local lir = require("lir")
-local lirGit = require("lir.git_status")
-local actions = require("lir.actions")
+-- [nfnl] Compiled from fnl/lir.fnl by https://github.com/Olical/nfnl, do not edit.
+local M = setmetatable({git = require("lir.git_status"), actions = require("lir.actions")}, {__index = require("lir")})
 local ignore = {".DS_Store"}
 local devicons = {enable = true, highlight_dirname = true}
-local mappings = {e = actions.edit, ["<CR>"] = actions.edit, L = actions.edit, H = actions.up, q = actions.quit, ["<C-c>"] = actions.quit, a = actions.newfile, r = actions.rename, d = actions.delete}
+local mappings = {e = M.actions.edit, ["<CR>"] = M.actions.edit, L = M.actions.edit, H = M.actions.up, q = M.actions.quit, ["<C-c>"] = M.actions.quit, a = M.actions.newfile, r = M.actions.rename, d = M.actions.delete}
 local float
 local function _1_()
   local width = math.floor((vim.o.columns / 2))
@@ -12,5 +10,5 @@ local function _1_()
   return {relative = "editor", width = width, height = height, style = "minimal", border = "none"}
 end
 float = {winblend = 0, curdir_window = {enable = true, highlight_dirname = true}, win_opts = _1_, hide_cursor = true}
-lir.setup({show_hidden_files = true, ignore = ignore, devicons = devicons, mappings = mappings, float = float})
-return lirGit.setup({show_ignored = false})
+M.setup({show_hidden_files = true, ignore = ignore, devicons = devicons, mappings = mappings, float = float})
+return M.git.setup({show_ignored = false})
