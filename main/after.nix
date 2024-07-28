@@ -2,7 +2,12 @@
 let
   read = builtins.readFile;
 
-  plugin = { };
+  plugin = {
+    common = {
+      language = "vim";
+      code = read ../vim/after/common-plugin.vim;
+    };
+  };
 
   hashkellTools = ''
     dofile("${pkgs.vimPlugins.haskell-tools-nvim}/ftplugin/haskell.lua")
