@@ -1,4 +1,5 @@
 -- [nfnl] Compiled from fnl/hook-cmdline.fnl by https://github.com/Olical/nfnl, do not edit.
+local cabbrev_path = args.cabbrev_path
 do
   local cmd = vim.api.nvim_create_user_command
   local function _1_(opts)
@@ -36,4 +37,4 @@ do
     vim.keymap.set("n", k[1], k[2], (k[3] or opts))
   end
 end
-return vim.cmd("\n  cabbrev <expr> r getcmdtype() .. getcmdline() ==# ':r' ? [getchar(), ''][1] .. '%s//g<Left><Left>' : (getcmdline() ==# ''<,'>r' ?  [getchar(), ''][1] .. 's//g<Left><Left>' : 'r')\n")
+return vim.cmd(("source " .. cabbrev_path))

@@ -17,7 +17,12 @@ with pkgs.vimPlugins;
     hooks.userEvents = [ "SpecificFileEnter" ];
   };
   hookCmdline = {
-    postConfig = read ../lua/autogen/hook-cmdline.lua;
+    postConfig = {
+      code = read ../lua/autogen/hook-cmdline.lua;
+      args = {
+        cabbrev_path = ../vim/cabbrev.vim;
+      };
+    };
     hooks.events = [ "CmdlineEnter" ];
   };
   hookEdit = {

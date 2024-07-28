@@ -1,3 +1,5 @@
+(local cabbrev_path args.cabbrev_path)
+
 (let [cmd vim.api.nvim_create_user_command]
   (cmd :SearchToQf (fn [opts]
                      (let [command (if opts.bang :vimgrepadd :vimgrep)
@@ -27,6 +29,4 @@
   (each [_ k (ipairs N)]
     (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts))))
 
-(vim.cmd "
-  cabbrev <expr> r getcmdtype() .. getcmdline() ==# ':r' ? [getchar(), ''][1] .. '%s//g<Left><Left>' : (getcmdline() ==# ''<,'>r' ?  [getchar(), ''][1] .. 's//g<Left><Left>' : 'r')
-")
+(vim.cmd (.. "source " cabbrev_path))
