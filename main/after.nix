@@ -33,6 +33,24 @@ let
       language = "vim";
       code = read ../vim/after/ddu-ff-filter.vim;
     };
+    NeogitStatus = {
+      language = "vim";
+      code = ''
+        setlocal foldcolumn=0
+      '';
+    };
+    NeogitCommitView = {
+      language = "vim";
+      code = ''
+        setlocal foldcolumn=0
+      '';
+    };
+    NeogitDiffView = {
+      language = "vim";
+      code = ''
+        setlocal foldcolumn=0
+      '';
+    };
   };
 in
 {
