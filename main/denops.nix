@@ -11,8 +11,7 @@ rec {
       language = "vim";
       code = ''
         " use latest
-        let g:denops#deno = '${pkgs.deno}/bin/deno'
-        let g:denops#server#deno_args = ['-q', '--no-lock', '-A', '--unstable-kv']
+        let g:denops_server_addr = '0.0.0.0:32123'
       '';
     };
   };

@@ -1,8 +1,6 @@
 {
   nixConfig = {
-    extra-substituters = [
-      "https://nix-community.cachix.org"
-    ];
+    extra-substituters = [ "https://nix-community.cachix.org" ];
     extra-trusted-public-keys = [
       "ttak0422-dotfiles-nvim.cachix.org-1:LHmQa5l92iTmX+6sKRZOPz2MsunlWcvQfmgFuCjyTmE="
     ];
@@ -45,6 +43,13 @@
     };
 
     # plugins
+    denops-shared-server-service = {
+      url = "github:ttak0422/denops-shared-server-service";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
     morimo = {
       # url = "path:/Users/ttak0422/ghq/github.com/ttak0422/morimo";
       url = "github:ttak0422/morimo";

@@ -23,6 +23,9 @@ inputs: with inputs; [
         "nix-filter"
         "bundler"
         "loaded-nvim"
+        "junit-console"
+        "jol"
+        "denops-shared-server-service"
       ];
       plugins = filter (name: !(elem name excludeInputs)) (attrNames inputs);
       base = {
@@ -49,6 +52,9 @@ inputs: with inputs; [
           }) plugins
         ))
         // {
+          inherit (inputs.denops-shared-server-service.packages.${prev.stdenv.hostPlatform.system})
+            denops-vim;
+
           telescope-fzf-native-nvim = buildVimPlugin (
             base
             // {
