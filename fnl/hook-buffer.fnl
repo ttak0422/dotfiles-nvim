@@ -30,7 +30,12 @@
             ;; カレントウィンドウの最小幅
             :winwidth 20
             ;; カレントウィンドウの最小高
-            :winheight 1}]
+            :winheight 1
+            :foldcolumn :1
+            :signcolumn :yes
+            :number true
+            :foldenable true
+            :fillchars "eob: ,fold: ,foldopen:,foldsep: ,foldclose:"}]
   (each [k v (pairs opts)]
     (tset vim.o k v)))
 

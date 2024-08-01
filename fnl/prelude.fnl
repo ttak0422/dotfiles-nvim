@@ -48,13 +48,11 @@
 ;; SpecificFileEnter
 (let [A vim.api]
   (set specificFileEnterAutoCmd
-       (A.nvim_create_autocmd :FileType
+       (A.nvim_create_autocmd :BufReadPost
                               {:callback (fn []
-                                           (if (let [F vim.bo.filetype
-                                                       B vim.bo.buftype
-                                                       ]
-                                                 (not (or (= F "")
-                                                          (= B :prompt)
+                                           (if (let [;; F vim.bo.filetype
+                                                     B vim.bo.buftype]
+                                                 (not (or (= B :prompt)
                                                           (= B :nofile))))
                                                (do
                                                  (A.nvim_exec_autocmds :User

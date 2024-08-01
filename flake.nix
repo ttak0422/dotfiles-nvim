@@ -993,6 +993,10 @@
       url = "github:/ibhagwan/fzf-lua";
       flake = false;
     };
+    dropbar-nvim = {
+      url = "github:Bekaboo/dropbar.nvim";
+      flake = false;
+    };
   };
 
   outputs =

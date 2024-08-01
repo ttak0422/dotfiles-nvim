@@ -1226,6 +1226,22 @@
         "type": "github"
       }
     },
+    "dropbar-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721885574,
+        "narHash": "sha256-M5PSMiglIu22FA7Hzr6bhfLyXBFVPyV13PaZbiU+jSs=",
+        "owner": "Bekaboo",
+        "repo": "dropbar.nvim",
+        "rev": "aa4c0ab1ade45ff9a3c5d4c06365c9b119f32d36",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Bekaboo",
+        "repo": "dropbar.nvim",
+        "type": "github"
+      }
+    },
     "efmls-configs-nvim": {
       "flake": false,
       "locked": {
@@ -3588,6 +3604,7 @@
         "diffview-nvim": "diffview-nvim",
         "direnv-vim": "direnv-vim",
         "dressing-nvim": "dressing-nvim",
+        "dropbar-nvim": "dropbar-nvim",
         "efmls-configs-nvim": "efmls-configs-nvim",
         "flake-parts": "flake-parts_2",
         "flit-nvim": "flit-nvim",
@@ -3863,11 +3880,11 @@
     "statuscol-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1718485869,
-        "narHash": "sha256-kzaSpkeiH0kOvMQJSHioOcbXTnSKaSglIMf+53q+ZGM=",
+        "lastModified": 1722422861,
+        "narHash": "sha256-Rgyjgoc/2unXBo/icbfhj92XlSt2CnpEu4m/5iTYgDE=",
         "owner": "luukvbaal",
         "repo": "statuscol.nvim",
-        "rev": "d6f7f5437c5404d958b88bb73e0721b1c0e09223",
+        "rev": "93d8bcda516fc86e11c03f9ef577bae9a72fba0e",
         "type": "github"
       },
       "original": {

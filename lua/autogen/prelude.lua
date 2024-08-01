@@ -1,6 +1,6 @@
 -- [nfnl] Compiled from fnl/prelude.fnl by https://github.com/Olical/nfnl, do not edit.
 vim.loader.enable()
-for k, v in pairs({langmenu = "none", shortmess = (vim.o.shortmess .. "sWIcCS"), cmdheight = 0, termguicolors = true, signcolumn = "no", showtabline = 0, laststatus = 0, foldlevel = 99, foldlevelstart = 99, showmode = false, number = false}) do
+for k, v in pairs({langmenu = "none", shortmess = (vim.o.shortmess .. "sWIcCS"), cmdheight = 0, termguicolors = true, signcolumn = "no", showtabline = 0, laststatus = 0, foldlevel = 99, foldlevelstart = 99, number = false, showmode = false}) do
   vim.o[k] = v
 end
 vim.g.mapleader = " "
@@ -26,9 +26,8 @@ do
   local function _2_()
     local _3_
     do
-      local F = vim.bo.filetype
       local B = vim.bo.buftype
-      _3_ = not ((F == "") or (B == "prompt") or (B == "nofile"))
+      _3_ = not ((B == "prompt") or (B == "nofile"))
     end
     if _3_ then
       A.nvim_exec_autocmds("User", {pattern = "SpecificFileEnter"})
@@ -37,7 +36,7 @@ do
       return nil
     end
   end
-  specificFileEnterAutoCmd = A.nvim_create_autocmd("FileType", {callback = _2_})
+  specificFileEnterAutoCmd = A.nvim_create_autocmd("BufReadPost", {callback = _2_})
 end
 vim.cmd("colorscheme morimo")
 local M = require("config-local")

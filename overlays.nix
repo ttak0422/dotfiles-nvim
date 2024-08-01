@@ -45,7 +45,7 @@ inputs: with inputs; [
           map (name: {
             inherit name;
             value = buildVimPlugin {
-              version = "bundled";
+              version = (getAttr name inputs).rev;
               pname = name;
               src = getAttr name inputs;
             };
