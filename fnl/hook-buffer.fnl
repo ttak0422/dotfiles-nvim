@@ -56,6 +56,7 @@
          [:gP
           (lcmd "require('goto-preview').close_all_win()")
           (desc "close all preview")]
+         [:gb (lcmd "require('dropbar.api').pick()") (desc :pick)]
          ;; debug
          [:<F5> (lcmd "require('dap').continue()") (desc :continue)]
          [:<F10> (lcmd "require('dap').step_over()") (desc "step over")]

@@ -123,15 +123,16 @@ let
       neogen
       ;
     inherit (callPackage ./style.nix { })
-      glance
-      dressing
+      NeoZoom
       ambiwidth
       codewindow
       colorizer
+      dressing
+      dropbar
+      glance
       heirline
-      NeoZoom
-      notify
       noice
+      notify
       numb
       statuscol
       tint

@@ -7,6 +7,7 @@ let
   motion = callPackage ./motion.nix { };
   search = callPackage ./search.nix { };
   treesitter = callPackage ./treesitter.nix { };
+  language = callPackage ./language.nix { };
 in
 with pkgs.vimPlugins;
 rec {
@@ -115,6 +116,20 @@ rec {
     postConfig = {
       code = read ../lua/autogen/winsep.lua;
       args.exclude_ft_path = ../lua/autogen/exclude_ft.lua;
+    };
+    hooks.events = [ "WinNew" ];
+  };
+  dropbar = {
+    package = dropbar-nvim;
+    depends = [
+      language.lsp
+      search.telescope
+      treesitter.treesitter
+    ];
+    postConfig = read ../lua/autogen/dropbar.lua;
+    hooks = {
+      userEvents = [ "SpecificFileEnter" ];
+      modules = [ "dropbar.api" ];
     };
   };
 }
