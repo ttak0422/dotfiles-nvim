@@ -3,7 +3,7 @@
 (each [k v (pairs {;; 言語メニューを無効にする
                    :langmenu :none
                    ;; shortmessオプションにsWIcCSを追加
-                   :shortmess (.. vim.o.shortmess :sWIcCS)
+                   :shortmess (.. vim.o.shortmess :sWcCS)
                    ;; コマンドラインの高さを0に設定
                    :cmdheight 0
                    ;; guifg, guibgの有効化
@@ -61,4 +61,4 @@
 
 ;; eager configs
 (vim.cmd "colorscheme morimo")
-(let [M (require :config-local)] (M.setup {:silent true}))
+((. (require :config-local) :setup) {:silent true})

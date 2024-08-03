@@ -2,7 +2,11 @@
 let
   inherit (pkgs) callPackage;
   read = builtins.readFile;
-  package = self'.packages.loaded-nvim-nightly;
+  package = self'.packages.loaded-nvim-nightly.overrideAttrs (old: {
+    # git diff | sed '/^index /d' | pbcopy
+    patches = [ ./version.patch ];
+  });
+
   extraPackages = [ ];
   extraConfig = read ./../lua/autogen/prelude.lua;
   after = {
@@ -11,6 +15,8 @@ let
   eager = {
     morimo.package = pkgs.vimPlugins.morimo;
     config-local.package = pkgs.vimPlugins.nvim-config-local;
+    # alpha.package = pkgs.vimPlugins.alpha-nvim;
+    # btw.package = pkgs.vimPlugins.btw-nvim;
   };
 
   lazy = {

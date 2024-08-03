@@ -82,6 +82,22 @@
         "type": "github"
       }
     },
+    "alpha-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1708891191,
+        "narHash": "sha256-kTVPKZ/e1us/uHfSwFwR38lFYN8EotJq2jKz6xm/eqg=",
+        "owner": "goolord",
+        "repo": "alpha-nvim",
+        "rev": "41283fb402713fc8b327e60907f74e46166f4cfd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "goolord",
+        "repo": "alpha-nvim",
+        "type": "github"
+      }
+    },
     "auto-indent-nvim": {
       "flake": false,
       "locked": {
@@ -111,6 +127,22 @@
       "original": {
         "owner": "max397574",
         "repo": "better-escape.nvim",
+        "type": "github"
+      }
+    },
+    "btw-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1712766747,
+        "narHash": "sha256-91DZUfa4FBvXnkcNHdllr82Dr1Ie+MGVD3ibwkqo04c=",
+        "owner": "letieu",
+        "repo": "btw.nvim",
+        "rev": "47f6419e90d3383987fd06e8f3e06a4bc032ac83",
+        "type": "github"
+      },
+      "original": {
+        "owner": "letieu",
+        "repo": "btw.nvim",
         "type": "github"
       }
     },
@@ -437,11 +469,11 @@
     "ddu-column-filename": {
       "flake": false,
       "locked": {
-        "lastModified": 1719979101,
-        "narHash": "sha256-wwjbayeKlcHQzsLVPRFE4/jjXE+XsD3ec8sqb3HFzDs=",
+        "lastModified": 1722230270,
+        "narHash": "sha256-jYUyuOZgTMhjLuwMVG4gKPAUnqIjFOcN7Y4/fs2XaDo=",
         "owner": "Shougo",
         "repo": "ddu-column-filename",
-        "rev": "46a4549c80a43654804fcc5e8a5ff81b8c8b6b02",
+        "rev": "0f128aa3fce1b3a3221ce0662ebb55899d824c0e",
         "type": "github"
       },
       "original": {
@@ -501,11 +533,11 @@
     "ddu-filter-converter_display_word": {
       "flake": false,
       "locked": {
-        "lastModified": 1700702974,
-        "narHash": "sha256-OxW0SdlJ1IliNvZQxMqHORfe1gIRhIIL6pwNsH4q+Jo=",
+        "lastModified": 1722557246,
+        "narHash": "sha256-Sl4XE799QSy85pdWv0K/mGJdCdCCjn7gL/IXO0vMGIM=",
         "owner": "Shougo",
         "repo": "ddu-filter-converter_display_word",
-        "rev": "3e0356dc09c557eb771574123a4ce5164a9eec8b",
+        "rev": "977c2397d500433ec97147016babdc2f2c672899",
         "type": "github"
       },
       "original": {
@@ -517,11 +549,11 @@
     "ddu-filter-converter_hl_dir": {
       "flake": false,
       "locked": {
-        "lastModified": 1720113355,
-        "narHash": "sha256-CMUHJqYRYERjVZa2ckO9gkMtzB4xbEWy5rsNv4ioTq4=",
+        "lastModified": 1722650679,
+        "narHash": "sha256-EWkdLDamkK4ozfWz396zLpXL0zyLdIN2fCNW1cv/2Hs=",
         "owner": "kyoh86",
         "repo": "ddu-filter-converter_hl_dir",
-        "rev": "300e1d375bd0037193f8bd46de86989f3fd8962d",
+        "rev": "c6a3ea7e5e25d1cbace25ac3ed2d6d1618462269",
         "type": "github"
       },
       "original": {
@@ -549,11 +581,11 @@
     "ddu-filter-kensaku": {
       "flake": false,
       "locked": {
-        "lastModified": 1712741263,
-        "narHash": "sha256-yk+dO41VYUyxoyy9ZsZUzscRs141h/mhXbgqkjcnkIk=",
+        "lastModified": 1722486403,
+        "narHash": "sha256-AHgecmCKcfgEFnXOu2wHjGqsGVp+rpH7KRk7x5QFIoE=",
         "owner": "Milly",
         "repo": "ddu-filter-kensaku",
-        "rev": "66152f327c828a7602af741704dd763b7b4b62fc",
+        "rev": "2d920c077fd0e1d81533c13c0f1fe32c1f9a599c",
         "type": "github"
       },
       "original": {
@@ -565,11 +597,11 @@
     "ddu-filter-matcher_files": {
       "flake": false,
       "locked": {
-        "lastModified": 1715317373,
-        "narHash": "sha256-uMOQwwRu/xjeUNPUAhrCqTt7TX3DSKwHLpuqtXfkbpQ=",
+        "lastModified": 1722557324,
+        "narHash": "sha256-UgF35mxf9rp1uBJRdtnWliukFyISJniqz/N5MpQiBmE=",
         "owner": "Shougo",
         "repo": "ddu-filter-matcher_files",
-        "rev": "e752f7c49511204085b9deb67ce8d1cb3ac01859",
+        "rev": "51da31048c5edd0a0d06afe03e32dce922c54175",
         "type": "github"
       },
       "original": {
@@ -581,11 +613,11 @@
     "ddu-filter-matcher_hidden": {
       "flake": false,
       "locked": {
-        "lastModified": 1715906532,
-        "narHash": "sha256-3H8DxEtLktVJtU7NU4pxEXaoe9A2VErer7/eV7HUCx4=",
+        "lastModified": 1722557453,
+        "narHash": "sha256-RcWtZEa8ZrBFvfIXJgsIg1hB+CtMYKrRDoU3Ey/55ns=",
         "owner": "Shougo",
         "repo": "ddu-filter-matcher_hidden",
-        "rev": "812de5eb02d215f95799b8b7edefe5a2f175cbc0",
+        "rev": "fe90efd935db737a9bd7b4083b9263c4b589fa88",
         "type": "github"
       },
       "original": {
@@ -597,11 +629,11 @@
     "ddu-filter-matcher_substring": {
       "flake": false,
       "locked": {
-        "lastModified": 1715317462,
-        "narHash": "sha256-kOh1fXr3PMj4rbeqQkSHeQxVcjXPaJ86nRuzeWvxzyQ=",
+        "lastModified": 1722557701,
+        "narHash": "sha256-5tB4Yo9hMGNLGSmp6GnuykPfbbyTfk1U5swTxWTmDxQ=",
         "owner": "Shougo",
         "repo": "ddu-filter-matcher_substring",
-        "rev": "2b47c8380d650ee0bf74f1f3c99928732acccd15",
+        "rev": "02aa22f1efcd48797f5040268d926a37b2f855eb",
         "type": "github"
       },
       "original": {
@@ -613,11 +645,11 @@
     "ddu-filter-merge": {
       "flake": false,
       "locked": {
-        "lastModified": 1712742637,
-        "narHash": "sha256-AvkYdBUfaHWq6HV36wROVhrgkYGiRc3OELubT8DJtV8=",
+        "lastModified": 1722533215,
+        "narHash": "sha256-nGSZjcq3FJQz6TrCXGAKfPUYviBlaQED2zkEQ+1WxJY=",
         "owner": "Milly",
         "repo": "ddu-filter-merge",
-        "rev": "bfa9c830a8f573133bfbcbdef1c31996da520e4a",
+        "rev": "06dec27e83ec61702737fe5d31ef001ba4502481",
         "type": "github"
       },
       "original": {
@@ -629,11 +661,11 @@
     "ddu-filter-sorter_alpha": {
       "flake": false,
       "locked": {
-        "lastModified": 1717545476,
-        "narHash": "sha256-UDD4zrPQDsm97mH0LOoeEBJJz/vJpIdhZyFRvrXaT0Q=",
+        "lastModified": 1722557174,
+        "narHash": "sha256-BGeTknuhrShw/M3Z261bzfBzkk+TGXId90oQMy1P2qk=",
         "owner": "Shougo",
         "repo": "ddu-filter-sorter_alpha",
-        "rev": "d5f111c7f378dd19ea5905277ab423acd48b082e",
+        "rev": "e8e692aa0791fd08b2b1b3e098c3b2e93f18fcd4",
         "type": "github"
       },
       "original": {
@@ -645,11 +677,11 @@
     "ddu-filter-sorter_reversed": {
       "flake": false,
       "locked": {
-        "lastModified": 1692063420,
-        "narHash": "sha256-dpcO/7mNjsN5+aLRde5DEnSuOHi2mQQ6NbMjlX+gIzI=",
+        "lastModified": 1722557210,
+        "narHash": "sha256-vlT5Zwl8RfU+Gu1xUZspIZT302Iw8fBa+g6TkxuB5mU=",
         "owner": "Shougo",
         "repo": "ddu-filter-sorter_reversed",
-        "rev": "7deeacf8f3fa2bf218f72da887b1eb36c27c948b",
+        "rev": "6d240ce0377b40911eff09ee71d3ad4d88d3eb46",
         "type": "github"
       },
       "original": {
@@ -677,11 +709,11 @@
     "ddu-kind-file": {
       "flake": false,
       "locked": {
-        "lastModified": 1717477317,
-        "narHash": "sha256-Az90XvKTpIpU/YvLUNyjPqiQZfugYQTfplg7ZuYGVDU=",
+        "lastModified": 1722649913,
+        "narHash": "sha256-UVzLUhmhUCHdZriB3r4AGngGWL2Ft9ChMaRKWinYIxg=",
         "owner": "Shougo",
         "repo": "ddu-kind-file",
-        "rev": "32fe6928bd1d955e5a63d5cd371dae0b4d09e770",
+        "rev": "903718f9800690017fd0e0c4431e4c0093472cf0",
         "type": "github"
       },
       "original": {
@@ -693,11 +725,11 @@
     "ddu-source-action": {
       "flake": false,
       "locked": {
-        "lastModified": 1716164013,
-        "narHash": "sha256-IP/t7vJwzLZ0vDJdVAOan5GBapoIYdP4SzY8ovHY8kU=",
+        "lastModified": 1722483976,
+        "narHash": "sha256-kj7traodL/0cVeWu4ZNUFM4phLSEvTrBxHZu39tT4YQ=",
         "owner": "Shougo",
         "repo": "ddu-source-action",
-        "rev": "ad7e2297559aa6a8d769092b30614c734a4ed9de",
+        "rev": "a6a2121cd23b200298a7034d9fee64416b7cb5ac",
         "type": "github"
       },
       "original": {
@@ -757,11 +789,11 @@
     "ddu-source-file": {
       "flake": false,
       "locked": {
-        "lastModified": 1717477302,
-        "narHash": "sha256-ibokMTwXbwJqOWTfZw+pTTL1lvvxaJmXhtV/E60X3P8=",
+        "lastModified": 1722484024,
+        "narHash": "sha256-JRQNleF77uXs3QGvYTizHyBCVtIXwgmbPtS1edJpPsE=",
         "owner": "Shougo",
         "repo": "ddu-source-file",
-        "rev": "760f5b0acf92c260034cf55f4c9e6d95111b6d81",
+        "rev": "6be38b4a9e7937edc9e3e8978bee19b9937da89e",
         "type": "github"
       },
       "original": {
@@ -773,11 +805,11 @@
     "ddu-source-file_external": {
       "flake": false,
       "locked": {
-        "lastModified": 1687759397,
-        "narHash": "sha256-YznDoiBLE+w6lP7M3jQg+EX0bGT4wwdVTPvolzhn240=",
+        "lastModified": 1722605604,
+        "narHash": "sha256-wiwH7+9D8BdbuHs3PZT02hBsNv/gC0by2ia9jAAe7xQ=",
         "owner": "matsui54",
         "repo": "ddu-source-file_external",
-        "rev": "54fb945d0b4d25f8d36582a07893de6ffa0112d5",
+        "rev": "01817ecffa65ef365e5ddd64625781223a2e59f7",
         "type": "github"
       },
       "original": {
@@ -805,11 +837,11 @@
     "ddu-source-file_old": {
       "flake": false,
       "locked": {
-        "lastModified": 1716163290,
-        "narHash": "sha256-LZPxDZFEBnSU2cmYq7YRVFTquew7IQLVbzKuhAcD+Hw=",
+        "lastModified": 1722484038,
+        "narHash": "sha256-Djd3Fs31lV4TYJ5bCsY2v7TRol/ON1Xn0rYccHzC/Gw=",
         "owner": "Shougo",
         "repo": "ddu-source-file_old",
-        "rev": "cc0117b8c0b4a6e85e7687e9fd46f4702a77f5d9",
+        "rev": "f1fe27cf3f7e63bcc2f65ad1a0ec599a5b9db2ad",
         "type": "github"
       },
       "original": {
@@ -821,11 +853,11 @@
     "ddu-source-file_rec": {
       "flake": false,
       "locked": {
-        "lastModified": 1717462958,
-        "narHash": "sha256-KD31raMff8GUhqve9fxjrS/t5RMrPqulkd9X0GgBxko=",
+        "lastModified": 1722484071,
+        "narHash": "sha256-PxPmTZrGAQd1mdOyZLbNJwSqmcN6+WYA6SbpeWTR9Po=",
         "owner": "Shougo",
         "repo": "ddu-source-file_rec",
-        "rev": "228f95515397f35282f5fb316b1de3acfc8c8a98",
+        "rev": "79c4c78df43b64417d23977667b26fcde9ad09de",
         "type": "github"
       },
       "original": {
@@ -853,11 +885,11 @@
     "ddu-source-git_diff": {
       "flake": false,
       "locked": {
-        "lastModified": 1711031607,
-        "narHash": "sha256-R2uxmeoxUbwZN57eQwilDt8jjXmjvvONr7dhzcVMm78=",
+        "lastModified": 1722317774,
+        "narHash": "sha256-qgPaPijP8NR+st+hbjC7yQFjyRz++U7AfuFR7T7PeHU=",
         "owner": "kuuote",
         "repo": "ddu-source-git_diff",
-        "rev": "6a7b725b08e408bfda1f4f6d2940b0d950504246",
+        "rev": "e5ebf3a47b11f32dad070b27ee54cfab2f3aa737",
         "type": "github"
       },
       "original": {
@@ -869,11 +901,11 @@
     "ddu-source-git_log": {
       "flake": false,
       "locked": {
-        "lastModified": 1720113380,
-        "narHash": "sha256-Dcth+LXmvcOY4BSJggSX6nSINZbyQ6wSFKC7XIGkZdc=",
+        "lastModified": 1722650689,
+        "narHash": "sha256-sIL1RiHO0L1RCQud1M8xuHaNkIKXutd/E4KLEvqQ3KM=",
         "owner": "kyoh86",
         "repo": "ddu-source-git_log",
-        "rev": "a0ed5b2bbad6ce7cdd48d2ba6bee589d12fd1c38",
+        "rev": "edb02ac818294767a01744a6641ef60345961e52",
         "type": "github"
       },
       "original": {
@@ -917,11 +949,11 @@
     "ddu-source-line": {
       "flake": false,
       "locked": {
-        "lastModified": 1704171950,
-        "narHash": "sha256-uRJyEdG/OUOYsBgeUdX2CCI32wBn6i+c9U2ZycQVf7c=",
+        "lastModified": 1722484085,
+        "narHash": "sha256-hTzWbG+ppipo35ONPxLTpM8b/D31A04pU2Va5qsUrLM=",
         "owner": "Shougo",
         "repo": "ddu-source-line",
-        "rev": "2e952c0f697e4e3731d1101a74458cf9fa4c5b57",
+        "rev": "120f7781decd3c811f9fe10195f25e0a193514d1",
         "type": "github"
       },
       "original": {
@@ -965,11 +997,11 @@
     "ddu-source-register": {
       "flake": false,
       "locked": {
-        "lastModified": 1692062713,
-        "narHash": "sha256-UvZ2PimE5ylWepwJVEH+ZBBbDSsPkgVzcg81kiwk7eA=",
+        "lastModified": 1722471265,
+        "narHash": "sha256-QP+gCl03ZLCUIkHAWveWkcMUXw7upcKpqPSLf4a63KI=",
         "owner": "Shougo",
         "repo": "ddu-source-register",
-        "rev": "3fb8ee88317655f99101cbfdca63934c595e627e",
+        "rev": "2ca72c4b975802de261d2ba3a2c6e2fe2edf75da",
         "type": "github"
       },
       "original": {
@@ -981,11 +1013,11 @@
     "ddu-source-rg": {
       "flake": false,
       "locked": {
-        "lastModified": 1715315971,
-        "narHash": "sha256-FF26WkCFPKB3gaBHxNwU0fOObR2B4rcjcbFcV6Obufo=",
+        "lastModified": 1722557405,
+        "narHash": "sha256-wZvX6EDzV+SzY6fOyNxKrYd8aGa8PRmhJIf5JNAXLF0=",
         "owner": "shun",
         "repo": "ddu-source-rg",
-        "rev": "65c51de6c67c1b8a1cda9fb3ee003776da9d5d3e",
+        "rev": "b9639c8f97a0351e76f5bb27a4281cec9ccac0c0",
         "type": "github"
       },
       "original": {
@@ -997,11 +1029,11 @@
     "ddu-source-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1692063583,
-        "narHash": "sha256-Rz+eYkB+svH+dFl24mnV+h90TqJX56eStJjSB5p//fs=",
+        "lastModified": 1722483963,
+        "narHash": "sha256-KAYijb5vdRAMRNI4FPYH3Vk/qKOcosCbTnsW3qNnctE=",
         "owner": "Shougo",
         "repo": "ddu-source-vim",
-        "rev": "d853619ed1e70645c68644bf8a369f4debd58335",
+        "rev": "3908b395b7baa31614eee13ba593ec998d2ac24b",
         "type": "github"
       },
       "original": {
@@ -1013,11 +1045,11 @@
     "ddu-ui-ff": {
       "flake": false,
       "locked": {
-        "lastModified": 1721209741,
-        "narHash": "sha256-A3/9ZuPeiZoa35G7BvDLjPi1bBDJBQh6VUfLGRUoel0=",
+        "lastModified": 1722650241,
+        "narHash": "sha256-Q3GLASo+Eg8TC412iW8mqRId662nlya5Eh9/tdAUJl8=",
         "owner": "Shougo",
         "repo": "ddu-ui-ff",
-        "rev": "d200f6338faa36f77fb236275af9dc0c90882c78",
+        "rev": "dd6cc89edd4d19996eaf3cb9247be2e4c58e83c9",
         "type": "github"
       },
       "original": {
@@ -1029,11 +1061,11 @@
     "ddu-ui-filter": {
       "flake": false,
       "locked": {
-        "lastModified": 1721125694,
-        "narHash": "sha256-CB2sbtrNRrGSl8ggORzWMXTrRB5z0OVZbwFdf296fac=",
+        "lastModified": 1722650052,
+        "narHash": "sha256-Ze46qsvt/AkCvbL5vYcbELIWWcVFVlKc1wv8i8QKmfc=",
         "owner": "Shougo",
         "repo": "ddu-ui-filer",
-        "rev": "3087f1ab7a2476caae2fd0e7bf31f5077c604a21",
+        "rev": "bcebbbbebe78bf039d8bfcd044708a2581ddb547",
         "type": "github"
       },
       "original": {
@@ -1045,11 +1077,11 @@
     "ddu-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1721125623,
-        "narHash": "sha256-zQI4XRuGoQSWfSOjrSdfXJ78vrxPqssa2c6mn8lG6Tw=",
+        "lastModified": 1722677665,
+        "narHash": "sha256-MTQsHgBa6YKQD5iC18He40TnimrYuyYF5ysIRphhiVA=",
         "owner": "Shougo",
         "repo": "ddu.vim",
-        "rev": "33faa707d5bfb0d17b82d7e50d676bcfffd871d7",
+        "rev": "b18dd46adfbba3d8d0206928ac305879af04edea",
         "type": "github"
       },
       "original": {
@@ -1133,11 +1165,11 @@
     "denops-vim_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1719618962,
-        "narHash": "sha256-jAHgw4dTs4BURrSkip8mKQImG4yNPaxAsQv2CBMIH4k=",
+        "lastModified": 1722058756,
+        "narHash": "sha256-pV+1SfXWlURNq2JSGQ3HyO9Ah/Fzur0FdelJmaGLwrU=",
         "owner": "vim-denops",
         "repo": "denops.vim",
-        "rev": "09e64956c2946bba0a060d0a0aaddde106753bd9",
+        "rev": "8c920ec6f190c5c77287f802884bc2004799d062",
         "type": "github"
       },
       "original": {
@@ -3536,8 +3568,10 @@
         "JABS-nvim": "JABS-nvim",
         "LuaSnip": "LuaSnip",
         "NeoZoom-lua": "NeoZoom-lua",
+        "alpha-nvim": "alpha-nvim",
         "auto-indent-nvim": "auto-indent-nvim",
         "better-escape-nvim": "better-escape-nvim",
+        "btw-nvim": "btw-nvim",
         "bundler": "bundler",
         "climbdir-nvim": "climbdir-nvim",
         "cmp-buffer": "cmp-buffer",
