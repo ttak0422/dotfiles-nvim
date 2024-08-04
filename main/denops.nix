@@ -73,6 +73,8 @@ rec {
       ddu-filter-converter_display_word
       ddu-kind-file
       ddu-commands-vim
+      ddu-filter-matcher_ignore_files
+      ddu-filter-matcher_relative
     ];
     depends = [
       denops
@@ -87,9 +89,7 @@ rec {
     postConfig = {
       language = "vim";
       code = read ../vim/ddu.vim;
-      args = {
-        ts_config = ../denops/ddu.ts;
-      };
+      args.ts_config = ../denops/ddu.ts;
     };
     hooks.commands = [
       "Ddu"

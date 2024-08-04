@@ -1,10 +1,8 @@
-import { BaseConfig } from "https://deno.land/x/ddu_vim@v4.0.0/types.ts";
-import { ConfigArguments } from "https://deno.land/x/ddu_vim@v4.0.0/base/config.ts";
-import { Denops, fn } from "https://deno.land/x/ddu_vim@v4.0.0/deps.ts";
-import {
-  Params as FfParams,
-  Ui as FfUi,
-} from "https://deno.land/x/ddu_ui_ff@v1.1.0/ff.ts";
+import { BaseConfig, Denops } from "jsr:@shougo/ddu-vim@~5.0.0/types";
+import { ConfigArguments } from "jsr:@shougo/ddu-vim@~5.0.0/config";
+import { Params as FfParams } from "jsr:@shougo/ddu-ui-ff@~1.2.0";
+import { Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@~1.2.0";
+import * as fn from "jsr:@denops/std@~7.0.1/function";
 
 export class Config extends BaseConfig {
   override config({
@@ -16,56 +14,56 @@ export class Config extends BaseConfig {
     setAlias("source", "mrw", "mr");
     setAlias("source", "mrr", "mr");
 
-    const ffParamsDefault = new FfUi().params();
-    const ffUiParams: FfParams = {
-      ...ffParamsDefault,
-      ignoreEmpty: true,
-      startAutoAction: false,
-      autoAction: {
-        name: "preview",
-        delay: 250, // same as telescope.nvim
-      },
-      autoResize: false,
-      displaySourceName: "no",
-      floatingBorder: "none",
-      split: "floating",
-      winCol: "&columns / 4",
-      winWidth: "&columns / 2",
-      winRow: "&lines / 3",
-      filterFloatingPosition: "top",
-      filterSplitDirection: "topleft",
-      highlights: {
-        filterText: "Statement",
-        floating: "NormalFloat",
-        floatingBorder: "none",
-        selected: "CursorLine",
-      },
-      onPreview: async (args: { denops: Denops; previewWinId: number }) => {
-        await fn.win_execute(args.denops, args.previewWinId, "normal! zt");
-      },
-      previewFloating: true,
-      previewFloatingBorder: "none",
-      previewSplit: "vertical",
-      previewCol: "1",
-      previewWidth: "&columns / 2 - 2",
-      previewHeight: "&lines / 3",
-      prompt: " ",
-      statusline: false,
-    };
-
     contextBuilder.patchGlobal({
+      sources: ["file", "file_rec", "file_external", "mr", "ghq"],
       ui: "ff",
       profile: false,
-      sources: ["file", "file_rec", "file_external", "mr", "ghq"],
+      // TODO:
       uiOptions: {},
       uiParams: {
-        ff: ffUiParams,
+        ff: {
+          autoAction: {
+            name: "preview",
+            delay: 250, // same as telescope.nvim
+          },
+          filterSplitDirection: "floating",
+          floatingBorder: "none",
+          highlights: {
+            filterText: "Statement",
+            floating: "Normal",
+            floatingBorder: "Special",
+          },
+          maxHighlightItems: 50,
+          onPreview: async (args: { denops: Denops; previewWinId: number }) => {
+            await fn.win_execute(args.denops, args.previewWinId, "normal! zt");
+          },
+          previewFloating: true,
+          previewFloatingBorder: "single",
+          updateTime: 0,
+          winWidth: 100,
+        } as Partial<FfParams>,
+        filer: {
+          previewFloating: true,
+          sort: "filename",
+          sortTreesFirst: true,
+          split: "no",
+          toggle: true,
+        } as Partial<FilerParams>,
       },
       sourceOptions: {
         _: {
           matchers: ["matcher_fzf"],
           sorters: ["sorter_fzf"],
           smartCase: true,
+        },
+        mru: {
+          matchers: ["matcher_ignore_files", "matcher_relative", "matcher_fzf"],
+        },
+        mrw: {
+          matchers: ["matcher_ignore_files", "matcher_relative", "matcher_fzf"],
+        },
+        mrr: {
+          matchers: ["matcher_ignore_files", "matcher_relative", "matcher_fzf"],
         },
         file: {
           matchers: ["matcher_substring", "matcher_hidden"],
@@ -101,17 +99,17 @@ export class Config extends BaseConfig {
         file_fd: {
           cmd: ["fd", ".", "-H", "-t", "f", "--exclude", ".git"],
         },
-        rg: {
-          args: ["--json"],
-        },
       },
-      filterOptions: {},
       filterParams: {
         matcher_substring: {
           highlightMatched: "Search",
         },
         matcher_fzf: {
           highlightMatched: "Search",
+        },
+        matcher_ignore_files: {
+          ignoreGlobs: [],
+          ignorePatterns: [/.*\/COMMIT_EDITMSG$/],
         },
         converter_hl_dir: {
           hlGroup: ["Directory", "Keyword"],
@@ -121,11 +119,21 @@ export class Config extends BaseConfig {
         file: {
           defaultAction: "open",
         },
+        url: {
+          defaultAction: "browse",
+        },
       },
       kindParams: {},
-      actionOptions: {},
-      actionParams: {},
+      actionOptions: {
+        narrow: {
+          quit: false,
+        },
+        tabopen: {
+          quit: false,
+        },
+      },
     });
+
     return Promise.resolve();
   }
 }

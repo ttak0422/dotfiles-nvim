@@ -27,11 +27,7 @@ let
     };
     ddu-ff = {
       language = "vim";
-      code = read ../vim/after/ddu-ff.vim;
-    };
-    ddu-ff-filter = {
-      language = "vim";
-      code = read ../vim/after/ddu-ff-filter.vim;
+      code = read ../vim/after/ddu-ui-ff.vim;
     };
     NeogitStatus = {
       language = "vim";
