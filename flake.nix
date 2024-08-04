@@ -1005,6 +1005,18 @@
       url = "github:letieu/btw.nvim";
       flake = false;
     };
+    ddu-filter-matcher_ignore_files = {
+      url = "github:Shougo/ddu-filter-matcher_ignore_files";
+      flake = false;
+    };
+    ddu-filter-matcher_ignores = {
+      url = "github:Shougo/ddu-filter-matcher_ignores";
+      flake = false;
+    };
+    ddu-filter-matcher_relative = {
+      url = "github:Shougo/ddu-filter-matcher_relative";
+      flake = false;
+    };
   };
 
   outputs =

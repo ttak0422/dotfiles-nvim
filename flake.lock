@@ -626,6 +626,54 @@
         "type": "github"
       }
     },
+    "ddu-filter-matcher_ignore_files": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722557554,
+        "narHash": "sha256-wP4cD5Q8QZRvAPn6bA8GWOGMF/eIIrScjhI9WdBRJGk=",
+        "owner": "Shougo",
+        "repo": "ddu-filter-matcher_ignore_files",
+        "rev": "a7e8c09a64692f362d0c8e0708f0ddec1e1d7b0b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddu-filter-matcher_ignore_files",
+        "type": "github"
+      }
+    },
+    "ddu-filter-matcher_ignores": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722557495,
+        "narHash": "sha256-m+IOx03WkmH3Sqr6mTkrTuEiMF52KVe9zBRSUpbKcaM=",
+        "owner": "Shougo",
+        "repo": "ddu-filter-matcher_ignores",
+        "rev": "619470a891b1a0da468b4e6df044a63192b3ac24",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddu-filter-matcher_ignores",
+        "type": "github"
+      }
+    },
+    "ddu-filter-matcher_relative": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722557655,
+        "narHash": "sha256-YVqyYc5IDbwe5r96wY/6fDFb9JOY8qHdXToB0rjELmQ=",
+        "owner": "Shougo",
+        "repo": "ddu-filter-matcher_relative",
+        "rev": "e24a0040d6e1943209f33c4e28265786b70c5f13",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddu-filter-matcher_relative",
+        "type": "github"
+      }
+    },
     "ddu-filter-matcher_substring": {
       "flake": false,
       "locked": {
@@ -3600,6 +3648,9 @@
         "ddu-filter-kensaku": "ddu-filter-kensaku",
         "ddu-filter-matcher_files": "ddu-filter-matcher_files",
         "ddu-filter-matcher_hidden": "ddu-filter-matcher_hidden",
+        "ddu-filter-matcher_ignore_files": "ddu-filter-matcher_ignore_files",
+        "ddu-filter-matcher_ignores": "ddu-filter-matcher_ignores",
+        "ddu-filter-matcher_relative": "ddu-filter-matcher_relative",
         "ddu-filter-matcher_substring": "ddu-filter-matcher_substring",
         "ddu-filter-merge": "ddu-filter-merge",
         "ddu-filter-sorter_alpha": "ddu-filter-sorter_alpha",
