@@ -4,7 +4,4 @@
                 :t {:j {:k :<Esc>}}
                 :v {:j {:k :<Esc>}}
                 :s {:j {:k :<Esc>}}}]
-  (M.setup {:mapping [:jk]
-            :timeout vim.o.timeoutlen
-            :default_mappings true
-            : mappings}))
+  (M.setup {:timeout vim.o.timeoutlen :default_mappings false : mappings}))
