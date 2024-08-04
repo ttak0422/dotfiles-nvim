@@ -549,11 +549,11 @@
     "ddu-filter-converter_hl_dir": {
       "flake": false,
       "locked": {
-        "lastModified": 1722650679,
-        "narHash": "sha256-EWkdLDamkK4ozfWz396zLpXL0zyLdIN2fCNW1cv/2Hs=",
+        "lastModified": 1722700284,
+        "narHash": "sha256-rT+tC8HQ7LhaXe4lG4MrdvlWj4GjAsfdrLf+3yEv4Kk=",
         "owner": "kyoh86",
         "repo": "ddu-filter-converter_hl_dir",
-        "rev": "c6a3ea7e5e25d1cbace25ac3ed2d6d1618462269",
+        "rev": "17f5a5a976344eb436ae7e464a268a5603372acb",
         "type": "github"
       },
       "original": {
@@ -901,11 +901,11 @@
     "ddu-source-git_log": {
       "flake": false,
       "locked": {
-        "lastModified": 1722650689,
-        "narHash": "sha256-sIL1RiHO0L1RCQud1M8xuHaNkIKXutd/E4KLEvqQ3KM=",
+        "lastModified": 1722700298,
+        "narHash": "sha256-hOGtBwxtGWBB98J1HAZgT1M7KVr2AwSxI1+rOhkXi0Q=",
         "owner": "kyoh86",
         "repo": "ddu-source-git_log",
-        "rev": "edb02ac818294767a01744a6641ef60345961e52",
+        "rev": "27fc1a787f47e8b001f3a7e236c58e5b2d85c2a6",
         "type": "github"
       },
       "original": {
@@ -1165,11 +1165,11 @@
     "denops-vim_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1722058756,
-        "narHash": "sha256-pV+1SfXWlURNq2JSGQ3HyO9Ah/Fzur0FdelJmaGLwrU=",
+        "lastModified": 1722686766,
+        "narHash": "sha256-4A0UIlr+eP3/CnomNG/waJoRMMgH6ctjYGsn8WkgBfk=",
         "owner": "vim-denops",
         "repo": "denops.vim",
-        "rev": "8c920ec6f190c5c77287f802884bc2004799d062",
+        "rev": "e5824b023357087d73fbd1164c024a0136a02a54",
         "type": "github"
       },
       "original": {
