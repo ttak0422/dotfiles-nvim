@@ -466,6 +466,598 @@
         "type": "github"
       }
     },
+    "ddc-buffer": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722605625,
+        "narHash": "sha256-Uma9+lvJaMJ3d1fC1pLLUHFEDrtUKDVVTkShycBxPg0=",
+        "owner": "matsui54",
+        "repo": "ddc-buffer",
+        "rev": "3288a5fcf9f698fe0d6f56a3d9f0cff4c121d7d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matsui54",
+        "repo": "ddc-buffer",
+        "type": "github"
+      }
+    },
+    "ddc-converter_remove_overlap": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722558126,
+        "narHash": "sha256-BfuSyIOXfBtqY2uedHqRZCgPJd/Zr5PySLbJR5mzbh8=",
+        "owner": "Shougo",
+        "repo": "ddc-converter_remove_overlap",
+        "rev": "1c515e2e0aa190fe4e0b39cc7ae686566a6c7af2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-converter_remove_overlap",
+        "type": "github"
+      }
+    },
+    "ddc-converter_truncate": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1684233577,
+        "narHash": "sha256-21riMYWMvoYMHvli8QUW1m2MYm37IBZBoetpJ1EYOWs=",
+        "owner": "matsui54",
+        "repo": "ddc-converter_truncate",
+        "rev": "30acb0ce236fc2b380f89b52fa3487cd3260d3a4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matsui54",
+        "repo": "ddc-converter_truncate",
+        "type": "github"
+      }
+    },
+    "ddc-filter-converter_remove_overlap": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722558126,
+        "narHash": "sha256-BfuSyIOXfBtqY2uedHqRZCgPJd/Zr5PySLbJR5mzbh8=",
+        "owner": "Shougo",
+        "repo": "ddc-filter-converter_remove_overlap",
+        "rev": "1c515e2e0aa190fe4e0b39cc7ae686566a6c7af2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-filter-converter_remove_overlap",
+        "type": "github"
+      }
+    },
+    "ddc-filter-converter_truncate_abbr": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722558073,
+        "narHash": "sha256-ZzfVgL3qHHSouOByKduY/zNr/NY9kzgQQ60VtDBuXZw=",
+        "owner": "Shougo",
+        "repo": "ddc-filter-converter_truncate_abbr",
+        "rev": "fa69a45d616d8bbb83a0372ce04af995abd91e80",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-filter-converter_truncate_abbr",
+        "type": "github"
+      }
+    },
+    "ddc-filter-matcher_head": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722558171,
+        "narHash": "sha256-5DO3G8u9z/JrNBeenVsMke3gTmQyygcZEyjJcY+4vpQ=",
+        "owner": "Shougo",
+        "repo": "ddc-filter-matcher_head",
+        "rev": "28f60903e1a9f1010ec01575cb99c64e76683466",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-filter-matcher_head",
+        "type": "github"
+      }
+    },
+    "ddc-filter-matcher_length": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722558246,
+        "narHash": "sha256-Kyz64OCeVargx/O1BtLeFWU+jes7lytaidQdTC7vgEQ=",
+        "owner": "Shougo",
+        "repo": "ddc-filter-matcher_length",
+        "rev": "882fe0ee3e81874124b7201fbf78d16a8d777408",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-filter-matcher_length",
+        "type": "github"
+      }
+    },
+    "ddc-filter-sorter_head": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722558018,
+        "narHash": "sha256-wiBDr8BJM0TjBZ0lhyq0A5EJDZURQ6lB7iFcJgnFZn4=",
+        "owner": "Shougo",
+        "repo": "ddc-filter-sorter_head",
+        "rev": "62a57b3f14b10dd789a4d11d53da26aeb4f96d98",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-filter-sorter_head",
+        "type": "github"
+      }
+    },
+    "ddc-filter-sorter_rank": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722558032,
+        "narHash": "sha256-/ZBduagfPdSQ0lDmbFtfYbs4EvwpAJUaF8AMvE6XqJk=",
+        "owner": "Shougo",
+        "repo": "ddc-filter-sorter_rank",
+        "rev": "539584150b922acb549203730d427dd2fd85fe86",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-filter-sorter_rank",
+        "type": "github"
+      }
+    },
+    "ddc-filter_editdistance": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1679905676,
+        "narHash": "sha256-TfulOuNLJhRNhT4VcbMO1IjVATU7w/0KgH41mZgOMfE=",
+        "owner": "matsui54",
+        "repo": "ddc-filter_editdistance",
+        "rev": "a837da622ca6dec7142bc658a269d2e969b0426f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matsui54",
+        "repo": "ddc-filter_editdistance",
+        "type": "github"
+      }
+    },
+    "ddc-fuzzy": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722497602,
+        "narHash": "sha256-tLHfQwSYfAxr1R8cw5mU3Ea5Q2lbqu1IhLTPvv+sOWA=",
+        "owner": "tani",
+        "repo": "ddc-fuzzy",
+        "rev": "863a119348e3b9b80419371c2591e9587b2d3607",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tani",
+        "repo": "ddc-fuzzy",
+        "type": "github"
+      }
+    },
+    "ddc-matcher_head": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722558171,
+        "narHash": "sha256-5DO3G8u9z/JrNBeenVsMke3gTmQyygcZEyjJcY+4vpQ=",
+        "owner": "Shougo",
+        "repo": "ddc-matcher_head",
+        "rev": "28f60903e1a9f1010ec01575cb99c64e76683466",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-matcher_head",
+        "type": "github"
+      }
+    },
+    "ddc-matcher_length": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722558246,
+        "narHash": "sha256-Kyz64OCeVargx/O1BtLeFWU+jes7lytaidQdTC7vgEQ=",
+        "owner": "Shougo",
+        "repo": "ddc-matcher_length",
+        "rev": "882fe0ee3e81874124b7201fbf78d16a8d777408",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-matcher_length",
+        "type": "github"
+      }
+    },
+    "ddc-nvim-lsp-setup": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1701964205,
+        "narHash": "sha256-bSTA1QQPdtUxuTA73eaHtVwWFRTP/rANtidAWuWmSPc=",
+        "owner": "uga-rosa",
+        "repo": "ddc-nvim-lsp-setup",
+        "rev": "a8a06af203d402e0874060bcd8a0b89b32a52224",
+        "type": "github"
+      },
+      "original": {
+        "owner": "uga-rosa",
+        "repo": "ddc-nvim-lsp-setup",
+        "type": "github"
+      }
+    },
+    "ddc-path": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1703487228,
+        "narHash": "sha256-ZAuhTxm3y0sPvcikdZt2x4nTULegQ9GJdQ9EN+D0izA=",
+        "owner": "tani",
+        "repo": "ddc-path",
+        "rev": "519207c505d5defda9adeab195ae384020e3d86a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tani",
+        "repo": "ddc-path",
+        "type": "github"
+      }
+    },
+    "ddc-previewer-floating": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1702715280,
+        "narHash": "sha256-hzkODZdMFR7wWySLOQl2TXeceD8Ek0c3PQRR1GuwdKY=",
+        "owner": "uga-rosa",
+        "repo": "ddc-previewer-floating",
+        "rev": "b0a927ec38988da13a209b90515b688547c7412f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "uga-rosa",
+        "repo": "ddc-previewer-floating",
+        "type": "github"
+      }
+    },
+    "ddc-sorter_itemsize": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1692891728,
+        "narHash": "sha256-JbPXxoBBr2Fm2cjPhT8B0KDq/CTTO85Ksg7/JTUHWcE=",
+        "owner": "ttak0422",
+        "repo": "ddc-sorter_itemsize",
+        "rev": "903f28943fe985e13a1b29a3278733636b3345b5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ttak0422",
+        "repo": "ddc-sorter_itemsize",
+        "type": "github"
+      }
+    },
+    "ddc-sorter_rank": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722558032,
+        "narHash": "sha256-/ZBduagfPdSQ0lDmbFtfYbs4EvwpAJUaF8AMvE6XqJk=",
+        "owner": "Shougo",
+        "repo": "ddc-sorter_rank",
+        "rev": "539584150b922acb549203730d427dd2fd85fe86",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-sorter_rank",
+        "type": "github"
+      }
+    },
+    "ddc-sorter_reverse": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1691165102,
+        "narHash": "sha256-nZVRGDzt1PesqF3XrRhTyitmmpDrtINSUod8Dm6+JpI=",
+        "owner": "ttak0422",
+        "repo": "ddc-sorter_reverse",
+        "rev": "8e1a99fae7fd5ba530ee7af0be102932025eda51",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ttak0422",
+        "repo": "ddc-sorter_reverse",
+        "type": "github"
+      }
+    },
+    "ddc-source-around": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722568963,
+        "narHash": "sha256-aUJutUdNfA293zzkXqmD8Y+GYFFOF14uoXm61Bd6SXY=",
+        "owner": "Shougo",
+        "repo": "ddc-source-around",
+        "rev": "41b786f193180815023755e9d94090ddea396afa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-source-around",
+        "type": "github"
+      }
+    },
+    "ddc-source-buffer": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722605625,
+        "narHash": "sha256-Uma9+lvJaMJ3d1fC1pLLUHFEDrtUKDVVTkShycBxPg0=",
+        "owner": "matsui54",
+        "repo": "ddc-source-buffer",
+        "rev": "3288a5fcf9f698fe0d6f56a3d9f0cff4c121d7d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matsui54",
+        "repo": "ddc-source-buffer",
+        "type": "github"
+      }
+    },
+    "ddc-source-cmdline": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722568979,
+        "narHash": "sha256-abX2Kpsa/mJLXACsTSV9bg4/I7iMTdm9/GRtT9VDjeE=",
+        "owner": "Shougo",
+        "repo": "ddc-source-cmdline",
+        "rev": "c03488e9239cba6c3bfbc000b17677dd47278e5a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-source-cmdline",
+        "type": "github"
+      }
+    },
+    "ddc-source-cmdline-history": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722568995,
+        "narHash": "sha256-Tio/Egg0yvFgjsotXsMvNi51/Pu92yRTFQSHKFTwE2I=",
+        "owner": "Shougo",
+        "repo": "ddc-source-cmdline-history",
+        "rev": "960d78fc30568dd46abcfcdea763143647f47a90",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-source-cmdline-history",
+        "type": "github"
+      }
+    },
+    "ddc-source-file": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722521519,
+        "narHash": "sha256-gxdufL0Jr74n+b6mmcuhpqUVm+WVqfhpYVbLUg4Bno8=",
+        "owner": "LumaKernel",
+        "repo": "ddc-source-file",
+        "rev": "dbe1deaf71cac7d54e5c94833b1f4b3dfc67e5da",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LumaKernel",
+        "repo": "ddc-source-file",
+        "type": "github"
+      }
+    },
+    "ddc-source-input": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722569040,
+        "narHash": "sha256-3AcdhhBdsqFZ0fCVhFB/AbpRHGBN9qR85sslRdeZrXM=",
+        "owner": "Shougo",
+        "repo": "ddc-source-input",
+        "rev": "03f03d9cb03a9ee5c119aa9a1adc7c790fbeb4a1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-source-input",
+        "type": "github"
+      }
+    },
+    "ddc-source-line": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722569054,
+        "narHash": "sha256-A/e6ipGFMpbSRdNoGk75ywpYFcaAc2I0EtqMpatD5Ng=",
+        "owner": "Shougo",
+        "repo": "ddc-source-line",
+        "rev": "9dcf9a21c852ff769a3be6f9f87712fb5583ab07",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-source-line",
+        "type": "github"
+      }
+    },
+    "ddc-source-lsp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722743113,
+        "narHash": "sha256-QO8aHVaJ96yrJc3dzdfC9Sovtb+xL2wMUrmTLMC0728=",
+        "owner": "Shougo",
+        "repo": "ddc-source-lsp",
+        "rev": "50a3fb37993350660b25c400d1ae83d40c227da1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-source-lsp",
+        "type": "github"
+      }
+    },
+    "ddc-source-lsp-setup": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1701964205,
+        "narHash": "sha256-bSTA1QQPdtUxuTA73eaHtVwWFRTP/rANtidAWuWmSPc=",
+        "owner": "uga-rosa",
+        "repo": "ddc-source-lsp-setup",
+        "rev": "a8a06af203d402e0874060bcd8a0b89b32a52224",
+        "type": "github"
+      },
+      "original": {
+        "owner": "uga-rosa",
+        "repo": "ddc-source-lsp-setup",
+        "type": "github"
+      }
+    },
+    "ddc-source-nextword": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722569085,
+        "narHash": "sha256-s+h/1QlPNjiCQKwCO7vbqq4teTS1iYGw+M+hswABedQ=",
+        "owner": "Shougo",
+        "repo": "ddc-source-nextword",
+        "rev": "1b783ad661a7a2d7ec662dc773e3e190df065323",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-source-nextword",
+        "type": "github"
+      }
+    },
+    "ddc-source-nvim-lsp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722743113,
+        "narHash": "sha256-QO8aHVaJ96yrJc3dzdfC9Sovtb+xL2wMUrmTLMC0728=",
+        "owner": "Shougo",
+        "repo": "ddc-source-nvim-lsp",
+        "rev": "50a3fb37993350660b25c400d1ae83d40c227da1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-source-nvim-lsp",
+        "type": "github"
+      }
+    },
+    "ddc-source-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722569191,
+        "narHash": "sha256-LZylAlbjROPy5FoUgpYKepToxRaThpqRbHSfssTuV5U=",
+        "owner": "Shougo",
+        "repo": "ddc-source-vim",
+        "rev": "fd82cf1dfe32996fa7ed3230b5d651b246f967bb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-source-vim",
+        "type": "github"
+      }
+    },
+    "ddc-source-vsnip": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1691755351,
+        "narHash": "sha256-OIJIm5fufxXiOWqY0u/4njIaSw0DrHkOERQLYZMNl48=",
+        "owner": "uga-rosa",
+        "repo": "ddc-source-vsnip",
+        "rev": "81483f0d0e218193388e6bbc9b5ec6c3ceed1308",
+        "type": "github"
+      },
+      "original": {
+        "owner": "uga-rosa",
+        "repo": "ddc-source-vsnip",
+        "type": "github"
+      }
+    },
+    "ddc-tmux": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1706606542,
+        "narHash": "sha256-r4f8n26aRO3Ac2r+QRuhXF9/IdauNcFfjLeXDBy/jLw=",
+        "owner": "delphinus",
+        "repo": "ddc-tmux",
+        "rev": "dce49d6d65a40ef6966fb8796573dd6bf6f31ec3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "delphinus",
+        "repo": "ddc-tmux",
+        "type": "github"
+      }
+    },
+    "ddc-treesitter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1704114455,
+        "narHash": "sha256-tN54YlYJx+YtbUtKPvhcJI4M0PCMeQ4NoUk4zj1mXLM=",
+        "owner": "delphinus",
+        "repo": "ddc-treesitter",
+        "rev": "fa8976a1be3cf1de6966bb1ebc6dadc9d3adfdf6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "delphinus",
+        "repo": "ddc-treesitter",
+        "type": "github"
+      }
+    },
+    "ddc-ui-native": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722229631,
+        "narHash": "sha256-EPxt/pAmkx4/zSjPKULtthKXggLCjcyYBdyHbHcaINM=",
+        "owner": "Shougo",
+        "repo": "ddc-ui-native",
+        "rev": "2567067b60419a9be265aae5fa480dc51e4ba1c3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-ui-native",
+        "type": "github"
+      }
+    },
+    "ddc-ui-pum": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722484129,
+        "narHash": "sha256-jVN8cJlfFoL0QtiEtE5f3gstsB0bGDdIMAqK+8Lf2pM=",
+        "owner": "Shougo",
+        "repo": "ddc-ui-pum",
+        "rev": "989b3f0acb0d35bfcd0a3b0ec9239ad2a838e478",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc-ui-pum",
+        "type": "github"
+      }
+    },
+    "ddc-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722649692,
+        "narHash": "sha256-XE7yIPGqo7znWk2SH3SdPc4wAoixPK2RVZlS0Rlbe9c=",
+        "owner": "Shougo",
+        "repo": "ddc.vim",
+        "rev": "713725a5e5a67e1298dc07720c6be94075610534",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "ddc.vim",
+        "type": "github"
+      }
+    },
     "ddu-column-filename": {
       "flake": false,
       "locked": {
@@ -3638,6 +4230,43 @@
         "colorful-winsep-nvim": "colorful-winsep-nvim",
         "conform-nvim": "conform-nvim",
         "copilot-lua": "copilot-lua",
+        "ddc-buffer": "ddc-buffer",
+        "ddc-converter_remove_overlap": "ddc-converter_remove_overlap",
+        "ddc-converter_truncate": "ddc-converter_truncate",
+        "ddc-filter-converter_remove_overlap": "ddc-filter-converter_remove_overlap",
+        "ddc-filter-converter_truncate_abbr": "ddc-filter-converter_truncate_abbr",
+        "ddc-filter-matcher_head": "ddc-filter-matcher_head",
+        "ddc-filter-matcher_length": "ddc-filter-matcher_length",
+        "ddc-filter-sorter_head": "ddc-filter-sorter_head",
+        "ddc-filter-sorter_rank": "ddc-filter-sorter_rank",
+        "ddc-filter_editdistance": "ddc-filter_editdistance",
+        "ddc-fuzzy": "ddc-fuzzy",
+        "ddc-matcher_head": "ddc-matcher_head",
+        "ddc-matcher_length": "ddc-matcher_length",
+        "ddc-nvim-lsp-setup": "ddc-nvim-lsp-setup",
+        "ddc-path": "ddc-path",
+        "ddc-previewer-floating": "ddc-previewer-floating",
+        "ddc-sorter_itemsize": "ddc-sorter_itemsize",
+        "ddc-sorter_rank": "ddc-sorter_rank",
+        "ddc-sorter_reverse": "ddc-sorter_reverse",
+        "ddc-source-around": "ddc-source-around",
+        "ddc-source-buffer": "ddc-source-buffer",
+        "ddc-source-cmdline": "ddc-source-cmdline",
+        "ddc-source-cmdline-history": "ddc-source-cmdline-history",
+        "ddc-source-file": "ddc-source-file",
+        "ddc-source-input": "ddc-source-input",
+        "ddc-source-line": "ddc-source-line",
+        "ddc-source-lsp": "ddc-source-lsp",
+        "ddc-source-lsp-setup": "ddc-source-lsp-setup",
+        "ddc-source-nextword": "ddc-source-nextword",
+        "ddc-source-nvim-lsp": "ddc-source-nvim-lsp",
+        "ddc-source-vim": "ddc-source-vim",
+        "ddc-source-vsnip": "ddc-source-vsnip",
+        "ddc-tmux": "ddc-tmux",
+        "ddc-treesitter": "ddc-treesitter",
+        "ddc-ui-native": "ddc-ui-native",
+        "ddc-ui-pum": "ddc-ui-pum",
+        "ddc-vim": "ddc-vim",
         "ddu-column-filename": "ddu-column-filename",
         "ddu-column-icon_filename": "ddu-column-icon_filename",
         "ddu-commands-vim": "ddu-commands-vim",

@@ -1017,6 +1017,154 @@
       url = "github:Shougo/ddu-filter-matcher_relative";
       flake = false;
     };
+    ddc-vim = {
+      url = "github:Shougo/ddc.vim";
+      flake = false;
+    };
+    ddc-ui-native = {
+      url = "github:Shougo/ddc-ui-native";
+      flake = false;
+    };
+    ddc-ui-pum = {
+      url = "github:Shougo/ddc-ui-pum";
+      flake = false;
+    };
+    ddc-source-around = {
+      url = "github:Shougo/ddc-source-around";
+      flake = false;
+    };
+    ddc-source-nextword = {
+      url = "github:Shougo/ddc-source-nextword";
+      flake = false;
+    };
+    ddc-source-line = {
+      url = "github:Shougo/ddc-source-line";
+      flake = false;
+    };
+    ddc-source-cmdline = {
+      url = "github:Shougo/ddc-source-cmdline";
+      flake = false;
+    };
+    ddc-source-cmdline-history = {
+      url = "github:Shougo/ddc-source-cmdline-history";
+      flake = false;
+    };
+    ddc-source-file = {
+      url = "github:LumaKernel/ddc-source-file";
+      flake = false;
+    };
+    ddc-buffer = {
+      url = "github:matsui54/ddc-buffer";
+      flake = false;
+    };
+    ddc-path = {
+      url = "github:tani/ddc-path";
+      flake = false;
+    };
+    ddc-matcher_head = {
+      url = "github:Shougo/ddc-matcher_head";
+      flake = false;
+    };
+    ddc-sorter_rank = {
+      url = "github:Shougo/ddc-sorter_rank";
+      flake = false;
+    };
+    ddc-source-nvim-lsp = {
+      url = "github:Shougo/ddc-source-nvim-lsp";
+      flake = false;
+    };
+    ddc-source-lsp = {
+      url = "github:Shougo/ddc-source-lsp";
+      flake = false;
+    };
+    ddc-filter_editdistance = {
+      url = "github:matsui54/ddc-filter_editdistance";
+      flake = false;
+    };
+    ddc-previewer-floating = {
+      url = "github:uga-rosa/ddc-previewer-floating";
+      flake = false;
+    };
+    ddc-filter-matcher_head = {
+      url = "github:Shougo/ddc-filter-matcher_head";
+      flake = false;
+    };
+    ddc-nvim-lsp-setup = {
+      url = "github:uga-rosa/ddc-nvim-lsp-setup";
+      flake = false;
+    };
+    ddc-source-lsp-setup = {
+      url = "github:uga-rosa/ddc-source-lsp-setup";
+      flake = false;
+    };
+    ddc-sorter_reverse = {
+      url = "github:ttak0422/ddc-sorter_reverse";
+      flake = false;
+    };
+    ddc-source-vsnip = {
+      url = "github:uga-rosa/ddc-source-vsnip";
+      flake = false;
+    };
+    ddc-source-vim = {
+      url = "github:Shougo/ddc-source-vim";
+      flake = false;
+    };
+    ddc-source-input = {
+      url = "github:Shougo/ddc-source-input";
+      flake = false;
+    };
+    ddc-sorter_itemsize = {
+      url = "github:ttak0422/ddc-sorter_itemsize";
+      flake = false;
+    };
+    ddc-treesitter = {
+      url = "github:delphinus/ddc-treesitter";
+      flake = false;
+    };
+    ddc-matcher_length = {
+      url = "github:Shougo/ddc-matcher_length";
+      flake = false;
+    };
+    ddc-converter_truncate = {
+      url = "github:matsui54/ddc-converter_truncate";
+      flake = false;
+    };
+    ddc-tmux = {
+      url = "github:delphinus/ddc-tmux";
+      flake = false;
+    };
+    ddc-converter_remove_overlap = {
+      url = "github:Shougo/ddc-converter_remove_overlap";
+      flake = false;
+    };
+    ddc-fuzzy = {
+      url = "github:tani/ddc-fuzzy";
+      flake = false;
+    };
+    ddc-source-buffer = {
+      url = "github:matsui54/ddc-source-buffer";
+      flake = false;
+    };
+    ddc-filter-matcher_length = {
+      url = "github:Shougo/ddc-filter-matcher_length";
+      flake = false;
+    };
+    ddc-filter-converter_remove_overlap = {
+      url = "github:Shougo/ddc-filter-converter_remove_overlap";
+      flake = false;
+    };
+    ddc-filter-converter_truncate_abbr = {
+      url = "github:Shougo/ddc-filter-converter_truncate_abbr";
+      flake = false;
+    };
+    ddc-filter-sorter_rank = {
+      url = "github:Shougo/ddc-filter-sorter_rank";
+      flake = false;
+    };
+    ddc-filter-sorter_head = {
+      url = "github:Shougo/ddc-filter-sorter_head";
+      flake = false;
+    };
   };
 
   outputs =
