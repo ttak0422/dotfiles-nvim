@@ -4,6 +4,23 @@
       desc (fn [d] {:noremap true :silent true :desc d})
       cmd (fn [c] (.. :<cmd> c :<cr>))
       lcmd (fn [c] (cmd (.. "lua " c)))
+      mk_toggle ((fn []
+                   (let [state {:open? false :pre_id nil}]
+                     (fn [id mod opt]
+                       (fn []
+                         (let [T (require :toolwindow)]
+                           (if (not= state.pre_id id)
+                               (do
+                                 (T.open_window mod opt)
+                                 (tset state :open? true))
+                               (if state.open?
+                                   (do
+                                     (T.close)
+                                     (tset state :open? false))
+                                   (do
+                                     (T.open_window mod opt)
+                                     (tset state :open? true))))
+                           (tset state :pre_id id)))))))
       N [;; finder
          [:<Leader>ff
           (cmd "Telescope live_grep_args")
@@ -62,7 +79,14 @@
           (desc "toggle split/join")]
          [:<leader>tJ
           (cmd "lua require('treesj').toggle({ split = { recursive = true }})")
-          (desc "toggle recursive split/join")]]
+          (desc "toggle recursive split/join")]
+         [:<leader>tq (mk_toggle 1 :quickfix nil) (desc "toggle quickfix")]
+                     (desc "toggle diagnostics (workspace)"))]]
+          (mk_toggle 3 :trouble {:mode :workspace_diagnostics}
+         [:<leader>tD
+                     (desc "toggle diagnostics (document)"))]
+          (mk_toggle 2 :trouble {:mode :document_diagnostics}
+         [:<leader>td
       V [[:<Leader>T (cmd :Translate)] [:<leader>r (cmd :FlowRunSelected)]]]
   (each [_ K (ipairs N)]
     (vim.keymap.set :n (. K 1) (. K 2) (or (. K 3) opts)))
