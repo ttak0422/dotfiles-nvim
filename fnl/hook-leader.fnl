@@ -6,19 +6,19 @@
       lcmd (fn [c] (cmd (.. "lua " c)))
       mk_toggle ((fn []
                    (let [state {:open? false :pre_id nil}]
-                     (fn [id mod opt]
+                     (fn [id mod args]
                        (fn []
                          (let [T (require :toolwindow)]
                            (if (not= state.pre_id id)
                                (do
-                                 (T.open_window mod opt)
+                                 (T.open_window mod args)
                                  (tset state :open? true))
                                (if state.open?
                                    (do
                                      (T.close)
                                      (tset state :open? false))
                                    (do
-                                     (T.open_window mod opt)
+                                    (T.open_window mod args)
                                      (tset state :open? true))))
                            (tset state :pre_id id)))))))
       N [;; finder
@@ -81,18 +81,15 @@
           (cmd "lua require('treesj').toggle({ split = { recursive = true }})")
           (desc "toggle recursive split/join")]
          [:<leader>tq (mk_toggle 1 :quickfix nil) (desc "toggle quickfix")]
-                     (desc "toggle diagnostics (workspace)"))]]
-          (mk_toggle 3 :trouble {:mode :workspace_diagnostics}
-         [:<leader>tD
-                     (desc "toggle diagnostics (document)"))]
-          (mk_toggle 2 :trouble {:mode :document_diagnostics}
-         [:<leader>td
+         ;; FIXME:
+         [:<leader>td (mk_toggle 2 :trouble {:mode :diagnostics  :filter {:buf (vim.api.nvim_get_current_buf)}} (desc "toggle diagnostics (document)"))]
+         [:<leader>tD (mk_toggle 3 :trouble {:mode :diagnostics} (desc "toggle diagnostics (workspace)"))]
+         ]
       V [[:<Leader>T (cmd :Translate)] [:<leader>r (cmd :FlowRunSelected)]]]
   (each [_ K (ipairs N)]
     (vim.keymap.set :n (. K 1) (. K 2) (or (. K 3) opts)))
   (each [_ K (ipairs V)]
     (vim.keymap.set :n (. K 1) (. K 2) (or (. K 3) opts))))
-
 (vim.schedule (fn []
                 (vim.api.nvim_feedkeys (vim.api.nvim_replace_termcodes :<Leader>
                                                                        true
