@@ -1757,11 +1757,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722356018,
-        "narHash": "sha256-rrQM+GgGOlfvdY+XxL7VbNZHHVv1ZTOju2dXIJXRpQA=",
+        "lastModified": 1723117136,
+        "narHash": "sha256-6V/rQKq1NWVRgARLfiABTUXDm3L3fDeLJN441OLaUNo=",
         "owner": "ttak0422",
         "repo": "denops-shared-server-service",
-        "rev": "cf0cb370467c92aeb8b191639441ea934a324ed2",
+        "rev": "de4dec43d713e2178714ab88f2005022a8cb40b3",
         "type": "github"
       },
       "original": {
