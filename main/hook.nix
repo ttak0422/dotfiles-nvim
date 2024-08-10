@@ -40,6 +40,10 @@ with pkgs.vimPlugins;
         extraPackages = with pkgs; [ nodejs ];
         postConfig = read ../lua/autogen/copilot.lua;
       }
+      {
+        package = nvim-surround;
+        postConfig = read ../lua/autogen/surround.lua;
+      }
     ];
     postConfig = read ../lua/autogen/hook-edit.lua;
     hooks.events = [
