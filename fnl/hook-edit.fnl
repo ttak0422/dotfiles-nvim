@@ -25,3 +25,14 @@
       N [[:gx (lcmd "require('open').open_cword()")]]]
   (each [_ k (ipairs N)]
     (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts))))
+
+;; clipboard (for ssh)
+(let [osc52 (require :vim.ui.clipboard.osc52)
+      paste (fn []
+              [(vim.fn.split (vim.fn.getreg "") "\n") (vim.fn.getregtype "")])]
+  (vim.opt.clipboard:append :unnamedplus)
+  (if (not= (os.getenv :SSH_TTY) nil)
+      (set vim.g.clipboard
+           {:name "OSC 52"
+            :copy {:+ (osc52.copy "+") :* (osc52.copy "*")}
+            :paste {:+ paste :* paste}})))

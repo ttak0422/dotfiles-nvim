@@ -6,19 +6,33 @@ do
   end
   do end (vim.opt.nrformats):append("unsigned")
 end
-local opts = {noremap = true, silent = true}
-local cmd
-local function _1_(c)
-  return ("<cmd>" .. c .. "<cr>")
+do
+  local opts = {noremap = true, silent = true}
+  local cmd
+  local function _1_(c)
+    return ("<cmd>" .. c .. "<cr>")
+  end
+  cmd = _1_
+  local lcmd
+  local function _2_(c)
+    return cmd(("lua " .. c))
+  end
+  lcmd = _2_
+  local N = {{"gx", lcmd("require('open').open_cword()")}}
+  for _, k in ipairs(N) do
+    vim.keymap.set("n", k[1], k[2], (k[3] or opts))
+  end
 end
-cmd = _1_
-local lcmd
-local function _2_(c)
-  return cmd(("lua " .. c))
+local osc52 = require("vim.ui.clipboard.osc52")
+local paste
+local function _3_()
+  return {vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("")}
 end
-lcmd = _2_
-local N = {{"gx", lcmd("require('open').open_cword()")}}
-for _, k in ipairs(N) do
-  vim.keymap.set("n", k[1], k[2], (k[3] or opts))
+paste = _3_
+do end (vim.opt.clipboard):append("unnamedplus")
+if (os.getenv("SSH_TTY") ~= nil) then
+  vim.g.clipboard = {name = "OSC 52", copy = {["+"] = osc52.copy("+"), ["*"] = osc52.copy("*")}, paste = {["+"] = paste, ["*"] = paste}}
+  return nil
+else
+  return nil
 end
-return nil
