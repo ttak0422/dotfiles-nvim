@@ -1746,30 +1746,6 @@
         "type": "github"
       }
     },
-    "denops-shared-server-service": {
-      "inputs": {
-        "denops-vim": "denops-vim",
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1723117136,
-        "narHash": "sha256-6V/rQKq1NWVRgARLfiABTUXDm3L3fDeLJN441OLaUNo=",
-        "owner": "ttak0422",
-        "repo": "denops-shared-server-service",
-        "rev": "de4dec43d713e2178714ab88f2005022a8cb40b3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ttak0422",
-        "repo": "denops-shared-server-service",
-        "type": "github"
-      }
-    },
     "denops-translate-vim": {
       "flake": false,
       "locked": {
@@ -1787,22 +1763,6 @@
       }
     },
     "denops-vim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1722058756,
-        "narHash": "sha256-pV+1SfXWlURNq2JSGQ3HyO9Ah/Fzur0FdelJmaGLwrU=",
-        "owner": "vim-denops",
-        "repo": "denops.vim",
-        "rev": "8c920ec6f190c5c77287f802884bc2004799d062",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vim-denops",
-        "repo": "denops.vim",
-        "type": "github"
-      }
-    },
-    "denops-vim_2": {
       "flake": false,
       "locked": {
         "lastModified": 1722686766,
@@ -4310,9 +4270,8 @@
         "ddu-ui-filter": "ddu-ui-filter",
         "ddu-vim": "ddu-vim",
         "ddu-vim-ui-select": "ddu-vim-ui-select",
-        "denops-shared-server-service": "denops-shared-server-service",
         "denops-translate-vim": "denops-translate-vim",
-        "denops-vim": "denops-vim_2",
+        "denops-vim": "denops-vim",
         "detour-nvim": "detour-nvim",
         "diagflow-nvim": "diagflow-nvim",
         "diffview-nvim": "diffview-nvim",

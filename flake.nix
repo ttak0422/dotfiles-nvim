@@ -43,13 +43,6 @@
     };
 
     # plugins
-    denops-shared-server-service = {
-      url = "github:ttak0422/denops-shared-server-service";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
-    };
     morimo = {
       # url = "path:/Users/ttak0422/ghq/github.com/ttak0422/morimo";
       url = "github:ttak0422/morimo";

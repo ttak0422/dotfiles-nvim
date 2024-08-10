@@ -11,7 +11,7 @@ rec {
       language = "vim";
       code = ''
         " use latest
-        let g:denops_server_addr = '0.0.0.0:32123'
+        " let g:denops_server_addr = '0.0.0.0:32123'
       '';
     };
   };
