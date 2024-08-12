@@ -23,8 +23,7 @@ end
 keybinds = {neorg_leader = "<LocalLeader>", hook = _2_, default_keybinds = false}
 local journal = {journal_folder = "journal", strategy = "nested"}
 local metagen = {type = "auto"}
-local templates = {templates_dir = {}, default_subcommand = "fload"}
-local load = {["core.autocommands"] = {}, ["core.defaults"] = {config = defaults}, ["core.dirman"] = {config = dirman}, ["core.integrations.treesitter"] = {}, ["core.keybinds"] = {config = keybinds}, ["core.storage"] = {}, ["core.summary"] = {}, ["core.ui"] = {}, ["core.journal"] = {config = journal}, ["core.esupports.metagen"] = {config = metagen}, ["core.integrations.telescope"] = {}, ["external.jupyter"] = {}}
+local load = {["core.autocommands"] = {}, ["core.defaults"] = {config = defaults}, ["core.dirman"] = {config = dirman}, ["core.integrations.treesitter"] = {}, ["core.keybinds"] = {config = keybinds}, ["core.storage"] = {}, ["core.summary"] = {}, ["core.ui"] = {}, ["core.journal"] = {config = journal}, ["core.esupports.metagen"] = {config = metagen}, ["core.concealer"] = {}, ["core.tempus"] = {}, ["core.ui.calendar"] = {}, ["core.integrations.telescope"] = {}, ["external.jupyter"] = {}}
 neorg.setup({load = load})
 local function _3_(_, kb)
   return kb.map_event_to_mode("norg", {n = normal_events, i = insert_events}, key_opts)
