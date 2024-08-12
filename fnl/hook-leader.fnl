@@ -18,7 +18,7 @@
                                      (T.close)
                                      (tset state :open? false))
                                    (do
-                                    (T.open_window mod args)
+                                     (T.open_window mod args)
                                      (tset state :open? true))))
                            (tset state :pre_id id)))))))
       N [;; finder
@@ -81,15 +81,20 @@
           (cmd "lua require('treesj').toggle({ split = { recursive = true }})")
           (desc "toggle recursive split/join")]
          [:<leader>tq (mk_toggle 1 :quickfix nil) (desc "toggle quickfix")]
-         ;; FIXME:
-         [:<leader>td (mk_toggle 2 :trouble {:mode :diagnostics  :filter {:buf (vim.api.nvim_get_current_buf)}} (desc "toggle diagnostics (document)"))]
-         [:<leader>tD (mk_toggle 3 :trouble {:mode :diagnostics} (desc "toggle diagnostics (workspace)"))]
-         ]
+         [:<leader>td
+          (mk_toggle 2 :trouble
+                     {:mode :diagnostics
+                      :filter {:buf 0}})
+          (desc "toggle diagnostics (document)")]
+         [:<leader>tD
+          (mk_toggle 3 :trouble {:mode :diagnostics})
+          (desc "toggle diagnostics (workspace)")]]
       V [[:<Leader>T (cmd :Translate)] [:<leader>r (cmd :FlowRunSelected)]]]
   (each [_ K (ipairs N)]
     (vim.keymap.set :n (. K 1) (. K 2) (or (. K 3) opts)))
   (each [_ K (ipairs V)]
     (vim.keymap.set :n (. K 1) (. K 2) (or (. K 3) opts))))
+
 (vim.schedule (fn []
                 (vim.api.nvim_feedkeys (vim.api.nvim_replace_termcodes :<Leader>
                                                                        true
