@@ -40,7 +40,7 @@
             ; :core.completion {:config completion}
             :core.defaults {:config defaults}
             :core.dirman {:config dirman}
-            :core.integrations.nvim-cmp {}
+            ; :core.integrations.nvim-cmp {}
             :core.integrations.treesitter {}
             :core.keybinds {:config keybinds}
             :core.storage {}
@@ -54,14 +54,15 @@
             :core.integrations.telescope {}
             ;; WIP
             :external.jupyter {}
-            :external.templates {:config templates}}
-      cmp (require :cmp)
-      sources (cmp.config.sources [{:name :neorg}] [{:name :buffer}])]
+            ; :external.templates {:config templates}
+            } ; cmp (require :cmp)
+      ; sources (cmp.config.sources [{:name :neorg}] [{:name :buffer}])
+      ]
   (neorg.setup {: load})
   (callbacks.on_event :core.keybinds.events.enable_keybinds
                       (fn [_ kb]
                         (kb.map_event_to_mode :norg
                                               {:n normal_events
                                                :i insert_events}
-                                              key_opts)))
-  (cmp.setup.filetype :norg {: sources}))
+                                              key_opts))) ; (cmp.setup.filetype :norg {: sources})
+  )

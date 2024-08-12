@@ -25,6 +25,7 @@ export class Config extends BaseConfig {
       sources: [
         "lsp",
         "around",
+        "vsnip",
       ],
       cmdlineSources: {
         ":": ["cmdline", "cmdline-history", "around"],
@@ -76,10 +77,10 @@ export class Config extends BaseConfig {
           mark: "[LSP]",
           forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
           dup: "keep",
-          minAutoCompleteLength: 0,
+          minAutoCompleteLength: 1,
           sorters: [
-            "sorter_lsp-detail-size",
-            "sorter_lsp-kind",
+            // "sorter_lsp-detail-size",
+            // "sorter_lsp-kind",
             "sorter_fuzzy",
           ],
         },
@@ -98,6 +99,9 @@ export class Config extends BaseConfig {
         "cmdline-history": {
           mark: "[HIST]",
           sorters: [],
+        },
+        vwnip: {
+          mark: "[VSNIP]",
         },
       },
       sourceParams: {

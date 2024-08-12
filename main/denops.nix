@@ -67,17 +67,18 @@ rec {
       ddc-path
       # ddc-source-vim
       ddc-sorter_rank
-      ddc-source-buffer
-      ddc-source-lsp-setup
       ddc-source-around
+      ddc-source-buffer
+      ddc-source-buffer
       ddc-source-cmdline
       ddc-source-cmdline-history
       ddc-source-file
       ddc-source-input
       ddc-source-line
+      ddc-source-lsp-setup
       ddc-source-nvim-lsp
       ddc-source-vsnip
-      ddc-source-buffer
+      ddc-source-vsnip
       ddc-treesitter
       ddc-converter_remove_overlap
       ddc-converter_truncate
