@@ -27,6 +27,11 @@
          [:<leader>?
           (cmd :SearchToQf! (desc "add search results to quickfix"))]]]
   (each [_ k (ipairs N)]
-    (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts))))
+    (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts)))
+  (vim.cmd "
+cnoremap <expr> <C-a> '<Home>'
+cnoremap <expr> <C-b> '<Left>'
+cnoremap <expr> <C-f> '<Right>'
+           "))
 
 (vim.cmd (.. "source " cabbrev_path))

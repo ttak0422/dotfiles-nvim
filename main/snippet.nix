@@ -27,6 +27,9 @@ with pkgs.vimPlugins;
         vim.g.sonictemplate_postfix_key = 0
       '';
   };
+  vsnip = {
+    packages = [ vim-vsnip vim-vsnip-integ ];
+  };
   LuaSnip = {
     package = pkgs.vimPlugins.LuaSnip;
     postConfig = read ../lua/autogen/luasnip.lua;

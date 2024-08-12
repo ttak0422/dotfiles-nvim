@@ -22,6 +22,7 @@ let
   lazy = {
     inherit (callPackage ./debug.nix { }) dap dap-go dap-ui;
     inherit (callPackage ./denops.nix { })
+      ddc
       ddu
       denops
       gin
@@ -67,7 +68,7 @@ let
       hookTerm
       ;
     inherit (callPackage ./input.nix { })
-      cmp
+      # cmp
       treesj
       autopairs
       better-escape

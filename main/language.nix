@@ -41,7 +41,7 @@ rec {
           efm-langserver
           stylua
           luajitPackages.luacheck
-          fnlfmt
+          # fnlfmt
           nodePackages.prettier
           nodePackages.eslint
           nodePackages.fixjson
@@ -162,8 +162,12 @@ rec {
     package = none-ls-nvim;
     depends = [ lib.plenary ];
     extraPackages = with pkgs; [
-      gofumpt
-      go-tools
+      # diagnostics
+      go-tools # go
+      # formatters
+      go-tools # go
+      gofumpt # go
+          fnlfmt # fennel
     ];
     postConfig = read ../lua/autogen/null-ls.lua;
     hooks.userEvents = [ "SpecificFileEnter" ];
@@ -195,6 +199,12 @@ rec {
     hooks.fileTypes = [
       "typescript"
       "javascript"
+    ];
+  };
+  conform = {
+    package = conform-nvim;
+    postConfig = read ../lua/autogen/conform.lua;
+    extraPackages = with pkgs; [
     ];
   };
 }

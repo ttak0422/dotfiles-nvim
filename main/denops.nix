@@ -1,6 +1,9 @@
 { pkgs, ... }:
 let
+  inherit (pkgs) callPackage;
   read = builtins.readFile;
+  treesitter = callPackage ./treesitter.nix {};
+  snippet = callPackage ./snippet.nix {};
 in
 with pkgs.vimPlugins;
 rec {
@@ -51,6 +54,56 @@ rec {
     depends = [ denops ];
     preConfig = read ../vim/translate.vim;
     hooks.commands = [ "Translate" ];
+    useDenops = true;
+  };
+  ddc = {
+    packages = [
+      ddc-vim
+      ddc-ui-pum
+      # ddc-ui-native
+      ddc-previewer-floating
+      # denops-popup-preview-vim
+      # denops-signature_help
+      ddc-matcher_head
+      ddc-path
+      # ddc-source-vim
+      ddc-sorter_rank
+      ddc-source-buffer
+      ddc-source-lsp-setup
+      ddc-source-around
+      ddc-source-cmdline
+      ddc-source-cmdline-history
+      ddc-source-file
+      ddc-source-input
+      ddc-source-line
+      ddc-source-nvim-lsp
+      ddc-source-vsnip
+      ddc-source-buffer
+      ddc-treesitter
+      ddc-converter_remove_overlap
+      ddc-converter_truncate
+      ddc-filter-matcher_head
+      ddc-filter_editdistance
+      ddc-filter-converter_remove_overlap
+      ddc-filter-converter_truncate_abbr
+      ddc-filter-matcher_length
+      ddc-filter-sorter_head
+      ddc-filter-sorter_rank
+      ddc-fuzzy
+      ddc-matcher_length
+      ddc-sorter_itemsize
+    ];
+    depends = [
+      denops
+      pum-vim
+      treesitter.treesitter
+      snippet.vsnip
+    ];
+    postConfig = {
+      language = "vim";
+      code = read ../vim/ddc.vim;
+      args.ts_config = ../denops/ddc.ts;
+    };
     useDenops = true;
   };
   ddu = {

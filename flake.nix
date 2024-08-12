@@ -1158,6 +1158,18 @@
       url = "github:Shougo/ddc-filter-sorter_head";
       flake = false;
     };
+    pum-vim = {
+      url = "github:Shougo/pum.vim";
+      flake = false;
+    };
+    denops-popup-preview-vim = {
+      url = "github:matsui54/denops-popup-preview.vim";
+      flake = false;
+    };
+    denops-signature_help = {
+      url = "github:matsui54/denops-signature_help";
+      flake = false;
+    };
   };
 
   outputs =

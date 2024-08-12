@@ -36,5 +36,6 @@ do
   for _, k in ipairs(N) do
     vim.keymap.set("n", k[1], k[2], (k[3] or opts))
   end
+  vim.cmd("\ncnoremap <expr> <C-a> '<Home>'\ncnoremap <expr> <C-b> '<Left>'\ncnoremap <expr> <C-f> '<Right>'\n           ")
 end
 return vim.cmd(("source " .. cabbrev_path))

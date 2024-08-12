@@ -141,51 +141,51 @@
       pylint (require :efmls-configs.linters.pylint)
       gitlint (require :efmls-configs.linters.gitlint)
       hadolint (require :efmls-configs.linters.hadolint) ;;
-      ;; formatter
-      stylua (require :efmls-configs.formatters.stylua)
-      fnlfmt (require :efmls-configs.formatters.fnlfmt)
-      prettier (require :efmls-configs.formatters.prettier)
-      fixjson (require :efmls-configs.formatters.fixjson)
-      shfmt (require :efmls-configs.formatters.shfmt)
-      taplo (require :efmls-configs.formatters.taplo)
-      nixfmt (require :efmls-configs.formatters.nixfmt)
-      ;; AOSPが提供されているので時前で定義する
-      ;; google_java_format (require :efmls-configs.formatters.google_java_format)
-      google_java_format (let [command (.. (fs.executable :google-java-format)
-                                           " $(echo -n ${--useless:rowStart} ${--useless:rowEnd}"
-                                           " | xargs -n4 -r sh -c 'echo"
-                                           " --skip-sorting-imports"
-                                           " --skip-removing-unused-imports"
-                                           " --skip-reflowing-long-strings"
-                                           " --skip-javadoc-formatting"
-                                           " --lines $(($1+1)):$(($3+1))'" ") -")]
-                           {:formatCanRange true
-                            :formatCommand command
-                            :formatStdin true
-                            :rootMarkers [:.project
-                                          :classpath
-                                          :pom.xml
-                                          :build.gradle]})
-      yapf (require :efmls-configs.formatters.yapf)
-      rustfmt (require :efmls-configs.formatters.rustfmt)
-      languages {:lua [luacheck stylua]
-                 :fennel [fnlfmt]
-                 :typescript [eslint prettier]
-                 :javascript [eslint prettier]
-                 :json [fixjson]
-                 :sh [shellcheck shfmt]
-                 :toml [taplo]
-                 :yaml [yamllint prettier]
-                 :nix [statix nixfmt]
-                 :java [google_java_format]
-                 :css [stylelint prettier]
-                 :scss [stylelint prettier]
-                 :less [stylelint prettier]
-                 :saas [stylelint prettier]
-                 :html [prettier]
+      ; ;; formatter
+      ; stylua (require :efmls-configs.formatters.stylua)
+      ; fnlfmt (require :efmls-configs.formatters.fnlfmt)
+      ; prettier (require :efmls-configs.formatters.prettier)
+      ; fixjson (require :efmls-configs.formatters.fixjson)
+      ; shfmt (require :efmls-configs.formatters.shfmt)
+      ; taplo (require :efmls-configs.formatters.taplo)
+      ; nixfmt (require :efmls-configs.formatters.nixfmt)
+      ; ;; AOSPが提供されているので時前で定義する
+      ; ;; google_java_format (require :efmls-configs.formatters.google_java_format)
+      ; google_java_format (let [command (.. (fs.executable :google-java-format)
+      ;                                      " $(echo -n ${--useless:rowStart} ${--useless:rowEnd}"
+      ;                                      " | xargs -n4 -r sh -c 'echo"
+      ;                                      " --skip-sorting-imports"
+      ;                                      " --skip-removing-unused-imports"
+      ;                                      " --skip-reflowing-long-strings"
+      ;                                      " --skip-javadoc-formatting"
+      ;                                      " --lines $(($1+1)):$(($3+1))'" ") -")]
+      ;                      {:formatCanRange true
+      ;                       :formatCommand command
+      ;                       :formatStdin true
+      ;                       :rootMarkers [:.project
+      ;                                     :classpath
+      ;                                     :pom.xml
+      ;                                     :build.gradle]})
+      ; yapf (require :efmls-configs.formatters.yapf)
+      ; rustfmt (require :efmls-configs.formatters.rustfmt)
+      languages {:lua [luacheck]
+                 :fennel []
+                 :typescript [eslint]
+                 :javascript [eslint]
+                 :json []
+                 :sh [shellcheck]
+                 :toml []
+                 :yaml [yamllint]
+                 :nix [statix]
+                 :java []
+                 :css [stylelint]
+                 :scss [stylelint]
+                 :less [stylelint]
+                 :saas [stylelint]
+                 :html []
                  :vim [vint]
-                 :python [pylint yapf]
-                 :rust [rustfmt]
+                 :python [pylint]
+                 :rust []
                  :gitcommit [gitlint]
                  :docker [hadolint]}
       settings {:rootMarkers [:.git/] : languages}

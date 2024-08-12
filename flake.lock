@@ -1746,6 +1746,38 @@
         "type": "github"
       }
     },
+    "denops-popup-preview-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1690256390,
+        "narHash": "sha256-CLJcz16J2a9qwMwIsqr0nr69nxSG5GxxSCGnKVoC+NA=",
+        "owner": "matsui54",
+        "repo": "denops-popup-preview.vim",
+        "rev": "5a62ac76478791a86f17ac79f064ab302c41f5eb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matsui54",
+        "repo": "denops-popup-preview.vim",
+        "type": "github"
+      }
+    },
+    "denops-signature_help": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1716017428,
+        "narHash": "sha256-YYO4I2HI61tSerCxQbxOQgsvwQcpIKE7PPsJeSYx/Ws=",
+        "owner": "matsui54",
+        "repo": "denops-signature_help",
+        "rev": "d8f5de04023c2211baed925350d2e652f4f3d0e1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matsui54",
+        "repo": "denops-signature_help",
+        "type": "github"
+      }
+    },
     "denops-translate-vim": {
       "flake": false,
       "locked": {
@@ -4113,6 +4145,22 @@
         "type": "github"
       }
     },
+    "pum-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1723371353,
+        "narHash": "sha256-l9UMnhSxdTNvc2px6cJuWSPm0Pa9f7kzVuO7pcAQmpg=",
+        "owner": "Shougo",
+        "repo": "pum.vim",
+        "rev": "a6ed258c8af9b8cf0e78fdb3c8d2a5ed00690e15",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "pum.vim",
+        "type": "github"
+      }
+    },
     "qf-nvim": {
       "flake": false,
       "locked": {
@@ -4270,6 +4318,8 @@
         "ddu-ui-filter": "ddu-ui-filter",
         "ddu-vim": "ddu-vim",
         "ddu-vim-ui-select": "ddu-vim-ui-select",
+        "denops-popup-preview-vim": "denops-popup-preview-vim",
+        "denops-signature_help": "denops-signature_help",
         "denops-translate-vim": "denops-translate-vim",
         "denops-vim": "denops-vim",
         "detour-nvim": "detour-nvim",
@@ -4397,6 +4447,7 @@
         "plenary-nvim": "plenary-nvim",
         "project-nvim": "project-nvim",
         "promise-async": "promise-async",
+        "pum-vim": "pum-vim",
         "qf-nvim": "qf-nvim",
         "reacher-nvim": "reacher-nvim",
         "registers-nvim": "registers-nvim",
