@@ -31,7 +31,7 @@ with pkgs.vimPlugins;
   vsnip = {
     packages = [
       vim-vsnip
-      vim-vsnip-integ
+      # vim-vsnip-integ
     ];
     depends = [ input.tabout ];
     preConfig = {
