@@ -1,7 +1,6 @@
 -- [nfnl] Compiled from fnl/neorg.fnl by https://github.com/Olical/nfnl, do not edit.
 local neorg = require("neorg")
 local callbacks = require("neorg.core.callbacks")
-local completion = {engine = "nvim-cmp"}
 local defaults = {disable = {}}
 local dirman = {workspaces = {notes = "~/neorg", dotfiles = "~/ghq/github.com/ttak0422/Limbo/notes"}, default_workspace = "notes"}
 local leader = "<LocalLeader>"
@@ -25,7 +24,7 @@ keybinds = {neorg_leader = "<LocalLeader>", hook = _2_, default_keybinds = false
 local journal = {journal_folder = "journal", strategy = "nested"}
 local metagen = {type = "auto"}
 local templates = {templates_dir = {}, default_subcommand = "fload"}
-local load = {["core.autocommands"] = {}, ["core.completion"] = {config = completion}, ["core.defaults"] = {config = defaults}, ["core.dirman"] = {config = dirman}, ["core.integrations.nvim-cmp"] = {}, ["core.integrations.treesitter"] = {}, ["core.keybinds"] = {config = keybinds}, ["core.storage"] = {}, ["core.summary"] = {}, ["core.ui"] = {}, ["core.journal"] = {config = journal}, ["core.esupports.metagen"] = {config = metagen}, ["core.integrations.telescope"] = {}, ["external.jupyter"] = {}, ["external.templates"] = {config = templates}}
+local load = {["core.autocommands"] = {}, ["core.defaults"] = {config = defaults}, ["core.dirman"] = {config = dirman}, ["core.integrations.nvim-cmp"] = {}, ["core.integrations.treesitter"] = {}, ["core.keybinds"] = {config = keybinds}, ["core.storage"] = {}, ["core.summary"] = {}, ["core.ui"] = {}, ["core.journal"] = {config = journal}, ["core.esupports.metagen"] = {config = metagen}, ["core.integrations.telescope"] = {}, ["external.jupyter"] = {}, ["external.templates"] = {config = templates}}
 local cmp = require("cmp")
 local sources = cmp.config.sources({{name = "neorg"}}, {{name = "buffer"}})
 neorg.setup({load = load})

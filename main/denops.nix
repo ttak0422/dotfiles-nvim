@@ -2,8 +2,8 @@
 let
   inherit (pkgs) callPackage;
   read = builtins.readFile;
-  treesitter = callPackage ./treesitter.nix {};
-  snippet = callPackage ./snippet.nix {};
+  treesitter = callPackage ./treesitter.nix { };
+  snippet = callPackage ./snippet.nix { };
 in
 with pkgs.vimPlugins;
 rec {
@@ -61,7 +61,6 @@ rec {
       ddc-vim
       ddc-ui-pum
       # ddc-ui-native
-      ddc-previewer-floating
       # denops-popup-preview-vim
       # denops-signature_help
       ddc-matcher_head
@@ -98,12 +97,17 @@ rec {
       pum-vim
       treesitter.treesitter
       snippet.vsnip
+      {
+        package = ddc-previewer-floating;
+        postConfig = read ../lua/autogen/ddc-previewer-floating.lua;
+      }
     ];
     postConfig = {
       language = "vim";
       code = read ../vim/ddc.vim;
       args.ts_config = ../denops/ddc.ts;
     };
+    hooks.events = [ "InsertEnter" ];
     useDenops = true;
   };
   ddu = {

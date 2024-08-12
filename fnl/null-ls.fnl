@@ -3,15 +3,16 @@
       formatting null_ls.builtins.formatting
       utils (require :null-ls.utils)
       sources [;; code_actions
-               ;; ddiagnostics
-               ;; diagnostics
+               ;; --- diagnostics --- ;;
+               ;; go
                diagnostics.staticcheck
+               ;; --- formatting --- ;;
                ;; go
-               ;; formatting
                formatting.gofumpt
-               ;; go
-               formatting.fnlfmt
                ;; fennel
+               formatting.fnlfmt
+               ;; nix
+               formatting.nixfmt
                ]]
   (null_ls.setup {:border :none
                   :cmd [:nvim]

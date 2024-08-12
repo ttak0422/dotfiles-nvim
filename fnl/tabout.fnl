@@ -6,8 +6,8 @@
                {:open "[" :close "]"}
                {:open "{" :close "}"}
                {:open "<" :close ">"}]]
-  (M.setup {:tabkey :<C-k>
-            :backwards_tabkey :<C-l>
+  (M.setup {:tabkey "" ; configured in pum
+            :backwards_tabkey ""  ; configured in pum
             :act_as_tab false
             :act_as_shift_tab false
             :default_tab :<C-t>

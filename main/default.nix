@@ -124,10 +124,11 @@ let
       fzf
       ;
     inherit (callPackage ./snippet.nix { })
-      sonictemplate
-      LuaSnip
+      # LuaSnip
       flow
       neogen
+      sonictemplate
+      vsnip
       ;
     inherit (callPackage ./style.nix { })
       NeoZoom

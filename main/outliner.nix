@@ -48,7 +48,7 @@ with pkgs.vimPlugins;
       lib.plenary
       lib.nio
       lib.nui
-      input.cmp
+      # input.cmp
       treesitter.treesitter
       search.telescope
       style.dressing

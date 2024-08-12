@@ -1,6 +1,5 @@
 -- [nfnl] Compiled from fnl/lsp.fnl by https://github.com/Olical/nfnl, do not edit.
 local on_attach = dofile(args.on_attach_path)
-local capabilities = dofile(args.capabilities_path)
 vim.diagnostic.config({severity_sort = true})
 vim.lsp.set_log_level("WARN")
 do end (vim.lsp.handlers)["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = "none"})
@@ -15,24 +14,24 @@ local windows = require("lspconfig.ui.windows")
 local climb = require("climbdir")
 local marker = require("climbdir.marker")
 windows.default_options.border = "none"
-lspconfig.lua_ls.setup({on_attach = on_attach, capabilities = capabilities, settings = {Lua = {runtime = {version = "LuaJIT"}, diagnostics = {globals = {"vim"}}}, workspace = {}, telemetry = {enable = false}}})
-lspconfig.fennel_ls.setup({on_attach = on_attach, capabilities = capabilities, settings = {["fennel-ls"] = {["extra-globals"] = "vim"}}})
-lspconfig.nil_ls.setup({on_attach = on_attach, capabilities = capabilities, autostart = true, settings = {["nil"] = {formatting = {command = {"nixpkgs-fmt"}}}}})
-lspconfig.bashls.setup({on_attach = on_attach, capabilities = capabilities})
-lspconfig.csharp_ls.setup({on_attach = on_attach, capabilities = capabilities})
-lspconfig.pyright.setup({on_attach = on_attach, capabilities = capabilities})
-lspconfig.solargraph.setup({on_attach = on_attach, capabilities = capabilities})
-lspconfig.taplo.setup({on_attach = on_attach, capabilities = capabilities})
-lspconfig.gopls.setup({on_attach = on_attach, capabilities = capabilities, settings = {gopls = {analyses = {unusedparams = true, unusedvariable = true, useany = true}, staticcheck = false}}})
-lspconfig.dartls.setup({on_attach = on_attach, capabilities = capabilities})
-lspconfig.dhall_lsp_server.setup({on_attach = on_attach, capabilities = capabilities})
-lspconfig.yamlls.setup({on_attach = on_attach, capabilities = capabilities, settings = {yaml = {keyOrdering = false}}})
-lspconfig.html.setup({on_attach = on_attach, capabilities = capabilities})
-lspconfig.cssls.setup({on_attach = on_attach, capabilities = capabilities})
+lspconfig.lua_ls.setup({on_attach = on_attach, settings = {Lua = {runtime = {version = "LuaJIT"}, diagnostics = {globals = {"vim"}}}, workspace = {}, telemetry = {enable = false}}})
+lspconfig.fennel_ls.setup({on_attach = on_attach, settings = {["fennel-ls"] = {["extra-globals"] = "vim"}}})
+lspconfig.nil_ls.setup({on_attach = on_attach, autostart = true, settings = {["nil"] = {formatting = {command = {"nixpkgs-fmt"}}}}})
+lspconfig.bashls.setup({on_attach = on_attach})
+lspconfig.csharp_ls.setup({on_attach = on_attach})
+lspconfig.pyright.setup({on_attach = on_attach})
+lspconfig.solargraph.setup({on_attach = on_attach})
+lspconfig.taplo.setup({on_attach = on_attach})
+lspconfig.gopls.setup({on_attach = on_attach, settings = {gopls = {analyses = {unusedparams = true, unusedvariable = true, useany = true}, staticcheck = false}}})
+lspconfig.dartls.setup({on_attach = on_attach})
+lspconfig.dhall_lsp_server.setup({on_attach = on_attach})
+lspconfig.yamlls.setup({on_attach = on_attach, settings = {yaml = {keyOrdering = false}}})
+lspconfig.html.setup({on_attach = on_attach})
+lspconfig.cssls.setup({on_attach = on_attach})
 local function _1_(path)
   return climb.climb(path, marker.one_of(marker.has_readable_file("package.json"), marker.has_directory("node_modules")), {halt = marker.one_of(marker.has_readable_file("deno.json"))})
 end
-lspconfig.vtsls.setup({on_attach = on_attach, capabilities = capabilities, settings = {separate_diagnostic_server = true, publish_diagnostic_on = "insert_leave", typescript = {suggest = {completeFunctionCalls = true}, preferences = {importModuleSpecifier = "relative"}}}, root_dir = _1_, vtsls = {experimental = {completion = {enableServerSideFuzzyMatch = true}}}, single_file_support = false})
+lspconfig.vtsls.setup({on_attach = on_attach, settings = {separate_diagnostic_server = true, publish_diagnostic_on = "insert_leave", typescript = {suggest = {completeFunctionCalls = true}, preferences = {importModuleSpecifier = "relative"}}}, root_dir = _1_, vtsls = {experimental = {completion = {enableServerSideFuzzyMatch = true}}}, single_file_support = false})
 local function _2_(path)
   local found = climb.climb(path, marker.one_of(marker.has_readable_file("deno.json"), marker.has_readable_file("deno.jsonc"), marker.has_directory("denops")), {halt = marker.one_of(marker.has_readable_file("package.json"), marker.has_directory("node_modules"))})
   local buf = vim.b[vim.fn.bufnr()]
@@ -42,9 +41,9 @@ local function _2_(path)
   end
   return found
 end
-lspconfig.denols.setup({on_attach = on_attach, capabilities = capabilities, root_dir = _2_, init_options = {lint = true, suggest = {completeFunctionCalls = true, names = true, paths = true, autoImports = true, imports = {autoDiscover = true, hosts = vim.empty_dict()}}, unstable = false}, settings = {deno = {enable = true}}, single_file_support = false})
-lspconfig.marksman.setup({on_attach = on_attach, capabilities = capabilities})
-lspconfig.ast_grep.setup({on_attach = on_attach, capabilities = capabilities})
+lspconfig.denols.setup({on_attach = on_attach, root_dir = _2_, init_options = {lint = true, suggest = {completeFunctionCalls = true, names = true, paths = true, autoImports = true, imports = {autoDiscover = true, hosts = vim.empty_dict()}}, unstable = false}, settings = {deno = {enable = true}}, single_file_support = false})
+lspconfig.marksman.setup({on_attach = on_attach})
+lspconfig.ast_grep.setup({on_attach = on_attach})
 local fs = require("efmls-configs.fs")
 local luacheck = require("efmls-configs.linters.luacheck")
 local eslint = require("efmls-configs.linters.eslint")
@@ -61,7 +60,7 @@ local settings = {rootMarkers = {".git/"}, languages = languages}
 local init_options = {documentFormatting = true, documentRangeFormatting = true}
 local make_settings
 local function _4_()
-  return {single_file_support = true, filetypes = vim.tbl_keys(languages), settings = settings, init_options = init_options, on_attach = on_attach, capabilities = capabilities}
+  return {single_file_support = true, filetypes = vim.tbl_keys(languages), settings = settings, init_options = init_options, on_attach = on_attach}
 end
 make_settings = _4_
 return lspconfig.efm.setup(make_settings())

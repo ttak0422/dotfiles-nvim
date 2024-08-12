@@ -9,6 +9,7 @@ let
   treesitter = callPackage ./treesitter.nix { };
   tool = callPackage ./tool.nix { };
   debug = callPackage ./debug.nix { };
+  denops = callPackage ./denops.nix { };
 in
 with pkgs.vimPlugins;
 rec {
@@ -32,7 +33,7 @@ rec {
         postConfig = read ../lua/autogen/diagflow.lua;
       }
       style.dressing
-      input.cmp
+      # input.cmp
       search.telescope
       {
         # efm
@@ -62,6 +63,7 @@ rec {
         ];
       }
       climbdir-nvim
+      denops.ddc
     ];
     extraPackages = with pkgs; [
       ast-grep
@@ -89,10 +91,7 @@ rec {
     preConfig = read ../lua/lsp-pre.lua;
     postConfig = {
       code = read ../lua/autogen/lsp.lua;
-      args = {
-        capabilities_path = ../lua/lsp-capabilities.lua;
-        on_attach_path = ../lua/autogen/lsp-on-attach.lua;
-      };
+      args.on_attach_path = ../lua/autogen/lsp-on-attach.lua;
     };
     hooks.events = [ "BufReadPost" ];
   };
@@ -167,7 +166,8 @@ rec {
       # formatters
       go-tools # go
       gofumpt # go
-          fnlfmt # fennel
+      fnlfmt # fennel
+      nixfmt-rfc-style # nix
     ];
     postConfig = read ../lua/autogen/null-ls.lua;
     hooks.userEvents = [ "SpecificFileEnter" ];
@@ -204,7 +204,6 @@ rec {
   conform = {
     package = conform-nvim;
     postConfig = read ../lua/autogen/conform.lua;
-    extraPackages = with pkgs; [
-    ];
+    extraPackages = with pkgs; [ ];
   };
 }

@@ -15,7 +15,7 @@ call pum#set_option({
       \ 'offset_cmdrow': 0,
       \ 'highlight_normal_menu': '',
       \ 'highlight_preview': '',
-      \ 'preview': v:true,
+      \ 'preview': v:false,
       \ 'preview_width': 120,
       \ })
 

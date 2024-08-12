@@ -1,6 +1,6 @@
 (let [neorg (require :neorg)
       callbacks (require :neorg.core.callbacks)
-      completion {:engine :nvim-cmp}
+      ; completion {:engine :nvim-cmp}
       defaults {:disable []}
       dirman {:workspaces {:notes "~/neorg"
                            ;; WIP
@@ -37,7 +37,7 @@
       metagen {:type :auto}
       templates {:templates_dir [] :default_subcommand :fload}
       load {:core.autocommands {}
-            :core.completion {:config completion}
+            ; :core.completion {:config completion}
             :core.defaults {:config defaults}
             :core.dirman {:config dirman}
             :core.integrations.nvim-cmp {}

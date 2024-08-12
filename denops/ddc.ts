@@ -129,7 +129,7 @@ export class Config extends BaseConfig {
 
     contextBuilder.patchFiletype("vim", {
       specialBufferCompletion: true,
-      sources: ["lsp", "vim", "around"],
+      sources: ["lsp", "necovim", "around"],
     });
 
     for (const filetype of ["typescript", "javascript"]) {

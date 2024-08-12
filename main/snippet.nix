@@ -3,6 +3,7 @@ let
   inherit (pkgs) callPackage;
   read = builtins.readFile;
   treesitter = callPackage ./treesitter.nix { };
+  input = callPackage ./input.nix { };
 in
 with pkgs.vimPlugins;
 {
@@ -28,7 +29,16 @@ with pkgs.vimPlugins;
       '';
   };
   vsnip = {
-    packages = [ vim-vsnip vim-vsnip-integ ];
+    packages = [
+      vim-vsnip
+      vim-vsnip-integ
+    ];
+    depends = [ input.tabout ];
+    preConfig = {
+      language = "vim";
+      code = read ../vim/vsnip.vim;
+    };
+    hooks.events = [ "InsertEnter" ];
   };
   LuaSnip = {
     package = pkgs.vimPlugins.LuaSnip;
@@ -47,7 +57,7 @@ with pkgs.vimPlugins;
     package = pkgs.vimPlugins.neogen;
     depends = [
       # vim-vsnip
-      LuaSnip
+      # LuaSnip
       treesitter.treesitter
     ];
     postConfig = read ../lua/autogen/neogen.lua;
