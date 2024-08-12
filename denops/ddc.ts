@@ -79,8 +79,8 @@ export class Config extends BaseConfig {
           dup: "keep",
           minAutoCompleteLength: 1,
           sorters: [
-            // "sorter_lsp-detail-size",
-            // "sorter_lsp-kind",
+            "sorter_lsp-detail-size",
+            "sorter_lsp-kind",
             "sorter_fuzzy",
           ],
         },
