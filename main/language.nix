@@ -168,6 +168,12 @@ rec {
       gofumpt # go
       fnlfmt # fennel
       nixfmt-rfc-style # nix
+      stylua # lua
+      shfmt # sh
+      google-java-format # java
+      yapf # python
+      html-tidy # html
+      nodePackages.prettier # js, ts (node)
     ];
     postConfig = read ../lua/autogen/null-ls.lua;
     hooks.userEvents = [ "SpecificFileEnter" ];
