@@ -70,6 +70,8 @@
          ;; buffer
          [:<leader>q (cmd :BufDel)]
          [:<leader>Q (cmd :BufDel!)]
+         ;; tab
+         [:<leader>A (cmd :tabclose)]
          ;; toggle
          [:<leader>tm
           (lcmd "require('codewindow').toggle_minimap()")
@@ -82,9 +84,7 @@
           (desc "toggle recursive split/join")]
          [:<leader>tq (mk_toggle 1 :quickfix nil) (desc "toggle quickfix")]
          [:<leader>td
-          (mk_toggle 2 :trouble
-                     {:mode :diagnostics
-                      :filter {:buf 0}})
+          (mk_toggle 2 :trouble {:mode :diagnostics :filter {:buf 0}})
           (desc "toggle diagnostics (document)")]
          [:<leader>tD
           (mk_toggle 3 :trouble {:mode :diagnostics})
