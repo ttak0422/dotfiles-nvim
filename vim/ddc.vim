@@ -13,8 +13,6 @@ call pum#set_option({
       \ 'use_setline': v:true,
       \ 'offset_cmdcol': 0,
       \ 'offset_cmdrow': 0,
-      \ 'highlight_normal_menu': '',
-      \ 'highlight_preview': '',
       \ 'preview': v:false,
       \ 'preview_width': 120,
       \ })
