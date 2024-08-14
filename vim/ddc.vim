@@ -27,8 +27,14 @@ inoremap <C-y> <Cmd>call pum#map#confirm()<CR>
 inoremap <C-o> <Cmd>call pum#map#confirm_word()<CR>
 
 " cmdline completion
-cnoremap <expr> <C-n> pum#visible() ? '<Cmd>call pum#map#select_relative(+1)<CR>' : '<Down>'
-cnoremap <expr> <C-p> pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
+cnoremap <expr> <Tab>
+      \   wildmenumode()
+      \ ? &wildcharm->nr2char()
+      \ : pum#visible()
+      \ ? '<Cmd>call pum#map#insert_relative(+1)<CR>'
+cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+cnoremap <expr> <C-n> pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' : '<Down>'
+cnoremap <expr> <C-p> pum#visible() ? '<Cmd>call pum#map#insert_relative(-1)<CR>' : '<Up>'
 cnoremap <expr> <C-e> pum#visible() ? '<Cmd>call pum#map#cancel()<CR>' : '<End>'
 cnoremap <C-y> <Cmd>call pum#map#confirm()<CR>
 cnoremap <C-o> <Cmd>call pum#map#confirm()<CR>
