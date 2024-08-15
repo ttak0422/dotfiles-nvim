@@ -23,6 +23,12 @@ inoremap <C-p> <Cmd>call pum#map#select_relative(-1)<CR>
 inoremap <expr> <C-e> pum#visible() ? '<Cmd>call pum#map#cancel()<CR>' : '<End>'
 inoremap <C-y> <Cmd>call pum#map#confirm()<CR>
 inoremap <C-o> <Cmd>call pum#map#confirm_word()<CR>
+inoremap <C-x>      <Cmd>call ddc#map#manual_complete()<CR>
+inoremap <C-x><C-x> <Cmd>call ddc#map#manual_complete()<CR>
+inoremap <C-x><C-b> <Cmd>call ddc#map#manual_complete(#{ sources: ['buffer'] })<CR>
+inoremap <C-x><C-f> <Cmd>call ddc#map#manual_complete(#{ sources: ['file'] })<CR>
+inoremap <C-x><C-l> <Cmd>call ddc#map#manual_complete(#{ sources: ['lsp'] })<CR>
+inoremap <expr> <C-Space> '<C-n>'
 
 " cmdline completion
 cnoremap <expr> <Tab>
