@@ -21,7 +21,7 @@ let
     cabalproject = hashkellTools;
     cagbal = hashkellTools;
     lhaskell = hashkellTools;
-    neorg = {
+    norg = {
       language = "vim";
       code = read ../vim/after/neorg.vim;
     };
