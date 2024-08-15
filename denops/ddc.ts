@@ -60,7 +60,7 @@ export class Config extends BaseConfig {
           maxItems: 50,
         },
         file: {
-          mark: "[FILE}]",
+          mark: "[FILE]",
           isVolatile: true,
           forceCompletionPattern: "\\S/\\S*",
         },
