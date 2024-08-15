@@ -54,6 +54,6 @@ with pkgs.vimPlugins;
       style.dressing
     ];
     postConfig = read ../lua/autogen/neorg.lua;
-    hooks.commands = [ "Neorg" ];
+    hooks.commands = [ "Neorg" "NeorgFuzzySearch" ];
   };
 }

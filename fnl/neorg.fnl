@@ -66,3 +66,5 @@
                                                :i insert_events}
                                               key_opts))) ; (cmp.setup.filetype :norg {: sources})
   )
+
+(vim.api.nvim_create_user_command :NeorgFuzzySearch "Telescope neorg find_linkable" {})

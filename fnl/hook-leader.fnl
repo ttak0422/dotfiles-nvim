@@ -58,7 +58,7 @@
          [:<Leader>no (cmd "Neorg toc") (desc "Show Neorg TOC")]
          [:<Leader>N (cmd :Neorg) (desc "Enter Neorg")]
          [:<Leader>fn
-          (cmd "Neorg keybind norg core.integrations.telescope.find_linkable")
+          (cmd "NeorgFuzzySearch")
           (desc "find Neorg linkable")]
          ;; git
          [:<Leader>G (cmd :Neogit) (desc "Neovim git client")]
