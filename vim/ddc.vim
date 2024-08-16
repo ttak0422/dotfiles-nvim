@@ -16,6 +16,7 @@ call pum#set_option({
       \ 'preview': v:false,
       \ 'preview_width': 120,
       \ })
+set wildoptions-=pum
 
 " insert completion
 inoremap <C-n> <Cmd>call pum#map#select_relative(+1)<CR>
@@ -36,6 +37,8 @@ cnoremap <expr> <Tab>
       \ ? &wildcharm->nr2char()
       \ : pum#visible()
       \ ? '<Cmd>call pum#map#insert_relative(+1)<CR>'
+      \ : ddc#map#manual_complete()
+
 cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 cnoremap <expr> <C-n> pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' : '<Down>'
 cnoremap <expr> <C-p> pum#visible() ? '<Cmd>call pum#map#insert_relative(-1)<CR>' : '<Up>'

@@ -110,7 +110,7 @@ rec {
       code = read ../vim/ddc.vim;
       args.ts_config = ../denops/ddc.ts;
     };
-    hooks.events = [ "InsertEnter" ];
+    hooks.events = [ "InsertEnter" "CmdlineEnter" ];
     useDenops = true;
   };
   ddu = {
