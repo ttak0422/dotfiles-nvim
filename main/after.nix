@@ -21,10 +21,7 @@ let
     cabalproject = hashkellTools;
     cagbal = hashkellTools;
     lhaskell = hashkellTools;
-    norg = {
-      language = "vim";
-      code = read ../vim/after/neorg.vim;
-    };
+    norg = read ../lua/autogen/after/norg.lua;
     ddu-ff = {
       language = "vim";
       code = read ../vim/after/ddu-ui-ff.vim;
