@@ -2652,6 +2652,22 @@
         "type": "github"
       }
     },
+    "live-rename-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1723799786,
+        "narHash": "sha256-mj6RWohNcoxdXV8Rr1B96ZCOs9cH6TCMSBi60mtkJwE=",
+        "owner": "saecki",
+        "repo": "live-rename.nvim",
+        "rev": "4b48e6831fbbe346cd0111f65846491c19a176e4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "saecki",
+        "repo": "live-rename.nvim",
+        "type": "github"
+      }
+    },
     "loaded-nvim": {
       "inputs": {
         "flake-parts": [
@@ -4361,6 +4377,7 @@
         "legendary-nvim": "legendary-nvim",
         "lir-git-status-nvim": "lir-git-status-nvim",
         "lir-nvim": "lir-nvim",
+        "live-rename-nvim": "live-rename-nvim",
         "loaded-nvim": "loaded-nvim",
         "lsp-inlayhints-nvim": "lsp-inlayhints-nvim",
         "lsp-lens-nvim": "lsp-lens-nvim",

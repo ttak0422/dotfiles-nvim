@@ -1170,6 +1170,10 @@
       url = "github:matsui54/denops-signature_help";
       flake = false;
     };
+    live-rename-nvim = {
+      url = "github:saecki/live-rename.nvim";
+      flake = false;
+    };
   };
 
   outputs =
