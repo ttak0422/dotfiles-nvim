@@ -76,8 +76,8 @@
                                    :Value "fnl/test"
                                    :Variable ""
                                    :WhileStatement ""}}
-                  ui {:bar {:separator "  " :extends "…"}
-                      :menu {:separator " " :indicator "  "}}]
+                  ui {:bar {:separator " ▸ " :extends "…"}
+                      :menu {:separator " " :indicator " ▸ "}}]
               {:enable true : kinds : ui})
       bar {:sources (fn [buf _]
                       (print (. vim.bo buf :buftype))
