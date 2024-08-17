@@ -8,7 +8,12 @@ let
   });
 
   extraPackages = [ ];
-  extraConfig = read ./../lua/autogen/prelude.lua;
+  extraConfig = ''
+    if vim.g.neovide then
+      dofile("${./lua/autogen/neovide.lua}")
+    end
+    ${read ./../lua/autogen/prelude.lua}
+  '';
   after = {
     inherit (callPackage ./after.nix { }) plugin ftplugin;
   };
