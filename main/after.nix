@@ -21,6 +21,7 @@ let
     cabalproject = hashkellTools;
     cagbal = hashkellTools;
     lhaskell = hashkellTools;
+    java = read ../lua/autogen/after/java.lua;
     norg = read ../lua/autogen/after/norg.lua;
     ddu-ff = {
       language = "vim";
