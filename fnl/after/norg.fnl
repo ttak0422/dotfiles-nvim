@@ -2,7 +2,7 @@
   (tset vim.opt_local k v))
 
 (let [map vim.keymap.set
-      opts (fn [d] {:noremap true :silent true :buffer true :desc d})
+      opts (fn [d] {:noremap false :silent true :buffer true :desc d})
       N [[:<LocalLeader>nn
           "<Plug>(neorg.dirman.new-note)"
           (opts " Create a new note")]
@@ -51,11 +51,17 @@
          [:<LocalLeader>id
           "<Plug>(neorg.tempus.insert-date)"
           (opts " Insert date")]]
-      I [[:<C-t> "<Plug>(neorg.promo.promote)" (opts " Promote object")]
-         [:<C-d> "<Plug>(neorg.promo.demote)" (opts " Demote object")]
-         [:<C-CR>
-          "<Plug>(neorg.itero.next-iteration)"
-          (opts " Continue object")]]
+      I [[:<C-l>
+          "<C-o><Plug>(neorg.telescope.insert_link)"
+          (opts " Insert link")]
+         [:<C-t>
+          "<C-o><Plug>(neorg.promo.promote)"
+          (opts " Promote object")]
+         [:<C-d> "<C-o><Plug>(neorg.promo.demote)" (opts " Demote object")]
+         ; [:<C-CR>
+         ;  "<C-o><Plug>(neorg.itero.next-iteration)"
+         ;  (opts " Continue object")]
+         ]
       V [[">" "<Plug>(neorg.promo.promote.range)" (opts " Promote range")]
          ["<" "<Plug>(neorg.promo.demote.range)" (opts " Demote range")]]]
   (each [mode ks (pairs {:n N :i I :v V})]
