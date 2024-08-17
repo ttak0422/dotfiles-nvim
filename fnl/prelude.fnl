@@ -1,5 +1,6 @@
 ;; options
 (vim.loader.enable)
+(vim.cmd "language en_US")
 (each [k v (pairs {;; 言語メニューを無効にする
                    :langmenu :none
                    ;; shortmessオプションにsWIcCSを追加
