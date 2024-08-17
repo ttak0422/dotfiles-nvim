@@ -30,7 +30,7 @@
 (let [osc52 (require :vim.ui.clipboard.osc52)
       paste (fn []
               [(vim.fn.split (vim.fn.getreg "") "\n") (vim.fn.getregtype "")])]
-  (vim.opt.clipboard:append :unnamedplus)
+  ; (vim.opt.clipboard:append :unnamedplus)
   (if (not= (os.getenv :SSH_TTY) nil)
       (set vim.g.clipboard
            {:name "OSC 52"
