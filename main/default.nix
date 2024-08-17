@@ -10,7 +10,7 @@ let
   extraPackages = [ ];
   extraConfig = read ./../lua/autogen/prelude.lua;
   after = {
-    inherit (callPackage ./after.nix { }) ftplugin;
+    inherit (callPackage ./after.nix { }) plugin ftplugin;
   };
   eager = {
     morimo.package = pkgs.vimPlugins.morimo;
