@@ -128,6 +128,11 @@ export class Config extends BaseConfig {
           shell: "fish",
         },
       },
+      filterParams: {
+        converter_fuzzy: {
+          hlGroup: "PmenuFuzzyMatch",
+        },
+      },
       postFilters: ["sorter_head"],
     });
 

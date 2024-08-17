@@ -1,3 +1,6 @@
+" for converter_fuzzy
+highlight PmenuFuzzyMatch gui=bold
+
 call ddc#custom#load_config(s:args['ts_config'])
 
 call ddc#enable({ 'context_filetype': 'treesitter' })
