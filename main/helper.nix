@@ -71,6 +71,7 @@ with pkgs.vimPlugins;
     package = todo-comments-nvim;
     depends = [
       lib.plenary
+      lib.devicons
       diagnostic.trouble
     ];
     extraPackages = with pkgs; [ ripgrep ];
