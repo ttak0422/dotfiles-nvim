@@ -10,7 +10,7 @@ let
   extraPackages = [ ];
   extraConfig = ''
     if vim.g.neovide then
-      dofile("${./lua/autogen/neovide.lua}")
+      dofile("${../lua/autogen/neovide.lua}")
     end
     ${read ./../lua/autogen/prelude.lua}
   '';
