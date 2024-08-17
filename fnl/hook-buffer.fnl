@@ -34,10 +34,14 @@
             :foldcolumn :1
             :signcolumn :yes
             :number true
-            :foldenable true
-            :fillchars "eob: ,fold: ,foldopen:,foldsep: ,foldclose:"}]
+            :foldenable true}]
   (each [k v (pairs opts)]
-    (tset vim.o k v)))
+    (tset vim.o k v))
+  (vim.opt.fillchars:append {:eob " "
+                             :fold " "
+                             :foldopen "▾"
+                             :foldsep " "
+                             :foldclose "▸"}))
 
 (let [opts {:noremap true :silent true}
       desc (fn [d] {:noremap true :silent true :desc d})

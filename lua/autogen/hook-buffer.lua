@@ -1,10 +1,11 @@
 -- [nfnl] Compiled from fnl/hook-buffer.fnl by https://github.com/Olical/nfnl, do not edit.
 do
   local cachePath = vim.fn.stdpath("cache")
-  local opts = {helplang = "ja,en", mouse = "a", hidden = true, autoread = true, undofile = true, undodir = (cachePath .. "/undo"), swapfile = true, directory = (cachePath .. "/swap"), backup = true, backupcopy = "yes", backupdir = (cachePath .. "/backup"), diffopt = "internal,filler,closeoff,vertical", splitright = true, splitbelow = true, winwidth = 20, winheight = 1, foldcolumn = "1", signcolumn = "yes", number = true, foldenable = true, fillchars = "eob: ,fold: ,foldopen:\239\145\188,foldsep: ,foldclose:\239\145\160", startofline = false, equalalways = false}
+  local opts = {helplang = "ja,en", mouse = "a", hidden = true, autoread = true, undofile = true, undodir = (cachePath .. "/undo"), swapfile = true, directory = (cachePath .. "/swap"), backup = true, backupcopy = "yes", backupdir = (cachePath .. "/backup"), diffopt = "internal,filler,closeoff,vertical", splitright = true, splitbelow = true, winwidth = 20, winheight = 1, foldcolumn = "1", signcolumn = "yes", number = true, foldenable = true, startofline = false, equalalways = false}
   for k, v in pairs(opts) do
     vim.o[k] = v
   end
+  do end (vim.opt.fillchars):append({eob = " ", fold = " ", foldopen = "\226\150\190", foldsep = " ", foldclose = "\226\150\184"})
 end
 local opts = {noremap = true, silent = true}
 local desc
