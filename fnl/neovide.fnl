@@ -1,3 +1,10 @@
+(each [k v {:neovide_padding_top 5
+            :neovide_padding_bottom 5
+            :neovide_padding_right 5
+            :neovide_padding_left 5
+            :neovide_confirm_quit false}]
+  (tset vim.g k v))
+
 (let [map vim.keymap.set
       scale 1.1
       change_scale (fn [delta]
