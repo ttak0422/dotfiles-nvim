@@ -21,6 +21,9 @@ call pum#set_option({
       \ })
 set wildoptions-=pum
 
+" https://zenn.dev/kawarimidoll/articles/54e38aa7f55aff
+inoremap <expr> / complete_info(['mode']).mode == 'files' && complete_info(['selected']).selected >= 0 ? '<c-x><c-f>' : '/'
+
 " insert completion
 inoremap <C-n> <Cmd>call pum#map#select_relative(+1)<CR>
 inoremap <C-p> <Cmd>call pum#map#select_relative(-1)<CR>
