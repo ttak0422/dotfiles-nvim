@@ -1,2 +1,58 @@
 -- [nfnl] Compiled from fnl/after/java.fnl by https://github.com/Olical/nfnl, do not edit.
-
+local jdtls = setmetatable({setup = require("jdtls.setup"), dap = require("jdtls.dap")}, {__index = require("jdtls")})
+local enabled = {enabled = true}
+local disabled = {enabled = false}
+local root_dir = jdtls.setup.find_root({".git", "mvnw", "gradlew"})
+local settings
+do
+  local autobuild = disabled
+  local maxConcurrentBuilds = 8
+  local saveActions = {organizeImports = false}
+  local sources = {organizeImports = {starThreshold = 9999, staticStarThreshold = 9999}}
+  local favoriteStaticMembers = {"org.junit.jupiter.api.Assertions.*", "org.junit.jupiter.api.Assumptions.*", "org.junit.jupiter.api.DynamicContainer.*", "org.junit.jupiter.api.DynamicTest.*", "org.assertj.core.api.Assertions.*", "org.mockito.Mockito.*", "org.mockito.ArgumentMatchers.*", "org.mockito.Answers.*", "org.mockito.Mockito.*"}
+  local filteredTypes = {"java.awt.*", "com.sun.*", "sun.*", "jdk.*", "org.gaalvm.*", "io.micrometer.shaded.*"}
+  local completion = {favoriteStaticMembers = favoriteStaticMembers, filteredTypes = filteredTypes}
+  local edit = {smartSemicolonDetection = enabled, validateAllOpenBuffersOnChanges = false}
+  local signatureHelp = {enabled = true, description = enabled}
+  settings = {java = {autobuild = autobuild, maxConcurrentBuilds = maxConcurrentBuilds, signatureHelp = signatureHelp, saveActions = saveActions, edit = edit, completion = completion, sources = sources}}
+end
+local home = os.getenv("HOME")
+local work_space = (home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(root_dir, ":p:h"):gsub("/", "_"))
+local cmd = {args.java_path, "-Declipse.application=org.eclipse.jdt.ls.core.id1", "-Dosgi.bundles.defaultStartLevel=4", "-Declipse.product=org.eclipse.jdt.ls.core.product", ("-Dosgi.sharedConfiguration.area=" .. args.jdtls_config_path), "-Dosgi.sharedConfiguration.area.readOnly=true", "-Dosgi.checkConfiguration=true", "-Dosgi.configuration.c:ascaded=true", "-Dlog.protocol=true", "-Dlog.level=OFF", "-Xlog:disable", "-Xmx12G", ("-javaagent:" .. args.lombok_jar_path), "-jar", vim.fn.glob(args.jdtls_jar_pattern), "-data", work_space}
+local handlers
+local function _1_()
+end
+handlers = {["language/status"] = _1_}
+local build_timeout = 10000
+local on_attach
+local function _2_(client, bufnr)
+  local opts
+  local function _3_(desc)
+    return {silent = true, buffer = bufnr, desc = desc}
+  end
+  opts = _3_
+  local with_compile
+  local function _4_(f)
+    local function _5_()
+      if vim.bo.modified then
+        vim.cmd("w")
+      else
+      end
+      client.request_sync("java/buildWorkspace", false, build_timeout, bufnr)
+      return f()
+    end
+    return _5_
+  end
+  with_compile = _4_
+  local N = {{"<LocalLeader>o", jdtls.organize_imports, opts("[JDTLS] organize imports")}, {"<LocalLeader>tt", with_compile(jdtls.test_nearest_method), opts("[JDTLS] test nearest")}, {"<LocalLeader>tT", with_compile(jdtls.test_class), opts("[JDTLS] test class")}}
+  dofile(args.on_attach_path)(client, bufnr)
+  jdtls.dap.setup_dap({hotcodereplace = "auto"})
+  jdtls.dap.setup_dap_main_class_configs()
+  for _, k in ipairs(N) do
+    vim.keymap.set("n", k[1], k[2], k[3])
+  end
+  return nil
+end
+on_attach = _2_
+local config = {root_dir = root_dir, settings = settings, cmd = cmd, on_attach = on_attach, handlers = handlers}
+return jdtls.start_or_attach(config)

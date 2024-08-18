@@ -21,7 +21,30 @@ let
     cabalproject = hashkellTools;
     cagbal = hashkellTools;
     lhaskell = hashkellTools;
-    java = read ../lua/autogen/after/java.lua;
+    java =
+      let
+        inherit (pkgs.vscode-extensions.vscjava) vscode-java-debug vscode-java-test;
+        jdtls = pkgs.jdt-language-server;
+      in
+      {
+        code = read ../lua/autogen/after/java.lua;
+        args = {
+          on_attach_path = ../lua/autogen/lsp-on-attach.lua;
+          java_path = "${pkgs.jdk17}/bin/java";
+          java22_path = "${pkgs.jdk22}/bin/java";
+          java17_path = "${pkgs.jdk17}/bin/java";
+          jdtls_config_path =
+            let
+              systemPath = if pkgs.stdenv.isDarwin then "config_mac" else "config/linux";
+            in
+            "${jdtls}/share/java/jdtls/${systemPath}";
+          lombok_jar_path = "${pkgs.lombok}/share/java/lombok.jar";
+          jdtls_jar_pattern = "${jdtls}/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*.jar";
+          java_debug_jar_pattern = "${vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server/com.microsoft.java.debug.plugin-*.jar";
+          java_test_jar_pattern = "${vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server/*.jar";
+          jol_jar_path = pkgs.javaPackages.jol;
+        };
+      };
     norg = read ../lua/autogen/after/norg.lua;
     ddu-ff = {
       language = "vim";
