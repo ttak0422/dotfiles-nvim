@@ -159,11 +159,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1720714723,
-        "narHash": "sha256-C4aSqFMfZrpuyFjDxuFu/uHOVG2Kvzu0autpzTFyojY=",
+        "lastModified": 1723997150,
+        "narHash": "sha256-1L5QA1ZRbeZysqUeDWOuhtSrYuzD2e7DuOjnGWDy5uc=",
         "owner": "ttak0422",
         "repo": "bundler",
-        "rev": "49b3f7a88e0ced06268de416faeaad81cb553caf",
+        "rev": "7b8b0686b9d06d2a6902344e9b06dda91f8b1f29",
         "type": "github"
       },
       "original": {
@@ -2535,13 +2535,13 @@
     "jol": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-4+r9dT+TPdn47wqaFQC9iYad8iD6pHLNnOi4AUzOEUQ=",
+        "narHash": "sha256-4GVcu97jdZ8LWzX77+y5/y9OzomZTDoZshhHyFVhNRs=",
         "type": "file",
-        "url": "https://repo.maven.apache.org/maven2/org/openjdk/jol/jol-cli/0.16/jol-cli-0.16-full.jar"
+        "url": "https://repo.maven.apache.org/maven2/org/openjdk/jol/jol-cli/0.17/jol-cli-0.17-full.jar"
       },
       "original": {
         "type": "file",
-        "url": "https://repo.maven.apache.org/maven2/org/openjdk/jol/jol-cli/0.16/jol-cli-0.16-full.jar"
+        "url": "https://repo.maven.apache.org/maven2/org/openjdk/jol/jol-cli/0.17/jol-cli-0.17-full.jar"
       }
     },
     "junit-console": {

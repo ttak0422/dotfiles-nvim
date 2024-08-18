@@ -38,7 +38,7 @@
       flake = false;
     };
     jol = {
-      url = "https://repo.maven.apache.org/maven2/org/openjdk/jol/jol-cli/0.16/jol-cli-0.16-full.jar";
+      url = "https://repo.maven.apache.org/maven2/org/openjdk/jol/jol-cli/0.17/jol-cli-0.17-full.jar";
       flake = false;
     };
 
