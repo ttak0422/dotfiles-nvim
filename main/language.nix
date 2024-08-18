@@ -33,6 +33,7 @@ rec {
         postConfig = read ../lua/autogen/diagflow.lua;
       }
       style.dressing
+      style.noice
       # input.cmp
       search.telescope
       {
