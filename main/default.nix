@@ -149,7 +149,6 @@ let
       numb
       statuscol
       tint
-      ufo
       winsep
       ;
     inherit (callPackage ./test.nix { }) neotest;

@@ -1,6 +1,6 @@
 (let [cachePath (vim.fn.stdpath :cache)
-      opts {;; 日本語の優先度を上げる
-            :helplang "ja,en"
+      opts {; ;; 日本語の優先度を上げる
+            ; :helplang "ja,en"
             ;; マウス操作
             :mouse :a
             ;; 未保存のバッファ切り替えを許容
@@ -30,11 +30,7 @@
             ;; カレントウィンドウの最小幅
             :winwidth 20
             ;; カレントウィンドウの最小高
-            :winheight 1
-            :foldcolumn :1
-            :signcolumn :yes
-            :number true
-            :foldenable true}]
+            :winheight 1}]
   (each [k v (pairs opts)]
     (tset vim.o k v))
   (vim.opt.fillchars:append {:eob " "

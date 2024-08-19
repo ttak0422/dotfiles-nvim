@@ -95,21 +95,22 @@ rec {
   statuscol = {
     package = statuscol-nvim;
     postConfig = read ../lua/autogen/statuscol.lua;
+    depends = [
+      {
+        package = nvim-ufo;
+        depends = [
+          promise-async
+          treesitter.treesitter
+        ];
+        postConfig = read ../lua/autogen/ufo.lua;
+      }
+    ];
     hooks.userEvents = [ "SpecificFileEnter" ];
   };
   tint = {
     package = tint-nvim;
     postConfig = read ../lua/autogen/tint.lua;
     hooks.events = [ "WinNew" ];
-  };
-  ufo = {
-    package = nvim-ufo;
-    depends = [
-      promise-async
-      treesitter.treesitter
-    ];
-    postConfig = read ../lua/autogen/ufo.lua;
-    hooks.userEvents = [ "SpecificFileEnter" ];
   };
   winsep = {
     package = colorful-winsep-nvim;
