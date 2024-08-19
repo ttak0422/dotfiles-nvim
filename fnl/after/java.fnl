@@ -1,9 +1,22 @@
+(local debug_jars (vim.split (vim.fn.glob args.java_debug_jar_pattern 1) "\n"))
+(local test_jars (vim.split (vim.fn.glob args.java_test_jar_pattern 1) "\n"))
+
 (let [jdtls (setmetatable {:setup (require :jdtls.setup)
                            :dap (require :jdtls.dap)}
                           {:__index (require :jdtls)})
       enabled {:enabled true}
       disabled {:enabled false}
-      root_dir (jdtls.setup.find_root [:.git :mvnw :gradlew])
+      root_dir (jdtls.setup.find_root [:.git :mvnw :gradlew]) ;
+      ;; init_options
+      bundles (let [tbl []]
+                (each [_ v (ipairs debug_jars)]
+                  (if (not= "" v)
+                      (table.insert tbl v)))
+                (each [_ v (ipairs test_jars)]
+                  (if (not= "" v)
+                      (table.insert tbl v)))
+                tbl)
+      init_options {: bundles}
       settings (let [autobuild disabled
                      maxConcurrentBuilds 8
                      ; contentProvider  { :preferred  "fernflower" } ;; TODO:
@@ -99,5 +112,11 @@
                     (jdtls.dap.setup_dap_main_class_configs)
                     (each [_ k (ipairs N)]
                       (vim.keymap.set :n (. k 1) (. k 2) (. k 3)))))
-      config {: root_dir : settings : cmd : on_attach : handlers}]
+      config {: root_dir
+              : settings
+              : cmd
+              : on_attach
+              : handlers
+              : init_options}]
+  (set vim.g.jdtjdt bundles)
   (jdtls.start_or_attach config))
