@@ -8,6 +8,10 @@
       disabled {:enabled false}
       root_dir (jdtls.setup.find_root [:.git :mvnw :gradlew]) ;
       ;; init_options
+      extendedClientCapabilities (let [c jdtls.extendedClientCapabilities]
+                                   (tset c :resolveAdditionalTextEditsSupport
+                                         true)
+                                   c)
       bundles (let [tbl []]
                 (each [_ v (ipairs debug_jars)]
                   (if (not= "" v)
@@ -16,7 +20,7 @@
                   (if (not= "" v)
                       (table.insert tbl v)))
                 tbl)
-      init_options {: bundles}
+      init_options {: bundles : extendedClientCapabilities}
       settings (let [autobuild disabled
                      maxConcurrentBuilds 8
                      ; contentProvider  { :preferred  "fernflower" } ;; TODO:

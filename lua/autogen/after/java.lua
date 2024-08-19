@@ -5,6 +5,12 @@ local jdtls = setmetatable({setup = require("jdtls.setup"), dap = require("jdtls
 local enabled = {enabled = true}
 local disabled = {enabled = false}
 local root_dir = jdtls.setup.find_root({".git", "mvnw", "gradlew"})
+local extendedClientCapabilities
+do
+  local c = jdtls.extendedClientCapabilities
+  c["resolveAdditionalTextEditsSupport"] = true
+  extendedClientCapabilities = c
+end
 local bundles
 do
   local tbl = {}
@@ -22,7 +28,7 @@ do
   end
   bundles = tbl
 end
-local init_options = {bundles = bundles}
+local init_options = {bundles = bundles, extendedClientCapabilities = extendedClientCapabilities}
 local settings
 do
   local autobuild = disabled
