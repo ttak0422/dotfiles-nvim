@@ -8,7 +8,15 @@ in
 with pkgs.vimPlugins;
 {
   sonictemplate = {
-    package = vim-sonictemplate;
+    package = vim-sonictemplate.overrideAttrs (old: {
+      src = pkgs.nix-filter {
+        root = vim-sonictemplate.src;
+        exclude = [
+          "template/java"
+          "template/make"
+        ];
+      };
+    });
     preConfig =
       let
         template = pkgs.stdenv.mkDerivation {
