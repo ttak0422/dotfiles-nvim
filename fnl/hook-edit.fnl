@@ -22,7 +22,10 @@
       ;; desc (fn [d] {:noremap true :silent true :desc d})
       cmd (fn [c] (.. :<cmd> c :<cr>))
       lcmd (fn [c] (cmd (.. "lua " c)))
-      N [[:gx (lcmd "require('open').open_cword()")]]]
+      N [[:gx (lcmd "require('open').open_cword()")]
+         [:<esc><esc> (cmd :nohl)]
+         [:j :gj]
+         [:k :gk]]]
   (each [_ k (ipairs N)]
     (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts))))
 

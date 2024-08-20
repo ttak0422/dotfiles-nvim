@@ -1,6 +1,6 @@
 -- [nfnl] Compiled from fnl/prelude.fnl by https://github.com/Olical/nfnl, do not edit.
 vim.loader.enable()
-for k, v in pairs({langmenu = "none", shortmess = (vim.o.shortmess .. "sWcCS"), cmdheight = 0, termguicolors = true, signcolumn = "no", showtabline = 0, laststatus = 0, foldlevel = 99, foldlevelstart = 99, showmode = false, number = false}) do
+for k, v in pairs({langmenu = "none", shortmess = (vim.o.shortmess .. "sWcCS"), cmdheight = 0, termguicolors = true, signcolumn = "no", showtabline = 0, laststatus = 0, foldlevel = 99, foldlevelstart = 99, number = false, showmode = false}) do
   vim.o[k] = v
 end
 vim.g.mapleader = " "
@@ -13,7 +13,7 @@ do
   end
   C = _1_
   local O = {noremap = true, silent = true}
-  for _, K in ipairs({{"n", "<leader>", ":lua vim.cmd('doautocmd User TriggerLeader')<CR>"}, {{"n", "v"}, ";", ":"}, {"n", "<esc><esc>", C("nohl")}, {"n", "j", "gj"}, {"n", "k", "gk"}}) do
+  for _, K in ipairs({{"n", "<leader>", ":lua vim.cmd('doautocmd User TriggerLeader')<CR>", {nowait = true}}, {{"n", "v"}, ";", ":"}}) do
     M(K[1], K[2], K[3], O)
   end
   for i = 0, 9 do

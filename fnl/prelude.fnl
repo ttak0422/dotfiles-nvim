@@ -32,11 +32,9 @@
   ;; keymaps
   (each [_ K (ipairs [[:n
                        :<leader>
-                       ":lua vim.cmd('doautocmd User TriggerLeader')<CR>"]
-                      [[:n :v] ";" ":"]
-                      [:n :<esc><esc> (C :nohl)]
-                      [:n :j :gj]
-                      [:n :k :gk]])]
+                       ":lua vim.cmd('doautocmd User TriggerLeader')<CR>"
+                       {:nowait true}]
+                      [[:n :v] ";" ":"]])]
     (M (. K 1) (. K 2) (. K 3) O))
   ;; term toggle keymaps
   (for [i 0 9]

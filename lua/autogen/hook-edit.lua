@@ -18,7 +18,7 @@ do
     return cmd(("lua " .. c))
   end
   lcmd = _2_
-  local N = {{"gx", lcmd("require('open').open_cword()")}}
+  local N = {{"gx", lcmd("require('open').open_cword()")}, {"<esc><esc>", cmd("nohl")}, {"j", "gj"}, {"k", "gk"}}
   for _, k in ipairs(N) do
     vim.keymap.set("n", k[1], k[2], (k[3] or opts))
   end
