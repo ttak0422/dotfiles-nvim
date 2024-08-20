@@ -46,13 +46,16 @@ rec {
     depends = [
       {
         package = sqlite-lua;
-        postConfig = ''
-          if has('mac')
+        preConfig = {
+          language = "vim";
+          code = ''
+            if has('mac')
             let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.dylib'
-          else
+            else
             let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.so'
-          endif
-        '';
+            endif
+          '';
+        };
       }
       telescope
     ];
