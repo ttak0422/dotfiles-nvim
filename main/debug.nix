@@ -23,6 +23,6 @@ rec {
     package = nvim-dap-ui;
     depends = [ dap ];
     postConfig = read ../lua/autogen/dap-ui.lua;
-    hooks.modules = [ "dap-ui" ];
+    hooks.modules = [ "dapui" ];
   };
 }
