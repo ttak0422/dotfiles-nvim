@@ -1209,6 +1209,19 @@
                   text = "nix flake metadata --json | jq -r '.locks.nodes | keys[]'";
                 };
               };
+              update-ddc-plugins = {
+                type = "app";
+                program = pkgs.writeShellApplication {
+                  name = "show-inputs";
+                  runtimeInputs = with pkgs; [
+                    jq
+                    coreutils
+                  ];
+                  text = ''
+                    nix flake metadata --json | jq -r '.locks.nodes | keys[]' | grep ddc | xargs -I {} nix flake lock --update-input {}
+                  '';
+                };
+              };
               update-ddu-plugins = {
                 type = "app";
                 program =
