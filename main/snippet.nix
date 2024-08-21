@@ -6,7 +6,7 @@ let
   input = callPackage ./input.nix { };
 in
 with pkgs.vimPlugins;
-{
+rec {
   sonictemplate = {
     package = vim-sonictemplate.overrideAttrs (old: {
       src = pkgs.nix-filter {
@@ -39,7 +39,7 @@ with pkgs.vimPlugins;
   vsnip = {
     packages = [
       vim-vsnip
-      # vim-vsnip-integ
+      vim-vsnip-integ
     ];
     depends = [ input.tabout ];
     preConfig = {
@@ -64,7 +64,7 @@ with pkgs.vimPlugins;
   neogen = {
     package = pkgs.vimPlugins.neogen;
     depends = [
-      # vim-vsnip
+      vsnip
       # LuaSnip
       treesitter.treesitter
     ];
