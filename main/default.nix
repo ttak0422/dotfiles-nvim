@@ -2,10 +2,11 @@
 let
   inherit (pkgs) callPackage;
   read = builtins.readFile;
-  package = self'.packages.loaded-nvim-nightly.overrideAttrs (old: {
-    # git diff | sed '/^index /d' | pbcopy
-    patches = [ ./version.patch ];
-  });
+  # package = self'.packages.loaded-nvim-nightly.overrideAttrs (old: {
+  #   # git diff | sed '/^index /d' | pbcopy
+  #   patches = [ ./version.patch ];
+  # });
+  package = pkgs.neovim-unwrapped;
 
   extraPackages = [ ];
   extraConfig = ''
