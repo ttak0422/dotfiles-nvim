@@ -14,13 +14,17 @@
                                    c)
       bundles (let [tbl []]
                 (each [_ v (ipairs debug_jars)]
-                  (if (not= "" v)
-                      (table.insert tbl v)))
+                  (if (not= "" v) (table.insert tbl v)))
                 (each [_ v (ipairs test_jars)]
-                  (if (not= "" v)
+                  (if (and (not= "" v)
+                           (not (vim.endswith v
+                                              :com.microsoft.java.test.runner-jar-with-dependencies.jar))
+                           (not (vim.endswith v :jacocoagent.jar)))
                       (table.insert tbl v)))
                 tbl)
-      init_options {: bundles : extendedClientCapabilities}
+      init_options {: bundles
+                    ;: extendedClientCapabilities
+                    }
       settings (let [autobuild disabled
                      maxConcurrentBuilds 8
                      ; contentProvider  { :preferred  "fernflower" } ;; TODO:
@@ -39,7 +43,7 @@
                                             :org.mockito.Answers.*
                                             :org.mockito.Mockito.*]
                      ;; configuration
-                     ; runtimes [{:name :JavaSE-17 :path args.java17_path}
+                     ; runtimes [{:name :JavaSE-17 :path args.java17_path :default true}
                      ;           {:name :JavaSE-22 :path args.java22_path}]
                      ; configuration {: runtimes} ;
                      ;; completion
@@ -78,6 +82,7 @@
            :-Dlog.protocol=true
            :-Dlog.level=OFF
            "-Xlog:disable"
+           :-Xms1G
            :-Xmx12G
            ; lombok jar
            (.. "-javaagent:" args.lombok_jar_path)

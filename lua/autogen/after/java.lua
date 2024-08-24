@@ -21,14 +21,14 @@ do
     end
   end
   for _, v in ipairs(test_jars) do
-    if ("" ~= v) then
+    if (("" ~= v) and not vim.endswith(v, "com.microsoft.java.test.runner-jar-with-dependencies.jar") and not vim.endswith(v, "jacocoagent.jar")) then
       table.insert(tbl, v)
     else
     end
   end
   bundles = tbl
 end
-local init_options = {bundles = bundles, extendedClientCapabilities = extendedClientCapabilities}
+local init_options = {bundles = bundles}
 local settings
 do
   local autobuild = disabled
@@ -44,7 +44,7 @@ do
 end
 local home = os.getenv("HOME")
 local work_space = (home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(root_dir, ":p:h"):gsub("/", "_"))
-local cmd = {args.java_path, "-Declipse.application=org.eclipse.jdt.ls.core.id1", "-Dosgi.bundles.defaultStartLevel=4", "-Declipse.product=org.eclipse.jdt.ls.core.product", ("-Dosgi.sharedConfiguration.area=" .. args.jdtls_config_path), "-Dosgi.sharedConfiguration.area.readOnly=true", "-Dosgi.checkConfiguration=true", "-Dosgi.configuration.c:ascaded=true", "-Dlog.protocol=true", "-Dlog.level=OFF", "-Xlog:disable", "-Xmx12G", ("-javaagent:" .. args.lombok_jar_path), "-jar", vim.fn.glob(args.jdtls_jar_pattern), "-data", work_space}
+local cmd = {args.java_path, "-Declipse.application=org.eclipse.jdt.ls.core.id1", "-Dosgi.bundles.defaultStartLevel=4", "-Declipse.product=org.eclipse.jdt.ls.core.product", ("-Dosgi.sharedConfiguration.area=" .. args.jdtls_config_path), "-Dosgi.sharedConfiguration.area.readOnly=true", "-Dosgi.checkConfiguration=true", "-Dosgi.configuration.c:ascaded=true", "-Dlog.protocol=true", "-Dlog.level=OFF", "-Xlog:disable", "-Xms1G", "-Xmx12G", ("-javaagent:" .. args.lombok_jar_path), "-jar", vim.fn.glob(args.jdtls_jar_pattern), "-data", work_space}
 local handlers
 local function _3_()
 end
