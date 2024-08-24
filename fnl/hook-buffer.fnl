@@ -77,9 +77,10 @@
           (lcmd "require('dap').run_last()")
           (desc "dap run last")]
          [:<LocalLeader>dd
-          (fn []
-            (let [dapui (require :dapui)]
-              (dapui.toggle {:reset true})))
+           (cmd "ToggleDapUI")
+          ; (fn []
+          ;   (let [dapui (require :dapui)]
+          ;     (dapui.toggle {:reset true})))
           (desc "dap toggle ui")]]
       V [;; debug
          [:<LocalLeader>K

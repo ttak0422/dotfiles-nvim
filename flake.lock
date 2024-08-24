@@ -3683,6 +3683,22 @@
         "type": "github"
       }
     },
+    "nvim-dap": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1723971667,
+        "narHash": "sha256-GcAZXPaJfxz3boQhCOnn/aayUJ3XSVp7VaU9Qv1I5OA=",
+        "owner": "mfussenegger",
+        "repo": "nvim-dap",
+        "rev": "281a2e4cd1e7a17cea7ecb1745d84a8ab1249925",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mfussenegger",
+        "repo": "nvim-dap",
+        "type": "github"
+      }
+    },
     "nvim-dap-repl-highlights": {
       "flake": false,
       "locked": {
@@ -3696,6 +3712,22 @@
       "original": {
         "owner": "LiadOz",
         "repo": "nvim-dap-repl-highlights",
+        "type": "github"
+      }
+    },
+    "nvim-dap-ui": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1720864810,
+        "narHash": "sha256-KW6Xeii9NeKXNPVzqSiK1qsBgxI6tFq2tygdIRc4kPM=",
+        "owner": "rcarriga",
+        "repo": "nvim-dap-ui",
+        "rev": "a5606bc5958db86f8d92803bea7400ee26a8d7e4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rcarriga",
+        "repo": "nvim-dap-ui",
         "type": "github"
       }
     },
@@ -4436,7 +4468,9 @@
         "nvim-cmp": "nvim-cmp",
         "nvim-colorizer-lua": "nvim-colorizer-lua",
         "nvim-config-local": "nvim-config-local",
+        "nvim-dap": "nvim-dap",
         "nvim-dap-repl-highlights": "nvim-dap-repl-highlights",
+        "nvim-dap-ui": "nvim-dap-ui",
         "nvim-dd": "nvim-dd",
         "nvim-fundo": "nvim-fundo",
         "nvim-hlslens": "nvim-hlslens",

@@ -21,7 +21,7 @@ do
   end
   display_callback = _3_
   local virt_text_pos = "inline"
-  M.setup({enabled = true, enabled_commands = true, highlight_changed_variables = true, show_stop_reason = true, only_first_definition = true, display_callback = display_callback, virt_text_pos = virt_text_pos, virt_text_win_col = nil, commented = false, all_references = false, clear_on_continue = false, virt_lines = false, highlight_new_as_changed = false, all_frames = false})
+  M.setup({enabled = true, enabled_commands = true, highlight_changed_variables = true, show_stop_reason = true, only_first_definition = true, display_callback = display_callback, virt_text_pos = virt_text_pos, virt_text_win_col = nil, virt_lines = false, highlight_new_as_changed = false, clear_on_continue = false, all_frames = false, commented = false, all_references = false})
 end
 local M = require("nvim-dap-repl-highlights")
 return M.setup()

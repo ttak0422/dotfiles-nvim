@@ -1174,6 +1174,14 @@
       url = "github:saecki/live-rename.nvim";
       flake = false;
     };
+    nvim-dap-ui = {
+      url = "github:rcarriga/nvim-dap-ui";
+      flake = false;
+    };
+    nvim-dap = {
+      url = "github:mfussenegger/nvim-dap";
+      flake = false;
+    };
   };
 
   outputs =

@@ -36,7 +36,9 @@
             : floating
             : layouts
             : mappings
-            : render}))
+            : render})
+  (vim.api.nvim_create_user_command :ToggleDapUI
+                                    (fn [] (M.toggle {:reset true})) {}))
 
 (let [colors (require :morimo.colors)
       highlights [[:dapblue colors.lightBlue]

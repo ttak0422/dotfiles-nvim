@@ -107,7 +107,9 @@
                   hover {:border {:style border}}]
               {: cmdline_popup : hover})
       routes [{:filter {:event :msg_show
-                        :any [{:find "%d+L %d+B"}
+                        :any [
+                              {:find "^prompt$"}
+                              {:find "%d+L %d+B"}
                               {:find "; after #%d+"}
                               {:find "; before #%d+"}
                               {:find "; 前方 #%d+"}

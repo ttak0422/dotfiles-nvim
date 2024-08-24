@@ -8,6 +8,10 @@ do
   local mappings = {edit = "e", expand = {"<CR>", "<2-LeftMouse>"}, open = "o", remove = "d", repl = "r", toggle = "t"}
   local render = {indent = 1, max_value_lines = 100}
   M.setup({element_mappings = {}, expand_lines = true, force_buffers = true, icons = icons, controls = controls, floating = floating, layouts = layouts, mappings = mappings, render = render})
+  local function _1_()
+    return M.toggle({reset = true})
+  end
+  vim.api.nvim_create_user_command("ToggleDapUI", _1_, {})
 end
 local colors = require("morimo.colors")
 local highlights = {{"dapblue", colors.lightBlue}, {"dapgreen", colors.lightGreen}, {"dapyellow", colors.lightYellow}, {"daporange", colors.orange}, {"dapred", colors.lightRed}}

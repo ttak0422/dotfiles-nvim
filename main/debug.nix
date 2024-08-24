@@ -1,6 +1,9 @@
 { pkgs, ... }:
 let
+  inherit (pkgs) callPackage;
   read = builtins.readFile;
+  lib = callPackage ./lib.nix { };
+  treesitter = callPackage ./treesitter.nix { };
 in
 with pkgs.vimPlugins;
 rec {
@@ -9,6 +12,10 @@ rec {
       nvim-dap
       nvim-dap-virtual-text
       nvim-dap-repl-highlights
+    ];
+    depends = [
+      # for repl-highlights
+      treesitter.treesitter
     ];
     postConfig = read ../lua/autogen/dap.lua;
     hooks.modules = [ "dap" ];
@@ -21,8 +28,16 @@ rec {
   };
   dap-ui = {
     package = nvim-dap-ui;
-    depends = [ dap ];
+    depends = [
+      dap
+      lib.nio
+      lib.devicons
+    ];
     postConfig = read ../lua/autogen/dap-ui.lua;
-    hooks.modules = [ "dapui" ];
+    hooks = {
+      modules = [ "dapui" ];
+      # HACK: improve stability
+      commands = [ "ToggleDapUI" ];
+    };
   };
 }
