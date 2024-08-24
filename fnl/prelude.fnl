@@ -19,7 +19,9 @@
                    ;; statuslineを起動時に非表示
                    :laststatus 0
                    :foldlevel 99
-                   :foldlevelstart 99})]
+                   :foldlevelstart 99
+                   :timeoutlen 10000 ;; for hook-leader
+                   })]
   (tset vim.o k v))
 
 ;; keymaps

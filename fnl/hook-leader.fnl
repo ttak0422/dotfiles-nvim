@@ -1,4 +1,5 @@
 (vim.api.nvim_del_keymap :n :<Leader>)
+(set vim.g.timeoutlen nil)
 
 (let [opts {:noremap true :silent true}
       desc (fn [d] {:noremap true :silent true :desc d})

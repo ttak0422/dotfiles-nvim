@@ -1,5 +1,6 @@
 -- [nfnl] Compiled from fnl/hook-leader.fnl by https://github.com/Olical/nfnl, do not edit.
 vim.api.nvim_del_keymap("n", "<Leader>")
+vim.g.timeoutlen = nil
 do
   local opts = {noremap = true, silent = true}
   local desc
