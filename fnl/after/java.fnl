@@ -22,9 +22,7 @@
                            (not (vim.endswith v :jacocoagent.jar)))
                       (table.insert tbl v)))
                 tbl)
-      init_options {: bundles
-                    ;: extendedClientCapabilities
-                    }
+      init_options {: bundles : extendedClientCapabilities}
       settings (let [autobuild disabled
                      maxConcurrentBuilds 8
                      ; contentProvider  { :preferred  "fernflower" } ;; TODO:

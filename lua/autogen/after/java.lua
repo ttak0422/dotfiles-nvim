@@ -28,7 +28,7 @@ do
   end
   bundles = tbl
 end
-local init_options = {bundles = bundles}
+local init_options = {bundles = bundles, extendedClientCapabilities = extendedClientCapabilities}
 local settings
 do
   local autobuild = disabled
