@@ -2873,11 +2873,11 @@
     "neogit": {
       "flake": false,
       "locked": {
-        "lastModified": 1721211567,
-        "narHash": "sha256-DrfzdjkSc12n4YhWAjGSW15ojchmHV7vsren2NibIAg=",
+        "lastModified": 1724272851,
+        "narHash": "sha256-MgaDO0QonDoSkfZZJZvttHWPW54rBOmC/QEl80C8Jso=",
         "owner": "TimUntersberger",
         "repo": "neogit",
-        "rev": "af1d8d88f426a4da63c913f3b81a37350dbe8d02",
+        "rev": "6af8fc6b03210d0ac99398f8eff27c5be7b2ba8a",
         "type": "github"
       },
       "original": {
