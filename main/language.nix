@@ -151,6 +151,7 @@ rec {
     depends = [
       lsp
       debug.dap
+      debug.dap-ui
     ];
     hooks.fileTypes = [ "java" ];
   };
