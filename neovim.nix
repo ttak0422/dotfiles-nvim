@@ -42,6 +42,9 @@
           default = common // {
             package = pkgs.pkgs-stable.neovim;
           };
+          stable = common // {
+            package = pkgs.neovim-unwrapped;
+          };
           nightly = common // {
             package = pkgs.neovim;
           };
