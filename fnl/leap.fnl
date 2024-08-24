@@ -1,2 +1,2 @@
 (let [M (require :leap)]
-  (M.add_default_mappings))
+  (M.create_default_mappings))
