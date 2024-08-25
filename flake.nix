@@ -1182,6 +1182,10 @@
       url = "github:mfussenegger/nvim-dap";
       flake = false;
     };
+    spring-boot-nvim = {
+      url = "github:JavaHello/spring-boot.nvim";
+      flake = false;
+    };
   };
 
   outputs =
