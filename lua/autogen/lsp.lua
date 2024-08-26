@@ -28,6 +28,7 @@ lspconfig.dhall_lsp_server.setup({on_attach = on_attach})
 lspconfig.yamlls.setup({on_attach = on_attach, settings = {yaml = {keyOrdering = false}}})
 lspconfig.html.setup({on_attach = on_attach})
 lspconfig.cssls.setup({on_attach = on_attach})
+lspconfig.jsonls.setup({on_attach = on_attach})
 local function _1_(path)
   return climb.climb(path, marker.one_of(marker.has_readable_file("package.json"), marker.has_directory("node_modules")), {halt = marker.one_of(marker.has_readable_file("deno.json"))})
 end
@@ -44,7 +45,6 @@ end
 lspconfig.denols.setup({on_attach = on_attach, root_dir = _2_, init_options = {lint = true, suggest = {completeFunctionCalls = true, names = true, paths = true, autoImports = true, imports = {autoDiscover = true, hosts = vim.empty_dict()}}, unstable = false}, settings = {deno = {enable = true}}, single_file_support = false})
 lspconfig.marksman.setup({on_attach = on_attach})
 lspconfig.ast_grep.setup({on_attach = on_attach})
-local fs = require("efmls-configs.fs")
 local luacheck = require("efmls-configs.linters.luacheck")
 local eslint = require("efmls-configs.linters.eslint")
 local yamllint = require("efmls-configs.linters.yamllint")
@@ -55,7 +55,7 @@ local shellcheck = require("efmls-configs.linters.shellcheck")
 local pylint = require("efmls-configs.linters.pylint")
 local gitlint = require("efmls-configs.linters.gitlint")
 local hadolint = require("efmls-configs.linters.hadolint")
-local languages = {lua = {luacheck}, fennel = {}, typescript = {eslint}, javascript = {eslint}, json = {}, sh = {shellcheck}, toml = {}, yaml = {yamllint}, nix = {statix}, java = {}, css = {stylelint}, scss = {stylelint}, less = {stylelint}, saas = {stylelint}, html = {}, vim = {vint}, python = {pylint}, rust = {}, gitcommit = {gitlint}, docker = {hadolint}}
+local languages = {lua = {luacheck}, typescript = {eslint}, javascript = {eslint}, sh = {shellcheck}, yaml = {yamllint}, nix = {statix}, css = {stylelint}, scss = {stylelint}, less = {stylelint}, saas = {stylelint}, vim = {vint}, python = {pylint}, gitcommit = {gitlint}, docker = {hadolint}}
 local settings = {rootMarkers = {".git/"}, languages = languages}
 local init_options = {documentFormatting = true, documentRangeFormatting = true}
 local make_settings

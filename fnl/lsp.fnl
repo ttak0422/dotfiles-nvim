@@ -74,6 +74,9 @@
 ;; css, css, less
 (lspconfig.cssls.setup {: on_attach})
 
+;; json
+(lspconfig.jsonls.setup {: on_attach})
+
 ;; typescript (node)
 (lspconfig.vtsls.setup {: on_attach
                         :single_file_support false
@@ -121,8 +124,7 @@
 (lspconfig.ast_grep.setup {: on_attach})
 
 ;; efm
-(let [fs (require :efmls-configs.fs) ;; linter
-      luacheck (require :efmls-configs.linters.luacheck)
+(let [luacheck (require :efmls-configs.linters.luacheck)
       eslint (require :efmls-configs.linters.eslint)
       yamllint (require :efmls-configs.linters.yamllint)
       statix (require :efmls-configs.linters.statix)
@@ -132,25 +134,18 @@
       pylint (require :efmls-configs.linters.pylint)
       gitlint (require :efmls-configs.linters.gitlint)
       hadolint (require :efmls-configs.linters.hadolint) ;;
-      ; ;; formatter
       languages {:lua [luacheck]
-                 :fennel []
                  :typescript [eslint]
                  :javascript [eslint]
-                 :json []
                  :sh [shellcheck]
-                 :toml []
                  :yaml [yamllint]
                  :nix [statix]
-                 :java []
                  :css [stylelint]
                  :scss [stylelint]
                  :less [stylelint]
                  :saas [stylelint]
-                 :html []
                  :vim [vint]
                  :python [pylint]
-                 :rust []
                  :gitcommit [gitlint]
                  :docker [hadolint]}
       settings {:rootMarkers [:.git/] : languages}

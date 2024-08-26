@@ -86,8 +86,9 @@ rec {
       nixd
       nodePackages.bash-language-server
       pyright
+      vscode-langservers-extracted
       nodePackages.typescript
-      nodePackages.vscode-langservers-extracted
+      # nodePackages.vscode-langservers-extracted
       nodePackages.yaml-language-server
       rubyPackages.solargraph
       rust-analyzer

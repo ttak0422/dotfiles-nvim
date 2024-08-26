@@ -1909,11 +1909,11 @@
     "efmls-configs-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1720973772,
-        "narHash": "sha256-Ce1Zwf0VknqkYZkGSEw5/+5wHkZ7Kx1l7iGsCj9Rz0A=",
+        "lastModified": 1723596907,
+        "narHash": "sha256-5xt42A2Cb8+GctapnPxavmxEyxyfMlx1FMgduvQjGtw=",
         "owner": "creativenull",
         "repo": "efmls-configs-nvim",
-        "rev": "1e3210cb48ba14cf154c88c59702dafb321c79db",
+        "rev": "b23178bef394eac491788f525747acebaf259c05",
         "type": "github"
       },
       "original": {
