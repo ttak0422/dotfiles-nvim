@@ -28,7 +28,7 @@ rec {
   goto-preview = {
     package = pkgs.vimPlugins.goto-preview;
     postConfig = read ../lua/autogen/goto-preview.lua;
-    hooks.commands = [ "goto-preview" ];
+    hooks.modules = [ "goto-preview" ];
   };
   harpoon = {
     package = harpoon-2;
