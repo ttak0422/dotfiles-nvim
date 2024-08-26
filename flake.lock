@@ -2353,11 +2353,11 @@
     "harpoonline": {
       "flake": false,
       "locked": {
-        "lastModified": 1714466759,
-        "narHash": "sha256-OjOtxmIFPKunfeCQsXbfqZrJq3s43wKAdY6f+2riaxg=",
+        "lastModified": 1722186484,
+        "narHash": "sha256-3DyQSE8GbZ1690Cd08vvKH/Axy/7jP5Iczj8/qoKXzs=",
         "owner": "abeldekat",
         "repo": "harpoonline",
-        "rev": "6ba9dca0fc42781c4a0ff89932bd386d6bbd75f8",
+        "rev": "50b33fbeaf6bd0349f6609013c0c33bed7effcbb",
         "type": "github"
       },
       "original": {
