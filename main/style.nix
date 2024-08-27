@@ -53,11 +53,12 @@ rec {
         package = scope-nvim;
         postConfig = read ../lua/autogen/scope.lua;
       }
-      {
-        package = harpoonline;
-        depends = [ motion.harpoon ];
-        postConfig = read ../lua/autogen/harpoonline.lua;
-      }
+      # deprecated
+      # {
+      #   package = harpoonline;
+      #   depends = [ motion.harpoon ];
+      #   postConfig = read ../lua/autogen/harpoonline.lua;
+      # }
       {
         package = lsp-progress-nvim;
         postConfig = read ../lua/autogen/lsp-progress.lua;

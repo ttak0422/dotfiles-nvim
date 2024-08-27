@@ -190,11 +190,11 @@ do
 	}
 end
 
-local harpoon = {
-	provider = function()
-		return require("harpoonline").format()
-	end,
-}
+-- local harpoon = {
+-- 	provider = function()
+-- 		return require("harpoonline").format()
+-- 	end,
+-- }
 
 local lsp = {
 	provider = require("lsp-progress").progress,
@@ -348,8 +348,8 @@ do
 		git,
 		common.bar,
 		diagnostics,
-		common.bar,
-		harpoon,
+		-- common.bar,
+		-- harpoon,
 		common.space,
 		lsp,
 		common.align,
