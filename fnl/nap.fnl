@@ -30,9 +30,9 @@
                             :opts {:desc "next mark"}}}
                  :b {:prev {:rhs (cmd :bprevious) :opts {:desc "prev buffer"}}
                      :next {:rhs (cmd :bnext) :opts {:desc "next buffer"}}}
-                 :B {:prev {:rhs (lua_cmd "require('buffer_browser').prev()")
+                 :B {:prev {:rhs (cmd :BufSurfBack)
                             :opts {:desc "prev buffer (history)"}}
-                     :next {:rhs (lua_cmd "require('buffer_browser').next()")
+                     :next {:rhs (cmd :BufSurfForward)
                             :opts {:desc "next buffer (history)"}}}
                  :r {:prev {:rhs (lua_cmd "require('harpoon.ui').nav_prev()")
                             :opts {:desc "prev registered buffer"}}

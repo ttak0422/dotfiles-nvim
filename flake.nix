@@ -514,6 +514,10 @@
       url = "sourcehut:~marcc/BufferBrowser";
       flake = false;
     };
+    vim-bufsurf = {
+      url = "github:ton/vim-bufsurf";
+      flake = false;
+    };
     NeoZoom-lua = {
       url = "github:nyngwang/NeoZoom.lua";
       flake = false;

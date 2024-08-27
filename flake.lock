@@ -4541,6 +4541,7 @@
         "venn-nvim": "venn-nvim",
         "vim-ambiwidth": "vim-ambiwidth",
         "vim-asterisk": "vim-asterisk",
+        "vim-bufsurf": "vim-bufsurf",
         "vim-markdown": "vim-markdown",
         "vim-nix": "vim-nix",
         "vim-qfreplace": "vim-qfreplace",
@@ -5193,6 +5194,22 @@
       "original": {
         "owner": "haya14busa",
         "repo": "vim-asterisk",
+        "type": "github"
+      }
+    },
+    "vim-bufsurf": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1613502120,
+        "narHash": "sha256-o/Uf4bnh3IctKnT50JitTe5/+BUrCyrlOOzkmwAzxLk=",
+        "owner": "ton",
+        "repo": "vim-bufsurf",
+        "rev": "e6dbc7ad66c7e436e5eb20d304464e378bd7f28c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ton",
+        "repo": "vim-bufsurf",
         "type": "github"
       }
     },

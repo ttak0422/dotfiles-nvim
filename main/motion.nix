@@ -63,9 +63,19 @@ rec {
     };
     hooks.userEvents = [ "SpecificFileEnter" ];
   };
+  bufsurf = {
+    package = pkgs.vimPlugins.vim-bufsurf;
+    hooks = {
+      events = [ "BufEnter" ];
+      commands = [
+        "BufSurfForward"
+        "BufSurfBack"
+      ];
+    };
+  };
   nap = {
     package = nap-nvim;
-    depends = [ BufferBrowser ];
+    depends = [ ];
     postConfig = read ../lua/autogen/nap.lua;
     hooks.events = [ "CursorMoved" ];
   };

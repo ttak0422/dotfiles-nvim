@@ -108,6 +108,7 @@ let
       hydra
       marks
       BufferBrowser
+      bufsurf
       nap
       nvim-window
       ;
