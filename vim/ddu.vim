@@ -9,8 +9,10 @@ endfunction
 
 function s:ddu_ff_filter_open() abort
   call ddu#ui#ff#save_cmaps([
-        \  '<C-f>', '<C-b>', '<C-c>', '<C-q>', '<CR>',
+        \  '<C-n>', '<C-p>', '<C-c>', '<C-q>', '<CR>',
         \ ])
+  cnoremap <C-n> <Cmd>call ddu#ui#do_action('cursorNext', #{ loop: v:true })<CR>
+  cnoremap <C-p> <Cmd>call ddu#ui#do_action('cursorPrevious', #{ loop: v:true })<CR>
   cnoremap <C-c> <ESC><Cmd>call ddu#ui#do_action('quit')<CR>
   cnoremap <C-q> <ESC><Cmd>call <SID>ddu_send_all_to_qf()<CR>
   cnoremap <CR>  <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
