@@ -50,7 +50,7 @@ let
               systemPath = if pkgs.stdenv.isDarwin then "config_mac" else "config/linux";
             in
             "${jdtls}/share/java/jdtls/${systemPath}";
-          lombok_jar_path = "${pkgs.lombok}/share/java/lombok.jar";
+          lombok_jar_path = "${pkgs.pkgs-stable.lombok}/share/java/lombok.jar";
           jdtls_jar_pattern = "${jdtls}/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*.jar";
           java_debug_jar_pattern = "${vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server/com.microsoft.java.debug.plugin-*.jar";
           java_test_jar_pattern = "${vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server/*.jar";
