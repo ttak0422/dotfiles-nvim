@@ -1,5 +1,6 @@
 inputs: with inputs; [
   nix-filter.overlays.default
+  nix-vscode-extensions.overlays.default
   # neovim-nightly-overlay.overlays.default
   (
     final: prev:
@@ -36,6 +37,22 @@ inputs: with inputs; [
 
       javaPackages = prev.javaPackages // {
         inherit (inputs) jol junit-console;
+      };
+
+      vscode-extensions = prev.vscode-extensions // {
+        vscjava = prev.vscode-extensions.vscjava // {
+          vscode-java-test = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+            mktplcRef = {
+              name = "vscode-java-test";
+              publisher = "vscjava";
+              version = "0.42.2024080609";
+              hash = "sha256-LuI4V/LAvwzU5OgPLdErkeXmyoxTiDNMJXTNNaX7mbc=";
+            };
+            meta = {
+              license = pkgs.lib.licenses.mit;
+            };
+          };
+        };
       };
 
       vimPlugins =

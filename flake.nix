@@ -14,6 +14,8 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     nix-filter.url = "github:numtide/nix-filter";
 
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     bundler = {

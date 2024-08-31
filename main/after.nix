@@ -23,20 +23,8 @@ let
     lhaskell = hashkellTools;
     java =
       let
-        inherit (pkgs.vscode-extensions.vscjava) vscode-java-debug;
+        inherit (pkgs.vscode-marketplace.vscjava) vscode-java-debug vscode-java-test;
         jdtls = pkgs.jdt-language-server;
-        # WIP
-        vscode-java-test = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
-          mktplcRef = {
-            name = "vscode-java-test";
-            publisher = "vscjava";
-            version = "0.42.2024080609";
-            hash = "sha256-LuI4V/LAvwzU5OgPLdErkeXmyoxTiDNMJXTNNaX7mbc=";
-          };
-          meta = {
-            license = pkgs.lib.licenses.mit;
-          };
-        };
       in
       {
         code = read ../lua/autogen/after/java.lua;
