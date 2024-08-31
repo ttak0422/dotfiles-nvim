@@ -146,16 +146,27 @@ rec {
       "lhaskell"
     ];
   };
-  jdtls = {
-    package = nvim-jdtls;
-    # postConfig = configured in after/ftplugin/java
-    depends = [
-      lsp
-      debug.dap
-      debug.dap-ui
-    ];
-    hooks.fileTypes = [ "java" ];
-  };
+  jdtls =
+    {
+      package = nvim-jdtls;
+      # postConfig = configured in after/ftplugin/java
+      depends = [
+        lsp
+        debug.dap
+        debug.dap-ui
+        {
+          package = spring-boot-nvim;
+          postConfig = {
+            code = read ../lua/autogen/spring-boot.lua;
+            args = {
+              java_path = "${pkgs.jdk17}/bin/java";
+              vscode_spring_boot_path = "${pkgs.vscode-marketplace.vmware.vscode-spring-boot}/share/vscode/extensions/vmware.vscode-spring-boot";
+            };
+          };
+        }
+      ];
+      hooks.fileTypes = [ "java" ];
+    };
   nfnl = {
     package = pkgs.vimPlugins.nfnl;
     extraPackages = with pkgs; [

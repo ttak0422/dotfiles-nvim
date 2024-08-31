@@ -4,6 +4,7 @@
 (let [jdtls (setmetatable {:setup (require :jdtls.setup)
                            :dap (require :jdtls.dap)}
                           {:__index (require :jdtls)})
+      spring_boot (require :spring_boot)
       enabled {:enabled true}
       disabled {:enabled false}
       root_dir (jdtls.setup.find_root [:.git :mvnw :gradlew]) ;
@@ -21,6 +22,8 @@
                                               :com.microsoft.java.test.runner-jar-with-dependencies.jar))
                            (not (vim.endswith v :jacocoagent.jar)))
                       (table.insert tbl v)))
+                (each [_ v (ipairs (spring_boot.java_extensions))]
+                  (table.insert tbl v))
                 tbl)
       init_options {: bundles : extendedClientCapabilities}
       settings (let [autobuild disabled

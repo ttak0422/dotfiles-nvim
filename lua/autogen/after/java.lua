@@ -2,6 +2,7 @@
 local debug_jars = vim.split(vim.fn.glob(args.java_debug_jar_pattern, 1), "\n")
 local test_jars = vim.split(vim.fn.glob(args.java_test_jar_pattern, 1), "\n")
 local jdtls = setmetatable({setup = require("jdtls.setup"), dap = require("jdtls.dap")}, {__index = require("jdtls")})
+local spring_boot = require("spring_boot")
 local enabled = {enabled = true}
 local disabled = {enabled = false}
 local root_dir = jdtls.setup.find_root({".git", "mvnw", "gradlew"})
@@ -25,6 +26,9 @@ do
       table.insert(tbl, v)
     else
     end
+  end
+  for _, v in ipairs(spring_boot.java_extensions()) do
+    table.insert(tbl, v)
   end
   bundles = tbl
 end
