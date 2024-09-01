@@ -1196,6 +1196,10 @@
       url = "github:fei6409/log-highlight.nvim";
       flake = false;
     };
+    bufferline-nvim = {
+      url = "github:akinsho/bufferline.nvim";
+      flake = false;
+    };
   };
 
   outputs =

@@ -146,6 +146,22 @@
         "type": "github"
       }
     },
+    "bufferline-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721303864,
+        "narHash": "sha256-VjusgJ3nEc+P/3bRjdS93qAErn6PZh7YkAAjxFF6Dxk=",
+        "owner": "akinsho",
+        "repo": "bufferline.nvim",
+        "rev": "0b2fd861eee7595015b6561dade52fb060be10c4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "akinsho",
+        "repo": "bufferline.nvim",
+        "type": "github"
+      }
+    },
     "bundler": {
       "inputs": {
         "crane": "crane",
@@ -4354,6 +4370,7 @@
         "auto-indent-nvim": "auto-indent-nvim",
         "better-escape-nvim": "better-escape-nvim",
         "btw-nvim": "btw-nvim",
+        "bufferline-nvim": "bufferline-nvim",
         "bundler": "bundler",
         "climbdir-nvim": "climbdir-nvim",
         "cmp-buffer": "cmp-buffer",

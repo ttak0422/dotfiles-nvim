@@ -47,12 +47,13 @@ rec {
       # heirline-components-nvim
     ];
     depends = [
+      bufferline
       lib.plenary
       git.gitsigns
-      {
-        package = scope-nvim;
-        postConfig = read ../lua/autogen/scope.lua;
-      }
+      # {
+      #   package = scope-nvim;
+      #   postConfig = read ../lua/autogen/scope.lua;
+      # }
       # deprecated
       # {
       #   package = harpoonline;
@@ -133,5 +134,15 @@ rec {
       userEvents = [ "SpecificFileEnter" ];
       modules = [ "dropbar.api" ];
     };
+  };
+  bufferline = {
+    package = bufferline-nvim;
+    depends = [
+      {
+        package = scope-nvim;
+        postConfig = read ../lua/autogen/scope.lua;
+      }
+    ];
+    postConfig = read ../lua/autogen/bufferline.lua;
   };
 }
