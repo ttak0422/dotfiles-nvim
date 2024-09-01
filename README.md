@@ -10,3 +10,5 @@
 
 > [!NOTE]
 > require skk server running on port 1178.
+
+![image](./assets/v1.0.png)
