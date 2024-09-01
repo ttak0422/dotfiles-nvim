@@ -3378,11 +3378,11 @@
     "nfnl": {
       "flake": false,
       "locked": {
-        "lastModified": 1719053530,
-        "narHash": "sha256-Fhq4gk6nnCJ4j7QE2+NfyfH+mSMJaPY5h6S9AoS2cA0=",
+        "lastModified": 1724151829,
+        "narHash": "sha256-Zga02vz/HTwaO1jxuiGu8piZ7v0w4CTuDc8+fpV/dJw=",
         "owner": "Olical",
         "repo": "nfnl",
-        "rev": "9f8fb93c70e9d759d849b45859f017b348618299",
+        "rev": "e43ca4e93d28a43f7b3cb19121afff8abcedbc3f",
         "type": "github"
       },
       "original": {
