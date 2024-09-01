@@ -4,6 +4,7 @@ let
   read = builtins.readFile;
   lib = callPackage ./lib.nix { };
   snippet = callPackage ./snippet.nix { };
+  quickfix = callPackage ./quickfix.nix { };
 in
 with pkgs.vimPlugins;
 rec {
@@ -18,6 +19,7 @@ rec {
     depends = [
       lib.plenary
       snippet.sonictemplate
+      quickfix.bqf
     ];
     postConfig = read ../lua/autogen/telescope.lua;
     extraPackages = with pkgs; [

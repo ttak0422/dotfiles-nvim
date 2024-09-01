@@ -4,6 +4,7 @@ let
   read = builtins.readFile;
   treesitter = callPackage ./treesitter.nix { };
   snippet = callPackage ./snippet.nix { };
+  quickfix = callPackage ./quickfix.nix { };
 in
 with pkgs.vimPlugins;
 rec {
@@ -139,6 +140,7 @@ rec {
     depends = [
       denops
       mr-vim
+      quickfix.bqf
     ];
     extraPackages = with pkgs; [
       ripgrep

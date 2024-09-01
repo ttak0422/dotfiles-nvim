@@ -16,7 +16,7 @@ with pkgs.vimPlugins;
       }
     ];
     postConfig = read ../lua/autogen/bqf.lua;
-    hooks.events = [ "QuickFixCmdPost" ];
+    hooks.events = [ "QuickFixCmdPost" "CmdlineEnter" ];
   };
   qf = {
     package = qf-nvim;
