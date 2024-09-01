@@ -69,7 +69,16 @@ let
       '';
     };
   };
+
+  ftdetect = {
+    log = {
+      language = "vim";
+      code = ''
+        au BufNewFile,BufRead  *{.,_}log  set filetype=log
+      '';
+    };
+  };
 in
 {
-  inherit plugin ftplugin;
+  inherit plugin ftplugin ftdetect;
 }

@@ -2728,6 +2728,22 @@
         "type": "github"
       }
     },
+    "log-highlight-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721232091,
+        "narHash": "sha256-3COW6+YPCGkBLbiQl1O4Z2aIaH0stGjxrqtjr/UIx9w=",
+        "owner": "fei6409",
+        "repo": "log-highlight.nvim",
+        "rev": "2867afe132b1c94c454f95758409da320ab4b084",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fei6409",
+        "repo": "log-highlight.nvim",
+        "type": "github"
+      }
+    },
     "lsp-inlayhints-nvim": {
       "flake": false,
       "locked": {
@@ -4481,6 +4497,7 @@
         "lir-nvim": "lir-nvim",
         "live-rename-nvim": "live-rename-nvim",
         "loaded-nvim": "loaded-nvim",
+        "log-highlight-nvim": "log-highlight-nvim",
         "lsp-inlayhints-nvim": "lsp-inlayhints-nvim",
         "lsp-lens-nvim": "lsp-lens-nvim",
         "lsp-progress-nvim": "lsp-progress-nvim",

@@ -15,7 +15,7 @@ let
     ${read ./../lua/autogen/prelude.lua}
   '';
   after = {
-    inherit (callPackage ./after.nix { }) plugin ftplugin;
+    inherit (callPackage ./after.nix { }) plugin ftplugin ftdetect;
   };
   eager = {
     morimo.package = pkgs.vimPlugins.morimo;
@@ -92,6 +92,7 @@ let
       rustaceanvim
       vim-nix
       vtsls
+      log-highlight
       ;
     inherit (callPackage ./lib.nix { })
       plenary
