@@ -17,3 +17,11 @@
                     :-Dlogging.level.org.springframework=OFF]}]
   (M.setup {:ls_path (.. args.vscode_spring_boot_path :/language-server)
             : server}))
+
+(set vim.g.spring_boot
+     {:jdt_extensions_path (.. args.vscode_spring_boot_path :/jars)
+      :jdt_extensions_jars [:io.projectreactor.reactor-core.jar
+                            :org.reactivestreams.reactive-streams.jar
+                            :jdt-ls-commons.jar
+                            :jdt-ls-extension.jar
+                            :sts-gradle-tooling.jar]})

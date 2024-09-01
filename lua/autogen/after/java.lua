@@ -1,6 +1,4 @@
 -- [nfnl] Compiled from fnl/after/java.fnl by https://github.com/Olical/nfnl, do not edit.
-local debug_jars = vim.split(vim.fn.glob(args.java_debug_jar_pattern, 1), "\n")
-local test_jars = vim.split(vim.fn.glob(args.java_test_jar_pattern, 1), "\n")
 local jdtls = setmetatable({setup = require("jdtls.setup"), dap = require("jdtls.dap")}, {__index = require("jdtls")})
 local spring_boot = require("spring_boot")
 local enabled = {enabled = true}
@@ -12,6 +10,8 @@ do
   c["resolveAdditionalTextEditsSupport"] = true
   extendedClientCapabilities = c
 end
+local debug_jars = vim.split(vim.fn.glob(args.java_debug_jar_pattern, 1), "\n")
+local test_jars = vim.split(vim.fn.glob(args.java_test_jar_pattern, 1), "\n")
 local bundles
 do
   local tbl = {}
@@ -48,7 +48,7 @@ do
 end
 local home = os.getenv("HOME")
 local work_space = (home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(root_dir, ":p:h"):gsub("/", "_"))
-local cmd = {args.java_path, "-Declipse.application=org.eclipse.jdt.ls.core.id1", "-Dosgi.bundles.defaultStartLevel=4", "-Declipse.product=org.eclipse.jdt.ls.core.product", ("-Dosgi.sharedConfiguration.area=" .. args.jdtls_config_path), "-Dosgi.sharedConfiguration.area.readOnly=true", "-Dosgi.checkConfiguration=true", "-Dosgi.configuration.c:ascaded=true", "-Dlog.protocol=true", "-Dlog.level=OFF", "-Xlog:disable", "-Xms1G", "-Xmx12G", ("-javaagent:" .. args.lombok_jar_path), "-jar", vim.fn.glob(args.jdtls_jar_pattern), "-data", work_space}
+local cmd = {args.java_path, "-Declipse.application=org.eclipse.jdt.ls.core.id1", "-Dosgi.bundles.defaultStartLevel=4", "-Declipse.product=org.eclipse.jdt.ls.core.product", ("-Dosgi.sharedConfiguration.area=" .. args.jdtls_config_path), "-Dosgi.sharedConfiguration.area.readOnly=true", "-Dosgi.checkConfiguration=true", "-Dosgi.configuration.c:ascaded=true", "-Dlog.protocol=true", "-Dlog.level=ERROR", "-Xlog:disable", "-Xms1G", "-Xmx12G", ("-javaagent:" .. args.lombok_jar_path), "-jar", vim.fn.glob(args.jdtls_jar_pattern), "-data", work_space}
 local handlers
 local function _3_()
 end

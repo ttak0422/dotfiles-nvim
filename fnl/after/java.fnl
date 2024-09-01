@@ -1,6 +1,3 @@
-(local debug_jars (vim.split (vim.fn.glob args.java_debug_jar_pattern 1) "\n"))
-(local test_jars (vim.split (vim.fn.glob args.java_test_jar_pattern 1) "\n"))
-
 (let [jdtls (setmetatable {:setup (require :jdtls.setup)
                            :dap (require :jdtls.dap)}
                           {:__index (require :jdtls)})
@@ -13,6 +10,8 @@
                                    (tset c :resolveAdditionalTextEditsSupport
                                          true)
                                    c)
+      debug_jars (vim.split (vim.fn.glob args.java_debug_jar_pattern 1) "\n")
+      test_jars (vim.split (vim.fn.glob args.java_test_jar_pattern 1) "\n")
       bundles (let [tbl []]
                 (each [_ v (ipairs debug_jars)]
                   (if (not= "" v) (table.insert tbl v)))
@@ -81,7 +80,7 @@
            :-Dosgi.checkConfiguration=true
            "-Dosgi.configuration.c:ascaded=true"
            :-Dlog.protocol=true
-           :-Dlog.level=OFF
+           :-Dlog.level=ERROR
            "-Xlog:disable"
            :-Xms1G
            :-Xmx12G
