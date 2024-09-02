@@ -23,7 +23,7 @@ local notify = {enabled = true, view = "notify"}
 local lsp
 do
   local progress = {enabled = false}
-  local override = {["vim.lsp.util.stylize_markdown"] = false, ["vim.lsp.util.convert_input_to_markdown_lines"] = false}
+  local override = {["vim.lsp.util.convert_input_to_markdown_lines"] = false, ["vim.lsp.util.stylize_markdown"] = false}
   local hover = {enabled = false}
   local signature = {enabled = false}
   local message = {enabled = false}
@@ -33,7 +33,7 @@ end
 local markdown = {hover = {"|(%S-)|", vim.cmd.help, "%[.-%]%((%S-)%)", U.open}, highlights = {"|%S-|", "@text.reference", "@%S+", "@parameter", "^%s*(Parameters:)", "@text.title", "^%s*(Return:)", "@text.title", "^%s*(See also:)", "@text.title", "{%S-}", "@parameter"}}
 local health = {checker = true}
 local smart_move = {excluded_filetypes = excluded_filetypes}
-local presets = {bottom_search = true, long_message_to_split = true, lsp_doc_border = true, inc_rename = false, command_palette = false}
+local presets = {bottom_search = true, command_palette = true, long_message_to_split = true, lsp_doc_border = true, inc_rename = false}
 local throttle = (1000 / 30)
 local views
 do
@@ -42,5 +42,5 @@ do
   local hover = {border = {style = border}}
   views = {cmdline_popup = cmdline_popup, hover = hover}
 end
-local routes = {{filter = {event = "msg_show", any = {{find = "^prompt$"}, {find = "%d+L %d+B"}, {find = "; after #%d+"}, {find = "; before #%d+"}, {find = "; \229\137\141\230\150\185 #%d+"}, {find = "; \229\190\140\230\150\185 #%d+"}, {find = "\231\149\170\231\155\174\227\129\174\232\169\178\229\189\147"}, {find = "\229\148\175\228\184\128\227\129\174\232\169\178\229\189\147"}, {find = "\229\167\139\227\130\129\227\129\171\230\136\187\227\130\139"}, {find = "%d fewer lines"}, {find = "%d more lines"}, {find = "\230\155\184\232\190\188\227\129\191$"}}}, opts = {skip = true}}}
+local routes = {{filter = {event = "msg_show", any = {{find = "^prompt$"}, {find = "%d+L %d+B"}, {find = "; after #%d+"}, {find = "; before #%d+"}, {find = "%d fewer lines"}, {find = "%d more lines"}}}, opts = {skip = true}}}
 return M.setup({cmdline = cmdline, messages = messages, popupmenu = popupmenu, redirect = redirect, commands = commands, notify = notify, lsp = lsp, markdown = markdown, health = health, smart_move = smart_move, presets = presets, throttle = throttle, views = views, routes = routes})

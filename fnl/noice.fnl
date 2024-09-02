@@ -94,7 +94,7 @@
       health {:checker true}
       smart_move {: excluded_filetypes}
       presets {:bottom_search true
-               :command_palette false
+               :command_palette true
                :long_message_to_split true
                :inc_rename false
                :lsp_doc_border true}
@@ -107,19 +107,12 @@
                   hover {:border {:style border}}]
               {: cmdline_popup : hover})
       routes [{:filter {:event :msg_show
-                        :any [
-                              {:find "^prompt$"}
+                        :any [{:find :^prompt$}
                               {:find "%d+L %d+B"}
                               {:find "; after #%d+"}
                               {:find "; before #%d+"}
-                              {:find "; 前方 #%d+"}
-                              {:find "; 後方 #%d+"}
-                              {:find "番目の該当"}
-                              {:find "唯一の該当"}
-                              {:find "始めに戻る"}
                               {:find "%d fewer lines"}
-                              {:find "%d more lines"}
-                              {:find "書込み$"}]}
+                              {:find "%d more lines"}]}
                :opts {:skip true}}]]
   (M.setup {: cmdline
             : messages
