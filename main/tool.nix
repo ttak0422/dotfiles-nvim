@@ -14,7 +14,11 @@ rec {
   toggleterm = {
     package = toggleterm-nvim;
     depends = [ term-gf-nvim ];
-    postConfig = read ../lua/autogen/toggleterm.lua;
+    postConfig =
+      ''
+        vim.cmd([[tnoremap <S-Space> <Space>]])
+      ''
+      + read ../lua/autogen/toggleterm.lua;
     hooks.commands = [
       "ToggleTerm"
       "TermToggle"
