@@ -193,7 +193,7 @@ rec {
       nodePackages.prettier # js, ts (node)
     ];
     postConfig = read ../lua/autogen/null-ls.lua;
-    hooks.userEvents = [ "SpecificFileEnter" ];
+    hooks.events = [ "BufReadPost" ];
   };
   rustaceanvim = {
     package = pkgs.vimPlugins.rustaceanvim;

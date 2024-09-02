@@ -16,7 +16,7 @@ with pkgs.vimPlugins;
     package = nvim-fundo;
     depends = [ promise-async ];
     postConfig = read ../lua/autogen/fundo.lua;
-    hooks.userEvents = [ "SpecificFileEnter" ];
+    hooks.events = [ "BufReadPost" ];
   };
   history-ignore = {
     package = history-ignore-nvim;
@@ -47,7 +47,7 @@ with pkgs.vimPlugins;
   project = {
     package = project-nvim;
     postConfig = read ../lua/autogen/project.lua;
-    hooks.userEvents = [ "SpecificFileEnter" ];
+    hooks.events = [ "BufReadPost" ];
   };
   registers = {
     package = registers-nvim;
@@ -65,7 +65,7 @@ with pkgs.vimPlugins;
   stickybuf = {
     package = stickybuf-nvim;
     postConfig = read ../lua/autogen/stickybuf.lua;
-    hooks.userEvents = [ "SpecificFileEnter" ];
+    hooks.events = [ "BufReadPost" ];
   };
   todo-comments = {
     package = todo-comments-nvim;
@@ -76,7 +76,7 @@ with pkgs.vimPlugins;
     ];
     extraPackages = with pkgs; [ ripgrep ];
     postConfig = read ../lua/autogen/todo-comments.lua;
-    hooks.userEvents = [ "SpecificFileEnter" ];
+    hooks.events = [ "BufReadPost" ];
   };
   toolwindow = {
     package = toolwindow-nvim;
@@ -94,7 +94,7 @@ with pkgs.vimPlugins;
   waitevent = {
     package = waitevent-nvim;
     postConfig = read ../lua/autogen/waitevent.lua;
-    hooks.userEvents = [ "SpecificFileEnter" ];
+    hooks.events = [ "BufReadPost" ];
   };
   whichkey = {
     package = which-key-nvim;

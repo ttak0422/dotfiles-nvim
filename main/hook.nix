@@ -14,7 +14,7 @@ with pkgs.vimPlugins;
   };
   hookBuffer = {
     postConfig = read ../lua/autogen/hook-buffer.lua;
-    hooks.userEvents = [ "SpecificFileEnter" ];
+    hooks.events = [ "BufReadPost" ];
   };
   hookCmdline = {
     postConfig = {

@@ -108,7 +108,6 @@ let
       harpoon
       hydra
       marks
-      BufferBrowser
       bufsurf
       nap
       nvim-window

@@ -25,7 +25,7 @@ rec {
   };
   ambiwidth = {
     package = vim-ambiwidth;
-    hooks.userEvents = [ "SpecificFileEnter" ];
+    hooks.events = [ "BufReadPost" ];
   };
   codewindow = {
     package = codewindow-nvim;
@@ -66,7 +66,7 @@ rec {
       }
     ];
     postConfig = read ../lua/heirline.lua;
-    hooks.userEvents = [ "SpecificFileEnter" ];
+    hooks.events = [ "BufReadPost" ];
   };
   NeoZoom = {
     package = NeoZoom-lua;
@@ -74,7 +74,7 @@ rec {
   notify = {
     package = nvim-notify;
     postConfig = read ../lua/autogen/notify.lua;
-    hooks.userEvents = [ "SpecificFileEnter" ];
+    hooks.events = [ "BufReadPost" ];
   };
   noice = {
     package = noice-nvim;
@@ -87,7 +87,7 @@ rec {
       code = read ../lua/autogen/noice.lua;
       args.exclude_ft_path = ../lua/autogen/exclude_ft.lua;
     };
-    hooks.userEvents = [ "SpecificFileEnter" ];
+    hooks.events = [ "BufReadPost" ];
   };
   numb = {
     package = numb-nvim;
@@ -107,7 +107,7 @@ rec {
         postConfig = read ../lua/autogen/ufo.lua;
       }
     ];
-    hooks.userEvents = [ "SpecificFileEnter" ];
+    hooks.events = [ "BufReadPost" ];
   };
   tint = {
     package = tint-nvim;
@@ -131,7 +131,7 @@ rec {
     ];
     postConfig = read ../lua/autogen/dropbar.lua;
     hooks = {
-      userEvents = [ "SpecificFileEnter" ];
+      events = [ "BufReadPost" ];
       modules = [ "dropbar.api" ];
     };
   };

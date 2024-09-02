@@ -42,23 +42,6 @@
   (for [i 0 9]
     (M [:n :t :i] (.. :<C- i ">") (C (.. "TermToggle " i)) O)))
 
-;; user events
-(var specificFileEnterAutoCmd nil)
-
-;; SpecificFileEnter
-(let [A vim.api]
-  (set specificFileEnterAutoCmd
-       (A.nvim_create_autocmd :BufReadPost
-                              {:callback (fn []
-                                           (if (let [;; F vim.bo.filetype
-                                                     B vim.bo.buftype]
-                                                 (not (or (= B :prompt)
-                                                          (= B :nofile))))
-                                               (do
-                                                 (A.nvim_exec_autocmds :User
-                                                                       {:pattern :SpecificFileEnter})
-                                                 (A.nvim_del_autocmd specificFileEnterAutoCmd))))})))
-
 ;; eager configs
 (vim.cmd "colorscheme morimo")
 ((. (require :config-local) :setup) {:silent true})

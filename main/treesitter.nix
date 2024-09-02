@@ -79,7 +79,7 @@ rec {
           parser = toString parserDrv;
         };
       };
-    hooks.userEvents = [ "SpecificFileEnter" ];
+    hooks.events = [ "BufReadPost" ];
   };
   auto-indent = {
     package = auto-indent-nvim;
@@ -91,7 +91,7 @@ rec {
     package = nvim_context_vt;
     depends = [ treesitter ];
     postConfig = read ../lua/autogen/context-vt.lua;
-    hooks.userEvents = [ "SpecificFileEnter" ];
+    hooks.events = [ "BufReadPost" ];
   };
   hlchunk = {
     package = hlchunk-nvim;

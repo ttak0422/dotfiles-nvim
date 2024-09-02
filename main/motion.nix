@@ -61,7 +61,7 @@ rec {
       code = read ../lua/autogen/BufferBrowser.lua;
       args.exclude_ft_path = ../lua/autogen/exclude_ft.lua;
     };
-    hooks.userEvents = [ "SpecificFileEnter" ];
+    hooks.events = [ "BufReadPost" ];
   };
   bufsurf = {
     package = pkgs.vimPlugins.vim-bufsurf;

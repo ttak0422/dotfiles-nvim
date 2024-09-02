@@ -20,23 +20,5 @@ do
     M({"n", "t", "i"}, ("<C-" .. i .. ">"), C(("TermToggle " .. i)), O)
   end
 end
-local specificFileEnterAutoCmd = nil
-do
-  local A = vim.api
-  local function _2_()
-    local _3_
-    do
-      local B = vim.bo.buftype
-      _3_ = not ((B == "prompt") or (B == "nofile"))
-    end
-    if _3_ then
-      A.nvim_exec_autocmds("User", {pattern = "SpecificFileEnter"})
-      return A.nvim_del_autocmd(specificFileEnterAutoCmd)
-    else
-      return nil
-    end
-  end
-  specificFileEnterAutoCmd = A.nvim_create_autocmd("BufReadPost", {callback = _2_})
-end
 vim.cmd("colorscheme morimo")
-return (require("config-local")).setup({silent = true})
+return require("config-local").setup({silent = true})
