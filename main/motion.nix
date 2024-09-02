@@ -66,7 +66,7 @@ rec {
   bufsurf = {
     package = pkgs.vimPlugins.vim-bufsurf;
     hooks = {
-      events = [ "BufEnter" ];
+      events = [ "BufReadPost" ];
       commands = [
         "BufSurfForward"
         "BufSurfBack"
