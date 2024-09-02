@@ -2920,6 +2920,22 @@
         "type": "github"
       }
     },
+    "neco-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1692062905,
+        "narHash": "sha256-5tFAsxc7qYOw611qCsMc8iDjpydlm7s3ZSPir7zfNz8=",
+        "owner": "Shougo",
+        "repo": "neco-vim",
+        "rev": "1b95bedbeed0b4c81466d40b16bfb0c0ff16721d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "repo": "neco-vim",
+        "type": "github"
+      }
+    },
     "neogen": {
       "flake": false,
       "locked": {
@@ -4525,6 +4541,7 @@
         "morimo": "morimo",
         "mr-vim": "mr-vim",
         "nap-nvim": "nap-nvim",
+        "neco-vim": "neco-vim",
         "neogen": "neogen",
         "neogit": "neogit",
         "neorg": "neorg",

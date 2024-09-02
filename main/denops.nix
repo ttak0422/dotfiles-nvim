@@ -95,6 +95,7 @@ rec {
       ddc-fuzzy
       ddc-matcher_length
       ddc-sorter_itemsize
+      neco-vim
     ];
     depends = [
       denops

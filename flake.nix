@@ -1200,6 +1200,10 @@
       url = "github:akinsho/bufferline.nvim";
       flake = false;
     };
+    neco-vim = {
+      url = "github:Shougo/neco-vim";
+      flake = false;
+    };
   };
 
   outputs =
