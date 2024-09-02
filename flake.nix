@@ -1204,6 +1204,10 @@
       url = "github:Shougo/neco-vim";
       flake = false;
     };
+    fix-auto-scroll-nvim = {
+      url = "github:BranimirE/fix-auto-scroll.nvim";
+      flake = false;
+    };
   };
 
   outputs =

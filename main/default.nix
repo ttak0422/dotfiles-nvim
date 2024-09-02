@@ -62,6 +62,7 @@ let
       whichkey
       winshift
       bufdel
+      fix-auto-scroll
       ;
     inherit (callPackage ./hook.nix { })
       hookBuffer

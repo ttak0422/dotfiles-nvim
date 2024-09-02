@@ -115,4 +115,9 @@ with pkgs.vimPlugins;
       "BufDelAll"
     ];
   };
+  fix-auto-scroll = {
+    package = fix-auto-scroll-nvim;
+    postConfig = read ../lua/autogen/fix-auto-scroll.lua;
+    hooks.events = [ "BufReadPost" ];
+  };
 }
