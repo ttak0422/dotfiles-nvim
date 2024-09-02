@@ -8,10 +8,8 @@
             :showmatch true
             ;; 補完の表示列
             :ph 20
-            ; ;; 補完オプション
-            ; :completeopt "menu,menuone,noselect"
             ;; 補完オプション
-            :completeopt ""
+            :completeopt "menu,menuone,noselect"
             ;; 短径選択を寛容に
             :virtualedit :block}]
   (each [k v (pairs opts)]

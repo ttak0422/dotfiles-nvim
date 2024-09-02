@@ -42,7 +42,7 @@ cnoremap <expr> <Tab>
       \   wildmenumode()
       \ ? &wildcharm->nr2char()
       \ : pum#visible()
-      \ ? '<Cmd>call pum#map#insert_relative(+1, "empty")<CR>'
+      \ ? '<Cmd>call pum#map#insert_relative(+1)<CR>'
       \ : ddc#map#manual_complete()
 
 cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
