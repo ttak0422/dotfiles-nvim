@@ -58,9 +58,7 @@
           (desc "Enter Neorg (today journal)")]
          [:<Leader>no (cmd "Neorg toc") (desc "Show Neorg TOC")]
          [:<Leader>N (cmd :Neorg) (desc "Enter Neorg")]
-         [:<Leader>fn
-          (cmd "NeorgFuzzySearch")
-          (desc "find Neorg linkable")]
+         [:<Leader>fn (cmd :NeorgFuzzySearch) (desc "find Neorg linkable")]
          ;; git
          [:<Leader>G (cmd :Neogit) (desc "Neovim git client")]
          ;; filter
@@ -69,8 +67,8 @@
           (desc "Toggle lir")]
          [:<Leader>tB (lcmd "require('oil').open()") (desc "Toggle oil")]
          ;; buffer
-         [:<leader>q (cmd :BufDel)]
-         [:<leader>Q (cmd :BufDel!)]
+         [:<leader>q (cmd :BufDel) (desc "close buffer")]
+         [:<leader>Q (cmd :BufDelAll) (desc "close all buffers")]
          ;; tab
          [:<leader>A (cmd :tabclose)]
          ;; toggle

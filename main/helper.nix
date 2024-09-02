@@ -112,6 +112,7 @@ with pkgs.vimPlugins;
     hooks.commands = [
       "BufDel"
       "BufDel!"
+      "BufDelAll"
     ];
   };
 }
