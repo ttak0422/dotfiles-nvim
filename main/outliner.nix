@@ -31,6 +31,15 @@ with pkgs.vimPlugins;
     postConfig = read ../lua/autogen/mkdnflow.lua;
     hooks.fileTypes = [ "markdown" ];
   };
+  markview = {
+    package = markview-nvim;
+    depends = [
+      treesitter.treesitter
+      lib.devicons
+    ];
+    postConfig = read ../lua/autogen/markview.lua;
+    hooks.fileTypes = [ "markdown" ];
+  };
   venn = {
     package = venn-nvim;
     hooks.commands = [ "VBox" ];
@@ -54,6 +63,9 @@ with pkgs.vimPlugins;
       style.dressing
     ];
     postConfig = read ../lua/autogen/neorg.lua;
-    hooks.commands = [ "Neorg" "NeorgFuzzySearch" ];
+    hooks.commands = [
+      "Neorg"
+      "NeorgFuzzySearch"
+    ];
   };
 }

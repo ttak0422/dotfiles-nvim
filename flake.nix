@@ -1208,6 +1208,10 @@
       url = "github:BranimirE/fix-auto-scroll.nvim";
       flake = false;
     };
+    markview-nvim = {
+      url = "github:OXY2DEV/markview.nvim";
+      flake = false;
+    };
   };
 
   outputs =

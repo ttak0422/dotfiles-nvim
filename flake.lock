@@ -2856,6 +2856,22 @@
         "type": "github"
       }
     },
+    "markview-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1725300229,
+        "narHash": "sha256-pfzeHGP99qQ7kUo7y4AVpl+fw/lt7rD9n/1AUW8P6mE=",
+        "owner": "OXY2DEV",
+        "repo": "markview.nvim",
+        "rev": "d6f0cb87b8cf8929fa8626f06ff0544b89eb9b7a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "OXY2DEV",
+        "repo": "markview.nvim",
+        "type": "github"
+      }
+    },
     "mkdir-nvim": {
       "flake": false,
       "locked": {
@@ -4553,6 +4569,7 @@
         "lsp-progress-nvim": "lsp-progress-nvim",
         "lua-utils-nvim": "lua-utils-nvim",
         "marks-nvim": "marks-nvim",
+        "markview-nvim": "markview-nvim",
         "mkdir-nvim": "mkdir-nvim",
         "mkdnflow-nvim": "mkdnflow-nvim",
         "morimo": "morimo",

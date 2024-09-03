@@ -118,6 +118,7 @@ let
       img-clip
       markdown-preview
       mkdnflow
+      markview
       venn
       neorg
       ;
