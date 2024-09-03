@@ -71,12 +71,13 @@ let
   };
 
   ftdetect = {
-    log = {
-      language = "vim";
-      code = ''
-        au BufNewFile,BufRead  *{.,_}log  set filetype=log
-      '';
-    };
+    # MEMO: 重いので有効化しない
+    # log = {
+    #   language = "vim";
+    #   code = ''
+    #     au BufNewFile,BufRead  *{.,_}log  set filetype=log
+    #   '';
+    # };
   };
 in
 {

@@ -93,7 +93,8 @@ let
       rustaceanvim
       vim-nix
       vtsls
-      log-highlight
+      # MEMO: 重いので有効化しない
+      # log-highlight
       ;
     inherit (callPackage ./lib.nix { })
       plenary
