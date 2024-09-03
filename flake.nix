@@ -1212,6 +1212,10 @@
       url = "github:OXY2DEV/markview.nvim";
       flake = false;
     };
+    foldnav-nvim = {
+      url = "github:domharries/foldnav.nvim";
+      flake = false;
+    };
   };
 
   outputs =

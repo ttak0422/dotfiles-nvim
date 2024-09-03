@@ -84,4 +84,8 @@ rec {
     postConfig = read ../lua/autogen/nvim-window.lua;
     hooks.modules = [ "nvim-window" ];
   };
+  foldnav = {
+    package = foldnav-nvim;
+    hooks.modules = [ "foldnav" ];
+  };
 }

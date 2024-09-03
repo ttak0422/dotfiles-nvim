@@ -1,11 +1,11 @@
 -- [nfnl] Compiled from fnl/hook-edit.fnl by https://github.com/Olical/nfnl, do not edit.
-do
-  local opts = {expandtab = true, tabstop = 2, shiftwidth = 2, showmatch = true, ph = 20, completeopt = "", virtualedit = "block"}
-  for k, v in pairs(opts) do
-    vim.o[k] = v
-  end
-  vim.opt.nrformats:append("unsigned")
+for k, v in pairs({expandtab = true, tabstop = 2, shiftwidth = 2, showmatch = true, ph = 20, completeopt = "", virtualedit = "block"}) do
+  vim.o[k] = v
 end
+for k, v in pairs({foldmethod = "expr", foldexpr = "v:lua.vim.treesitter.foldexpr()"}) do
+  vim.opt[k] = v
+end
+vim.opt.nrformats:append("unsigned")
 do
   local opts = {noremap = true, silent = true}
   local cmd
@@ -18,8 +18,7 @@ do
     return cmd(("lua " .. c))
   end
   lcmd = _2_
-  local N = {{"gx", lcmd("require('open').open_cword()")}, {"<esc><esc>", cmd("nohl")}, {"j", "gj"}, {"k", "gk"}}
-  for _, k in ipairs(N) do
+  for _, k in ipairs({{"gx", lcmd("require('open').open_cword()")}, {"<esc><esc>", cmd("nohl")}, {"j", "gj"}, {"k", "gk"}, {"<C-h>", lcmd("require('foldnav').goto_start()")}, {"<C-j>", lcmd("require('foldnav').goto_next()")}, {"<C-k>", lcmd("require('foldnav').goto_prev_start()")}, {"<C-l>", lcmd("require('foldnav').goto_end()")}}) do
     vim.keymap.set("n", k[1], k[2], (k[3] or opts))
   end
 end

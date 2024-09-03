@@ -2168,6 +2168,22 @@
         "type": "github"
       }
     },
+    "foldnav-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721667865,
+        "narHash": "sha256-7X43GqRXC5GupT3TuHAk2KdFT1+Xt73V4itTx0vLWHw=",
+        "owner": "domharries",
+        "repo": "foldnav.nvim",
+        "rev": "489fffcee704db4650119e214f76f0410205dd3f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "domharries",
+        "repo": "foldnav.nvim",
+        "type": "github"
+      }
+    },
     "fzf-lua": {
       "flake": false,
       "locked": {
@@ -4532,6 +4548,7 @@
         "flake-parts": "flake-parts_2",
         "flit-nvim": "flit-nvim",
         "flow-nvim": "flow-nvim",
+        "foldnav-nvim": "foldnav-nvim",
         "fzf-lua": "fzf-lua",
         "garbage-day-nvim": "garbage-day-nvim",
         "gin-vim": "gin-vim",

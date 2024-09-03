@@ -113,6 +113,7 @@ let
       bufsurf
       nap
       nvim-window
+      foldnav
       ;
     inherit (callPackage ./outliner.nix { })
       femaco
