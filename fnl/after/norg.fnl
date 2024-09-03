@@ -1,4 +1,7 @@
-(each [k v (pairs {:swapfile false :wrap false :conceallevel 3})]
+(each [k v (pairs {:swapfile false
+                   :wrap false
+                   :conceallevel 3
+                   :concealcursor :n})]
   (tset vim.opt_local k v))
 
 (let [map vim.keymap.set

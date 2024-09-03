@@ -1,5 +1,5 @@
 -- [nfnl] Compiled from fnl/after/norg.fnl by https://github.com/Olical/nfnl, do not edit.
-for k, v in pairs({conceallevel = 3, swapfile = false, wrap = false}) do
+for k, v in pairs({conceallevel = 3, concealcursor = "n", swapfile = false, wrap = false}) do
   vim.opt_local[k] = v
 end
 local map = vim.keymap.set
