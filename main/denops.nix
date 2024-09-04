@@ -145,7 +145,7 @@ rec {
       denops
       {
         package = mr-vim;
-        hooks.events = [ "BufReadPost" ];
+        hooks.events = [ "BufReadPre" ];
       }
       quickfix.bqf
     ];
