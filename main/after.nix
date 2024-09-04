@@ -1,7 +1,10 @@
 { pkgs, ... }:
 let
   read = builtins.readFile;
-
+  readVim = path: {
+    language = "vim";
+    code = read path;
+  };
   plugin = {
     common = {
       language = "vim";
@@ -68,6 +71,7 @@ let
         setlocal foldcolumn=0
       '';
     };
+    json = readVim ../vim/after/json.vim;
   };
 
   ftdetect = {
