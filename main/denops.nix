@@ -112,7 +112,10 @@ rec {
       code = read ../vim/ddc.vim;
       args.ts_config = ../denops/ddc.ts;
     };
-    hooks.events = [ "InsertEnter" "CmdlineEnter" ];
+    hooks.events = [
+      "InsertEnter"
+      "CmdlineEnter"
+    ];
     useDenops = true;
   };
   ddu = {
@@ -140,7 +143,10 @@ rec {
     ];
     depends = [
       denops
-      mr-vim
+      {
+        package = mr-vim;
+        hooks.events = [ "BufReadPost" ];
+      }
       quickfix.bqf
     ];
     extraPackages = with pkgs; [
