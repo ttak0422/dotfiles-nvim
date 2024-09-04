@@ -60,7 +60,8 @@
          [:<Leader>N (cmd :Neorg) (desc "Enter Neorg")]
          [:<Leader>fn (cmd :NeorgFuzzySearch) (desc "find Neorg linkable")]
          ;; git
-         [:<Leader>G (cmd :Neogit) (desc "Neovim git client")]
+         [:<Leader>G (cmd :Neogit) (desc " client")]
+         [:<Leader>gb (cmd "Gitsigns blame") (desc " blame")]
          ;; filter
          [:<Leader>tb
           (lcmd "require('lir.float').toggle()")

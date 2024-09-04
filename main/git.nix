@@ -37,7 +37,10 @@ rec {
         require("morimo").load("gitsigns")
       ''
       + read ../lua/autogen/gitsigns.lua;
-    hooks.events = [ "CursorMoved" ];
+    hooks = {
+      events = [ "CursorMoved" ];
+      commands = [ "Gitsigns" ];
+    };
   };
   neogit = {
     package = pkgs.vimPlugins.neogit;
