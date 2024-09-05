@@ -29,7 +29,7 @@
                                    :icon "?"
                                    :title ""}
                             :input {}}]
-                {:enabled true :view :cmdline : opts : format})
+                {:enabled true : opts : format})
       messages {:enabled true
                 :view :notify
                 :view_error :notify
@@ -93,17 +93,18 @@
                              "@parameter"]}
       health {:checker true}
       smart_move {: excluded_filetypes}
-      presets {:bottom_search true
-               :command_palette true
+      presets {:bottom_search false
+               :command_palette false
                :long_message_to_split true
                :inc_rename false
                :lsp_doc_border true}
       throttle (/ 1000 30)
       views (let [border :none
-                  cmdline_popup {:border {:style border}
+                  cmdline_popup {:border {:style border :padding [1 2]}
                                  :filter_options {}
-                                 :win_options {:winhighlight {:Normal :NormalFloat
-                                                              :FloatBorder :FloatBorder}}}
+                                 :win_options {:winhighlight "NormalFloat,NormalFloat,FloatBorder,FloatBorder"}
+                                 :relative :editor
+                                 :position {:row "50%" :col "50%"}}
                   hover {:border {:style border}}]
               {: cmdline_popup : hover})
       routes [{:filter {:event :msg_show
