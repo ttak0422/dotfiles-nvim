@@ -1,3 +1,5 @@
 setlocal conceallevel=0
 
-autocmd BufRead,BufNewFile .vscode/*.json set filetype=jsonc
+if expand('%:p') =~# '/.vscode/.*\.json$'
+  setlocal filetype=jsonc
+endif
