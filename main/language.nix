@@ -64,7 +64,7 @@ rec {
         ];
       }
       climbdir-nvim
-      denops.ddc
+      # denops.ddc
       {
         package = live-rename-nvim;
         postConfig = read ../lua/autogen/live-rename.lua;

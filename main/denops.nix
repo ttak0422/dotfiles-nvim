@@ -99,7 +99,6 @@ rec {
       neco-vim
     ];
     depends = [
-      ddc-source-nvim
       denops
       pum-vim
       language.lsp
