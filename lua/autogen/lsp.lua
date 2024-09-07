@@ -1,14 +1,8 @@
 -- [nfnl] Compiled from fnl/lsp.fnl by https://github.com/Olical/nfnl, do not edit.
 local on_attach = dofile(args.on_attach_path)
-vim.diagnostic.config({severity_sort = true})
-vim.lsp.set_log_level("WARN")
-do end (vim.lsp.handlers)["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = "none"})
-do
-  local signs = {{name = "DiagnosticSignError", text = "\239\145\132"}, {name = "DiagnosticSignWarn", text = "\239\145\132"}, {name = "DiagnosticSignInfo", text = "\239\145\132"}, {name = "DiagnosticSignHint", text = "\239\145\132"}}
-  for _, sign in ipairs(signs) do
-    vim.fn.sign_define(sign.name, {texthl = sign.name, text = sign.text, numhl = ""})
-  end
-end
+vim.lsp.set_log_level("ERROR")
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = "none"})
+vim.diagnostic.config({severity_sort = true, signs = {text = {[vim.diagnostic.severity.ERROR] = "\239\145\132", [vim.diagnostic.severity.WARN] = "\239\145\132", [vim.diagnostic.severity.INFO] = "\239\145\132", [vim.diagnostic.severity.HINT] = "\239\145\132"}, numhl = {[vim.diagnostic.severity.ERROR] = "", [vim.diagnostic.severity.WARN] = "", [vim.diagnostic.severity.INFO] = "", [vim.diagnostic.severity.HINT] = ""}}})
 local lspconfig = require("lspconfig")
 local windows = require("lspconfig.ui.windows")
 local climb = require("climbdir")

@@ -1,17 +1,19 @@
 ;; configured by bundler-nvim
 (local on_attach (dofile args.on_attach_path))
 
-(vim.diagnostic.config {:severity_sort true})
-(vim.lsp.set_log_level :WARN)
+(vim.lsp.set_log_level :ERROR)
 (tset vim.lsp.handlers :textDocument/hover
       (vim.lsp.with vim.lsp.handlers.hover {:border :none}))
 
-(let [signs [{:name :DiagnosticSignError :text ""}
-             {:name :DiagnosticSignWarn :text ""}
-             {:name :DiagnosticSignInfo :text ""}
-             {:name :DiagnosticSignHint :text ""}]]
-  (each [_ sign (ipairs signs)]
-    (vim.fn.sign_define sign.name {:texthl sign.name :text sign.text :numhl ""})))
+(vim.diagnostic.config {:severity_sort true
+                        :signs {:text {vim.diagnostic.severity.ERROR ""
+                                       vim.diagnostic.severity.WARN ""
+                                       vim.diagnostic.severity.INFO ""
+                                       vim.diagnostic.severity.HINT ""}
+                                :numhl {vim.diagnostic.severity.ERROR ""
+                                        vim.diagnostic.severity.WARN ""
+                                        vim.diagnostic.severity.INFO ""
+                                        vim.diagnostic.severity.HINT ""}}})
 
 (local lspconfig (require :lspconfig))
 ;; (local util (require :lspconfig.util))
