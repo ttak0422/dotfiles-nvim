@@ -84,4 +84,8 @@ rec {
     postConfig = read ../lua/autogen/oil.lua;
     hooks.modules = [ "oil" ];
   };
+  dotfyle-metadata = {
+    package = dotfyle-metadata-nvim;
+    hooks.commands = [ "DotfyleGenerate" ];
+  };
 }

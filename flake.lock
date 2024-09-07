@@ -1890,6 +1890,22 @@
         "type": "github"
       }
     },
+    "dotfyle-metadata-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1712250826,
+        "narHash": "sha256-CSZxbUhrWXerwgaF+Yf9mku1mkV3+/zqWFLXbHrgq2s=",
+        "owner": "creativenull",
+        "repo": "dotfyle-metadata.nvim",
+        "rev": "342ef8f3f98f3ccc451c9cf2be74e95149ced05d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "creativenull",
+        "repo": "dotfyle-metadata.nvim",
+        "type": "github"
+      }
+    },
     "dressing-nvim": {
       "flake": false,
       "locked": {
@@ -4557,6 +4573,7 @@
         "diagflow-nvim": "diagflow-nvim",
         "diffview-nvim": "diffview-nvim",
         "direnv-vim": "direnv-vim",
+        "dotfyle-metadata-nvim": "dotfyle-metadata-nvim",
         "dressing-nvim": "dressing-nvim",
         "dropbar-nvim": "dropbar-nvim",
         "efmls-configs-nvim": "efmls-configs-nvim",

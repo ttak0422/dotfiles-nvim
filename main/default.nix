@@ -166,6 +166,7 @@ let
       window-picker
       lir
       oil
+      dotfyle-metadata
       ;
     inherit (callPackage ./treesitter.nix { })
       treesitter

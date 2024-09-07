@@ -1220,6 +1220,10 @@
       url = "github:OXY2DEV/helpview.nvim";
       flake = false;
     };
+    dotfyle-metadata-nvim = {
+      url = "github:creativenull/dotfyle-metadata.nvim";
+      flake = false;
+    };
   };
 
   outputs =
