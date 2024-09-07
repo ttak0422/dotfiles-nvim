@@ -1224,6 +1224,10 @@
       url = "github:creativenull/dotfyle-metadata.nvim";
       flake = false;
     };
+    CopilotChat-nvim = {
+      url = "github:CopilotC-Nvim/CopilotChat.nvim";
+      flake = false;
+    };
   };
 
   outputs =

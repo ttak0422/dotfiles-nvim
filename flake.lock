@@ -32,6 +32,22 @@
         "type": "github"
       }
     },
+    "CopilotChat-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1725620013,
+        "narHash": "sha256-rQZfUy2dKppyBswPAtVjXNUiX4mPs8mATjROvDI0Ous=",
+        "owner": "CopilotC-Nvim",
+        "repo": "CopilotChat.nvim",
+        "rev": "9e7010bd33808e31d3f729b5e18a772d8e84f704",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CopilotC-Nvim",
+        "repo": "CopilotChat.nvim",
+        "type": "github"
+      }
+    },
     "JABS-nvim": {
       "flake": false,
       "locked": {
@@ -4459,6 +4475,7 @@
       "inputs": {
         "BufferBrowser": "BufferBrowser",
         "Comment-nvim": "Comment-nvim",
+        "CopilotChat-nvim": "CopilotChat-nvim",
         "JABS-nvim": "JABS-nvim",
         "LuaSnip": "LuaSnip",
         "NeoZoom-lua": "NeoZoom-lua",

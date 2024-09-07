@@ -167,6 +167,7 @@ let
       lir
       oil
       dotfyle-metadata
+      copilot-chat
       ;
     inherit (callPackage ./treesitter.nix { })
       treesitter

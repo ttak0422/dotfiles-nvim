@@ -88,4 +88,16 @@ rec {
     package = dotfyle-metadata-nvim;
     hooks.commands = [ "DotfyleGenerate" ];
   };
+  copilot-chat = {
+    package = CopilotChat-nvim;
+    depends = [
+      copilot-lua
+      lib.plenary
+    ];
+    postConfig = read ../lua/autogen/copilot-chat.lua;
+    hooks.commands = [
+      "CopilotChat"
+      "CopilotChatToggle"
+    ];
+  };
 }
