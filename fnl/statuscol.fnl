@@ -2,7 +2,7 @@
                    :signcolumn :yes
                    :number true
                    :foldenable true})]
-  (tset vim.o k v))
+  (tset vim.opt k v))
 
 (let [M (require :statuscol)
       builtin (require :statuscol.builtin)

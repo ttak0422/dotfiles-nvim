@@ -1,6 +1,6 @@
 -- [nfnl] Compiled from fnl/statuscol.fnl by https://github.com/Olical/nfnl, do not edit.
 for k, v in pairs({foldcolumn = "1", signcolumn = "yes", number = true, foldenable = true}) do
-  vim.o[k] = v
+  vim.opt[k] = v
 end
 local M = require("statuscol")
 local builtin = require("statuscol.builtin")
