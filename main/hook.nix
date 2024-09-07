@@ -4,10 +4,6 @@ let
 in
 with pkgs.vimPlugins;
 {
-  hookLeader = {
-    postConfig = read ../lua/autogen/hook-leader.lua;
-    hooks.userEvents = [ "TriggerLeader" ];
-  };
   hookInsert = {
     postConfig = read ../lua/autogen/hook-insert.lua;
     hooks.events = [ "InsertEnter" ];

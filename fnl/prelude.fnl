@@ -19,28 +19,119 @@
                    ;; statuslineを起動時に非表示
                    :laststatus 0
                    :foldlevel 99
-                   :foldlevelstart 99
-                   :timeoutlen 10000 ;; for hook-leader
-                   })]
+                   :foldlevelstart 99})]
   (tset vim.o k v))
 
 ;; keymaps
 (set vim.g.mapleader " ")
 (set vim.g.maplocalleader ",")
 
-(let [M vim.keymap.set
-      C (fn [c] (.. :<cmd> c :<cr>))
-      O {:noremap true :silent true}]
-  ;; keymaps
-  (each [_ K (ipairs [[:n
-                       :<leader>
-                       ":lua vim.cmd('doautocmd User TriggerLeader')<CR>"
-                       {:nowait true}]
-                      [[:n :v] ";" ":"]])]
-    (M (. K 1) (. K 2) (. K 3) O))
+(let [opts {:noremap true :silent true}
+      desc (fn [d] {:noremap true :silent true :desc d})
+      cmd (fn [c] (.. :<cmd> c :<cr>))
+      lcmd (fn [c] (cmd (.. "lua " c)))
+      mk_toggle ((fn []
+                   (let [state {:open? false :pre_id nil}]
+                     (fn [id mod args]
+                       (fn []
+                         (let [T (require :toolwindow)]
+                           (if (not= state.pre_id id)
+                               (do
+                                 (T.open_window mod args)
+                                 (tset state :open? true))
+                               (if state.open?
+                                   (do
+                                     (T.close)
+                                     (tset state :open? false))
+                                   (do
+                                     (T.open_window mod args)
+                                     (tset state :open? true))))
+                           (tset state :pre_id id)))))))]
+  ;; leader keymaps
+  (each [_ K (ipairs [;; finder
+                      [:ff
+                       (cmd "Telescope live_grep_args")
+                       (desc "search by content")]
+                      [:fF (cmd "Telescope ast_grep") (desc "search by AST")]
+                      [:ft
+                       (cmd "Telescope sonictemplate templates")
+                       (desc "search templates")]
+                      [:fh (cmd :Legendary) (desc "Search command palette")]
+                      [:H
+                       (lcmd "require('harpoon').ui:toggle_quick_menu(require('harpoon'):list(),{border='none'})")
+                       (desc "Show registered file")]
+                      [:ha
+                       (lcmd "require('harpoon'):list():add()")
+                       (desc "Register file")]
+                      [:fp
+                       (cmd "Ddu -name=fd file_fd")
+                       (desc "search by file name")]
+                      [:fP
+                       (cmd "Ddu -name=ghq ghq")
+                       (desc "search repo (ghq)")]
+                      [:fru
+                       (cmd "Ddu -name=mru mru")
+                       (desc "MRU (Most Recently Used files)")]
+                      [:frw
+                       (cmd "Ddu -name=mrw mrw")
+                       (desc "MRW (Most Recently Written files)")]
+                      ;; mark
+                      [:mq
+                       (cmd :MarksQFListBuf)
+                       (desc "marks in current buffer")]
+                      [:mQ
+                       (cmd :MarksQFListGlobal)
+                       (desc "marks in all buffer")]
+                      ;; undo
+                      [:U (cmd :UndotreeToggle (desc "toggle undotree"))]
+                      ;; neorg
+                      [:nn
+                       (cmd "Neorg journal today")
+                       (desc "Enter Neorg (today journal)")]
+                      [:no (cmd "Neorg toc") (desc "Show Neorg TOC")]
+                      [:N (cmd :Neorg) (desc "Enter Neorg")]
+                      [:fn
+                       (cmd :NeorgFuzzySearch)
+                       (desc "find Neorg linkable")]
+                      ;; git
+                      [:G (cmd :Neogit) (desc " client")]
+                      [:gb (cmd "Gitsigns blame") (desc " blame")]
+                      ;; filter
+                      [:tb
+                       (lcmd "require('lir.float').toggle()")
+                       (desc "Toggle lir")]
+                      [:tB (lcmd "require('oil').open()") (desc "Toggle oil")]
+                      ;; buffer
+                      [:q (cmd :BufDel) (desc "close buffer")]
+                      [:Q (cmd :BufDelAll) (desc "close all buffers")]
+                      ;; tab
+                      [:A (cmd :tabclose)]
+                      ;; toggle
+                      [:tm
+                       (lcmd "require('codewindow').toggle_minimap()")
+                       (desc "toggle minimap")]
+                      [:tj
+                       (cmd "lua require('treesj').toggle({ split = { recursive = false }})")
+                       (desc "toggle split/join")]
+                      [:tJ
+                       (cmd "lua require('treesj').toggle({ split = { recursive = true }})")
+                       (desc "toggle recursive split/join")]
+                      [:tq
+                       (mk_toggle 1 :quickfix nil)
+                       (desc "toggle quickfix")]
+                      [:td
+                       (mk_toggle 2 :trouble
+                                  {:mode :diagnostics :filter {:buf 0}})
+                       (desc "toggle diagnostics (document)")]
+                      [:tD
+                       (mk_toggle 3 :trouble {:mode :diagnostics})
+                       (desc "toggle diagnostics (workspace)")]])]
+    (vim.keymap.set :n (.. :<Leader> (. K 1)) (. K 2) (or (. K 3) opts)))
+  (each [_ K (ipairs [[:T (cmd :Translate)] [:R (cmd :FlowRunSelected)]])]
+    (vim.keymap.set :n (. K 1) (. K 2) (or (. K 3) opts)))
   ;; term toggle keymaps
   (for [i 0 9]
-    (M [:n :t :i] (.. :<C- i ">") (C (.. "TermToggle " i)) O)))
+    (vim.keymap.set [:n :t :i] (.. :<C- i ">") (cmd (.. "TermToggle " i)) opts)))
 
 ;; eager configs
 (vim.cmd "colorscheme morimo")

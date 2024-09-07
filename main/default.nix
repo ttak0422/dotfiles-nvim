@@ -69,7 +69,6 @@ let
       hookCmdline
       hookEdit
       hookInsert
-      hookLeader
       hookWindow
       hookTerm
       ;

@@ -99,7 +99,7 @@ with pkgs.vimPlugins;
   whichkey = {
     package = which-key-nvim;
     postConfig = read ../lua/autogen/whichkey.lua;
-    hooks.userEvents = [ "TriggerLeader" ];
+    hooks.userEvents = [ "CursorMoved" ];
   };
   winshift = {
     package = winshift-nvim;
