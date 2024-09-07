@@ -72,7 +72,7 @@
             :answer_header " Copilot "
             :error_header " Error "
             :separator "───"
-            :show_folds true
+            :show_folds false
             :show_help true
             :auto_follow_cursor true
             :auto_insert_mode false
