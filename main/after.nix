@@ -72,6 +72,7 @@ let
       '';
     };
     json = readVim ../vim/after/json.vim;
+    help = read "${pkgs.vimPlugins.helpview-nvim}/ftplugin/help.lua";
   };
 
   ftdetect = {

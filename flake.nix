@@ -1216,6 +1216,10 @@
       url = "github:domharries/foldnav.nvim";
       flake = false;
     };
+    helpview-nvim = {
+      url = "github:OXY2DEV/helpview.nvim";
+      flake = false;
+    };
   };
 
   outputs =

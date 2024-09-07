@@ -233,4 +233,15 @@ rec {
     package = log-highlight-nvim;
     hooks.fileTypes = [ "log" ];
   };
+  helpview = {
+    package = helpview-nvim.overrideAttrs (old: {
+      src = pkgs.nix-filter {
+        root = helpview-nvim.src;
+        exclude = [ "ftplugin/help.lua" ];
+      };
+    });
+    depends = [ treesitter.treesitter ];
+    # configured in after/ftplugin
+    hooks.fileTypes = [ "help" ];
+  };
 }

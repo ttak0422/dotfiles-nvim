@@ -92,6 +92,7 @@ let
       rustaceanvim
       vim-nix
       vtsls
+      helpview
       # MEMO: 重いので有効化しない
       # log-highlight
       ;

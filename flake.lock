@@ -2496,6 +2496,22 @@
         "type": "github"
       }
     },
+    "helpview-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1724653959,
+        "narHash": "sha256-x5ZV/1LKrxhQWsxsJwrIfD7BogKO7H2GKzDt3PABEh8=",
+        "owner": "OXY2DEV",
+        "repo": "helpview.nvim",
+        "rev": "857aec1dab331252910da158ab6cbfbc65239c71",
+        "type": "github"
+      },
+      "original": {
+        "owner": "OXY2DEV",
+        "repo": "helpview.nvim",
+        "type": "github"
+      }
+    },
     "hercules-ci-effects": {
       "inputs": {
         "flake-parts": "flake-parts_4",
@@ -4564,6 +4580,7 @@
         "haskell-tools-nvim": "haskell-tools-nvim",
         "heirline-components-nvim": "heirline-components-nvim",
         "heirline-nvim": "heirline-nvim",
+        "helpview-nvim": "helpview-nvim",
         "history-ignore-nvim": "history-ignore-nvim",
         "hlchunk-nvim": "hlchunk-nvim",
         "hydra-nvim": "hydra-nvim",
