@@ -5,6 +5,7 @@ let
   treesitter = callPackage ./treesitter.nix { };
   snippet = callPackage ./snippet.nix { };
   quickfix = callPackage ./quickfix.nix { };
+  language = callPackage ./language.nix { };
 in
 with pkgs.vimPlugins;
 rec {
@@ -98,8 +99,10 @@ rec {
       neco-vim
     ];
     depends = [
+      ddc-source-nvim
       denops
       pum-vim
+      language.lsp
       treesitter.treesitter
       snippet.vsnip
       {
