@@ -80,6 +80,7 @@ rec {
       ddc-source-input
       ddc-source-line
       ddc-source-lsp
+      ddc-source-lsp-setup
       ddc-source-vsnip
       ddc-source-vsnip
       ddc-treesitter
@@ -122,12 +123,12 @@ rec {
     };
     useDenops = true;
   };
-  ddc-source-lsp-setup = {
-    package = pkgs.vimPlugins.ddc-source-lsp-setup;
-    depends = [ ddc ];
-    postConfig = read ../lua/autogen/ddc-source-lsp-setup.lua;
-    hooks.modules = [ "ddc_source_lsp_setup" ];
-  };
+  # ddc-source-lsp-setup = {
+  #   package = pkgs.vimPlugins.ddc-source-lsp-setup;
+  #   depends = [ ddc ];
+  #   postConfig = read ../lua/autogen/ddc-source-lsp-setup.lua;
+  #   hooks.modules = [ "ddc_source_lsp_setup" ];
+  # };
   ddu = {
     packages = [
       ddu-vim

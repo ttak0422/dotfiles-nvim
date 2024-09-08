@@ -66,3 +66,7 @@ endfunction
 nnoremap : <Cmd>call CommandlinePre()<CR>:
 nnoremap ? <Cmd>call CommandlinePre()<CR>?
 nnoremap / <Cmd>call CommandlinePre()<CR>/
+
+lua << EOF
+  require("ddc_source_lsp_setup").setup()
+EOF
