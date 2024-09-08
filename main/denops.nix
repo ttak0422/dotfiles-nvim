@@ -39,10 +39,7 @@ rec {
   };
   skk = {
     package = skkeleton;
-    depends = [
-      denops
-      ddc
-    ];
+    depends = [ denops ];
     postConfig = {
       language = "vim";
       code = read ../vim/skk.vim;
@@ -111,6 +108,7 @@ rec {
         package = ddc-previewer-floating;
         postConfig = read ../lua/autogen/ddc-previewer-floating.lua;
       }
+      skk
     ];
     postConfig = {
       language = "vim";
