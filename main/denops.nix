@@ -39,7 +39,10 @@ rec {
   };
   skk = {
     package = skkeleton;
-    depends = [ denops ];
+    depends = [
+      denops
+      ddc
+    ];
     postConfig = {
       language = "vim";
       code = read ../vim/skk.vim;
