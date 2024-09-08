@@ -1,6 +1,5 @@
 ;; configured by bundler-nvim
 (local on_attach (dofile args.on_attach_path))
-(local capabilities (dofile args.capabilities_path))
 
 (vim.lsp.set_log_level :ERROR)
 (tset vim.lsp.handlers :textDocument/hover
@@ -26,7 +25,6 @@
 
 ;; lua
 (lspconfig.lua_ls.setup {: on_attach
-                         : capabilities
                          :settings {:Lua {:runtime {:version :LuaJIT}
                                           :diagnostics {:globals [:vim]}}
                                     :workspace {}
@@ -34,61 +32,55 @@
 
 ;; fennel
 (lspconfig.fennel_ls.setup {: on_attach
-                            : capabilities
                             :settings {:fennel-ls {:extra-globals :vim}}})
 
 ;; nix
 (lspconfig.nil_ls.setup {: on_attach
-                         : capabilities
                          :autostart true
                          :settings {:nil {:formatting {:command [:nixpkgs-fmt]}}}})
 
 ;; bash
-(lspconfig.bashls.setup {: on_attach : capabilities})
+(lspconfig.bashls.setup {: on_attach})
 
 ;; csharp
-(lspconfig.csharp_ls.setup {: on_attach : capabilities})
+(lspconfig.csharp_ls.setup {: on_attach})
 
 ;; python
-(lspconfig.pyright.setup {: on_attach : capabilities})
+(lspconfig.pyright.setup {: on_attach})
 
 ;; ruby
-(lspconfig.solargraph.setup {: on_attach : capabilities})
+(lspconfig.solargraph.setup {: on_attach})
 
 ;; toml
-(lspconfig.taplo.setup {: on_attach : capabilities})
+(lspconfig.taplo.setup {: on_attach})
 
 ; go → use gopls
 (lspconfig.gopls.setup {: on_attach
-                        : capabilities
                         :settings {:gopls {:analyses {:unusedparams true
                                                       :unusedvariable true
                                                       :useany true}
                                            :staticcheck false}}})
 
 ;; dart
-(lspconfig.dartls.setup {: on_attach : capabilities})
+(lspconfig.dartls.setup {: on_attach})
 
 ;; dhall
-(lspconfig.dhall_lsp_server.setup {: on_attach : capabilities})
+(lspconfig.dhall_lsp_server.setup {: on_attach})
 
 ;; yaml
-(lspconfig.yamlls.setup {: on_attach
-                         : capabilities
-                         :settings {:yaml {:keyOrdering false}}})
+(lspconfig.yamlls.setup {: on_attach :settings {:yaml {:keyOrdering false}}})
 
 ;; html
-(lspconfig.html.setup {: on_attach : capabilities})
+(lspconfig.html.setup {: on_attach})
 
 ;; css, css, less
-(lspconfig.cssls.setup {: on_attach : capabilities})
+(lspconfig.cssls.setup {: on_attach})
 
 ;; json
-(lspconfig.jsonls.setup {: on_attach : capabilities})
+(lspconfig.jsonls.setup {: on_attach})
 
 ;; typescript (node)
 (lspconfig.vtsls.setup {: on_attach
-                        : capabilities
                         :single_file_support false
                         :settings {:separate_diagnostic_server true
                                    :publish_diagnostic_on :insert_leave
@@ -103,7 +95,6 @@
 
 ;; typescript (deno)
 (lspconfig.denols.setup {: on_attach
-                         : capabilities
                          :single_file_support false
                          :root_dir (fn [path]
                                      (local found
@@ -129,10 +120,10 @@
                          :settings {:deno {:enable true}}})
 
 ;; markdown
-(lspconfig.marksman.setup {: on_attach : capabilities})
+(lspconfig.marksman.setup {: on_attach})
 
 ;; ast_grep
-(lspconfig.ast_grep.setup {: on_attach : capabilities})
+(lspconfig.ast_grep.setup {: on_attach})
 
 ;; efm
 (let [luacheck (require :efmls-configs.linters.luacheck)
@@ -166,6 +157,5 @@
                        :filetypes (vim.tbl_keys languages)
                        : settings
                        : init_options
-                       : on_attach
-                       : capabilities})]
+                       : on_attach})]
   (lspconfig.efm.setup (make_settings)))

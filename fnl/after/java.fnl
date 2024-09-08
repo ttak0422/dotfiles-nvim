@@ -94,7 +94,7 @@
            :-data
            work_space]
       handlers {:language/status (fn [])} ;
-      ;; on_attach
+      capabilities (dofile args.capabilities_path)
       build_timeout 10000
       on_attach (fn [client bufnr]
                   (let [opts (fn [desc] {:silent true :buffer bufnr : desc})
@@ -124,6 +124,7 @@
       config {: root_dir
               : settings
               : cmd
+              : capabilities
               : on_attach
               : handlers
               : init_options}]

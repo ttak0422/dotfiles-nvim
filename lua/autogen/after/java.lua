@@ -53,6 +53,7 @@ local handlers
 local function _3_()
 end
 handlers = {["language/status"] = _3_}
+local capabilities = dofile(args.capabilities_path)
 local build_timeout = 10000
 local on_attach
 local function _4_(client, bufnr)
@@ -84,6 +85,6 @@ local function _4_(client, bufnr)
   return nil
 end
 on_attach = _4_
-local config = {root_dir = root_dir, settings = settings, cmd = cmd, on_attach = on_attach, handlers = handlers, init_options = init_options}
+local config = {root_dir = root_dir, settings = settings, cmd = cmd, capabilities = capabilities, on_attach = on_attach, handlers = handlers, init_options = init_options}
 vim.g.jdtjdt = bundles
 return jdtls.start_or_attach(config)
