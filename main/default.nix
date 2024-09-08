@@ -28,6 +28,7 @@ let
     inherit (callPackage ./debug.nix { }) dap dap-go dap-ui;
     inherit (callPackage ./denops.nix { })
       ddc
+      ddc-source-lsp-setup
       ddu
       denops
       gin

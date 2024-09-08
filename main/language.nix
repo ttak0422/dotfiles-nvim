@@ -97,7 +97,10 @@ rec {
     preConfig = read ../lua/lsp-pre.lua;
     postConfig = {
       code = read ../lua/autogen/lsp.lua;
-      args.on_attach_path = ../lua/autogen/lsp-on-attach.lua;
+      args = {
+        on_attach_path = ../lua/autogen/lsp-on-attach.lua;
+        capabilities_path = ../lua/autogen/ddc-capabilities.lua;
+      };
     };
     hooks.events = [ "BufReadPost" ];
   };
@@ -131,7 +134,6 @@ rec {
       code = read ../lua/autogen/haskell-tools.lua;
       args = {
         on_attach_path = ../lua/autogen/lsp-on-attach.lua;
-        capabilities_path = ../lua/lsp-capabilities.lua;
       };
     };
     extraPackages = with pkgs; [

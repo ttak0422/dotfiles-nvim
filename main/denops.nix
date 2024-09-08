@@ -107,22 +107,26 @@ rec {
         package = ddc-previewer-floating;
         postConfig = read ../lua/autogen/ddc-previewer-floating.lua;
       }
-      {
-        package = ddc-source-lsp-setup;
-        depends = [ language.lsp ];
-        postConfig = read ../lua/autogen/ddc-source-lsp-setup.lua;
-      }
     ];
     postConfig = {
       language = "vim";
       code = read ../vim/ddc.vim;
       args.ts_config = ../denops/ddc.ts;
     };
-    hooks.events = [
-      "InsertEnter"
-      "CmdlineEnter"
-    ];
+    hooks = {
+      events = [
+        "InsertEnter"
+        "CmdlineEnter"
+      ];
+      modules = [ "ddc_source_lsp" ];
+    };
     useDenops = true;
+  };
+  ddc-source-lsp-setup = {
+    package = pkgs.vimPlugins.ddc-source-lsp-setup;
+    depends = [ ddc ];
+    postConfig = read ../lua/autogen/ddc-source-lsp-setup.lua;
+    hooks.modules = [ "ddc_source_lsp_setup" ];
   };
   ddu = {
     packages = [
