@@ -80,7 +80,7 @@ rec {
       ddc-source-input
       ddc-source-line
       ddc-source-lsp-setup
-      ddc-source-nvim-lsp
+      ddc-source-lsp
       ddc-source-vsnip
       ddc-source-vsnip
       ddc-treesitter
