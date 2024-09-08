@@ -79,7 +79,6 @@ rec {
       ddc-source-file
       ddc-source-input
       ddc-source-line
-      ddc-source-lsp-setup
       ddc-source-lsp
       ddc-source-vsnip
       ddc-source-vsnip
@@ -107,6 +106,11 @@ rec {
       {
         package = ddc-previewer-floating;
         postConfig = read ../lua/autogen/ddc-previewer-floating.lua;
+      }
+      {
+        package = ddc-source-lsp-setup;
+        depends = [ language.lsp ];
+        postConfig = read ../lua/autogen/ddc-source-lsp-setup.lua;
       }
     ];
     postConfig = {
