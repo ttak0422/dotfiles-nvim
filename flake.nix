@@ -1232,6 +1232,10 @@
       url = "github:kwkarlwang/bufresize.nvim";
       flake = false;
     };
+    winresizer = {
+      url = "github:simeji/winresizer";
+      flake = false;
+    };
   };
 
   outputs =

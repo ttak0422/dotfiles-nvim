@@ -53,6 +53,13 @@ with pkgs.vimPlugins;
         package = bufresize-nvim;
         postConfig = read ../lua/autogen/bufresize.lua;
       }
+      {
+        package = winresizer;
+        preConfig = {
+          language = "vim";
+          code = read ../vim/winresizer.vim;
+        };
+      }
     ];
     postConfig = read ../lua/autogen/hook-window.lua;
     hooks.events = [ "WinNew" ];
