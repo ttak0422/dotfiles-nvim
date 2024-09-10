@@ -48,6 +48,12 @@ with pkgs.vimPlugins;
     ];
   };
   hookWindow = {
+    depends = [
+      {
+        package = bufresize-nvim;
+        postConfig = read ../lua/autogen/bufresize.lua;
+      }
+    ];
     postConfig = read ../lua/autogen/hook-window.lua;
     hooks.events = [ "WinNew" ];
   };

@@ -178,6 +178,22 @@
         "type": "github"
       }
     },
+    "bufresize-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1647824331,
+        "narHash": "sha256-6jqlKe8Ekm+3dvlgFCpJnI0BZzWC3KDYoOb88/itH+g=",
+        "owner": "kwkarlwang",
+        "repo": "bufresize.nvim",
+        "rev": "3b19527ab936d6910484dcc20fb59bdb12322d8b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kwkarlwang",
+        "repo": "bufresize.nvim",
+        "type": "github"
+      }
+    },
     "bundler": {
       "inputs": {
         "crane": "crane",
@@ -4484,6 +4500,7 @@
         "better-escape-nvim": "better-escape-nvim",
         "btw-nvim": "btw-nvim",
         "bufferline-nvim": "bufferline-nvim",
+        "bufresize-nvim": "bufresize-nvim",
         "bundler": "bundler",
         "climbdir-nvim": "climbdir-nvim",
         "cmp-buffer": "cmp-buffer",

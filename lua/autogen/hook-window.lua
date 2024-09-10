@@ -10,15 +10,10 @@ local function _2_(d)
   return {noremap = true, silent = true, desc = d}
 end
 desc = _2_
-local N
 local function _3_()
-  return (require("smart-splits")).start_resize_mode()
+  return require("nvim-window").pick()
 end
-local function _4_()
-  return (require("nvim-window")).pick()
-end
-N = {{"<C-w>H", cmd("WinShift left")}, {"<C-w>J", cmd("WinShift down")}, {"<C-w>K", cmd("WinShift up")}, {"<C-w>L", cmd("WinShift right")}, {"<C-w>e", _3_, desc("resize mode")}, {"<C-w>p", _4_, desc("pick window")}, {"<C-w><CR>", cmd("DetourCurrentWindow")}}
-for _, k in ipairs(N) do
+for _, k in ipairs({{"<C-w>H", cmd("WinShift left")}, {"<C-w>J", cmd("WinShift down")}, {"<C-w>K", cmd("WinShift up")}, {"<C-w>L", cmd("WinShift right")}, {"<C-w>p", _3_, desc("pick window")}, {"<C-w><CR>", cmd("DetourCurrentWindow")}}) do
   vim.keymap.set("n", k[1], k[2], (k[3] or opts))
 end
 return nil
