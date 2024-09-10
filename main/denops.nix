@@ -6,6 +6,7 @@ let
   snippet = callPackage ./snippet.nix { };
   quickfix = callPackage ./quickfix.nix { };
   language = callPackage ./language.nix { };
+  style = callPackage ./style.nix { };
 in
 with pkgs.vimPlugins;
 rec {
@@ -160,6 +161,7 @@ rec {
         hooks.events = [ "BufReadPre" ];
       }
       quickfix.bqf
+      style.noice
     ];
     extraPackages = with pkgs; [
       ripgrep
