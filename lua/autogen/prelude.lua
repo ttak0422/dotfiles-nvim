@@ -27,16 +27,15 @@ do
     local state = {pre_id = nil, ["open?"] = false}
     local function _5_(id, mod, args)
       local function _6_()
-        local T = require("toolwindow")
         if (state.pre_id ~= id) then
-          T.open_window(mod, args)
+          require("toolwindow").open_window(mod, args)
           state["open?"] = true
         else
           if state["open?"] then
-            T.close()
+            require("toolwindow").close()
             state["open?"] = false
           else
-            T.open_window(mod, args)
+            require("toolwindow").open_window(mod, args)
             state["open?"] = true
           end
         end

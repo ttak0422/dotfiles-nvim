@@ -34,19 +34,19 @@
                    (let [state {:open? false :pre_id nil}]
                      (fn [id mod args]
                        (fn []
-                         (let [T (require :toolwindow)]
-                           (if (not= state.pre_id id)
-                               (do
-                                 (T.open_window mod args)
-                                 (tset state :open? true))
-                               (if state.open?
-                                   (do
-                                     (T.close)
-                                     (tset state :open? false))
-                                   (do
-                                     (T.open_window mod args)
-                                     (tset state :open? true))))
-                           (tset state :pre_id id)))))))]
+                         (if (not= state.pre_id id)
+                             (do
+                               ((. (require :toolwindow) :open_window) mod args)
+                               (tset state :open? true))
+                             (if state.open?
+                                 (do
+                                   ((. (require :toolwindow) :close))
+                                   (tset state :open? false))
+                                 (do
+                                   ((. (require :toolwindow) :open_window) mod
+                                                                           args)
+                                   (tset state :open? true))))
+                         (tset state :pre_id id))))))]
   ;; leader keymaps
   (each [_ K (ipairs [;; finder
                       [:ff
