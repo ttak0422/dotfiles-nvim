@@ -155,7 +155,8 @@ rec {
       ddu-filter-matcher_relative
     ];
     depends = [
-      denops
+      # denops
+      ddc
       {
         package = mr-vim;
         hooks.events = [ "BufReadPre" ];
