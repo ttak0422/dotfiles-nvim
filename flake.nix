@@ -1236,6 +1236,10 @@
       url = "github:simeji/winresizer";
       flake = false;
     };
+    virtual-types-nvim = {
+      url = "github:jubnzv/virtual-types.nvim";
+      flake = false;
+    };
   };
 
   outputs =

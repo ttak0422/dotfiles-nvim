@@ -4793,6 +4793,7 @@
         "vim-vsnip": "vim-vsnip",
         "vim-vsnip-integ": "vim-vsnip-integ",
         "vimdoc-ja": "vimdoc-ja",
+        "virtual-types-nvim": "virtual-types-nvim",
         "waitevent-nvim": "waitevent-nvim",
         "which-key-nvim": "which-key-nvim",
         "winresizer": "winresizer",
@@ -5628,6 +5629,22 @@
       "original": {
         "owner": "vim-jp",
         "repo": "vimdoc-ja",
+        "type": "github"
+      }
+    },
+    "virtual-types-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1680873610,
+        "narHash": "sha256-WznB8eiwG7dIKg4LeblUQwb6E8yxAFLnV1wMwWq5/JI=",
+        "owner": "jubnzv",
+        "repo": "virtual-types.nvim",
+        "rev": "d652ec0b1781bbb0e83dc588fb62d638006cf61e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jubnzv",
+        "repo": "virtual-types.nvim",
         "type": "github"
       }
     },

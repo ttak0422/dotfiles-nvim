@@ -11,7 +11,6 @@ local function _1_(client, bufnr)
     return {noremap = true, silent = true, buffer = bufnr, desc = d}
   end
   desc = _3_
-  local inlayhints = require("lsp-inlayhints")
   local live_rename = require("live-rename")
   vim.api.nvim_create_user_command("Format", "lua vim.lsp.buf.format()", {})
   map("n", "gd", vim.lsp.buf.definition, desc("go to definition"))
@@ -32,7 +31,11 @@ local function _1_(client, bufnr)
   else
   end
   if client.supports_method("textDocument/inlayHint") then
-    inlayhints.on_attach(client, bufnr, false)
+    require("lsp-inlayhints").on_attach(client, bufnr)
+  else
+  end
+  if client.supports_method("textDocument/codeLens") then
+    require("virtualtypes").on_attach(client, bufnr)
   else
   end
   if client.supports_method("textDocument/publishDiagnostics") then

@@ -2,7 +2,6 @@
   (let [map vim.keymap.set
         cmd (fn [c] (.. :<cmd> c :<cr>))
         desc (fn [d] {:noremap true :silent true :buffer bufnr :desc d})
-        inlayhints (require :lsp-inlayhints)
         live_rename (require :live-rename)]
     ;; register commands
     (vim.api.nvim_create_user_command :Format "lua vim.lsp.buf.format()" {})
@@ -25,7 +24,9 @@
         (map :n :<leader>cF (cmd :Format) (desc :format)))
     ;; info
     (if (client.supports_method :textDocument/inlayHint)
-        (inlayhints.on_attach client bufnr false))
+        ((. (require :lsp-inlayhints) :on_attach) client bufnr))
+    (if (client.supports_method :textDocument/codeLens)
+        ((. (require :virtualtypes) :on_attach) client bufnr))
     (if (client.supports_method :textDocument/publishDiagnostics)
         ;; delay update diagnostics
         (set vim.lsp.handlers.textDocument/publishDiagnostics
