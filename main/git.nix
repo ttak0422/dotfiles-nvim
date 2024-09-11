@@ -4,6 +4,7 @@ let
   read = builtins.readFile;
   lib = callPackage ./lib.nix { };
   search = callPackage ./search.nix { };
+  denops = callPackage ./denops.nix { };
 in
 with pkgs.vimPlugins;
 rec {
@@ -47,6 +48,7 @@ rec {
     depends = [
       lib.plenary
       search.telescope
+      denops.skk
       diffview
     ];
     extraPackages = [ pkgs.gh ];
