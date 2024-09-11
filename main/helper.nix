@@ -41,7 +41,13 @@ with pkgs.vimPlugins;
   open = {
     package = open-nvim;
     depends = [ lib.plenary ];
-    postConfig = read ../lua/autogen/open.lua;
+    postConfig =
+    {
+     code = read ../lua/autogen/open.lua;
+     args = {
+       cmd = if pkgs.stdenv.isDarwin then "open" else "xdg-open";
+     };
+    };
     hooks.modules = [ "open" ];
   };
   project = {
