@@ -22,7 +22,7 @@ export class Config extends BaseConfig {
       uiOptions: {},
       uiParams: {
         ff: {
-          prompt: "> ",
+          prompt: " ",
           autoAction: {
             name: "preview",
             delay: 250, // same as telescope.nvim

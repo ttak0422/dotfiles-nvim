@@ -99,14 +99,23 @@
                :inc_rename false
                :lsp_doc_border true}
       throttle (/ 1000 30)
-      views (let [border :none
-                  cmdline_popup {:border {:style border :padding [1 2]}
+      views (let [cmdline_popup {:border {:style :none :padding [1 2]}
                                  :filter_options {}
                                  :win_options {:winhighlight "NormalFloat,NormalFloat,FloatBorder,FloatBorder"}
                                  :relative :editor
                                  :position {:row "50%" :col "50%"}}
-                  hover {:border {:style border}}]
-              {: cmdline_popup : hover})
+                  cmdline_input {:view :cmdline_popup
+                                 :border {:style [" "
+                                                  " "
+                                                  " "
+                                                  " "
+                                                  " "
+                                                  " "
+                                                  " "
+                                                  " "]
+                                          :padding [0 1]}}
+                  hover {:border {:style :none}}]
+              {: cmdline_popup : cmdline_input : hover})
       routes [{:filter {:event :msg_show
                         :any [{:find :^prompt$}
                               {:find "%d+L %d+B"}

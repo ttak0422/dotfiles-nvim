@@ -37,10 +37,10 @@ local presets = {long_message_to_split = true, lsp_doc_border = true, bottom_sea
 local throttle = (1000 / 30)
 local views
 do
-  local border = "none"
-  local cmdline_popup = {border = {style = border, padding = {1, 2}}, filter_options = {}, win_options = {winhighlight = "NormalFloat,NormalFloat,FloatBorder,FloatBorder"}, relative = "editor", position = {row = "50%", col = "50%"}}
-  local hover = {border = {style = border}}
-  views = {cmdline_popup = cmdline_popup, hover = hover}
+  local cmdline_popup = {border = {style = "none", padding = {1, 2}}, filter_options = {}, win_options = {winhighlight = "NormalFloat,NormalFloat,FloatBorder,FloatBorder"}, relative = "editor", position = {row = "50%", col = "50%"}}
+  local cmdline_input = {view = "cmdline_popup", border = {style = {" ", " ", " ", " ", " ", " ", " ", " "}, padding = {0, 1}}}
+  local hover = {border = {style = "none"}}
+  views = {cmdline_popup = cmdline_popup, cmdline_input = cmdline_input, hover = hover}
 end
 local routes = {{filter = {event = "msg_show", any = {{find = "^prompt$"}, {find = "%d+L %d+B"}, {find = "; after #%d+"}, {find = "; before #%d+"}, {find = "%d fewer lines"}, {find = "%d more lines"}}}, opts = {skip = true}}}
 return M.setup({cmdline = cmdline, messages = messages, popupmenu = popupmenu, redirect = redirect, commands = commands, notify = notify, lsp = lsp, markdown = markdown, health = health, smart_move = smart_move, presets = presets, throttle = throttle, views = views, routes = routes})
