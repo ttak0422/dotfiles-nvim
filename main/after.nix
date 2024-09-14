@@ -24,6 +24,11 @@ let
     cabalproject = hashkellTools;
     cagbal = hashkellTools;
     lhaskell = hashkellTools;
+    rust = ''
+      -- Hack: load rustaceanvim before setup
+      require("rustaceanvim")
+      dofile("${pkgs.vimPlugins.rustaceanvim}/ftplugin/rust.lua")
+    '';
     java =
       let
         inherit (pkgs.vscode-marketplace.vscjava) vscode-java-debug vscode-java-test;

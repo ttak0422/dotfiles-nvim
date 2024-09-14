@@ -1,4 +1,4 @@
--- [nfnl] Compiled from fnl/rustaceanvim-pre.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] Compiled from fnl/rustaceanvim.fnl by https://github.com/Olical/nfnl, do not edit.
 local on_attach = dofile(args.on_attach_path)
 local server = {on_attach = on_attach}
 local tools

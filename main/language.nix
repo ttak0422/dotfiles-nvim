@@ -203,8 +203,8 @@ rec {
       debug.dap
     ];
     extraPackages = with pkgs; [ graphviz ];
-    preConfig = {
-      code = read ../lua/autogen/rustaceanvim-pre.lua;
+    postConfig = {
+      code = read ../lua/autogen/rustaceanvim.lua;
       args.on_attach_path = ../lua/autogen/lsp-on-attach.lua;
     };
     hooks.modules = [ "rustaceanvim" ];
