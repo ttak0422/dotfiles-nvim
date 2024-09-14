@@ -1252,6 +1252,10 @@
       url = "github:shortcuts/no-neck-pain.nvim";
       flake = false;
     };
+    highlight-undo-nvim = {
+      url = "github:tzachar/highlight-undo.nvim";
+      flake = false;
+    };
   };
 
   outputs =

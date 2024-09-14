@@ -2614,6 +2614,22 @@
         "type": "github"
       }
     },
+    "highlight-undo-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1714982601,
+        "narHash": "sha256-yGw1SxcUmGQxqKhMb2SJAai07g+rOpEJy2CqIX2h9dM=",
+        "owner": "tzachar",
+        "repo": "highlight-undo.nvim",
+        "rev": "1ea1c79372d7d93c88fd97543880927b7635e3d2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tzachar",
+        "repo": "highlight-undo.nvim",
+        "type": "github"
+      }
+    },
     "history-ignore-nvim": {
       "flake": false,
       "locked": {
@@ -4682,6 +4698,7 @@
         "heirline-components-nvim": "heirline-components-nvim",
         "heirline-nvim": "heirline-nvim",
         "helpview-nvim": "helpview-nvim",
+        "highlight-undo-nvim": "highlight-undo-nvim",
         "history-ignore-nvim": "history-ignore-nvim",
         "hlchunk-nvim": "hlchunk-nvim",
         "hydra-nvim": "hydra-nvim",

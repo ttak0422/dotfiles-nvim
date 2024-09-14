@@ -64,6 +64,10 @@ with pkgs.vimPlugins;
         package = endscroll-nvim;
         postConfig = read ../lua/autogen/endscroll.lua;
       }
+      {
+        package = highlight-undo-nvim;
+        postConfig = read ../lua/autogen/highlight-undo.lua;
+      }
     ];
     postConfig = read ../lua/autogen/hook-edit.lua;
     hooks.events = [
