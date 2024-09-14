@@ -109,6 +109,7 @@
                       ;; tab
                       [:A (cmd :tabclose)]
                       ;; toggle
+                      [:tt (cmd :NoNeckPain) (desc "toggle no neck pain")]
                       [:tm
                        (lcmd "require('codewindow').toggle_minimap()")
                        (desc "toggle minimap")]

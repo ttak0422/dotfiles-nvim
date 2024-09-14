@@ -6,6 +6,11 @@ let
 in
 with pkgs.vimPlugins;
 rec {
+  no-neck-pain = {
+    package = no-neck-pain-nvim;
+    postConfig = read ../lua/autogen/no-neck-pain.lua;
+    hooks.commands = [ "NoNeckPain" ];
+  };
   jabs = {
     package = JABS-nvim;
     postConfig = read ../lua/autogen/jabs.lua;

@@ -157,6 +157,7 @@ let
       ;
     inherit (callPackage ./test.nix { }) neotest;
     inherit (callPackage ./tool.nix { })
+      no-neck-pain
       jabs
       toggleterm
       overseer
