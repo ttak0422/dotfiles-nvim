@@ -98,9 +98,3 @@
     (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts)))
   (each [_ k (ipairs OTHER)]
     (vim.keymap.set (. k 1) (. k 2) (. k 3) (or (. k 4) opts))))
-
-(let [f (fn []
-          (each [k v (pairs {:foldcolumn :1 :signcolumn :yes :number true})]
-            (tset vim.opt k v)))]
-  (f)
-  (vim.api.nvim_create_user_command :ShowNumber f {}))

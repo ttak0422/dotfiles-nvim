@@ -10,13 +10,15 @@
                    :termguicolors true
                    ;; モードを非表示
                    :showmode false
-                   ;; 起動時に行数を非表示表示
-                   :number false
-                   ;; signcolumnを起動時に非表示
-                   :signcolumn :no
+                   ;; 起動時に行数を表示
+                   :number true
+                   ;; 起動時にfoldcolumを表示
+                   :foldcolumn :1
+                   ;; signcolumnを起動時に表示
+                   :signcolumn :yes
                    ;; tablineを起動時に非表示
                    :showtabline 0
-                   ;; statuslineを起動時に非表示
+                   ; statuslineを起動時に非表示
                    :laststatus 0
                    :foldlevel 99
                    :foldlevelstart 99})]
