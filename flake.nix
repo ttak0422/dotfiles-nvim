@@ -1240,6 +1240,10 @@
       url = "github:jubnzv/virtual-types.nvim";
       flake = false;
     };
+    endscroll-nvim = {
+      url = "github:plax-00/endscroll.nvim";
+      flake = false;
+    };
   };
 
   outputs =

@@ -1986,6 +1986,22 @@
         "type": "github"
       }
     },
+    "endscroll-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721497608,
+        "narHash": "sha256-RJZfFm8Ttc7+31zs83JK8JUy4r9mwi+nhCx6DOR0eXs=",
+        "owner": "plax-00",
+        "repo": "endscroll.nvim",
+        "rev": "4f9c7ac1d827a205ebea53ced57fc845b6da4194",
+        "type": "github"
+      },
+      "original": {
+        "owner": "plax-00",
+        "repo": "endscroll.nvim",
+        "type": "github"
+      }
+    },
     "fenix": {
       "inputs": {
         "nixpkgs": [
@@ -4611,6 +4627,7 @@
         "dressing-nvim": "dressing-nvim",
         "dropbar-nvim": "dropbar-nvim",
         "efmls-configs-nvim": "efmls-configs-nvim",
+        "endscroll-nvim": "endscroll-nvim",
         "fix-auto-scroll-nvim": "fix-auto-scroll-nvim",
         "flake-parts": "flake-parts_2",
         "flit-nvim": "flit-nvim",

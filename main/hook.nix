@@ -40,6 +40,10 @@ with pkgs.vimPlugins;
         package = nvim-surround;
         postConfig = read ../lua/autogen/surround.lua;
       }
+      {
+        package = endscroll-nvim;
+        postConfig = read ../lua/autogen/endscroll.lua;
+      }
     ];
     postConfig = read ../lua/autogen/hook-edit.lua;
     hooks.events = [
