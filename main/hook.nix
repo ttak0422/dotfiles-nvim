@@ -10,6 +10,12 @@ with pkgs.vimPlugins;
   };
   hookBuffer = {
     postConfig = read ../lua/autogen/hook-buffer.lua;
+    depends = [
+      {
+        package = bigfile-nvim;
+        postConfig = read ../lua/autogen/bigfile.lua;
+      }
+    ];
     hooks.events = [ "BufReadPost" ];
   };
   hookCmdline = {

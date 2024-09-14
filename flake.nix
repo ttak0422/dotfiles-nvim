@@ -1244,6 +1244,10 @@
       url = "github:plax-00/endscroll.nvim";
       flake = false;
     };
+    bigfile-nvim = {
+      url = "github:LunarVim/bigfile.nvim";
+      flake = false;
+    };
   };
 
   outputs =
