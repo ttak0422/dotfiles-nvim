@@ -20,16 +20,14 @@ with pkgs.vimPlugins;
       {
         package = statuscol-nvim;
         postConfig = read ../lua/autogen/statuscol.lua;
+      }
+      {
+        package = nvim-ufo;
         depends = [
-          {
-            package = nvim-ufo;
-            depends = [
-              promise-async
-              treesitter.treesitter
-            ];
-            postConfig = read ../lua/autogen/ufo.lua;
-          }
+          promise-async
+          treesitter.treesitter
         ];
+        postConfig = read ../lua/autogen/ufo.lua;
       }
     ];
     hooks.events = [ "BufReadPost" ];
