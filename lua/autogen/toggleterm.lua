@@ -40,7 +40,7 @@ local function _3_()
   return _4_
 end
 toggle_term = _3_()
-M.setup({size = size, shade_terminals = true, start_in_insert = true, winbar = {enabled = false}, auto_scroll = false})
+M.setup({size = size, start_in_insert = true, winbar = {enabled = false}, auto_scroll = false, shade_terminals = false})
 local function _8_(opts)
   return toggle_term(opts.args)
 end

@@ -28,7 +28,7 @@
                                  (term:toggle)
                                  (vim.cmd :startinsert))))))))]
   (M.setup {: size
-            :shade_terminals true
+            :shade_terminals false
             :auto_scroll false
             :start_in_insert true
             :winbar {:enabled false}})
