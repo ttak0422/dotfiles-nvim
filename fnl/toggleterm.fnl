@@ -3,15 +3,15 @@
       Terminal T.Terminal
       create_cmd vim.api.nvim_create_user_command
       size (fn [term]
-             (if (= term.direction :horizontal) (* vim.o.lines 0.3)
-                 (* vim.o.columns 0.4)))
+             (if (= term.direction :horizontal) (* vim.o.lines 0.5)
+                 (* vim.o.columns 0.5)))
       toggle_term ((fn []
                      (let [terms {}]
                        (fn [idx]
                          (let [term (if (. terms idx) (. terms idx)
                                         (do
                                           (tset terms idx
-                                                (Terminal:new {:direction :float}))
+                                                (Terminal:new {:direction :horizontal}))
                                           (. terms idx)))
                                is_open (term:is_open)
                                is_focused (term:is_focused)]
@@ -28,8 +28,8 @@
                                  (term:toggle)
                                  (vim.cmd :startinsert))))))))]
   (M.setup {: size
-            :shade_terminals false
+            :shade_terminals true
             :auto_scroll false
             :start_in_insert true
-            :winbar {:enabled true}})
+            :winbar {:enabled false}})
   (create_cmd :TermToggle (fn [opts] (toggle_term opts.args)) {:nargs 1}))

@@ -6,9 +6,9 @@ local create_cmd = vim.api.nvim_create_user_command
 local size
 local function _1_(term)
   if (term.direction == "horizontal") then
-    return (vim.o.lines * 0.3)
+    return (vim.o.lines * 0.5)
   else
-    return (vim.o.columns * 0.4)
+    return (vim.o.columns * 0.5)
   end
 end
 size = _1_
@@ -20,7 +20,7 @@ local function _3_()
     if terms[idx] then
       term = terms[idx]
     else
-      terms[idx] = Terminal:new({direction = "float"})
+      terms[idx] = Terminal:new({direction = "horizontal"})
       term = terms[idx]
     end
     local is_open = term:is_open()
@@ -40,7 +40,7 @@ local function _3_()
   return _4_
 end
 toggle_term = _3_()
-M.setup({size = size, start_in_insert = true, winbar = {enabled = true}, shade_terminals = false, auto_scroll = false})
+M.setup({size = size, shade_terminals = true, start_in_insert = true, winbar = {enabled = false}, auto_scroll = false})
 local function _8_(opts)
   return toggle_term(opts.args)
 end
