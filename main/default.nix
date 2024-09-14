@@ -152,7 +152,6 @@ let
       noice
       notify
       numb
-      statuscol
       tint
       winsep
       ;

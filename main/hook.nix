@@ -1,6 +1,8 @@
 { pkgs, ... }:
 let
+  inherit (pkgs) callPackage;
   read = builtins.readFile;
+  treesitter = callPackage ./treesitter.nix { };
 in
 with pkgs.vimPlugins;
 {
@@ -9,11 +11,25 @@ with pkgs.vimPlugins;
     hooks.events = [ "InsertEnter" ];
   };
   hookBuffer = {
-    postConfig = read ../lua/autogen/hook-buffer.lua;
+    preConfig = read ../lua/autogen/hook-buffer.lua;
     depends = [
       {
         package = bigfile-nvim;
         postConfig = read ../lua/autogen/bigfile.lua;
+      }
+      {
+        package = statuscol-nvim;
+        postConfig = read ../lua/autogen/statuscol.lua;
+        depends = [
+          {
+            package = nvim-ufo;
+            depends = [
+              promise-async
+              treesitter.treesitter
+            ];
+            postConfig = read ../lua/autogen/ufo.lua;
+          }
+        ];
       }
     ];
     hooks.events = [ "BufReadPost" ];

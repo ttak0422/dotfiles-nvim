@@ -94,21 +94,6 @@ rec {
     postConfig = read ../lua/autogen/numb.lua;
     hooks.events = [ "CmdlineEnter" ];
   };
-  statuscol = {
-    package = statuscol-nvim;
-    postConfig = read ../lua/autogen/statuscol.lua;
-    depends = [
-      {
-        package = nvim-ufo;
-        depends = [
-          promise-async
-          treesitter.treesitter
-        ];
-        postConfig = read ../lua/autogen/ufo.lua;
-      }
-    ];
-    hooks.events = [ "BufReadPost" ];
-  };
   tint = {
     package = tint-nvim;
     postConfig = read ../lua/autogen/tint.lua;
