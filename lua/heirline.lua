@@ -311,7 +311,7 @@ do
 	local symbol = heirline.utils.surround({ icons.fill, icons.fill }, function()
 		return colors.red
 	end, {
-		provider = icons.terminal,
+		provider = icons.vim,
 		hl = { fg = colors.bg },
 	})
 	local name = {
