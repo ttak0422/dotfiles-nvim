@@ -880,6 +880,10 @@
       url = "github:lambdalisue/mr.vim";
       flake = false;
     };
+    vim-mr = {
+      url = "github:lambdalisue/vim-mr";
+      flake = false;
+    };
     neotest-golang = {
       url = "github:fredrikaverpil/neotest-golang";
       flake = false;
@@ -1263,101 +1267,6 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import inputs.systems;
       imports = [ ./neovim.nix ];
-      perSystem =
-        { pkgs, ... }:
-        {
-          apps =
-            let
-              inherit (pkgs.lib.strings) concatStringsSep;
-              join = concatStringsSep " ";
-              update-inputs =
-                { name, plugins }:
-                pkgs.writeShellApplication {
-                  inherit name;
-                  text = ''
-                    nix flake lock ${join (map (p: "--update-input ${p}") plugins)}
-                  '';
-                };
-            in
-            {
-              show-inputs = {
-                type = "app";
-                program = pkgs.writeShellApplication {
-                  name = "show-inputs";
-                  runtimeInputs = with pkgs; [
-                    jq
-                    coreutils
-                  ];
-                  text = "nix flake metadata --json | jq -r '.locks.nodes | keys[]'";
-                };
-              };
-              update-ddc-plugins = {
-                type = "app";
-                program = pkgs.writeShellApplication {
-                  name = "show-inputs";
-                  runtimeInputs = with pkgs; [
-                    jq
-                    coreutils
-                  ];
-                  text = ''
-                    nix flake metadata --json | jq -r '.locks.nodes | keys[]' | grep ddc | xargs -I {} nix flake lock --update-input {}
-                  '';
-                };
-              };
-              update-ddu-plugins = {
-                type = "app";
-                program =
-                  update-inputs {
-                    name = "update-ddu-plugins";
-                    plugins = [
-                      "ddu-column-filename"
-                      "ddu-column-icon_filename"
-                      "ddu-commands-vim"
-                      "ddu-filter-converter_devicon"
-                      "ddu-filter-converter_display_word"
-                      "ddu-filter-converter_hl_dir"
-                      "ddu-filter-fzf"
-                      "ddu-filter-kensaku"
-                      "ddu-filter-matcher_files"
-                      "ddu-filter-matcher_hidden"
-                      "ddu-filter-matcher_ignore_files"
-                      "ddu-filter-matcher_ignores"
-                      "ddu-filter-matcher_relative"
-                      "ddu-filter-matcher_substring"
-                      "ddu-filter-merge"
-                      "ddu-filter-sorter_alpha"
-                      "ddu-filter-sorter_reversed"
-                      "ddu-filter-zf"
-                      "ddu-kind-file"
-                      "ddu-source-action"
-                      "ddu-source-buffer"
-                      "ddu-source-command_history"
-                      "ddu-source-custom-list"
-                      "ddu-source-file"
-                      "ddu-source-file_external"
-                      "ddu-source-file_fd"
-                      "ddu-source-file_old"
-                      "ddu-source-file_rec"
-                      "ddu-source-ghq"
-                      "ddu-source-git_diff"
-                      "ddu-source-git_log"
-                      "ddu-source-git_stash"
-                      "ddu-source-git_status"
-                      "ddu-source-line"
-                      "ddu-source-lsp"
-                      "ddu-source-mr"
-                      "ddu-source-register"
-                      "ddu-source-rg"
-                      "ddu-source-vim"
-                      "ddu-ui-ff"
-                      "ddu-ui-filter"
-                      "ddu-vim"
-                      "ddu-vim-ui-select"
-                    ];
-                  }
-                  + "/bin/update-ddu-plugins";
-              };
-            };
-        };
+      perSystem = { pkgs, ... }: { } // import ./apps.nix { inherit pkgs; };
     };
 }

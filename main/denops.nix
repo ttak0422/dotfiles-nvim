@@ -160,7 +160,7 @@ rec {
       # denops
       ddc
       {
-        package = mr-vim;
+        package = vim-mr;
         hooks.events = [ "BufReadPre" ];
       }
       quickfix.bqf

@@ -77,6 +77,9 @@
                       [:frw
                        (cmd "Ddu -name=mrw mrw")
                        (desc "MRW (Most Recently Written files)")]
+                      [:frr
+                       (cmd "Ddu -name=mrr mrr")
+                       (desc "MRR (Most Recent git Repositories)")]
                       ;; mark
                       [:mq
                        (cmd :MarksQFListBuf)
