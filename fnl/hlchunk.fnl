@@ -1,5 +1,6 @@
 (let [M (require :hlchunk)
-      chunk {:chars {:horizontal_line "─"
+      chunk {:enable true
+             :chars {:horizontal_line "─"
                      :vertical_line "│"
                      :left_top "┌"
                      :left_bottom "└"
