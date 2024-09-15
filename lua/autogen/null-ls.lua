@@ -3,6 +3,9 @@ local null_ls = require("null-ls")
 local diagnostics = null_ls.builtins.diagnostics
 local formatting = null_ls.builtins.formatting
 local utils = require("null-ls.utils")
+local helpers = require("null-ls.helpers")
+local methods = require("null-ls.methods")
+local FORMATTING = methods.internal.FORMATTING
 local is_active_lsp
 local function _1_(lsp_name)
   local bufnr = vim.api.nvim_get_current_buf()

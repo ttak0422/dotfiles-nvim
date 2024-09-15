@@ -12,7 +12,7 @@ inputs: with inputs; [
         listToAttrs
         getAttr
         ;
-      inherit (prev.lib) optionalString;
+      inherit (prev.lib) optionalString cleanSource;
       inherit (prev.stdenv) system isDarwin;
       inherit (prev.vimUtils) buildVimPlugin;
       excludeInputs = [
@@ -34,6 +34,16 @@ inputs: with inputs; [
     in
     {
       pkgs-stable = import nixpkgs-stable { inherit system; };
+
+      norg-fmt = prev.rustPlatform.buildRustPackage {
+        pname = "neorg-fmt";
+        version = inputs.norg-fmt.rev;
+        src = cleanSource inputs.norg-fmt;
+        cargoLock = {
+          lockFile = "${inputs.norg-fmt}/Cargo.lock";
+          allowBuiltinFetchGit = true;
+        };
+      };
 
       javaPackages = prev.javaPackages // {
         inherit (inputs) jol junit-console;

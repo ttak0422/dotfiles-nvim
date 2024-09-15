@@ -34,6 +34,12 @@
         flake-parts.follows = "flake-parts";
       };
     };
+
+    norg-fmt = {
+      url = "github:nvim-neorg/norg-fmt";
+      flake = false;
+    };
+
     # javaPackages
     junit-console = {
       url = "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.2/junit-platform-console-standalone-1.10.2.jar";

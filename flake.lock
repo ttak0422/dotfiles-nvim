@@ -3833,6 +3833,22 @@
         "type": "github"
       }
     },
+    "norg-fmt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1724009686,
+        "narHash": "sha256-GS8Ub1TMKvCyABXZLxasM9Uo/6ccpTyfrE0ZoiH5QKg=",
+        "owner": "nvim-neorg",
+        "repo": "norg-fmt",
+        "rev": "58d8b8804a48941ed599d9236d72f0f31956b563",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-neorg",
+        "repo": "norg-fmt",
+        "type": "github"
+      }
+    },
     "nui-nvim": {
       "flake": false,
       "locked": {
@@ -4768,6 +4784,7 @@
         "none-ls-luacheck-nvim": "none-ls-luacheck-nvim",
         "none-ls-nvim": "none-ls-nvim",
         "none-ls-shellcheck-nvim": "none-ls-shellcheck-nvim",
+        "norg-fmt": "norg-fmt",
         "nui-nvim": "nui-nvim",
         "numb-nvim": "numb-nvim",
         "nvim-FeMaco-lua": "nvim-FeMaco-lua",

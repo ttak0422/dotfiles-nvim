@@ -2,6 +2,9 @@
       diagnostics null_ls.builtins.diagnostics
       formatting null_ls.builtins.formatting
       utils (require :null-ls.utils)
+      helpers (require :null-ls.helpers)
+      methods (require :null-ls.methods)
+      FORMATTING methods.internal.FORMATTING
       is_active_lsp (fn [lsp_name]
                       (let [bufnr (vim.api.nvim_get_current_buf)
                             clients (vim.lsp.get_clients {: bufnr})]
@@ -32,6 +35,13 @@
                formatting.fnlfmt
                ;; nix
                formatting.nixfmt]]
+  ; (null_ls.register {:name :norg-fmt
+  ;                    :method FORMATTING
+  ;                    :filetypes [:norg :neorg]
+  ;                    :generator (helpers.formatter_factory {:command :norg-fmt
+  ;                                                           :args [:$FILENAME]
+  ;                                                           :to_stdin true
+  ;                                                           :format :raw})})
   (null_ls.setup {:border :none
                   :cmd [:nvim]
                   :debounce 250
