@@ -4880,6 +4880,7 @@
         "vim-vsnip-integ": "vim-vsnip-integ",
         "vimdoc-ja": "vimdoc-ja",
         "virtual-types-nvim": "virtual-types-nvim",
+        "vtsls": "vtsls",
         "waitevent-nvim": "waitevent-nvim",
         "which-key-nvim": "which-key-nvim",
         "winresizer": "winresizer",
@@ -5748,6 +5749,24 @@
         "owner": "jubnzv",
         "repo": "virtual-types.nvim",
         "type": "github"
+      }
+    },
+    "vtsls": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1726448054,
+        "narHash": "sha256-PPj8qzt8aDlEu9vy5IUDz99/7iO7HMGD7hC1relWm3M=",
+        "ref": "refs/heads/main",
+        "rev": "c4240d425013b15c8cd20da4f1be2b062d2a7e0d",
+        "revCount": 311,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/yioneko/vtsls"
+      },
+      "original": {
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/yioneko/vtsls"
       }
     },
     "waitevent-nvim": {

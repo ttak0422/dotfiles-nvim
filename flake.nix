@@ -50,6 +50,12 @@
       flake = false;
     };
 
+    # nodePackages
+    vtsls = {
+      url = "git+https://github.com/yioneko/vtsls?submodules=1";
+      flake = false;
+    };
+
     # plugins
     morimo = {
       # url = "path:/Users/ttak0422/ghq/github.com/ttak0422/morimo";
