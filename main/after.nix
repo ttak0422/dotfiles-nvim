@@ -16,6 +16,10 @@ let
     dofile("${pkgs.vimPlugins.haskell-tools-nvim}/ftplugin/haskell.lua")
   '';
   ftplugin = {
+    qf = {
+      language = "vim";
+      code = read ../vim/after/qf.vim;
+    };
     gina-blame = {
       language = "vim";
       code = read ../vim/after/gina-blame.vim;
