@@ -130,6 +130,22 @@
         "type": "github"
       }
     },
+    "auto-save-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1667329943,
+        "narHash": "sha256-bWGil73YiCKZEaY7IuUOIU4Q7k7qCMjSeQ4I+cAVe44=",
+        "owner": "pocco81",
+        "repo": "auto-save.nvim",
+        "rev": "979b6c82f60cfa80f4cf437d77446d0ded0addf0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pocco81",
+        "repo": "auto-save.nvim",
+        "type": "github"
+      }
+    },
     "better-escape-nvim": {
       "flake": false,
       "locked": {
@@ -4577,6 +4593,7 @@
         "NeoZoom-lua": "NeoZoom-lua",
         "alpha-nvim": "alpha-nvim",
         "auto-indent-nvim": "auto-indent-nvim",
+        "auto-save-nvim": "auto-save-nvim",
         "better-escape-nvim": "better-escape-nvim",
         "bigfile-nvim": "bigfile-nvim",
         "btw-nvim": "btw-nvim",

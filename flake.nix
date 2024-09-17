@@ -1272,6 +1272,10 @@
       url = "github:tzachar/highlight-undo.nvim";
       flake = false;
     };
+    auto-save-nvim = {
+      url = "github:pocco81/auto-save.nvim";
+      flake = false;
+    };
   };
 
   outputs =

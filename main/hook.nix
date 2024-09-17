@@ -29,6 +29,10 @@ with pkgs.vimPlugins;
         ];
         postConfig = read ../lua/autogen/ufo.lua;
       }
+      {
+        package = auto-save-nvim;
+        postConfig = read ../lua/autogen/auto-save.lua;
+      }
     ];
     hooks.events = [ "BufReadPost" ];
   };
