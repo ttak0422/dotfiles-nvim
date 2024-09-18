@@ -15,5 +15,5 @@
             :z_index 1
             :show_cursor true
             :window_border :none
-            :relative :win
+            :relative :editor
             : events}))
