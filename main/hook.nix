@@ -34,7 +34,7 @@ with pkgs.vimPlugins;
         postConfig = read ../lua/autogen/auto-save.lua;
       }
     ];
-    hooks.events = [ "BufReadPost" ];
+    hooks.events = [ "BufReadPre" ];
   };
   hookCmdline = {
     postConfig = {

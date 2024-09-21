@@ -2,4 +2,12 @@
 local M = require("statuscol")
 local builtin = require("statuscol.builtin")
 local segments = {{text = {"%s"}, maxwidth = 2, click = "v:lua.ScSa"}, {text = {builtin.lnumfunc}, click = "v:lua.ScLa"}, {text = {" ", builtin.foldfunc, " "}, click = "v:lua.ScFa"}}
-return M.setup({setopt = true, segments = segments, relculright = false})
+M.setup({setopt = true, segments = segments, relculright = false})
+local function _1_()
+  if (vim.o.statuscolumn == "") then
+    return M.setup()
+  else
+    return nil
+  end
+end
+return vim.api.nvim_create_autocmd({"BufReadPost"}, {pattern = {"*"}, callback = _1_})
