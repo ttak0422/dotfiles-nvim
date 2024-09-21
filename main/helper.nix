@@ -86,6 +86,7 @@ with pkgs.vimPlugins;
   };
   toolwindow = {
     package = toolwindow-nvim;
+    postConfig = read ../lua/autogen/toolwindow.lua;
     hooks.modules = [ "toolwindow" ];
   };
   trim = {

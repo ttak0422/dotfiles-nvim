@@ -124,7 +124,7 @@
                        (cmd "lua require('treesj').toggle({ split = { recursive = true }})")
                        (desc "toggle recursive split/join")]
                       [:tq
-                       (mk_toggle 1 :quickfix nil)
+                       (mk_toggle 1 :qf nil)
                        (desc "toggle quickfix")]
                       [:td
                        (mk_toggle 2 :trouble
