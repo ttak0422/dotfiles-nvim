@@ -3,7 +3,7 @@
       Terminal T.Terminal
       create_cmd vim.api.nvim_create_user_command
       size (fn [term]
-             (if (= term.direction :horizontal) (* vim.o.lines 0.5)
+             (if (= term.direction :horizontal) (* vim.o.lines 0.35)
                  (* vim.o.columns 0.5)))
       toggle_term ((fn []
                      (let [terms {}]

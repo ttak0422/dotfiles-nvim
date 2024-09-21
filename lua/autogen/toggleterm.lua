@@ -6,7 +6,7 @@ local create_cmd = vim.api.nvim_create_user_command
 local size
 local function _1_(term)
   if (term.direction == "horizontal") then
-    return (vim.o.lines * 0.5)
+    return (vim.o.lines * 0.35)
   else
     return (vim.o.columns * 0.5)
   end
