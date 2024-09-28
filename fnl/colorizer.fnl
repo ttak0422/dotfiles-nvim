@@ -1,1 +1,1 @@
-(let [M (require :colorizer)] (M.setup))
+((. (require :colorizer) :setup))

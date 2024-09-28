@@ -113,6 +113,7 @@
                       ;; tab
                       [:A (cmd :tabclose)]
                       ;; toggle
+                      [:tc (cmd :ColorizerToggle) (desc "toggle colorizer")]
                       [:tt (cmd :NoNeckPain) (desc "toggle no neck pain")]
                       [:tm
                        (lcmd "require('codewindow').toggle_minimap()")
@@ -123,9 +124,7 @@
                       [:tJ
                        (cmd "lua require('treesj').toggle({ split = { recursive = true }})")
                        (desc "toggle recursive split/join")]
-                      [:tq
-                       (mk_toggle 1 :qf nil)
-                       (desc "toggle quickfix")]
+                      [:tq (mk_toggle 1 :qf nil) (desc "toggle quickfix")]
                       [:td
                        (mk_toggle 2 :trouble
                                   {:mode :diagnostics :filter {:buf 0}})
