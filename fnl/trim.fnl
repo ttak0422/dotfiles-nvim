@@ -1,5 +1,5 @@
 (let [M (require :trim)
-      ft_blocklist [:markdown]]
+      ft_blocklist [:markdown :neorg :norg]]
   (M.setup {: ft_blocklist
             :trim_on_write true
             :trim_trailing true
