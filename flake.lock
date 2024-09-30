@@ -5386,11 +5386,11 @@
     "toggleterm-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1721232760,
-        "narHash": "sha256-G+sU7e9EyASEYzdIfBRI2BF5R2upFfOFClU6ERlfp3A=",
+        "lastModified": 1723113340,
+        "narHash": "sha256-VlHE5nFHDO6GRRM44TqtcWSk2k0NfeCndp7of/35ta4=",
         "owner": "akinsho",
         "repo": "toggleterm.nvim",
-        "rev": "8ed0f52006d3207ec6c94de7db62da840937ef2a",
+        "rev": "137d06fb103952a0fb567882bb8527e2f92d327d",
         "type": "github"
       },
       "original": {
