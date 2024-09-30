@@ -138,7 +138,8 @@
     (vim.keymap.set :v (. K 1) (. K 2) (or (. K 3) opts)))
   ;; term toggle keymaps
   (for [i 0 9]
-    (vim.keymap.set [:n :t :i] (.. :<C- i ">") (cmd (.. "TermToggle " i)) opts)))
+    (vim.keymap.set [:n :t :i] (.. :<C- i ">")
+                    (mk_toggle (+ 4 i) :terminal {:idx i}) opts)))
 
 ;; eager configs
 (vim.cmd "colorscheme morimo")

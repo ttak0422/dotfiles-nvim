@@ -54,7 +54,7 @@ do
     vim.keymap.set("v", K[1], K[2], (K[3] or opts))
   end
   for i = 0, 9 do
-    vim.keymap.set({"n", "t", "i"}, ("<C-" .. i .. ">"), cmd(("TermToggle " .. i)), opts)
+    vim.keymap.set({"n", "t", "i"}, ("<C-" .. i .. ">"), mk_toggle((4 + i), "terminal", {idx = i}), opts)
   end
 end
 vim.cmd("colorscheme morimo")

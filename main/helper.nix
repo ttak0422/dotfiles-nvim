@@ -3,6 +3,7 @@ let
   inherit (pkgs) callPackage;
   read = builtins.readFile;
   lib = callPackage ./lib.nix { };
+  tool = callPackage ./tool.nix { };
   diagnostic = callPackage ./diagnostic.nix { };
 in
 with pkgs.vimPlugins;
@@ -41,12 +42,11 @@ with pkgs.vimPlugins;
   open = {
     package = open-nvim;
     depends = [ lib.plenary ];
-    postConfig =
-    {
-     code = read ../lua/autogen/open.lua;
-     args = {
-       cmd = if pkgs.stdenv.isDarwin then "open" else "xdg-open";
-     };
+    postConfig = {
+      code = read ../lua/autogen/open.lua;
+      args = {
+        cmd = if pkgs.stdenv.isDarwin then "open" else "xdg-open";
+      };
     };
     hooks.modules = [ "open" ];
   };
@@ -85,7 +85,8 @@ with pkgs.vimPlugins;
     hooks.events = [ "BufReadPost" ];
   };
   toolwindow = {
-    package = toolwindow-nvim;
+    packages = [ toolwindow-nvim ];
+    depends = [ tool.toggleterm ];
     postConfig = read ../lua/autogen/toolwindow.lua;
     hooks.modules = [ "toolwindow" ];
   };

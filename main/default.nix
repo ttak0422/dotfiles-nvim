@@ -159,7 +159,6 @@ let
     inherit (callPackage ./tool.nix { })
       no-neck-pain
       jabs
-      toggleterm
       overseer
       spectre
       startuptime

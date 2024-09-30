@@ -18,7 +18,9 @@ rec {
   };
   toggleterm = {
     package = toggleterm-nvim;
-    depends = [ term-gf-nvim ];
+    depends = [
+      term-gf-nvim
+    ];
     postConfig =
       ''
         vim.cmd([[tnoremap <S-Space> <Space>]])
