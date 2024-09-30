@@ -18,18 +18,13 @@ rec {
   };
   toggleterm = {
     package = toggleterm-nvim;
-    depends = [
-      term-gf-nvim
-    ];
+    depends = [ term-gf-nvim ];
     postConfig =
       ''
         vim.cmd([[tnoremap <S-Space> <Space>]])
       ''
       + read ../lua/autogen/toggleterm.lua;
-    hooks.commands = [
-      "ToggleTerm"
-      "TermToggle"
-    ];
+    hooks.commands = [ "ToggleTerm" ];
   };
   overseer = {
     package = overseer-nvim;

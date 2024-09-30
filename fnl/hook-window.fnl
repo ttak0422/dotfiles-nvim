@@ -1,3 +1,6 @@
+(each [k v (pairs {:winminheight 0})]
+  (tset vim.opt k v))
+
 (let [opts {:noremap true :silent true}
       cmd (fn [c] (.. :<cmd> c :<cr>))
       desc (fn [d] {:noremap true :silent true :desc d})]

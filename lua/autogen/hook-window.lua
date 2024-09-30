@@ -1,4 +1,7 @@
 -- [nfnl] Compiled from fnl/hook-window.fnl by https://github.com/Olical/nfnl, do not edit.
+for k, v in pairs({winminheight = 0}) do
+  vim.opt[k] = v
+end
 local opts = {noremap = true, silent = true}
 local cmd
 local function _1_(c)
