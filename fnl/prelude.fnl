@@ -101,7 +101,7 @@
                        (desc "find Neorg linkable")]
                       ;; git
                       [:G (cmd :Neogit) (desc " client")]
-                      [:gb (cmd "Gitsigns blame") (desc " blame")]
+                      [:gb (cmd :ToggleGitBlame) (desc " blame")]
                       ;; filter
                       [:tb
                        (lcmd "require('lir.float').toggle()")

@@ -40,7 +40,7 @@ rec {
       + read ../lua/autogen/gitsigns.lua;
     hooks = {
       events = [ "CursorMoved" ];
-      commands = [ "Gitsigns" ];
+      commands = [ "Gitsigns" "ToggleGitBlame" ];
     };
   };
   neogit = {
