@@ -18,5 +18,5 @@
   (map :n :<C-+> (fn [] (change_scale scale)))
   (map :n :<C--> (fn [] (change_scale (/ 1 scale))))
   (map :n :<A-Enter> toggle_zoom)
-  (map :i :<D-v> ":set paste<CR>\"+gP:set nopaste<CR>")
+  (map :i :<D-v> :<C-r>+)
   (vim.api.nvim_create_user_command :ToggleNeovideFullScreen toggle_zoom {}))
