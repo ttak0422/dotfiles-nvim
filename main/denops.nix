@@ -52,8 +52,9 @@ rec {
       };
     };
     hooks.events = [
-      "InsertEnter"
-      "CmdlineEnter"
+      "VimEnter"
+      # "InsertEnter"
+      # "CmdlineEnter"
     ];
     useDenops = true;
   };
