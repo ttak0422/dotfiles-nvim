@@ -28,6 +28,7 @@ let
     cabalproject = hashkellTools;
     cagbal = hashkellTools;
     lhaskell = hashkellTools;
+    yaml = read ../lua/autogen/after/yaml.lua;
     rust = ''
       -- Hack: load rustaceanvim before setup
       require("rustaceanvim")
