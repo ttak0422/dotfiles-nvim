@@ -132,6 +132,7 @@ rec {
       code = read ../lua/autogen/haskell-tools.lua;
       args = {
         on_attach_path = ../lua/autogen/lsp-on-attach.lua;
+        capabilities_path = ../lua/autogen/ddc-capabilities.lua;
       };
     };
     extraPackages = with pkgs; [
