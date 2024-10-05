@@ -128,6 +128,7 @@ rec {
       lib.plenary
       lsp
     ];
+    preConfig.code = read ../lua/autogen/haskell-tools-pre.lua;
     postConfig = {
       code = read ../lua/autogen/haskell-tools.lua;
       args = {
