@@ -142,7 +142,7 @@ rec {
       haskellPackages.haskell-language-server
     ];
     hooks.fileTypes = [
-      "cagbal"
+      "cabal"
       "cabalproject"
       "haskell"
       "lhaskell"
