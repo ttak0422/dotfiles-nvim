@@ -18,6 +18,7 @@
                          (if (< idx last_idx)
                              (vim.cmd "silent cnewer")
                              (vim.notify "reached end of quickfix list"))))
+      exclude_default_operators [:f :F :z :s "'" :l :L :<C-l> :<M-l>]
       operators {:h {:prev {:rhs (fn []
                                    (: (: (require :harpoon) :list) :prev))
                             :opts {:desc "prev registered file"}}
@@ -82,4 +83,5 @@
             :prev_prefix "["
             :next_repeat :<c-n>
             :prev_repeat :<c-p>
+            : exclude_default_operators
             : operators}))
