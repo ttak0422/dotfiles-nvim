@@ -96,6 +96,9 @@ rec {
       copilot-lua
       lib.plenary
     ];
+    preConfig = ''
+      package.cpath = package.cpath .. ';${pkgs.luajitPackages.tiktoken_core}/lib/lua/5.1/?.so'
+    '';
     postConfig = read ../lua/autogen/copilot-chat.lua;
     hooks.commands = [
       "CopilotChat"
