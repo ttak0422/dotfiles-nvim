@@ -27,6 +27,6 @@ local function _4_()
 end
 map("n", "<C-->", _4_)
 map("n", "<A-Enter>", toggle_zoom)
-map("i", "<D-v>", "<C-r>+")
-map("t", "<D-v>", "<Esc>\"+pi")
+map({"i", "c"}, "<D-v>", "<C-r>+")
+map("t", "<D-v>", "<C-\\><C-n>\"+pi")
 return vim.api.nvim_create_user_command("ToggleNeovideFullScreen", toggle_zoom, {})
