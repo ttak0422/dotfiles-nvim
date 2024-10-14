@@ -18,5 +18,7 @@
   (map :n :<C-+> (fn [] (change_scale scale)))
   (map :n :<C--> (fn [] (change_scale (/ 1 scale))))
   (map :n :<A-Enter> toggle_zoom)
-  (map [:i :t] :<D-v> :<C-r>+)
+  (map :i :<D-v> :<C-r>+)
+  ;; to avoid <C-r> mapping conflict in zsh
+  (map :t :<D-v> "<Esc>\"+pi")
   (vim.api.nvim_create_user_command :ToggleNeovideFullScreen toggle_zoom {}))
