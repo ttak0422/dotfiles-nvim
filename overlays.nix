@@ -123,7 +123,7 @@ inputs: with inputs; [
           map (name: {
             inherit name;
             value = buildVimPlugin {
-              version = (getAttr name inputs).rev;
+              version = (getAttr name inputs).rev or "latest";
               pname = name;
               src = getAttr name inputs;
             };
