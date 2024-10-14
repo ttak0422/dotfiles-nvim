@@ -3602,11 +3602,11 @@
     "nfnl": {
       "flake": false,
       "locked": {
-        "lastModified": 1724151829,
-        "narHash": "sha256-Zga02vz/HTwaO1jxuiGu8piZ7v0w4CTuDc8+fpV/dJw=",
+        "lastModified": 1727376647,
+        "narHash": "sha256-3CTlbvdMeLnUv0wOfubGyx+DI6yF3Eju4scDa+h2UnE=",
         "owner": "Olical",
         "repo": "nfnl",
-        "rev": "e43ca4e93d28a43f7b3cb19121afff8abcedbc3f",
+        "rev": "60b2ab7051cf2f631bc03274b56061136d1f9177",
         "type": "github"
       },
       "original": {
