@@ -3035,11 +3035,11 @@
     "mkdnflow-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1720625394,
-        "narHash": "sha256-GpD5CnmH9OfuHTMA0btAhFMyTCOThM+ZgxhSRZ541DE=",
+        "lastModified": 1724628977,
+        "narHash": "sha256-qBgp55xUEHS5umGeDFI3s6Z/Em9M7v0r4XzGBtC6gfw=",
         "owner": "jakewvincent",
         "repo": "mkdnflow.nvim",
-        "rev": "0fa1e682e35d46cd1a0102cedd05b0283e41d18d",
+        "rev": "d459bd7ce68910272038ed037c028180161fd14d",
         "type": "github"
       },
       "original": {
