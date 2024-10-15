@@ -1276,6 +1276,10 @@
       url = "github:pocco81/auto-save.nvim";
       flake = false;
     };
+    screenkey-nvim = {
+      url = "github:NStefan002/screenkey.nvim";
+      flake = false;
+    };
   };
 
   outputs =

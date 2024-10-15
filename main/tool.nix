@@ -105,4 +105,9 @@ rec {
       "CopilotChatToggle"
     ];
   };
+  screenkey = {
+    package = screenkey-nvim;
+    postConfig = read ../lua/autogen/screenkey.lua;
+    hooks.commands = [ "Screenkey" ];
+  };
 }

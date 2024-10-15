@@ -167,6 +167,7 @@ let
       oil
       dotfyle-metadata
       copilot-chat
+      screenkey
       ;
     inherit (callPackage ./treesitter.nix { })
       treesitter

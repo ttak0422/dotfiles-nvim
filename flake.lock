@@ -4847,6 +4847,7 @@
         "registers-nvim": "registers-nvim",
         "rustaceanvim": "rustaceanvim",
         "scope-nvim": "scope-nvim",
+        "screenkey-nvim": "screenkey-nvim",
         "skkeleton": "skkeleton",
         "smart-splits-nvim": "smart-splits-nvim",
         "spring-boot-nvim": "spring-boot-nvim",
@@ -4950,6 +4951,22 @@
       "original": {
         "owner": "tiagovla",
         "repo": "scope.nvim",
+        "type": "github"
+      }
+    },
+    "screenkey-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1725628342,
+        "narHash": "sha256-RTUkG77gM6b1PKv5AqB0/U4satHwQ+q5kJYM3U/mkAw=",
+        "owner": "NStefan002",
+        "repo": "screenkey.nvim",
+        "rev": "0589de3c857721e150ea694cfe66d6d0e8aecacb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NStefan002",
+        "repo": "screenkey.nvim",
         "type": "github"
       }
     },

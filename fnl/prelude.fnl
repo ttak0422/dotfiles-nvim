@@ -113,6 +113,7 @@
                       ;; tab
                       [:A (cmd :tabclose)]
                       ;; toggle
+                      [:ts (cmd "Screenkey toggle") (desc "toggle screenkey")]
                       [:tc (cmd :ColorizerToggle) (desc "toggle colorizer")]
                       [:tt (cmd :NoNeckPain) (desc "toggle no neck pain")]
                       [:tm
