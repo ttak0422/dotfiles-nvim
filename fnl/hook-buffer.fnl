@@ -42,59 +42,68 @@
 (let [opts {:noremap true :silent true}
       desc (fn [d] {:noremap true :silent true :desc d})
       cmd (fn [c] (.. :<cmd> c :<cr>))
-      lcmd (fn [c] (cmd (.. "lua " c)))
-      N [;; movement
-         [:gpd
-          (lcmd "require('goto-preview').goto_preview_definition()")
-          (desc "preview definition")]
-         [:gpi
-          (lcmd "require('goto-preview').goto_preview_implementation()")
-          (desc "preview implementation")]
-         [:gpr
-          (lcmd "require('goto-preview').goto_preview_references()")
-          (desc "preview references")]
-         [:gP
-          (lcmd "require('goto-preview').close_all_win()")
-          (desc "close all preview")]
-         [:gb (lcmd "require('dropbar.api').pick()") (desc :pick)]
-         ;; debug
-         [:<F5> (lcmd "require('dap').continue()") (desc :continue)]
-         [:<F10> (lcmd "require('dap').step_over()") (desc "step over")]
-         [:<F11> (lcmd "require('dap').step_into()") (desc "step into")]
-         [:<F12> (lcmd "require('dap').step_out()") (desc "step out")]
-         [:<LocalLeader>db
-          (lcmd "require('dap').toggle_breakpoint()")
-          (desc "dap toggle breakpoint")]
-         [:<LocalLeader>dB
-          (fn []
-            (let [dap (require :dap)]
-              (dap.set_breakpoint (vim.fn.input "Breakpoint condition: "))))
-          (desc "dap set breakpoint with condition")]
-         [:<LocalLeader>dr
-          (lcmd "require('dap').repl.toggle()")
-          (desc "dap toggle repl")]
-         [:<LocalLeader>dl
-          (lcmd "require('dap').run_last()")
-          (desc "dap run last")]
-         [:<LocalLeader>dd
-          (cmd :ToggleDapUI)
-          ; (fn []
-          ;   (let [dapui (require :dapui)]
-          ;     (dapui.toggle {:reset true})))
-          (desc "dap toggle ui")]]
-      V [;; debug
-         [:<LocalLeader>K
-          (lcmd "require('dapui').eval()")
-          (desc "dap evaluate expression")]]
-      OTHER [[[:n :x] :gs (lcmd "require('reacher').start()")]
-             [[:n :x]
-              :gS
-              (lcmd "require('reacher').start_multiple()")
-              (desc "search displayed")]
-             [[:n :i :c :t] "¥" "\\"]]]
-  (each [_ k (ipairs N)]
+      lcmd (fn [c] (cmd (.. "lua " c)))]
+  (each [_ k (ipairs [;; movement
+                      [:gpd
+                       (lcmd "require('goto-preview').goto_preview_definition()")
+                       (desc "preview definition")]
+                      [:gpi
+                       (lcmd "require('goto-preview').goto_preview_implementation()")
+                       (desc "preview implementation")]
+                      [:gpr
+                       (lcmd "require('goto-preview').goto_preview_references()")
+                       (desc "preview references")]
+                      [:gP
+                       (lcmd "require('goto-preview').close_all_win()")
+                       (desc "close all preview")]
+                      [:gb (lcmd "require('dropbar.api').pick()") (desc :pick)]
+                      ;; debug
+                      [:<F5>
+                       (lcmd "require('dap').continue()")
+                       (desc :continue)]
+                      [:<F10>
+                       (lcmd "require('dap').step_over()")
+                       (desc "step over")]
+                      [:<F11>
+                       (lcmd "require('dap').step_into()")
+                       (desc "step into")]
+                      [:<F12>
+                       (lcmd "require('dap').step_out()")
+                       (desc "step out")]
+                      [:<LocalLeader>db
+                       (lcmd "require('dap').toggle_breakpoint()")
+                       (desc "dap toggle breakpoint")]
+                      [:<LocalLeader>dB
+                       (fn []
+                         (let [dap (require :dap)]
+                           (dap.set_breakpoint (vim.fn.input "Breakpoint condition: "))))
+                       (desc "dap set breakpoint with condition")]
+                      [:<LocalLeader>dr
+                       (lcmd "require('dap').repl.toggle()")
+                       (desc "dap toggle repl")]
+                      [:<LocalLeader>dl
+                       (lcmd "require('dap').run_last()")
+                       (desc "dap run last")]
+                      [:<LocalLeader>dd
+                       (cmd :ToggleDapUI)
+                       ; (fn []
+                       ;   (let [dapui (require :dapui)]
+                       ;     (dapui.toggle {:reset true})))
+                       (desc "dap toggle ui")]
+                      ;; copilot chat
+                      [:<Leader>ta (cmd :CopilotChatToggle)]])]
     (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts)))
-  (each [_ k (ipairs V)]
-    (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts)))
-  (each [_ k (ipairs OTHER)]
+  (each [_ k (ipairs [;; debug
+                      [:<LocalLeader>K
+                       (lcmd "require('dapui').eval()")
+                       (desc "dap evaluate expression")]
+                      ;; copilot caht
+                      [:<Leader>ta (cmd :CopilotChat)]])]
+    (vim.keymap.set :v (. k 1) (. k 2) (or (. k 3) opts)))
+  (each [_ k (ipairs [[[:n :x] :gs (lcmd "require('reacher').start()")]
+                      [[:n :x]
+                       :gS
+                       (lcmd "require('reacher').start_multiple()")
+                       (desc "search displayed")]
+                      [[:n :i :c :t] "¥" "\\"]])]
     (vim.keymap.set (. k 1) (. k 2) (. k 3) (or (. k 4) opts))))
