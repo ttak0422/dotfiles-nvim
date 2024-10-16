@@ -22,7 +22,8 @@
                    :laststatus 0
                    :foldlevel 99
                    :foldlevelstart 99
-                   :splitkeep :screen})]
+                   :splitkeep :screen
+                   :wrap false})]
   (tset vim.o k v))
 
 ;; keymaps
