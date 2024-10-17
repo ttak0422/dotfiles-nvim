@@ -1280,6 +1280,10 @@
       url = "github:NStefan002/screenkey.nvim";
       flake = false;
     };
+    tiny-inline-diagnostic-nvim = {
+      url = "github:rachartier/tiny-inline-diagnostic.nvim";
+      flake = false;
+    };
   };
 
   outputs =

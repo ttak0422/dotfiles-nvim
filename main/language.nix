@@ -28,9 +28,13 @@ rec {
         package = lsp-inlayhints-nvim;
         postConfig = read ../lua/autogen/inlayhints.lua;
       }
+      # {
+      #   package = diagflow-nvim;
+      #   postConfig = read ../lua/autogen/diagflow.lua;
+      # }
       {
-        package = diagflow-nvim;
-        postConfig = read ../lua/autogen/diagflow.lua;
+        package = tiny-inline-diagnostic-nvim;
+        postConfig = read ../lua/autogen/tiny-inline-diagnostic.lua;
       }
       style.dressing
       style.noice

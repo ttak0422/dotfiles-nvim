@@ -4873,6 +4873,7 @@
         "telescope-undo-nvim": "telescope-undo-nvim",
         "term-gf-nvim": "term-gf-nvim",
         "tint-nvim": "tint-nvim",
+        "tiny-inline-diagnostic-nvim": "tiny-inline-diagnostic-nvim",
         "todo-comments-nvim": "todo-comments-nvim",
         "toggleterm-nvim": "toggleterm-nvim",
         "toolwindow-nvim": "toolwindow-nvim",
@@ -5381,6 +5382,22 @@
       "original": {
         "owner": "levouh",
         "repo": "tint.nvim",
+        "type": "github"
+      }
+    },
+    "tiny-inline-diagnostic-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1729094684,
+        "narHash": "sha256-S+O5hI0hF3drTwTwIlQ3aPl9lTBErt53lgUFlQGSCA8=",
+        "owner": "rachartier",
+        "repo": "tiny-inline-diagnostic.nvim",
+        "rev": "a4f8b29eb318b507a5e5c11e6d69bea4f5bc2ab2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rachartier",
+        "repo": "tiny-inline-diagnostic.nvim",
         "type": "github"
       }
     },
