@@ -1877,11 +1877,11 @@
     "denops-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1722686766,
-        "narHash": "sha256-4A0UIlr+eP3/CnomNG/waJoRMMgH6ctjYGsn8WkgBfk=",
+        "lastModified": 1728186374,
+        "narHash": "sha256-XLfQzZxxVyadQwt8RXvPHaoLo9u8xVEnlrKi5CwM6Qc=",
         "owner": "vim-denops",
         "repo": "denops.vim",
-        "rev": "e5824b023357087d73fbd1164c024a0136a02a54",
+        "rev": "ce5d290493b29968fd3afa4c1190ea27a876861d",
         "type": "github"
       },
       "original": {
@@ -2315,11 +2315,11 @@
     "gin-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1715183068,
-        "narHash": "sha256-8JA4nrUpN8t8dd0x7dZrJglkfTAVqnjfbrGRsXC3ruY=",
+        "lastModified": 1727271277,
+        "narHash": "sha256-ozESeZ+vEIOMVG9EvHk+s6sUB7YW6whf+yXiwp8Rgmw=",
         "owner": "lambdalisue",
         "repo": "gin.vim",
-        "rev": "6daee3786b7dd7ad779c4a7904aa008695a2e6f2",
+        "rev": "0d0fc6efa72a65bace3bd4ae1f76ad753006ca0d",
         "type": "github"
       },
       "original": {
