@@ -546,6 +546,22 @@
         "type": "github"
       }
     },
+    "crates-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1727384188,
+        "narHash": "sha256-DIG0MXRTit4iEVoLlgsTK4znjam/QDjeZEpIDn6KHiE=",
+        "owner": "Saecki",
+        "repo": "crates.nvim",
+        "rev": "8bf8358ee326d5d8c11dcd7ac0bcc9ff97dbc785",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Saecki",
+        "repo": "crates.nvim",
+        "type": "github"
+      }
+    },
     "ddc-buffer": {
       "flake": false,
       "locked": {
@@ -4617,6 +4633,7 @@
         "colorful-winsep-nvim": "colorful-winsep-nvim",
         "conform-nvim": "conform-nvim",
         "copilot-lua": "copilot-lua",
+        "crates-nvim": "crates-nvim",
         "ddc-buffer": "ddc-buffer",
         "ddc-converter_remove_overlap": "ddc-converter_remove_overlap",
         "ddc-converter_truncate": "ddc-converter_truncate",

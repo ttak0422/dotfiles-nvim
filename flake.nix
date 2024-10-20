@@ -1292,6 +1292,10 @@
       url = "github:uga-rosa/translate.nvim";
       flake = false;
     };
+    crates-nvim = {
+      url = "github:Saecki/crates.nvim";
+      flake = false;
+    };
   };
 
   outputs =

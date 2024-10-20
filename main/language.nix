@@ -216,6 +216,15 @@ rec {
     };
     hooks.modules = [ "rustaceanvim" ];
   };
+  crates = {
+    package = crates-nvim;
+    postConfig = {
+      code = read ../lua/autogen/crates.lua;
+      args.on_attach_path = ../lua/autogen/lsp-on-attach.lua;
+    };
+    depends = [ null-ls ];
+    hooks.fileTypes = [ "toml" ];
+  };
   vim-nix = {
     package = pkgs.vimPlugins.vim-nix;
     hooks = {

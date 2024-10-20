@@ -88,6 +88,7 @@ let
       nfnl
       null-ls
       rustaceanvim
+      crates
       vim-nix
       vtsls
       helpview
