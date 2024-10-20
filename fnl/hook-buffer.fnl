@@ -93,7 +93,9 @@
                       ;; copilot chat
                       [:<Leader>ta (cmd :CopilotChatToggle)]])]
     (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts)))
-  (each [_ k (ipairs [;; debug
+  (each [_ k (ipairs [;; translate
+                      [:T (cmd "Translate JA")]
+                      ;; debug
                       [:<LocalLeader>K
                        (lcmd "require('dapui').eval()")
                        (desc "dap evaluate expression")]

@@ -1284,6 +1284,14 @@
       url = "github:rachartier/tiny-inline-diagnostic.nvim";
       flake = false;
     };
+    vim-translator = {
+      url = "github:voldikss/vim-translator";
+      flake = false;
+    };
+    translate-nvim = {
+      url = "github:uga-rosa/translate.nvim";
+      flake = false;
+    };
   };
 
   outputs =

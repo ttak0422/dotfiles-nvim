@@ -135,8 +135,7 @@
                        (mk_toggle 3 :trouble {:mode :diagnostics})
                        (desc "toggle diagnostics (workspace)")]])]
     (vim.keymap.set :n (.. :<Leader> (. K 1)) (. K 2) (or (. K 3) opts)))
-  (each [_ K (ipairs [; [:T (cmd :Translate)]
-                      [:R (cmd :FlowRunSelected)]])]
+  (each [_ K (ipairs [[:R (cmd :FlowRunSelected)]])]
     (vim.keymap.set :v (. K 1) (. K 2) (or (. K 3) opts)))
   ;; term toggle keymaps
   (for [i 0 9]

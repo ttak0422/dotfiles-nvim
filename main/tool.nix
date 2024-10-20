@@ -6,6 +6,19 @@ let
 in
 with pkgs.vimPlugins;
 rec {
+  translate-nvim = {
+    package = pkgs.vimPlugins.translate-nvim;
+    postConfig = read ../lua/autogen/translate.lua;
+    hooks.commands = [ "Translate" ];
+  };
+  translator = {
+    package = vim-translator;
+    preConfig = {
+      language = "vim";
+      code = read ../vim/translator.vim;
+    };
+    hooks.commands = [ "<Plug>TranslateV" ];
+  };
   no-neck-pain = {
     package = no-neck-pain-nvim;
     postConfig = read ../lua/autogen/no-neck-pain.lua;

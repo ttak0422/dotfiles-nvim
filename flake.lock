@@ -4877,6 +4877,7 @@
         "todo-comments-nvim": "todo-comments-nvim",
         "toggleterm-nvim": "toggleterm-nvim",
         "toolwindow-nvim": "toolwindow-nvim",
+        "translate-nvim": "translate-nvim",
         "tree-sitter-fsharp": "tree-sitter-fsharp",
         "tree-sitter-norg-meta": "tree-sitter-norg-meta",
         "trim-nvim": "trim-nvim",
@@ -4895,6 +4896,7 @@
         "vim-sonictemplate": "vim-sonictemplate",
         "vim-startuptime": "vim-startuptime",
         "vim-test": "vim-test",
+        "vim-translator": "vim-translator",
         "vim-vsnip": "vim-vsnip",
         "vim-vsnip-integ": "vim-vsnip-integ",
         "vimdoc-ja": "vimdoc-ja",
@@ -5449,6 +5451,22 @@
         "type": "github"
       }
     },
+    "translate-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1692608337,
+        "narHash": "sha256-QZVZFB8+lRfcUFEo7LubmA1WX8cOuEcnA8AZ1bOPsNg=",
+        "owner": "uga-rosa",
+        "repo": "translate.nvim",
+        "rev": "30cc9e9f339b61e7bd40bc1ba7af73ea193bf589",
+        "type": "github"
+      },
+      "original": {
+        "owner": "uga-rosa",
+        "repo": "translate.nvim",
+        "type": "github"
+      }
+    },
     "tree-sitter-fsharp": {
       "flake": false,
       "locked": {
@@ -5735,6 +5753,22 @@
       "original": {
         "owner": "vim-test",
         "repo": "vim-test",
+        "type": "github"
+      }
+    },
+    "vim-translator": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1684987283,
+        "narHash": "sha256-ow5axYMtH433hXwYF5Oz3wWT/24VUHpALrH+Phlwk90=",
+        "owner": "voldikss",
+        "repo": "vim-translator",
+        "rev": "6f0639c6d471a3a90ac19db96e1e379c030f74e3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "voldikss",
+        "repo": "vim-translator",
         "type": "github"
       }
     },

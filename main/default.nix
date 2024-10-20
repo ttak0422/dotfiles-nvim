@@ -31,7 +31,6 @@ let
       ddu
       denops
       skk
-      translate
       ;
     inherit (callPackage ./diagnostic.nix { }) dd trouble;
     inherit (callPackage ./git.nix { })
@@ -156,6 +155,7 @@ let
       ;
     inherit (callPackage ./test.nix { }) neotest;
     inherit (callPackage ./tool.nix { })
+      translate-nvim
       no-neck-pain
       jabs
       overseer
