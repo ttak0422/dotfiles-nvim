@@ -30,7 +30,6 @@ let
       ddc
       ddu
       denops
-      gin
       skk
       translate
       ;
