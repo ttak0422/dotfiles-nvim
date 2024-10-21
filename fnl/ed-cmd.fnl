@@ -1,0 +1,1 @@
+((. (require :ed-cmd) :setup) {})

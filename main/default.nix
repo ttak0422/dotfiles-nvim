@@ -79,6 +79,7 @@ let
       indent-o-matic
       tabout
       undotree
+      ed-cmd
       ;
     inherit (callPackage ./language.nix { })
       lsp

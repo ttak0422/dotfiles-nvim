@@ -2018,6 +2018,22 @@
         "type": "github"
       }
     },
+    "ed-cmd-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1729527583,
+        "narHash": "sha256-/TUqO6o4zrNN+dA2wt506MgbyTjURN6uP5d183iDAhs=",
+        "owner": "smilhey",
+        "repo": "ed-cmd.nvim",
+        "rev": "54836d10f3cc83af7675a30a77c96a424d32ea90",
+        "type": "github"
+      },
+      "original": {
+        "owner": "smilhey",
+        "repo": "ed-cmd.nvim",
+        "type": "github"
+      }
+    },
     "efmls-configs-nvim": {
       "flake": false,
       "locked": {
@@ -4725,6 +4741,7 @@
         "dotfyle-metadata-nvim": "dotfyle-metadata-nvim",
         "dressing-nvim": "dressing-nvim",
         "dropbar-nvim": "dropbar-nvim",
+        "ed-cmd-nvim": "ed-cmd-nvim",
         "efmls-configs-nvim": "efmls-configs-nvim",
         "endscroll-nvim": "endscroll-nvim",
         "fix-auto-scroll-nvim": "fix-auto-scroll-nvim",

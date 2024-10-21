@@ -1296,6 +1296,10 @@
       url = "github:Saecki/crates.nvim";
       flake = false;
     };
+    ed-cmd-nvim = {
+      url = "github:smilhey/ed-cmd.nvim";
+      flake = false;
+    };
   };
 
   outputs =

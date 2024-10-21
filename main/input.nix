@@ -7,6 +7,11 @@ let
 in
 with pkgs.vimPlugins;
 {
+  ed-cmd = {
+    package = ed-cmd-nvim;
+    postConfig = read ../lua/autogen/ed-cmd.lua;
+    hooks.events = [ "CmdlineEnter" ];
+  };
   # cmp = {
   #   packages = [
   #     nvim-cmp
