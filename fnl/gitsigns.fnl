@@ -1,6 +1,7 @@
 (let [M (require :gitsigns)
       current_line_blame_opts {:virt_text true
                                :virt_text_pos :eol
+                               :virt_text_priority 3000
                                :delay 1000
                                :ignore_whitespace false}
       preview_config {:border :none
