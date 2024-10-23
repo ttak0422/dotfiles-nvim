@@ -2021,11 +2021,11 @@
     "ed-cmd-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1729527583,
-        "narHash": "sha256-/TUqO6o4zrNN+dA2wt506MgbyTjURN6uP5d183iDAhs=",
+        "lastModified": 1729593776,
+        "narHash": "sha256-cmVNmaKCBP1SHtgMctFnmyZoS0Szs1Vi7ThUcWV2OZ8=",
         "owner": "smilhey",
         "repo": "ed-cmd.nvim",
-        "rev": "54836d10f3cc83af7675a30a77c96a424d32ea90",
+        "rev": "7a9ee8340da8cf0b223ee947d86764be72efd822",
         "type": "github"
       },
       "original": {
