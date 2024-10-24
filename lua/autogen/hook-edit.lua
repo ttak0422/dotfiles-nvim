@@ -18,7 +18,7 @@ do
     return cmd(("lua " .. c))
   end
   lcmd = _2_
-  for _, k in ipairs({{"gx", lcmd("require('open').open_cword()")}, {"<esc><esc>", cmd("nohl")}, {"j", "gj"}, {"k", "gk"}, {"<C-h>", lcmd("require('foldnav').goto_start()")}, {"<C-j>", lcmd("require('foldnav').goto_next()")}, {"<C-k>", lcmd("require('foldnav').goto_prev_start()")}, {"<C-l>", lcmd("require('foldnav').goto_end()")}}) do
+  for _, k in ipairs({{"gx", lcmd("require('open').open_cword()")}, {"<Leader>tz", cmd("NeoZoomToggle")}, {"<esc><esc>", cmd("nohl")}, {"j", "gj"}, {"k", "gk"}, {"<C-h>", lcmd("require('foldnav').goto_start()")}, {"<C-j>", lcmd("require('foldnav').goto_next()")}, {"<C-k>", lcmd("require('foldnav').goto_prev_start()")}, {"<C-l>", lcmd("require('foldnav').goto_end()")}}) do
     vim.keymap.set("n", k[1], k[2], (k[3] or opts))
   end
 end

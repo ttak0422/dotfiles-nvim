@@ -26,6 +26,7 @@
       cmd (fn [c] (.. :<cmd> c :<cr>))
       lcmd (fn [c] (cmd (.. "lua " c)))]
   (each [_ k (ipairs [[:gx (lcmd "require('open').open_cword()")]
+                      [:<Leader>tz (cmd "NeoZoomToggle")]
                       [:<esc><esc> (cmd :nohl)]
                       [:j :gj]
                       [:k :gk]

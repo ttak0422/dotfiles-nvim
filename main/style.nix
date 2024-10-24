@@ -70,6 +70,8 @@ rec {
   };
   NeoZoom = {
     package = NeoZoom-lua;
+    postConfig = read ../lua/autogen/NeoZoom.lua;
+    hooks.commands = [ "NeoZoomToggle" ];
   };
   notify = {
     package = nvim-notify;
