@@ -75,7 +75,11 @@ rec {
   };
   notify = {
     package = nvim-notify;
-    postConfig = read ../lua/autogen/notify.lua;
+    postConfig =
+      ''
+        require("morimo").load("nvim-notify")
+      ''
+      + read ../lua/autogen/notify.lua;
     hooks.events = [ "BufReadPost" ];
   };
   noice = {
