@@ -17,7 +17,11 @@ rec {
       # for repl-highlights
       treesitter.treesitter
     ];
-    postConfig = read ../lua/autogen/dap.lua;
+    postConfig =
+      ''
+        require("morimo").load("dap")
+      ''
+      + read ../lua/autogen/dap.lua;
     hooks.modules = [ "dap" ];
   };
   dap-go = {
