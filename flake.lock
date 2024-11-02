@@ -3788,11 +3788,11 @@
     "no-neck-pain-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1725868874,
-        "narHash": "sha256-2wMppAdC7FK3tp9WZxTHaO2yHBK1WUt+jeued5OCGog=",
+        "lastModified": 1728030488,
+        "narHash": "sha256-ygZ+WsqeFvAKbrN+p2IkcU8ynvVWgxN53EcbOP3qZis=",
         "owner": "shortcuts",
         "repo": "no-neck-pain.nvim",
-        "rev": "4b6f0a2c7ad4f2200d59f3d5785aeda96a38e4ff",
+        "rev": "c7efdbd0b739646c58d22fa44f6fffa2973f303e",
         "type": "github"
       },
       "original": {
