@@ -2665,11 +2665,11 @@
     "highlight-undo-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1714982601,
-        "narHash": "sha256-yGw1SxcUmGQxqKhMb2SJAai07g+rOpEJy2CqIX2h9dM=",
+        "lastModified": 1729426343,
+        "narHash": "sha256-zNzVmt4WJcspuloePhc6HbDvNA7B92NscE+fEYvCumc=",
         "owner": "tzachar",
         "repo": "highlight-undo.nvim",
-        "rev": "1ea1c79372d7d93c88fd97543880927b7635e3d2",
+        "rev": "c87a6ec1ded241ef223269077cbd5f97a6f0d5bf",
         "type": "github"
       },
       "original": {
