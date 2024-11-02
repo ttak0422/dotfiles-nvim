@@ -30,6 +30,7 @@ let
     lhaskell = hashkellTools;
     haskell = hashkellTools;
     yaml = read ../lua/autogen/after/yaml.lua;
+    jproperties = read ../lua/autogen/after/jproperties.lua;
     make = read ../lua/autogen/after/make.lua;
     rust = ''
       -- Hack: load rustaceanvim before setup
