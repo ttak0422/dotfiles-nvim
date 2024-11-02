@@ -315,10 +315,7 @@ do
 		hl = { fg = colors.bg },
 	})
 	local name = {
-		provider = function()
-			local name, _ = vim.api.nvim_buf_get_name(0):gsub(".*:", "")
-			return " " .. name .. " "
-		end,
+		provider = "  terminal ",
 		hl = { fg = colors.bg, bg = colors.red },
 		update = {
 			"WinNew",
