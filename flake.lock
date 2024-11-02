@@ -2053,11 +2053,11 @@
     "endscroll-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1721497608,
-        "narHash": "sha256-RJZfFm8Ttc7+31zs83JK8JUy4r9mwi+nhCx6DOR0eXs=",
+        "lastModified": 1730519058,
+        "narHash": "sha256-Il3VSXkQChYbZfmRFkpo4P3wWXZ40NlidQo8PhrNbJ8=",
         "owner": "plax-00",
         "repo": "endscroll.nvim",
-        "rev": "4f9c7ac1d827a205ebea53ced57fc845b6da4194",
+        "rev": "67b17d41d2650e9011aaaeeb4d9f5f0cfb17c46b",
         "type": "github"
       },
       "original": {
