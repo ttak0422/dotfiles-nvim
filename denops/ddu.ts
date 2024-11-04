@@ -1,8 +1,8 @@
-import { BaseConfig, Denops } from "jsr:@shougo/ddu-vim@~5.0.0/types";
-import { ConfigArguments } from "jsr:@shougo/ddu-vim@~5.0.0/config";
-import { Params as FfParams } from "jsr:@shougo/ddu-ui-ff@~1.2.0";
-import { Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@~1.2.0";
-import * as fn from "jsr:@denops/std@~7.0.1/function";
+import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddu-vim@~6.4.0/config";
+import { Params as FfParams } from "jsr:@shougo/ddu-ui-ff@~1.4.0";
+import { Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@~1.4.0";
+import { type Denops } from "jsr:@denops/std@~7.3.0";
+import * as fn from "jsr:@denops/std@~7.3.0/function";
 
 export class Config extends BaseConfig {
   override config({
