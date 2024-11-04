@@ -239,11 +239,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1730709702,
-        "narHash": "sha256-APUbcl0K0+PylEOV/sF6PpsqLzg7AZDgtynLVLkBo4s=",
+        "lastModified": 1730736219,
+        "narHash": "sha256-UgyTSQeeDDjaqRcvtEjPSj/MuxMVANZgXlTeGCCMiI0=",
         "owner": "ttak0422",
         "repo": "bundler",
-        "rev": "12d60cb87f4a2b1fb1fef2fe9218be06d346ca44",
+        "rev": "8c50b7b89399c875ad7c1e147b371a55e539da0f",
         "type": "github"
       },
       "original": {
