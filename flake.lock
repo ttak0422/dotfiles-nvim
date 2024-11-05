@@ -3147,11 +3147,11 @@
     "neogen": {
       "flake": false,
       "locked": {
-        "lastModified": 1715604582,
-        "narHash": "sha256-Oy4rfvf/omoRtryw+EI6CiKnj9ewKMWvF6FZvsDiFyA=",
+        "lastModified": 1724316066,
+        "narHash": "sha256-0/XTVOzcWuFwz/UgEhGJwmSYloBgU8DVl2cauR0Qitc=",
         "owner": "danymat",
         "repo": "neogen",
-        "rev": "6de0add4805165317ab7d3d36b5cef48b1b865f3",
+        "rev": "e932ba918b56723436b77aa3efb844a11b2851ab",
         "type": "github"
       },
       "original": {
