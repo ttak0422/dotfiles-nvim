@@ -82,6 +82,9 @@
                       [:frr
                        (cmd "Ddu -name=mrr mrr")
                        (desc "MRR (Most Recent git Repositories)")]
+                      [:frd
+                       (cmd "Ddu -name=mrd mrd")
+                       (desc "MRD (Most Recent Directories)")]
                       ;; mark
                       [:mq
                        (cmd :MarksQFListBuf)

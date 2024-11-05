@@ -13,6 +13,7 @@ export class Config extends BaseConfig {
     setAlias("source", "mru", "mr");
     setAlias("source", "mrw", "mr");
     setAlias("source", "mrr", "mr");
+    setAlias("source", "mrd", "mr");
 
     contextBuilder.patchGlobal({
       sources: ["file", "file_rec", "file_external", "mr", "ghq"],
@@ -66,6 +67,9 @@ export class Config extends BaseConfig {
         mrr: {
           matchers: ["matcher_ignore_files", "matcher_relative", "matcher_fzf"],
         },
+        mrd: {
+          matchers: ["matcher_ignore_files", "matcher_relative", "matcher_fzf"],
+        },
         file: {
           matchers: ["matcher_substring", "matcher_hidden"],
           sorters: ["sorter_alpha"],
@@ -93,6 +97,9 @@ export class Config extends BaseConfig {
         },
         mrr: {
           kind: "mrr",
+        },
+        mrd: {
+          kind: "mrd",
         },
         file: {
           new: false,
