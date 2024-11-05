@@ -3948,11 +3948,11 @@
     "nvim-autopairs": {
       "flake": false,
       "locked": {
-        "lastModified": 1720316333,
-        "narHash": "sha256-L19WTFP6m2xfYgzafIkxS5GdweB4CvCShFrDRAgNs7k=",
+        "lastModified": 1727742362,
+        "narHash": "sha256-pqYOaEjKUd5YLVWX0Bf/kYT+sBlN1D24rOBuIz2BIqk=",
         "owner": "windwp",
         "repo": "nvim-autopairs",
-        "rev": "78a4507bb9ffc9b00f11ae0ac48243d00cb9194d",
+        "rev": "ee297f215e95a60b01fde33275cc3c820eddeebe",
         "type": "github"
       },
       "original": {
