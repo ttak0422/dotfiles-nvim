@@ -5152,11 +5152,11 @@
     "tabout-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1716055956,
-        "narHash": "sha256-DYi7IM2Fgl3YZqSw0xpee7dguGa4yciYj7540pCXq+w=",
+        "lastModified": 1722855995,
+        "narHash": "sha256-QmBE4ItjHPOljOxvIr6UnDrnPaXTLnYCNJOt0XEv2zQ=",
         "owner": "abecodes",
         "repo": "tabout.nvim",
-        "rev": "3d7fbc7f5e91ef0f96b4d787c78ad9f8820de3ec",
+        "rev": "923aea2613c9e7abf81e099d46086f62c7e54896",
         "type": "github"
       },
       "original": {
