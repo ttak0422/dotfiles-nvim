@@ -39,22 +39,25 @@ end
 lspconfig.denols.setup({on_attach = on_attach, root_dir = _2_, init_options = {lint = true, suggest = {completeFunctionCalls = true, names = true, paths = true, autoImports = true, imports = {autoDiscover = true, hosts = vim.empty_dict()}}, unstable = false}, settings = {deno = {enable = true}}, single_file_support = false})
 lspconfig.marksman.setup({on_attach = on_attach})
 lspconfig.ast_grep.setup({on_attach = on_attach})
-local luacheck = require("efmls-configs.linters.luacheck")
-local eslint = require("efmls-configs.linters.eslint")
-local yamllint = require("efmls-configs.linters.yamllint")
-local statix = require("efmls-configs.linters.statix")
-local stylelint = require("efmls-configs.linters.stylelint")
-local vint = require("efmls-configs.linters.vint")
-local shellcheck = require("efmls-configs.linters.shellcheck")
-local pylint = require("efmls-configs.linters.pylint")
-local gitlint = require("efmls-configs.linters.gitlint")
-local hadolint = require("efmls-configs.linters.hadolint")
-local languages = {lua = {luacheck}, typescript = {eslint}, javascript = {eslint}, sh = {shellcheck}, yaml = {yamllint}, nix = {statix}, css = {stylelint}, scss = {stylelint}, less = {stylelint}, saas = {stylelint}, vim = {vint}, python = {pylint}, gitcommit = {gitlint}, docker = {hadolint}}
-local settings = {rootMarkers = {".git/"}, languages = languages}
-local init_options = {documentFormatting = true, documentRangeFormatting = true}
-local make_settings
-local function _4_()
-  return {single_file_support = true, filetypes = vim.tbl_keys(languages), settings = settings, init_options = init_options, on_attach = on_attach}
+do
+  local luacheck = require("efmls-configs.linters.luacheck")
+  local eslint = require("efmls-configs.linters.eslint")
+  local yamllint = require("efmls-configs.linters.yamllint")
+  local statix = require("efmls-configs.linters.statix")
+  local stylelint = require("efmls-configs.linters.stylelint")
+  local vint = require("efmls-configs.linters.vint")
+  local shellcheck = require("efmls-configs.linters.shellcheck")
+  local pylint = require("efmls-configs.linters.pylint")
+  local gitlint = require("efmls-configs.linters.gitlint")
+  local hadolint = require("efmls-configs.linters.hadolint")
+  local languages = {lua = {luacheck}, typescript = {eslint}, javascript = {eslint}, sh = {shellcheck}, yaml = {yamllint}, nix = {statix}, css = {stylelint}, scss = {stylelint}, less = {stylelint}, saas = {stylelint}, vim = {vint}, python = {pylint}, gitcommit = {gitlint}, docker = {hadolint}}
+  local settings = {rootMarkers = {".git/"}, languages = languages}
+  local init_options = {documentFormatting = true, documentRangeFormatting = true}
+  local make_settings
+  local function _4_()
+    return {single_file_support = true, filetypes = vim.tbl_keys(languages), settings = settings, init_options = init_options, on_attach = on_attach}
+  end
+  make_settings = _4_
+  lspconfig.efm.setup(make_settings())
 end
-make_settings = _4_
-return lspconfig.efm.setup(make_settings())
+return lspconfig.kotlin_language_server.setup({on_attach = on_attach})

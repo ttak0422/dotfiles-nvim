@@ -160,3 +160,6 @@
                        : init_options
                        : on_attach})]
   (lspconfig.efm.setup (make_settings)))
+
+;; kotlin
+(lspconfig.kotlin_language_server.setup {: on_attach})

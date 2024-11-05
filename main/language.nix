@@ -98,6 +98,7 @@ rec {
       rubyPackages.solargraph
       rust-analyzer
       taplo-cli
+      kotlin-language-server
     ];
     preConfig = read ../lua/lsp-pre.lua;
     postConfig = {
