@@ -41,7 +41,7 @@ rec {
   skk = {
     package = skkeleton;
     depends = [
-      # denops
+      denops
       ddc
     ];
     postConfig = {
@@ -158,7 +158,7 @@ rec {
       ddu-filter-matcher_relative
     ];
     depends = [
-      # denops
+      denops
       ddc
       {
         package = vim-mr;
