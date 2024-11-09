@@ -4300,11 +4300,11 @@
     "nvim-ufo": {
       "flake": false,
       "locked": {
-        "lastModified": 1729674517,
-        "narHash": "sha256-5z/x7IZI50PrjYhf7vS2ciKt3vKR2TcvCl+fsndMDiQ=",
+        "lastModified": 1730133633,
+        "narHash": "sha256-++DAY+swQmClk8jSikT12qdwE4/IfBl0T0NxznCOxSc=",
         "owner": "kevinhwang91",
         "repo": "nvim-ufo",
-        "rev": "c96bb3bb853ff6253fe74f057df03e61fafd2403",
+        "rev": "522d719d421fc42b95577d9624048d8348d326ea",
         "type": "github"
       },
       "original": {
@@ -4538,11 +4538,11 @@
     "promise-async": {
       "flake": false,
       "locked": {
-        "lastModified": 1718014416,
-        "narHash": "sha256-TnZUEQvEfILHHdOB8D5waFq0gG3sjkRzioEaGiWWYoc=",
+        "lastModified": 1722813441,
+        "narHash": "sha256-9eM66brPjiFlY64vmBetRYrKnpDyN7+/URMm4GsGimA=",
         "owner": "kevinhwang91",
         "repo": "promise-async",
-        "rev": "28c1d5a295eb5310afa2523d4ae9aa41ec5a9de2",
+        "rev": "119e8961014c9bfaf1487bf3c2a393d254f337e2",
         "type": "github"
       },
       "original": {
@@ -5074,11 +5074,11 @@
     "statuscol-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1729116644,
-        "narHash": "sha256-KyiD3KeAOsfGIEn/AL1tXJJpN0OAZvp4EKNYOEbJPMc=",
+        "lastModified": 1731016911,
+        "narHash": "sha256-nNw1zx80+cASWUovQ13FEDLPl7ipcilY3m4ISevrNgM=",
         "owner": "luukvbaal",
         "repo": "statuscol.nvim",
-        "rev": "5998d16044159ad3779f62c45e756c555e3051f0",
+        "rev": "8822f76e105549620ef9c0d96e7b95aedf14c490",
         "type": "github"
       },
       "original": {
