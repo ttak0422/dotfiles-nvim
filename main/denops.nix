@@ -134,6 +134,12 @@ rec {
   #   postConfig = read ../lua/autogen/ddc-source-lsp-setup.lua;
   #   hooks.modules = [ "ddc_source_lsp_setup" ];
   # };
+  mr = {
+    package = vim-mr;
+    depends = [ denops ];
+    useDenops = true;
+    hooks.events = [ "BufReadPre" ];
+  };
   ddu = {
     packages = [
       ddu-vim
@@ -160,11 +166,7 @@ rec {
     depends = [
       denops
       ddc
-      {
-        package = vim-mr;
-        useDenops = true;
-        hooks.events = [ "BufReadPre" ];
-      }
+      mr
       quickfix.bqf
       style.noice
     ];
