@@ -1893,11 +1893,11 @@
     "denops-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1728186374,
-        "narHash": "sha256-XLfQzZxxVyadQwt8RXvPHaoLo9u8xVEnlrKi5CwM6Qc=",
+        "lastModified": 1731033966,
+        "narHash": "sha256-NO/DMydk8yOoPjA7OE2UbxXTwKvaQ9Z2FUNwxuX1Q4o=",
         "owner": "vim-denops",
         "repo": "denops.vim",
-        "rev": "ce5d290493b29968fd3afa4c1190ea27a876861d",
+        "rev": "0c722617d72c56751e748070c12ec9d827e8fba3",
         "type": "github"
       },
       "original": {
