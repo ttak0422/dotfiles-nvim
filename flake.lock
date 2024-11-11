@@ -3771,11 +3771,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1724224976,
-        "narHash": "sha256-Z/ELQhrSd7bMzTO8r7NZgi9g5emh+aRKoCdaAv5fiO0=",
+        "lastModified": 1731139594,
+        "narHash": "sha256-IigrKK3vYRpUu+HEjPL/phrfh7Ox881er1UEsZvw9Q4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "c374d94f1536013ca8e92341b540eba4c22f9c62",
+        "rev": "76612b17c0ce71689921ca12d9ffdc9c23ce40b2",
         "type": "github"
       },
       "original": {
@@ -4912,7 +4912,6 @@
         "toggleterm-nvim": "toggleterm-nvim",
         "toolwindow-nvim": "toolwindow-nvim",
         "translate-nvim": "translate-nvim",
-        "tree-sitter-fsharp": "tree-sitter-fsharp",
         "tree-sitter-norg-meta": "tree-sitter-norg-meta",
         "trim-nvim": "trim-nvim",
         "trouble-nvim": "trouble-nvim",
@@ -5498,22 +5497,6 @@
       "original": {
         "owner": "uga-rosa",
         "repo": "translate.nvim",
-        "type": "github"
-      }
-    },
-    "tree-sitter-fsharp": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1721158769,
-        "narHash": "sha256-M2JdSWpkqHBy/wS/C4FHA+bDgs9YONuzJ3CBLgn+8Vk=",
-        "owner": "ionide",
-        "repo": "tree-sitter-fsharp",
-        "rev": "c95746eecf9a0f5f8da8702bc73c0c722916491e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ionide",
-        "repo": "tree-sitter-fsharp",
         "type": "github"
       }
     },

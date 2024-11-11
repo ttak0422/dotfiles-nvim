@@ -42,10 +42,6 @@ rec {
           language = "dap_repl";
           src = nvim-dap-repl-highlights;
         };
-        fsharp = buildGrammar {
-          language = "fsharp";
-          src = tree-sitter-fsharp;
-        };
         norg-meta = buildGrammar {
           language = "norg_meta";
           src = tree-sitter-norg-meta;
@@ -59,7 +55,6 @@ rec {
                 nvim-treesitter.withAllGrammars.dependencies
                 ++ [
                   dap-repl
-                  fsharp
                   norg-meta
                 ]
               )

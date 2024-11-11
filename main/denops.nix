@@ -48,7 +48,7 @@ rec {
       language = "vim";
       code = read ../vim/skk.vim;
       args = {
-        jisyo = "${pkgs.skk-dicts}/share/SKK-JISYO.L";
+        jisyo = "${pkgs.pkgs-stable.skk-dicts}/share/SKK-JISYO.L";
       };
     };
     hooks.events = [

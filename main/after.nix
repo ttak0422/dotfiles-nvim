@@ -48,7 +48,7 @@ let
           on_attach_path = ../lua/autogen/lsp-on-attach.lua;
           capabilities_path = ../lua/autogen/ddc-capabilities.lua;
           java_path = "${pkgs.jdk17}/bin/java";
-          java22_path = "${pkgs.jdk22}/bin/java";
+          # java23_path = "${pkgs.jdk23}/bin/java";
           java17_path = "${pkgs.jdk17}/bin/java";
           jdtls_config_path =
             let
