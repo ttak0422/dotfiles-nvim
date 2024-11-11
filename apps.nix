@@ -67,5 +67,15 @@ in
         nix flake metadata --json | jq -r '.locks.nodes | keys[]' | grep telescope | xargs -I {} nix flake lock --update-input {}
       '';
     };
+    update-neotest-plugins = mkApp {
+      name = "update-telescope-plugins";
+      inputs = with pkgs; [
+        jq
+        coreutils
+      ];
+      script = ''
+        nix flake metadata --json | jq -r '.locks.nodes | keys[]' | grep neotest | xargs -I {} nix flake lock --update-input {}
+      '';
+    };
   };
 }
