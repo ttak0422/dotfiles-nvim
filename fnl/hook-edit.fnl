@@ -15,9 +15,9 @@
                    :virtualedit :block})]
   (tset vim.o k v))
 
-(each [k v (pairs {:foldmethod :expr
-                   :foldexpr "v:lua.vim.treesitter.foldexpr()"})]
-  (tset vim.opt k v))
+; (each [k v (pairs {:foldmethod :expr
+;                    :foldexpr "v:lua.vim.treesitter.foldexpr()"})]
+;   (tset vim.opt k v))
 
 (vim.opt.nrformats:append :unsigned)
 

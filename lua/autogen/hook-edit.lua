@@ -2,9 +2,6 @@
 for k, v in pairs({expandtab = true, tabstop = 2, shiftwidth = 2, showmatch = true, ph = 20, completeopt = "", virtualedit = "block"}) do
   vim.o[k] = v
 end
-for k, v in pairs({foldmethod = "expr", foldexpr = "v:lua.vim.treesitter.foldexpr()"}) do
-  vim.opt[k] = v
-end
 vim.opt.nrformats:append("unsigned")
 do
   local opts = {noremap = true, silent = true}

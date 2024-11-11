@@ -2,6 +2,7 @@
 local M = require("statuscol")
 local builtin = require("statuscol.builtin")
 local segments = {{text = {"%s"}, maxwidth = 2, click = "v:lua.ScSa"}, {text = {builtin.lnumfunc}, click = "v:lua.ScLa"}, {text = {" ", builtin.foldfunc, " "}, click = "v:lua.ScFa"}}
+M.setup({setopt = true, segments = segments, relculright = false})
 local function _1_()
   if (vim.o.statuscolumn == "") then
     return M.setup({setopt = true, segments = segments, relculright = false})
