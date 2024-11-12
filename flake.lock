@@ -3804,11 +3804,11 @@
     "noice-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1727897551,
-        "narHash": "sha256-9ivgP145phRzu6OD2nwqjgD8glCThnDjS31XHsjbVuM=",
+        "lastModified": 1731163840,
+        "narHash": "sha256-zT+fJ88V/LfmibXs4QpIyxCu1HHSjbqsrcQK/vadeRA=",
         "owner": "folke",
         "repo": "noice.nvim",
-        "rev": "df448c649ef6bc5a6a633a44f2ad0ed8d4442499",
+        "rev": "2087bbf8cd64482b47fb5f33b5e0eabf329ab14b",
         "type": "github"
       },
       "original": {
@@ -4884,6 +4884,7 @@
         "screenkey-nvim": "screenkey-nvim",
         "skkeleton": "skkeleton",
         "smart-splits-nvim": "smart-splits-nvim",
+        "snacks-nvim": "snacks-nvim",
         "spring-boot-nvim": "spring-boot-nvim",
         "sqlite-lua": "sqlite-lua",
         "statuscol-nvim": "statuscol-nvim",
@@ -5035,6 +5036,22 @@
       "original": {
         "owner": "mrjones2014",
         "repo": "smart-splits.nvim",
+        "type": "github"
+      }
+    },
+    "snacks-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1731319755,
+        "narHash": "sha256-WkYz09wtfBn6QoWkWCAPldMveuLCRUdjG5BxTgXatB4=",
+        "owner": "folke",
+        "repo": "snacks.nvim",
+        "rev": "bc0cf370915ac4e8d5b1bd8188b5091a4a0ee22c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "snacks.nvim",
         "type": "github"
       }
     },

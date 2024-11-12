@@ -88,6 +88,7 @@ rec {
       lib.nui
       treesitter.treesitter
       notify
+      snacks-nvim
     ];
     postConfig = {
       code = read ../lua/autogen/noice.lua;
