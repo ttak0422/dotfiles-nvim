@@ -70,7 +70,7 @@ rec {
   };
   NeoZoom = {
     package = NeoZoom-lua;
-    postConfig = read ../lua/autogen/NeoZoom.lua;
+    postConfig = read ../lua/NeoZoom.lua;
     hooks.commands = [ "NeoZoomToggle" ];
   };
   notify = {
