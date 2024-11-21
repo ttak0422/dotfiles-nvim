@@ -123,4 +123,7 @@ rec {
     postConfig = read ../lua/autogen/screenkey.lua;
     hooks.commands = [ "Screenkey" ];
   };
+  pgmnt = {
+    package = pgmnt-vim;
+  };
 }

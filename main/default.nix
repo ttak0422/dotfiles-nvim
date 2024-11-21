@@ -169,6 +169,7 @@ let
       dotfyle-metadata
       copilot-chat
       screenkey
+      pgmnt
       ;
     inherit (callPackage ./treesitter.nix { })
       treesitter

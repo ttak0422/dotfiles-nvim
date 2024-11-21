@@ -4473,6 +4473,22 @@
         "type": "github"
       }
     },
+    "pgmnt-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1588560636,
+        "narHash": "sha256-9xzFH0a5W1gv+NmH9gK54RDwdLh68C6Tx6N38G+G+CY=",
+        "owner": "cocopon",
+        "repo": "pgmnt.vim",
+        "rev": "89b8f0885a0fd7189f2f46b13e03d9e254793538",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cocopon",
+        "repo": "pgmnt.vim",
+        "type": "github"
+      }
+    },
     "plenary-nvim": {
       "flake": false,
       "locked": {
@@ -4872,6 +4888,7 @@
         "open-nvim": "open-nvim",
         "overseer-nvim": "overseer-nvim",
         "pathlib-nvim": "pathlib-nvim",
+        "pgmnt-vim": "pgmnt-vim",
         "plenary-nvim": "plenary-nvim",
         "project-nvim": "project-nvim",
         "promise-async": "promise-async",
