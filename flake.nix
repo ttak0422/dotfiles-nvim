@@ -1304,6 +1304,10 @@
       url = "github:cocopon/pgmnt.vim";
       flake = false;
     };
+    smear-cursor-nvim = {
+      url = "github:sphamba/smear-cursor.nvim";
+      flake = false;
+    };
   };
 
   outputs =

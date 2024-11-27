@@ -137,4 +137,9 @@ rec {
     ];
     postConfig = read ../lua/autogen/bufferline.lua;
   };
+  smear-cursor = {
+    package = smear-cursor-nvim;
+    postConfig = read ../lua/autogen/smear-cursor.lua;
+    hooks.events = [ "CursorMoved" ];
+  };
 }

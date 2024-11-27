@@ -154,6 +154,7 @@ let
       numb
       tint
       winsep
+      smear-cursor
       ;
     inherit (callPackage ./test.nix { }) neotest;
     inherit (callPackage ./tool.nix { })
