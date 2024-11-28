@@ -125,5 +125,6 @@ rec {
   };
   pgmnt = {
     package = pgmnt-vim;
+    hooks.fileTypes = [ "vim" ];
   };
 }

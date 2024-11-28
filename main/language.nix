@@ -259,6 +259,9 @@ rec {
     });
     depends = [ treesitter.treesitter ];
     # configured in after/ftplugin
-    hooks.fileTypes = [ "help" ];
+    hooks = {
+      modules = [ "helpview" ];
+      fileTypes = [ "help" ];
+    };
   };
 }

@@ -44,7 +44,7 @@
     junit-console = {
       url = "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.2/junit-platform-console-standalone-1.10.2.jar";
       flake = false;
-    };
+}	;
     jol = {
       url = "https://repo.maven.apache.org/maven2/org/openjdk/jol/jol-cli/0.17/jol-cli-0.17-full.jar";
       flake = false;
@@ -1308,6 +1308,10 @@
       url = "github:sphamba/smear-cursor.nvim";
       flake = false;
     };
+    # sorairo = {
+    #   url = "path:/Users/tak/ghq/github.com/ttak0422/s";
+    #   flake = false;
+    # };
   };
 
   outputs =
