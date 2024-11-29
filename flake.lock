@@ -2897,11 +2897,11 @@
     "live-rename-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1723799786,
-        "narHash": "sha256-mj6RWohNcoxdXV8Rr1B96ZCOs9cH6TCMSBi60mtkJwE=",
+        "lastModified": 1727299815,
+        "narHash": "sha256-XDg/H6pK/8HZohlLazGJIIQp8KktGi/VBqxbor3Y/DU=",
         "owner": "saecki",
         "repo": "live-rename.nvim",
-        "rev": "4b48e6831fbbe346cd0111f65846491c19a176e4",
+        "rev": "90e0f6a03500b43b777a222f395466f875ab4991",
         "type": "github"
       },
       "original": {
