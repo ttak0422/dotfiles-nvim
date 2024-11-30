@@ -57,7 +57,7 @@
                 :reset {:normal :<C-l> :insert :<C-l>}
                 :submit_prompt {:normal :<CR> :insert :<C-s>}
                 :accept_diff {:normal :<C-y> :insert :<C-y>}
-                :yank_diff {:normal :gy :insert "\""}
+                :yank_diff {:normal :gy :register "\""}
                 :show_diff {:normal :gd}
                 :show_system_prompt {:normal :gp}
                 :show_user_selection {:normal :gu}
