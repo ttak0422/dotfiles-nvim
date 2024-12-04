@@ -4903,6 +4903,7 @@
         "smart-splits-nvim": "smart-splits-nvim",
         "smear-cursor-nvim": "smear-cursor-nvim",
         "snacks-nvim": "snacks-nvim",
+        "sorairo": "sorairo",
         "spring-boot-nvim": "spring-boot-nvim",
         "sqlite-lua": "sqlite-lua",
         "statuscol-nvim": "statuscol-nvim",
@@ -5086,6 +5087,22 @@
       "original": {
         "owner": "folke",
         "repo": "snacks.nvim",
+        "type": "github"
+      }
+    },
+    "sorairo": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1733324439,
+        "narHash": "sha256-KSxW8GFYNW+3oZpPqrYG6A3W9IIbCv51znSV2u1GUng=",
+        "owner": "ttak0422",
+        "repo": "sorairo",
+        "rev": "79d2b78de89c9459dd1048a4ad0eb3d27f3f799f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ttak0422",
+        "repo": "sorairo",
         "type": "github"
       }
     },

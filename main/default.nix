@@ -25,6 +25,7 @@ let
   };
 
   lazy = {
+    sorairo.package = pkgs.vimPlugins.sorairo;
     inherit (callPackage ./debug.nix { }) dap dap-go dap-ui;
     inherit (callPackage ./denops.nix { })
       ddc

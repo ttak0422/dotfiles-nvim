@@ -56,7 +56,7 @@
           eager = {
             morimo.package = pkgs.vimPlugins.morimo;
             config-local.package = pkgs.vimPlugins.nvim-config-local;
-            # sorairo.package = pkgs.vimPlugins.sorairo;
+            sorairo.package = pkgs.vimPlugins.sorairo;
             ayu.package = pkgs.vimPlugins.ayu-vim;
           };
         };
