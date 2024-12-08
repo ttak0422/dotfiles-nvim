@@ -5061,11 +5061,11 @@
     "smear-cursor-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1732700429,
-        "narHash": "sha256-up6b5tfpQhDzDBS88gbTPnpeOyzbf9qqhoXQiy1fins=",
+        "lastModified": 1733596088,
+        "narHash": "sha256-C1azBWO7rU5QsCwuBO3xPaT5WZIbIfZeVfSVMGWm9kw=",
         "owner": "sphamba",
         "repo": "smear-cursor.nvim",
-        "rev": "0a487dc4924a2acd843eef96994f3285e3d71328",
+        "rev": "a5b840881fc132a88facbfbdee0b1b34df61eaed",
         "type": "github"
       },
       "original": {
