@@ -35,6 +35,7 @@ in
         nix flake metadata --json | jq -r '.locks.nodes | keys[]' | grep ddc | xargs -I {} nix flake lock --update-input {}
         nix flake lock --update-input neco-vim
         nix flake lock --update-input vim-mr
+        nix flake lock --update-input pum-vim
       '';
     };
     update-ddu-plugins = mkApp {
