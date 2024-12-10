@@ -10,14 +10,17 @@ call pum#set_option({
       \ 'auto_confirm_time': 0,
       \ 'direction': 'auto',
       \ 'padding': v:false,
+      \ 'preview': v:true,
+      \ 'preview_delay': 100,
+      \ 'preview_width': 100,
+      \ 'preview_border': 'single',
+      \ 'highlight_preview': 'Pmenu',
       \ 'scrollbar_char': '▌',
       \ 'item_orders': ['abbr', 'space', 'kind', 'space', 'menu'],
       \ 'max_height': 20,
       \ 'use_setline': v:true,
       \ 'offset_cmdcol': 0,
       \ 'offset_cmdrow': 0,
-      \ 'preview': v:false,
-      \ 'preview_width': 120,
       \ })
 set wildoptions-=pum
 
@@ -30,6 +33,7 @@ inoremap <C-p> <Cmd>call pum#map#select_relative(-1)<CR>
 inoremap <expr> <C-e> pum#visible() ? '<Cmd>call pum#map#cancel()<CR>' : '<End>'
 inoremap <C-y> <Cmd>call pum#map#confirm()<CR>
 inoremap <C-o> <Cmd>call pum#map#confirm_word()<CR>
+inoremap <C-g>   <Cmd>call pum#map#toggle_preview()<CR>
 inoremap <C-x>      <Cmd>call ddc#map#manual_complete()<CR>
 inoremap <C-x><C-x> <Cmd>call ddc#map#manual_complete()<CR>
 inoremap <C-x><C-b> <Cmd>call ddc#map#manual_complete(#{ sources: ['buffer'] })<CR>

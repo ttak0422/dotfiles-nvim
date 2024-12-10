@@ -109,10 +109,6 @@ rec {
       language.lsp
       treesitter.treesitter
       snippet.vsnip
-      {
-        package = ddc-previewer-floating;
-        postConfig = read ../lua/autogen/ddc-previewer-floating.lua;
-      }
     ];
     postConfig = {
       language = "vim";
