@@ -3900,11 +3900,11 @@
     "nui-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1726376728,
-        "narHash": "sha256-90Wq+vT361mTaGU/SvAezqJkX9HHmZ2GI2fKBDxPn04=",
+        "lastModified": 1733856815,
+        "narHash": "sha256-6U7E/i5FuNXQy+sF4C5DVxuTPqNKD5wxUgFohpOjm9Q=",
         "owner": "MunifTanjim",
         "repo": "nui.nvim",
-        "rev": "b58e2bfda5cea347c9d58b7f11cf3012c7b3953f",
+        "rev": "53e907ffe5eedebdca1cd503b00aa8692068ca46",
         "type": "github"
       },
       "original": {
@@ -5077,11 +5077,11 @@
     "snacks-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1733604240,
-        "narHash": "sha256-ccD3LMg3nZ/Pvew1FsoYw2ZytxiKxi/w01/5tXQBrdk=",
+        "lastModified": 1733934207,
+        "narHash": "sha256-o+Qby0XwNmfSyJ/VFRdaBcCb+gGSq+/ivdcturemcZI=",
         "owner": "folke",
         "repo": "snacks.nvim",
-        "rev": "9651a931043359fcc094ab5c67ac22554a602745",
+        "rev": "6c27ff2a365c961831c7620365dd87fa8d8ad633",
         "type": "github"
       },
       "original": {
