@@ -4300,11 +4300,11 @@
     "nvim-ufo": {
       "flake": false,
       "locked": {
-        "lastModified": 1731301886,
-        "narHash": "sha256-yHLQ3J91phhWqhxn+JiRm8gUErU1roi8oj3wrY9jEP0=",
+        "lastModified": 1733116356,
+        "narHash": "sha256-Tt9/7hgV1mkNZyJpyeUpC45kgjyVXf4vhQy0V44xzgc=",
         "owner": "kevinhwang91",
         "repo": "nvim-ufo",
-        "rev": "c070ee849bfedb2ed778f60419a1eae8c8544be8",
+        "rev": "95cbe2e99901135704aabdc8732d722cf68b12c9",
         "type": "github"
       },
       "original": {
