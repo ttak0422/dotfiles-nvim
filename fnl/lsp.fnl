@@ -11,6 +11,7 @@
 
 (vim.diagnostic.config {:severity_sort true
                         :virtual_text false
+                        :update_in_insert false
                         :signs {:text {vim.diagnostic.severity.ERROR ""
                                        vim.diagnostic.severity.WARN ""
                                        vim.diagnostic.severity.INFO ""
