@@ -3,14 +3,34 @@ highlight PmenuFuzzyMatch gui=bold
 
 call ddc#custom#load_config(s:args['ts_config'])
 
-call ddc#enable({ 'context_filetype': 'treesitter' })
+let g:popup_preview_config = {
+      \ 'border': v:true,
+      \ 'delay': 100,
+      \ 'maxWidth': 100,
+      \ 'maxHeight': 30,
+      \ 'winblend': 0,
+      \ 'debug': v:false,
+      \ }
+call popup_preview#enable()
+
+let g:signature_help_config = {
+      \ 'border': v:true,
+      \ 'maxWidth': 100,
+      \ 'maxHeight': 30,
+      \ 'contentsStyle': 'remainingLabels',
+      \ 'viewStyle': 'virtual',
+      \ 'onTriggerChar': v:false,
+      \ 'multiLabel': v:true,
+      \ 'fallbackToBelow': v:false,
+      \ }
+call signature_help#enable()
 
 call pum#set_option({
       \ 'auto_select': v:true,
       \ 'auto_confirm_time': 0,
       \ 'direction': 'auto',
       \ 'padding': v:false,
-      \ 'preview': v:true,
+      \ 'preview': v:false,
       \ 'preview_delay': 100,
       \ 'preview_width': 100,
       \ 'preview_border': 'single',
@@ -22,6 +42,8 @@ call pum#set_option({
       \ 'offset_cmdcol': 0,
       \ 'offset_cmdrow': 0,
       \ })
+call ddc#enable({ 'context_filetype': 'treesitter' })
+
 set wildoptions-=pum
 
 " https://zenn.dev/kawarimidoll/articles/54e38aa7f55aff

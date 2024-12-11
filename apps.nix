@@ -36,6 +36,8 @@ in
         nix flake lock --update-input neco-vim
         nix flake lock --update-input vim-mr
         nix flake lock --update-input pum-vim
+        nix flake lock --update-input denops-popup-preview-vim
+        nix flake lock --update-input denops-signature_help
       '';
     };
     update-ddu-plugins = mkApp {

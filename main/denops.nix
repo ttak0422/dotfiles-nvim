@@ -70,8 +70,8 @@ rec {
       ddc-vim
       ddc-ui-pum
       # ddc-ui-native
-      # denops-popup-preview-vim
-      # denops-signature_help
+      denops-popup-preview-vim
+      denops-signature_help
       ddc-matcher_head
       ddc-path
       # ddc-source-vim
