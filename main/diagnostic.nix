@@ -8,11 +8,6 @@ let
 in
 with pkgs.vimPlugins;
 {
-  dd = {
-    package = nvim-dd;
-    postConfig = read ../lua/autogen/dd.lua;
-    hooks.events = [ "InsertEnter" ];
-  };
   trouble = {
     package = trouble-nvim;
     depends = [

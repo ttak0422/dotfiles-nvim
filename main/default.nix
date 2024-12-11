@@ -33,7 +33,7 @@ let
       denops
       skk
       ;
-    inherit (callPackage ./diagnostic.nix { }) dd trouble;
+    inherit (callPackage ./diagnostic.nix { }) trouble;
     inherit (callPackage ./git.nix { })
       diffview
       gina

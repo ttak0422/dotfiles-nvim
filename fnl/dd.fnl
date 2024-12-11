@@ -1,2 +1,1 @@
-(let [M (require :dd)]
-  (M.setup {:timeout 2000}))
+((. (require :dd) :setup) {:timeout 2000})

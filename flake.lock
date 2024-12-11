@@ -4092,11 +4092,11 @@
     "nvim-dd": {
       "flake": false,
       "locked": {
-        "lastModified": 1690128093,
-        "narHash": "sha256-FP3rXm/ZGqs3Wnuter6z7ib07ZDjq6I2cRuoAh0eERY=",
+        "lastModified": 1728679811,
+        "narHash": "sha256-wrnGWTd7+FlGkK+TPSSSi51E1vvxklsfytIqKjfBZeE=",
         "owner": "yorickpeterse",
         "repo": "nvim-dd",
-        "rev": "9c21ffeffbf0a99e5614f193455700f355d0951f",
+        "rev": "1295865ef1df6747c8b497cd3c4e80a29263b71e",
         "type": "github"
       },
       "original": {
@@ -5603,11 +5603,11 @@
     "trouble-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1721056187,
-        "narHash": "sha256-RvjgVagdt19tSz7HDwAxLAZojjgsp6z2/GYGty9Ifmg=",
+        "lastModified": 1732701472,
+        "narHash": "sha256-JhnERZfma2JHFEn/DElVmrSU5KxM2asx3SJ+86lCfoo=",
         "owner": "folke",
         "repo": "trouble.nvim",
-        "rev": "bf99ea71a39e322336b7f8be965f86dbf5c65540",
+        "rev": "46cf952fc115f4c2b98d4e208ed1e2dce08c9bf6",
         "type": "github"
       },
       "original": {

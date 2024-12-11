@@ -17,6 +17,10 @@ rec {
     packages = [ nvim-lspconfig ];
     depends = [
       {
+        package = nvim-dd;
+        postConfig = read ../lua/autogen/dd.lua;
+      }
+      {
         package = garbage-day-nvim;
         preConfig = read ../lua/autogen/garbage-day-pre.lua;
       }
