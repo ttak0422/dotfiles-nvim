@@ -3163,11 +3163,11 @@
     "neogit": {
       "flake": false,
       "locked": {
-        "lastModified": 1732787247,
-        "narHash": "sha256-oX0wkJNFtyUyCosLkqb+po7GDji9GDZRcFkGUYzBjEw=",
+        "lastModified": 1734037955,
+        "narHash": "sha256-2GNBa/4hDXLD8ijt5lZW5R7bxLjtNFVga94GKyqvosw=",
         "owner": "TimUntersberger",
         "repo": "neogit",
-        "rev": "c3a1e8f1b568c7ea844645bc327c22908ea3df68",
+        "rev": "bd0c2d3429eac3e70dae42cfe913b44242da7132",
         "type": "github"
       },
       "original": {
@@ -4460,11 +4460,11 @@
     "pathlib-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1717992710,
-        "narHash": "sha256-w29gHbh7mA9ippUP5a25ri3gW09r/FiU9DGd8yif9xI=",
+        "lastModified": 1724943804,
+        "narHash": "sha256-YhCJeNKlcjgg3q51UWFhuIEPzNueC8YTpeuPPJDndvw=",
         "owner": "pysan3",
         "repo": "pathlib.nvim",
-        "rev": "7a5a6facd29e306bc73a37719fa67c0d2226f852",
+        "rev": "57e5598af6fe253761c1b48e0b59b7cd6699e2c1",
         "type": "github"
       },
       "original": {

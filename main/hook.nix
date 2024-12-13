@@ -64,10 +64,10 @@ with pkgs.vimPlugins;
         package = nvim-surround;
         postConfig = read ../lua/autogen/surround.lua;
       }
-      {
-        package = endscroll-nvim;
-        postConfig = read ../lua/autogen/endscroll.lua;
-      }
+      # {
+      #   package = endscroll-nvim;
+      #   postConfig = read ../lua/autogen/endscroll.lua;
+      # }
       # {
       #   package = highlight-undo-nvim;
       #   postConfig = read ../lua/autogen/highlight-undo.lua;
