@@ -69,6 +69,7 @@ rec {
           rustfmt
           gitlint
           hadolint
+          pkgs.pkgs-stable.vtsls
         ];
       }
       climbdir-nvim
