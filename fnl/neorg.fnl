@@ -56,5 +56,37 @@
       ]
   (neorg.setup {: load}))
 
-(vim.api.nvim_create_user_command :NeorgFuzzySearch
-                                  "Telescope neorg find_linkable" {})
+;; user commands
+(let [neorg (require :neorg)
+      path (require :plenary.path)
+      dirman (neorg.modules.get_module :core.dirman)
+      create_command vim.api.nvim_create_user_command
+      check_git_dir (fn []
+                      (let [git_dir (path:new (.. (vim.fn.getcwd) :/.git))]
+                        (git_dir:exists)))
+      get_dir (fn []
+                (vim.fn.fnamemodify (vim.fn.getcwd) ":t"))
+      ;; sync
+      get_branch (fn []
+                   (let [out (vim.fn.system "git rev-parse --abbrev-ref HEAD")]
+                     (if (= vim.v.shell_error 0)
+                         (out:gsub "%s+" "")
+                         (error "branch not found"))))]
+  (create_command :NeorgFuzzySearch "Telescope neorg find_linkable" {})
+  (create_command :NeorgGit
+                  (fn []
+                    (if (check_git_dir)
+                        (dirman.create_file (.. :project/ (get_dir) :/main) nil
+                                            {:title (.. "Project " (get_dir))})
+                        (vim.notify "Not a git repository" :warn)))
+                  {})
+  (create_command :NeorgGitBranch
+                  (fn []
+                    (if (check_git_dir)
+                        (dirman.create_file (.. :project/ (get_dir) "/"
+                                                (get_branch))
+                                            nil
+                                            {:title (.. "Project " (get_dir)
+                                                        "/" (get_branch))})
+                        (vim.notify "Not a git repository" :warn)))
+                  {}))

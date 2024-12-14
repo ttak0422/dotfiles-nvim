@@ -100,6 +100,8 @@
                        (desc "Enter Neorg (today journal)")]
                       [:no (cmd "Neorg toc") (desc "Show Neorg TOC")]
                       [:N (cmd :Neorg) (desc "Enter Neorg")]
+                      [:ngg (cmd :NeorgGit) (desc " Git")]
+                      [:ngb (cmd :NeorgGitBranch) (desc " Git (branch)")]
                       [:fn
                        (cmd :NeorgFuzzySearch)
                        (desc "find Neorg linkable")]

@@ -2,6 +2,7 @@
 let
   inherit (pkgs) callPackage;
   read = builtins.readFile;
+  git = callPackage ./git.nix { };
   input = callPackage ./input.nix { };
   lib = callPackage ./lib.nix { };
   search = callPackage ./search.nix { };
@@ -54,18 +55,23 @@ with pkgs.vimPlugins;
       pathlib-nvim
     ];
     depends = [
-      lib.plenary
+      # input.cmp
       lib.nio
       lib.nui
-      # input.cmp
-      treesitter.treesitter
+      lib.plenary
       search.telescope
       style.dressing
+      treesitter.treesitter
     ];
     postConfig = read ../lua/autogen/neorg.lua;
-    hooks.commands = [
-      "Neorg"
-      "NeorgFuzzySearch"
-    ];
+    hooks = {
+      commands = [
+        "Neorg"
+        "NeorgFuzzySearch"
+        "NeorgGit"
+        "NeorgGitBranch"
+      ];
+      # modules = [ "neorg" ];
+    };
   };
 }

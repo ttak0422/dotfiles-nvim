@@ -18,4 +18,45 @@ do
   local load = {["core.autocommands"] = {}, ["core.defaults"] = {config = defaults}, ["core.dirman"] = {config = dirman}, ["core.highlights"] = {config = highlights}, ["core.integrations.treesitter"] = {}, ["core.keybinds"] = {config = keybinds}, ["core.storage"] = {}, ["core.summary"] = {}, ["core.ui"] = {}, ["core.journal"] = {config = journal}, ["core.esupports.metagen"] = {config = metagen}, ["core.concealer"] = {config = concealer}, ["core.tempus"] = {}, ["core.ui.calendar"] = {}, ["core.integrations.telescope"] = {}, ["external.jupyter"] = {}}
   neorg.setup({load = load})
 end
-return vim.api.nvim_create_user_command("NeorgFuzzySearch", "Telescope neorg find_linkable", {})
+local neorg = require("neorg")
+local path = require("plenary.path")
+local dirman = neorg.modules.get_module("core.dirman")
+local create_command = vim.api.nvim_create_user_command
+local check_git_dir
+local function _1_()
+  local git_dir = path:new((vim.fn.getcwd() .. "/.git"))
+  return git_dir:exists()
+end
+check_git_dir = _1_
+local get_dir
+local function _2_()
+  return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+end
+get_dir = _2_
+local get_branch
+local function _3_()
+  local out = vim.fn.system("git rev-parse --abbrev-ref HEAD")
+  if (vim.v.shell_error == 0) then
+    return out:gsub("%s+", "")
+  else
+    return error("branch not found")
+  end
+end
+get_branch = _3_
+create_command("NeorgFuzzySearch", "Telescope neorg find_linkable", {})
+local function _5_()
+  if check_git_dir() then
+    return dirman.create_file(("project/" .. get_dir() .. "/main"), nil, {title = ("Project " .. get_dir())})
+  else
+    return vim.notify("Not a git repository", "warn")
+  end
+end
+create_command("NeorgGit", _5_, {})
+local function _7_()
+  if check_git_dir() then
+    return dirman.create_file(("project/" .. get_dir() .. "/" .. get_branch()), nil, {title = ("Project " .. get_dir() .. "/" .. get_branch())})
+  else
+    return vim.notify("Not a git repository", "warn")
+  end
+end
+return create_command("NeorgGitBranch", _7_, {})
