@@ -26,6 +26,7 @@ inputs: with inputs; [
         "loaded-nvim"
         "junit-console"
         "jol"
+        "skk-dict"
       ];
       plugins = filter (name: !(elem name excludeInputs)) (attrNames inputs);
       base = {
@@ -49,57 +50,10 @@ inputs: with inputs; [
         inherit (inputs) jol junit-console;
       };
 
-      nodePackages = prev.nodePackages // {
-        # vtsls = mkDerivation (final: {
-        #   pname = "vtsls";
-        #   src = inputs.vtsls;
-        #   version = inputs.vtsls.rev;
-        #
-        #   nativeBuildInputs = with prev; [
-        #     nodejs_20
-        #     pnpm.configHook
-        #     git
-        #   ];
-        #
-        #   pnpmDeps = prev.pnpm.fetchDeps {
-        #     inherit (final)
-        #       pname
-        #       version
-        #       src
-        #       # pnpmWorkspace
-        #       ;
-        #     hash = "sha256-uyBF6W8yaFDhPxD0iU3o5WxMix2xx9v5Z5eCFjIQdy0=";
-        #   };
-        #
-        #   # prePnpmInstall = ''
-        #   #   pnpm config set dedupe-peer-dependents false
-        #   # '';
-        #
-        #   prePatch = ''
-        #     ln -s packages/service/vscode/extensions/typescript-language-features packages/service/src/typescript-language-features
-        #   '';
-        #
-        #   buildPhase = ''
-        #     runHook preInstall
-        #
-        #     pnpm install
-        #     pnpm build
-        #
-        #     runHook postInstall
-        #   '';
-        #
-        #   installPhase = ''
-        #     runHook preInstall
-        #
-        #     mkdir -p $out/{bin,lib/vtsls}
-        #     mkdir -p $out/dist
-        #     cp -r {packages,node_modules} $out/lib/vtsls
-        #     ln -s $out/lib/vtsls/packages/server/bin/vtsls.js $out/bin/vtsls
-        #
-        #     runHook postInstall
-        #   '';
-        # });
-      };
+      nodePackages =
+        prev.nodePackages
+        // {
+        };
 
       vscode-extensions = prev.vscode-extensions // {
         vscjava = prev.vscode-extensions.vscjava // {
@@ -180,6 +134,15 @@ inputs: with inputs; [
           '';
         }
       );
+
+      skk-dict = mkDerivation {
+        name = "skk-dict";
+        src = inputs.skk-dict;
+        installPhase = ''
+          mkdir $out
+          cp SKK-JISYO.L $out/SKK-JISYO.L
+        '';
+      };
     }
   )
 ]
