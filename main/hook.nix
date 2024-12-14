@@ -13,10 +13,11 @@ with pkgs.vimPlugins;
   hookBuffer = {
     preConfig = read ../lua/autogen/hook-buffer.lua;
     depends = [
-      {
-        package = bigfile-nvim;
-        postConfig = read ../lua/autogen/bigfile.lua;
-      }
+      # use snacks
+      # {
+      #   package = bigfile-nvim;
+      #   postConfig = read ../lua/autogen/bigfile.lua;
+      # }
       {
         package = statuscol-nvim;
         postConfig = read ../lua/autogen/statuscol.lua;
@@ -64,10 +65,10 @@ with pkgs.vimPlugins;
         package = nvim-surround;
         postConfig = read ../lua/autogen/surround.lua;
       }
-      # {
-      #   package = endscroll-nvim;
-      #   postConfig = read ../lua/autogen/endscroll.lua;
-      # }
+      {
+        package = endscroll-nvim;
+        postConfig = read ../lua/autogen/endscroll.lua;
+      }
       # {
       #   package = highlight-undo-nvim;
       #   postConfig = read ../lua/autogen/highlight-undo.lua;

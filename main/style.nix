@@ -86,12 +86,12 @@ rec {
     package = noice-nvim;
     depends = [
       lib.nui
+      lib.snacks
       treesitter.treesitter
       notify
-      snacks-nvim
     ];
     postConfig = {
-      code = read ../lua/autogen/noice.lua;
+      code = read ../lua/noice.lua;
       args.exclude_ft_path = ../lua/autogen/exclude_ft.lua;
     };
     hooks.events = [ "BufReadPost" ];

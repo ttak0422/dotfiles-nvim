@@ -1,3 +1,4 @@
+;; deprecated
 (local excluded_filetypes (dofile args.exclude_ft_path))
 (let [M (require :noice)
       U (require :noice.util)

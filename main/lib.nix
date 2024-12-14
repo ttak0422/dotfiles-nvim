@@ -11,4 +11,8 @@ with pkgs.vimPlugins;
     package = nvim-web-devicons;
     postConfig = read ../lua/autogen/devicons.lua;
   };
+  snacks = {
+    package = snacks-nvim;
+    postConfig = read ../lua/snacks.lua;
+  };
 }
