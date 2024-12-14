@@ -1,12 +1,17 @@
 (let [M (require :telescope)
-      theme (require :telescope.themes)
+      themes (require :telescope.themes)
+      actions (require :telescope.actions)
       lga_actions (require :telescope-live-grep-args.actions)
-      defaults (theme.get_ivy {:path_display [:truncate]
-                               :prompt_prefix " "
-                               :selection_caret " "
-                               ;; skkeleton is loaded on InsertEnter
-                               :mappings {:i {:<C-j> {1 "<Plug>(skkeleton-enable)"
-                                                      :type :command}}}})
+      defaults (themes.get_ivy {:path_display [:truncate]
+                                :prompt_prefix " "
+                                :selection_caret " "
+                                ;; skkeleton is loaded on InsertEnter
+                                :mappings {:i {:<C-j> {1 "<Plug>(skkeleton-enable)"
+                                                       :type :command}
+                                               :<Down> actions.cycle_history_next
+                                               :<Up> actions.cycle_history_prev}
+                                           :n {:<Down> actions.cycle_history_next
+                                               :<Up> actions.cycle_history_prev}}})
       extensions {:live_grep_args {:auto_quoting true
                                    :mappings {:i {:<C-t> (lga_actions.quote_prompt {:postfix " -t "})
                                                   :<C-i> (lga_actions.quote_prompt {:postfix " --iglob "})}}}
