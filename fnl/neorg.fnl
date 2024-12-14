@@ -29,7 +29,7 @@
                                 :recurring {:icon ""}
                                 :urgent {:icon ""}}}}
       journal {:journal_folder :journal :strategy :nested}
-      metagen {:type :auto}
+      metagen {:type :auto :undojoin_updates true}
       ; templates {:templates_dir [] :default_subcommand :fload}
       load {:core.autocommands {}
             ; :core.completion {:config completion}

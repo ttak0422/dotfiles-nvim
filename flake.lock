@@ -3179,11 +3179,11 @@
     "neorg": {
       "flake": false,
       "locked": {
-        "lastModified": 1728611810,
-        "narHash": "sha256-74TCGgEqY6YJM1WI4R0U7/9vM8Mb8PAhMaenz9r6qhI=",
+        "lastModified": 1733872345,
+        "narHash": "sha256-6pUwWfsJ0TmToGU7Bvaeobnj2vuIqwd4w3TDdTvQZSk=",
         "owner": "nvim-neorg",
         "repo": "neorg",
-        "rev": "13d1d546684c83ba464adbf463a8a272c884e1e8",
+        "rev": "62671a7b03a1f38a6e5e03b006a9b6f8d804be0e",
         "type": "github"
       },
       "original": {

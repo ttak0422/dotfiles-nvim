@@ -6,7 +6,24 @@
 
 (let [map vim.keymap.set
       opts (fn [d] {:noremap false :silent true :buffer true :desc d})
-      N [[:<LocalLeader>nn
+      N [[:u
+          (fn []
+            ((. ((. (require :neorg.core.modules) :get_module) :core.esupports.metagen)
+                :skip_next_update))
+            (vim.api.nvim_feedkeys (vim.api.nvim_replace_termcodes :u<c-o> true
+                                                                   false true)
+                                   :n false))
+          (opts " undo")]
+         [:<C-r>
+          (fn []
+            ((. ((. (require :neorg.core.modules) :get_module) :core.esupports.metagen)
+                :skip_next_update))
+            (vim.api.nvim_feedkeys (vim.api.nvim_replace_termcodes :<c-r><c-o>
+                                                                   true false
+                                                                   true)
+                                   :n false))
+          (opts " redo")]
+         [:<LocalLeader>nn
           "<Plug>(neorg.dirman.new-note)"
           (opts " Create a new note")]
          [:<LocalLeader>tu
