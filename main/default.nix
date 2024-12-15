@@ -9,12 +9,7 @@ let
 
   extraPackages = [ ];
   extraConfig = ''
-    if vim.g.neovide then
-      dofile("${../lua/autogen/neovide.lua}")
-    end
-    require("snacks.profiler").startup({
-      startup = { event = "VimEnter" }
-    })
+    if vim.g.neovide then dofile("${../lua/autogen/neovide.lua}") end
     ${read ./../lua/autogen/prelude.lua}
   '';
   after = {
@@ -23,7 +18,6 @@ let
   eager = with pkgs.vimPlugins; {
     morimo.package = morimo;
     config-local.package = nvim-config-local;
-    snacks.package = snacks-nvim;
     # alpha.package = pkgs.vimPlugins.alpha-nvim;
     # btw.package = pkgs.vimPlugins.btw-nvim;
   };
