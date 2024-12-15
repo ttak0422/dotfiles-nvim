@@ -12,14 +12,18 @@ let
     if vim.g.neovide then
       dofile("${../lua/autogen/neovide.lua}")
     end
+    require("snacks.profiler").startup({
+      startup = { event = "VimEnter" }
+    })
     ${read ./../lua/autogen/prelude.lua}
   '';
   after = {
     inherit (callPackage ./after.nix { }) plugin ftplugin ftdetect;
   };
-  eager = {
-    morimo.package = pkgs.vimPlugins.morimo;
-    config-local.package = pkgs.vimPlugins.nvim-config-local;
+  eager = with pkgs.vimPlugins; {
+    morimo.package = morimo;
+    config-local.package = nvim-config-local;
+    snacks.package = snacks-nvim;
     # alpha.package = pkgs.vimPlugins.alpha-nvim;
     # btw.package = pkgs.vimPlugins.btw-nvim;
   };

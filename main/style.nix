@@ -86,7 +86,8 @@ rec {
     package = noice-nvim;
     depends = [
       lib.nui
-      lib.snacks
+      # WIP
+      # lib.snacks
       treesitter.treesitter
       notify
     ];
