@@ -102,6 +102,9 @@ export class Config extends BaseConfig {
         vwnip: {
           mark: "[VSNIP]",
         },
+        omni: {
+          mark: "[OMNI]",
+        },
       },
       sourceParams: {
         lsp: {

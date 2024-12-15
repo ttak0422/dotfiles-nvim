@@ -101,6 +101,7 @@ rec {
       ddc-fuzzy
       ddc-matcher_length
       ddc-sorter_itemsize
+      ddc-source-omni
       neco-vim
     ];
     depends = [
