@@ -1316,6 +1316,10 @@
       url = "github:skk-dev/dict";
       flake = false;
     };
+    nvim-dap-virtual-text = {
+      url = "github:theHamsta/nvim-dap-virtual-text";
+      flake = false;
+    };
   };
 
   outputs =
