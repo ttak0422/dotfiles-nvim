@@ -91,7 +91,8 @@
                        ;     (dapui.toggle {:reset true})))
                        (desc "dap toggle ui")]
                       ;; copilot chat
-                      [:<Leader>ta (cmd :CopilotChatToggle)]])]
+                      [:<Leader>ta (cmd :CopilotChatToggle)]
+                      [:<Leader>O (cmd :Other)]])]
     (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts)))
   (each [_ k (ipairs [;; translate
                       [:T (cmd "Translate JA")]

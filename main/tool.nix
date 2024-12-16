@@ -99,6 +99,11 @@ rec {
     postConfig = read ../lua/autogen/oil.lua;
     hooks.modules = [ "oil" ];
   };
+  other = {
+    package = other-nvim;
+    postConfig = read ../lua/autogen/other.lua;
+    hooks.commands = [ "Other" ];
+  };
   dotfyle-metadata = {
     package = dotfyle-metadata-nvim;
     hooks.commands = [ "DotfyleGenerate" ];

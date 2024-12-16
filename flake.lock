@@ -4428,11 +4428,11 @@
     "oil-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1730303616,
-        "narHash": "sha256-m0ttlgxBR3yeXels1c2a4AUKQ7S9w9kAywImBYHqVgU=",
+        "lastModified": 1733872944,
+        "narHash": "sha256-LM/RWrh3zSVuiO3uI9lcZRjx1T1kw0L2fB1fQCBnHX4=",
         "owner": "stevearc",
         "repo": "oil.nvim",
-        "rev": "52cc8a1fb35ea6ce1df536143add7ce7215c63c0",
+        "rev": "dba037598843973b8c54bc5ce0318db4a0da439d",
         "type": "github"
       },
       "original": {
@@ -4470,6 +4470,22 @@
       "original": {
         "owner": "ofirgall",
         "repo": "open.nvim",
+        "type": "github"
+      }
+    },
+    "other-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1733008756,
+        "narHash": "sha256-mHN1anRlOBN0Wvl2T8zBHV7BfMLH7C8dmTIqBTzr414=",
+        "owner": "rgroli",
+        "repo": "other.nvim",
+        "rev": "933aa489ad02f8f973269a565bfea16cc784cbbf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rgroli",
+        "repo": "other.nvim",
         "type": "github"
       }
     },
@@ -4920,6 +4936,7 @@
         "oil-nvim": "oil-nvim",
         "oil-vcs-status": "oil-vcs-status",
         "open-nvim": "open-nvim",
+        "other-nvim": "other-nvim",
         "overseer-nvim": "overseer-nvim",
         "pathlib-nvim": "pathlib-nvim",
         "pgmnt-vim": "pgmnt-vim",

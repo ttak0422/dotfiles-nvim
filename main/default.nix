@@ -166,6 +166,7 @@ let
       window-picker
       lir
       oil
+      other
       dotfyle-metadata
       copilot-chat
       screenkey

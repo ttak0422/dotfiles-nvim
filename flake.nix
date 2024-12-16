@@ -1324,6 +1324,10 @@
       url = "github:Shougo/ddc-source-omni";
       flake = false;
     };
+    other-nvim = {
+      url = "github:rgroli/other.nvim";
+      flake = false;
+    };
   };
 
   outputs =
