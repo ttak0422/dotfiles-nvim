@@ -94,6 +94,15 @@ nnoremap : <Cmd>call CommandlinePre()<CR>:
 nnoremap ? <Cmd>call CommandlinePre()<CR>?
 nnoremap / <Cmd>call CommandlinePre()<CR>/
 
+call ddc#custom#patch_global('sourceParams', #{
+      \   lsp: #{
+      \     snippetEngine: denops#callback#register({ body -> vsnip#anonymous(body) }),
+      \     enableAdditionalTextEdit: v:true,
+      \     enableDisplayDetail: v:true,
+      \     enableMatchLabel: v:true,
+      \     enableResolveItem: v:true,
+      \   }
+      \ })
 lua << EOF
   require("ddc_source_lsp_setup").setup()
 EOF

@@ -107,16 +107,6 @@ export class Config extends BaseConfig {
         },
       },
       sourceParams: {
-        lsp: {
-          lspEngine: "nvim-lsp",
-          enableResolveItem: true,
-          enableAdditionalTextEdit: true,
-          enableDisplayDetail: true,
-          snippetEngine: async (body: string) => {
-            await denops.call("vsnip#anonymous", body);
-            return Promise.resolve();
-          },
-        },
         buffer: {
           requireSameFiletype: false,
           limitBytes: 50000,
@@ -125,9 +115,6 @@ export class Config extends BaseConfig {
         },
         file: {
           filenameChars: "[:keyword:].",
-        },
-        "shell-native": {
-          shell: "fish",
         },
       },
       filterParams: {

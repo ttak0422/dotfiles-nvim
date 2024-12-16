@@ -125,12 +125,6 @@ rec {
     };
     useDenops = true;
   };
-  # ddc-source-lsp-setup = {
-  #   package = pkgs.vimPlugins.ddc-source-lsp-setup;
-  #   depends = [ ddc ];
-  #   postConfig = read ../lua/autogen/ddc-source-lsp-setup.lua;
-  #   hooks.modules = [ "ddc_source_lsp_setup" ];
-  # };
   mr = {
     package = vim-mr;
     depends = [ denops ];
