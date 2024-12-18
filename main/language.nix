@@ -81,6 +81,7 @@ rec {
       virtual-types-nvim
     ];
     extraPackages = with pkgs; [
+      go
       ast-grep
       dart
       deno
@@ -121,11 +122,12 @@ rec {
     ];
     postConfig = read ../lua/autogen/gopher.lua;
     extraPackages = with pkgs; [
-      gomodifytags
-      impl
-      gotests
-      iferr
       delve
+      gomodifytags
+      gotests
+      gotools
+      iferr
+      impl
     ];
     hooks.fileTypes = [
       "go"

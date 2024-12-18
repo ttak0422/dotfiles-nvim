@@ -4089,6 +4089,22 @@
         "type": "github"
       }
     },
+    "nvim-dap-go": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1727922873,
+        "narHash": "sha256-wcGp5df1ER5T5oLVitWE02OywgJs3V4pazcGU5qVaUY=",
+        "owner": "leoluz",
+        "repo": "nvim-dap-go",
+        "rev": "6aa88167ea1224bcef578e8c7160fe8afbb44848",
+        "type": "github"
+      },
+      "original": {
+        "owner": "leoluz",
+        "repo": "nvim-dap-go",
+        "type": "github"
+      }
+    },
     "nvim-dap-repl-highlights": {
       "flake": false,
       "locked": {
@@ -4928,6 +4944,7 @@
         "nvim-colorizer-lua": "nvim-colorizer-lua",
         "nvim-config-local": "nvim-config-local",
         "nvim-dap": "nvim-dap",
+        "nvim-dap-go": "nvim-dap-go",
         "nvim-dap-repl-highlights": "nvim-dap-repl-highlights",
         "nvim-dap-ui": "nvim-dap-ui",
         "nvim-dap-virtual-text": "nvim-dap-virtual-text",

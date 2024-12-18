@@ -60,12 +60,8 @@
 ;; toml
 (lspconfig.taplo.setup {: on_attach})
 
-; go → use gopls
-(lspconfig.gopls.setup {: on_attach
-                        :settings {:gopls {:analyses {:unusedparams true
-                                                      :unusedvariable true
-                                                      :useany true}
-                                           :staticcheck false}}})
+; go
+(lspconfig.gopls.setup {: on_attach})
 
 ;; dart
 (lspconfig.dartls.setup {: on_attach})

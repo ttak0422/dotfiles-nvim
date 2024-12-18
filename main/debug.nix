@@ -26,6 +26,9 @@ rec {
   };
   dap-go = {
     package = nvim-dap-go;
+    depends = [
+      dap
+    ];
     extraPackages = with pkgs; [ delve ];
     postConfig = read ../lua/autogen/dap-go.lua;
     hooks.fileTypes = [ "go" ];

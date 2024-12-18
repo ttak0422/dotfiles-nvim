@@ -1332,6 +1332,10 @@
       url = "github:tani/dmacro.vim";
       flake = false;
     };
+    nvim-dap-go = {
+      url = "github:leoluz/nvim-dap-go";
+      flake = false;
+    };
   };
 
   outputs =
