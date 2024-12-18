@@ -6060,11 +6060,11 @@
     "which-key-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1721230154,
-        "narHash": "sha256-Wa6g7OVnMIE1GZhrFoZFfGjRyFl/pjdLh9UPALMq4+8=",
+        "lastModified": 1734253151,
+        "narHash": "sha256-f/+sYMDEguB5ZDiYiQAsDvdF/2cVcWnLBU+9qwigk4s=",
         "owner": "folke",
         "repo": "which-key.nvim",
-        "rev": "f29387d82055b091564b33a805fec8f1b52b39f9",
+        "rev": "8ab96b38a2530eacba5be717f52e04601eb59326",
         "type": "github"
       },
       "original": {
