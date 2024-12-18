@@ -1909,11 +1909,11 @@
     "denops-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1731033966,
-        "narHash": "sha256-NO/DMydk8yOoPjA7OE2UbxXTwKvaQ9Z2FUNwxuX1Q4o=",
+        "lastModified": 1734315938,
+        "narHash": "sha256-kqvNcCX4wlvb8BVrSF+WD5uGY8zHaS2mp75y8tenMnk=",
         "owner": "vim-denops",
         "repo": "denops.vim",
-        "rev": "0c722617d72c56751e748070c12ec9d827e8fba3",
+        "rev": "4ff8f353ee54ee67288c1099242444ccb0ab5b69",
         "type": "github"
       },
       "original": {
@@ -5114,11 +5114,11 @@
     "skkeleton": {
       "flake": false,
       "locked": {
-        "lastModified": 1728859543,
-        "narHash": "sha256-7oTJGGkUb3K8nzcPqlJrm316ECmgswy/+N8cTQghv3k=",
+        "lastModified": 1734419317,
+        "narHash": "sha256-8dYw+26FCIpA6DnshiJFuHwJbWDxWwirUgttUPPcUaQ=",
         "owner": "vim-skk",
         "repo": "skkeleton",
-        "rev": "2cdd414c1bfa8c363505b8dfc9f50ef2f446ea61",
+        "rev": "b86773f1a0d312f6ce9cb16996fdcebde8473680",
         "type": "github"
       },
       "original": {
