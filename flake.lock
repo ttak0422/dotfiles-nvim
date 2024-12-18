@@ -1986,6 +1986,22 @@
         "type": "github"
       }
     },
+    "dmacro-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1734502504,
+        "narHash": "sha256-jA8KDNDV3/4lOPxSNp3f0giNEIsubAe8dxiAYohslsg=",
+        "owner": "tani",
+        "repo": "dmacro.vim",
+        "rev": "25ab1df31d216c4ff7554c262f92b5c0c6b743f0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tani",
+        "repo": "dmacro.vim",
+        "type": "github"
+      }
+    },
     "dotfyle-metadata-nvim": {
       "flake": false,
       "locked": {
@@ -4803,6 +4819,7 @@
         "diagflow-nvim": "diagflow-nvim",
         "diffview-nvim": "diffview-nvim",
         "direnv-vim": "direnv-vim",
+        "dmacro-vim": "dmacro-vim",
         "dotfyle-metadata-nvim": "dotfyle-metadata-nvim",
         "dressing-nvim": "dressing-nvim",
         "dropbar-nvim": "dropbar-nvim",

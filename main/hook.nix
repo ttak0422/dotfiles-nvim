@@ -34,6 +34,16 @@ with pkgs.vimPlugins;
         package = auto-save-nvim;
         postConfig = read ../lua/autogen/auto-save.lua;
       }
+      {
+        package = dmacro-vim;
+        postConfig = {
+          code = ''
+            inoremap <C-d> <Plug>(dmacro-play-macro)
+            nnoremap <C-d> <Plug>(dmacro-play-macro)
+          '';
+          language = "vim";
+        };
+      }
     ];
     hooks.events = [ "BufRead" ];
   };

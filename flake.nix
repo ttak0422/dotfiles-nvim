@@ -1328,6 +1328,10 @@
       url = "github:rgroli/other.nvim";
       flake = false;
     };
+    dmacro-vim = {
+      url = "github:tani/dmacro.vim";
+      flake = false;
+    };
   };
 
   outputs =
