@@ -11,28 +11,27 @@ with pkgs.vimPlugins;
 rec {
   neotest = {
     packages = [
-      pkgs.vimPlugins.neotest
-      neotest-java
-      neotest-python
-      neotest-plenary
-      # neotest-go
-      neotest-golang
-      neotest-jest
-      neotest-vitest
-      neotest-playwright
-      neotest-rspec
-      neotest-minitest
       neotest-dart
-      neotest-testthat
-      neotest-phpunit
-      neotest-pest
-      neotest-rust
-      neotest-elixir
-      neotest-dotnet
-      neotest-scala
-      neotest-haskell
       neotest-deno
+      neotest-dotnet
+      neotest-elixir
+      neotest-golang
+      neotest-haskell
+      neotest-java
+      neotest-jest
+      neotest-minitest
+      neotest-pest
+      neotest-phpunit
+      neotest-playwright
+      neotest-plenary
+      neotest-python
+      neotest-rspec
+      neotest-rust
+      neotest-scala
+      neotest-testthat
       neotest-vim-test
+      neotest-vitest
+      pkgs.vimPlugins.neotest
     ];
     depends = [
       lib.plenary
@@ -43,7 +42,7 @@ rec {
       vim-test
     ];
     postConfig = {
-      code = read ../lua/autogen/neotest.lua;
+      code = read ../lua/neotest.lua;
       args.junit_jar_path = pkgs.javaPackages.junit-console;
     };
     hooks = {

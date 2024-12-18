@@ -1,3 +1,4 @@
+;; deprecated
 (local junit_jar args.junit_jar_path)
 
 (let [neotest (require :neotest)
