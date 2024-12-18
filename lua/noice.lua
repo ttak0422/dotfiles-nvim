@@ -159,8 +159,13 @@ require("noice").setup({
 					-- `%dL, %dB`
 					{ find = "L, " },
 					{ find = "written" },
+					{ find = "追加しました;" },
+					{ find = "変更しました;" },
+					{ find = "削除しました;" },
+					{ find = "既に一番新しい変更です" },
+					{ find = "既に一番古い変更です" },
 					-- WIP: ignore skkeleton warning
-					{ find = "can't write userDictionary" }
+					{ find = "can't write userDictionary" },
 				},
 			},
 			opts = { skip = true },
