@@ -38,8 +38,8 @@ with pkgs.vimPlugins;
         package = dmacro-vim;
         postConfig = {
           code = ''
-            inoremap <C-d> <Plug>(dmacro-play-macro)
-            nnoremap <C-d> <Plug>(dmacro-play-macro)
+            inoremap <C-q> <Plug>(dmacro-play-macro)
+            nnoremap <C-q> <Plug>(dmacro-play-macro)
           '';
           language = "vim";
         };
