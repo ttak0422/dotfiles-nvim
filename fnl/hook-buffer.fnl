@@ -94,6 +94,7 @@
                       [:<Leader>ta (cmd :CopilotChatToggle)]
                       [:<Leader>O (cmd :Other)]])]
     (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts)))
+  ;; leader
   (each [_ k (ipairs [;; translate
                       [:T (cmd "Translate JA")]
                       ;; debug
@@ -103,6 +104,13 @@
                       ;; copilot caht
                       [:<Leader>ta (cmd :CopilotChat)]])]
     (vim.keymap.set :v (. k 1) (. k 2) (or (. k 3) opts)))
+  ;; local leader
+  (each [_ k (ipairs [[:tT (cmd :Neotest)]
+                      [:tt (cmd :NeotestNearest)]
+                      [:to (cmd :NeotestToggleSummary)]
+                      [:tO (cmd :NeotestTogglePanel)]
+                      [:tK (cmd :NeotestOpenOutput)]])]
+    (vim.keymap.set :n (.. :<LocalLeader> (. k 1)) (. k 2) (or (. k 3) opts)))
   (each [_ k (ipairs [[[:n :x] :gs (lcmd "require('reacher').start()")]
                       [[:n :x]
                        :gS

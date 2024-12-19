@@ -3547,11 +3547,11 @@
     "neotest-rust": {
       "flake": false,
       "locked": {
-        "lastModified": 1733777653,
-        "narHash": "sha256-ShPSwDssXhiggeII/SsygDJpb0Cgme9Y579BmoMFNro=",
+        "lastModified": 1734484266,
+        "narHash": "sha256-ZS5V1dDWPQq7sSGX0paYvllsrCLbFWi0D1TbNgy9udA=",
         "owner": "rouge8",
         "repo": "neotest-rust",
-        "rev": "826436d8e79fbcfb46904ee932c9688418c8df07",
+        "rev": "e1cb22ecf0341fb894ef2ebde344389fe6e6fc8e",
         "type": "github"
       },
       "original": {

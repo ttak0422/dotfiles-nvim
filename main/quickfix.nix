@@ -10,10 +10,11 @@ with pkgs.vimPlugins;
     package = nvim-bqf;
     depends = [
       treesitter.treesitter
-      {
-        package = nvim-pqf;
-        postConfig = read ../lua/autogen/pqf.lua;
-      }
+      # neotestと相性が良くない
+      # {
+      #   package = nvim-pqf;
+      #   postConfig = read ../lua/autogen/pqf.lua;
+      # }
     ];
     postConfig = read ../lua/autogen/bqf.lua;
     hooks.events = [ "QuickFixCmdPost" "CmdlineEnter" ];

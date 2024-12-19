@@ -2,9 +2,10 @@
 let
   inherit (pkgs) callPackage;
   read = builtins.readFile;
-  lib = callPackage ./lib.nix { };
   debug = callPackage ./debug.nix { };
   language = callPackage ./language.nix { };
+  lib = callPackage ./lib.nix { };
+  quickfix = callPackage ./quickfix.nix { };
   treesitter = callPackage ./treesitter.nix { };
 in
 with pkgs.vimPlugins;
@@ -34,11 +35,12 @@ rec {
       pkgs.vimPlugins.neotest
     ];
     depends = [
-      lib.plenary
-      lib.nio
-      treesitter.treesitter
-      language.lsp
       debug.dap
+      language.lsp
+      lib.nio
+      lib.plenary
+      quickfix.bqf
+      treesitter.treesitter
       vim-test
     ];
     postConfig = {
@@ -50,6 +52,8 @@ rec {
         "Neotest"
         "NeotestNearest"
         "NeotestToggleSummary"
+        "NeotestTogglePanel"
+        "NeotestOpenOutput"
       ];
       modules = [ "neotest" ];
     };

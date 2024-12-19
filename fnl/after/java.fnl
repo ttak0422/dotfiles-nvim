@@ -110,12 +110,13 @@
                         N [[:<LocalLeader>o
                             jdtls.organize_imports
                             (opts "[JDTLS] organize imports")]
-                           [:<LocalLeader>tt
-                            (with_compile jdtls.test_nearest_method)
-                            (opts "[JDTLS] test nearest")]
-                           [:<LocalLeader>tT
-                            (with_compile jdtls.test_class)
-                            (opts "[JDTLS] test class")]]]
+                           ; [:<LocalLeader>tt
+                           ;  (with_compile jdtls.test_nearest_method)
+                           ;  (opts "[JDTLS] test nearest")]
+                           ; [:<LocalLeader>tT
+                           ;  (with_compile jdtls.test_class)
+                           ;  (opts "[JDTLS] test class")]
+                           ]]
                     ((dofile args.on_attach_path) client bufnr)
                     (jdtls.dap.setup_dap {:hotcodereplace :auto})
                     (jdtls.dap.setup_dap_main_class_configs)
