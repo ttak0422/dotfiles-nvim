@@ -38,7 +38,7 @@ call pum#set_option({
       \ 'scrollbar_char': '▌',
       \ 'item_orders': ['abbr', 'space', 'kind', 'space', 'menu'],
       \ 'max_height': 20,
-      \ 'use_setline': v:true,
+      \ 'use_setline': v:false,
       \ 'offset_cmdcol': 0,
       \ 'offset_cmdrow': 0,
       \ })
