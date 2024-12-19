@@ -78,7 +78,7 @@ require("neotest").setup({
 			allow_file_types = {},
 		}),
 	},
-	default_strategy = "dap",
+	default_strategy = "integrated",
 	floating = {
 		border = "none",
 		max_height = 0.6,
@@ -153,7 +153,7 @@ require("neotest").setup({
 for _, c in ipairs({
 	{ "Neotest",              "lua require('neotest').run.run(vim.fn.expand('%'))" },
 	{ "NeotestStop",          "lua require('neotest').run.stop()" },
-	{ "NeotestNearest",       "lua require('neotest').run.run({strategy='dap'})" },
+	{ "NeotestNearest",       "lua require('neotest').run.run()" },
 	{ "NeotestAllFile",       "lua require('neotest').run.run(vim.loop.cwd())" },
 	{ "NeotestToggleSummary", "lua require('neotest').summary.toggle()" },
 	{ "NeotestTogglePanel",   "lua require('neotest').output_panel.toggle()" },
