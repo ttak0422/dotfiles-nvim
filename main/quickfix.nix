@@ -16,6 +16,7 @@ with pkgs.vimPlugins;
       #   postConfig = read ../lua/autogen/pqf.lua;
       # }
     ];
+    preConfig = read ../lua/bqf-pre.lua;
     postConfig = read ../lua/autogen/bqf.lua;
     hooks.events = [
       "QuickFixCmdPost"
