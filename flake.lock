@@ -4650,11 +4650,11 @@
     "pum-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1733738789,
-        "narHash": "sha256-vPo7n6ly1zFHQO7StTCI/8rr5CtOLzO9k+gjeJvSsyQ=",
+        "lastModified": 1734310383,
+        "narHash": "sha256-QvIYJpfjM3pBdsX41D+q/NXJCIyA5V1PAV9jey/aySQ=",
         "owner": "Shougo",
         "repo": "pum.vim",
-        "rev": "774d3daba7239aef39b22e22658a57a9fe366e87",
+        "rev": "42efba3e5736fe26fcb74ffe9c5a49a6a46d79ce",
         "type": "github"
       },
       "original": {
