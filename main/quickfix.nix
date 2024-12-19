@@ -17,7 +17,10 @@ with pkgs.vimPlugins;
       # }
     ];
     postConfig = read ../lua/autogen/bqf.lua;
-    hooks.events = [ "QuickFixCmdPost" "CmdlineEnter" ];
+    hooks.events = [
+      "QuickFixCmdPost"
+      "CmdlineEnter"
+    ];
   };
   qf = {
     package = qf-nvim;
@@ -34,6 +37,9 @@ with pkgs.vimPlugins;
   };
   qfreplace = {
     package = vim-qfreplace;
-    hooks.commands = [ "Qfreplace" ];
+    hooks = {
+      fileTypes = [ "qf" ];
+      commands = [ "Qfreplace" ];
+    };
   };
 }
