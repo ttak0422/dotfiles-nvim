@@ -32,6 +32,7 @@ let
     yaml = read ../lua/autogen/after/yaml.lua;
     jproperties = read ../lua/autogen/after/jproperties.lua;
     make = read ../lua/autogen/after/make.lua;
+    go = read ../lua/autogen/after/go.lua;
     rust = ''
       -- Hack: load rustaceanvim before setup
       require("rustaceanvim")
