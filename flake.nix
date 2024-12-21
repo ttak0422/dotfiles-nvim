@@ -1336,6 +1336,10 @@
       url = "github:leoluz/nvim-dap-go";
       flake = false;
     };
+    vimade = {
+      url = "github:TaDaa/vimade";
+      flake = false;
+    };
   };
 
   outputs =

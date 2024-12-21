@@ -151,7 +151,8 @@ let
       noice
       notify
       numb
-      tint
+      # tint
+      vimade
       winsep
       smear-cursor
       ;

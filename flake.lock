@@ -5038,6 +5038,7 @@
         "vim-translator": "vim-translator",
         "vim-vsnip": "vim-vsnip",
         "vim-vsnip-integ": "vim-vsnip-integ",
+        "vimade": "vimade",
         "vimdoc-ja": "vimdoc-ja",
         "virtual-types-nvim": "virtual-types-nvim",
         "vtsls": "vtsls",
@@ -5988,6 +5989,22 @@
       "original": {
         "owner": "hrsh7th",
         "repo": "vim-vsnip-integ",
+        "type": "github"
+      }
+    },
+    "vimade": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1734497740,
+        "narHash": "sha256-M74qLoYMO6mr+NzlgQSZm2nQv1Gp/4NA4vurTYoMZh4=",
+        "owner": "TaDaa",
+        "repo": "vimade",
+        "rev": "b258553e04212cb692a10894b220588daff21222",
+        "type": "github"
+      },
+      "original": {
+        "owner": "TaDaa",
+        "repo": "vimade",
         "type": "github"
       }
     },

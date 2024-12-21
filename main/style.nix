@@ -101,9 +101,14 @@ rec {
     postConfig = read ../lua/autogen/numb.lua;
     hooks.events = [ "CmdlineEnter" ];
   };
-  tint = {
-    package = tint-nvim;
-    postConfig = read ../lua/autogen/tint.lua;
+  # tint = {
+  #   package = tint-nvim;
+  #   postConfig = read ../lua/autogen/tint.lua;
+  #   hooks.events = [ "WinNew" ];
+  # };
+  vimade = {
+    package = pkgs.vimPlugins.vimade;
+    postConfig = read ../lua/autogen/vimade.lua;
     hooks.events = [ "WinNew" ];
   };
   winsep = {
