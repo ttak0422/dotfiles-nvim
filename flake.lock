@@ -4364,11 +4364,11 @@
     "nvim-ufo": {
       "flake": false,
       "locked": {
-        "lastModified": 1733116356,
-        "narHash": "sha256-Tt9/7hgV1mkNZyJpyeUpC45kgjyVXf4vhQy0V44xzgc=",
+        "lastModified": 1734508394,
+        "narHash": "sha256-zIIBHyjiJy8Iptw1JJc+Ami/C/6BKWEbdL5W55Oshec=",
         "owner": "kevinhwang91",
         "repo": "nvim-ufo",
-        "rev": "95cbe2e99901135704aabdc8732d722cf68b12c9",
+        "rev": "270ca542dae992ffe40274718c63645217ebc8bf",
         "type": "github"
       },
       "original": {

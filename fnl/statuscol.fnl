@@ -3,7 +3,7 @@
       segments [{:text ["%s"] :maxwidth 2 :click "v:lua.ScSa"}
                 {:text [builtin.lnumfunc] :click "v:lua.ScLa"}
                 {:text [" " builtin.foldfunc " "] :click "v:lua.ScFa"}]]
-  (M.setup {:setopt true :relculright false : segments})
+  (M.setup {:foldfunc :builtin :setopt true :relculright false : segments})
   ;; FIXME: 空bufferからの遷移時に上手く動作しないのでautocmdで対応する
   (vim.api.nvim_create_autocmd [:BufReadPost]
                                {:pattern ["*"]
