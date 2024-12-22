@@ -110,6 +110,14 @@ rec {
       language.lsp
       treesitter.treesitter
       snippet.vsnip
+      {
+        package = denippet-vim;
+        postConfig = {
+          code = read ../vim/denippet.vim;
+          args.root = ../tmpl/denippet;
+          language = "vim";
+        };
+      }
     ];
     postConfig = {
       language = "vim";

@@ -22,6 +22,7 @@ export class Config extends BaseConfig {
       ],
       backspaceCompletion: false,
       sources: [
+        "denippet",
         "lsp",
         "around",
         "vsnip",
@@ -104,6 +105,9 @@ export class Config extends BaseConfig {
         },
         omni: {
           mark: "[OMNI]",
+        },
+        denippet: {
+          mark: "[SNIP]",
         },
       },
       sourceParams: {

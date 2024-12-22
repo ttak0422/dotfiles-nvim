@@ -1340,6 +1340,10 @@
       url = "github:TaDaa/vimade";
       flake = false;
     };
+    denippet-vim = {
+      url = "github:uga-rosa/denippet.vim";
+      flake = false;
+    };
   };
 
   outputs =

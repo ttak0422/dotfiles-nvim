@@ -175,7 +175,6 @@ let
       ;
     inherit (callPackage ./treesitter.nix { })
       treesitter
-      auto-indent
       context-vt
       hlchunk
       ts-autotag

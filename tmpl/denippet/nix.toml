@@ -1,0 +1,10 @@
+[pkgs]
+prefix = "pkgs"
+body = """
+{ pkgs, ... }:
+{
+  $0
+}\
+"""
+if = "vimscript"
+eval = "line('.') == 1"

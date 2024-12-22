@@ -65,14 +65,14 @@ inoremap <C-x><C-l> <Cmd>call ddc#map#manual_complete(#{ sources: ['lsp'] })<CR>
 inoremap <expr> <C-Space> '<C-n>'
 
 " cmdline completion
-cnoremap <expr> <Tab>
-      \   wildmenumode()
-      \ ? &wildcharm->nr2char()
-      \ : pum#visible()
-      \ ? '<Cmd>call pum#map#insert_relative(+1)<CR>'
-      \ : ddc#map#manual_complete()
-
-cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+" cnoremap <expr> <Tab>
+"       \   wildmenumode()
+"       \ ? &wildcharm->nr2char()
+"       \ : pum#visible()
+"       \ ? '<Cmd>call pum#map#insert_relative(+1)<CR>'
+"       \ : ddc#map#manual_complete()
+"
+" cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 cnoremap <expr> <C-n> pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' : '<Down>'
 cnoremap <expr> <C-p> pum#visible() ? '<Cmd>call pum#map#insert_relative(-1)<CR>' : '<Up>'
 cnoremap <expr> <C-e> pum#visible() ? '<Cmd>call pum#map#cancel()<CR>' : '<End>'
