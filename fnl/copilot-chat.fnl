@@ -59,8 +59,8 @@
                 :accept_diff {:normal :<C-y> :insert :<C-y>}
                 :yank_diff {:normal :gy :register "\""}
                 :show_diff {:normal :gd}
-                :show_system_prompt {:normal :gp}
-                :show_info {:normal :gu}
+                :show_info {:normal :gi}
+                :show_context {:normal :gu}
                 :show_help {:normal :g?}}
       opts {:debug false
             :proxy nil
