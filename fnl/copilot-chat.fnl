@@ -30,7 +30,7 @@
                                                                    :severity vim.diagnostic.severity.WARN
                                                                    :source "Copilot Review"}))))]
                                       (vim.diagnostic.set namespace bufnr
-                                                           diagnostics)))}
+                                                          diagnostics)))}
                :Fix {:prompt "/COPILOT_GENERATE コード中にバグが含まれています.不具合を修正したコードを提示してください."}
                :Optimize {:prompt "/COPILOT_GENERATE 選択したコードのパフォーマンスと可読性を向上させてください."}
                :Docs {:prompt "/COPILOT_GENERATE 選択したコードのDocCommentを整備してください."}
@@ -42,7 +42,7 @@
                :CommitStaged {:prompt "コミットメッセージを規約に沿って記述してください. (タイトルは50文字以内,メッセージは72文字で改行する)"
                               :selection (fn [src]
                                            (S.gitdiff src true))}}
-      window {:layout :vertical
+      window {:layout :float
               :width 0.5
               :height 0.5
               :relative :editor
@@ -60,7 +60,7 @@
                 :yank_diff {:normal :gy :register "\""}
                 :show_diff {:normal :gd}
                 :show_system_prompt {:normal :gp}
-                :show_user_selection {:normal :gu}
+                :show_info {:normal :gu}
                 :show_help {:normal :g?}}
       opts {:debug false
             :proxy nil
