@@ -44,6 +44,13 @@ with pkgs.vimPlugins;
           language = "vim";
         };
       }
+      {
+        package = switch-vim;
+        preConfig = {
+          language = "vim";
+          code = read ../vim/switch.vim;
+        };
+      }
     ];
     hooks.events = [ "BufRead" ];
   };

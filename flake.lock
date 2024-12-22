@@ -5012,6 +5012,7 @@
         "statuscol-nvim": "statuscol-nvim",
         "stickybuf-nvim": "stickybuf-nvim",
         "surround-ui-nvim": "surround-ui-nvim",
+        "switch-vim": "switch-vim",
         "systems": "systems_2",
         "tabout-nvim": "tabout-nvim",
         "telescope-command-palette-nvim": "telescope-command-palette-nvim",
@@ -5303,6 +5304,22 @@
       "original": {
         "owner": "roobert",
         "repo": "surround-ui.nvim",
+        "type": "github"
+      }
+    },
+    "switch-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1716137360,
+        "narHash": "sha256-5QUAmnGWB8FmQqx27e6s9FWiX2jXrWSo16ZvU3sMQpY=",
+        "owner": "AndrewRadev",
+        "repo": "switch.vim",
+        "rev": "21defb202ebb8406b8ed63183a43ea026f2645b3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AndrewRadev",
+        "repo": "switch.vim",
         "type": "github"
       }
     },

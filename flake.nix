@@ -1344,6 +1344,10 @@
       url = "github:uga-rosa/denippet.vim";
       flake = false;
     };
+    switch-vim = {
+      url = "github:AndrewRadev/switch.vim";
+      flake = false;
+    };
   };
 
   outputs =
