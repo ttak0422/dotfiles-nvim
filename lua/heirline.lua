@@ -6,63 +6,31 @@ local heirline = setmetatable({
 	__index = require("heirline"),
 })
 
--- parameters
-local colors
-do
-	local C = require("morimo.colors")
-	colors = {
-		fg = C.fg,
-		bg = C.bg0,
-		red = C.red,
-		green = C.green,
-		blue = C.blue,
-		grey = C.grey0,
-		orange = C.orange,
-		purple = C.purple,
-		cyan = C.cyan,
-		git_add = C.lightGreen,
-		git_change = C.lightBlue,
-		git_del = C.lightRed,
+local function get_colors()
+	return {
+		fg = heirline.utils.get_highlight("Normal").fg,
+		bg = heirline.utils.get_highlight("Normal").bg,
+		red = heirline.utils.get_highlight("SpellBad").fg,
+		blue = heirline.utils.get_highlight("SpellCap").fg,
+		diag_warn = heirline.utils.get_highlight("DiagnosticWarn").fg,
+		diag_error = heirline.utils.get_highlight("DiagnosticError").fg,
+		diag_hint = heirline.utils.get_highlight("DiagnosticHint").fg,
+		diag_info = heirline.utils.get_highlight("DiagnosticInfo").fg,
+		git_del = heirline.utils.get_highlight("DiffDelete").fg,
+		git_add = heirline.utils.get_highlight("DiffAdd").fg,
+		git_change = heirline.utils.get_highlight("DiffChange").fg,
 	}
 end
-local mode_colors = {
-	n = "red",
-	no = "red",
-	nov = "red",
-	noV = "red",
-	["no\022"] = "red",
-	niI = "red",
-	niR = "red",
-	niV = "red",
-	nt = "red",
-	v = "blue",
-	vs = "blue",
-	V = "blue",
-	Vs = "blue",
-	["\022"] = "blue",
-	["\022s"] = "blue",
-	s = "purple",
-	S = "purple",
-	["\019"] = "purple",
-	i = "green",
-	ic = "green",
-	ix = "green",
-	R = "orange",
-	Rc = "orange",
-	Rx = "orange",
-	Rv = "orange",
-	Rvc = "orange",
-	Rvx = "orange",
-	c = "red",
-	ct = "red",
-	cv = "red",
-	ce = "red",
-	r = "red",
-	rm = "red",
-	["r?"] = "red",
-	["!"] = "red",
-	t = "red",
-}
+
+vim.api.nvim_create_augroup("Heirline", { clear = true })
+vim.api.nvim_create_autocmd("ColorScheme", {
+	callback = function()
+		heirline.utils.on_colorscheme(get_colors())
+	end,
+	group = "Heirline",
+})
+
+-- parameters
 local icons = {
 	vim = "",
 	lock = "",
@@ -85,63 +53,38 @@ local common = {
 }
 
 -- components
-local mode_symbol
-do
-	local symbol
-	do
-		local readonly_symbol = {
-			condition = function()
-				return vim.bo.readonly or not vim.bo.modifiable
-			end,
-			provider = icons.lock,
-			hl = { fg = colors.bg },
-		}
-		local vim_symbol = {
-			provider = icons.vim,
-			hl = { fg = colors.bg },
-		}
-		symbol = {
-			fallthrough = false,
-			readonly_symbol,
-			vim_symbol,
-		}
-	end
-	mode_symbol = {
-		init = function(self)
-			self.mode = vim.fn.mode(1)
-		end,
-		update = { "ModeChanged" },
-		heirline.utils.surround({ icons.fill, icons.fill }, function(self)
-			return mode_colors[self.mode:sub(1, 1)]
-		end, symbol),
-	}
-end
-
 local git
 do
 	local branch = {
 		provider = function(self)
-			return icons.git_branch .. " " .. self.git_status.head
+			return " " .. icons.git_branch .. " " .. self.git_status.head
 		end,
+		hl = { bold = true },
 	}
 	local changes = {
 		{
 			provider = function(self)
 				return " " .. icons.git_add .. " " .. (self.git_status.added or 0)
 			end,
-			hl = { fg = colors.git_add },
+			hl = function(self)
+				return { fg = vim.g["terminal_color_9"] or heirline.utils.get_highlight("DiffAdd").bg }
+			end,
 		},
 		{
 			provider = function(self)
 				return " " .. icons.git_change .. " " .. (self.git_status.changed or 0)
 			end,
-			hl = { fg = colors.git_change },
+			hl = function(self)
+				return { fg = vim.g["terminal_color_12"] or heirline.utils.get_highlight("DiffChange").bg }
+			end,
 		},
 		{
 			provider = function(self)
 				return " " .. icons.git_del .. " " .. (self.git_status.removed or 0)
 			end,
-			hl = { fg = colors.git_del },
+			hl = function(self)
+				return { fg = vim.g["terminal_color_10"] or heirline.utils.get_highlight("DiffDelete").bg }
+			end,
 		},
 	}
 	local active = {
@@ -256,10 +199,9 @@ local working_dir = {
 		self.root = self.alias[cwd] or cwd
 	end,
 	provider = function(self)
-		return "   " .. self.root .. " "
+		return self.root .. " "
 	end,
 	update = { "DirChanged" },
-	hl = { fg = colors.bg, bg = colors.orange },
 	static = {
 		alias = {
 			[""] = "ROOT",
@@ -277,7 +219,6 @@ do
 		provider = function()
 			return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
 		end,
-		hl = { fg = colors.fg },
 	}
 	special_status = {
 		condition = function()
@@ -290,7 +231,6 @@ do
 			})
 		end,
 		-- left
-		mode_symbol,
 		common.align,
 		-- center
 		help_name,
@@ -300,7 +240,6 @@ do
 			provider = function()
 				return " " .. icons.document .. " " .. string.upper(vim.bo.filetype) .. " "
 			end,
-			hl = { fg = colors.bg, bg = colors.blue },
 			update = { "WinNew", "WinClosed", "BufEnter" },
 		},
 	}
@@ -308,15 +247,8 @@ end
 
 local terminal_status
 do
-	local symbol = heirline.utils.surround({ icons.fill, icons.fill }, function()
-		return colors.red
-	end, {
-		provider = icons.vim,
-		hl = { fg = colors.bg },
-	})
 	local name = {
 		provider = "  terminal ",
-		hl = { fg = colors.bg, bg = colors.red },
 		update = {
 			"WinNew",
 			"WinClosed",
@@ -330,7 +262,6 @@ do
 				buftype = { "terminal" },
 			})
 		end,
-		symbol,
 		common.align,
 		name,
 	}
@@ -340,8 +271,6 @@ local default_status
 do
 	default_status = {
 		-- left
-		mode_symbol,
-		common.space,
 		git,
 		common.bar,
 		diagnostics,
@@ -354,7 +283,7 @@ do
 		ruler,
 		common.bar,
 		file_properties,
-		common.space,
+		common.bar,
 		working_dir,
 	}
 end
@@ -367,12 +296,12 @@ vim.o.laststatus = 3
 heirline.setup({
 	statusline = {
 		fallthrough = false,
-		hl = { fg = colors.fg, bg = colors.bg, bold = true },
+		hl = { fg = "fg", bg = "bg" },
 		special_status,
 		terminal_status,
 		default_status,
 	},
 	opts = {
-		colors = colors,
+		colors = get_colors(),
 	},
 })
