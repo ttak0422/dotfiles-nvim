@@ -20,6 +20,10 @@ let
       language = "vim";
       code = read ../vim/after/qf.vim;
     };
+    qfreplace = {
+      language = "vim";
+      code = read ../vim/after/qfreplace.vim;
+    };
     gina-blame = {
       language = "vim";
       code = read ../vim/after/gina-blame.vim;
