@@ -16,7 +16,13 @@
                                     :italic true}
                   :modified normal
                   :modified_visible normal
-                  :modified_selected active}
+                  :modified_selected active
+                  :duplicate normal
+                  :duplicate_visible {: bg : fg :italic true}
+                  :duplicate_selected {:bg rev_bg :fg rev_fg :italic true}
+                  :separator normal
+                  :separator_visible normal
+                  :separator_selected normal}
       options {:indicator {:icon "" :style :none}
                :separator_style ["" ""]
                :modified_icon ""
