@@ -2543,6 +2543,22 @@
         "type": "github"
       }
     },
+    "goimpl-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1730183651,
+        "narHash": "sha256-4kmvNdyA+by/jgo9CGNljND3AcLYgw0byfIQsSz8M2Y=",
+        "owner": "edolphin-ydf",
+        "repo": "goimpl.nvim",
+        "rev": "61257826f31a79870bb13d56c4edd09b1291c0b8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolphin-ydf",
+        "repo": "goimpl.nvim",
+        "type": "github"
+      }
+    },
     "gopher-nvim": {
       "flake": false,
       "locked": {
@@ -4633,6 +4649,22 @@
         "type": "github"
       }
     },
+    "popup-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1637254091,
+        "narHash": "sha256-dNWz/xovUg55fDZUpVs/2kLphk3lqQyvPtc9ATwbeSQ=",
+        "owner": "nvim-lua",
+        "repo": "popup.nvim",
+        "rev": "b7404d35d5d3548a82149238289fa71f7f6de4ac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-lua",
+        "repo": "popup.nvim",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": [
@@ -4903,6 +4935,7 @@
         "git-conflict-nvim": "git-conflict-nvim",
         "gitsigns-nvim": "gitsigns-nvim",
         "glance-nvim": "glance-nvim",
+        "goimpl-nvim": "goimpl-nvim",
         "gopher-nvim": "gopher-nvim",
         "goplements-nvim": "goplements-nvim",
         "goto-preview": "goto-preview",
@@ -5026,6 +5059,7 @@
         "pathlib-nvim": "pathlib-nvim",
         "pgmnt-vim": "pgmnt-vim",
         "plenary-nvim": "plenary-nvim",
+        "popup-nvim": "popup-nvim",
         "project-nvim": "project-nvim",
         "promise-async": "promise-async",
         "pum-vim": "pum-vim",

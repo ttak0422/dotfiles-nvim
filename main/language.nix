@@ -123,6 +123,14 @@ rec {
         package = goplements-nvim;
         postConfig = read ../lua/autogen/goplements.lua;
       }
+      {
+        package = goimpl-nvim;
+        postConfig = read ../lua/autogen/goimpl.lua;
+        depends = [
+          search.telescope
+          popup-nvim
+        ];
+      }
     ];
     postConfig = read ../lua/autogen/gopher.lua;
     extraPackages = with pkgs; [

@@ -1356,6 +1356,14 @@
       url = "github:maxandron/goplements.nvim";
       flake = false;
     };
+    goimpl-nvim = {
+      url = "github:edolphin-ydf/goimpl.nvim";
+      flake = false;
+    };
+    popup-nvim = {
+      url = "github:nvim-lua/popup.nvim";
+      flake = false;
+    };
   };
 
   outputs =
