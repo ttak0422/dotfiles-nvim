@@ -3,8 +3,11 @@
       fg {:attribute :fg :highlight :Normal}
       rev_bg {:attribute :fg :highlight :Normal}
       rev_fg {:attribute :bg :highlight :Normal}
+      sub_bg {:attribute :bg :highlight :Comment}
+      sub_fg {:attribute :fg :highlight :Comment}
       normal {: bg : fg}
       active {:bg rev_bg :fg rev_fg}
+      sub {:bg sub_bg :fg sub_fg}
       highlights {:fill normal
                   :background normal
                   :tab normal
@@ -22,7 +25,8 @@
                   :duplicate_selected {:bg rev_bg :fg rev_fg :italic true}
                   :separator normal
                   :separator_visible normal
-                  :separator_selected normal}
+                  :separator_selected normal
+                  :trunc_marker sub}
       options {:indicator {:icon "" :style :none}
                :separator_style ["" ""]
                :modified_icon ""
