@@ -160,7 +160,6 @@ let
     inherit (callPackage ./tool.nix { })
       translate-nvim
       no-neck-pain
-      jabs
       overseer
       spectre
       startuptime
