@@ -1,5 +1,6 @@
 -- [nfnl] Compiled from fnl/telescope.fnl by https://github.com/Olical/nfnl, do not edit.
 local M = require("telescope")
+local builtin = require("telescope.builtin")
 local themes = require("telescope.themes")
 local actions = require("telescope.actions")
 local lga_actions = require("telescope-live-grep-args.actions")
@@ -8,4 +9,8 @@ local extensions = {live_grep_args = {auto_quoting = true, mappings = {i = {["<C
 M.setup({defaults = defaults, extensions = extensions})
 M.load_extension("live_grep_args")
 M.load_extension("ast_grep")
-return M.load_extension("sonictemplate")
+M.load_extension("sonictemplate")
+local function _1_()
+  return builtin.buffers({sort_mru = true, ignore_current_buffer = true})
+end
+return vim.api.nvim_create_user_command("TelescopeBuffer", _1_, {})

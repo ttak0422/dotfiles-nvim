@@ -28,7 +28,7 @@ rec {
       # for sg
       ast-grep
     ];
-    hooks.commands = [ "Telescope" ];
+    hooks.commands = [ "Telescope" "TelescopeB" ];
   };
   asterisk = {
     package = vim-asterisk;

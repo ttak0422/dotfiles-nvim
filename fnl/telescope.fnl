@@ -1,4 +1,5 @@
 (let [M (require :telescope)
+      builtin (require :telescope.builtin)
       themes (require :telescope.themes)
       actions (require :telescope.actions)
       lga_actions (require :telescope-live-grep-args.actions)
@@ -21,4 +22,9 @@
   (M.setup {: defaults : extensions})
   (M.load_extension :live_grep_args)
   (M.load_extension :ast_grep)
-  (M.load_extension :sonictemplate))
+  (M.load_extension :sonictemplate)
+  (vim.api.nvim_create_user_command :TelescopeBuffer
+                                    (fn []
+                                      (builtin.buffers {:sort_mru true
+                                                        :ignore_current_buffer true}))
+                                    {}))

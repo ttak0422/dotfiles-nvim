@@ -57,6 +57,7 @@
                        (cmd "Telescope live_grep_args")
                        (desc "search by content")]
                       [:fF (cmd "Telescope ast_grep") (desc "search by AST")]
+                      [:fb (cmd :TelescopeB) (desc "search by buffer")]
                       [:ft
                        (cmd "Telescope sonictemplate templates")
                        (desc "search templates")]
