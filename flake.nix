@@ -1348,6 +1348,10 @@
       url = "github:AndrewRadev/switch.vim";
       flake = false;
     };
+    hardtime-nvim = {
+      url = "github:m4xshen/hardtime.nvim";
+      flake = false;
+    };
   };
 
   outputs =

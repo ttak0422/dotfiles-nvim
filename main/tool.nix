@@ -132,4 +132,12 @@ rec {
     package = pgmnt-vim;
     hooks.fileTypes = [ "vim" ];
   };
+  hardtime = {
+    package = hardtime-nvim;
+    postConfig = read ../lua/autogen/hardtime.lua;
+    depends = [
+      lib.nui
+    ];
+    hooks.commands = [ "Hardtime" ];
+  };
 }

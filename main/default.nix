@@ -171,6 +171,7 @@ let
       copilot-chat
       screenkey
       pgmnt
+      hardtime
       ;
     inherit (callPackage ./treesitter.nix { })
       treesitter
