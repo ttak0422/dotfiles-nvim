@@ -1,6 +1,6 @@
 -- [nfnl] Compiled from fnl/treesitter.fnl by https://github.com/Olical/nfnl, do not edit.
 local parser_install_dir = args.parser
-do end (vim.opt.runtimepath):prepend(parser_install_dir)
+vim.opt.runtimepath:prepend(parser_install_dir)
 local config = require("nvim-treesitter.configs")
 local highlight
 local function _1_(lang, buf)
@@ -13,5 +13,5 @@ local function _1_(lang, buf)
   end
 end
 highlight = {enable = true, disable = _1_, additional_vim_regex_highlighting = false}
-local indent = {enable = false}
-return config.setup({ignore_install = {}, parser_install_dir = parser_install_dir, highlight = highlight, indent = indent, sync_install = false, auto_install = false})
+local indent = {enable = true}
+return config.setup({ignore_install = {}, parser_install_dir = parser_install_dir, highlight = highlight, indent = indent, auto_install = false, sync_install = false})
