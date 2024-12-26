@@ -2559,6 +2559,22 @@
         "type": "github"
       }
     },
+    "goplements-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722401875,
+        "narHash": "sha256-/vMQt6i3SiTe9gO9VmlW+J2SJNPKjmbqp88tW7/USk0=",
+        "owner": "maxandron",
+        "repo": "goplements.nvim",
+        "rev": "a3291c4db092d5bc95ec0e6e2bcfc14587d06dfc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "maxandron",
+        "repo": "goplements.nvim",
+        "type": "github"
+      }
+    },
     "goto-preview": {
       "flake": false,
       "locked": {
@@ -4888,6 +4904,7 @@
         "gitsigns-nvim": "gitsigns-nvim",
         "glance-nvim": "glance-nvim",
         "gopher-nvim": "gopher-nvim",
+        "goplements-nvim": "goplements-nvim",
         "goto-preview": "goto-preview",
         "hardtime-nvim": "hardtime-nvim",
         "harpoon": "harpoon",

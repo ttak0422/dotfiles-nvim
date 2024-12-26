@@ -1352,6 +1352,10 @@
       url = "github:m4xshen/hardtime.nvim";
       flake = false;
     };
+    goplements-nvim = {
+      url = "github:maxandron/goplements.nvim";
+      flake = false;
+    };
   };
 
   outputs =

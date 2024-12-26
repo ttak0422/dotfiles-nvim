@@ -119,6 +119,10 @@ rec {
       lib.plenary
       treesitter.treesitter
       lsp
+      {
+        package = goplements-nvim;
+        postConfig = read ../lua/autogen/goplements.lua;
+      }
     ];
     postConfig = read ../lua/autogen/gopher.lua;
     extraPackages = with pkgs; [
