@@ -4714,11 +4714,11 @@
     "registers-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1720768996,
-        "narHash": "sha256-oO28+iQwsVDdNvO8DTJ7rsumFZt4HcvN2KXjfJN19Gs=",
+        "lastModified": 1730794647,
+        "narHash": "sha256-M7uR3yXYUQ4I8Gt8P6k25q67UNwksRDPKGrS/FCqrt0=",
         "owner": "tversteeg",
         "repo": "registers.nvim",
-        "rev": "17df665d3fd8995b69a1a434cb285a25ab22cc49",
+        "rev": "c217f8f369e0886776cda6c94eab839b30a8940d",
         "type": "github"
       },
       "original": {
