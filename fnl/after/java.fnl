@@ -94,7 +94,6 @@
            :-data
            work_space]
       handlers {:language/status (fn [])} ;
-      capabilities (dofile args.capabilities_path)
       build_timeout 10000
       on_attach (fn [client bufnr]
                   (let [opts (fn [desc] {:silent true :buffer bufnr : desc})
@@ -117,7 +116,6 @@
                            ;  (with_compile jdtls.test_class)
                            ;  (opts "[JDTLS] test class")]
                            ]]
-                    ((dofile args.on_attach_path) client bufnr)
                     (jdtls.dap.setup_dap {:hotcodereplace :auto})
                     (jdtls.dap.setup_dap_main_class_configs)
                     (each [_ k (ipairs N)]

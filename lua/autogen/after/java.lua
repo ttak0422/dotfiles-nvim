@@ -53,7 +53,6 @@ local handlers
 local function _3_()
 end
 handlers = {["language/status"] = _3_}
-local capabilities = dofile(args.capabilities_path)
 local build_timeout = 10000
 local on_attach
 local function _4_(client, bufnr)
@@ -76,7 +75,6 @@ local function _4_(client, bufnr)
   end
   with_compile = _6_
   local N = {{"<LocalLeader>o", jdtls.organize_imports, opts("[JDTLS] organize imports")}}
-  dofile(args.on_attach_path)(client, bufnr)
   jdtls.dap.setup_dap({hotcodereplace = "auto"})
   jdtls.dap.setup_dap_main_class_configs()
   for _, k in ipairs(N) do
