@@ -106,11 +106,8 @@ rec {
       taplo-cli
       kotlin-language-server
     ];
-    preConfig = read ../lua/lsp-pre.lua;
-    postConfig = {
-      code = read ../lua/autogen/lsp.lua;
-      args.on_attach_path = ../lua/autogen/lsp-on-attach.lua;
-    };
+    preConfig = read ../lua/autogen/lsp-pre.lua;
+    postConfig = read ../lua/autogen/lsp.lua;
     hooks.events = [ "BufReadPost" ];
   };
   gopher = {
@@ -153,13 +150,7 @@ rec {
       lsp
     ];
     preConfig.code = read ../lua/autogen/haskell-tools-pre.lua;
-    postConfig = {
-      code = read ../lua/autogen/haskell-tools.lua;
-      args = {
-        on_attach_path = ../lua/autogen/lsp-on-attach.lua;
-        capabilities_path = ../lua/autogen/ddc-capabilities.lua;
-      };
-    };
+    postConfig = read ../lua/autogen/haskell-tools.lua;
     extraPackages = with pkgs; [
       ghc
       haskellPackages.fourmolu
@@ -230,18 +221,12 @@ rec {
       debug.dap
     ];
     extraPackages = with pkgs; [ graphviz ];
-    postConfig = {
-      code = read ../lua/autogen/rustaceanvim.lua;
-      args.on_attach_path = ../lua/autogen/lsp-on-attach.lua;
-    };
+    postConfig = read ../lua/autogen/rustaceanvim.lua;
     hooks.modules = [ "rustaceanvim" ];
   };
   crates = {
     package = crates-nvim;
-    postConfig = {
-      code = read ../lua/autogen/crates.lua;
-      args.on_attach_path = ../lua/autogen/lsp-on-attach.lua;
-    };
+    postConfig = read ../lua/autogen/crates.lua;
     depends = [ null-ls ];
     hooks.fileTypes = [ "toml" ];
   };

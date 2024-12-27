@@ -50,8 +50,6 @@ let
       {
         code = read ../lua/autogen/after/java.lua;
         args = {
-          on_attach_path = ../lua/autogen/lsp-on-attach.lua;
-          capabilities_path = ../lua/autogen/ddc-capabilities.lua;
           java_path = "${pkgs.jdk17}/bin/java";
           # java23_path = "${pkgs.jdk23}/bin/java";
           java17_path = "${pkgs.jdk17}/bin/java";

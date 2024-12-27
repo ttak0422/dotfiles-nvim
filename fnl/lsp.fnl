@@ -1,89 +1,58 @@
-;; configured by bundler-nvim
-(local on_attach (dofile args.on_attach_path))
-
-(vim.lsp.set_log_level :ERROR)
-(tset vim.lsp.handlers :textDocument/hover
-      (vim.lsp.with vim.lsp.handlers.hover {:border :none}))
-
-(tset vim.lsp.handlers :textDocument/publishDiagnostics
-      (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
-        {:update_in_insert false}))
-
-(vim.diagnostic.config {:severity_sort true
-                        :virtual_text false
-                        :update_in_insert false
-                        :signs {:text {vim.diagnostic.severity.ERROR ""
-                                       vim.diagnostic.severity.WARN ""
-                                       vim.diagnostic.severity.INFO ""
-                                       vim.diagnostic.severity.HINT ""}
-                                :numhl {vim.diagnostic.severity.ERROR ""
-                                        vim.diagnostic.severity.WARN ""
-                                        vim.diagnostic.severity.INFO ""
-                                        vim.diagnostic.severity.HINT ""}}})
-
-(local lspconfig (require :lspconfig))
-;; (local util (require :lspconfig.util))
-(local windows (require :lspconfig.ui.windows))
+(local lsp (require :lspconfig))
 (local climb (require :climbdir))
 (local marker (require :climbdir.marker))
 
-(set windows.default_options.border :none)
-
-;; lua
-(lspconfig.lua_ls.setup {: on_attach
-                         :settings {:Lua {:runtime {:version :LuaJIT}
+; lua
+(lsp.lua_ls.setup {:settings {:Lua {:runtime {:version :LuaJIT}
                                           :diagnostics {:globals [:vim]}}
                                     :workspace {}
                                     :telemetry {:enable false}}})
 
 ;; fennel
-(lspconfig.fennel_ls.setup {: on_attach
-                            :settings {:fennel-ls {:extra-globals :vim}}})
+(lsp.fennel_ls.setup {:settings {:fennel-ls {:extra-globals :vim}}})
 
 ;; nix
-(lspconfig.nil_ls.setup {: on_attach
-                         :autostart true
+(lsp.nil_ls.setup {:autostart true
                          :settings {:nil {:formatting {:command [:nixpkgs-fmt]}}}})
 
 ;; bash
-(lspconfig.bashls.setup {: on_attach})
+(lsp.bashls.setup)
 
 ;; csharp
-(lspconfig.csharp_ls.setup {: on_attach})
+(lsp.csharp_ls.setup)
 
 ;; python
-(lspconfig.pyright.setup {: on_attach})
+(lsp.pyright.setup)
 
 ;; ruby
-(lspconfig.solargraph.setup {: on_attach})
+(lsp.solargraph.setup)
 
 ;; toml
-(lspconfig.taplo.setup {: on_attach})
+(lsp.taplo.setup)
 
 ; go
-(lspconfig.gopls.setup {: on_attach})
+(lsp.gopls.setup)
 
 ;; dart
-(lspconfig.dartls.setup {: on_attach})
+(lsp.dartls.setup)
 
 ;; dhall
-(lspconfig.dhall_lsp_server.setup {: on_attach})
+(lsp.dhall_lsp_server.setup)
 
 ;; yaml
-(lspconfig.yamlls.setup {: on_attach :settings {:yaml {:keyOrdering false}}})
+(lsp.yamlls.setup {:settings {:yaml {:keyOrdering false}}})
 
 ;; html
-(lspconfig.html.setup {: on_attach})
+(lsp.html.setup)
 
 ;; css, css, less
-(lspconfig.cssls.setup {: on_attach})
+(lsp.cssls.setup)
 
 ;; json
-(lspconfig.jsonls.setup {: on_attach})
+(lsp.jsonls.setup)
 
 ;; typescript (node)
-(lspconfig.vtsls.setup {: on_attach
-                        :single_file_support false
+(lsp.vtsls.setup {:single_file_support false
                         :settings {:separate_diagnostic_server true
                                    :publish_diagnostic_on :insert_leave
                                    :typescript {:suggest {:completeFunctionCalls true}
@@ -96,8 +65,7 @@
                         :vtsls {:experimental {:completion {:enableServerSideFuzzyMatch true}}}})
 
 ;; typescript (deno)
-(lspconfig.denols.setup {: on_attach
-                         :single_file_support false
+(lsp.denols.setup {:single_file_support false
                          :root_dir (fn [path]
                                      (local found
                                             (climb.climb path
@@ -122,10 +90,10 @@
                          :settings {:deno {:enable true}}})
 
 ;; markdown
-(lspconfig.marksman.setup {: on_attach})
+(lsp.marksman.setup)
 
 ;; ast_grep
-(lspconfig.ast_grep.setup {: on_attach})
+(lsp.ast_grep.setup)
 
 ;; efm
 (let [luacheck (require :efmls-configs.linters.luacheck)
@@ -158,9 +126,8 @@
                       {:single_file_support true
                        :filetypes (vim.tbl_keys languages)
                        : settings
-                       : init_options
-                       : on_attach})]
-  (lspconfig.efm.setup (make_settings)))
+                       : init_options})]
+  (lsp.efm.setup (make_settings)))
 
 ;; kotlin
-(lspconfig.kotlin_language_server.setup {: on_attach})
+(lsp.kotlin_language_server.setup)
