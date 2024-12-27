@@ -158,20 +158,21 @@ let
       ;
     inherit (callPackage ./test.nix { }) neotest;
     inherit (callPackage ./tool.nix { })
-      translate-nvim
-      no-neck-pain
-      overseer
-      spectre
-      startuptime
-      window-picker
+      aerial
+      copilot-chat
+      dotfyle-metadata
+      hardtime
       lir
+      no-neck-pain
       oil
       other
-      dotfyle-metadata
-      copilot-chat
-      screenkey
+      overseer
       pgmnt
-      hardtime
+      screenkey
+      spectre
+      startuptime
+      translate-nvim
+      window-picker
       ;
     inherit (callPackage ./treesitter.nix { })
       treesitter

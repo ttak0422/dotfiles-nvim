@@ -98,6 +98,22 @@
         "type": "github"
       }
     },
+    "aerial-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1734804217,
+        "narHash": "sha256-YLgOrKa4i5XcYtOT9BjHw/C85gYA7DWSrotFBrrQwMc=",
+        "owner": "stevearc",
+        "repo": "aerial.nvim",
+        "rev": "1160fb7a15a34b03b7381d95d45560712b5f19d0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stevearc",
+        "repo": "aerial.nvim",
+        "type": "github"
+      }
+    },
     "alpha-nvim": {
       "flake": false,
       "locked": {
@@ -4799,6 +4815,7 @@
         "JABS-nvim": "JABS-nvim",
         "LuaSnip": "LuaSnip",
         "NeoZoom-lua": "NeoZoom-lua",
+        "aerial-nvim": "aerial-nvim",
         "alpha-nvim": "alpha-nvim",
         "auto-indent-nvim": "auto-indent-nvim",
         "auto-save-nvim": "auto-save-nvim",
@@ -5346,11 +5363,11 @@
     "stickybuf-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1717295448,
-        "narHash": "sha256-iusbKZrMTYrAhVaEtknJIc0WgIpDFK0FquvrYQUYCZE=",
+        "lastModified": 1723846947,
+        "narHash": "sha256-yVXfpUjYYbvuoKL2DhZa7CyOZirVkyn7z0jqytkj+WI=",
         "owner": "stevearc",
         "repo": "stickybuf.nvim",
-        "rev": "709da3b895a99bbfedd5b59a1a91930026288c15",
+        "rev": "183b9569bef78f44b17c078214f7d731f19cbefe",
         "type": "github"
       },
       "original": {

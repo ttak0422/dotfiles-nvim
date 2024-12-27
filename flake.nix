@@ -1364,6 +1364,10 @@
       url = "github:nvim-lua/popup.nvim";
       flake = false;
     };
+    aerial-nvim = {
+      url = "github:stevearc/aerial.nvim";
+      flake = false;
+    };
   };
 
   outputs =
