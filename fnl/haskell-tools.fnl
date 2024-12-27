@@ -7,7 +7,6 @@
                               ["" :FloatBorder]
                               ["" :FloatBorder]
                               ["" :FloatBorder]]}}
-      hls {:on_attach (dofile args.on_attach_path)
-           :capabilities (dofile args.capabilities_path)}
+      hls {}
       dap {}]
   (set vim.g.haskell_tools {: tools : hls : dap}))
