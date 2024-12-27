@@ -1,6 +1,5 @@
 -- [nfnl] Compiled from fnl/rustaceanvim.fnl by https://github.com/Olical/nfnl, do not edit.
-local on_attach = dofile(args.on_attach_path)
-local server = {on_attach = on_attach}
+local server = {}
 local tools
 do
   local executors = require("rustaceanvim.executors")

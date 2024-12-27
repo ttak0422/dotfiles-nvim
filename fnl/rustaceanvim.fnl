@@ -1,6 +1,4 @@
-(local on_attach (dofile args.on_attach_path))
-
-(let [server {: on_attach}
+(let [server {}
       tools (let [executors (require :rustaceanvim.executors)
                   code_actions {:ui_select_fallback true}
                   border :none
