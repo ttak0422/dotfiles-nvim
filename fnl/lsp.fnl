@@ -16,40 +16,40 @@
                          :settings {:nil {:formatting {:command [:nixpkgs-fmt]}}}})
 
 ;; bash
-(lsp.bashls.setup)
+(lsp.bashls.setup {})
 
 ;; csharp
-(lsp.csharp_ls.setup)
+(lsp.csharp_ls.setup {})
 
 ;; python
-(lsp.pyright.setup)
+(lsp.pyright.setup {})
 
 ;; ruby
-(lsp.solargraph.setup)
+(lsp.solargraph.setup {})
 
 ;; toml
-(lsp.taplo.setup)
+(lsp.taplo.setup {})
 
 ; go
-(lsp.gopls.setup)
+(lsp.gopls.setup {})
 
 ;; dart
-(lsp.dartls.setup)
+(lsp.dartls.setup {})
 
 ;; dhall
-(lsp.dhall_lsp_server.setup)
+(lsp.dhall_lsp_server.setup {})
 
 ;; yaml
 (lsp.yamlls.setup {:settings {:yaml {:keyOrdering false}}})
 
 ;; html
-(lsp.html.setup)
+(lsp.html.setup {})
 
 ;; css, css, less
-(lsp.cssls.setup)
+(lsp.cssls.setup {})
 
 ;; json
-(lsp.jsonls.setup)
+(lsp.jsonls.setup {})
 
 ;; typescript (node)
 (lsp.vtsls.setup {:single_file_support false
@@ -90,10 +90,10 @@
                          :settings {:deno {:enable true}}})
 
 ;; markdown
-(lsp.marksman.setup)
+(lsp.marksman.setup {})
 
 ;; ast_grep
-(lsp.ast_grep.setup)
+(lsp.ast_grep.setup {})
 
 ;; efm
 (let [luacheck (require :efmls-configs.linters.luacheck)
@@ -130,4 +130,4 @@
   (lsp.efm.setup (make_settings)))
 
 ;; kotlin
-(lsp.kotlin_language_server.setup)
+(lsp.kotlin_language_server.setup {})

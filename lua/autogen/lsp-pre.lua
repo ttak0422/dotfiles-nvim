@@ -13,9 +13,9 @@ end
 cmd = _1_
 local NS
 local function _2_()
-  return require("live-rename").map({insert = true})
+  return require("live-rename").rename({insert = true})
 end
-NS = {{"gd", vim.lsp.buf.definition, "\238\171\132 go to definition"}, {"gi", vim.lsp.buf.implementation, "\238\171\132 go to implementation"}, {"gr", vim.lsp.buf.references, "\238\171\132 go to references"}, {"K", vim.lsp.buf.hover, "\238\171\132 show doc"}, {"<Leader>K", vim.lsp.buf.signature_help, "\238\171\132 show signature"}, {"<Leader>D", vim.lsp.buf.type_definition, "\238\171\132 show type"}, {"<Leader>ca", vim.lsp.buf.code_action, "\238\171\132 code action"}, {"gD", cmd("Glance definitions"), "\238\171\132 go to definition"}, {"gI", cmd("Glance implementations"), "\238\171\132 go to impl"}, {"gR", cmd("Glance references"), "\238\171\132 go to references"}, {"<leader>cc", cmd("Neogen class"), "\238\171\132 class comment"}, {"<leader>cf", cmd("Neogen func"), "\238\171\132 fn comment"}, {"<leader>rn", _2_, "\238\171\132 fn comment"}}
+NS = {{"gd", vim.lsp.buf.definition, "go to definition"}, {"gi", vim.lsp.buf.implementation, "go to implementation"}, {"gr", vim.lsp.buf.references, "go to references"}, {"K", vim.lsp.buf.hover, "show doc"}, {"<Leader>K", vim.lsp.buf.signature_help, "show signature"}, {"<Leader>D", vim.lsp.buf.type_definition, "show type"}, {"<Leader>ca", vim.lsp.buf.code_action, "code action"}, {"gD", cmd("Glance definitions"), "go to definition"}, {"gI", cmd("Glance implementations"), "go to impl"}, {"gR", cmd("Glance references"), "go to references"}, {"<leader>cc", cmd("Neogen class"), "class comment"}, {"<leader>cf", cmd("Neogen func"), "fn comment"}, {"<leader>rn", _2_, "rename"}}
 local callback
 local function _3_(ctx)
   local bufnr = ctx.buf
@@ -26,7 +26,7 @@ local function _3_(ctx)
   end
   desc = _4_
   for _, k in ipairs(NS) do
-    vim.keymap.set("n", k[1], k[2], desc(k[3]))
+    vim.keymap.set("n", k[1], k[2], desc(("\238\171\132 " .. k[3])))
   end
   if client.supports_method("textDocument/formatting") then
     vim.keymap.set("n", "<leader>cF", vim.lsp.buf.format, desc("\238\171\132 format"))
