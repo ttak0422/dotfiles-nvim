@@ -26,6 +26,8 @@
                   :separator normal
                   :separator_visible normal
                   :separator_selected normal
+                  :indicator_visible normal
+                  :indicator_selected normal
                   :trunc_marker sub}
       options {:indicator {:icon "" :style :none}
                :separator_style ["" ""]
