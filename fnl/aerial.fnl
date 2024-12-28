@@ -27,8 +27,16 @@
              :TypeParameter "󰗴"}
       layout {:max_width 0.25
               :min_width 0.15
-              :default_direction :prefer_left
+              :default_direction :float
               :placement :window}
+      float {:border :none
+             ; -- Determines location of floating window
+             ; --   cursor - Opens float on top of the cursor
+             ; --   editor - Opens float centered in the editor
+             ; --   win    - Opens float centered in the window
+             :relative :cursor
+             :max_height 0.9
+             :min_height [8 0.1]}
       keymaps {:g? :actions.show_help
                :<CR> :actions.jump
                :<2-LeftMouse> :actions.jump
@@ -85,6 +93,7 @@
   (M.setup {: backends
             : icons
             : layout
+            : float
             : keymaps
             : filter_kind
             : ignore
