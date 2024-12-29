@@ -43,8 +43,8 @@
                               :selection (fn [src]
                                            (S.gitdiff src true))}}
       window {:layout :float
-              :width 0.5
-              :height 0.5
+              :width 0.75
+              :height 0.75
               :relative :editor
               :border :none
               :row nil
