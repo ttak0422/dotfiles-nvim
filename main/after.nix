@@ -16,6 +16,7 @@ let
     dofile("${pkgs.vimPlugins.haskell-tools-nvim}/ftplugin/haskell.lua")
   '';
   ftplugin = {
+    fennel = read ../lua/autogen/after/fennel.lua;
     qf = {
       language = "vim";
       code = read ../vim/after/qf.vim;
