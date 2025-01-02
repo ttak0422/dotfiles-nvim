@@ -48,9 +48,6 @@ with pkgs.vimPlugins;
   neorg = {
     packages = [
       pkgs.vimPlugins.neorg
-      lib.plenary
-      lib.nui
-      lib.nio
       lua-utils-nvim
       pathlib-nvim
       neorg-jupyter
