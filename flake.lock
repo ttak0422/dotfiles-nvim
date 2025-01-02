@@ -2809,11 +2809,11 @@
     "hlchunk-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1727833913,
-        "narHash": "sha256-Rx5kpjfpiH9i/IvOXx+wEWSO4gdfmXdhULDxbcBJQAY=",
+        "lastModified": 1732349755,
+        "narHash": "sha256-f5VVfpfVZk6ULBWVSVEzXBN9F4ROTzhomV1F2mKIem4=",
         "owner": "shellRaining",
         "repo": "hlchunk.nvim",
-        "rev": "ba6e2347177fec8ec6af4ae26d11a468c9e0ca72",
+        "rev": "5465dd33ade8676d63f6e8493252283060cd72ca",
         "type": "github"
       },
       "original": {
