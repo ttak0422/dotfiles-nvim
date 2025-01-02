@@ -1368,6 +1368,10 @@
       url = "github:stevearc/aerial.nvim";
       flake = false;
     };
+    nvim-regexplainer = {
+      url = "github:bennypowers/nvim-regexplainer";
+      flake = false;
+    };
   };
 
   outputs =

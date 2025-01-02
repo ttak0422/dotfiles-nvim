@@ -1,7 +1,9 @@
 { pkgs, ... }:
 let
+  inherit (pkgs) callPackage;
   inherit (pkgs.lib.strings) concatStringsSep;
   read = builtins.readFile;
+  lib = callPackage ./lib.nix { };
 in
 with pkgs.vimPlugins;
 rec {
@@ -105,6 +107,14 @@ rec {
       "tsx"
       "vue"
       "html"
+    ];
+  };
+  regexplainer = {
+    package = nvim-regexplainer;
+    postConfig = read ../lua/autogen/regexplainer.lua;
+    depends = [
+      treesitter
+      lib.nui
     ];
   };
 }

@@ -4393,6 +4393,22 @@
         "type": "github"
       }
     },
+    "nvim-regexplainer": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721131106,
+        "narHash": "sha256-BXJUuASXHTRIQa5tSHrZXmpFspFiaItrDGETyS6ryhY=",
+        "owner": "bennypowers",
+        "repo": "nvim-regexplainer",
+        "rev": "2ec38892e7ce36f0c58b478f3570936fa5bd11f1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bennypowers",
+        "repo": "nvim-regexplainer",
+        "type": "github"
+      }
+    },
     "nvim-spectre": {
       "flake": false,
       "locked": {
@@ -5059,6 +5075,7 @@
         "nvim-nio": "nvim-nio",
         "nvim-notify": "nvim-notify",
         "nvim-pqf": "nvim-pqf",
+        "nvim-regexplainer": "nvim-regexplainer",
         "nvim-spectre": "nvim-spectre",
         "nvim-surround": "nvim-surround",
         "nvim-ts-autotag": "nvim-ts-autotag",
