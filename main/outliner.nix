@@ -48,11 +48,14 @@ with pkgs.vimPlugins;
   neorg = {
     packages = [
       pkgs.vimPlugins.neorg
+      lib.plenary
+      lib.nui
+      lib.nio
+      lua-utils-nvim
+      pathlib-nvim
       neorg-jupyter
       neorg-templates
       neorg-telescope
-      lua-utils-nvim
-      pathlib-nvim
     ];
     depends = [
       # input.cmp
