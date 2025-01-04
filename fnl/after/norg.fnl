@@ -4,6 +4,8 @@
                    :concealcursor :n})]
   (tset vim.opt_local k v))
 
+(vim.opt_local.iskeyword:append ["$" "/"])
+
 (let [map vim.keymap.set
       opts (fn [d] {:noremap false :silent true :buffer true :desc d})
       N [[:u

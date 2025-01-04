@@ -1026,6 +1026,22 @@
         "type": "github"
       }
     },
+    "ddc-source-neorg": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1735963914,
+        "narHash": "sha256-V/SSX4IqhfX/uD4gf9wdyPFBa6MFH+V0+XaqyZBDABs=",
+        "owner": "ttak0422",
+        "repo": "ddc-source-neorg",
+        "rev": "dd944fedeac77487814c24a1601d61f8c1a9485d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ttak0422",
+        "repo": "ddc-source-neorg",
+        "type": "github"
+      }
+    },
     "ddc-source-nextword": {
       "flake": false,
       "locked": {
@@ -4060,11 +4076,11 @@
     "nvim-autopairs": {
       "flake": false,
       "locked": {
-        "lastModified": 1727742362,
-        "narHash": "sha256-pqYOaEjKUd5YLVWX0Bf/kYT+sBlN1D24rOBuIz2BIqk=",
+        "lastModified": 1731803843,
+        "narHash": "sha256-LbaxiU3ienVBcMKrug3Coppc4R+MD2rjREw7rHQim1w=",
         "owner": "windwp",
         "repo": "nvim-autopairs",
-        "rev": "ee297f215e95a60b01fde33275cc3c820eddeebe",
+        "rev": "b464658e9b880f463b9f7e6ccddd93fb0013f559",
         "type": "github"
       },
       "original": {
@@ -4887,6 +4903,7 @@
         "ddc-source-line": "ddc-source-line",
         "ddc-source-lsp": "ddc-source-lsp",
         "ddc-source-lsp-setup": "ddc-source-lsp-setup",
+        "ddc-source-neorg": "ddc-source-neorg",
         "ddc-source-nextword": "ddc-source-nextword",
         "ddc-source-nvim-lsp": "ddc-source-nvim-lsp",
         "ddc-source-omni": "ddc-source-omni",

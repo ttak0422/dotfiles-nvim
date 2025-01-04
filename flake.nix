@@ -1372,6 +1372,10 @@
       url = "github:bennypowers/nvim-regexplainer";
       flake = false;
     };
+    ddc-source-neorg = {
+      url = "github:ttak0422/ddc-source-neorg";
+      flake = false;
+    };
   };
 
   outputs =

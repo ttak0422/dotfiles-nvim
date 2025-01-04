@@ -109,6 +109,10 @@ export class Config extends BaseConfig {
         denippet: {
           mark: "[SNIP]",
         },
+        neorg: {
+          mark: "[ Neorg]",
+          minAutoCompleteLength: 0,
+        },
       },
       sourceParams: {
         buffer: {
@@ -132,6 +136,10 @@ export class Config extends BaseConfig {
     contextBuilder.patchFiletype("vim", {
       specialBufferCompletion: true,
       sources: ["lsp", "necovim", "around"],
+    });
+
+    contextBuilder.patchFiletype("norg", {
+      sources: ["neorg", "around"],
     });
 
     for (const filetype of ["typescript", "javascript"]) {

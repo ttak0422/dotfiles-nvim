@@ -88,6 +88,7 @@ rec {
       ddc-source-lsp-setup
       ddc-source-vsnip
       ddc-source-vsnip
+      ddc-source-neorg
       ddc-treesitter
       ddc-converter_remove_overlap
       ddc-converter_truncate

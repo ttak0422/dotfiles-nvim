@@ -2,6 +2,7 @@
 for k, v in pairs({conceallevel = 3, concealcursor = "n", swapfile = false, wrap = false}) do
   vim.opt_local[k] = v
 end
+vim.opt_local.iskeyword:append({"$", "/"})
 local map = vim.keymap.set
 local opts
 local function _1_(d)
