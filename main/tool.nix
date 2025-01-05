@@ -12,6 +12,19 @@ rec {
     postConfig = read ../lua/autogen/menu.lua;
     hooks.commands = [ "OpenMenu" ];
   };
+  minty = {
+    package = pkgs.vimPlugins.minty;
+    depends = [ volt ];
+    hooks.commands = [
+      "Shades"
+      "Huefy"
+    ];
+  };
+  timerly = {
+    package = pkgs.vimPlugins.timerly;
+    postConfig = read ../lua/autogen/timerly.lua;
+    hooks.commands = [ "TimerlyToggle" ];
+  };
   translate-nvim = {
     package = pkgs.vimPlugins.translate-nvim;
     postConfig = read ../lua/autogen/translate.lua;

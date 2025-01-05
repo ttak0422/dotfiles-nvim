@@ -159,6 +159,8 @@ let
     inherit (callPackage ./test.nix { }) neotest;
     inherit (callPackage ./tool.nix { })
       menu
+      minty
+      timerly
       aerial
       copilot-chat
       dotfyle-metadata
