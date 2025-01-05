@@ -8,7 +8,10 @@ in
 with pkgs.vimPlugins;
 rec {
   treesitter = {
-    packages = [ nvim-treesitter ];
+    packages = [
+      nvim-treesitter
+      nvim-yati
+    ];
     postConfig =
       let
         buildGrammar =
@@ -76,6 +79,7 @@ rec {
           parser = toString parserDrv;
         };
       };
+    depends = [ ];
     hooks.events = [ "BufReadPost" ];
   };
   auto-indent = {

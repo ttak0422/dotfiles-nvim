@@ -2,6 +2,7 @@
 local parser_install_dir = args.parser
 vim.opt.runtimepath:prepend(parser_install_dir)
 local config = require("nvim-treesitter.configs")
+local yati = {enable = true, disable = {}, default_lazy = true, default_fallback = "auto"}
 local highlight
 local function _1_(lang, buf)
   if (lang == "nix") then
@@ -14,4 +15,4 @@ local function _1_(lang, buf)
 end
 highlight = {enable = true, disable = _1_, additional_vim_regex_highlighting = false}
 local indent = {enable = false}
-return config.setup({ignore_install = {}, parser_install_dir = parser_install_dir, highlight = highlight, indent = indent, auto_install = false, sync_install = false})
+return config.setup({ignore_install = {}, yati = yati, parser_install_dir = parser_install_dir, highlight = highlight, indent = indent, auto_install = false, sync_install = false})

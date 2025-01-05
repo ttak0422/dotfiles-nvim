@@ -1396,6 +1396,10 @@
       url = "github:nvzone/menu";
       flake = false;
     };
+    nvim-yati = {
+      url = "github:yioneko/nvim-yati";
+      flake = false;
+    };
   };
 
   outputs =
