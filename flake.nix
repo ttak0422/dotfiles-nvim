@@ -1376,6 +1376,26 @@
       url = "github:ttak0422/ddc-source-neorg";
       flake = false;
     };
+    volt = {
+      url = "github:nvzone/volt";
+      flake = false;
+    };
+    minty = {
+      url = "github:nvzone/minty";
+      flake = false;
+    };
+    timerly = {
+      url = "github:nvzone/timerly";
+      flake = false;
+    };
+    showkeys = {
+      url = "github:nvzone/showkeys";
+      flake = false;
+    };
+    menu = {
+      url = "github:nvzone/menu";
+      flake = false;
+    };
   };
 
   outputs =

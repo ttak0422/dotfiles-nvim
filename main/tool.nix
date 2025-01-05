@@ -6,6 +6,12 @@ let
 in
 with pkgs.vimPlugins;
 rec {
+  menu = {
+    package = pkgs.vimPlugins.menu;
+    depends = [ volt ];
+    postConfig = read ../lua/autogen/menu.lua;
+    hooks.commands = [ "OpenMenu" ];
+  };
   translate-nvim = {
     package = pkgs.vimPlugins.translate-nvim;
     postConfig = read ../lua/autogen/translate.lua;
