@@ -4012,11 +4012,11 @@
     "none-ls-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1733844347,
-        "narHash": "sha256-FMAeQeRM7tvUrIq+umX2mh08NCqsYue/fwNDhvwy4Ow=",
+        "lastModified": 1736008944,
+        "narHash": "sha256-FIAl4n8wfWsOOsjfUJRf+Q8TVUMX1V043BEX0P2PH3k=",
         "owner": "nvimtools",
         "repo": "none-ls.nvim",
-        "rev": "c279e541f73a2deea9deb5231b9c037678dd6353",
+        "rev": "20f5650988cd849e18c7f3d2dce4b0e6a260e126",
         "type": "github"
       },
       "original": {
