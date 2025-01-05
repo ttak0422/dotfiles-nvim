@@ -28,7 +28,10 @@ rec {
       # for sg
       ast-grep
     ];
-    hooks.commands = [ "Telescope" "TelescopeB" ];
+    hooks.commands = [
+      "Telescope"
+      "TelescopeB"
+    ];
   };
   asterisk = {
     package = vim-asterisk;
@@ -60,6 +63,7 @@ rec {
         };
       }
       telescope
+      lib.snacks
     ];
     postConfig = read ../lua/autogen/legendary.lua;
     hooks.commands = [ "Legendary" ];
