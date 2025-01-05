@@ -13,5 +13,5 @@ local function _1_(lang, buf)
   end
 end
 highlight = {enable = true, disable = _1_, additional_vim_regex_highlighting = false}
-local indent = {enable = true}
+local indent = {enable = false}
 return config.setup({ignore_install = {}, parser_install_dir = parser_install_dir, highlight = highlight, indent = indent, auto_install = false, sync_install = false})

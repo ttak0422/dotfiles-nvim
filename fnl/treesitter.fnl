@@ -12,7 +12,7 @@
                                       (ok stats) (pcall vim.loop.fs_stat
                                                         (vim.api.nvim_buf_get_name buf))]
                                   (and ok stats (> stats.size max_filesize)))))}
-      indent {:enable true}]
+      indent {:enable false}]
   (config.setup {:sync_install false
                  :auto_install false
                  :ignore_install []
