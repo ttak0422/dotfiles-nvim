@@ -161,6 +161,7 @@ let
       menu
       minty
       timerly
+      showkeys
       aerial
       copilot-chat
       dotfyle-metadata
@@ -171,7 +172,6 @@ let
       other
       overseer
       pgmnt
-      screenkey
       spectre
       startuptime
       translate-nvim

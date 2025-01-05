@@ -25,6 +25,11 @@ rec {
     postConfig = read ../lua/autogen/timerly.lua;
     hooks.commands = [ "TimerlyToggle" ];
   };
+  showkeys = {
+    package = pkgs.vimPlugins.showkeys;
+    postConfig = read ../lua/autogen/showkeys.lua;
+    hooks.commands = [ "ShowkeysToggle" ];
+  };
   translate-nvim = {
     package = pkgs.vimPlugins.translate-nvim;
     postConfig = read ../lua/autogen/translate.lua;
