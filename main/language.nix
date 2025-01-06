@@ -103,12 +103,12 @@ rec {
       pyright
       vscode-langservers-extracted
       nodePackages.typescript
-      # nodePackages.vscode-langservers-extracted
       nodePackages.yaml-language-server
       rubyPackages.solargraph
       rust-analyzer
       taplo-cli
       kotlin-language-server
+      # universal-ctags # should be installed by dotfiles
     ];
     preConfig = read ../lua/autogen/lsp-pre.lua;
     postConfig = read ../lua/autogen/lsp.lua;
