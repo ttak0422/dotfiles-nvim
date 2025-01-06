@@ -7,6 +7,6 @@ call skkeleton#config({
       \   'markerHenkanSelect': '',
       \ })
 
-imap <C-j> <Plug>(skkeleton-toggle)
-cmap <C-j> <Plug>(skkeleton-toggle)
-tmap <C-j> <Plug>(skkeleton-toggle)
+imap <C-j> <Plug>(skkeleton-enable)
+cmap <C-j> <Plug>(skkeleton-enable)
+tmap <C-j> <Plug>(skkeleton-enable)

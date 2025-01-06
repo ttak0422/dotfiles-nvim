@@ -5208,6 +5208,7 @@
         "showkeys": "showkeys",
         "skk-dict": "skk-dict",
         "skkeleton": "skkeleton",
+        "skkeleton_indicator-nvim": "skkeleton_indicator-nvim",
         "smart-splits-nvim": "smart-splits-nvim",
         "smear-cursor-nvim": "smear-cursor-nvim",
         "snacks-nvim": "snacks-nvim",
@@ -5383,6 +5384,22 @@
       "original": {
         "owner": "vim-skk",
         "repo": "skkeleton",
+        "type": "github"
+      }
+    },
+    "skkeleton_indicator-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1717428508,
+        "narHash": "sha256-xr2yTHsGclLvXPpRNYBFS+dIB0+RNUb27TlGq5apBig=",
+        "owner": "delphinus",
+        "repo": "skkeleton_indicator.nvim",
+        "rev": "d9b649d734ca7d3871c4f124004771d0213dc747",
+        "type": "github"
+      },
+      "original": {
+        "owner": "delphinus",
+        "repo": "skkeleton_indicator.nvim",
         "type": "github"
       }
     },
