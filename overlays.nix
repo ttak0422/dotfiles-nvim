@@ -27,6 +27,7 @@ inputs: with inputs; [
         "junit-console"
         "jol"
         "skk-dict"
+        "ctags-lsp"
       ];
       plugins = filter (name: !(elem name excludeInputs)) (attrNames inputs);
       base = {
@@ -50,10 +51,8 @@ inputs: with inputs; [
         inherit (inputs) jol junit-console;
       };
 
-      nodePackages =
-        prev.nodePackages
-        // {
-        };
+      nodePackages = prev.nodePackages // {
+      };
 
       vscode-extensions = prev.vscode-extensions // {
         # vscjava = prev.vscode-extensions.vscjava // {
@@ -142,6 +141,13 @@ inputs: with inputs; [
           mkdir $out
           cp SKK-JISYO.L $out/SKK-JISYO.L
         '';
+      };
+
+      ctags-lsp = prev.buildGoModule {
+        src = inputs.ctags-lsp;
+        pname = "ctags-lsp";
+        version = inputs.ctags-lsp.rev;
+        vendorHash = null;
       };
     }
   )

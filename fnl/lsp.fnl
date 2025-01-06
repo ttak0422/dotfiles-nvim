@@ -2,18 +2,21 @@
 (local climb (require :climbdir))
 (local marker (require :climbdir.marker))
 
+; ctags
+(lsp.ctags_lsp.setup {})
+
 ; lua
 (lsp.lua_ls.setup {:settings {:Lua {:runtime {:version :LuaJIT}
-                                          :diagnostics {:globals [:vim]}}
-                                    :workspace {}
-                                    :telemetry {:enable false}}})
+                                    :diagnostics {:globals [:vim]}}
+                              :workspace {}
+                              :telemetry {:enable false}}})
 
 ;; fennel
 (lsp.fennel_ls.setup {:settings {:fennel-ls {:extra-globals :vim}}})
 
 ;; nix
 (lsp.nil_ls.setup {:autostart true
-                         :settings {:nil {:formatting {:command [:nixpkgs-fmt]}}}})
+                   :settings {:nil {:formatting {:command [:nixpkgs-fmt]}}}})
 
 ;; bash
 (lsp.bashls.setup {})
@@ -53,41 +56,41 @@
 
 ;; typescript (node)
 (lsp.vtsls.setup {:single_file_support false
-                        :settings {:separate_diagnostic_server true
-                                   :publish_diagnostic_on :insert_leave
-                                   :typescript {:suggest {:completeFunctionCalls true}
-                                                :preferences {:importModuleSpecifier :relative}}}
-                        :root_dir (fn [path]
-                                    (climb.climb path
-                                                 (marker.one_of (marker.has_readable_file :package.json)
-                                                                (marker.has_directory :node_modules))
-                                                 {:halt (marker.one_of (marker.has_readable_file :deno.json))}))
-                        :vtsls {:experimental {:completion {:enableServerSideFuzzyMatch true}}}})
+                  :settings {:separate_diagnostic_server true
+                             :publish_diagnostic_on :insert_leave
+                             :typescript {:suggest {:completeFunctionCalls true}
+                                          :preferences {:importModuleSpecifier :relative}}}
+                  :root_dir (fn [path]
+                              (climb.climb path
+                                           (marker.one_of (marker.has_readable_file :package.json)
+                                                          (marker.has_directory :node_modules))
+                                           {:halt (marker.one_of (marker.has_readable_file :deno.json))}))
+                  :vtsls {:experimental {:completion {:enableServerSideFuzzyMatch true}}}})
 
 ;; typescript (deno)
 (lsp.denols.setup {:single_file_support false
-                         :root_dir (fn [path]
-                                     (local found
-                                            (climb.climb path
-                                                         (marker.one_of (marker.has_readable_file :deno.json)
-                                                                        (marker.has_readable_file :deno.jsonc)
-                                                                        (marker.has_directory :denops))
-                                                         {:halt (marker.one_of (marker.has_readable_file :package.json)
-                                                                               (marker.has_directory :node_modules))}))
-                                     (local buf (. vim.b (vim.fn.bufnr)))
-                                     (when found
-                                       (set buf.deno_deps_candidate
-                                            (.. found :/deps.ts)))
-                                     found)
-                         :init_options {:lint true
-                                        :unstable false
-                                        :suggest {:completeFunctionCalls true
-                                                  :names true
-                                                  :paths true
-                                                  :autoImports true
-                                                  :imports {:autoDiscover true
-                                                            :hosts (vim.empty_dict)}}}
-                         :settings {:deno {:enable true}}})
+                   :root_dir (fn [path]
+                               (local found
+                                      (climb.climb path
+                                                   (marker.one_of (marker.has_readable_file :deno.json)
+                                                                  (marker.has_readable_file :deno.jsonc)
+                                                                  (marker.has_directory :denops))
+                                                   {:halt (marker.one_of (marker.has_readable_file :package.json)
+                                                                         (marker.has_directory :node_modules))}))
+                               (local buf (. vim.b (vim.fn.bufnr)))
+                               (when found
+                                 (set buf.deno_deps_candidate
+                                      (.. found :/deps.ts)))
+                               found)
+                   :init_options {:lint true
+                                  :unstable false
+                                  :suggest {:completeFunctionCalls true
+                                            :names true
+                                            :paths true
+                                            :autoImports true
+                                            :imports {:autoDiscover true
+                                                      :hosts (vim.empty_dict)}}}
+                   :settings {:deno {:enable true}}})
 
 ;; markdown
 (lsp.marksman.setup {})

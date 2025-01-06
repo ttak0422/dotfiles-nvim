@@ -50,6 +50,12 @@
       flake = false;
     };
 
+    # language server
+    ctags-lsp = {
+      url = "github:netmute/ctags-lsp";
+      flake = false;
+    };
+
     # nodePackages
     vtsls = {
       url = "git+https://github.com/yioneko/vtsls?submodules=1";
@@ -1398,6 +1404,10 @@
     };
     nvim-yati = {
       url = "github:yioneko/nvim-yati";
+      flake = false;
+    };
+    ctags-lsp-nvim = {
+      url = "github:netmute/ctags-lsp.nvim";
       flake = false;
     };
   };

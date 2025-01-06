@@ -14,7 +14,10 @@ in
 with pkgs.vimPlugins;
 rec {
   lsp = {
-    packages = [ nvim-lspconfig ];
+    packages = [
+      nvim-lspconfig
+      ctags-lsp-nvim
+    ];
     depends = [
       {
         package = nvim-dd;
@@ -69,6 +72,7 @@ rec {
           rustfmt
           gitlint
           hadolint
+          ctags-lsp
           pkgs.pkgs-stable.vtsls
         ];
       }

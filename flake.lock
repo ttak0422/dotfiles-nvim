@@ -578,6 +578,22 @@
         "type": "github"
       }
     },
+    "ctags-lsp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1734865863,
+        "narHash": "sha256-wSccfhVp1PDn/gj46r8BNskEuBuRIx1wydYAW1PV4cg=",
+        "owner": "netmute",
+        "repo": "ctags-lsp",
+        "rev": "454d9e6c5ac5d5c9ac625eb5ab01ff1670439f37",
+        "type": "github"
+      },
+      "original": {
+        "owner": "netmute",
+        "repo": "ctags-lsp",
+        "type": "github"
+      }
+    },
     "ddc-buffer": {
       "flake": false,
       "locked": {
@@ -4923,6 +4939,7 @@
         "conform-nvim": "conform-nvim",
         "copilot-lua": "copilot-lua",
         "crates-nvim": "crates-nvim",
+        "ctags-lsp": "ctags-lsp",
         "ddc-buffer": "ddc-buffer",
         "ddc-converter_remove_overlap": "ddc-converter_remove_overlap",
         "ddc-converter_truncate": "ddc-converter_truncate",
