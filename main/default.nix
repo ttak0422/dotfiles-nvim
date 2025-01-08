@@ -2,7 +2,7 @@
 let
   inherit (pkgs) callPackage;
   read = builtins.readFile;
-  package = pkgs.neovim;
+  package = pkgs.pkgs-stable.neovim-unwrapped;
 
   extraPackages = [ ];
   extraConfig = ''
