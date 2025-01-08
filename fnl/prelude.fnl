@@ -26,9 +26,11 @@
                    :wrap false})]
   (tset vim.o k v))
 
-;; keymaps
-(set vim.g.mapleader " ")
-(set vim.g.maplocalleader ",")
+(each [k v (pairs {:mapleader " "
+                   :maplocalleader ","
+                   :loaded_netrw 1
+                   :loaded_netrwPlugin 1})]
+  (tset vim.g k v))
 
 (let [opts {:noremap true :silent true}
       desc (fn [d] {:noremap true :silent true :desc d})
