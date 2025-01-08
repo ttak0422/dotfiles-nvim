@@ -3112,6 +3112,22 @@
         "type": "github"
       }
     },
+    "logrotate-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1736337761,
+        "narHash": "sha256-AHYG8zZQwJxQSbDKA6poLQbs09hQjOZAJj2AuQgmVxI=",
+        "owner": "ttak0422",
+        "repo": "logrotate-nvim",
+        "rev": "2fb41a7fdea7a7d9535d42bc9cc85ff0c340fd0d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ttak0422",
+        "repo": "logrotate-nvim",
+        "type": "github"
+      }
+    },
     "lsp-inlayhints-nvim": {
       "flake": false,
       "locked": {
@@ -5097,6 +5113,7 @@
         "live-rename-nvim": "live-rename-nvim",
         "loaded-nvim": "loaded-nvim",
         "log-highlight-nvim": "log-highlight-nvim",
+        "logrotate-nvim": "logrotate-nvim",
         "lsp-inlayhints-nvim": "lsp-inlayhints-nvim",
         "lsp-lens-nvim": "lsp-lens-nvim",
         "lsp-progress-nvim": "lsp-progress-nvim",

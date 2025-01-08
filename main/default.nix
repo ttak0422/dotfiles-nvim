@@ -176,6 +176,7 @@ let
       startuptime
       translate-nvim
       window-picker
+      logrotate
       ;
     inherit (callPackage ./treesitter.nix { })
       treesitter

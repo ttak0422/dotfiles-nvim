@@ -1414,6 +1414,10 @@
       url = "github:netmute/ctags-lsp.nvim";
       flake = false;
     };
+    logrotate-nvim = {
+      url = "github:ttak0422/logrotate-nvim";
+      flake = false;
+    };
   };
 
   outputs =

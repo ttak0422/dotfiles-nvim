@@ -169,4 +169,9 @@ rec {
     postConfig = read ../lua/autogen/aerial.lua;
     hooks.commands = [ "AerialToggle" ];
   };
+  logrotate = {
+    package = logrotate-nvim;
+    postConfig = read ../lua/autogen/logrotate.lua;
+    hooks.events = [ "VimLeavePre" ];
+  };
 }
