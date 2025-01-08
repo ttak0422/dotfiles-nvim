@@ -73,7 +73,7 @@
                                    :Type ""
                                    :TypeParameter ""
                                    :Unit ""
-                                   :Value "fnl/test"
+                                   :Value ""
                                    :Variable ""
                                    :WhileStatement ""}}
                   ui {:bar {:separator " ▸ " :extends "…"}
@@ -83,5 +83,27 @@
                       (print (. vim.bo buf :buftype))
                       (if (= (. vim.bo buf :buftype) :terminal)
                           [M.sources.terminal]
-                          [M.sources.path]))}]
-  (M.setup {: general : icons : bar}))
+                          [M.sources.path]))}
+      sources {:path {:preview false}}
+      menu (let [select (fn []
+                          (case (M.utils.menu.get_current)
+                            menu (let [cursor (vim.api.nvim_win_get_cursor menu.win)
+                                       component (: (. menu.entries
+                                                       (. cursor 1))
+                                                    :first_clickable
+                                                    (. cursor 2))]
+                                   (-?> component
+                                        (menu:click_on nil 1 :l)))
+                            _ nil))
+                 fuzzy (fn []
+                         (case (M.utils.menu.get_current)
+                           menu (menu:fuzzy_find_open)
+                           _ nil))]
+             {:keymaps {:q :<C-w>q
+                        :<Esc> :<C-w>q
+                        :<CR> select
+                        :H :<C-w>q
+                        :L select
+                        :i fuzzy}
+              :scrollbar {:enable true}})]
+  (M.setup {: general : icons : bar : sources : menu}))
