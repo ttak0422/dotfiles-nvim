@@ -13,7 +13,9 @@
       sources [;; code_actions
                ;; --- diagnostics --- ;;
                ;; go
-               diagnostics.staticcheck
+               (diagnostics.staticcheck.with {:diagnostics_postprocess (fn [diagnostic]
+                                                                         (set diagnostic.severity
+                                                                              vim.diagnostic.severity.Warning))})
                ;; --- formatting --- ;;
                ;; lua
                formatting.stylua
@@ -34,14 +36,9 @@
                ;; fennel
                formatting.fnlfmt
                ;; nix
-               formatting.nixfmt]]
-  ; (null_ls.register {:name :norg-fmt
-  ;                    :method FORMATTING
-  ;                    :filetypes [:norg :neorg]
-  ;                    :generator (helpers.formatter_factory {:command :norg-fmt
+               formatting.nixfmt]] ; (null_ls.register {:name :norg-fmt ;                    :method FORMATTING ;                    :filetypes [:norg :neorg] ;                    :generator (helpers.formatter_factory {:command :norg-fmt
   ;                                                           :args [:$FILENAME]
-  ;                                                           :to_stdin true
-  ;                                                           :format :raw})})
+  ;                                                           :to_stdin true ;                                                           :format :raw})})
   (null_ls.setup {:border :none
                   :cmd [:nvim]
                   :debounce 250
