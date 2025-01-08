@@ -115,6 +115,5 @@
                       [[:n :x]
                        :gS
                        (lcmd "require('reacher').start_multiple()")
-                       (desc "search displayed")]
-                      [[:n :i :c :t] "¥" "\\"]])]
+                       (desc "search displayed")]])]
     (vim.keymap.set (. k 1) (. k 2) (. k 3) (or (. k 4) opts))))

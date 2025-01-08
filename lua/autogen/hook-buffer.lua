@@ -36,7 +36,7 @@ end
 for _, k in ipairs({{"tT", cmd("Neotest")}, {"tt", cmd("NeotestNearest")}, {"to", cmd("NeotestToggleSummary")}, {"tO", cmd("NeotestTogglePanel")}, {"tK", cmd("NeotestOpenOutput")}}) do
   vim.keymap.set("n", ("<LocalLeader>" .. k[1]), k[2], (k[3] or opts))
 end
-for _, k in ipairs({{{"n", "x"}, "gs", lcmd("require('reacher').start()")}, {{"n", "x"}, "gS", lcmd("require('reacher').start_multiple()"), desc("search displayed")}, {{"n", "i", "c", "t"}, "\194\165", "\\"}}) do
+for _, k in ipairs({{{"n", "x"}, "gs", lcmd("require('reacher').start()")}, {{"n", "x"}, "gS", lcmd("require('reacher').start_multiple()"), desc("search displayed")}}) do
   vim.keymap.set(k[1], k[2], k[3], (k[4] or opts))
 end
 return nil
