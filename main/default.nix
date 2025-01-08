@@ -2,10 +2,7 @@
 let
   inherit (pkgs) callPackage;
   read = builtins.readFile;
-  package = self'.packages.loaded-nvim-stable.overrideAttrs (old: {
-    # git diff | sed '/^index /d' | pbcopy
-    patches = [ ./version.patch ];
-  });
+  package = pkgs.neovim-unwrapped;
 
   extraPackages = [ ];
   extraConfig = ''

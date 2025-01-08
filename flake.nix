@@ -26,14 +26,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    loaded-nvim = {
-      url = "github:ttak0422/loaded-nvim";
-      inputs = {
-        systems.follows = "systems";
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
-    };
 
     norg-fmt = {
       url = "github:nvim-neorg/norg-fmt";

@@ -3070,32 +3070,6 @@
         "type": "github"
       }
     },
-    "loaded-nvim": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": [
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1717900413,
-        "narHash": "sha256-w7EUXD2zC1FecHsEpDJJlkdCOdNN3njr48BSlWjyNW4=",
-        "owner": "ttak0422",
-        "repo": "loaded-nvim",
-        "rev": "ad322d1609da2b2101e9130bc3987160648da924",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ttak0422",
-        "repo": "loaded-nvim",
-        "type": "github"
-      }
-    },
     "log-highlight-nvim": {
       "flake": false,
       "locked": {
@@ -5111,7 +5085,6 @@
         "lir-git-status-nvim": "lir-git-status-nvim",
         "lir-nvim": "lir-nvim",
         "live-rename-nvim": "live-rename-nvim",
-        "loaded-nvim": "loaded-nvim",
         "log-highlight-nvim": "log-highlight-nvim",
         "logrotate-nvim": "logrotate-nvim",
         "lsp-inlayhints-nvim": "lsp-inlayhints-nvim",

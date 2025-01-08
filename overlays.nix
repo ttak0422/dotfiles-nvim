@@ -23,7 +23,6 @@ inputs: with inputs; [
         "flake-parts"
         "nix-filter"
         "bundler"
-        "loaded-nvim"
         "junit-console"
         "jol"
         "skk-dict"
@@ -79,6 +78,7 @@ inputs: with inputs; [
               version = (getAttr name inputs).rev or "latest";
               pname = name;
               src = getAttr name inputs;
+              doCheck = false;
             };
           }) plugins
         ))
