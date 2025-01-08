@@ -3115,11 +3115,11 @@
     "logrotate-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1736337761,
-        "narHash": "sha256-AHYG8zZQwJxQSbDKA6poLQbs09hQjOZAJj2AuQgmVxI=",
+        "lastModified": 1736340005,
+        "narHash": "sha256-ayf/ltpu+kXaYUjhpActZOV/uqhjR2jgyV6I6ZfpY/Q=",
         "owner": "ttak0422",
         "repo": "logrotate-nvim",
-        "rev": "2fb41a7fdea7a7d9535d42bc9cc85ff0c340fd0d",
+        "rev": "f3d01acf8b718689665af26ba8997ffb403ffc7c",
         "type": "github"
       },
       "original": {
