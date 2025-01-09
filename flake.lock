@@ -1029,11 +1029,11 @@
     "ddc-source-lsp": {
       "flake": false,
       "locked": {
-        "lastModified": 1732751656,
-        "narHash": "sha256-ErQUZYMJpfXooKAj/KbugfIfp/ZPS7g+3bC3m1xpUd4=",
+        "lastModified": 1735974830,
+        "narHash": "sha256-A/XUzTf1nFI983uOHi0PrK+8tjhuKDem7Zvw6SiPpJI=",
         "owner": "Shougo",
         "repo": "ddc-source-lsp",
-        "rev": "b928f9212f6ef536119e9aa155a1e266dcad7890",
+        "rev": "a6312b409a3c544e1e3cd10fb0af2a4e478827b5",
         "type": "github"
       },
       "original": {
