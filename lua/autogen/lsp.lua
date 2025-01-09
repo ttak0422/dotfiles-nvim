@@ -47,11 +47,6 @@ do
   local languages = {lua = {luacheck}, typescript = {eslint}, javascript = {eslint}, sh = {shellcheck}, yaml = {yamllint}, nix = {statix}, css = {stylelint}, scss = {stylelint}, less = {stylelint}, saas = {stylelint}, vim = {vint}, python = {pylint}, gitcommit = {gitlint}, docker = {hadolint}}
   local settings = {rootMarkers = {".git/"}, languages = languages}
   local init_options = {documentFormatting = true, documentRangeFormatting = true}
-  local make_settings
-  local function _4_()
-    return {single_file_support = true, filetypes = vim.tbl_keys(languages), settings = settings, init_options = init_options}
-  end
-  make_settings = _4_
-  lsp.efm.setup(make_settings())
+  lsp.efm.setup({single_file_support = true, filetypes = vim.tbl_keys(languages), settings = settings, init_options = init_options})
 end
 return lsp.kotlin_language_server.setup({})

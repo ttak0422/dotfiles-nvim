@@ -124,13 +124,11 @@
                  :gitcommit [gitlint]
                  :docker [hadolint]}
       settings {:rootMarkers [:.git/] : languages}
-      init_options {:documentFormatting true :documentRangeFormatting true}
-      make_settings (fn []
-                      {:single_file_support true
-                       :filetypes (vim.tbl_keys languages)
-                       : settings
-                       : init_options})]
-  (lsp.efm.setup (make_settings)))
+      init_options {:documentFormatting true :documentRangeFormatting true}]
+  (lsp.efm.setup {:single_file_support true
+                  :filetypes (vim.tbl_keys languages)
+                  : settings
+                  : init_options}))
 
 ;; kotlin
 (lsp.kotlin_language_server.setup {})
