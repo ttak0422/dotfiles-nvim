@@ -4162,11 +4162,11 @@
     "nvim-bqf": {
       "flake": false,
       "locked": {
-        "lastModified": 1717492938,
-        "narHash": "sha256-k7/fQ19w2wGiyVbPsbcI/mhR+8pf25U6vDShqkSv8Hg=",
+        "lastModified": 1735989427,
+        "narHash": "sha256-JhVi208hCsenyYy5XIyjeyeAopgw8cHzBm1w2QH+tf4=",
         "owner": "kevinhwang91",
         "repo": "nvim-bqf",
-        "rev": "1b24dc6050c34e8cd377b6b4cd6abe40509e0187",
+        "rev": "ebb6d2689e4427452180f17c53f29f7e460236f1",
         "type": "github"
       },
       "original": {
