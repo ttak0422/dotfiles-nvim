@@ -2,8 +2,8 @@
 (local climb (require :climbdir))
 (local marker (require :climbdir.marker))
 
-; ctags
-(lsp.ctags_lsp.setup {})
+; ; ctags
+; (lsp.ctags_lsp.setup {})
 
 ; lua
 (lsp.lua_ls.setup {:settings {:Lua {:runtime {:version :LuaJIT}

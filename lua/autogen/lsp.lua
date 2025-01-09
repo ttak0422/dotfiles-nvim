@@ -2,7 +2,6 @@
 local lsp = require("lspconfig")
 local climb = require("climbdir")
 local marker = require("climbdir.marker")
-lsp.ctags_lsp.setup({})
 lsp.lua_ls.setup({settings = {Lua = {runtime = {version = "LuaJIT"}, diagnostics = {globals = {"vim"}}}, workspace = {}, telemetry = {enable = false}}})
 lsp.fennel_ls.setup({settings = {["fennel-ls"] = {["extra-globals"] = "vim"}}})
 lsp.nil_ls.setup({autostart = true, settings = {["nil"] = {formatting = {command = {"nixpkgs-fmt"}}}}})

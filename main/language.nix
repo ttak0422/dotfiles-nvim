@@ -16,7 +16,7 @@ rec {
   lsp = {
     packages = [
       nvim-lspconfig
-      ctags-lsp-nvim
+      # ctags-lsp-nvim
     ];
     depends = [
       {
@@ -72,7 +72,7 @@ rec {
           rustfmt
           gitlint
           hadolint
-          ctags-lsp
+          # ctags-lsp
           pkgs.pkgs-stable.vtsls
         ];
       }
@@ -110,10 +110,10 @@ rec {
       kotlin-language-server
     ];
     preConfig =
-      ''
-        vim.env.PATH = "${pkgs.universal-ctags}/bin:" .. vim.env.PATH
-      ''
-      + read ../lua/autogen/lsp-pre.lua;
+      # ''
+      #   vim.env.PATH = "${pkgs.universal-ctags}/bin:" .. vim.env.PATH
+      # '' +
+      read ../lua/autogen/lsp-pre.lua;
     postConfig = read ../lua/autogen/lsp.lua;
     hooks.events = [ "BufReadPost" ];
   };
