@@ -74,9 +74,10 @@ rec {
     hooks.modules = [ "reacher" ];
   };
   fzf = {
-    preConfig = ''
-      source ${pkgs.fzf}/share/nvim/site/plugin/fzf.vim
-    '';
+    preConfig = {
+      language = "vim";
+      code = "source ${pkgs.fzf}/share/nvim/site/plugin/fzf.vim";
+    };
   };
   fzf-lua = {
     package = pkgs.vimPlugins.fzf-lua;

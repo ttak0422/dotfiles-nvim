@@ -1410,6 +1410,10 @@
       url = "github:ttak0422/logrotate-nvim";
       flake = false;
     };
+    go-impl-nvim = {
+      url = "github:fang2hou/go-impl.nvim";
+      flake = false;
+    };
   };
 
   outputs =

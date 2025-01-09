@@ -127,12 +127,21 @@ rec {
         package = goplements-nvim;
         postConfig = read ../lua/autogen/goplements.lua;
       }
+      # {
+      #   package = goimpl-nvim;
+      #   postConfig = read ../lua/autogen/goimpl.lua;
+      #   depends = [
+      #     search.telescope
+      #     popup-nvim
+      #   ];
+      # }
       {
-        package = goimpl-nvim;
-        postConfig = read ../lua/autogen/goimpl.lua;
+        package = go-impl-nvim;
+        postConfig = read ../lua/autogen/go-impl.lua;
         depends = [
-          search.telescope
-          popup-nvim
+          lib.nui
+          lib.plenary
+          search.fzf-lua
         ];
       }
     ];

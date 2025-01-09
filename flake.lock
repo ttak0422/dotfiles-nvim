@@ -2607,6 +2607,22 @@
         "type": "github"
       }
     },
+    "go-impl-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1735997846,
+        "narHash": "sha256-BvMCO13oZizqBqyFAGJN7gcOPQdKppvhOwSE7FrNB7U=",
+        "owner": "fang2hou",
+        "repo": "go-impl.nvim",
+        "rev": "8505e7c919de39417333e5181487e94db6c1082b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fang2hou",
+        "repo": "go-impl.nvim",
+        "type": "github"
+      }
+    },
     "goimpl-nvim": {
       "flake": false,
       "locked": {
@@ -5057,6 +5073,7 @@
         "git-conflict-nvim": "git-conflict-nvim",
         "gitsigns-nvim": "gitsigns-nvim",
         "glance-nvim": "glance-nvim",
+        "go-impl-nvim": "go-impl-nvim",
         "goimpl-nvim": "goimpl-nvim",
         "gopher-nvim": "gopher-nvim",
         "goplements-nvim": "goplements-nvim",

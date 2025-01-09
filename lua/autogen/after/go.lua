@@ -5,10 +5,7 @@ local function _1_(d)
   return {silent = true, buffer = true, desc = d, noremap = false}
 end
 opts = _1_
-local function _2_()
-  return require("telescope").extensions.goimpl.goimpl()
-end
-for mode, ks in pairs({n = {{"<LocalLeader>fi", _2_, opts("\238\152\167 generate stub for I/F")}}}) do
+for mode, ks in pairs({n = {{"<LocalLeader>fi", "<Cmd>GoImplOpen<CR>", opts("\238\152\167 generate stub for I/F")}}}) do
   for _, k in ipairs(ks) do
     vim.keymap.set(mode, k[1], k[2], k[3])
   end
