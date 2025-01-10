@@ -1,6 +1,7 @@
 -- [nfnl] Compiled from fnl/prelude.fnl by https://github.com/Olical/nfnl, do not edit.
 vim.loader.enable()
-for k, v in pairs({langmenu = "none", shortmess = (vim.o.shortmess .. "sWcCS"), cmdheight = 1, termguicolors = true, number = true, foldcolumn = "1", signcolumn = "yes", showtabline = 0, laststatus = 0, foldlevel = 99, foldlevelstart = 99, splitkeep = "screen", showmode = false, wrap = false}) do
+vim.cmd("language messages en_US")
+for k, v in pairs({langmenu = "none", shortmess = (vim.o.shortmess .. "sWcS"), cmdheight = 1, termguicolors = true, number = true, foldcolumn = "1", signcolumn = "yes", showtabline = 0, laststatus = 0, foldlevel = 99, foldlevelstart = 99, splitkeep = "screen", showmode = false, wrap = false}) do
   vim.o[k] = v
 end
 for k, v in pairs({mapleader = " ", maplocalleader = ",", loaded_netrw = 1, loaded_netrwPlugin = 1}) do

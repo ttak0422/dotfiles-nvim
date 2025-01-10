@@ -1,9 +1,9 @@
 ;; options
 (vim.loader.enable)
+(vim.cmd "language messages en_US")
 (each [k v (pairs {;; 言語メニューを無効にする
                    :langmenu :none
-                   ;; shortmessオプションにsWIcCSを追加
-                   :shortmess (.. vim.o.shortmess :sWcCS)
+                   :shortmess (.. vim.o.shortmess :sWcS)
                    ;; コマンドラインの高さを1に設定
                    :cmdheight 1
                    ;; guifg, guibgの有効化
