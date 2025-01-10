@@ -172,7 +172,7 @@ rec {
       ddc
       mr
       quickfix.bqf
-      style.noice
+      # style.noice
     ];
     extraPackages = with pkgs; [
       ripgrep
