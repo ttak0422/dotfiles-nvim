@@ -4,8 +4,8 @@
                    :langmenu :none
                    ;; shortmessオプションにsWIcCSを追加
                    :shortmess (.. vim.o.shortmess :sWcCS)
-                   ;; コマンドラインの高さを0に設定
-                   :cmdheight 0
+                   ;; コマンドラインの高さを1に設定
+                   :cmdheight 1
                    ;; guifg, guibgの有効化
                    :termguicolors true
                    ;; モードを非表示
