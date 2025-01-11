@@ -1,5 +1,5 @@
 -- [nfnl] Compiled from fnl/hook-edit.fnl by https://github.com/Olical/nfnl, do not edit.
-for k, v in pairs({expandtab = true, tabstop = 2, shiftwidth = 2, showmatch = true, ph = 20, completeopt = "", virtualedit = "block"}) do
+for k, v in pairs({expandtab = true, tabstop = 2, shiftwidth = 2, showmatch = true, ph = 20, virtualedit = "block"}) do
   vim.o[k] = v
 end
 vim.opt.nrformats:append("unsigned")

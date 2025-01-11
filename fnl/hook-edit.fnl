@@ -8,9 +8,6 @@
                    :showmatch true
                    ;; 補完の表示列
                    :ph 20
-                   ;; 補完オプション
-                   ; :completeopt "menu,menuone,noselect"
-                   :completeopt ""
                    ;; 短径選択を寛容に
                    :virtualedit :block})]
   (tset vim.o k v))

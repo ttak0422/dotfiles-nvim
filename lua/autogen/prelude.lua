@@ -1,8 +1,8 @@
 -- [nfnl] Compiled from fnl/prelude.fnl by https://github.com/Olical/nfnl, do not edit.
 vim.loader.enable()
 vim.cmd("language messages en_US")
-for k, v in pairs({langmenu = "none", shortmess = (vim.o.shortmess .. "sWcS"), cmdheight = 0, termguicolors = true, number = true, foldcolumn = "1", signcolumn = "yes", showtabline = 0, laststatus = 0, foldlevel = 99, foldlevelstart = 99, splitkeep = "screen", showmode = false, wrap = false}) do
-  vim.o[k] = v
+for k, v in pairs({langmenu = "none", shortmess = (vim.o.shortmess .. "sWcS"), cmdheight = 0, termguicolors = true, number = true, signcolumn = "yes", showtabline = 0, laststatus = 0, foldlevel = 99, foldlevelstart = 99, splitkeep = "screen", completeopt = {"menu", "menuone", "noselect"}, wrap = false}) do
+  vim.opt[k] = v
 end
 for k, v in pairs({mapleader = " ", maplocalleader = ",", loaded_netrw = 1, loaded_netrwPlugin = 1}) do
   vim.g[k] = v

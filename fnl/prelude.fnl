@@ -1,19 +1,14 @@
 ;; options
 (vim.loader.enable)
 (vim.cmd "language messages en_US")
-(each [k v (pairs {;; 言語メニューを無効にする
-                   :langmenu :none
+; (each [k v (pairs {})]
+;   (tset vim.o k v))
+
+(each [k v (pairs {:langmenu :none
                    :shortmess (.. vim.o.shortmess :sWcS)
-                   ;; コマンドラインの高さを に設定
                    :cmdheight 0
-                   ;; guifg, guibgの有効化
                    :termguicolors true
-                   ;; モードを非表示
-                   :showmode false
-                   ;; 起動時に行数を表示
                    :number true
-                   ;; 起動時にfoldcolumを表示
-                   :foldcolumn :1
                    ;; signcolumnを起動時に表示
                    :signcolumn :yes
                    ;; tablineを起動時に非表示
@@ -23,8 +18,9 @@
                    :foldlevel 99
                    :foldlevelstart 99
                    :splitkeep :screen
-                   :wrap false})]
-  (tset vim.o k v))
+                   :wrap false
+                   :completeopt [:menu :menuone :noselect]})]
+  (tset vim.opt k v))
 
 (each [k v (pairs {:mapleader " "
                    :maplocalleader ","
