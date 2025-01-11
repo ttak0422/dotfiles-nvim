@@ -4,8 +4,8 @@
 (each [k v (pairs {;; 言語メニューを無効にする
                    :langmenu :none
                    :shortmess (.. vim.o.shortmess :sWcS)
-                   ;; コマンドラインの高さを1に設定
-                   :cmdheight 1
+                   ;; コマンドラインの高さを に設定
+                   :cmdheight 0
                    ;; guifg, guibgの有効化
                    :termguicolors true
                    ;; モードを非表示

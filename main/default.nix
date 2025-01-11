@@ -145,7 +145,7 @@ let
       dropbar
       glance
       heirline
-      # noice
+      noice
       notify
       numb
       # tint

@@ -111,7 +111,10 @@ rec {
     ];
     depends = [
       denops
-      pum-vim
+      {
+        package = pum-vim;
+        depends = [ style.noice ];
+      }
       language.lsp
       treesitter.treesitter
       snippet.vsnip
@@ -172,7 +175,6 @@ rec {
       ddc
       mr
       quickfix.bqf
-      # style.noice
     ];
     extraPackages = with pkgs; [
       ripgrep
