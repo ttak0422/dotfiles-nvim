@@ -6,9 +6,10 @@
 ; (lsp.ctags_lsp.setup {})
 
 ; lua
-(lsp.lua_ls.setup {:settings {:Lua {:runtime {:version :LuaJIT}
+(lsp.lua_ls.setup {:settings {:Lua {:runtime {:version :LuaJIT
+                                              :special {:reload :require}}
                                     :diagnostics {:globals [:vim]}}
-                              :workspace {}
+                              :workspace {:library [(vim.fn.expand :$VIMRUNTIME/lua)]}
                               :telemetry {:enable false}}})
 
 ;; fennel
