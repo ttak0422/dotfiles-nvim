@@ -5406,6 +5406,7 @@
       },
       "original": {
         "owner": "delphinus",
+        "ref": "v2",
         "repo": "skkeleton_indicator.nvim",
         "type": "github"
       }

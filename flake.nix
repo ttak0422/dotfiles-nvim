@@ -615,7 +615,7 @@
       flake = false;
     };
     skkeleton_indicator-nvim = {
-      url = "github:delphinus/skkeleton_indicator.nvim";
+      url = "github:delphinus/skkeleton_indicator.nvim/v2";
       flake = false;
     };
     smart-splits-nvim = {
