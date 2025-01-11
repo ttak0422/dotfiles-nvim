@@ -1189,11 +1189,11 @@
     "ddc-ui-native": {
       "flake": false,
       "locked": {
-        "lastModified": 1725338355,
-        "narHash": "sha256-yr2BKEts2T5yOMlhiNe2/+ntbMKzDQcV+8kBA4A9Nno=",
+        "lastModified": 1736392472,
+        "narHash": "sha256-Au1K8bbZHq+mun6X+qNkw9/6mZlcwHWAiWo6s+kppYo=",
         "owner": "Shougo",
         "repo": "ddc-ui-native",
-        "rev": "7169980a4beaa672b8e2c5fe38da542e37a16dc1",
+        "rev": "44683253192c1025b3c1e0f26c83b0a5283c6c6c",
         "type": "github"
       },
       "original": {
@@ -1205,11 +1205,11 @@
     "ddc-ui-pum": {
       "flake": false,
       "locked": {
-        "lastModified": 1725338309,
-        "narHash": "sha256-UgrNYkW3a3jASzJz2x/wZaxXBEjzjsYo/dUo6O8QOME=",
+        "lastModified": 1736392454,
+        "narHash": "sha256-7MdprLIR0c+gQWLh7O68LncbP7gOcUnhKKWWROSjVWs=",
         "owner": "Shougo",
         "repo": "ddc-ui-pum",
-        "rev": "7e568274b3c22ca8d1742ddec43ea3a63d6ab7e9",
+        "rev": "1e776752c10b4187a76c0543e8ca1aaa64b0b451",
         "type": "github"
       },
       "original": {
