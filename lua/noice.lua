@@ -1,7 +1,7 @@
 require("noice").setup({
 	cmdline = {
 		enabled = true,
-		view = "cmdline",
+		view = "cmdline_popup",
 		opts = {},
 		format = {
 			cmdline = { pattern = "^:", icon = "", lang = "vim" },
@@ -23,16 +23,7 @@ require("noice").setup({
 		view_search = "virtualtext",
 	},
 
-	popupmenu = {
-		enabled = true,
-		backend = "nui",
-		kind_icons = {},
-	},
-
-	redirect = {
-		view = "popup",
-		filter = { event = "msg_show" },
-	},
+	popupmenu = { enabled = false },
 
 	commands = {
 		history = {
@@ -73,11 +64,6 @@ require("noice").setup({
 			opts = { enter = true, format = "details" },
 			filter = {},
 		},
-	},
-
-	notify = {
-		enabled = true,
-		view = "notify",
 	},
 
 	lsp = {
@@ -128,7 +114,7 @@ require("noice").setup({
 	health = { checker = true },
 
 	presets = {
-		bottom_search = true,
+		bottom_search = false,
 		command_palette = false,
 		long_message_to_split = false,
 		inc_rename = false,
@@ -159,11 +145,6 @@ require("noice").setup({
 					-- `%dL, %dB`
 					{ find = "L, " },
 					{ find = "written" },
-					{ find = "追加しました;" },
-					{ find = "変更しました;" },
-					{ find = "削除しました;" },
-					{ find = "既に一番新しい変更です" },
-					{ find = "既に一番古い変更です" },
 					-- WIP: ignore skkeleton warning
 					{ find = "can't write userDictionary" },
 				},
