@@ -35,7 +35,7 @@ require("noice").setup({
 					{ error = true },
 					{ warning = true },
 					{ event = "msg_show", kind = { "" } },
-					{ event = "lsp", kind = "message" },
+					{ event = "lsp",      kind = "message" },
 				},
 			},
 		},
@@ -48,7 +48,7 @@ require("noice").setup({
 					{ error = true },
 					{ warning = true },
 					{ event = "msg_show", kind = { "" } },
-					{ event = "lsp", kind = "message" },
+					{ event = "lsp",      kind = "message" },
 				},
 			},
 			filter_opts = { count = 1 },
@@ -122,6 +122,16 @@ require("noice").setup({
 	},
 	throttle = 1000 / 30, -- default
 	views = {
+		cmdline_popup = {
+			border = {
+				style = "none",
+				padding = { 1, 1 },
+			},
+			filter_options = {},
+			win_options = {
+				winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+			},
+		},
 		notify = {
 			backend = { "snacks", "notify" },
 			fallback = "mini",
