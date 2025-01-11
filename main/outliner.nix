@@ -41,6 +41,17 @@ with pkgs.vimPlugins;
     postConfig = read ../lua/autogen/markview.lua;
     hooks.fileTypes = [ "markdown" ];
   };
+  render-markdown = {
+    package = render-markdown-nvim;
+    depends = [
+      treesitter.treesitter
+      lib.devicons
+    ];
+    postConfig = read ../lua/autogen/render-markdown.lua;
+    hooks.fileTypes = [
+      "markdown"
+    ];
+  };
   venn = {
     package = venn-nvim;
     hooks.commands = [ "VBox" ];
