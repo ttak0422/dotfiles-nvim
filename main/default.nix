@@ -155,25 +155,26 @@ let
       ;
     inherit (callPackage ./test.nix { }) neotest;
     inherit (callPackage ./tool.nix { })
-      menu
-      minty
-      timerly
-      showkeys
       aerial
+      avante
       copilot-chat
       dotfyle-metadata
       hardtime
       lir
+      logrotate
+      menu
+      minty
       no-neck-pain
       oil
       other
       overseer
       pgmnt
+      showkeys
       spectre
       startuptime
+      timerly
       translate-nvim
       window-picker
-      logrotate
       ;
     inherit (callPackage ./treesitter.nix { })
       treesitter

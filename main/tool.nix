@@ -3,6 +3,8 @@ let
   inherit (pkgs) callPackage;
   read = builtins.readFile;
   lib = callPackage ./lib.nix { };
+  style = callPackage ./style.nix { };
+  treesitter = callPackage ./treesitter.nix { };
 in
 with pkgs.vimPlugins;
 rec {
@@ -146,6 +148,20 @@ rec {
       "CopilotChat"
       "CopilotChatToggle"
     ];
+  };
+  avante = {
+    package = avante-nvim.overrideAttrs {
+      dependencies = [ ];
+      doCheck = false;
+    };
+    depends = [
+      style.dressing
+      lib.plenary
+      lib.nui
+      treesitter.treesitter
+    ];
+    postConfig = read ../lua/avante.lua;
+    hooks.commands = [ "AvanteAsk" ];
   };
   screenkey = {
     package = screenkey-nvim;
