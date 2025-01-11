@@ -2889,11 +2889,11 @@
     "img-clip-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1717612998,
-        "narHash": "sha256-z8gqQWbM0jFXSsv7I5eB2Yo1Lq2UsIcSm3AhxZbZi2A=",
+        "lastModified": 1732655085,
+        "narHash": "sha256-Q4v4E8Iay6rXvtUsM5ULo1cnBYduzTw42kIgJlodq5U=",
         "owner": "HakonHarnes",
         "repo": "img-clip.nvim",
-        "rev": "1924e20ab19afec9779109d083b6e5f8bee8fb17",
+        "rev": "5ff183655ad98b5fc50c55c66540375bbd62438c",
         "type": "github"
       },
       "original": {

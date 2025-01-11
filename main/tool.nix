@@ -5,6 +5,7 @@ let
   lib = callPackage ./lib.nix { };
   style = callPackage ./style.nix { };
   treesitter = callPackage ./treesitter.nix { };
+  outliner = callPackage ./outliner.nix { };
 in
 with pkgs.vimPlugins;
 rec {
@@ -159,6 +160,9 @@ rec {
       lib.plenary
       lib.nui
       treesitter.treesitter
+      outliner.render-markdown
+      outliner.img-clip
+      copilot-lua
     ];
     postConfig = read ../lua/avante.lua;
     hooks.commands = [ "AvanteAsk" ];
