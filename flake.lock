@@ -1061,11 +1061,11 @@
     "ddc-source-neorg": {
       "flake": false,
       "locked": {
-        "lastModified": 1735963914,
-        "narHash": "sha256-V/SSX4IqhfX/uD4gf9wdyPFBa6MFH+V0+XaqyZBDABs=",
+        "lastModified": 1736587359,
+        "narHash": "sha256-mK6R/If3ler5RC30BUBT0Zn52/Lk/sdtwICv7mNouIs=",
         "owner": "ttak0422",
         "repo": "ddc-source-neorg",
-        "rev": "dd944fedeac77487814c24a1601d61f8c1a9485d",
+        "rev": "1616c70e2585dac9ef983735d9f0d104bfc060d8",
         "type": "github"
       },
       "original": {
