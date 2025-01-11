@@ -1322,10 +1322,6 @@
       url = "github:theHamsta/nvim-dap-virtual-text";
       flake = false;
     };
-    ddc-source-omni = {
-      url = "github:Shougo/ddc-source-omni";
-      flake = false;
-    };
     other-nvim = {
       url = "github:rgroli/other.nvim";
       flake = false;

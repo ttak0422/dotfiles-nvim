@@ -1106,22 +1106,6 @@
         "type": "github"
       }
     },
-    "ddc-source-omni": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1725339400,
-        "narHash": "sha256-HeHr0uKYtd4tDAnUAvH3J2INA7uw2iaJq4K9i9gAamc=",
-        "owner": "Shougo",
-        "repo": "ddc-source-omni",
-        "rev": "8002b03937731f8380d8b7e1af395027fdd73b3c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Shougo",
-        "repo": "ddc-source-omni",
-        "type": "github"
-      }
-    },
     "ddc-source-vim": {
       "flake": false,
       "locked": {
@@ -4994,7 +4978,6 @@
         "ddc-source-neorg": "ddc-source-neorg",
         "ddc-source-nextword": "ddc-source-nextword",
         "ddc-source-nvim-lsp": "ddc-source-nvim-lsp",
-        "ddc-source-omni": "ddc-source-omni",
         "ddc-source-vim": "ddc-source-vim",
         "ddc-source-vsnip": "ddc-source-vsnip",
         "ddc-tmux": "ddc-tmux",
