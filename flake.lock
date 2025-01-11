@@ -773,11 +773,11 @@
     "ddc-fuzzy": {
       "flake": false,
       "locked": {
-        "lastModified": 1731734141,
-        "narHash": "sha256-L7pLpf6ySMoEuoAA03LV3azjK/J65xmC6AB5P8cyQD4=",
+        "lastModified": 1736227408,
+        "narHash": "sha256-872qOOx0O2EyfpucZuZ7va7vhOMCoOUBBpHdNSyLnT8=",
         "owner": "tani",
         "repo": "ddc-fuzzy",
-        "rev": "49dbbadcd00daee1f233aab6838cb6345bd4e942",
+        "rev": "963f18c14bdb19f3925af0f7f775725be4438f3b",
         "type": "github"
       },
       "original": {
@@ -917,11 +917,11 @@
     "ddc-source-around": {
       "flake": false,
       "locked": {
-        "lastModified": 1725338758,
-        "narHash": "sha256-eEAPGoy4gpXiCeRlTUFaWDQVkDXROCj7jFyCsEIrUdM=",
+        "lastModified": 1735363188,
+        "narHash": "sha256-pxokusyjhlChP707KuD1ESmPcKPehHfkG9b+026+KCg=",
         "owner": "Shougo",
         "repo": "ddc-source-around",
-        "rev": "b52e19f8d93d9b868842e58b211cebd5f7fe60b6",
+        "rev": "32d54dc188b50bcd64f7b410c04aa4ec567ae47f",
         "type": "github"
       },
       "original": {
@@ -949,11 +949,11 @@
     "ddc-source-cmdline": {
       "flake": false,
       "locked": {
-        "lastModified": 1725338777,
-        "narHash": "sha256-R/VTdI8p7bvcFdEPrkA/k+zjH6lVS6vB9cAIp1AB0AU=",
+        "lastModified": 1736067662,
+        "narHash": "sha256-+frbZhZyrpYBUZjr1rtQuLvgeMKNpLo0WpJbrX35gxQ=",
         "owner": "Shougo",
         "repo": "ddc-source-cmdline",
-        "rev": "4003bc995e0c34a859a5abbfe1f78e43674822e4",
+        "rev": "e0247230ef0f7a1e8a5db647bdeaa376a883fcc6",
         "type": "github"
       },
       "original": {
@@ -1093,11 +1093,11 @@
     "ddc-source-nvim-lsp": {
       "flake": false,
       "locked": {
-        "lastModified": 1732751656,
-        "narHash": "sha256-ErQUZYMJpfXooKAj/KbugfIfp/ZPS7g+3bC3m1xpUd4=",
+        "lastModified": 1735974830,
+        "narHash": "sha256-A/XUzTf1nFI983uOHi0PrK+8tjhuKDem7Zvw6SiPpJI=",
         "owner": "Shougo",
         "repo": "ddc-source-nvim-lsp",
-        "rev": "b928f9212f6ef536119e9aa155a1e266dcad7890",
+        "rev": "a6312b409a3c544e1e3cd10fb0af2a4e478827b5",
         "type": "github"
       },
       "original": {
@@ -1221,11 +1221,11 @@
     "ddc-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1733479780,
-        "narHash": "sha256-02h33CE8+hmnWSj1tDhsLSkmMwv69TPsXfxZvthFVSU=",
+        "lastModified": 1735609717,
+        "narHash": "sha256-+S6jU5VoZGEtW1NOJqiGv65hQUKCiNDn7slo2is5Vuc=",
         "owner": "Shougo",
         "repo": "ddc.vim",
-        "rev": "cdecda7fc8f2e8e91b650ad8ed241441e0161e5e",
+        "rev": "7f83e34c2ee723a7ec244116dc66c8b2c3abcc75",
         "type": "github"
       },
       "original": {
@@ -1941,11 +1941,11 @@
     "denops-popup-preview-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1690256390,
-        "narHash": "sha256-CLJcz16J2a9qwMwIsqr0nr69nxSG5GxxSCGnKVoC+NA=",
+        "lastModified": 1735569456,
+        "narHash": "sha256-OZt8TI01c+2Xcr25/s7mBtsVJ3Vr0CL27YcbMCdtUMI=",
         "owner": "matsui54",
         "repo": "denops-popup-preview.vim",
-        "rev": "5a62ac76478791a86f17ac79f064ab302c41f5eb",
+        "rev": "90d34b645c3bc6fed468a9daaf8475945b175ae3",
         "type": "github"
       },
       "original": {
@@ -1957,11 +1957,11 @@
     "denops-signature_help": {
       "flake": false,
       "locked": {
-        "lastModified": 1716017428,
-        "narHash": "sha256-YYO4I2HI61tSerCxQbxOQgsvwQcpIKE7PPsJeSYx/Ws=",
+        "lastModified": 1735573804,
+        "narHash": "sha256-/+GDTxekjRHuyemP7Hzt6r5WiOBC9zUOsinxK4eWbOc=",
         "owner": "matsui54",
         "repo": "denops-signature_help",
-        "rev": "d8f5de04023c2211baed925350d2e652f4f3d0e1",
+        "rev": "4a539c62988012ad9300568f0d0b4b2efe49008a",
         "type": "github"
       },
       "original": {
@@ -4864,11 +4864,11 @@
     "pum-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1734310383,
-        "narHash": "sha256-QvIYJpfjM3pBdsX41D+q/NXJCIyA5V1PAV9jey/aySQ=",
+        "lastModified": 1735974504,
+        "narHash": "sha256-fYW1+Bv/2fR0mrqP4ZPKiY0OEcxYndUCEqaLBCKJKf0=",
         "owner": "Shougo",
         "repo": "pum.vim",
-        "rev": "42efba3e5736fe26fcb74ffe9c5a49a6a46d79ce",
+        "rev": "7a6cc51b406b62eeab66c90b749413693ff01dfc",
         "type": "github"
       },
       "original": {
