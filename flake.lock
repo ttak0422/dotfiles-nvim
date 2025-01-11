@@ -2133,11 +2133,11 @@
     "ed-cmd-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1729593776,
-        "narHash": "sha256-cmVNmaKCBP1SHtgMctFnmyZoS0Szs1Vi7ThUcWV2OZ8=",
+        "lastModified": 1731376225,
+        "narHash": "sha256-Pz5WXaGuPtEcDr4wBN8QfH6F+9md4VcusyHXQAv9QQ8=",
         "owner": "smilhey",
         "repo": "ed-cmd.nvim",
-        "rev": "7a9ee8340da8cf0b223ee947d86764be72efd822",
+        "rev": "b8a9d72669b5cdb0542d4527f8ad370cc6bf3946",
         "type": "github"
       },
       "original": {
