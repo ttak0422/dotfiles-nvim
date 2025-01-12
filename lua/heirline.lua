@@ -29,7 +29,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	end,
 	group = "Heirline",
 })
-
 -- parameters
 local icons = {
 	vim = "",
@@ -49,41 +48,54 @@ local icons = {
 local common = {
 	align = { provider = "%=" },
 	space = { provider = " " },
-	bar = { provider = " | " },
+	bar = { provider = "  " },
 }
 
 -- components
+local symbol = {
+	provider = "  ",
+}
+
 local git
 do
-	local branch = {
-		provider = function(self)
-			return " " .. icons.git_branch .. " " .. self.git_status.head
-		end,
-		hl = { bold = true },
-	}
 	local changes = {
 		{
+			init = function(self)
+				self.count = self.git_status.added or 0
+				self.show = self.count > 0
+				self.label = self.show and self.count or "-"
+			end,
 			provider = function(self)
-				return " " .. icons.git_add .. " " .. (self.git_status.added or 0)
+				return " " .. icons.git_add .. " " .. self.label
 			end,
 			hl = function(self)
-				return { fg = vim.g["terminal_color_9"] or heirline.utils.get_highlight("DiffAdd").bg }
+				return { fg = self.show and vim.g["terminal_color_10"] or "fg" }
 			end,
 		},
 		{
+			init = function(self)
+				self.count = self.git_status.changed or 0
+				self.show = self.count > 0
+				self.label = self.show and self.count or "-"
+			end,
 			provider = function(self)
-				return " " .. icons.git_change .. " " .. (self.git_status.changed or 0)
+				return " " .. icons.git_change .. " " .. self.label
 			end,
 			hl = function(self)
-				return { fg = vim.g["terminal_color_12"] or heirline.utils.get_highlight("DiffChange").bg }
+				return { fg = self.show and vim.g["terminal_color_12"] or "fg" }
 			end,
 		},
 		{
+			init = function(self)
+				self.count = self.git_status.removed or 0
+				self.show = self.count > 0
+				self.label = self.show and self.count or "-"
+			end,
 			provider = function(self)
-				return " " .. icons.git_del .. " " .. (self.git_status.removed or 0)
+				return " " .. icons.git_del .. " " .. self.label
 			end,
 			hl = function(self)
-				return { fg = vim.g["terminal_color_10"] or heirline.utils.get_highlight("DiffDelete").bg }
+				return { fg = self.show and vim.g["terminal_color_9"] or "fg" }
 			end,
 		},
 	}
@@ -92,16 +104,10 @@ do
 		init = function(self)
 			self.git_status = vim.b.gitsigns_status_dict
 		end,
-		branch,
 		changes,
 	}
 	local inactive = {
-		{
-			provider = " ------",
-		},
-		{
-			rovider = "  -  -  -",
-		},
+		provider = "  -  -  -",
 	}
 	git = {
 		fallthrough = false,
@@ -113,18 +119,45 @@ end
 
 local diagnostics
 do
+	local ds = {
+		{
+			init = function(self)
+				self.show = self.errors > 0
+				self.label = self.show and self.errors or "-"
+			end,
+			provider = function(self)
+				return " " .. icons.error .. " " .. self.label
+			end,
+			hl = function(self)
+				return { fg = self.show and vim.g["terminal_color_1"] or "fg" }
+			end,
+		},
+		{
+			init = function(self)
+				self.show = self.warns > 0
+				self.label = self.show and self.warns or "-"
+			end,
+			provider = function(self)
+				return " " .. icons.warn .. " " .. self.label
+			end,
+			hl = function(self)
+				return { fg = self.show and vim.g["terminal_color_3"] or "fg" }
+			end,
+		},
+	}
 	local active = {
 		condition = heirline.conditions.has_diagnostics,
 		init = function(self)
 			self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
 			self.warns = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
 		end,
-		provider = function(self)
-			return icons.error .. " " .. self.errors .. " " .. icons.warn .. " " .. self.warns
-		end,
+		-- provider = function(self)
+		-- 	return " " .. icons.error .. " " .. self.errors .. " " .. icons.warn .. " " .. self.warns
+		-- end,
+		ds,
 	}
 	local inactive = {
-		provider = icons.error .. " - " .. icons.warn .. " -",
+		provider = " " .. icons.error .. " - " .. icons.warn .. " -",
 	}
 	diagnostics = {
 		fallthrough = false,
@@ -193,21 +226,39 @@ do
 	}
 end
 
-local working_dir = {
-	init = function(self)
-		local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-		self.root = self.alias[cwd] or cwd
-	end,
-	provider = function(self)
-		return self.root .. " "
-	end,
-	update = { "DirChanged" },
-	static = {
-		alias = {
-			[""] = "ROOT",
+local working_dir
+do
+	local branch = {
+		condition = heirline.conditions.is_git_repo,
+		provider = function(self)
+			return "(" .. self.git_status.head .. ")"
+		end,
+		init = function(self)
+			self.git_status = vim.b.gitsigns_status_dict
+		end,
+		update = { "User", pattern = "GitSignsUpdate" },
+	}
+	local dir_name = {
+		init = function(self)
+			local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+			self.root = self.alias[cwd] or cwd
+		end,
+		provider = function(self)
+			return self.root
+		end,
+		update = { "DirChanged" },
+		static = {
+			alias = {
+				[""] = "ROOT",
+			},
 		},
-	},
-}
+	}
+	working_dir = {
+		dir_name,
+		common.space,
+		branch,
+	}
+end
 
 -- status lines
 local special_status
@@ -271,8 +322,8 @@ local default_status
 do
 	default_status = {
 		-- left
+		symbol,
 		git,
-		common.bar,
 		diagnostics,
 		-- common.bar,
 		-- harpoon,
