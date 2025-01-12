@@ -3089,11 +3089,11 @@
     "logrotate-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1736439567,
-        "narHash": "sha256-AolN86Det/og26+SWXOLQeYPtiMj92CvxzsyBbx1oW8=",
+        "lastModified": 1736650876,
+        "narHash": "sha256-HMcbMav7r2EyciWWMpBdw8kvn0tcOZIMfwRT/Pimydw=",
         "owner": "ttak0422",
         "repo": "logrotate-nvim",
-        "rev": "c19c43f612d34d59ce56f48bf964df0cc614d951",
+        "rev": "004a617b3bd352f4271b10c12ab1f2d78ba1a865",
         "type": "github"
       },
       "original": {
