@@ -56,7 +56,6 @@
 
     # plugins
     morimo = {
-      # url = "path:/Users/tak/ghq/github.com/ttak0422/morimo";
       url = "github:ttak0422/morimo";
       flake = false;
     };
