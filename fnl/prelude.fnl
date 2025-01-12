@@ -19,7 +19,8 @@
                    :foldlevelstart 99
                    :splitkeep :screen
                    :wrap false
-                   :completeopt [:menu :menuone :noselect]})]
+                   :completeopt []
+                   })]
   (tset vim.opt k v))
 
 (each [k v (pairs {:mapleader " "
