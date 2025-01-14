@@ -6004,11 +6004,11 @@
     "trouble-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1732701472,
-        "narHash": "sha256-JhnERZfma2JHFEn/DElVmrSU5KxM2asx3SJ+86lCfoo=",
+        "lastModified": 1736806781,
+        "narHash": "sha256-W7+12FrdUgPobARqlBbNmZ5epRJ/wtKoubx/FZi1QwY=",
         "owner": "folke",
         "repo": "trouble.nvim",
-        "rev": "46cf952fc115f4c2b98d4e208ed1e2dce08c9bf6",
+        "rev": "4d36b8979287f5facc03fd6d955ace67db667e1d",
         "type": "github"
       },
       "original": {
