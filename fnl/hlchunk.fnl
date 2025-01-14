@@ -6,6 +6,7 @@
                      :left_bottom "└"
                      :right_arrow "─"}
              :style "#00ffff"
+             :delay 0
              :use_treesitter true
              :exclude_filetypes {:copilot-chat true}}
       indent {:enable false}
