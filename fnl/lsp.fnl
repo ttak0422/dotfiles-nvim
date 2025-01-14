@@ -66,6 +66,7 @@
                                            (marker.one_of (marker.has_readable_file :package.json)
                                                           (marker.has_directory :node_modules))
                                            {:halt (marker.one_of (marker.has_readable_file :deno.json))}))
+                  :flags {:debounce_text_changes 1000}
                   :vtsls {:experimental {:completion {:enableServerSideFuzzyMatch true}}}})
 
 ;; typescript (deno)
