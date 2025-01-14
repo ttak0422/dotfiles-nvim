@@ -13,18 +13,21 @@ end
 cmd = _1_
 local NS
 local function _2_()
+  return require("noice.lsp").hover()
+end
+local function _3_()
   return require("live-rename").rename({insert = true})
 end
-NS = {{"gd", vim.lsp.buf.definition, "go to definition"}, {"gi", vim.lsp.buf.implementation, "go to implementation"}, {"gr", vim.lsp.buf.references, "go to references"}, {"K", vim.lsp.buf.hover, "show doc"}, {"<Leader>K", vim.lsp.buf.signature_help, "show signature"}, {"<Leader>D", vim.lsp.buf.type_definition, "show type"}, {"<Leader>ca", vim.lsp.buf.code_action, "code action"}, {"gD", cmd("Glance definitions"), "go to definition"}, {"gI", cmd("Glance implementations"), "go to impl"}, {"gR", cmd("Glance references"), "go to references"}, {"<leader>cc", cmd("Neogen class"), "class comment"}, {"<leader>cf", cmd("Neogen func"), "fn comment"}, {"<leader>rn", _2_, "rename"}}
+NS = {{"gd", vim.lsp.buf.definition, "go to definition"}, {"gi", vim.lsp.buf.implementation, "go to implementation"}, {"gr", vim.lsp.buf.references, "go to references"}, {"K", _2_, "show doc"}, {"<Leader>K", vim.lsp.buf.signature_help, "show signature"}, {"<Leader>D", vim.lsp.buf.type_definition, "show type"}, {"<Leader>ca", vim.lsp.buf.code_action, "code action"}, {"gD", cmd("Glance definitions"), "go to definition"}, {"gI", cmd("Glance implementations"), "go to impl"}, {"gR", cmd("Glance references"), "go to references"}, {"<leader>cc", cmd("Neogen class"), "class comment"}, {"<leader>cf", cmd("Neogen func"), "fn comment"}, {"<leader>rn", _3_, "rename"}}
 local callback
-local function _3_(ctx)
+local function _4_(ctx)
   local bufnr = ctx.buf
   local client = vim.lsp.get_client_by_id(ctx.data.client_id)
   local desc
-  local function _4_(d)
+  local function _5_(d)
     return {noremap = true, silent = true, buffer = bufnr, desc = d}
   end
-  desc = _4_
+  desc = _5_
   for _, k in ipairs(NS) do
     vim.keymap.set("n", k[1], k[2], desc(("\238\171\132 " .. k[3])))
   end
@@ -46,5 +49,5 @@ local function _3_(ctx)
     return nil
   end
 end
-callback = _3_
+callback = _4_
 return vim.api.nvim_create_autocmd("LspAttach", {callback = callback})

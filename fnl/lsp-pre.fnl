@@ -24,7 +24,12 @@
           [:gd vim.lsp.buf.definition "go to definition"]
           [:gi vim.lsp.buf.implementation "go to implementation"]
           [:gr vim.lsp.buf.references "go to references"]
-          [:K vim.lsp.buf.hover "show doc"]
+          ; https://github.com/neovim/nvim-lspconfig/issues/3036
+          ; [:K vim.lsp.buf.hover "show doc"]
+          [:K
+           (fn []
+             ((. (require :noice.lsp) :hover)))
+           "show doc"]
           [:<Leader>K vim.lsp.buf.signature_help "show signature"]
           [:<Leader>D vim.lsp.buf.type_definition "show type"]
           [:<Leader>ca vim.lsp.buf.code_action "code action"]
@@ -35,8 +40,9 @@
           [:<leader>cc (cmd "Neogen class") "class comment"]
           [:<leader>cf (cmd "Neogen func") "fn comment"]
           [:<leader>rn
-           (fn [] ((. (require :live-rename) :rename) {:insert true}) )
-           "rename"]]
+           (fn []
+             ((. (require :live-rename) :rename) {:insert true}))
+           :rename]]
       callback (fn [ctx]
                  (let [bufnr ctx.buf
                        client (vim.lsp.get_client_by_id ctx.data.client_id)
@@ -46,7 +52,8 @@
                                :buffer bufnr
                                :desc d})]
                    (each [_ k (ipairs NS)]
-                     (vim.keymap.set :n (. k 1) (. k 2) (desc (.. " " (. k 3) ))))
+                     (vim.keymap.set :n (. k 1) (. k 2)
+                                     (desc (.. " " (. k 3)))))
                    (if (client.supports_method :textDocument/formatting)
                        (vim.keymap.set :n :<leader>cF vim.lsp.buf.format
                                        (desc " format"))) ; config (builtin)

@@ -44,7 +44,7 @@ rec {
         postConfig = read ../lua/autogen/tiny-inline-diagnostic.lua;
       }
       style.dressing
-      # input.cmp
+      style.noice
       search.telescope
       {
         # efm
