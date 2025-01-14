@@ -163,7 +163,7 @@
       state {:enabled true}
       status {:enabled true :signs true :virtual_text false}
       strategies {:integrated {:height 40 :width 120}}
-      summary {:animated true
+      summary {:animated false
                :enabled true
                :expand_errors true
                :follow true
