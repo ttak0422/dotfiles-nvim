@@ -3,6 +3,7 @@ let
   inherit (pkgs) callPackage;
   read = builtins.readFile;
   lib = callPackage ./lib.nix { };
+  helper = callPackage ./helper.nix { };
   style = callPackage ./style.nix { };
   treesitter = callPackage ./treesitter.nix { };
   outliner = callPackage ./outliner.nix { };
@@ -58,7 +59,10 @@ rec {
   };
   toggleterm = {
     package = toggleterm-nvim;
-    depends = [ term-gf-nvim ];
+    depends = [
+      term-gf-nvim
+      helper.waitevent
+    ];
     postConfig =
       ''
         vim.cmd([[tnoremap <S-Space> <Space>]])
