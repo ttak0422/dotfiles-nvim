@@ -120,11 +120,12 @@
                     (jdtls.dap.setup_dap_main_class_configs)
                     (each [_ k (ipairs N)]
                       (vim.keymap.set :n (. k 1) (. k 2) (. k 3)))))
+      flags {:allow_incremental_sync true :debounce_text_changes 300}
       config {: root_dir
               : settings
               : cmd
-              : capabilities
               : on_attach
+              : flags
               : handlers
               : init_options}]
   (set vim.g.jdtjdt bundles)

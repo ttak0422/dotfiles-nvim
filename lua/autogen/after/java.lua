@@ -83,6 +83,7 @@ local function _4_(client, bufnr)
   return nil
 end
 on_attach = _4_
-local config = {root_dir = root_dir, settings = settings, cmd = cmd, capabilities = capabilities, on_attach = on_attach, handlers = handlers, init_options = init_options}
+local flags = {allow_incremental_sync = true, debounce_text_changes = 300}
+local config = {root_dir = root_dir, settings = settings, cmd = cmd, on_attach = on_attach, flags = flags, handlers = handlers, init_options = init_options}
 vim.g.jdtjdt = bundles
 return jdtls.start_or_attach(config)
