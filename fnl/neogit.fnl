@@ -89,13 +89,14 @@
       ;                    "}" :GoToNextHunkHeader
       ;                    "[c" :OpenOrScrollUp
       ;                    "]c" :OpenOrScrollDown}}
-                         ]
+      ]
   (M.setup {:use_default_keymaps true
             :disable_hint false
             :disable_context_highlighting false
             :disable_signs false
             :graph_style :unicode
             :console_timeout 10000
+            :process_spinner false
             ; : mappings
             : signs
             : integrations}))
