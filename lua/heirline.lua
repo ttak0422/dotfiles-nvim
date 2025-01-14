@@ -53,7 +53,7 @@ local common = {
 
 -- components
 local symbol = {
-	provider = "  ",
+	provider = "  ",
 }
 
 local git
