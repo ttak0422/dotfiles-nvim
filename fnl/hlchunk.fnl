@@ -5,7 +5,7 @@
                      :left_top "┌"
                      :left_bottom "└"
                      :right_arrow "─"}
-             :style "#00ffff"
+             :style (. vim.g :terminal_color_8)
              :delay 0
              :use_treesitter true
              :exclude_filetypes {:copilot-chat true}}
