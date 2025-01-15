@@ -69,6 +69,13 @@ cnoremap <expr> <C-e> pum#visible() ? '<Cmd>call pum#map#cancel()<CR>' : '<End>'
 cnoremap <C-y> <Cmd>call pum#map#confirm()<CR>
 cnoremap <C-o> <Cmd>call pum#map#confirm()<CR>
 
+cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+cnoremap <expr> <Tab>
+      \ pum#visible()
+      \ ? '<Cmd>call pum#map#insert_relative(+1)<CR>'
+      \ : ddc#map#manual_complete()
+
+
 function! CommandlinePre() abort
   let b:prev_buffer_config = ddc#custom#get_buffer()
   autocmd User DDCCmdlineLeave ++once call CommandlinePost()
