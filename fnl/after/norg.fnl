@@ -7,6 +7,7 @@
 (vim.opt_local.iskeyword:append ["$" "/"])
 
 (let [map vim.keymap.set
+      cmd (fn [c] (.. :<cmd> c :<cr>))
       opts (fn [d] {:noremap false :silent true :buffer true :desc d})
       N [[:u
           (fn []
@@ -28,6 +29,7 @@
          [:<LocalLeader>nn
           "<Plug>(neorg.dirman.new-note)"
           (opts " Create a new note")]
+         [:<LocalLeader>no (cmd "Neorg toc") (opts " TOC")]
          [:<LocalLeader>tu
           "<Plug>(neorg.qol.todo-items.todo.task-undone)"
           (opts " Mark as undone")]

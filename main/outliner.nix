@@ -79,6 +79,7 @@ with pkgs.vimPlugins;
       commands = [
         "Neorg"
         "NeorgFuzzySearch"
+        "NeorgUID"
         "NeorgGit"
         "NeorgGitBranch"
       ];

@@ -95,11 +95,14 @@
                       ;; undo
                       [:U (cmd :UndotreeToggle (desc "toggle undotree"))]
                       ;; neorg
-                      [:nn
+                      [:nt
                        (cmd "Neorg journal today")
-                       (desc "Enter Neorg (today journal)")]
-                      [:no (cmd "Neorg toc") (desc "Show Neorg TOC")]
-                      [:N (cmd :Neorg) (desc "Enter Neorg")]
+                       (desc " Today")]
+                      [:ny
+                       (cmd "Neorg journal yesterday")
+                       (desc " Yesterday")]
+                      [:N (cmd :Neorg) (desc " Enter")]
+                      [:nn (cmd :NeorgUID) (desc " UID")]
                       [:ngg (cmd :NeorgGit) (desc " Git")]
                       [:ngb (cmd :NeorgGitBranch) (desc " Git (branch)")]
                       [:fn

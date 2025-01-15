@@ -61,6 +61,9 @@
       path (require :plenary.path)
       dirman (neorg.modules.get_module :core.dirman)
       create_command vim.api.nvim_create_user_command
+      confirm (fn [prompt]
+                (let [answer (vim.fn.input (.. prompt " (y/N): "))]
+                  (= (answer:lower) :y)))
       check_git_dir (fn []
                       (let [git_dir (path:new (.. (vim.fn.getcwd) :/.git))]
                         (git_dir:exists)))
@@ -73,6 +76,12 @@
                          (out:gsub "%s+" "")
                          (error "branch not found"))))]
   (create_command :NeorgFuzzySearch "Telescope neorg find_linkable" {})
+  (create_command :NeorgUID
+                  (fn []
+                    (if (confirm "Create Note?")
+                        (let [uid (os.date "%Y%m%d%H%M%S")]
+                          (dirman.create_file (.. :uid/ uid) nil {:title uid}))))
+                  {})
   (create_command :NeorgGit
                   (fn []
                     (if (check_git_dir)
