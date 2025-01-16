@@ -4322,11 +4322,11 @@
     "nvim-dd": {
       "flake": false,
       "locked": {
-        "lastModified": 1737040714,
-        "narHash": "sha256-4AW/P7JjcK7+3dWTi5rkmVfKK00qGlGEMoiNQMcuxdQ=",
+        "lastModified": 1737037232,
+        "narHash": "sha256-orxa/NXhXbKjGsjQu01yoR1JhcTrVW1yFL5DcNMJI0Y=",
         "owner": "ttak0422",
         "repo": "nvim-dd",
-        "rev": "0d10e6bde7682e3968471088fabfbe293532e26b",
+        "rev": "62c5ab48ec85fba53caa3ac402e837addcd1943f",
         "type": "github"
       },
       "original": {
