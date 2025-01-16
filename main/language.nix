@@ -20,7 +20,7 @@ rec {
     ];
     depends = [
       {
-        package = nvim-dd;
+        package = nvim-dd/add-buffer-check;
         postConfig = read ../lua/autogen/dd.lua;
       }
       {
