@@ -58,8 +58,9 @@ inoremap <C-y> <Cmd>call pum#map#confirm()<CR>
 inoremap <C-g>   <Cmd>call pum#map#toggle_preview()<CR>
 inoremap <C-x>      <Cmd>call ddc#map#manual_complete()<CR>
 inoremap <C-x><C-x> <Cmd>call ddc#map#manual_complete()<CR>
-inoremap <C-x><C-b> <Cmd>call ddc#map#manual_complete(#{ sources: ['buffer'] })<CR>
+inoremap <C-x>f <Cmd>call ddc#map#manual_complete(#{ sources: ['file'] })<CR>
 inoremap <C-x><C-f> <Cmd>call ddc#map#manual_complete(#{ sources: ['file'] })<CR>
+inoremap <C-x>l <Cmd>call ddc#map#manual_complete(#{ sources: ['lsp'] })<CR>
 inoremap <C-x><C-l> <Cmd>call ddc#map#manual_complete(#{ sources: ['lsp'] })<CR>
 inoremap <expr> <C-Space> '<C-n>'
 
