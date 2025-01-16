@@ -61,9 +61,6 @@
       path (require :plenary.path)
       dirman (neorg.modules.get_module :core.dirman)
       create_command vim.api.nvim_create_user_command
-      confirm (fn [prompt]
-                (let [answer (vim.fn.input (.. prompt " (y/N): "))]
-                  (= (answer:lower) :y)))
       check_git_dir (fn []
                       (let [git_dir (path:new (.. (vim.fn.getcwd) :/.git))]
                         (git_dir:exists)))
@@ -74,28 +71,31 @@
                    (let [out (vim.fn.system "git rev-parse --abbrev-ref HEAD")]
                      (if (= vim.v.shell_error 0)
                          (out:gsub "%s+" "")
-                         (error "branch not found"))))]
+                         (error "branch not found"))))
+      create_file (fn [path]
+                    (dirman.create_file path nil {}))]
   (create_command :NeorgFuzzySearch "Telescope neorg find_linkable" {})
   (create_command :NeorgUID
                   (fn []
-                    (if (confirm "Create Note?")
-                        (let [uid (os.date "%Y%m%d%H%M%S")]
-                          (dirman.create_file (.. :uid/ uid) nil {:title uid}))))
+                    (case (vim.fn.input " Title: ")
+                      (where title (not= title "")) (create_file (.. :uid/
+                                                                     (-> title
+                                                                         (string.gsub " "
+                                                                                      "_")
+                                                                         ((fn [t]
+                                                                            (.. (os.date "%Y%m%d%H%M%S")
+                                                                                "_"
+                                                                                t))))))))
                   {})
   (create_command :NeorgGit
                   (fn []
                     (if (check_git_dir)
-                        (dirman.create_file (.. :project/ (get_dir) :/main) nil
-                                            {:title (.. "Project " (get_dir))})
+                        (create_file (.. :project/ (get_dir) :/main))
                         (vim.notify "Not a git repository" :warn)))
                   {})
   (create_command :NeorgGitBranch
                   (fn []
                     (if (check_git_dir)
-                        (dirman.create_file (.. :project/ (get_dir) "/"
-                                                (get_branch))
-                                            nil
-                                            {:title (.. "Project " (get_dir)
-                                                        "/" (get_branch))})
+                        (create_file (.. :project/ (get_dir) "/" (get_branch)))
                         (vim.notify "Not a git repository" :warn)))
                   {}))
