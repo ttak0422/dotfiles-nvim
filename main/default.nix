@@ -89,6 +89,7 @@ let
       vim-nix
       vtsls
       helpview
+      nginx
       # MEMO: 重いので有効化しない
       # log-highlight
       ;

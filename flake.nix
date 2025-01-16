@@ -1414,6 +1414,10 @@
       url = "github:MeanderingProgrammer/render-markdown.nvim";
       flake = false;
     };
+    nginx-vim = {
+      url = "github:chr4/nginx.vim";
+      flake = false;
+    };
   };
 
   outputs =

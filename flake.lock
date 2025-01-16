@@ -3829,6 +3829,22 @@
         "type": "github"
       }
     },
+    "nginx-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1701003741,
+        "narHash": "sha256-GhKa/Izh9T0RGf050l9D+dt36Q7cIW048a3EpnN0pRI=",
+        "owner": "chr4",
+        "repo": "nginx.vim",
+        "rev": "cffaec54f0c7f9518de053634413a20e90eac825",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chr4",
+        "repo": "nginx.vim",
+        "type": "github"
+      }
+    },
     "nix-filter": {
       "locked": {
         "lastModified": 1710156097,
@@ -5148,6 +5164,7 @@
         "neotest-vitest": "neotest-vitest",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nfnl": "nfnl",
+        "nginx-vim": "nginx-vim",
         "nix-filter": "nix-filter_2",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs_3",

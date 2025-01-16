@@ -283,4 +283,13 @@ rec {
       fileTypes = [ "help" ];
     };
   };
+  nginx = {
+    package = nginx-vim.overrideAttrs (old: {
+      src = pkgs.nix-filter {
+        root = nginx-vim.src;
+        exclude = [ "ftdetect/nginx.vim" ];
+      };
+    });
+    hooks.fileTypes = [ "nginx" ];
+  };
 }

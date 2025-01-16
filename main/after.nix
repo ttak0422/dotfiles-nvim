@@ -94,6 +94,12 @@ let
   };
 
   ftdetect = {
+    nginx = {
+      language = "vim";
+      code = ''
+        source ${pkgs.vimPlugins.nginx-vim}/ftplugin/nginx.vim
+      '';
+    };
     # MEMO: 重いので有効化しない
     # log = {
     #   language = "vim";
