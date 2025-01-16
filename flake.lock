@@ -4306,15 +4306,16 @@
     "nvim-dd": {
       "flake": false,
       "locked": {
-        "lastModified": 1728679811,
-        "narHash": "sha256-wrnGWTd7+FlGkK+TPSSSi51E1vvxklsfytIqKjfBZeE=",
-        "owner": "yorickpeterse",
+        "lastModified": 1737037232,
+        "narHash": "sha256-orxa/NXhXbKjGsjQu01yoR1JhcTrVW1yFL5DcNMJI0Y=",
+        "owner": "ttak0422",
         "repo": "nvim-dd",
-        "rev": "1295865ef1df6747c8b497cd3c4e80a29263b71e",
+        "rev": "62c5ab48ec85fba53caa3ac402e837addcd1943f",
         "type": "github"
       },
       "original": {
-        "owner": "yorickpeterse",
+        "owner": "ttak0422",
+        "ref": "add-buffer-check",
         "repo": "nvim-dd",
         "type": "github"
       }

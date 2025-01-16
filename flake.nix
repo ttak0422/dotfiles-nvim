@@ -314,7 +314,8 @@
       flake = false;
     };
     nvim-dd = {
-      url = "github:yorickpeterse/nvim-dd";
+      # url = "github:yorickpeterse/nvim-dd";
+      url = "github:ttak0422/nvim-dd/add-buffer-check";
       flake = false;
     };
     nvim-autopairs = {
