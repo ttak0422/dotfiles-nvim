@@ -117,7 +117,7 @@ require("noice").setup({
 		bottom_search = false,
 		command_palette = false,
 		long_message_to_split = false,
-		inc_rename = false,
+		inc_rename = true,
 		lsp_doc_border = false,
 	},
 	throttle = 1000 / 30, -- default

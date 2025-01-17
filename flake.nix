@@ -1189,10 +1189,6 @@
       url = "github:matsui54/denops-signature_help";
       flake = false;
     };
-    live-rename-nvim = {
-      url = "github:saecki/live-rename.nvim";
-      flake = false;
-    };
     nvim-dap-ui = {
       url = "github:rcarriga/nvim-dap-ui";
       flake = false;
@@ -1415,6 +1411,10 @@
     };
     nginx-vim = {
       url = "github:chr4/nginx.vim";
+      flake = false;
+    };
+    inc-rename-nvim = {
+      url = "github:smjonas/inc-rename.nvim";
       flake = false;
     };
   };

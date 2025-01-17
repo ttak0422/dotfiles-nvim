@@ -39,10 +39,7 @@
           [:gR (cmd "Glance references") "go to references"]
           [:<leader>cc (cmd "Neogen class") "class comment"]
           [:<leader>cf (cmd "Neogen func") "fn comment"]
-          [:<leader>rn
-           (fn []
-             ((. (require :live-rename) :rename) {:insert true}))
-           :rename]]
+          [:<leader>rn ":IncRename " :rename]]
       callback (fn [ctx]
                  (let [bufnr ctx.buf
                        client (vim.lsp.get_client_by_id ctx.data.client_id)

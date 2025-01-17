@@ -89,6 +89,11 @@ rec {
       lib.snacks
       treesitter.treesitter
       notify
+      {
+        package = inc-rename-nvim;
+        postConfig = read ../lua/autogen/inc-rename.lua;
+        hooks.commands = [ "IncRename" ];
+      }
     ];
     postConfig = {
       code = read ../lua/noice.lua;
