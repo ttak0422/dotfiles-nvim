@@ -5,8 +5,8 @@ require("noice").setup({
 		opts = {},
 		format = {
 			cmdline = { pattern = "^:", icon = "", lang = "vim" },
-			search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
-			search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
+			search_down = { kind = "search", pattern = "^/", icon = "", lang = "regex" },
+			search_up = { kind = "search", pattern = "^%?", icon = "", lang = "regex" },
 			filter = { pattern = "^:%s*!", icon = "$", lang = "bash" },
 			lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = "", lang = "lua" },
 			help = { pattern = "^:%s*he?l?p?%s+", icon = "?" },
@@ -126,6 +126,9 @@ require("noice").setup({
 			border = {
 				style = "none",
 				padding = { 1, 1 },
+			},
+			size = {
+				min_width = 5,
 			},
 			filter_options = {},
 			win_options = {
