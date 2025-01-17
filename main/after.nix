@@ -98,6 +98,7 @@ let
       language = "vim";
       code = ''
         source ${pkgs.vimPlugins.nginx-vim}/ftplugin/nginx.vim
+        au BufRead,BufNewFile *.nginxconf set ft=nginx
       '';
     };
     # MEMO: 重いので有効化しない
