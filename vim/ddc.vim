@@ -102,5 +102,5 @@ call ddc#custom#patch_global('sourceParams', #{
       \   }
       \ })
 lua << EOF
-  require("ddc_source_lsp_setup").setup()
+require("ddc_source_lsp_setup").setup({respect_trigger=false})
 EOF

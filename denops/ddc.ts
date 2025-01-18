@@ -23,6 +23,7 @@ export class Config extends BaseConfig {
       backspaceCompletion: false,
       sources: [
         "denippet",
+        "lsp",
         "around",
       ],
       cmdlineSources: {
@@ -76,7 +77,8 @@ export class Config extends BaseConfig {
           mark: "", // use kind only
           forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
           dup: "keep",
-          minAutoCompleteLength: 1,
+          minAutoCompleteLength: 1000, // use manual_complete or forceCompletionPattern
+          minManualCompleteLength: 1,
           sorters: [
             "sorter_lsp-detail-size",
             "sorter_lsp-kind",
