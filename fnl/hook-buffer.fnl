@@ -46,50 +46,47 @@
   (each [_ k (ipairs [;; movement
                       [:gpd
                        (lcmd "require('goto-preview').goto_preview_definition()")
-                       (desc "preview definition")]
+                       (desc "󰩊 definition")]
                       [:gpi
                        (lcmd "require('goto-preview').goto_preview_implementation()")
-                       (desc "preview implementation")]
+                       (desc "󰩊 implementation")]
                       [:gpr
                        (lcmd "require('goto-preview').goto_preview_references()")
-                       (desc "preview references")]
+                       (desc "󰩊 references")]
                       [:gP
                        (lcmd "require('goto-preview').close_all_win()")
-                       (desc "close all preview")]
+                       (desc "󰩊 close all")]
                       [:gb (lcmd "require('dropbar.api').pick()") (desc :pick)]
                       ;; debug
                       [:<F5>
                        (lcmd "require('dap').continue()")
-                       (desc :continue)]
+                       (desc " continue")]
                       [:<F10>
                        (lcmd "require('dap').step_over()")
-                       (desc "step over")]
+                       (desc " step over")]
                       [:<F11>
                        (lcmd "require('dap').step_into()")
-                       (desc "step into")]
+                       (desc " step into")]
                       [:<F12>
                        (lcmd "require('dap').step_out()")
-                       (desc "step out")]
+                       (desc " step out")]
                       [:<LocalLeader>db
                        (lcmd "require('dap').toggle_breakpoint()")
-                       (desc "dap toggle breakpoint")]
+                       (desc " toggle breakpoint")]
                       [:<LocalLeader>dB
                        (fn []
                          (let [dap (require :dap)]
                            (dap.set_breakpoint (vim.fn.input "Breakpoint condition: "))))
-                       (desc "dap set breakpoint with condition")]
+                       (desc " set breakpoint with condition")]
                       [:<LocalLeader>dr
                        (lcmd "require('dap').repl.toggle()")
-                       (desc "dap toggle repl")]
+                       (desc " toggle repl")]
                       [:<LocalLeader>dl
                        (lcmd "require('dap').run_last()")
-                       (desc "dap run last")]
+                       (desc " run last")]
                       [:<LocalLeader>dd
                        (cmd :ToggleDapUI)
-                       ; (fn []
-                       ;   (let [dapui (require :dapui)]
-                       ;     (dapui.toggle {:reset true})))
-                       (desc "dap toggle ui")]
+                       (desc " toggle ui")]
                       ;; copilot chat
                       [:<Leader>ta (cmd :CopilotChatToggle)]
                       [:<Leader>O (cmd :Other)]])]
@@ -105,15 +102,22 @@
                       [:<Leader>ta (cmd :CopilotChat)]])]
     (vim.keymap.set :v (. k 1) (. k 2) (or (. k 3) opts)))
   ;; local leader
-  (each [_ k (ipairs [[:tT (cmd :Neotest)]
-                      [:tt (cmd :NeotestNearest)]
-                      [:to (cmd :NeotestToggleSummary)]
-                      [:tO (cmd :NeotestTogglePanel)]
-                      [:tK (cmd :NeotestOpenOutput)]])]
+  (each [_ k (ipairs [[:tT (cmd :Neotest) (desc " run test (file)")]
+                      [:tt (cmd :NeotestNearest) (desc " run test (unit)")]
+                      [:to
+                       (cmd :NeotestTogglePanel)
+                       (desc " show test results")]
+                      [:tO
+                       (cmd :NeotestToggleSummary)
+                       (desc " show test tree")]
+                      [:tK (cmd :NeotestOpenOutput) (desc " hover (test)")]])]
     (vim.keymap.set :n (.. :<LocalLeader> (. k 1)) (. k 2) (or (. k 3) opts)))
-  (each [_ k (ipairs [[[:n :x] :gs (lcmd "require('reacher').start()")]
+  (each [_ k (ipairs [[[:n :x]
+                       :gs
+                       (lcmd "require('reacher').start()")
+                       (desc " search (window)")]
                       [[:n :x]
                        :gS
                        (lcmd "require('reacher').start_multiple()")
-                       (desc "search displayed")]])]
+                       (desc " search (editor)")]])]
     (vim.keymap.set (. k 1) (. k 2) (. k 3) (or (. k 4) opts))))
