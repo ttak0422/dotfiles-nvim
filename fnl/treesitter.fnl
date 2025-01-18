@@ -2,10 +2,6 @@
 
 (vim.opt.runtimepath:prepend parser_install_dir)
 
-; Folding
-(set vim.wo.foldmethod :expr)
-(set vim.wo.foldexpr "v:lua.vim.treesitter.foldexpr()")
-
 (let [config (require :nvim-treesitter.configs)
       highlight {:enable true
                  :additional_vim_regex_highlighting false

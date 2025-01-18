@@ -1,8 +1,6 @@
 -- [nfnl] Compiled from fnl/treesitter.fnl by https://github.com/Olical/nfnl, do not edit.
 local parser_install_dir = args.parser
 vim.opt.runtimepath:prepend(parser_install_dir)
-vim.wo.foldmethod = "expr"
-vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 local config = require("nvim-treesitter.configs")
 local highlight
 local function _1_(_lang, buf)
