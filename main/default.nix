@@ -72,7 +72,6 @@ let
       autopairs
       better-escape
       comment
-      indent-o-matic
       tabout
       undotree
       # ed-cmd

@@ -44,7 +44,13 @@ with pkgs.vimPlugins;
   };
   autopairs = {
     package = nvim-autopairs;
-    depends = [ treesitter.treesitter ];
+    depends = [
+      treesitter.treesitter
+      {
+        package = guess-indent-nvim;
+        postConfig = read ../lua/autogen/guess-indent.lua;
+      }
+    ];
     postConfig = read ../lua/autogen/autopairs.lua;
     hooks.events = [ "InsertEnter" ];
   };

@@ -2671,6 +2671,22 @@
         "type": "github"
       }
     },
+    "guess-indent-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1720291003,
+        "narHash": "sha256-mzX9LgG2+9aj2lMPlSZh3zP3wphHQdecXe7RHP1baT0=",
+        "owner": "NMAC427",
+        "repo": "guess-indent.nvim",
+        "rev": "6cd61f7a600bb756e558627cd2e740302c58e32d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NMAC427",
+        "repo": "guess-indent.nvim",
+        "type": "github"
+      }
+    },
     "hardtime-nvim": {
       "flake": false,
       "locked": {
@@ -5093,6 +5109,7 @@
         "gopher-nvim": "gopher-nvim",
         "goplements-nvim": "goplements-nvim",
         "goto-preview": "goto-preview",
+        "guess-indent-nvim": "guess-indent-nvim",
         "hardtime-nvim": "hardtime-nvim",
         "harpoon": "harpoon",
         "harpoon-2": "harpoon-2",
