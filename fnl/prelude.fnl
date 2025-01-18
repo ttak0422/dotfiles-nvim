@@ -19,8 +19,7 @@
                    :foldlevelstart 99
                    :splitkeep :screen
                    :wrap false
-                   :completeopt []
-                   })]
+                   :completeopt []})]
   (tset vim.opt k v))
 
 (each [k v (pairs {:mapleader " "
@@ -95,9 +94,7 @@
                       ;; undo
                       [:U (cmd :UndotreeToggle (desc "toggle undotree"))]
                       ;; neorg
-                      [:nt
-                       (cmd "Neorg journal today")
-                       (desc " Today")]
+                      [:nt (cmd "Neorg journal today") (desc " Today")]
                       [:ny
                        (cmd "Neorg journal yesterday")
                        (desc " Yesterday")]
@@ -113,9 +110,11 @@
                       [:gb (cmd :ToggleGitBlame) (desc " blame")]
                       ;; filter
                       [:tb
-                       (lcmd "require('lir.float').toggle()")
-                       (desc "Toggle lir")]
-                      [:tB (lcmd "require('oil').open()") (desc "Toggle oil")]
+                       (lcmd "require('oil').toggle_float()")
+                       (desc "  explorer")]
+                      [:tB
+                       (lcmd "require('oil').open()")
+                       (desc "  explorer")]
                       ;; buffer
                       [:q (cmd :BufDel) (desc "close buffer")]
                       [:Q (cmd :BufDelAll) (desc "close all buffers")]

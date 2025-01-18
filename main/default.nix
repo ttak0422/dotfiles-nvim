@@ -160,7 +160,7 @@ let
       copilot-chat
       dotfyle-metadata
       hardtime
-      lir
+    # lir
       logrotate
       menu
       minty

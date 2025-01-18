@@ -36,6 +36,7 @@
                : border
                :win_options {:winblend 0}
                :update_on_cursor_moved true}
+      float {:border :single}
       progress {:max_width 0.9
                 :min_width [40 0.4]
                 :width nil
@@ -63,6 +64,7 @@
             : keymaps_help
             : view_options
             : preview
+            : float
             : progress
             : ssh}))
 
