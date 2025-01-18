@@ -179,7 +179,7 @@ let
       ;
     inherit (callPackage ./treesitter.nix { })
       treesitter
-      auto-indent # insert modeの<tab>を書き換える
+      # auto-indent # insert modeの<tab>を書き換える
       context-vt
       hlchunk
       ts-autotag

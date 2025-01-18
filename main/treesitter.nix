@@ -10,7 +10,7 @@ rec {
   treesitter = {
     packages = [
       nvim-treesitter
-      nvim-yati
+      # nvim-yati
     ];
     postConfig =
       let
