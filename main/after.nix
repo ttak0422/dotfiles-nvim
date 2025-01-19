@@ -17,6 +17,8 @@ let
   '';
   ftplugin = {
     fennel = read ../lua/autogen/after/fennel.lua;
+    gitcommit = read ../lua/autogen/after/gitcommit.lua;
+    nix = read ../lua/autogen/after/nix.lua;
     qf = {
       language = "vim";
       code = read ../vim/after/qf.vim;
