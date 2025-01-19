@@ -1421,6 +1421,10 @@
       url = "github:NMAC427/guess-indent.nvim";
       flake = false;
     };
+    command-and-cursor-nvim = {
+      url = "github:moyiz/command-and-cursor.nvim";
+      flake = false;
+    };
   };
 
   outputs =

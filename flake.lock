@@ -509,6 +509,22 @@
         "type": "github"
       }
     },
+    "command-and-cursor-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713444284,
+        "narHash": "sha256-CwPKMuIhEWrtwiNQ51KFoWE5CNVaiTCzpOzuydRl+TY=",
+        "owner": "moyiz",
+        "repo": "command-and-cursor.nvim",
+        "rev": "43485e6d4f0ffd42414b35e156075e46047563dd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "moyiz",
+        "repo": "command-and-cursor.nvim",
+        "type": "github"
+      }
+    },
     "conform-nvim": {
       "flake": false,
       "locked": {
@@ -4990,6 +5006,7 @@
         "cmp_luasnip": "cmp_luasnip",
         "codewindow-nvim": "codewindow-nvim",
         "colorful-winsep-nvim": "colorful-winsep-nvim",
+        "command-and-cursor-nvim": "command-and-cursor-nvim",
         "conform-nvim": "conform-nvim",
         "copilot-lua": "copilot-lua",
         "crates-nvim": "crates-nvim",

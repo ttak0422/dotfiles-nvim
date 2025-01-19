@@ -94,6 +94,10 @@ rec {
         postConfig = read ../lua/autogen/inc-rename.lua;
         hooks.commands = [ "IncRename" ];
       }
+      {
+        package = command-and-cursor-nvim;
+        postConfig = read ../lua/autogen/command-and-cursor.lua;
+      }
     ];
     postConfig = {
       code = read ../lua/noice.lua;
