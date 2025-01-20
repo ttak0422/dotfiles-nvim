@@ -1,0 +1,91 @@
+[const]
+prefix = 'co'
+body = """
+const ${1:name} = ${2:value}
+"""
+
+[consts]
+prefix = 'cos'
+body = """
+const (
+	${1:name} = ${2:value}
+)
+"""
+
+[var]
+prefix = 'var'
+body = """
+var ${1:name} ${2:type}
+"""
+
+[vars]
+prefix = 'vars'
+body = """
+var (
+	${1:name} ${2:type} = ${3:value}
+)
+"""
+
+[type_function]
+prefix = 'tyf'
+body = """
+type ${1:name} func($3) $4
+"""
+
+[type_interface]
+prefix = 'tyi'
+body = """
+type ${1:name} interface {
+	$0
+}
+"""
+
+[type_struct]
+prefix = 'tys'
+body = """
+type ${1:name} struct {
+	$0
+}
+"""
+
+[function]
+prefix = 'func'
+body = """
+func $1($2) $3 {
+	$0
+}
+"""
+
+[switch]
+prefix = 'switch'
+body = """
+switch ${1:expression} {
+case ${2:condition}:
+	$0
+}
+"""
+
+[select]
+prefix = 'select'
+body = """
+select {
+case ${1:condition}:
+	$0
+}
+"""
+
+[for_index]
+prefix = 'fori'
+body = """
+for ${1:i} := ${2:0}; $1 < ${3:count}; $1${4:++} {
+  $0
+}
+"""
+
+[for_range]
+prefix = 'forr'
+body = """
+for ${1:_, }${2:v} := range ${3:v} {
+  $0
+}
+"""
