@@ -79,6 +79,7 @@ export class Config extends BaseConfig {
           dup: "keep",
           minAutoCompleteLength: 1000, // use manual_complete or forceCompletionPattern
           minManualCompleteLength: 1,
+          minKeywordLength: 1,
           sorters: [
             "sorter_lsp-detail-size",
             "sorter_lsp-kind",
