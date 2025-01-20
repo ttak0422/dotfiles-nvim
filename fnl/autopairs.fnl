@@ -1,5 +1,6 @@
 (let [M (require :nvim-autopairs)
-      disable_filetype [:TelescopePrompt :spectre_panel :norg]
-      Rule (require :nvim-autopairs.rule)]
-  (M.setup {:map_cr true :check_ts true : disable_filetype})
+      Rule (require :nvim-autopairs.rule)
+      ts_config {:go false}
+      disable_filetype [:TelescopePrompt :spectre_panel :norg]]
+  (M.setup {:map_cr true :check_ts true : ts_config : disable_filetype})
   (M.add_rules [(Rule "\"\"\"" "\"\"\"" :java)]))
