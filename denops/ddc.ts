@@ -107,10 +107,11 @@ export class Config extends BaseConfig {
           mark: "[VSNIP]",
         },
         denippet: {
-          mark: "[SNIP]",
+          mark: " ",
+          minAutoCompleteLength: 1,
         },
         neorg: {
-          mark: "[ Neorg]",
+          mark: " ",
           minAutoCompleteLength: 0,
         },
       },
@@ -168,7 +169,7 @@ export class Config extends BaseConfig {
     });
 
     contextBuilder.patchFiletype("norg", {
-      sources: ["neorg", "around"],
+      sources: ["denippet", "neorg", "around"],
     });
 
     for (const filetype of ["typescript", "javascript"]) {
