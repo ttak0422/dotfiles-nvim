@@ -6,7 +6,12 @@ let
 
   extraPackages = [ ];
   extraConfig = ''
-    if vim.g.neovide then dofile("${../lua/autogen/neovide.lua}") end
+    if vim.g.neovide then
+      dofile("${../lua/autogen/neovide.lua}")
+      vim.cmd("colorscheme morimo")
+    else
+      vim.cmd("colorscheme morimo")
+    end
     ${read ./../lua/autogen/prelude.lua}
   '';
   after = {
@@ -160,7 +165,7 @@ let
       copilot-chat
       dotfyle-metadata
       hardtime
-    # lir
+      # lir
       logrotate
       menu
       minty

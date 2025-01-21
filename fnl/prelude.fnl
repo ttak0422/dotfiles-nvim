@@ -156,5 +156,4 @@
                     (mk_toggle (+ 4 i) :terminal {:idx i}) opts)))
 
 ;; eager configs
-(vim.cmd "colorscheme morimo")
 ((. (require :config-local) :setup) {:silent true})

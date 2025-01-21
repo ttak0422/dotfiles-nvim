@@ -61,5 +61,4 @@ do
     vim.keymap.set({"n", "t", "i"}, ("<C-" .. i .. ">"), mk_toggle((4 + i), "terminal", {idx = i}), opts)
   end
 end
-vim.cmd("colorscheme morimo")
 return require("config-local").setup({silent = true})
