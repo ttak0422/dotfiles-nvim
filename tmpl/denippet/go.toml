@@ -56,6 +56,14 @@ func $1($2) $3 {
 }
 """
 
+[method]
+prefix = 'method'
+body = """
+func (${1:receiver} ${2:type}) ${3:method}($4) $5 {
+	$0
+}
+"""
+
 [switch]
 prefix = 'switch'
 body = """
@@ -87,5 +95,35 @@ prefix = 'forr'
 body = """
 for ${1:_, }${2:v} := range ${3:v} {
   $0
+}
+"""
+
+[test]
+prefix = 'test_function'
+body = """
+func Test$1(t *testing.T) {
+	$0
+}
+"""
+
+[parameterized_test]
+prefix = ['parameterized_test', 'table_driven_test']
+body = """
+func Test$1(t *testing.T) {
+	testCases := []struct {
+		desc	string
+		$2
+		}{
+			{
+				desc: "$3",
+				$4
+			},
+		}
+
+		for _, tC := range testCases {
+			t.Run(tC.desc, func(t *testing.T) {
+				$0
+			})
+	}
 }
 """
