@@ -6,8 +6,8 @@ let
 
   extraPackages = [ ];
   extraConfig = ''
-    ${read ./../lua/autogen/prelude.lua}
     if vim.g.neovide then dofile("${../lua/autogen/neovide.lua}") end
+    ${read ./../lua/autogen/prelude.lua}
   '';
   after = {
     inherit (callPackage ./after.nix { }) plugin ftplugin ftdetect;
