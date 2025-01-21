@@ -5943,11 +5943,11 @@
     "tiny-inline-diagnostic-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1736805866,
-        "narHash": "sha256-jNPUfCxWAvTnLP43t6I94mlMfaXaCl+rUuMU2E5XixE=",
+        "lastModified": 1737370340,
+        "narHash": "sha256-VDW9oI0Ks+1ZZugeh5eJYzexOMl+Twy9rkAq1A5hgWg=",
         "owner": "rachartier",
         "repo": "tiny-inline-diagnostic.nvim",
-        "rev": "5922bb3dd691a2a37bd51e20d4a3dc7895221e51",
+        "rev": "2c50854895c9b553482d4289976194a477b41b8f",
         "type": "github"
       },
       "original": {
