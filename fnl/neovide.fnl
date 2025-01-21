@@ -21,4 +21,5 @@
   (map [:i :c] :<D-v> :<C-r>+)
   ;; to avoid <C-r> mapping conflict in zsh
   (map :t :<D-v> "<C-\\><C-n>\"+pi")
-  (vim.api.nvim_create_user_command :ToggleNeovideFullScreen toggle_zoom {}))
+  (vim.api.nvim_create_user_command :ToggleNeovideFullScreen toggle_zoom {})
+  (vim.cmd "colorscheme morimo"))
