@@ -8,7 +8,7 @@ let
   extraConfig = ''
     if vim.g.neovide then
       dofile("${../lua/autogen/neovide.lua}")
-      vim.cmd("colorscheme morimo")
+      vim.cmd("colorscheme sorairo")
     else
       vim.cmd("colorscheme morimo")
     end
