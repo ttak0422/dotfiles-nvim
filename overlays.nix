@@ -137,6 +137,7 @@ inputs: with inputs; [
       skk-dict = mkDerivation {
         name = "skk-dict";
         src = inputs.skk-dict;
+        dontBuild = true;
         installPhase = ''
           mkdir $out
           cp SKK-JISYO.L $out/SKK-JISYO.L
