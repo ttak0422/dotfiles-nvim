@@ -1,6 +1,6 @@
 ;; options
 (vim.loader.enable)
-(vim.cmd "language messages en_US")
+(vim.cmd "language messages en_US.UTF-8")
 ; (each [k v (pairs {})]
 ;   (tset vim.o k v))
 
