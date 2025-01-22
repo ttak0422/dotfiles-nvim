@@ -27,10 +27,10 @@
       };
     };
 
-    norg-fmt = {
-      url = "github:nvim-neorg/norg-fmt";
-      flake = false;
-    };
+    # norg-fmt = {
+    #   url = "github:nvim-neorg/norg-fmt";
+    #   flake = false;
+    # };
 
     # javaPackages
     junit-console = {

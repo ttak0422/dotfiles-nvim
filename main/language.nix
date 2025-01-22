@@ -218,7 +218,7 @@ rec {
       yapf # python
       html-tidy # html
       nodePackages.prettier # js, ts (node)
-      norg-fmt # neorg
+      # norg-fmt # neorg
     ];
     postConfig = read ../lua/autogen/null-ls.lua;
     hooks.events = [ "BufReadPost" ];
