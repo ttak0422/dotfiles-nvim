@@ -22,8 +22,8 @@ export class Config extends BaseConfig {
       ],
       backspaceCompletion: false,
       sources: [
-        "denippet",
         "lsp",
+        "denippet",
         "around",
       ],
       cmdlineSources: {
