@@ -107,7 +107,7 @@ export class Config extends BaseConfig {
           mark: "[VSNIP]",
         },
         denippet: {
-          mark: " ",
+          mark: " ",
           minAutoCompleteLength: 1,
         },
         neorg: {
