@@ -2610,11 +2610,11 @@
     "go-impl-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1735997846,
-        "narHash": "sha256-BvMCO13oZizqBqyFAGJN7gcOPQdKppvhOwSE7FrNB7U=",
+        "lastModified": 1737556933,
+        "narHash": "sha256-tlO2Eic3hurTMsJyi+qW7HImp95ACUrk1VotRq48so4=",
         "owner": "fang2hou",
         "repo": "go-impl.nvim",
-        "rev": "8505e7c919de39417333e5181487e94db6c1082b",
+        "rev": "9a7e94d368376fbc76b8d8c230c13cdb41d504ea",
         "type": "github"
       },
       "original": {
