@@ -5513,11 +5513,11 @@
     "spring-boot-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1735131216,
-        "narHash": "sha256-Fa0htsbWlInuZf7QE7F+CmStyBuZNwDsDHWPhfrsKHI=",
+        "lastModified": 1736818476,
+        "narHash": "sha256-JYI/7VSafU4YD9VkZ7swgrJqRZbS56VSGNuUNIG6bZs=",
         "owner": "JavaHello",
         "repo": "spring-boot.nvim",
-        "rev": "21483b5cf3dd4bfa16f498f7a28d11e7b34aa2ec",
+        "rev": "fc474dfd4bbe78188fdd5b2984e7013e124c46fe",
         "type": "github"
       },
       "original": {

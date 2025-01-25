@@ -7,8 +7,9 @@ local java_debug_jar_pattern = args.java_debug_jar_pattern
 local java_test_jar_pattern = args.java_test_jar_pattern
 local jdtls = require("jdtls")
 local jdtls_dap = require("jdtls.dap")
+local spring_boot = require("spring_boot")
 local root_dir = vim.fs.root(0, {"gradlew", "mvnw", ".git"})
-local workspace_dir = (os.getenv("HOME") .. "/.localshare/eclipse/" .. string.gsub(vim.fn.fnamemodify(root_dir, ":p:h"), "/", "_"))
+local workspace_dir = (os.getenv("HOME") .. "/.local/share/eclipse/" .. string.gsub(vim.fn.fnamemodify(root_dir, ":p:h"), "/", "_"))
 local function dir_3f(path)
   local tmp_3_auto = vim.uv.fs_stat(path)
   if (nil ~= tmp_3_auto) then
@@ -51,7 +52,7 @@ do
   local function _5_(_, v)
     return v
   end
-  bundles = vim.iter(ipairs(vim.list_extend(vim.list_extend({}, debug_jars), test_jars))):filter(jar_filter):map(_5_):totable()
+  bundles = vim.iter(ipairs(vim.list_extend(vim.list_extend(vim.list_extend({}, debug_jars), test_jars), spring_boot.java_extensions()))):filter(jar_filter):map(_5_):totable()
 end
 vim.g.debug_bundles = bundles
 local extendedClientCapabilities = vim.tbl_deep_extend("force", jdtls.extendedClientCapabilities, {resolveAdditionalTextEditsSupport = true, progressReportProvider = false})

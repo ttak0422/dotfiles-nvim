@@ -7,9 +7,10 @@
 
 (local jdtls (require :jdtls))
 (local jdtls_dap (require :jdtls.dap))
+(local spring_boot (require :spring_boot))
 
 (local root_dir (vim.fs.root 0 [:gradlew :mvnw :.git]))
-(local workspace_dir (.. (os.getenv :HOME) :/.localshare/eclipse/
+(local workspace_dir (.. (os.getenv :HOME) :/.local/share/eclipse/
                          (-> root_dir
                              (vim.fn.fnamemodify ":p:h")
                              (string.gsub "/" "_"))))
@@ -97,6 +98,7 @@
                  (-> []
                      (vim.list_extend debug_jars)
                      (vim.list_extend test_jars)
+                     (vim.list_extend (spring_boot.java_extensions))
                      (ipairs)
                      (vim.iter)
                      (: :filter jar_filter)
