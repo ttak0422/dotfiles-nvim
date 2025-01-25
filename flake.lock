@@ -5561,11 +5561,11 @@
     "statuscol-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1731016911,
-        "narHash": "sha256-nNw1zx80+cASWUovQ13FEDLPl7ipcilY3m4ISevrNgM=",
+        "lastModified": 1736505198,
+        "narHash": "sha256-EWqzYmqH5WLusHQXDFYanbHrbSPzXeA1XyuA7U8pNeU=",
         "owner": "luukvbaal",
         "repo": "statuscol.nvim",
-        "rev": "8822f76e105549620ef9c0d96e7b95aedf14c490",
+        "rev": "a2a0e3ed55ba0f636ce0b2ccf61bca4050edd288",
         "type": "github"
       },
       "original": {
