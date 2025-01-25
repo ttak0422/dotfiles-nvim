@@ -111,7 +111,8 @@
                       [:gb (cmd :ToggleGitBlame) (desc " blame")]
                       ;; filter
                       [:tb
-                       (lcmd "require('oil').toggle_float()")
+                       ; (lcmd "require('oil').toggle_float()")
+                       (lcmd "require('lir.float').toggle()")
                        (desc "  explorer")]
                       [:tB
                        (lcmd "require('oil').open()")
