@@ -53,9 +53,9 @@ let
       {
         code = read ../lua/autogen/after/java.lua;
         args = {
-          java_path = "${pkgs.jdk17}/bin/java";
+          java_path = "${pkgs.jdk}/bin/java";
           # java23_path = "${pkgs.jdk23}/bin/java";
-          java17_path = "${pkgs.jdk17}/bin/java";
+          # java17_path = "${pkgs.jdk17}/bin/java";
           jdtls_config_path =
             let
               systemPath = if pkgs.stdenv.isDarwin then "config_mac" else "config/linux";

@@ -180,16 +180,16 @@ rec {
       lsp
       debug.dap
       debug.dap-ui
-      {
-        package = spring-boot-nvim;
-        postConfig = {
-          code = read ../lua/autogen/spring-boot.lua;
-          args = {
-            java_path = "${pkgs.jdk17}/bin/java";
-            vscode_spring_boot_path = "${pkgs.vscode-marketplace.vmware.vscode-spring-boot}/share/vscode/extensions/vmware.vscode-spring-boot";
-          };
-        };
-      }
+      # {
+      #   package = spring-boot-nvim;
+      #   postConfig = {
+      #     code = read ../lua/autogen/spring-boot.lua;
+      #     args = {
+      #       java_path = "${pkgs.jdk17}/bin/java";
+      #       vscode_spring_boot_path = "${pkgs.vscode-marketplace.vmware.vscode-spring-boot}/share/vscode/extensions/vmware.vscode-spring-boot";
+      #     };
+      #   };
+      # }
     ];
     hooks.fileTypes = [ "java" ];
   };

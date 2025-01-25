@@ -4386,11 +4386,11 @@
     "nvim-jdtls": {
       "flake": false,
       "locked": {
-        "lastModified": 1737134053,
-        "narHash": "sha256-ePYMxdA1jz9zn1r8XaU3swPE/KnHa4InGQhT6ZKrxNk=",
+        "lastModified": 1737626217,
+        "narHash": "sha256-WJlgXyts9A57R0vR8sMbb1pr6zU1jYhzGH+1HOnWYYQ=",
         "owner": "mfussenegger",
         "repo": "nvim-jdtls",
-        "rev": "5b079475890a2a9ff45c850b428357cc89c95278",
+        "rev": "3efcd0700a293efea9dada58f79c32a64850eb24",
         "type": "github"
       },
       "original": {
@@ -5255,6 +5255,7 @@
         "snacks-nvim": "snacks-nvim",
         "sorairo": "sorairo",
         "spring-boot-nvim": "spring-boot-nvim",
+        "springboot-nvim": "springboot-nvim",
         "sqlite-lua": "sqlite-lua",
         "statuscol-nvim": "statuscol-nvim",
         "stickybuf-nvim": "stickybuf-nvim",
@@ -5522,6 +5523,22 @@
       "original": {
         "owner": "JavaHello",
         "repo": "spring-boot.nvim",
+        "type": "github"
+      }
+    },
+    "springboot-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1737070763,
+        "narHash": "sha256-6oQTsvw10yt7RbYD19szrYfIh9W4+YNOzHf1+W2HBgg=",
+        "owner": "elmcgill",
+        "repo": "springboot-nvim",
+        "rev": "43567bc417c5767bd6d5eb8ff9f8ba8e98d6a9c2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "elmcgill",
+        "repo": "springboot-nvim",
         "type": "github"
       }
     },

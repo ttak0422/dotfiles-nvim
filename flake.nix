@@ -1201,6 +1201,10 @@
       url = "github:JavaHello/spring-boot.nvim";
       flake = false;
     };
+    springboot-nvim = {
+      url = "github:elmcgill/springboot-nvim";
+      flake = false;
+    };
     log-highlight-nvim = {
       url = "github:fei6409/log-highlight.nvim";
       flake = false;
