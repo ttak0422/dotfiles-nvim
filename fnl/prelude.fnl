@@ -17,6 +17,7 @@
                    :laststatus 0
                    :foldlevel 99
                    :foldlevelstart 99
+                   :foldcolumn :1
                    :splitkeep :screen
                    :wrap false
                    :completeopt []})]
