@@ -162,6 +162,22 @@
         "type": "github"
       }
     },
+    "autoclose-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721556834,
+        "narHash": "sha256-mIInxvk4CQ6gXVTPyGNTFHpmtCYb8J5U+99+NyyPSmM=",
+        "owner": "m4xshen",
+        "repo": "autoclose.nvim",
+        "rev": "b2077aa2c83df7ebc19b2a20a3a0654b24ae9c8f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "m4xshen",
+        "repo": "autoclose.nvim",
+        "type": "github"
+      }
+    },
     "better-escape-nvim": {
       "flake": false,
       "locked": {
@@ -4162,11 +4178,11 @@
     "nvim-autopairs": {
       "flake": false,
       "locked": {
-        "lastModified": 1731803843,
-        "narHash": "sha256-LbaxiU3ienVBcMKrug3Coppc4R+MD2rjREw7rHQim1w=",
+        "lastModified": 1736671609,
+        "narHash": "sha256-wt0mEW43xSdEGVBXa+1LIwJPkTz7lqHZhTCg1nxKggs=",
         "owner": "windwp",
         "repo": "nvim-autopairs",
-        "rev": "b464658e9b880f463b9f7e6ccddd93fb0013f559",
+        "rev": "3d02855468f94bf435db41b661b58ec4f48a06b7",
         "type": "github"
       },
       "original": {
@@ -4969,6 +4985,7 @@
         "alpha-nvim": "alpha-nvim",
         "auto-indent-nvim": "auto-indent-nvim",
         "auto-save-nvim": "auto-save-nvim",
+        "autoclose-nvim": "autoclose-nvim",
         "better-escape-nvim": "better-escape-nvim",
         "bigfile-nvim": "bigfile-nvim",
         "btw-nvim": "btw-nvim",

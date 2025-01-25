@@ -54,6 +54,11 @@ with pkgs.vimPlugins;
     postConfig = read ../lua/autogen/autopairs.lua;
     hooks.events = [ "InsertEnter" ];
   };
+  autoclose = {
+    package = autoclose-nvim;
+    postConfig = read ../lua/autogen/autoclose.lua;
+    hooks.events = [ "InsertEnter" ];
+  };
   better-escape = {
     package = better-escape-nvim;
     postConfig = read ../lua/autogen/better-escape.lua;

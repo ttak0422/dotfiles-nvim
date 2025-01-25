@@ -74,7 +74,8 @@ let
     inherit (callPackage ./input.nix { })
       # cmp
       treesj
-      autopairs
+      # autopairs
+      autoclose
       better-escape
       comment
       tabout
