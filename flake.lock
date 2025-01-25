@@ -101,11 +101,11 @@
     "aerial-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1734804217,
-        "narHash": "sha256-YLgOrKa4i5XcYtOT9BjHw/C85gYA7DWSrotFBrrQwMc=",
+        "lastModified": 1737788033,
+        "narHash": "sha256-knYqxbq9d2BkDYVqYifC3YVKCmAXCS+a1oK0j97+QdA=",
         "owner": "stevearc",
         "repo": "aerial.nvim",
-        "rev": "1160fb7a15a34b03b7381d95d45560712b5f19d0",
+        "rev": "2aeafd99937602fc40609ffffbdd2f99d77343e9",
         "type": "github"
       },
       "original": {

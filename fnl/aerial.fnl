@@ -25,7 +25,7 @@
              :Event ""
              :Operator "󰆕"
              :TypeParameter "󰗴"}
-      layout {:max_width 0.25
+      layout {:max_width 0.80
               :min_width 0.15
               :default_direction :float
               :placement :window}
