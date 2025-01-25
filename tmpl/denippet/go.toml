@@ -110,7 +110,7 @@ func Test$1(t *testing.T) {
 prefix = ['parameterized_test', 'table_driven_test']
 body = """
 func Test$1(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		desc	string
 		$2
 		}{
@@ -120,10 +120,39 @@ func Test$1(t *testing.T) {
 			},
 		}
 
-		for _, tC := range testCases {
-			t.Run(tC.desc, func(t *testing.T) {
+		for _, tt := range tests {
+			t.Run(tt.desc, func(t *testing.T) {
+        t.Parallel()
 				$0
 			})
 	}
 }
+"""
+
+[sync_parameterized_test]
+prefix = ['sync_parameterized_test', 'sync_table_driven_test']
+body = """
+func Test$1(t *testing.T) {
+	tests := []struct {
+		desc	string
+		$2
+		}{
+			{
+				desc: "$3",
+				$4
+			},
+		}
+
+		for _, tt := range tests {
+			t.Run(tt.desc, func(t *testing.T) {
+				$0
+			})
+	}
+}
+"""
+
+[append]
+prefix = 'append'
+body = """
+$1 = append($1, $2)
 """
