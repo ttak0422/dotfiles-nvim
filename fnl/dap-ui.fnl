@@ -39,22 +39,3 @@
             : render})
   (vim.api.nvim_create_user_command :ToggleDapUI
                                     (fn [] (M.toggle {:reset true})) {}))
-
-(let [colors (require :morimo.colors)
-      highlights [[:dapblue colors.lightBlue]
-                  [:dapgreen colors.lightGreen]
-                  [:dapyellow colors.lightYellow]
-                  [:daporange colors.orange]
-                  [:dapred colors.lightRed]]
-      signs [[:DapBreakpoint "" :dapblue]
-             [:DapBreakpointCondition "" :dapblue]
-             [:DapBreakpointRejected "" :dapred]
-             [:DapStopped "▶" :dapgreen]
-             [:DapLogPoint "" :dapyellow]]]
-  (each [_ h (ipairs highlights)]
-    (vim.api.nvim_set_hl 0 (. h 1) {:fg (. h 2) :bg :none}))
-  (each [_ s (ipairs signs)]
-    (vim.fn.sign_define (. s 1) {:text (. s 2)
-                                 :texthl (. s 3)
-                                 :linehl ""
-                                 :numhl ""})))
