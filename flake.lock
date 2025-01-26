@@ -6008,11 +6008,11 @@
     "toolwindow-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1623087678,
-        "narHash": "sha256-/QBV04XyWzr3XcE/HPhnPgBaowHcwVgF7oE+sosycEI=",
+        "lastModified": 1721861028,
+        "narHash": "sha256-vJx2HW2IsGP5V71UL3/DotPLlmkSiDOAv0cuQqfRo9Q=",
         "owner": "EthanJWright",
         "repo": "toolwindow.nvim",
-        "rev": "149665bbf0821c2461073c147d06de371251e2f9",
+        "rev": "c61409bab970ddcd99b5ea5f99fc222594c61f23",
         "type": "github"
       },
       "original": {
