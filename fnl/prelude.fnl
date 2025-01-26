@@ -2,16 +2,6 @@
 (vim.loader.enable)
 (vim.cmd "language messages en_US.UTF-8")
 
-; 参考 https://zenn.dev/vim_jp/articles/20240304_ekiden_disable_plugin
-(set vim.o.runtimepath
-     (-> vim.o.runtimepath
-         (: :gsub vim.env.VIMRUNTIME "")))
-(vim.api.nvim_create_autocmd :SourcePre
-                             {:pattern :*/plugin/*
-                              :once true
-                              :callback (fn []
-                                          (vim.opt.runtimepath:append vim.env.VIMRUNTIME))})
-
 (each [k v (pairs {:langmenu :none
                    :shortmess (.. vim.o.shortmess :sWcS)
                    :cmdheight 0
