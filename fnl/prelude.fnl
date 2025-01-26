@@ -1,6 +1,10 @@
 ;; options
 (vim.loader.enable)
-(vim.cmd "language messages en_US.UTF-8")
+; https://zenn.dev/vim_jp/articles/20240304_ekiden_disable_plugin
+(vim.cmd "language messages en_US.UTF-8
+let s:vim_rtp=&runtimepath
+set rtp-=$VIMRUNTIME
+autocmd SourcePre */plugin/* ++once let &runtimepath .= ',' . s:vim_rtp")
 
 (each [k v (pairs {:langmenu :none
                    :shortmess (.. vim.o.shortmess :sWcS)

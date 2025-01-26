@@ -1,6 +1,6 @@
 -- [nfnl] Compiled from fnl/prelude.fnl by https://github.com/Olical/nfnl, do not edit.
 vim.loader.enable()
-vim.cmd("language messages en_US.UTF-8")
+vim.cmd("language messages en_US.UTF-8\nlet s:vim_rtp=&runtimepath\nset rtp-=$VIMRUNTIME\nautocmd SourcePre */plugin/* ++once let &runtimepath .= ',' . s:vim_rtp")
 for k, v in pairs({langmenu = "none", shortmess = (vim.o.shortmess .. "sWcS"), cmdheight = 0, termguicolors = true, number = true, signcolumn = "yes", showtabline = 0, laststatus = 0, foldlevel = 99, foldlevelstart = 99, foldcolumn = "1", splitkeep = "screen", completeopt = {}, wrap = false}) do
   vim.opt[k] = v
 end
