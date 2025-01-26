@@ -114,10 +114,7 @@ func Test$1(t *testing.T) {
 		desc	string
 		$2
 		}{
-			{
-				desc: "$3",
-				$4
-			},
+      $3
 		}
 
 		for _, tt := range tests {
@@ -137,10 +134,7 @@ func Test$1(t *testing.T) {
 		desc	string
 		$2
 		}{
-			{
-				desc: "$3",
-				$4
-			},
+      $3
 		}
 
 		for _, tt := range tests {
