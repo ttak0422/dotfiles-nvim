@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ self', pkgs, ... }:
 let
   inherit (pkgs) callPackage;
   read = builtins.readFile;
@@ -6,13 +6,13 @@ let
 
   extraPackages = [ ];
   extraConfig = ''
-    ${read ./../lua/autogen/prelude.lua}
     if vim.g.neovide then
       dofile("${../lua/autogen/neovide.lua}")
       vim.cmd("colorscheme sorairo")
     else
       vim.cmd("colorscheme morimo")
     end
+    ${read ./../lua/autogen/prelude.lua}
   '';
   after = {
     inherit (callPackage ./after.nix { }) plugin ftplugin ftdetect;
