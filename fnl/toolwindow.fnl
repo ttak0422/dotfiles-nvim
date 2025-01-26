@@ -4,7 +4,7 @@
       term_open (fn [_plugin args]
                   (doto (let [val (. term_table args.idx)]
                           (if (= val nil)
-                              (let [term (Terminal:new {:direction :horizontal})]
+                              (let [term (Terminal:new {:direction :float})]
                                 (tset term_table args.idx term)
                                 term)
                               (. term_table args.idx)))

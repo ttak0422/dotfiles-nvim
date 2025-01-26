@@ -8,7 +8,7 @@ local function _1_(_plugin, args)
   do
     local val = term_table[args.idx]
     if (val == nil) then
-      local term = Terminal:new({direction = "horizontal"})
+      local term = Terminal:new({direction = "float"})
       term_table[args.idx] = term
       tmp_9_auto = term
     else
