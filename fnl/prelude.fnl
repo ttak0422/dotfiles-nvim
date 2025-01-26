@@ -4,7 +4,8 @@
 (vim.cmd "language messages en_US.UTF-8
 let s:vim_rtp=&runtimepath
 set rtp-=$VIMRUNTIME
-autocmd SourcePre */plugin/* ++once let &runtimepath .= ',' . s:vim_rtp")
+autocmd SourcePre */plugin/* ++once let &runtimepath .= ',' . s:vim_rtp
+filetype on")
 
 (each [k v (pairs {:langmenu :none
                    :shortmess (.. vim.o.shortmess :sWcS)
