@@ -2953,11 +2953,11 @@
     "inc-rename-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1737058870,
-        "narHash": "sha256-keyWCJTg/pWUGVvSL4IgU88PM5C45r6bglKviedvn1E=",
+        "lastModified": 1737408744,
+        "narHash": "sha256-7XaYG2UUzFuvtmRALftDv2xlmR4xHF/OjhoGTz0mnl4=",
         "owner": "smjonas",
         "repo": "inc-rename.nvim",
-        "rev": "e510160beefa9806751d883a5945c4fe6520b633",
+        "rev": "f9b9e5b9a75074810f40881b7e254b5bbeaf122e",
         "type": "github"
       },
       "original": {
