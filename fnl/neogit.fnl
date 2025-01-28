@@ -91,6 +91,7 @@
       ;                    "]c" :OpenOrScrollDown}}
       ]
   (M.setup {:use_default_keymaps true
+            :kind :split
             :disable_hint false
             :disable_context_highlighting false
             :disable_signs false
