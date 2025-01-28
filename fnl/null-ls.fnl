@@ -44,7 +44,7 @@
   ;                                                           :format :raw})})
   (null_ls.setup {:border :none
                   :cmd [:nvim]
-                  :debounce 250
+                  :debounce 300
                   :debug false
                   :default_timeout 10000
                   :diagnostic_config {}

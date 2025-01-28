@@ -4098,11 +4098,11 @@
     "none-ls-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1736008944,
-        "narHash": "sha256-FIAl4n8wfWsOOsjfUJRf+Q8TVUMX1V043BEX0P2PH3k=",
+        "lastModified": 1737424816,
+        "narHash": "sha256-AE+M4utQEz+/ZNyOn+QiDF1LiCt2YP9yQMPw3dQ0rJQ=",
         "owner": "nvimtools",
         "repo": "none-ls.nvim",
-        "rev": "20f5650988cd849e18c7f3d2dce4b0e6a260e126",
+        "rev": "ed8f80849ef1ad31c2f74679fafdef7801091247",
         "type": "github"
       },
       "original": {
