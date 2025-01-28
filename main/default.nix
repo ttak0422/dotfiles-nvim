@@ -156,7 +156,7 @@ let
       numb
       # tint
       vimade
-      winsep
+      # winsep
       # smear-cursor
       ;
     inherit (callPackage ./test.nix { }) neotest;
