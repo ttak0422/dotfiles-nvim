@@ -43,10 +43,10 @@ rec {
     depends = [
       denops
       ddc
-      {
-        package = skkeleton_indicator-nvim;
-        postConfig = read ../lua/autogen/skkeleton_indicator.lua;
-      }
+      # {
+      #   package = skkeleton_indicator-nvim;
+      #   postConfig = read ../lua/autogen/skkeleton_indicator.lua;
+      # }
     ];
     postConfig = {
       language = "vim";
