@@ -4530,11 +4530,11 @@
     "nvim-spectre": {
       "flake": false,
       "locked": {
-        "lastModified": 1720437260,
-        "narHash": "sha256-Y8iHDlnv/zUbkaFqT2+DpMGyrrzZAhgyYfl7iPw625Q=",
+        "lastModified": 1736733406,
+        "narHash": "sha256-pZ7AH1U95IWMmhk/uBO0Lsxx78H5H9ygPxk/HIqFFlY=",
         "owner": "nvim-pack",
         "repo": "nvim-spectre",
-        "rev": "9a28f926d3371b7ef02243cbbb653a0478d06e31",
+        "rev": "ddd7383e856a7c939cb4f5143278fe041bbb8cb9",
         "type": "github"
       },
       "original": {

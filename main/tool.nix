@@ -84,7 +84,7 @@ rec {
     ];
     postConfig = read ../lua/autogen/spectre.lua;
     extraPackages = with pkgs; [
-      gnused
+      sd
       ripgrep
     ];
     hooks.modules = [ "spectre" ];

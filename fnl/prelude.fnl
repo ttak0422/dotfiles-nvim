@@ -141,7 +141,10 @@
                        (desc "toggle diagnostics (document)")]
                       [:tD
                        (mk_toggle 3 :trouble {:mode :diagnostics})
-                       (desc "toggle diagnostics (workspace)")]])]
+                       (desc "toggle diagnostics (workspace)")]
+                      [:tR
+                       (lcmd "require('spectre').toggle()")
+                       (desc "toggle spectre")]])]
     (vim.keymap.set :n (.. :<Leader> (. K 1)) (. K 2) (or (. K 3) opts)))
   (each [m ks (pairs {:n [["¥" "\\"] [:<C-t> (cmd :OpenMenu)]]
                       :i [["¥" "\\"]]
