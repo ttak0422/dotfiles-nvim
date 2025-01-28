@@ -2,8 +2,8 @@ require("neo-zoom").setup({
 	exclude_buftypes = {},
 	winopts = {
 		offset = {
-			width = 150,
-			height = 0.85,
+			width = 180,
+			height = 0.9,
 		},
 		border = "single",
 	},
