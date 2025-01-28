@@ -6361,11 +6361,11 @@
     "vimade": {
       "flake": false,
       "locked": {
-        "lastModified": 1736820721,
-        "narHash": "sha256-1Ikdu8fKk9vklcFdCkFapSbtZq8vj2BKpGnN+du7PKA=",
+        "lastModified": 1738073149,
+        "narHash": "sha256-mosToOo39iqtV/6QJbRu4qsuysKeuGt3RbUuyscldGM=",
         "owner": "TaDaa",
         "repo": "vimade",
-        "rev": "29f6c292e5373f129b872ac39d0d1f936d650388",
+        "rev": "0ec1bbb1b6126d73b4ed8d243e3b047abb9e52ff",
         "type": "github"
       },
       "original": {
