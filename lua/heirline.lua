@@ -356,3 +356,9 @@ heirline.setup({
 		colors = get_colors(),
 	},
 })
+
+vim.api.nvim_create_autocmd("VimResized", {
+	callback = function()
+		vim.o.cmdheight = 0
+	end,
+})
