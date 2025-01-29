@@ -18,6 +18,7 @@
 
       bundler-nvim = {
         main = import ./main params;
+        test-skk = import ./test-skk params;
         tiny = {
           eager = {
             morimo.package = pkgs.vimPlugins.morimo;
