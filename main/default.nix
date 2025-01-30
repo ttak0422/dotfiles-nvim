@@ -1,4 +1,4 @@
-{ self', pkgs, ... }:
+{ pkgs, ... }:
 let
   inherit (pkgs) callPackage;
   read = builtins.readFile;
@@ -30,8 +30,6 @@ let
     inherit (callPackage ./denops.nix { })
       ddc
       ddu
-      denops
-      skk
       ;
     inherit (callPackage ./diagnostic.nix { }) trouble;
     inherit (callPackage ./git.nix { })

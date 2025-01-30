@@ -158,8 +158,6 @@ require("noice").setup({
 					-- `%dL, %dB`
 					{ find = "L, " },
 					{ find = "written" },
-					-- WIP: ignore skkeleton warning
-					{ find = "can't write userDictionary" },
 				},
 			},
 			opts = { skip = true },

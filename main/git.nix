@@ -4,7 +4,6 @@ let
   read = builtins.readFile;
   lib = callPackage ./lib.nix { };
   search = callPackage ./search.nix { };
-  denops = callPackage ./denops.nix { };
 in
 with pkgs.vimPlugins;
 rec {
@@ -40,7 +39,10 @@ rec {
       + read ../lua/autogen/gitsigns.lua;
     hooks = {
       events = [ "CursorMoved" ];
-      commands = [ "Gitsigns" "ToggleGitBlame" ];
+      commands = [
+        "Gitsigns"
+        "ToggleGitBlame"
+      ];
     };
   };
   neogit = {
@@ -48,7 +50,6 @@ rec {
     depends = [
       lib.plenary
       search.telescope
-      denops.skk
       diffview
     ];
     extraPackages = [ pkgs.gh ];

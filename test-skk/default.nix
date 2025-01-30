@@ -20,7 +20,6 @@
           imap <C-j> <Plug>(skkeleton-enable)
           cmap <C-j> <Plug>(skkeleton-enable)
           tmap <C-j> <Plug>(skkeleton-enable)
-
         '';
       };
     };

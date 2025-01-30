@@ -16,8 +16,6 @@ rec {
     preConfig = {
       language = "vim";
       code = ''
-        " use latest
-        " let g:denops_server_addr = '0.0.0.0:32123'
         let g:denops#deno = '${pkgs.deno}/bin/deno'
         let g:denops#server#deno_args = ['-q', '--no-lock', '-A', '--unstable-kv']
       '';
@@ -35,30 +33,6 @@ rec {
       "GinDiff"
       "GinBrowse"
       "GinBranch"
-    ];
-    useDenops = true;
-  };
-  skk = {
-    package = skkeleton;
-    depends = [
-      denops
-      ddc
-      # {
-      #   package = skkeleton_indicator-nvim;
-      #   postConfig = read ../lua/autogen/skkeleton_indicator.lua;
-      # }
-    ];
-    postConfig = {
-      language = "vim";
-      code = read ../vim/skk.vim;
-      args = {
-        jisyo = "${pkgs.skk-dict}/SKK-JISYO.L";
-      };
-    };
-    hooks.events = [
-      "VimEnter"
-      # "InsertEnter"
-      # "CmdlineEnter"
     ];
     useDenops = true;
   };
@@ -111,6 +85,24 @@ rec {
     depends = [
       denops
       {
+        package = skkeleton;
+        depends = [
+          denops
+          # {
+          #   package = skkeleton_indicator-nvim;
+          #   postConfig = read ../lua/autogen/skkeleton_indicator.lua;
+          # }
+        ];
+        postConfig = {
+          language = "vim";
+          code = read ../vim/skk.vim;
+          args = {
+            jisyo = "${pkgs.skk-dict}/SKK-JISYO.L";
+          };
+        };
+        useDenops = true;
+      }
+      {
         package = pum-vim;
         depends = [ style.noice ];
       }
@@ -124,6 +116,7 @@ rec {
           args.root = ../tmpl/denippet;
           language = "vim";
         };
+        useDenops = true;
       }
     ];
     postConfig = {
