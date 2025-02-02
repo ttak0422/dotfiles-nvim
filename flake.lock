@@ -6024,11 +6024,11 @@
     "translate-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1692608337,
-        "narHash": "sha256-QZVZFB8+lRfcUFEo7LubmA1WX8cOuEcnA8AZ1bOPsNg=",
+        "lastModified": 1734274499,
+        "narHash": "sha256-G4a/tlARmEuaQ21CUSmWHoglfRWV9dZb5cHPwW0ohQk=",
         "owner": "uga-rosa",
         "repo": "translate.nvim",
-        "rev": "30cc9e9f339b61e7bd40bc1ba7af73ea193bf589",
+        "rev": "9f522548af06c67f9be7a3a47b1fecb4e36aedc4",
         "type": "github"
       },
       "original": {
