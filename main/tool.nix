@@ -155,7 +155,7 @@ rec {
     ];
   };
   avante = {
-    package = avante-nvim.overrideAttrs {
+    package = pkgs.pkgs-nightly.vimPlugins.avante-nvim.overrideAttrs {
       dependencies = [ ];
       doCheck = false;
     };

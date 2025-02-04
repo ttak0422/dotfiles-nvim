@@ -35,6 +35,7 @@ inputs: with inputs; [
     in
     {
       pkgs-stable = import nixpkgs-stable { inherit system; };
+      pkgs-nightly = import nixpkgs-nightly{ inherit system; };
 
       norg-fmt = prev.rustPlatform.buildRustPackage {
         pname = "neorg-fmt";

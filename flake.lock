@@ -3983,6 +3983,22 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/5daf0514482af3f97abaefc78a6606365c9108e2.tar.gz"
       }
     },
+    "nixpkgs-nightly": {
+      "locked": {
+        "lastModified": 1738546358,
+        "narHash": "sha256-nLivjIygCiqLp5QcL7l56Tca/elVqM9FG1hGd9ZSsrg=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c6e957d81b96751a3d5967a0fd73694f303cc914",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1736200483,
@@ -5202,6 +5218,7 @@
         "nix-filter": "nix-filter_2",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs_3",
+        "nixpkgs-nightly": "nixpkgs-nightly",
         "nixpkgs-stable": "nixpkgs-stable",
         "no-neck-pain-nvim": "no-neck-pain-nvim",
         "noice-nvim": "noice-nvim",
