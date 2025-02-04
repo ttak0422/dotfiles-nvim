@@ -169,7 +169,10 @@ rec {
       copilot-lua
     ];
     postConfig = read ../lua/avante.lua;
-    hooks.commands = [ "AvanteAsk" ];
+    hooks.commands = [
+      "AvanteAsk"
+      "AvanteToggle"
+    ];
   };
   screenkey = {
     package = screenkey-nvim;

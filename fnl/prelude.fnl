@@ -144,7 +144,10 @@
                        (desc "toggle diagnostics (workspace)")]
                       [:tR
                        (lcmd "require('spectre').toggle()")
-                       (desc "toggle spectre")]])]
+                       (desc "toggle spectre")]
+                      ;; AI
+                      [:aa (cmd :AvanteAsk) (desc "Avante Ask")]
+                      [:at (cmd :AvanteToggle) (desc "Avante Toggle")]])]
     (vim.keymap.set :n (.. :<Leader> (. K 1)) (. K 2) (or (. K 3) opts)))
   (each [m ks (pairs {:n [["¥" "\\"] [:<C-t> (cmd :OpenMenu)]]
                       :i [["¥" "\\"]]
