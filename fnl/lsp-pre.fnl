@@ -82,6 +82,8 @@
                                     :desc :rename})
                    (if (client.supports_method :textDocument/formatting)
                        (vim.keymap.set :n :<leader>cF vim.lsp.buf.format
+                                       (desc " format"))
+                       (vim.keymap.set :n :<C-CR> vim.lsp.buf.format
                                        (desc " format"))) ; config (builtin)
                    (if (client.supports_method :textDocument/publishDiagnostics)
                        ;; delay update diagnostics

@@ -33,6 +33,7 @@ local function _2_(ctx)
   if client.supports_method("textDocument/formatting") then
     vim.keymap.set("n", "<leader>cF", vim.lsp.buf.format, desc("\238\171\132 format"))
   else
+    vim.keymap.set("n", "<C-CR>", vim.lsp.buf.format, desc("\238\171\132 format"))
   end
   if client.supports_method("textDocument/publishDiagnostics") then
     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {update_in_insert = false})
