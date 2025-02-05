@@ -5611,11 +5611,11 @@
     "stickybuf-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1723846947,
-        "narHash": "sha256-yVXfpUjYYbvuoKL2DhZa7CyOZirVkyn7z0jqytkj+WI=",
+        "lastModified": 1737788192,
+        "narHash": "sha256-9fLyyOJa/drpBVx9FrTO6pepRrAVZaHhYvLGTeopaIw=",
         "owner": "stevearc",
         "repo": "stickybuf.nvim",
-        "rev": "183b9569bef78f44b17c078214f7d731f19cbefe",
+        "rev": "61ec81b9de2a76bfcfaa579f16bf88395b58b814",
         "type": "github"
       },
       "original": {
