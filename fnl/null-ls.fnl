@@ -46,7 +46,7 @@
                   :cmd [:nvim]
                   :debounce 300
                   :debug false
-                  :default_timeout 10000
+                  :default_timeout 20000
                   :diagnostic_config {}
                   :diagnostics_format "#{m} (#{s})"
                   :fallback_severity vim.diagnostic.severity.ERROR
