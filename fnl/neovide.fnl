@@ -2,7 +2,8 @@
                    :neovide_padding_bottom 5
                    :neovide_padding_right 5
                    :neovide_padding_left 5
-                   :neovide_confirm_quit false})]
+                   :neovide_confirm_quit false
+                   :neovide_floating_shadow false})]
   (tset vim.g k v))
 
 (let [map vim.keymap.set

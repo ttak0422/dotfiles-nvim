@@ -1,5 +1,5 @@
 -- [nfnl] Compiled from fnl/neovide.fnl by https://github.com/Olical/nfnl, do not edit.
-for k, v in pairs({neovide_padding_top = 5, neovide_padding_bottom = 5, neovide_padding_right = 5, neovide_padding_left = 5, neovide_confirm_quit = false}) do
+for k, v in pairs({neovide_padding_top = 5, neovide_padding_bottom = 5, neovide_padding_right = 5, neovide_padding_left = 5, neovide_confirm_quit = false, neovide_floating_shadow = false}) do
   vim.g[k] = v
 end
 local map = vim.keymap.set
