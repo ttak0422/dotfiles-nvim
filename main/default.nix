@@ -93,6 +93,7 @@ let
       vtsls
       helpview
       nginx
+      kmonad
       # MEMO: 重いので有効化しない
       # log-highlight
       ;

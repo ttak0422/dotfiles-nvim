@@ -287,4 +287,13 @@ rec {
     });
     hooks.fileTypes = [ "nginx" ];
   };
+  kmonad = {
+    package = kmonad-vim.overrideAttrs (old: {
+      src = pkgs.nix-filter {
+        root = kmonad-vim.src;
+        exclude = [ "ftdetect/kbd.vim" ];
+      };
+    });
+    hooks.fileTypes = [ "kbd" ];
+  };
 }

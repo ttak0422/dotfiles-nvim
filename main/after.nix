@@ -99,9 +99,13 @@ let
     nginx = {
       language = "vim";
       code = ''
-        source ${pkgs.vimPlugins.nginx-vim}/ftplugin/nginx.vim
+        source ${pkgs.vimPlugins.nginx-vim}/ftdetect/nginx.vim
         au BufRead,BufNewFile *.nginxconf set ft=nginx
       '';
+    };
+    kbd = {
+      language = "vim";
+      code = "au BufRead,BufNewFile *.kbd set filetype=kbd";
     };
     # MEMO: 重いので有効化しない
     # log = {

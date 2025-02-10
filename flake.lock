@@ -3022,6 +3022,22 @@
         "url": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.2/junit-platform-console-standalone-1.10.2.jar"
       }
     },
+    "kmonad-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1647812451,
+        "narHash": "sha256-7PKVOsb3jvuGEnP/LsrDr96wFSQMou2dgnV+hRaI444=",
+        "owner": "kmonad",
+        "repo": "kmonad-vim",
+        "rev": "37978445197ab00edeb5b731e9ca90c2b141723f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmonad",
+        "repo": "kmonad-vim",
+        "type": "github"
+      }
+    },
     "leap-ast-nvim": {
       "flake": false,
       "locked": {
@@ -5162,6 +5178,7 @@
         "indent-o-matic": "indent-o-matic",
         "jol": "jol",
         "junit-console": "junit-console",
+        "kmonad-vim": "kmonad-vim",
         "leap-ast-nvim": "leap-ast-nvim",
         "leap-nvim": "leap-nvim",
         "leap-spooky-nvim": "leap-spooky-nvim",
