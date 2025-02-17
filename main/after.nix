@@ -77,18 +77,21 @@ let
       language = "vim";
       code = ''
         setlocal foldcolumn=0
+        setlocal cursorline
       '';
     };
     NeogitCommitView = {
       language = "vim";
       code = ''
         setlocal foldcolumn=0
+        setlocal cursorline
       '';
     };
     NeogitDiffView = {
       language = "vim";
       code = ''
         setlocal foldcolumn=0
+        setlocal cursorline
       '';
     };
     json = readVim ../vim/after/json.vim;
