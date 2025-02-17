@@ -6298,16 +6298,15 @@
     "vim-sonictemplate": {
       "flake": false,
       "locked": {
-        "lastModified": 1711250165,
-        "narHash": "sha256-wSbGkW3BmMjhEmfDwibLxUHTmirV4JY76zpIpBjmVQM=",
-        "owner": "ttak0422",
+        "lastModified": 1739715370,
+        "narHash": "sha256-t9U/itV+o2NsUEI0s3nvXy1KtV/bYBnQJeS+7g0ZAjY=",
+        "owner": "mattn",
         "repo": "vim-sonictemplate",
-        "rev": "7a13f4b65cfffc293b4fbed7e6264b15b56f9160",
+        "rev": "822a784af2f9df60d5bf5c0d00b816faa40cedeb",
         "type": "github"
       },
       "original": {
-        "owner": "ttak0422",
-        "ref": "feature/support-java-test-directory",
+        "owner": "mattn",
         "repo": "vim-sonictemplate",
         "type": "github"
       }

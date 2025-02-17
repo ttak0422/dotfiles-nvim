@@ -133,7 +133,7 @@
       flake = false;
     };
     vim-sonictemplate = {
-      url = "github:ttak0422/vim-sonictemplate/feature/support-java-test-directory";
+      url = "github:mattn/vim-sonictemplate";
       flake = false;
     };
     lir-nvim = {
