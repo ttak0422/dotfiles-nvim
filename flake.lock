@@ -5628,11 +5628,11 @@
     "stickybuf-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1737788192,
-        "narHash": "sha256-9fLyyOJa/drpBVx9FrTO6pepRrAVZaHhYvLGTeopaIw=",
+        "lastModified": 1739324702,
+        "narHash": "sha256-uPbxfEQabt+AmqujTd/Zuu7Y/bx/XcFjSuCt2CslKNQ=",
         "owner": "stevearc",
         "repo": "stickybuf.nvim",
-        "rev": "61ec81b9de2a76bfcfaa579f16bf88395b58b814",
+        "rev": "bf7221321e9b762d4deaef3aaaaa7ae5f3a7f902",
         "type": "github"
       },
       "original": {
