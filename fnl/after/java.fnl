@@ -130,10 +130,10 @@
            (each [_ k (ipairs [[:<LocalLeader>o
                                 jdtls.organize_imports
                                 (opts " organize imports")]
-                               [:<LocalLeader>tt
+                               [:<LocalLeader>Tt
                                 (with_compile jdtls.test_nearest_method)
                                 (opts " test nearest")]
-                               [:<LocalLeader>tT
+                               [:<LocalLeader>TT
                                 (with_compile jdtls.test_class)
                                 (opts " test class")]])]
              (vim.keymap.set :n (. k 1) (. k 2) (. k 3))))))

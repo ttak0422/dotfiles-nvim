@@ -80,7 +80,7 @@ local function _6_(client, bufnr)
   with_compile = _8_
   jdtls_dap.setup_dap({hotcodereplace = "auto"})
   jdtls_dap.setup_dap_main_class_configs()
-  for _, k in ipairs({{"<LocalLeader>o", jdtls.organize_imports, opts("\238\153\173 organize imports")}, {"<LocalLeader>tt", with_compile(jdtls.test_nearest_method), opts("\238\153\173 test nearest")}, {"<LocalLeader>tT", with_compile(jdtls.test_class), opts("\238\153\173 test class")}}) do
+  for _, k in ipairs({{"<LocalLeader>o", jdtls.organize_imports, opts("\238\153\173 organize imports")}, {"<LocalLeader>Tt", with_compile(jdtls.test_nearest_method), opts("\238\153\173 test nearest")}, {"<LocalLeader>TT", with_compile(jdtls.test_class), opts("\238\153\173 test class")}}) do
     vim.keymap.set("n", k[1], k[2], k[3])
   end
   return nil
