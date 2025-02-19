@@ -127,9 +127,12 @@
                                 (f)))]
            (jdtls_dap.setup_dap {:hotcodereplace :auto})
            (jdtls_dap.setup_dap_main_class_configs)
-           (each [_ k (ipairs [[:<LocalLeader>o
-                                jdtls.organize_imports
-                                (opts " organize imports")]
+           (each [_ k (ipairs [[:<LocalLeader>OO
+                                (os.execute (.. "rm -rf " workspace_dir))
+                                (opts " clean workspace")]
+                               ; [:<LocalLeader>o
+                               ;  jdtls.organize_imports
+                               ;  (opts " organize imports")]
                                [:<LocalLeader>Tt
                                 (with_compile jdtls.test_nearest_method)
                                 (opts " test nearest")]
