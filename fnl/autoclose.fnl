@@ -9,7 +9,10 @@
             "\"" {:escape true :close true :pair "\"\""}
             "'" {:escape true :close true :pair "''"}
             "`" {:escape true :close true :pair "``"}}
-      options {:disabled_filetypes [:text :spectre_panel :norg]
+      options {:disabled_filetypes [:text
+                                    :spectre_panel
+                                    :norg
+                                    :TelescopePrompt]
                :disable_when_touch false
                :touch_regex "[%w(%[{]"
                :pair_spaces false
