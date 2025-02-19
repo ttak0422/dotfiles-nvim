@@ -80,7 +80,10 @@ local function _6_(client, bufnr)
   with_compile = _8_
   jdtls_dap.setup_dap({hotcodereplace = "auto"})
   jdtls_dap.setup_dap_main_class_configs()
-  for _, k in ipairs({{"<LocalLeader>OO", os.execute(("rm -rf " .. workspace_dir)), opts("\238\153\173 clean workspace")}, {"<LocalLeader>Tt", with_compile(jdtls.test_nearest_method), opts("\238\153\173 test nearest")}, {"<LocalLeader>TT", with_compile(jdtls.test_class), opts("\238\153\173 test class")}}) do
+  local function _11_()
+    return os.execute(("rm -rf " .. workspace_dir))
+  end
+  for _, k in ipairs({{"<LocalLeader>OO", _11_, opts("\238\153\173 clean workspace")}, {"<LocalLeader>Tt", with_compile(jdtls.test_nearest_method), opts("\238\153\173 test nearest")}, {"<LocalLeader>TT", with_compile(jdtls.test_class), opts("\238\153\173 test class")}}) do
     vim.keymap.set("n", k[1], k[2], k[3])
   end
   return nil
@@ -88,7 +91,7 @@ end
 on_attach = _6_
 local flags = {allow_incremental_sync = true, debounce_text_changes = 300}
 local handlers
-local function _11_()
+local function _12_()
 end
-handlers = {["language/status"] = _11_}
+handlers = {["language/status"] = _12_}
 return jdtls.start_or_attach({root_dir = root_dir, cmd = cmd, settings = settings, init_options = init_options, on_attach = on_attach, flags = flags, handlers = handlers})
