@@ -1,22 +1,25 @@
-import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddu-vim@~6.4.0/config";
-import { Params as FfParams } from "jsr:@shougo/ddu-ui-ff@~1.4.0";
-import { Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@~1.4.0";
-import { type Denops } from "jsr:@denops/std@~7.3.0";
-import * as fn from "jsr:@denops/std@~7.3.0/function";
+import {
+  BaseConfig,
+  ConfigArguments,
+} from "jsr:@shougo/ddu-vim@~10.0.0/config";
+import { Params as FfParams } from "jsr:@shougo/ddu-ui-ff@~2.0.0";
+import { Params as FilerParams } from "jsr:@shougo/ddu-ui-filer@~1.5.0";
+import { type Denops } from "jsr:@denops/std@~7.4.0";
+import * as fn from "jsr:@denops/std@~7.4.0/function";
 
 export class Config extends BaseConfig {
   override config({
     contextBuilder,
     setAlias,
   }: ConfigArguments): Promise<void> {
-    setAlias("source", "file_fd", "file_external");
-    setAlias("source", "mru", "mr");
-    setAlias("source", "mrw", "mr");
-    setAlias("source", "mrr", "mr");
-    setAlias("source", "mrd", "mr");
+    setAlias("files", "source", "file_fd", "file_external");
+    setAlias("mru", "source", "mru", "mr");
+    setAlias("mrw", "source", "mrw", "mr");
+    setAlias("mrr", "source", "mrr", "mr");
+    setAlias("mrd", "source", "mrd", "mr");
 
     contextBuilder.patchGlobal({
-      sources: ["file", "file_rec", "file_external", "mr", "ghq"],
+      sources: ["file"],
       ui: "ff",
       profile: false,
       // TODO:

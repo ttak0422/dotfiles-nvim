@@ -66,7 +66,7 @@
                        (lcmd "require('harpoon'):list():add()")
                        (desc "Register file")]
                       [:fp
-                       (cmd "Ddu -name=fd file_fd")
+                       (cmd "Ddu -name=files file_fd")
                        (desc "search by file name")]
                       [:fP
                        (cmd "Ddu -name=ghq ghq")

@@ -7,8 +7,8 @@ function s:ddu_send_all_to_qf() abort
   call ddu#ui#do_action('itemAction', { 'name': 'quickfix'})
 endfunction
 
-function s:ddu_ff_filter_open() abort
-  call ddu#ui#ff#save_cmaps([
+function s:ddu_filter_open() abort
+  call ddu#ui#save_cmaps([
         \  '<C-n>', '<C-p>', '<C-c>', '<C-q>', '<CR>',
         \ ])
   cnoremap <C-n> <Cmd>call ddu#ui#do_action('cursorNext', #{ loop: v:true })<CR>
@@ -18,9 +18,9 @@ function s:ddu_ff_filter_open() abort
   cnoremap <CR>  <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
 endfunction
 
-function s:ddu_ff_filter_close() abort
-  call ddu#ui#ff#restore_cmaps()
+function s:ddu_filter_close() abort
+  call ddu#ui#restore_cmaps()
 endfunction
 
-au User Ddu:ui:ff:openFilterWindow call s:ddu_ff_filter_open()
-au User Ddu:ui:ff:closeFilterWindow call s:ddu_ff_filter_close()
+au User Ddu:uiOpenFilterWindow call s:ddu_filter_open()
+au User Ddu:uiCloseFilterWindow call s:ddu_filter_close()
