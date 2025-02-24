@@ -58,7 +58,7 @@ rec {
       ddc-source-buffer
       ddc-source-buffer
       ddc-source-cmdline
-      ddc-source-cmdline-history
+      ddc-source-cmdline_history
       ddc-source-file
       ddc-source-input
       ddc-source-line
