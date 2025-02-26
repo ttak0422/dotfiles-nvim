@@ -1,8 +1,8 @@
 import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddc-vim@~9.1.0/config";
 
 export class Config extends BaseConfig {
-  override config(
-    { contextBuilder }: ConfigArguments,
+  override async config(
+    { denops, contextBuilder }: ConfigArguments,
   ): Promise<void> {
     contextBuilder.patchGlobal({
       ui: "pum",
@@ -125,6 +125,15 @@ export class Config extends BaseConfig {
         file: {
           filenameChars: "[:keyword:].",
         },
+        lsp: {
+          snippetEngine: await denops.eval(
+            "denops#callback#register({ body -> vsnip#anonymous(body) })",
+          ),
+          enableAdditionalTextEdit: true,
+          enableDisplayDetail: true,
+          enableMatchLabel: true,
+          enableResolveItem: true,
+        },
       },
       filterParams: {
         converter_kind_labels: {
@@ -181,7 +190,5 @@ export class Config extends BaseConfig {
         },
       });
     }
-
-    return Promise.resolve();
   }
 }
