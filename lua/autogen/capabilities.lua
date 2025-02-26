@@ -1,0 +1,4 @@
+-- [nfnl] Compiled from fnl/capabilities.fnl by https://github.com/Olical/nfnl, do not edit.
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities["textDocument.completion"] = {completionItem = {snippetSupport = true, commitCharactersSupport = true, deprecatedSupport = true, preselectSupport = true, tagSupport = {valueSet = {1}}, insertReplaceSupport = true, resolveSupport = {properties = {"documentation", "detail", "additionalTextEdits", "insertText", "textEdit", "insertTextFormat", "insertTextMode"}}, insertTextModeSupport = {valueSet = {1, 2}}, labelDetailsSupport = true}, contextSupport = true, insertTextMode = 1, completionList = {itemDefaults = {"commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data"}}, dynamicRegistration = false}
+return capabilities

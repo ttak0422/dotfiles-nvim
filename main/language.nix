@@ -108,7 +108,10 @@ rec {
       #   vim.env.PATH = "${pkgs.universal-ctags}/bin:" .. vim.env.PATH
       # '' +
       read ../lua/autogen/lsp-pre.lua;
-    postConfig = read ../lua/autogen/lsp.lua;
+    postConfig = {
+      code = read ../lua/autogen/lsp.lua;
+      args.capabilities_path = ../lua/autogen/capabilities.lua;
+    };
     hooks.events = [ "BufReadPost" ];
   };
   gopher = {
@@ -191,7 +194,7 @@ rec {
         };
       }
     ];
-    hooks.fileTypes = [ "java" ];
+    hooks.modules = [ "jdtls" ];
   };
   nfnl = {
     package = pkgs.vimPlugins.nfnl;

@@ -15,6 +15,8 @@
                              (vim.fn.fnamemodify ":p:h")
                              (string.gsub "/" "_"))))
 
+(local capabilities (dofile args.capabilities_path))
+
 (fn dir? [path]
   (-?> (vim.uv.fs_stat path)
        (. type)
@@ -152,4 +154,5 @@
                         : init_options
                         : on_attach
                         : flags
+                        : capabilities
                         : handlers})

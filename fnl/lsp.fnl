@@ -1,6 +1,7 @@
 (local lsp (require :lspconfig))
 (local climb (require :climbdir))
 (local marker (require :climbdir.marker))
+(local capabilities (dofile args.capabilities_path))
 
 ; ; ctags
 ; (lsp.ctags_lsp.setup {})
@@ -10,50 +11,53 @@
                                               :special {:reload :require}}
                                     :diagnostics {:globals [:vim]}}
                               :workspace {:library [(vim.fn.expand :$VIMRUNTIME/lua)]}
-                              :telemetry {:enable false}}})
+                              :telemetry {:enable false}}
+                   : capabilities})
 
 ;; fennel
-(lsp.fennel_ls.setup {:settings {:fennel-ls {:extra-globals :vim}}})
+(lsp.fennel_ls.setup {:settings {:fennel-ls {:extra-globals :vim}}
+                      : capabilities})
 
 ;; nix
 (lsp.nil_ls.setup {:autostart true
-                   :settings {:nil {:formatting {:command [:nixpkgs-fmt]}}}})
+                   :settings {:nil {:formatting {:command [:nixpkgs-fmt]}}}
+                   : capabilities})
 
 ;; bash
-(lsp.bashls.setup {})
+(lsp.bashls.setup {: capabilities})
 
 ;; csharp
-(lsp.csharp_ls.setup {})
+(lsp.csharp_ls.setup {: capabilities})
 
 ;; python
-(lsp.pyright.setup {})
+(lsp.pyright.setup {: capabilities})
 
 ;; ruby
-(lsp.solargraph.setup {})
+(lsp.solargraph.setup {: capabilities})
 
 ;; toml
-(lsp.taplo.setup {})
+(lsp.taplo.setup {: capabilities})
 
 ; go
-(lsp.gopls.setup {})
+(lsp.gopls.setup {: capabilities})
 
 ;; dart
-(lsp.dartls.setup {})
+(lsp.dartls.setup {: capabilities})
 
 ;; dhall
-(lsp.dhall_lsp_server.setup {})
+(lsp.dhall_lsp_server.setup {: capabilities})
 
 ;; yaml
-(lsp.yamlls.setup {:settings {:yaml {:keyOrdering false}}})
+(lsp.yamlls.setup {:settings {:yaml {:keyOrdering false}} : capabilities})
 
 ;; html
-(lsp.html.setup {})
+(lsp.html.setup {: capabilities})
 
 ;; css, css, less
-(lsp.cssls.setup {})
+(lsp.cssls.setup {: capabilities})
 
 ;; json
-(lsp.jsonls.setup {})
+(lsp.jsonls.setup {: capabilities})
 
 ;; typescript (node)
 (lsp.vtsls.setup {:single_file_support false
@@ -67,7 +71,8 @@
                                                           (marker.has_directory :node_modules))
                                            {:halt (marker.one_of (marker.has_readable_file :deno.json))}))
                   :flags {:debounce_text_changes 1000}
-                  :vtsls {:experimental {:completion {:enableServerSideFuzzyMatch true}}}})
+                  :vtsls {:experimental {:completion {:enableServerSideFuzzyMatch true}}}
+                  : capabilities})
 
 ;; typescript (deno)
 (lsp.denols.setup {:single_file_support false
@@ -92,13 +97,14 @@
                                             :autoImports true
                                             :imports {:autoDiscover true
                                                       :hosts (vim.empty_dict)}}}
-                   :settings {:deno {:enable true}}})
+                   :settings {:deno {:enable true}}
+                   : capabilities})
 
 ;; markdown
-(lsp.marksman.setup {})
+(lsp.marksman.setup {: capabilities})
 
 ;; ast_grep
-(lsp.ast_grep.setup {})
+(lsp.ast_grep.setup {: capabilities})
 
 ;; efm
 (let [luacheck (require :efmls-configs.linters.luacheck)
@@ -130,7 +136,8 @@
   (lsp.efm.setup {:single_file_support true
                   :filetypes (vim.tbl_keys languages)
                   : settings
-                  : init_options}))
+                  : init_options
+                  : capabilities}))
 
 ;; kotlin
-(lsp.kotlin_language_server.setup {})
+(lsp.kotlin_language_server.setup {: capabilities})

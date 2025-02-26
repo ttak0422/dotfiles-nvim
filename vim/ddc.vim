@@ -101,6 +101,3 @@ call ddc#custom#patch_global('sourceParams', #{
       \     enableResolveItem: v:true,
       \   }
       \ })
-lua << EOF
-require("ddc_source_lsp_setup").setup({respect_trigger=false})
-EOF

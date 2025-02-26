@@ -66,6 +66,7 @@ let
           java_debug_jar_pattern = "${vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server/com.microsoft.java.debug.plugin-*.jar";
           java_test_jar_pattern = "${vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server/*.jar";
           jol_jar_path = pkgs.javaPackages.jol;
+          capabilities_path = ../lua/autogen/capabilities.lua;
         };
       };
     norg = read ../lua/autogen/after/norg.lua;

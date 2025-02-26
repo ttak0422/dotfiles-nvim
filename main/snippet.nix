@@ -37,11 +37,7 @@ rec {
       '';
   };
   vsnip = {
-    packages = [
-      vim-vsnip
-      # MEMO: ddcでは利用しない → use ddc-source-vsnip
-      # vim-vsnip-integ
-    ];
+    packages = [ vim-vsnip ];
     depends = [ input.tabout ];
     preConfig = {
       language = "vim";

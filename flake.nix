@@ -310,10 +310,6 @@
       url = "github:hrsh7th/vim-vsnip";
       flake = false;
     };
-    vim-vsnip-integ = {
-      url = "github:hrsh7th/vim-vsnip-integ";
-      flake = false;
-    };
     nvim-dd = {
       url = "github:yorickpeterse/nvim-dd";
       flake = false;
@@ -1104,10 +1100,6 @@
     };
     ddc-nvim-lsp-setup = {
       url = "github:uga-rosa/ddc-nvim-lsp-setup";
-      flake = false;
-    };
-    ddc-source-lsp-setup = {
-      url = "github:uga-rosa/ddc-source-lsp-setup";
       flake = false;
     };
     ddc-sorter_reverse = {

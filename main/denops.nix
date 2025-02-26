@@ -63,7 +63,6 @@ rec {
       ddc-source-input
       ddc-source-line
       ddc-source-lsp
-      ddc-source-lsp-setup
       ddc-source-vsnip
       ddc-source-vsnip
       ddc-source-neorg
@@ -129,7 +128,6 @@ rec {
         "InsertEnter"
         "CmdlineEnter"
       ];
-      modules = [ "ddc_source_lsp" ];
     };
     useDenops = true;
   };

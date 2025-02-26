@@ -1074,22 +1074,6 @@
         "type": "github"
       }
     },
-    "ddc-source-lsp-setup": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1701964205,
-        "narHash": "sha256-bSTA1QQPdtUxuTA73eaHtVwWFRTP/rANtidAWuWmSPc=",
-        "owner": "uga-rosa",
-        "repo": "ddc-source-lsp-setup",
-        "rev": "a8a06af203d402e0874060bcd8a0b89b32a52224",
-        "type": "github"
-      },
-      "original": {
-        "owner": "uga-rosa",
-        "repo": "ddc-source-lsp-setup",
-        "type": "github"
-      }
-    },
     "ddc-source-neorg": {
       "flake": false,
       "locked": {
@@ -4482,11 +4466,11 @@
     "nvim-lspconfig": {
       "flake": false,
       "locked": {
-        "lastModified": 1735123035,
-        "narHash": "sha256-1W8ktjIeaPXhmWzYpWKxjYNGKlOWBf4GTA6p0o2nugw=",
+        "lastModified": 1740499722,
+        "narHash": "sha256-u4uAkOg+/n0cghaSpDMudOLKECHi58NyyvZdt5x/Dgg=",
         "owner": "neovim",
         "repo": "nvim-lspconfig",
-        "rev": "ff2b85abaa810f6611233dbe6d31c07510ebf43d",
+        "rev": "99c75820f2606b6b446cad7c75ec2ef7ee8a1317",
         "type": "github"
       },
       "original": {
@@ -5072,7 +5056,6 @@
         "ddc-source-input": "ddc-source-input",
         "ddc-source-line": "ddc-source-line",
         "ddc-source-lsp": "ddc-source-lsp",
-        "ddc-source-lsp-setup": "ddc-source-lsp-setup",
         "ddc-source-neorg": "ddc-source-neorg",
         "ddc-source-nextword": "ddc-source-nextword",
         "ddc-source-nvim-lsp": "ddc-source-nvim-lsp",
@@ -5355,7 +5338,6 @@
         "vim-test": "vim-test",
         "vim-translator": "vim-translator",
         "vim-vsnip": "vim-vsnip",
-        "vim-vsnip-integ": "vim-vsnip-integ",
         "vimade": "vimade",
         "vimdoc-ja": "vimdoc-ja",
         "virtual-types-nvim": "virtual-types-nvim",
@@ -6372,22 +6354,6 @@
       "original": {
         "owner": "hrsh7th",
         "repo": "vim-vsnip",
-        "type": "github"
-      }
-    },
-    "vim-vsnip-integ": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1688219160,
-        "narHash": "sha256-WAT8Jh97OZ30z+hCsK3E/8HS8flBgjP7wplvCvf+Fks=",
-        "owner": "hrsh7th",
-        "repo": "vim-vsnip-integ",
-        "rev": "1914e72cf3de70df7f5dde476cd299aba2440aef",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hrsh7th",
-        "repo": "vim-vsnip-integ",
         "type": "github"
       }
     },
