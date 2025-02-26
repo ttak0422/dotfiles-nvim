@@ -48,7 +48,7 @@ let
     java =
       let
         inherit (pkgs.vscode-marketplace.vscjava) vscode-java-debug vscode-java-test;
-        jdtls = pkgs.jdt-language-server;
+        jdtls = pkgs.pkgs-nightly.jdt-language-server;
       in
       {
         code = read ../lua/autogen/after/java.lua;
