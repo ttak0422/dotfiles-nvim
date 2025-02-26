@@ -1,4 +1,4 @@
-import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddc-vim@~7.1.0/config";
+import { BaseConfig, ConfigArguments } from "jsr:@shougo/ddc-vim@~9.1.0/config";
 
 export class Config extends BaseConfig {
   override config(
@@ -27,7 +27,7 @@ export class Config extends BaseConfig {
         "around",
       ],
       cmdlineSources: {
-        ":": ["cmdline", "cmdline-history", "around"],
+        ":": ["cmdline", "cmdline_history", "around"],
         "@": [],
         ">": [],
         "/": ["around", "line"],
@@ -99,7 +99,7 @@ export class Config extends BaseConfig {
           forceCompletionPattern: "\\S/\\S*",
           isVolatile: true,
         },
-        "cmdline-history": {
+        cmdline_history: {
           mark: "[HIST]",
           sorters: [],
         },

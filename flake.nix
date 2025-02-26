@@ -1058,8 +1058,8 @@
       url = "github:Shougo/ddc-source-cmdline";
       flake = false;
     };
-    ddc-source-cmdline-history = {
-      url = "github:Shougo/ddc-source-cmdline-history";
+    ddc-source-cmdline_history = {
+      url = "github:Shougo/ddc-source-cmdline_history";
       flake = false;
     };
     ddc-source-file = {
@@ -1213,6 +1213,7 @@
     bufferline-nvim = {
       url = "github:akinsho/bufferline.nvim";
       flake = false;
+
     };
     neco-vim = {
       url = "github:Shougo/neco-vim";
