@@ -131,7 +131,7 @@ export class Config extends BaseConfig {
           ),
           enableAdditionalTextEdit: true,
           enableDisplayDetail: true,
-          enableMatchLabel: true,
+          // enableMatchLabel: true,
           enableResolveItem: true,
         },
       },
