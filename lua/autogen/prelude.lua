@@ -8,57 +8,40 @@ for k, v in pairs({mapleader = " ", maplocalleader = ",", loaded_netrw = 1, load
   vim.g[k] = v
 end
 do
-  local opts = {noremap = true, silent = true}
-  local desc
+  local O = {noremap = true, silent = true}
+  local D
   local function _1_(d)
     return {noremap = true, silent = true, desc = d}
   end
-  desc = _1_
-  local cmd
+  D = _1_
+  local C
   local function _2_(c)
     return ("<cmd>" .. c .. "<cr>")
   end
-  cmd = _2_
-  local lcmd
+  C = _2_
+  local L
   local function _3_(c)
-    return cmd(("lua " .. c))
+    return C(("lua " .. c))
   end
-  lcmd = _3_
-  local mk_toggle
-  local function _4_()
-    local state = {pre_id = nil, ["open?"] = false}
-    local function _5_(id, mod, args)
-      local function _6_()
-        if (state.pre_id ~= id) then
-          require("toolwindow").open_window(mod, args)
-          state["open?"] = true
-        else
-          if state["open?"] then
-            require("toolwindow").close()
-            state["open?"] = false
-          else
-            require("toolwindow").open_window(mod, args)
-            state["open?"] = true
-          end
-        end
-        state["pre_id"] = id
-        return nil
-      end
-      return _6_
+  L = _3_
+  local T
+  local function _4_(id)
+    local function _5_()
+      return require("toggler").toggle(id)
     end
     return _5_
   end
-  mk_toggle = _4_()
-  for _, K in ipairs({{"ff", cmd("Telescope live_grep_args"), desc("search by content")}, {"fF", cmd("Telescope ast_grep"), desc("search by AST")}, {"fb", cmd("TelescopeB"), desc("search by buffer")}, {"ft", cmd("Telescope sonictemplate templates"), desc("search templates")}, {"fh", cmd("Legendary"), desc("Search command palette")}, {"H", lcmd("require('harpoon').ui:toggle_quick_menu(require('harpoon'):list(),{border='none'})"), desc("Show registered file")}, {"ha", lcmd("require('harpoon'):list():add()"), desc("Register file")}, {"fp", cmd("Ddu -name=files file_fd"), desc("search by file name")}, {"fP", cmd("Ddu -name=ghq ghq"), desc("search repo (ghq)")}, {"fru", cmd("Ddu -name=mru mru"), desc("MRU (Most Recently Used files)")}, {"frw", cmd("Ddu -name=mrw mrw"), desc("MRW (Most Recently Written files)")}, {"frr", cmd("Ddu -name=mrr mrr"), desc("MRR (Most Recent git Repositories)")}, {"frd", cmd("Ddu -name=mrd mrd"), desc("MRD (Most Recent Directories)")}, {"mq", cmd("MarksQFListBuf"), desc("marks in current buffer")}, {"mQ", cmd("MarksQFListGlobal"), desc("marks in all buffer")}, {"U", cmd("UndotreeToggle", desc("toggle undotree"))}, {"nt", cmd("Neorg journal today"), desc("\238\152\179 Today")}, {"ny", cmd("Neorg journal yesterday"), desc("\238\152\179 Yesterday")}, {"N", cmd("Neorg"), desc("\238\152\179 Enter")}, {"nn", cmd("NeorgUID"), desc("\238\152\179 UID")}, {"ngg", cmd("NeorgGit"), desc("\238\152\179 Git")}, {"ngb", cmd("NeorgGitBranch"), desc("\238\152\179 Git (branch)")}, {"fn", cmd("NeorgFuzzySearch"), desc("find Neorg linkable")}, {"G", cmd("Neogit"), desc("\239\135\147 client")}, {"gb", cmd("ToggleGitBlame"), desc("\239\135\147 blame")}, {"tb", lcmd("require('lir.float').toggle()"), desc("\239\136\133  explorer")}, {"tB", lcmd("require('oil').open()"), desc("\239\136\133  explorer")}, {"q", cmd("BufDel"), desc("close buffer")}, {"Q", cmd("BufDelAll"), desc("close all buffers")}, {"A", cmd("tabclose")}, {"ts", cmd("Screenkey toggle"), desc("toggle screenkey")}, {"tc", cmd("ColorizerToggle"), desc("toggle colorizer")}, {"tt", cmd("NoNeckPain"), desc("toggle no neck pain")}, {"tm", lcmd("require('codewindow').toggle_minimap()"), desc("toggle minimap")}, {"to", cmd("AerialToggle"), desc("toggle outline")}, {"tj", cmd("lua require('treesj').toggle({ split = { recursive = false }})"), desc("toggle split/join")}, {"tJ", cmd("lua require('treesj').toggle({ split = { recursive = true }})"), desc("toggle recursive split/join")}, {"tq", mk_toggle(1, "qf", nil), desc("toggle quickfix")}, {"td", mk_toggle(2, "trouble", {mode = "diagnostics", filter = {buf = 0}}), desc("toggle diagnostics (document)")}, {"tD", mk_toggle(3, "trouble", {mode = "diagnostics"}), desc("toggle diagnostics (workspace)")}, {"tR", lcmd("require('spectre').toggle()"), desc("toggle spectre")}, {"aa", cmd("AvanteAsk"), desc("\238\128\137Avante Ask")}, {"at", cmd("AvanteToggle"), desc("\238\128\137Avante Toggle")}}) do
-    vim.keymap.set("n", ("<Leader>" .. K[1]), K[2], (K[3] or opts))
+  T = _4_
+  for _, K in ipairs({{"ff", C("Telescope live_grep_args"), D("search by content")}, {"fF", C("Telescope ast_grep"), D("search by AST")}, {"fb", C("TelescopeB"), D("search by buffer")}, {"ft", C("Telescope sonictemplate templates"), D("search templates")}, {"fh", C("Legendary"), D("Search command palette")}, {"H", L("require('harpoon').ui:toggle_quick_menu(require('harpoon'):list(),{border='none'})"), D("Show registered file")}, {"ha", L("require('harpoon'):list():add()"), D("Register file")}, {"fp", C("Ddu -name=files file_fd"), D("search by file name")}, {"fP", C("Ddu -name=ghq ghq"), D("search repo (ghq)")}, {"fru", C("Ddu -name=mru mru"), D("MRU (Most Recently Used files)")}, {"frw", C("Ddu -name=mrw mrw"), D("MRW (Most Recently Written files)")}, {"frr", C("Ddu -name=mrr mrr"), D("MRR (Most Recent git Repositories)")}, {"frd", C("Ddu -name=mrd mrd"), D("MRD (Most Recent Directories)")}, {"mq", C("MarksQFListBuf"), D("marks in current buffer")}, {"mQ", C("MarksQFListGlobal"), D("marks in all buffer")}, {"U", C("UndotreeToggle", D("toggle undotree"))}, {"nt", C("Neorg journal today"), D("\238\152\179 Today")}, {"ny", C("Neorg journal yesterday"), D("\238\152\179 Yesterday")}, {"N", C("Neorg"), D("\238\152\179 Enter")}, {"nn", C("NeorgUID"), D("\238\152\179 UID")}, {"ngg", C("NeorgGit"), D("\238\152\179 Git")}, {"ngb", C("NeorgGitBranch"), D("\238\152\179 Git (branch)")}, {"fn", C("NeorgFuzzySearch"), D("find Neorg linkable")}, {"G", C("Neogit"), D("\239\135\147 client")}, {"gb", C("ToggleGitBlame"), D("\239\135\147 blame")}, {"tb", L("require('lir.float').toggle()"), D("\239\136\133  explorer")}, {"tB", L("require('oil').open()"), D("\239\136\133  explorer")}, {"q", C("BufDel"), D("close buffer")}, {"Q", C("BufDelAll"), D("close all buffers")}, {"A", C("tabclose")}, {"ts", C("Screenkey toggle"), D("toggle screenkey")}, {"tc", C("ColorizerToggle"), D("toggle colorizer")}, {"tt", C("NoNeckPain"), D("toggle no neck pain")}, {"tm", L("require('codewindow').toggle_minimap()"), D("toggle minimap")}, {"to", C("AerialToggle"), D("toggle outline")}, {"tj", C("lua require('treesj').toggle({ split = { recursive = false }})"), D("toggle split/join")}, {"tJ", C("lua require('treesj').toggle({ split = { recursive = true }})"), D("toggle recursive split/join")}, {"tq", T("qf"), D("toggle quickfix")}, {"td", T("trouble-doc"), D("toggle diagnostics (document)")}, {"tD", T("trouble-ws"), D("toggle diagnostics (workspace)")}, {"tR", L("require('spectre').toggle()"), D("toggle spectre")}, {"aa", C("AvanteAsk"), D("\238\128\137Avante Ask")}, {"at", C("AvanteToggle"), D("\238\128\137Avante Toggle")}}) do
+    vim.keymap.set("n", ("<Leader>" .. K[1]), K[2], (K[3] or O))
   end
-  for m, ks in pairs({n = {{"\194\165", "\\"}, {"<C-t>", cmd("OpenMenu")}}, i = {{"\194\165", "\\"}}, c = {{"\194\165", "\\"}}, t = {{"\194\165", "\\"}}, v = {{"R", cmd("FlowRunSelected")}, {"<C-t>", cmd("OpenMenu")}}}) do
+  for m, ks in pairs({n = {{"\194\165", "\\"}, {"<C-t>", C("OpenMenu")}}, i = {{"\194\165", "\\"}}, c = {{"\194\165", "\\"}}, t = {{"\194\165", "\\"}}, v = {{"R", C("FlowRunSelected")}, {"<C-t>", C("OpenMenu")}}}) do
     for _, k in ipairs(ks) do
-      vim.keymap.set(m, k[1], k[2], (k[3] or opts))
+      vim.keymap.set(m, k[1], k[2], (k[3] or O))
     end
   end
   for i = 0, 9 do
-    vim.keymap.set({"n", "t", "i"}, ("<C-" .. i .. ">"), mk_toggle((4 + i), "terminal", {idx = i}), opts)
+    vim.keymap.set({"n", "t", "i"}, ("<C-" .. i .. ">"), T(("term" .. i)), O)
   end
 end
 return require("config-local").setup({silent = true})

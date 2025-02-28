@@ -84,12 +84,6 @@ with pkgs.vimPlugins;
     postConfig = read ../lua/autogen/todo-comments.lua;
     hooks.events = [ "BufReadPost" ];
   };
-  toolwindow = {
-    packages = [ toolwindow-nvim ];
-    depends = [ tool.toggleterm ];
-    postConfig = read ../lua/autogen/toolwindow.lua;
-    hooks.modules = [ "toolwindow" ];
-  };
   toggler = {
     package = pkgs.vimPlugins.toggler;
     postConfig = read ../lua/autogen/toggler.lua;

@@ -650,10 +650,6 @@
       url = "github:folke/trouble.nvim";
       flake = false;
     };
-    toolwindow-nvim = {
-      url = "github:EthanJWright/toolwindow.nvim";
-      flake = false;
-    };
     denops-translate-vim = {
       url = "github:skanehira/denops-translate.vim";
       flake = false;

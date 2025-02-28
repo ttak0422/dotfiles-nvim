@@ -5318,7 +5318,6 @@
         "todo-comments-nvim": "todo-comments-nvim",
         "toggler": "toggler",
         "toggleterm-nvim": "toggleterm-nvim",
-        "toolwindow-nvim": "toolwindow-nvim",
         "translate-nvim": "translate-nvim",
         "tree-sitter-norg-meta": "tree-sitter-norg-meta",
         "trim-nvim": "trim-nvim",
@@ -6035,22 +6034,6 @@
       "original": {
         "owner": "akinsho",
         "repo": "toggleterm.nvim",
-        "type": "github"
-      }
-    },
-    "toolwindow-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1721861028,
-        "narHash": "sha256-vJx2HW2IsGP5V71UL3/DotPLlmkSiDOAv0cuQqfRo9Q=",
-        "owner": "EthanJWright",
-        "repo": "toolwindow.nvim",
-        "rev": "c61409bab970ddcd99b5ea5f99fc222594c61f23",
-        "type": "github"
-      },
-      "original": {
-        "owner": "EthanJWright",
-        "repo": "toolwindow.nvim",
         "type": "github"
       }
     },

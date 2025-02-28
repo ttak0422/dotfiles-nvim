@@ -53,7 +53,6 @@ let
       smart-splits
       stickybuf
       todo-comments
-      toolwindow
       toggler
       trim
       vimdoc-ja
