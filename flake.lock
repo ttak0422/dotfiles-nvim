@@ -271,11 +271,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1731169925,
-        "narHash": "sha256-tl/bYicLInTgWcxhWe72QI5kzCOJlrcuAXs12x7l784=",
+        "lastModified": 1740755534,
+        "narHash": "sha256-QK8q261I8G5tD6OryUdqBLSK8i0vPhbnCrD84Vc1Ghc=",
         "owner": "ttak0422",
         "repo": "bundler",
-        "rev": "960065f7d21fb3ec159e7daef8d57622e4c0724c",
+        "rev": "0a3c27df83ab4884cf128b3585d548b5c2e0d9fe",
         "type": "github"
       },
       "original": {
@@ -5316,6 +5316,7 @@
         "tint-nvim": "tint-nvim",
         "tiny-inline-diagnostic-nvim": "tiny-inline-diagnostic-nvim",
         "todo-comments-nvim": "todo-comments-nvim",
+        "toggler": "toggler",
         "toggleterm-nvim": "toggleterm-nvim",
         "toolwindow-nvim": "toolwindow-nvim",
         "translate-nvim": "translate-nvim",
@@ -6002,6 +6003,22 @@
       "original": {
         "owner": "folke",
         "repo": "todo-comments.nvim",
+        "type": "github"
+      }
+    },
+    "toggler": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1740756869,
+        "narHash": "sha256-4M908hPqnX4FnZfGhEX8i6ntkXlZYwEtWKYFQN3uBFg=",
+        "owner": "ttak0422",
+        "repo": "toggler-nvim",
+        "rev": "37acd848739fa1a8dbde042ebccfa8c98b7dfab3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ttak0422",
+        "repo": "toggler-nvim",
         "type": "github"
       }
     },

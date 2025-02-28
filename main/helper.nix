@@ -90,6 +90,11 @@ with pkgs.vimPlugins;
     postConfig = read ../lua/autogen/toolwindow.lua;
     hooks.modules = [ "toolwindow" ];
   };
+  toggler = {
+    package = pkgs.vimPlugins.toggler;
+    postConfig = read ../lua/autogen/toggler.lua;
+    hooks.modules = [ "toggler" ];
+  };
   trim = {
     package = trim-nvim;
     postConfig = read ../lua/autogen/trim.lua;

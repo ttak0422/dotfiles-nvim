@@ -2,5 +2,4 @@
 local M = require("waitevent")
 local editor = M.editor({})
 vim.env.GIT_EDITOR = editor
-vim.env.EDITOR = editor
 return nil

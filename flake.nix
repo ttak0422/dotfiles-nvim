@@ -1431,6 +1431,10 @@
       url = "github:kmonad/kmonad-vim";
       flake = false;
     };
+    toggler = {
+      url = "github:ttak0422/toggler-nvim";
+      flake = false;
+    };
   };
 
   outputs =

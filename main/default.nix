@@ -4,7 +4,7 @@ let
   read = builtins.readFile;
   package = pkgs.pkgs-stable.neovim-unwrapped;
 
-  extraPackages = [ ];
+  extraPackages = with pkgs; [ neovim-remote ];
   extraConfig = ''
     if vim.g.neovide then
       dofile("${../lua/autogen/neovide.lua}")
@@ -12,6 +12,7 @@ let
     else
       vim.cmd("colorscheme morimo")
     end
+    vim.env.EDITOR = 'nvr -cc split --remote-silent'
     ${read ./../lua/autogen/prelude.lua}
   '';
   after = {
@@ -53,6 +54,7 @@ let
       stickybuf
       todo-comments
       toolwindow
+      toggler
       trim
       vimdoc-ja
       waitevent

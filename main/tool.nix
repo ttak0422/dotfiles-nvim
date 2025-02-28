@@ -61,7 +61,7 @@ rec {
     package = toggleterm-nvim;
     depends = [
       term-gf-nvim
-      helper.waitevent
+      # helper.waitevent
     ];
     postConfig =
       ''
@@ -69,6 +69,7 @@ rec {
       ''
       + read ../lua/autogen/toggleterm.lua;
     hooks.commands = [ "ToggleTerm" ];
+    hooks.modules = [ "toggleterm.terminal" ];
   };
   overseer = {
     package = overseer-nvim;
