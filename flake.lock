@@ -2660,16 +2660,15 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1740796905,
-        "narHash": "sha256-Sv84tkxTXFJFL2x3ZldKndJsCGPtmy+xngvhZa/xS8Q=",
-        "owner": "ttak0422",
+        "lastModified": 1740834205,
+        "narHash": "sha256-5Z9EcZfHm2rrqhDRluW4LZJPNzE2Mdu8N1v3VtY0w6c=",
+        "owner": "altsem",
         "repo": "gitu",
-        "rev": "5c7e66a41f623cb38427ab9e590b8346ba443553",
+        "rev": "eef628d08d640411a3dd3fbbe935719c92bdce3a",
         "type": "github"
       },
       "original": {
-        "owner": "ttak0422",
-        "ref": "feat/support-nvr",
+        "owner": "altsem",
         "repo": "gitu",
         "type": "github"
       }
