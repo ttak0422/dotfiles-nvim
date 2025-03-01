@@ -32,12 +32,12 @@ in
         coreutils
       ];
       script = ''
-        nix flake metadata --json | jq -r '.locks.nodes | keys[]' | grep ddc | xargs -I {} nix flake lock --update-input {}
-        nix flake lock --update-input neco-vim
-        nix flake lock --update-input vim-mr
-        nix flake lock --update-input pum-vim
-        nix flake lock --update-input denops-popup-preview-vim
-        nix flake lock --update-input denops-signature_help
+        nix flake metadata --json | jq -r '.locks.nodes | keys[]' | grep ddc | xargs -I {} nix flake update {}
+        nix flake update neco-vim
+        nix flake update vim-mr
+        nix flake update pum-vim
+        nix flake update denops-popup-preview-vim
+        nix flake update denops-signature_help
       '';
     };
     update-ddu-plugins = mkApp {
@@ -47,7 +47,7 @@ in
         coreutils
       ];
       script = ''
-        nix flake metadata --json | jq -r '.locks.nodes | keys[]' | grep ddu | xargs -I {} nix flake lock --update-input {}
+        nix flake metadata --json | jq -r '.locks.nodes | keys[]' | grep ddu | xargs -I {} nix flake update {}
       '';
     };
     update-neorg-plugins = mkApp {
@@ -57,7 +57,7 @@ in
         coreutils
       ];
       script = ''
-        nix flake metadata --json | jq -r '.locks.nodes | keys[]' | grep neorg | xargs -I {} nix flake lock --update-input {}
+        nix flake metadata --json | jq -r '.locks.nodes | keys[]' | grep neorg | xargs -I {} nix flake update {}
       '';
     };
     update-telescope-plugins = mkApp {
@@ -67,7 +67,7 @@ in
         coreutils
       ];
       script = ''
-        nix flake metadata --json | jq -r '.locks.nodes | keys[]' | grep telescope | xargs -I {} nix flake lock --update-input {}
+        nix flake metadata --json | jq -r '.locks.nodes | keys[]' | grep telescope | xargs -I {} nix flake update {}
       '';
     };
     update-neotest-plugins = mkApp {
@@ -77,7 +77,7 @@ in
         coreutils
       ];
       script = ''
-        nix flake metadata --json | jq -r '.locks.nodes | keys[]' | grep neotest | xargs -I {} nix flake lock --update-input {}
+        nix flake metadata --json | jq -r '.locks.nodes | keys[]' | grep neotest | xargs -I {} nix flake update {}
       '';
     };
   };
