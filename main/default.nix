@@ -56,7 +56,6 @@ let
       toggler
       trim
       vimdoc-ja
-      waitevent
       whichkey
       winshift
       bufdel
