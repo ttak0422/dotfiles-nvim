@@ -4,7 +4,8 @@ let
   read = builtins.readFile;
   package = pkgs.pkgs-stable.neovim-unwrapped;
 
-  extraPackages = with pkgs; [ neovim-remote
+  extraPackages = with pkgs; [
+    neovim-remote
     inputs'.gitu.packages.gitu
     # gitu
   ];
@@ -16,6 +17,7 @@ let
       vim.cmd("colorscheme morimo")
     end
     vim.env.EDITOR = 'nvr -cc split --remote-silent'
+    vim.env.GIT_EDITOR = 'nvr --remote-tab-wait-silent'
     ${read ./../lua/autogen/prelude.lua}
   '';
   after = {

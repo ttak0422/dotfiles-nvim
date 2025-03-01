@@ -1,5 +1,8 @@
 (local M (require :toggler))
 
+(local map vim.keymap.set)
+(local create_command vim.api.nvim_create_user_command)
+
 (fn with_keep_window [f]
   (fn []
     (let [win (vim.api.nvim_get_current_win)]
@@ -37,8 +40,36 @@
                 {:open (fn [] (open_idx i))
                  :close (fn [] (close_idx i))
                  :is_open (fn [] (is_open_idx i))})
-    (vim.api.nvim_create_user_command (.. :ClearTerm i) (fn [] (tset st i nil))
-                                      {})))
+    (create_command (.. :ClearTerm i) (fn [] (tset st i nil)) {})))
+
+; gitu
+(let [st {:term nil}
+      on_open (fn [term]
+                (map :t :<ESC> :i<ESC>
+                     {:buffer term.bufnr :noremap true :silent true}))
+      open (fn []
+             (-> (case (. st :term)
+                   term term
+                   _ (let [term (-> (require :toggleterm.terminal)
+                                    (. :Terminal)
+                                    (: :new
+                                       {:direction :float
+                                        :cmd :gitu
+                                        :hidden true
+                                        : on_open}))]
+                       (tset st :term term)
+                       term))
+                 (: :open))
+             (vim.cmd :startinsert))
+      is_open (fn []
+                (let [term (. st :term)]
+                  (and term (term:is_open))))
+      close (fn []
+              (let [term (. st :term)]
+                (if (and term (term:is_open))
+                    (term:close))))]
+  (M.register :gitu {: open : close : is_open})
+  (create_command :ClearGitu (fn [] (tset st :term nil)) {}))
 
 ; trouble
 (let [st {:recent_type nil}

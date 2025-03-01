@@ -5,6 +5,7 @@ let
   lib = callPackage ./lib.nix { };
   tool = callPackage ./tool.nix { };
   diagnostic = callPackage ./diagnostic.nix { };
+  style = callPackage ./style.nix { };
 in
 with pkgs.vimPlugins;
 {
@@ -86,6 +87,10 @@ with pkgs.vimPlugins;
   };
   toggler = {
     package = pkgs.vimPlugins.toggler;
+    depends = [
+      style.noice
+      style.heirline
+    ];
     postConfig = read ../lua/autogen/toggler.lua;
     hooks.modules = [ "toggler" ];
   };

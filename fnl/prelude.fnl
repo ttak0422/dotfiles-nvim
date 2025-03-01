@@ -81,8 +81,9 @@
                       [:ngb (C :NeorgGitBranch) (D " Git (branch)")]
                       [:fn (C :NeorgFuzzySearch) (D "find Neorg linkable")]
                       ;; git
-                      [:G (C :Neogit) (D " client")]
-                      [:gb (C :ToggleGitBlame) (D " blame")]
+                      ; [:G (C :Neogit) (D " client")]
+                      [:G (T :gitu) (D " client")]
+                      [:gb (T :ToggleGitBlame) (D " blame")]
                       ;; filter
                       [:tb
                        ; (lcmd "require('oil').toggle_float()")
