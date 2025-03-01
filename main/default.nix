@@ -1,10 +1,13 @@
-{ pkgs, ... }:
+{ inputs', pkgs, ... }:
 let
   inherit (pkgs) callPackage;
   read = builtins.readFile;
   package = pkgs.pkgs-stable.neovim-unwrapped;
 
-  extraPackages = with pkgs; [ neovim-remote ];
+  extraPackages = with pkgs; [ neovim-remote
+    inputs'.gitu.packages.gitu
+    # gitu
+  ];
   extraConfig = ''
     if vim.g.neovide then
       dofile("${../lua/autogen/neovide.lua}")

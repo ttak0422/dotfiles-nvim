@@ -5,6 +5,7 @@
   ];
   perSystem =
     params@{
+      inputs',
       self',
       system,
       pkgs,
