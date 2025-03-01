@@ -65,44 +65,49 @@ do
       return is_open_idx(i)
     end
     M.register(("term" .. i), {open = _15_, close = _16_, is_open = _17_})
+    local function _18_()
+      st[i] = nil
+      return nil
+    end
+    vim.api.nvim_create_user_command(("ClearTerm" .. i), _18_, {})
   end
 end
 local st = {recent_type = nil}
 local mk_open
-local function _18_(opt, type)
-  local function _19_()
+local function _19_(opt, type)
+  local function _20_()
     require("trouble").open(opt)
     st["recent_type"] = type
     return nil
   end
-  return with_keep_window(_19_)
+  return with_keep_window(_20_)
 end
-mk_open = _18_
+mk_open = _19_
 local close
-local function _20_()
-  local _21_ = package.loaded.trouble
-  if (nil ~= _21_) then
-    local t = _21_
+local function _21_()
+  local _22_ = package.loaded.trouble
+  if (nil ~= _22_) then
+    local t = _22_
     return t.close()
   else
     return nil
   end
 end
-close = _20_
+close = _21_
 local mk_is_open
-local function _23_(type)
-  local function _24_()
-    local _25_ = package.loaded.trouble
-    if (nil ~= _25_) then
-      local t = _25_
+local function _24_(type)
+  local function _25_()
+    local _26_ = package.loaded.trouble
+    if (nil ~= _26_) then
+      local t = _26_
       return (t.is_open() and (st.recent_type == type))
     else
-      local _ = _25_
+      local _ = _26_
       return false
     end
   end
-  return _24_
+  return _25_
 end
-mk_is_open = _23_
+mk_is_open = _24_
 M.register("trouble-doc", {open = mk_open({mode = "diagnostics", filter = {buf = 0}}, "doc"), close = close, is_open = mk_is_open("doc")})
 return M.register("trouble-ws", {open = mk_open({mode = "diagnostics"}, "ws"), close = close, is_open = mk_is_open("ws")})

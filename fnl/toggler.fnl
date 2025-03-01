@@ -36,7 +36,9 @@
     (M.register (.. :term i)
                 {:open (fn [] (open_idx i))
                  :close (fn [] (close_idx i))
-                 :is_open (fn [] (is_open_idx i))})))
+                 :is_open (fn [] (is_open_idx i))})
+    (vim.api.nvim_create_user_command (.. :ClearTerm i) (fn [] (tset st i nil))
+                                      {})))
 
 ; trouble
 (let [st {:recent_type nil}
