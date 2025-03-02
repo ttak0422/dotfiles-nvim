@@ -123,7 +123,7 @@
                       [:ta (C :TCopilotChatToggle)]
                       ;; AI
                       [:aa (C :AvanteAsk) (D "Avante Ask")]
-                      [:at (C :AvanteToggle) (D "Avante Toggle")]])]
+                      [:at (C :TAvanteToggle) (D "Avante Toggle")]])]
     (vim.keymap.set :n (.. :<Leader> (. K 1)) (. K 2) (or (. K 3) O)))
   (each [m ks (pairs {:n [["¥" "\\"] [:<C-t> (C :OpenMenu)]]
                       :i [["¥" "\\"]]

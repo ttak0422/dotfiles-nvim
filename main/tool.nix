@@ -160,6 +160,8 @@ rec {
     };
     depends = [
       style.dressing
+      style.heirline
+      helper.toggler
       lib.plenary
       lib.nui
       treesitter.treesitter
@@ -171,6 +173,7 @@ rec {
     hooks.commands = [
       "AvanteAsk"
       "AvanteToggle"
+      "TAvanteToggle"
     ];
   };
   screenkey = {
