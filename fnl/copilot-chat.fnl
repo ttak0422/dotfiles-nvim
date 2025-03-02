@@ -1,3 +1,5 @@
+(local copilot (require :CopilotChat))
+
 (let [P (require :CopilotChat.prompts)
       S (require :CopilotChat.select)
       namespace (vim.api.nvim_create_namespace :copilot_review)
@@ -86,13 +88,13 @@
             : prompts
             : window
             : mappings}]
-  ((. (require :CopilotChat) :setup) opts))
+  (copilot.setup opts))
 
 (let [toggler (require :toggler)
       open (fn []
-             (vim.cmd :CopilotChatOpen))
+             (copilot.open))
       close (fn []
-              (vim.cmd :CopilotChatClose))
+              (copilot.close))
       is_open (fn []
                 (each [_ win (ipairs (vim.api.nvim_list_wins))]
                   (when (= (vim.api.nvim_buf_get_option (vim.api.nvim_win_get_buf win)

@@ -1,4 +1,5 @@
 -- [nfnl] Compiled from fnl/copilot-chat.fnl by https://github.com/Olical/nfnl, do not edit.
+local copilot = require("CopilotChat")
 do
   local P = require("CopilotChat.prompts")
   local S = require("CopilotChat.select")
@@ -51,17 +52,17 @@ do
   local window = {layout = "float", width = 0.75, height = 0.75, relative = "editor", border = "none", row = nil, col = nil, title = "Copilot Chat", footer = nil, zindex = 1}
   local mappings = {complete = {insert = "<Tab>"}, close = {normal = "q", insert = "<C-c>"}, reset = {normal = "<C-l>", insert = "<C-l>"}, submit_prompt = {normal = "<CR>", insert = "<C-s>"}, accept_diff = {normal = "<C-y>", insert = "<C-y>"}, yank_diff = {normal = "gy", register = "\""}, show_diff = {normal = "gd"}, show_info = {normal = "gi"}, show_context = {normal = "gu"}, show_help = {normal = "g?"}}
   local opts = {proxy = nil, system_prompt = P.COPILOT_INSTRUCTIONS, model = "gpt-4o", temperature = 0.1, question_header = "\239\128\135 User ", answer_header = "\239\132\147 Copilot ", error_header = "\239\129\177 Error ", separator = "\226\148\128\226\148\128\226\148\128", show_help = true, auto_follow_cursor = true, highlight_selection = true, context = nil, callback = nil, selection = selection, prompts = prompts, window = window, mappings = mappings, allow_insecure = false, auto_insert_mode = false, clear_chat_on_new_prompt = false, debug = false, insert_at_end = false, show_folds = false}
-  require("CopilotChat").setup(opts)
+  copilot.setup(opts)
 end
 local toggler = require("toggler")
 local open
 local function _8_()
-  return vim.cmd("CopilotChatOpen")
+  return copilot.open()
 end
 open = _8_
 local close
 local function _9_()
-  return vim.cmd("CopilotChatClose")
+  return copilot.close()
 end
 close = _9_
 local is_open
