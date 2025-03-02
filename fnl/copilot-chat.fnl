@@ -7,7 +7,8 @@
                :Review {:prompt "/COPILOT_REVIEW 選択されたコードのレビューをしてください."
                         :callback (fn [res src]
                                     (let [bufnr src.bufnr
-                                          diagnostics (icollect [line (res:gmatch "[^\r\n]+")]
+                                          diagnostics (icollect [line (res:gmatch "[^\r
+]+")]
                                                         (if (line:find :^line=)
                                                             (let [(single msg) (line:match "^line=(%d+): (.*)$")
                                                                   t (if single
@@ -86,3 +87,19 @@
             : window
             : mappings}]
   ((. (require :CopilotChat) :setup) opts))
+
+(let [toggler (require :toggler)
+      open (fn []
+             (vim.cmd :CopilotChatOpen))
+      close (fn []
+              (vim.cmd :CopilotChatClose))
+      is_open (fn []
+                (each [_ win (ipairs (vim.api.nvim_list_wins))]
+                  (when (= (vim.api.nvim_buf_get_option (vim.api.nvim_win_get_buf win)
+                                                        :filetype)
+                           :copilot-chat)
+                    (lua "return true")))
+                false)]
+  (toggler.register :copilot-chat {: open : close : is_open})
+  (vim.api.nvim_create_user_command :TCopilotChatToggle
+                                    (fn [] (toggler.toggle :copilot-chat)) {}))

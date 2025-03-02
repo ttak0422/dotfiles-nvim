@@ -119,6 +119,8 @@
                       [:tR
                        (L "require('spectre').toggle()")
                        (D "toggle spectre")]
+                      ;; copilot chat
+                      [:ta (C :TCopilotChatToggle)]
                       ;; AI
                       [:aa (C :AvanteAsk) (D "Avante Ask")]
                       [:at (C :AvanteToggle) (D "Avante Toggle")]])]

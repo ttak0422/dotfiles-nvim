@@ -142,6 +142,7 @@ rec {
     depends = [
       copilot-lua
       lib.plenary
+      helper.toggler
     ];
     preConfig = ''
       package.cpath = package.cpath .. ';${pkgs.luajitPackages.tiktoken_core}/lib/lua/5.1/?.so'
@@ -149,7 +150,7 @@ rec {
     postConfig = read ../lua/autogen/copilot-chat.lua;
     hooks.commands = [
       "CopilotChat"
-      "CopilotChatToggle"
+      "TCopilotChatToggle"
     ];
   };
   avante = {
