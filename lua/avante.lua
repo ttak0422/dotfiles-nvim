@@ -1,3 +1,4 @@
+-- vim.env.ANTHROPIC_API_KEY=...
 pcall(dofile, vim.env.HOME .. "/.config/nvim/avante.lua")
 
 local avante = require("avante")
