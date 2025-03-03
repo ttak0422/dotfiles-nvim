@@ -123,42 +123,73 @@ do
   end
   create_command("ClearGitu", _30_, {})
 end
-local st = {recent_type = nil}
-local mk_open
-local function _31_(opt, type)
-  local function _32_()
-    require("trouble").open(opt)
-    st["recent_type"] = type
-    return nil
+do
+  local st = {recent_type = nil}
+  local mk_open
+  local function _31_(opt, type)
+    local function _32_()
+      require("trouble").open(opt)
+      st["recent_type"] = type
+      return nil
+    end
+    return with_keep_window(_32_)
   end
-  return with_keep_window(_32_)
-end
-mk_open = _31_
-local close
-local function _33_()
-  local _34_ = package.loaded.trouble
-  if (nil ~= _34_) then
-    local t = _34_
-    return t.close()
-  else
-    return nil
-  end
-end
-close = _33_
-local mk_is_open
-local function _36_(type)
-  local function _37_()
-    local _38_ = package.loaded.trouble
-    if (nil ~= _38_) then
-      local t = _38_
-      return (t.is_open() and (st.recent_type == type))
+  mk_open = _31_
+  local close
+  local function _33_()
+    local _34_ = package.loaded.trouble
+    if (nil ~= _34_) then
+      local t = _34_
+      return t.close()
     else
-      local _ = _38_
-      return false
+      return nil
     end
   end
-  return _37_
+  close = _33_
+  local mk_is_open
+  local function _36_(type)
+    local function _37_()
+      local _38_ = package.loaded.trouble
+      if (nil ~= _38_) then
+        local t = _38_
+        return (t.is_open() and (st.recent_type == type))
+      else
+        local _ = _38_
+        return false
+      end
+    end
+    return _37_
+  end
+  mk_is_open = _36_
+  M.register("trouble-doc", {open = mk_open({mode = "diagnostics", filter = {buf = 0}}, "doc"), close = close, is_open = mk_is_open("doc")})
+  M.register("trouble-ws", {open = mk_open({mode = "diagnostics"}, "ws"), close = close, is_open = mk_is_open("ws")})
 end
-mk_is_open = _36_
-M.register("trouble-doc", {open = mk_open({mode = "diagnostics", filter = {buf = 0}}, "doc"), close = close, is_open = mk_is_open("doc")})
-return M.register("trouble-ws", {open = mk_open({mode = "diagnostics"}, "ws"), close = close, is_open = mk_is_open("ws")})
+local signs = require("gitsigns")
+local open
+local function _40_()
+  return signs.blame()
+end
+open = _40_
+local close
+local function _41_()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if (vim.api.nvim_win_is_valid(win) and (vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "filetype") == "gitsigns-blame")) then
+      vim.api.nvim_win_close(win, true)
+    else
+    end
+  end
+  return nil
+end
+close = _41_
+local is_open
+local function _43_()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if (vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "filetype") == "gitsigns-blame") then
+      return true
+    else
+    end
+  end
+  return false
+end
+is_open = _43_
+return M.register("blame", {open = open, close = close, is_open = is_open})

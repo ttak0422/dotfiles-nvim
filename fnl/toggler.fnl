@@ -92,3 +92,22 @@
   (M.register :trouble-ws {:open (mk_open {:mode :diagnostics} :ws)
                            : close
                            :is_open (mk_is_open :ws)}))
+
+; gitsigns
+(let [signs (require :gitsigns)
+      open (fn [] (signs.blame))
+      close (fn []
+              (each [_ win (ipairs (vim.api.nvim_list_wins))]
+                (when (and (vim.api.nvim_win_is_valid win)
+                           (= (vim.api.nvim_buf_get_option (vim.api.nvim_win_get_buf win)
+                                                           :filetype)
+                              :gitsigns-blame))
+                  (vim.api.nvim_win_close win true))))
+      is_open (fn []
+                (each [_ win (ipairs (vim.api.nvim_list_wins))]
+                  (when (= (vim.api.nvim_buf_get_option (vim.api.nvim_win_get_buf win)
+                                                        :filetype)
+                           :gitsigns-blame)
+                    (lua "return true")))
+                false)]
+  (M.register :blame {: open : close : is_open}))

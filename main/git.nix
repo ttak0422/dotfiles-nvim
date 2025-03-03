@@ -4,6 +4,7 @@ let
   read = builtins.readFile;
   lib = callPackage ./lib.nix { };
   search = callPackage ./search.nix { };
+  helper = callPackage ./helper.nix { };
 in
 with pkgs.vimPlugins;
 rec {
@@ -38,11 +39,9 @@ rec {
       ''
       + read ../lua/autogen/gitsigns.lua;
     hooks = {
+      modules = [ "gitsigns" ];
       events = [ "CursorMoved" ];
-      commands = [
-        "Gitsigns"
-        "ToggleGitBlame"
-      ];
+      commands = [ "Gitsigns" ];
     };
   };
   neogit = {

@@ -83,7 +83,7 @@
                       ;; git
                       ; [:G (C :Neogit) (D " client")]
                       [:G (T :gitu) (D " client")]
-                      [:gb (T :ToggleGitBlame) (D " blame")]
+                      [:gb (T :blame) (D " blame")]
                       ;; filter
                       [:tb
                        ; (lcmd "require('oil').toggle_float()")

@@ -87,10 +87,7 @@ with pkgs.vimPlugins;
   };
   toggler = {
     package = pkgs.vimPlugins.toggler;
-    depends = [
-      style.noice
-      style.heirline
-    ];
+    depends = [ style.noice ];
     postConfig = read ../lua/autogen/toggler.lua;
     hooks.modules = [ "toggler" ];
   };
