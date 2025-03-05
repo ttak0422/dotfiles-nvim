@@ -52,11 +52,7 @@
                    term term
                    _ (let [term (-> (require :toggleterm.terminal)
                                     (. :Terminal)
-                                    (: :new
-                                       {:direction :float
-                                        :cmd :gitu
-                                        :hidden true
-                                        : on_open}))]
+                                    (: :new {:cmd :gitu :hidden true : on_open}))]
                        (tset st :term term)
                        term))
                  (: :open))

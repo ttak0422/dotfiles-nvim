@@ -16,6 +16,7 @@ let
     else
       vim.cmd("colorscheme morimo")
     end
+    vim.env.VISUAL = 'nvr --remote-silent'
     vim.env.EDITOR = 'nvr -cc split --remote-silent'
     vim.env.GIT_EDITOR = 'nvr --remote-tab-wait-silent'
     ${read ./../lua/autogen/prelude.lua}
