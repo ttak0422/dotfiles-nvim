@@ -76,38 +76,14 @@ do
 end
 do
   local st = {term = nil}
-  local on_open
-  local function _19_(term)
-    return map("t", "<ESC>", "i<ESC>", {buffer = term.bufnr, noremap = true, silent = true})
-  end
-  on_open = _19_
-  local open
-  local function _20_()
-    local _22_
-    do
-      local _21_ = st.term
-      if (nil ~= _21_) then
-        local term = _21_
-        _22_ = term
-      else
-        local _ = _21_
-        local term = require("toggleterm.terminal").Terminal:new({cmd = "gitu", hidden = true, on_open = on_open})
-        st["term"] = term
-        _22_ = term
-      end
-    end
-    _22_:open()
-    return vim.cmd("startinsert")
-  end
-  open = _20_
   local is_open
-  local function _27_()
+  local function _19_()
     local term = st.term
     return (term and term:is_open())
   end
-  is_open = _27_
+  is_open = _19_
   local close
-  local function _28_()
+  local function _20_()
     local term = st.term
     if (term and term:is_open()) then
       return term:close()
@@ -115,7 +91,32 @@ do
       return nil
     end
   end
-  close = _28_
+  close = _20_
+  local on_create
+  local function _22_(term)
+    map("t", "<ESC>", "i<ESC>", {buffer = term.bufnr, noremap = true, silent = true})
+    return vim.api.nvim_create_autocmd("BufLeave", {buffer = term.bufnr, callback = close})
+  end
+  on_create = _22_
+  local open
+  local function _23_()
+    local _25_
+    do
+      local _24_ = st.term
+      if (nil ~= _24_) then
+        local term = _24_
+        _25_ = term
+      else
+        local _ = _24_
+        local term = require("toggleterm.terminal").Terminal:new({cmd = "gitu", hidden = true, on_create = on_create})
+        st["term"] = term
+        _25_ = term
+      end
+    end
+    _25_:open()
+    return vim.cmd("startinsert")
+  end
+  open = _23_
   M.register("gitu", {open = open, close = close, is_open = is_open})
   local function _30_()
     st["term"] = nil

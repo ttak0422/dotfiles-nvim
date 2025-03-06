@@ -44,26 +44,30 @@
 
 ; gitu
 (let [st {:term nil}
-      on_open (fn [term]
-                (map :t :<ESC> :i<ESC>
-                     {:buffer term.bufnr :noremap true :silent true}))
-      open (fn []
-             (-> (case (. st :term)
-                   term term
-                   _ (let [term (-> (require :toggleterm.terminal)
-                                    (. :Terminal)
-                                    (: :new {:cmd :gitu :hidden true : on_open}))]
-                       (tset st :term term)
-                       term))
-                 (: :open))
-             (vim.cmd :startinsert))
       is_open (fn []
                 (let [term (. st :term)]
                   (and term (term:is_open))))
       close (fn []
               (let [term (. st :term)]
                 (if (and term (term:is_open))
-                    (term:close))))]
+                    (term:close))))
+      on_create (fn [term]
+                  (map :t :<ESC> :i<ESC>
+                       {:buffer term.bufnr :noremap true :silent true})
+                  (vim.api.nvim_create_autocmd :BufLeave
+                                               {:buffer term.bufnr
+                                                :callback close}))
+      open (fn []
+             (-> (case (. st :term)
+                   term term
+                   _ (let [term (-> (require :toggleterm.terminal)
+                                    (. :Terminal)
+                                    (: :new
+                                       {:cmd :gitu :hidden true : on_create}))]
+                       (tset st :term term)
+                       term))
+                 (: :open))
+             (vim.cmd :startinsert))]
   (M.register :gitu {: open : close : is_open})
   (create_command :ClearGitu (fn [] (tset st :term nil)) {}))
 
