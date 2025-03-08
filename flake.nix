@@ -60,7 +60,8 @@
 
     # plugins
     morimo = {
-      url = "github:ttak0422/morimo";
+      url = "github:ttak0422/morimo/v2";
+      # url = "path:/home/ttak0422/ghq/github.com/ttak0422/morimo";
       flake = false;
     };
     nvim-config-local = {
