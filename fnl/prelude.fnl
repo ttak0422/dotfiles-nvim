@@ -4,7 +4,8 @@
 
 (each [k v (pairs {:langmenu :none
                    :shortmess (.. vim.o.shortmess :sWcS)
-                   :cmdheight 0
+                   :cmdheight 1
+                   :showmode false
                    :termguicolors true
                    :number true
                    ;; signcolumnを起動時に表示
