@@ -168,11 +168,15 @@ end
 local signs = require("gitsigns")
 local open
 local function _40_()
-  return signs.blame()
+  signs.blame()
+  local function _41_()
+    return vim.cmd("wincmd w")
+  end
+  return vim.defer_fn(_41_, 100)
 end
 open = _40_
 local close
-local function _41_()
+local function _42_()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     if (vim.api.nvim_win_is_valid(win) and (vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "filetype") == "gitsigns-blame")) then
       vim.api.nvim_win_close(win, true)
@@ -181,9 +185,9 @@ local function _41_()
   end
   return nil
 end
-close = _41_
+close = _42_
 local is_open
-local function _43_()
+local function _44_()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     if (vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "filetype") == "gitsigns-blame") then
       return true
@@ -192,5 +196,5 @@ local function _43_()
   end
   return false
 end
-is_open = _43_
+is_open = _44_
 return M.register("blame", {open = open, close = close, is_open = is_open})

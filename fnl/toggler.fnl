@@ -95,7 +95,12 @@
 
 ; gitsigns
 (let [signs (require :gitsigns)
-      open (fn [] (signs.blame))
+      open (fn []
+             (signs.blame)
+             ;; 待つと安定する...
+             (vim.defer_fn (fn []
+                             (vim.cmd "wincmd w"))
+               100))
       close (fn []
               (each [_ win (ipairs (vim.api.nvim_list_wins))]
                 (when (and (vim.api.nvim_win_is_valid win)
