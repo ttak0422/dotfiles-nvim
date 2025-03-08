@@ -77,6 +77,7 @@ export class Config extends BaseConfig {
           mark: "", // use kind only
           forceCompletionPattern: "\\.\\w*|::\\w*|->\\w*",
           dup: "keep",
+          maxItems: 200,
           minAutoCompleteLength: 1000, // use manual_complete or forceCompletionPattern
           minManualCompleteLength: 1,
           minKeywordLength: 1,
