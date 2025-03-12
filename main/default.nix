@@ -18,7 +18,7 @@ let
     end
     vim.env.VISUAL = 'nvr --remote-silent'
     vim.env.EDITOR = 'nvr -cc split --remote-silent'
-    vim.env.GIT_EDITOR = 'nvr --remote-tab-wait-silent'
+    vim.env.GIT_EDITOR = 'nvr -cc split --remote-wait-silent'
     ${read ./../lua/autogen/prelude.lua}
   '';
   after = {
