@@ -57,6 +57,7 @@
                   (vim.api.nvim_create_autocmd :BufLeave
                                                {:buffer term.bufnr
                                                 :callback close}))
+
       open (fn []
              (-> (case (. st :term)
                    term term
