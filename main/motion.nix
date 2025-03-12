@@ -77,7 +77,10 @@ rec {
     package = nap-nvim;
     depends = [ ];
     postConfig = read ../lua/autogen/nap.lua;
-    hooks.events = [ "CursorMoved" ];
+    hooks.events = [
+      "CursorMoved"
+      "BufReadPost"
+    ];
   };
   nvim-window = {
     package = pkgs.vimPlugins.nvim-window;
