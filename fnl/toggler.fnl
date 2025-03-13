@@ -57,6 +57,8 @@
                   (vim.api.nvim_create_autocmd :BufLeave
                                                {:buffer term.bufnr
                                                 :callback close}))
+      float_opts {:height (fn [] (math.floor (* vim.o.lines 0.9)))
+                  :width (fn [] (math.floor (* vim.o.columns 0.9)))}
       open (fn []
              (-> (case (. st :term)
                    term term
@@ -65,7 +67,9 @@
                                     (: :new
                                        {:direction :float
                                         :cmd :gitu
-                                        : on_create}))]
+                                        :shade_terminals false
+                                        : on_create
+                                        : float_opts}))]
                        (tset st :term term)
                        term))
                  (: :open))

@@ -98,85 +98,93 @@ do
     return vim.api.nvim_create_autocmd("BufLeave", {buffer = term.bufnr, callback = close})
   end
   on_create = _22_
-  local open
+  local float_opts
   local function _23_()
-    local _25_
+    return math.floor((vim.o.lines * 0.9))
+  end
+  local function _24_()
+    return math.floor((vim.o.columns * 0.9))
+  end
+  float_opts = {height = _23_, width = _24_}
+  local open
+  local function _25_()
+    local _27_
     do
-      local _24_ = st.term
-      if (nil ~= _24_) then
-        local term = _24_
-        _25_ = term
+      local _26_ = st.term
+      if (nil ~= _26_) then
+        local term = _26_
+        _27_ = term
       else
-        local _ = _24_
-        local term = require("toggleterm.terminal").Terminal:new({direction = "float", cmd = "gitu", on_create = on_create})
+        local _ = _26_
+        local term = require("toggleterm.terminal").Terminal:new({direction = "float", cmd = "gitu", on_create = on_create, float_opts = float_opts, shade_terminals = false})
         st["term"] = term
-        _25_ = term
+        _27_ = term
       end
     end
-    _25_:open()
+    _27_:open()
     return vim.cmd("startinsert")
   end
-  open = _23_
+  open = _25_
   M.register("gitu", {open = open, close = close, is_open = is_open})
-  local function _30_()
+  local function _32_()
     st["term"] = nil
     return nil
   end
-  create_command("ClearGitu", _30_, {})
+  create_command("ClearGitu", _32_, {})
 end
 do
   local st = {recent_type = nil}
   local mk_open
-  local function _31_(opt, type)
-    local function _32_()
+  local function _33_(opt, type)
+    local function _34_()
       require("trouble").open(opt)
       st["recent_type"] = type
       return nil
     end
-    return with_keep_window(_32_)
+    return with_keep_window(_34_)
   end
-  mk_open = _31_
+  mk_open = _33_
   local close
-  local function _33_()
-    local _34_ = package.loaded.trouble
-    if (nil ~= _34_) then
-      local t = _34_
+  local function _35_()
+    local _36_ = package.loaded.trouble
+    if (nil ~= _36_) then
+      local t = _36_
       return t.close()
     else
       return nil
     end
   end
-  close = _33_
+  close = _35_
   local mk_is_open
-  local function _36_(type)
-    local function _37_()
-      local _38_ = package.loaded.trouble
-      if (nil ~= _38_) then
-        local t = _38_
+  local function _38_(type)
+    local function _39_()
+      local _40_ = package.loaded.trouble
+      if (nil ~= _40_) then
+        local t = _40_
         return (t.is_open() and (st.recent_type == type))
       else
-        local _ = _38_
+        local _ = _40_
         return false
       end
     end
-    return _37_
+    return _39_
   end
-  mk_is_open = _36_
+  mk_is_open = _38_
   M.register("trouble-doc", {open = mk_open({mode = "diagnostics", filter = {buf = 0}}, "doc"), close = close, is_open = mk_is_open("doc")})
   M.register("trouble-ws", {open = mk_open({mode = "diagnostics"}, "ws"), close = close, is_open = mk_is_open("ws")})
 end
 local signs = require("gitsigns")
 local open
-local function _40_()
+local function _42_()
   signs.blame()
-  local function _41_()
+  local function _43_()
     return vim.cmd("wincmd w")
   end
-  return vim.defer_fn(_41_, 100)
+  return vim.defer_fn(_43_, 100)
 end
-open = _40_
+open = _42_
 local close
-local function _42_()
+local function _44_()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     if (vim.api.nvim_win_is_valid(win) and (vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "filetype") == "gitsigns-blame")) then
       vim.api.nvim_win_close(win, true)
@@ -185,9 +193,9 @@ local function _42_()
   end
   return nil
 end
-close = _42_
+close = _44_
 local is_open
-local function _44_()
+local function _46_()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     if (vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "filetype") == "gitsigns-blame") then
       return true
@@ -196,5 +204,5 @@ local function _44_()
   end
   return false
 end
-is_open = _44_
+is_open = _46_
 return M.register("blame", {open = open, close = close, is_open = is_open})
