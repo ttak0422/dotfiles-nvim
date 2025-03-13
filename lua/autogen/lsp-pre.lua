@@ -40,11 +40,7 @@ local function _2_(ctx)
   else
   end
   if client.supports_method("textDocument/inlayHint") then
-    require("lsp-inlayhints").on_attach(client, bufnr)
-  else
-  end
-  if client.supports_method("textDocument/codeLens") then
-    return require("virtualtypes").on_attach(client, bufnr)
+    return require("lsp-inlayhints").on_attach(client, bufnr)
   else
     return nil
   end
