@@ -144,6 +144,11 @@ rec {
       lib.plenary
       helper.toggler
     ];
+    extraPackages = with pkgs; [
+      # git
+      # ripgrep
+      lynx
+    ];
     preConfig = ''
       package.cpath = package.cpath .. ';${pkgs.luajitPackages.tiktoken_core}/lib/lua/5.1/?.so'
     '';
