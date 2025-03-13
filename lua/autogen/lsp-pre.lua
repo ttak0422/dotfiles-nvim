@@ -40,7 +40,7 @@ local function _2_(ctx)
   else
   end
   if client.supports_method("textDocument/inlayHint") then
-    return require("lsp-inlayhints").on_attach(client, bufnr)
+    return vim.lsp.inlay_hint.enable()
   else
     return nil
   end

@@ -3232,22 +3232,6 @@
         "type": "github"
       }
     },
-    "lsp-inlayhints-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1686236485,
-        "narHash": "sha256-06CiJ+xeMO4+OJkckcslqwloJyt2gwg514JuxV6KOfQ=",
-        "owner": "lvimuser",
-        "repo": "lsp-inlayhints.nvim",
-        "rev": "d981f65c9ae0b6062176f0accb9c151daeda6f16",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lvimuser",
-        "repo": "lsp-inlayhints.nvim",
-        "type": "github"
-      }
-    },
     "lsp-lens-nvim": {
       "flake": false,
       "locked": {
@@ -5288,7 +5272,6 @@
         "lir-nvim": "lir-nvim",
         "log-highlight-nvim": "log-highlight-nvim",
         "logrotate-nvim": "logrotate-nvim",
-        "lsp-inlayhints-nvim": "lsp-inlayhints-nvim",
         "lsp-lens-nvim": "lsp-lens-nvim",
         "lsp-progress-nvim": "lsp-progress-nvim",
         "lua-utils-nvim": "lua-utils-nvim",

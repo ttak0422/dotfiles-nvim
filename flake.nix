@@ -272,10 +272,6 @@
       url = "github:VidocqH/lsp-lens.nvim";
       flake = false;
     };
-    lsp-inlayhints-nvim = {
-      url = "github:lvimuser/lsp-inlayhints.nvim";
-      flake = false;
-    };
     diagflow-nvim = {
       url = "github:dgagn/diagflow.nvim";
       flake = false;

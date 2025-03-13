@@ -31,10 +31,6 @@ rec {
         package = lsp-lens-nvim;
         postConfig = read ../lua/autogen/lsp-lens.lua;
       }
-      {
-        package = lsp-inlayhints-nvim;
-        postConfig = read ../lua/autogen/inlayhints.lua;
-      }
       # {
       #   package = diagflow-nvim;
       #   postConfig = read ../lua/autogen/diagflow.lua;

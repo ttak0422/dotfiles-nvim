@@ -91,8 +91,5 @@
                             (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
                               {:update_in_insert false}))) ; config (plugin)
                    (if (client.supports_method :textDocument/inlayHint)
-                       ((. (require :lsp-inlayhints) :on_attach) client bufnr))
-                   ; (if (client.supports_method :textDocument/codeLens)
-                   ;     ((. (require :virtualtypes) :on_attach) client bufnr))
-                   ))]
+                       (vim.lsp.inlay_hint.enable))))]
   (vim.api.nvim_create_autocmd :LspAttach {: callback}))
