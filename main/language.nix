@@ -76,7 +76,7 @@ rec {
         ];
       }
       climbdir-nvim
-      virtual-types-nvim
+      # virtual-types-nvim
     ];
     extraPackages = with pkgs; [
       go
