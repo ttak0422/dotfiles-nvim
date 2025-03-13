@@ -62,7 +62,10 @@
                    term term
                    _ (let [term (-> (require :toggleterm.terminal)
                                     (. :Terminal)
-                                    (: :new {:cmd :gitu : on_create}))]
+                                    (: :new
+                                       {:direction :float
+                                        :cmd :gitu
+                                        : on_create}))]
                        (tset st :term term)
                        term))
                  (: :open))

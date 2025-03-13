@@ -108,7 +108,7 @@ do
         _25_ = term
       else
         local _ = _24_
-        local term = require("toggleterm.terminal").Terminal:new({cmd = "gitu", on_create = on_create})
+        local term = require("toggleterm.terminal").Terminal:new({direction = "float", cmd = "gitu", on_create = on_create})
         st["term"] = term
         _25_ = term
       end
