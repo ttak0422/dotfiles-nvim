@@ -37,10 +37,7 @@ local function _2_(ctx)
   end
   if client.supports_method("textDocument/publishDiagnostics") then
     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {update_in_insert = false})
-  else
-  end
-  if client.supports_method("textDocument/inlayHint") then
-    return vim.lsp.inlay_hint.enable()
+    return nil
   else
     return nil
   end

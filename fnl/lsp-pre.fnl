@@ -90,6 +90,7 @@
                        (set vim.lsp.handlers.textDocument/publishDiagnostics
                             (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
                               {:update_in_insert false}))) ; config (plugin)
-                   (if (client.supports_method :textDocument/inlayHint)
-                       (vim.lsp.inlay_hint.enable))))]
+                   ; (if (client.supports_method :textDocument/inlayHint)
+                   ;     (vim.lsp.inlay_hint.enable (not= client.name :jdtls)))
+                   ))]
   (vim.api.nvim_create_autocmd :LspAttach {: callback}))
