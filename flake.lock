@@ -4711,11 +4711,11 @@
     "nvim-ufo": {
       "flake": false,
       "locked": {
-        "lastModified": 1734508394,
-        "narHash": "sha256-zIIBHyjiJy8Iptw1JJc+Ami/C/6BKWEbdL5W55Oshec=",
+        "lastModified": 1739551642,
+        "narHash": "sha256-lgvaI/+U15mRjWJqA8p3YNkC9ibeDThafxy14C3MY7s=",
         "owner": "kevinhwang91",
         "repo": "nvim-ufo",
-        "rev": "270ca542dae992ffe40274718c63645217ebc8bf",
+        "rev": "a52c92c3bbaa10f0c9b547a50adaa8c7d8b29f94",
         "type": "github"
       },
       "original": {
