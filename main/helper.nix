@@ -129,4 +129,8 @@ with pkgs.vimPlugins;
     postConfig = read ../lua/autogen/fix-auto-scroll.lua;
     hooks.events = [ "BufReadPost" ];
   };
+  capture = {
+    package = capture-vim;
+    hooks.commands = [ "Capture" ];
+  };
 }

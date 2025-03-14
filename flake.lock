@@ -285,6 +285,22 @@
         "type": "github"
       }
     },
+    "capture-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1529979536,
+        "narHash": "sha256-nYMNXdHFVaw6cFKGT9KiHzrlQ7u76WdA4UlvaII+bok=",
+        "owner": "tyru",
+        "repo": "capture.vim",
+        "rev": "857ee11cfe1193948d3d45dcb8d511fded8533fb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tyru",
+        "repo": "capture.vim",
+        "type": "github"
+      }
+    },
     "climbdir-nvim": {
       "flake": false,
       "locked": {
@@ -5109,6 +5125,7 @@
         "bufferline-nvim": "bufferline-nvim",
         "bufresize-nvim": "bufresize-nvim",
         "bundler": "bundler",
+        "capture-vim": "capture-vim",
         "climbdir-nvim": "climbdir-nvim",
         "cmp-buffer": "cmp-buffer",
         "cmp-calc": "cmp-calc",

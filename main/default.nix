@@ -66,6 +66,7 @@ let
       winshift
       bufdel
       fix-auto-scroll
+      capture
       ;
     inherit (callPackage ./hook.nix { })
       hookBuffer

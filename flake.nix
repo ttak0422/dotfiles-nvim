@@ -1431,6 +1431,10 @@
       url = "github:ttak0422/toggler-nvim";
       flake = false;
     };
+    capture-vim = {
+      url = "github:tyru/capture.vim";
+      flake = false;
+    };
   };
 
   outputs =
