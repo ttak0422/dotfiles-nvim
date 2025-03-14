@@ -155,7 +155,7 @@ rec {
     preConfig = ''
       package.cpath = package.cpath .. ';${pkgs.luajitPackages.tiktoken_core}/lib/lua/5.1/?.so'
     '';
-    postConfig = read ../lua/autogen/copilot-chat.lua;
+    postConfig = read ../lua/copilot-chat.lua;
     hooks.commands = [
       "CopilotChat"
       "TCopilotChatToggle"
