@@ -58,7 +58,7 @@ let
           # java17_path = "${pkgs.jdk17}/bin/java";
           jdtls_config_path =
             let
-              systemPath = if pkgs.stdenv.isDarwin then "config_mac" else "config/linux";
+              systemPath = if pkgs.stdenv.isDarwin then "config_mac" else "config_linux";
             in
             "${jdtls}/share/java/jdtls/${systemPath}";
           lombok_jar_path = "${pkgs.lombok}/share/java/lombok.jar";
