@@ -104,10 +104,10 @@
   (each [_ k (ipairs [[:tT (cmd :Neotest) (desc " run test (file)")]
                       [:tt (cmd :NeotestNearest) (desc " run test (unit)")]
                       [:to
-                       (cmd :NeotestTogglePanel)
+                       (toggle :neotest-output)
                        (desc " show test results")]
                       [:tO
-                       (cmd :NeotestToggleSummary)
+                       (toggle :neotest-summary)
                        (desc " show test tree")]
                       [:tK (cmd :NeotestOpenOutput) (desc " hover (test)")]])]
     (vim.keymap.set :n (.. :<LocalLeader> (. k 1)) (. k 2) (or (. k 3) opts)))

@@ -3,11 +3,19 @@
 (local map vim.keymap.set)
 (local create_command vim.api.nvim_create_user_command)
 
+; helper functions
 (fn with_keep_window [f]
   (fn []
     (let [win (vim.api.nvim_get_current_win)]
       (f)
       (vim.api.nvim_set_current_win win))))
+
+(fn filetype_exists [ft]
+  (each [_ win (ipairs (vim.api.nvim_list_wins))]
+    (when (= (vim.api.nvim_buf_get_option (vim.api.nvim_win_get_buf win)
+                                          :filetype) ft)
+      (lua "return true")))
+  false)
 
 ; quickfix
 (M.register :qf {:open (with_keep_window (fn [] (vim.cmd :copen)))
@@ -114,13 +122,7 @@
                                                            :filetype)
                               :gitsigns-blame))
                   (vim.api.nvim_win_close win true))))
-      is_open (fn []
-                (each [_ win (ipairs (vim.api.nvim_list_wins))]
-                  (when (= (vim.api.nvim_buf_get_option (vim.api.nvim_win_get_buf win)
-                                                        :filetype)
-                           :gitsigns-blame)
-                    (lua "return true")))
-                false)]
+      is_open (fn [] (filetype_exists :gitsigns-blame))]
   (M.register :blame {: open : close : is_open}))
 
 ; dap
@@ -138,3 +140,26 @@
                       (lua "return true")))
                 false)]
   (M.register :dapui {: open : close : is_open}))
+
+; neotest
+(var neotest nil)
+(let [open (fn []
+             (if (= neotest nil)
+                 (set neotest (require :neotest)))
+             (neotest.output_panel.open))
+      close (fn []
+              (if (not= neotest nil)
+                  (neotest.output_panel.close)))
+      is_open (fn [] (filetype_exists :neotest-output-panel))]
+  (M.register :neotest-output {: open : close : is_open}))
+
+(let [open (fn []
+             (if (= neotest nil)
+                 (set neotest (require :neotest))
+                 (neotest.summary.open)))
+      close (fn []
+              (if (not= neotest nil)
+                  (neotest.summary.close)))
+      is_open (fn []
+                (filetype_exists :neotest-summary))]
+  (M.register :neotest-summary {: open : close : is_open}))

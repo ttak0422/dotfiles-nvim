@@ -3556,11 +3556,11 @@
     "neotest": {
       "flake": false,
       "locked": {
-        "lastModified": 1727897111,
-        "narHash": "sha256-AD1smQZ40opN557WlpwNr/PKCQ4LEs/5wjHFsEdi6oM=",
+        "lastModified": 1740494442,
+        "narHash": "sha256-a42VdqpE/HP3w5tzZIKr7QTq0qJuoq7ddSHr6LwvJko=",
         "owner": "nvim-neotest",
         "repo": "neotest",
-        "rev": "6d3d22cdad49999ef774ebe1bc250a4994038964",
+        "rev": "dddbe8fe358b05b2b7e54fe4faab50563171a76d",
         "type": "github"
       },
       "original": {
@@ -3572,11 +3572,11 @@
     "neotest-dart": {
       "flake": false,
       "locked": {
-        "lastModified": 1730321664,
-        "narHash": "sha256-0o1hy8hNmufoWoRxFI8nx5rlkm2HmgTKAhNqHnA8+ks=",
+        "lastModified": 1740581403,
+        "narHash": "sha256-hKpwm3GAypfuNLa+KheceYJLRHKyxE1j+deJJmPkuts=",
         "owner": "sidlatau",
         "repo": "neotest-dart",
-        "rev": "8b4f68217e8fb072bee62544b7f834cf76cc38ca",
+        "rev": "ec1cecdfd44c82632f5fbdcad3dc77622fe4ee67",
         "type": "github"
       },
       "original": {
@@ -3604,11 +3604,11 @@
     "neotest-dotnet": {
       "flake": false,
       "locked": {
-        "lastModified": 1733242944,
-        "narHash": "sha256-h2swGmyqzMuzt4iaBqmcj0dmzS7cRQogxm6N0pbXcQE=",
+        "lastModified": 1735337444,
+        "narHash": "sha256-24Pqo14gRqmAvHexTM0FDGjLMWWK0IVDlZuvy8aK11s=",
         "owner": "Issafalcon",
         "repo": "neotest-dotnet",
-        "rev": "14087e68ff208b4fe7ff577f317ec5013148ea85",
+        "rev": "5a2fa35c3c6a72cfd3fc6a28b3d1af6e68e6c3a8",
         "type": "github"
       },
       "original": {
@@ -3620,11 +3620,11 @@
     "neotest-elixir": {
       "flake": false,
       "locked": {
-        "lastModified": 1718966805,
-        "narHash": "sha256-jGRPujtApUnnZpA9m7qrM/MGDbrRy0FTlBnm051CoFE=",
+        "lastModified": 1737251006,
+        "narHash": "sha256-IUvpp3VkGobQbYtSy3MZ+hPT9uJtsBzFR+0m5kE33zU=",
         "owner": "jfpedroza",
         "repo": "neotest-elixir",
-        "rev": "c5067bcc3ec6a0bba7b5694fa15aeb17f16aeb3c",
+        "rev": "a242aebeaa6997c1c149138ff77f6cacbe33b6fc",
         "type": "github"
       },
       "original": {
@@ -3652,11 +3652,11 @@
     "neotest-golang": {
       "flake": false,
       "locked": {
-        "lastModified": 1734077093,
-        "narHash": "sha256-rChOjkiPYE/SY0rvjvKS79TQJH7CvoCwLo+ujpreqKg=",
+        "lastModified": 1740468931,
+        "narHash": "sha256-M54/58xtBf6sx1aSQ216VmP4//kdgfykJlzxJjo4GKc=",
         "owner": "fredrikaverpil",
         "repo": "neotest-golang",
-        "rev": "3565f317eab2dbfdd1e208e1fa6b25834121b8f7",
+        "rev": "310a015215fc02ba8b12c3098b75d4805e970b3f",
         "type": "github"
       },
       "original": {
@@ -3668,11 +3668,11 @@
     "neotest-haskell": {
       "flake": false,
       "locked": {
-        "lastModified": 1734222462,
-        "narHash": "sha256-e2Sf+blTHTCKvXOkC9zoamBw1Lm1wRhwj0E4cuCqbDU=",
+        "lastModified": 1741479903,
+        "narHash": "sha256-AR1uc0Pi9MLdw4J0idbDSUMKEjKys5UUthhwQv6wliM=",
         "owner": "mrcjkb",
         "repo": "neotest-haskell",
-        "rev": "cbc00ce8aa15fa0e1147472953a099599643dde2",
+        "rev": "b1fec5e156a7403d12cc9d429920e492fecb0755",
         "type": "github"
       },
       "original": {
@@ -3684,11 +3684,11 @@
     "neotest-java": {
       "flake": false,
       "locked": {
-        "lastModified": 1732026282,
-        "narHash": "sha256-HrssZbk/FI2C49kJwr4wKAYVucdEfdfQsBVltk53oxg=",
+        "lastModified": 1741718233,
+        "narHash": "sha256-IXG4GCLvMMU78N/OV6PLJ+Ki/JhE45vijU7xNFIpFXA=",
         "owner": "rcasia",
         "repo": "neotest-java",
-        "rev": "43b4cf9ee0d3d05f56a9a43c89c4268157cfbc79",
+        "rev": "1404de796b1afbbc20cf84db991c901270b901c9",
         "type": "github"
       },
       "original": {
@@ -3812,11 +3812,11 @@
     "neotest-rspec": {
       "flake": false,
       "locked": {
-        "lastModified": 1733347663,
-        "narHash": "sha256-6XuhlXciGPUtfs+WNeN8ULPx/vIGGjqhIKv5CzNxzaY=",
+        "lastModified": 1741817884,
+        "narHash": "sha256-d6kF2TmTYza2ddIs0fXnxfd8hAw8wtqBVwxFtem9bT0=",
         "owner": "olimorris",
         "repo": "neotest-rspec",
-        "rev": "f8c91edc5dd87ca467a624652f365ac217d7cc1c",
+        "rev": "281c0ed0e55d623e8028796e1c4dc27b7e421fd0",
         "type": "github"
       },
       "original": {
@@ -3892,11 +3892,11 @@
     "neotest-vitest": {
       "flake": false,
       "locked": {
-        "lastModified": 1724408324,
-        "narHash": "sha256-ccdqRLGFxmHW3x19sTxLulMiWS9WTGHAMEV4BKWJhJo=",
+        "lastModified": 1738367806,
+        "narHash": "sha256-O6g53IMLTHCZA/Ko+gdKdeKdCMOZm3RxGLw5t1en2Cs=",
         "owner": "marilari88",
         "repo": "neotest-vitest",
-        "rev": "9e30dca989a2287cf3fde86b3e138ea7fa4de935",
+        "rev": "9f8f05bee6e5b980a4d1e84adab119a8f9756a77",
         "type": "github"
       },
       "original": {
