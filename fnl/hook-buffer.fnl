@@ -42,7 +42,10 @@
 (let [opts {:noremap true :silent true}
       desc (fn [d] {:noremap true :silent true :desc d})
       cmd (fn [c] (.. :<cmd> c :<cr>))
-      lcmd (fn [c] (cmd (.. "lua " c)))]
+      lcmd (fn [c] (cmd (.. "lua " c)))
+      toggle (fn [id]
+               (fn []
+                 ((. (require :toggler) :toggle) id)))]
   (each [_ k (ipairs [;; movement
                       [:gpd
                        (lcmd "require('goto-preview').goto_preview_definition()")
@@ -84,9 +87,7 @@
                       [:<LocalLeader>dl
                        (lcmd "require('dap').run_last()")
                        (desc " run last")]
-                      [:<LocalLeader>dd
-                       (cmd :ToggleDapUI)
-                       (desc " toggle ui")]
+                      [:<LocalLeader>dd (toggle :dapui) (desc " toggle ui")]
                       [:<Leader>O (cmd :Other)]])]
     (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts)))
   ;; leader

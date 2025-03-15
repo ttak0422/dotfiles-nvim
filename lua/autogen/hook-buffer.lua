@@ -23,11 +23,19 @@ local function _3_(c)
   return cmd(("lua " .. c))
 end
 lcmd = _3_
-local function _4_()
+local toggle
+local function _4_(id)
+  local function _5_()
+    return require("toggler").toggle(id)
+  end
+  return _5_
+end
+toggle = _4_
+local function _6_()
   local dap = require("dap")
   return dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
 end
-for _, k in ipairs({{"gpd", lcmd("require('goto-preview').goto_preview_definition()"), desc("\243\176\169\138 definition")}, {"gpi", lcmd("require('goto-preview').goto_preview_implementation()"), desc("\243\176\169\138 implementation")}, {"gpr", lcmd("require('goto-preview').goto_preview_references()"), desc("\243\176\169\138 references")}, {"gP", lcmd("require('goto-preview').close_all_win()"), desc("\243\176\169\138 close all")}, {"gb", lcmd("require('dropbar.api').pick()"), desc("pick")}, {"<F5>", lcmd("require('dap').continue()"), desc("\238\171\152 continue")}, {"<F10>", lcmd("require('dap').step_over()"), desc("\238\171\152 step over")}, {"<F11>", lcmd("require('dap').step_into()"), desc("\238\171\152 step into")}, {"<F12>", lcmd("require('dap').step_out()"), desc("\238\171\152 step out")}, {"<LocalLeader>db", lcmd("require('dap').toggle_breakpoint()"), desc("\238\171\152 toggle breakpoint")}, {"<LocalLeader>dB", _4_, desc("\238\171\152 set breakpoint with condition")}, {"<LocalLeader>dr", lcmd("require('dap').repl.toggle()"), desc("\238\171\152 toggle repl")}, {"<LocalLeader>dl", lcmd("require('dap').run_last()"), desc("\238\171\152 run last")}, {"<LocalLeader>dd", cmd("ToggleDapUI"), desc("\238\171\152 toggle ui")}, {"<Leader>O", cmd("Other")}}) do
+for _, k in ipairs({{"gpd", lcmd("require('goto-preview').goto_preview_definition()"), desc("\243\176\169\138 definition")}, {"gpi", lcmd("require('goto-preview').goto_preview_implementation()"), desc("\243\176\169\138 implementation")}, {"gpr", lcmd("require('goto-preview').goto_preview_references()"), desc("\243\176\169\138 references")}, {"gP", lcmd("require('goto-preview').close_all_win()"), desc("\243\176\169\138 close all")}, {"gb", lcmd("require('dropbar.api').pick()"), desc("pick")}, {"<F5>", lcmd("require('dap').continue()"), desc("\238\171\152 continue")}, {"<F10>", lcmd("require('dap').step_over()"), desc("\238\171\152 step over")}, {"<F11>", lcmd("require('dap').step_into()"), desc("\238\171\152 step into")}, {"<F12>", lcmd("require('dap').step_out()"), desc("\238\171\152 step out")}, {"<LocalLeader>db", lcmd("require('dap').toggle_breakpoint()"), desc("\238\171\152 toggle breakpoint")}, {"<LocalLeader>dB", _6_, desc("\238\171\152 set breakpoint with condition")}, {"<LocalLeader>dr", lcmd("require('dap').repl.toggle()"), desc("\238\171\152 toggle repl")}, {"<LocalLeader>dl", lcmd("require('dap').run_last()"), desc("\238\171\152 run last")}, {"<LocalLeader>dd", toggle("dapui"), desc("\238\171\152 toggle ui")}, {"<Leader>O", cmd("Other")}}) do
   vim.keymap.set("n", k[1], k[2], (k[3] or opts))
 end
 for _, k in ipairs({{"T", cmd("Translate JA")}, {"<LocalLeader>K", lcmd("require('dapui').eval()"), desc("dap evaluate expression")}, {"<Leader>ta", cmd("CopilotChat")}}) do

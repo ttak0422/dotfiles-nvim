@@ -173,36 +173,69 @@ do
   M.register("trouble-doc", {open = mk_open({mode = "diagnostics", filter = {buf = 0}}, "doc"), close = close, is_open = mk_is_open("doc")})
   M.register("trouble-ws", {open = mk_open({mode = "diagnostics"}, "ws"), close = close, is_open = mk_is_open("ws")})
 end
-local signs = require("gitsigns")
-local open
-local function _42_()
-  signs.blame()
-  local function _43_()
-    return vim.cmd("wincmd w")
-  end
-  return vim.defer_fn(_43_, 100)
-end
-open = _42_
-local close
-local function _44_()
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    if (vim.api.nvim_win_is_valid(win) and (vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "filetype") == "gitsigns-blame")) then
-      vim.api.nvim_win_close(win, true)
-    else
+do
+  local signs = require("gitsigns")
+  local open
+  local function _42_()
+    signs.blame()
+    local function _43_()
+      return vim.cmd("wincmd w")
     end
+    return vim.defer_fn(_43_, 100)
   end
-  return nil
+  open = _42_
+  local close
+  local function _44_()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      if (vim.api.nvim_win_is_valid(win) and (vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "filetype") == "gitsigns-blame")) then
+        vim.api.nvim_win_close(win, true)
+      else
+      end
+    end
+    return nil
+  end
+  close = _44_
+  local is_open
+  local function _46_()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      if (vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "filetype") == "gitsigns-blame") then
+        return true
+      else
+      end
+    end
+    return false
+  end
+  is_open = _46_
+  M.register("blame", {open = open, close = close, is_open = is_open})
 end
-close = _44_
+local dapui = nil
+local open
+local function _48_()
+  if (dapui == nil) then
+    dapui = require("dapui")
+  else
+  end
+  return dapui:open({reset = true})
+end
+open = _48_
+local close
+local function _50_()
+  if (dapui ~= nil) then
+    return dapui.close()
+  else
+    return nil
+  end
+end
+close = _50_
 local is_open
-local function _46_()
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    if (vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "filetype") == "gitsigns-blame") then
+local function _52_()
+  for _, win in ipairs(require("dapui.windows").layouts) do
+    if win:is_open() then
       return true
     else
     end
   end
   return false
 end
-is_open = _46_
-return M.register("blame", {open = open, close = close, is_open = is_open})
+is_open = _52_
+return M.register("dapui", {open = open, close = close, is_open = is_open})

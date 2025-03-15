@@ -6,8 +6,4 @@ local floating = {border = "none", mappings = {close = {"q", "<Esc>"}}}
 local layouts = {{elements = {{id = "scopes", size = 0.25}, {id = "breakpoints", size = 0.25}, {id = "stacks", size = 0.25}, {id = "watches", size = 0.25}}, position = "left", size = 40}, {elements = {{id = "repl", size = 0.5}, {id = "console", size = 0.5}}, position = "bottom", size = 10}}
 local mappings = {edit = "e", expand = {"<CR>", "<2-LeftMouse>"}, open = "o", remove = "d", repl = "r", toggle = "t"}
 local render = {indent = 1, max_value_lines = 100}
-M.setup({element_mappings = {}, expand_lines = true, force_buffers = true, icons = icons, controls = controls, floating = floating, layouts = layouts, mappings = mappings, render = render})
-local function _1_()
-  return M.toggle({reset = true})
-end
-return vim.api.nvim_create_user_command("ToggleDapUI", _1_, {})
+return M.setup({element_mappings = {}, expand_lines = true, force_buffers = true, icons = icons, controls = controls, floating = floating, layouts = layouts, mappings = mappings, render = render})

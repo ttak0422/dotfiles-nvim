@@ -42,9 +42,10 @@ rec {
     ];
     postConfig = read ../lua/autogen/dap-ui.lua;
     hooks = {
-      modules = [ "dapui" ];
-      # HACK: improve stability
-      commands = [ "ToggleDapUI" ];
+      modules = [
+        "dapui"
+        "dapui.windows"
+      ];
     };
   };
 }

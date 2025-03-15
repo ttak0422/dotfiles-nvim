@@ -122,3 +122,19 @@
                     (lua "return true")))
                 false)]
   (M.register :blame {: open : close : is_open}))
+
+; dap
+(var dapui nil)
+(let [open (fn []
+             (if (= dapui nil)
+                 (set dapui (require :dapui)))
+             (dapui:open {:reset true}))
+      close (fn []
+              (if (not= dapui nil)
+                  (dapui.close)))
+      is_open (fn []
+                (each [_ win (ipairs (. (require :dapui.windows) :layouts))]
+                  (if (win:is_open)
+                      (lua "return true")))
+                false)]
+  (M.register :dapui {: open : close : is_open}))

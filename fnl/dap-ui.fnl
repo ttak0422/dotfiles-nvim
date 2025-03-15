@@ -36,6 +36,4 @@
             : floating
             : layouts
             : mappings
-            : render})
-  (vim.api.nvim_create_user_command :ToggleDapUI
-                                    (fn [] (M.toggle {:reset true})) {}))
+            : render}))
