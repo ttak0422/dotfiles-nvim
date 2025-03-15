@@ -204,7 +204,7 @@ rec {
   aerial = {
     package = aerial-nvim;
     postConfig = read ../lua/autogen/aerial.lua;
-    hooks.commands = [ "AerialToggle" ];
+    hooks.modules = [ "aerial" ];
   };
   logrotate = {
     package = logrotate-nvim;

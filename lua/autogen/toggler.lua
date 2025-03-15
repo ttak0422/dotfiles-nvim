@@ -271,28 +271,55 @@ do
   is_open = _58_
   M.register("neotest-output", {open = open, close = close, is_open = is_open})
 end
+do
+  local open
+  local function _59_()
+    if (neotest == nil) then
+      neotest = require("neotest")
+      return nil
+    else
+      return neotest.summary.open()
+    end
+  end
+  open = _59_
+  local close
+  local function _61_()
+    if (neotest ~= nil) then
+      return neotest.summary.close()
+    else
+      return nil
+    end
+  end
+  close = _61_
+  local is_open
+  local function _63_()
+    return filetype_exists("neotest-summary")
+  end
+  is_open = _63_
+  M.register("neotest-summary", {open = open, close = close, is_open = is_open})
+end
+local aerial = nil
 local open
-local function _59_()
-  if (neotest == nil) then
-    neotest = require("neotest")
-    return nil
+local function _64_()
+  if (aerial == nil) then
+    aerial = require("aerial")
   else
-    return neotest.summary.open()
   end
+  return aerial.open()
 end
-open = _59_
+open = _64_
 local close
-local function _61_()
-  if (neotest ~= nil) then
-    return neotest.summary.close()
+local function _66_()
+  if (aerial ~= nil) then
+    return aerial.close()
   else
     return nil
   end
 end
-close = _61_
+close = _66_
 local is_open
-local function _63_()
-  return filetype_exists("neotest-summary")
+local function _68_()
+  return filetype_exists("aerial")
 end
-is_open = _63_
-return M.register("neotest-summary", {open = open, close = close, is_open = is_open})
+is_open = _68_
+return M.register("aerial", {open = open, close = close, is_open = is_open})

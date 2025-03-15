@@ -91,17 +91,18 @@
                       [:<Leader>O (cmd :Other)]])]
     (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts)))
   ;; leader
+  (each [_ k (ipairs [[:to (toggle :aerial) (desc "toggle outline")]])]
+    (vim.keymap.set :n (.. :<Leader> (. k 1)) (. k 2) (or (. k 3) opts)))
   (each [_ k (ipairs [;; translate
                       [:T (cmd "Translate JA")]
-                      ;; debug
-                      [:<LocalLeader>K
+                      ;; copilot caht
+                      [:ta (cmd :CopilotChat)]])]
+    (vim.keymap.set :v (.. :<Leader> (. k 1)) (. k 2) (or (. k 3) opts)))
+  ;; local leader
+  (each [_ k (ipairs [[:K
                        (lcmd "require('dapui').eval()")
                        (desc "dap evaluate expression")]
-                      ;; copilot caht
-                      [:<Leader>ta (cmd :CopilotChat)]])]
-    (vim.keymap.set :v (. k 1) (. k 2) (or (. k 3) opts)))
-  ;; local leader
-  (each [_ k (ipairs [[:tT (cmd :Neotest) (desc " run test (file)")]
+                      [:tT (cmd :Neotest) (desc " run test (file)")]
                       [:tt (cmd :NeotestNearest) (desc " run test (unit)")]
                       [:to
                        (toggle :neotest-output)

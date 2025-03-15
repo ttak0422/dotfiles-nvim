@@ -103,7 +103,6 @@
                       [:tm
                        (L "require('codewindow').toggle_minimap()")
                        (D "toggle minimap")]
-                      [:to (C :AerialToggle) (D "toggle outline")]
                       [:tj
                        (C "lua require('treesj').toggle({ split = { recursive = false }})")
                        (D "toggle split/join")]

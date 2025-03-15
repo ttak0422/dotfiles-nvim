@@ -163,3 +163,15 @@
       is_open (fn []
                 (filetype_exists :neotest-summary))]
   (M.register :neotest-summary {: open : close : is_open}))
+
+; aerial
+(var aerial nil)
+(let [open (fn []
+             (if (= aerial nil)
+                 (set aerial (require :aerial)))
+             (aerial.open))
+      close (fn []
+              (if (not= aerial nil)
+                  (aerial.close)))
+      is_open (fn [] (filetype_exists :aerial))]
+  (M.register :aerial {: open : close : is_open}))
