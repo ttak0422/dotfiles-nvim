@@ -97,6 +97,12 @@ let
     };
     json = readVim ../vim/after/json.vim;
     help = read "${pkgs.vimPlugins.helpview-nvim}/ftplugin/help.lua";
+    Avante = {
+      language = "vim";
+      code = ''
+        nmap <buffer> i <S-Tab>i
+      '';
+    };
   };
 
   ftdetect = {
