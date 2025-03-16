@@ -51,14 +51,14 @@
     (create_command (.. :ClearTerm i) (fn [] (tset st i nil)) {})))
 
 ; gitu
-(let [st {:term nil}
-      is_open (fn []
-                (let [term (. st :term)]
-                  (and term (term:is_open))))
+(var gitu nil)
+(var gitu_dir nil)
+(let [is_open (fn []
+                (-?> gitu
+                     (: :is_open)))
       close (fn []
-              (let [term (. st :term)]
-                (if (and term (term:is_open))
-                    (term:close))))
+              (-?> gitu
+                   (: :close)))
       on_create (fn [term]
                   (map :t :<ESC> :i<ESC>
                        {:buffer term.bufnr :noremap true :silent true})
@@ -68,22 +68,26 @@
       float_opts {:height (fn [] (math.floor (* vim.o.lines 0.9)))
                   :width (fn [] (math.floor (* vim.o.columns 0.9)))}
       open (fn []
-             (-> (case (. st :term)
-                   term term
-                   _ (let [term (-> (require :toggleterm.terminal)
-                                    (. :Terminal)
-                                    (: :new
-                                       {:direction :float
-                                        :cmd :gitu
-                                        :shade_terminals false
-                                        : on_create
-                                        : float_opts}))]
-                       (tset st :term term)
-                       term))
-                 (: :open))
+             (if (= gitu_dir nil)
+                 (set gitu_dir (vim.fn.getcwd))
+                 (let [cwd (vim.fn.getcwd)]
+                   (if (not= gitu_dir cwd)
+                       (do
+                         (set gitu_dir cwd)
+                         (set gitu nil)))))
+             (if (= gitu nil)
+                 (set gitu (-> (require :toggleterm.terminal)
+                               (. :Terminal)
+                               (: :new
+                                  {:direction :float
+                                   :cmd :gitu
+                                   :shade_terminals false
+                                   : on_create
+                                   : float_opts}))))
+             (gitu:open)
              (vim.cmd :startinsert))]
   (M.register :gitu {: open : close : is_open})
-  (create_command :ClearGitu (fn [] (tset st :term nil)) {}))
+  (create_command :ClearGitu (fn [] (set gitu nil)) {}))
 
 ; trouble
 (let [st {:recent_type nil}

@@ -83,118 +83,122 @@ do
     create_command(("ClearTerm" .. i), _19_, {})
   end
 end
+local gitu = nil
+local gitu_dir = nil
 do
-  local st = {term = nil}
   local is_open
   local function _20_()
-    local term = st.term
-    return (term and term:is_open())
-  end
-  is_open = _20_
-  local close
-  local function _21_()
-    local term = st.term
-    if (term and term:is_open()) then
-      return term:close()
+    if (nil ~= gitu) then
+      return gitu:is_open()
     else
       return nil
     end
   end
-  close = _21_
+  is_open = _20_
+  local close
+  local function _22_()
+    if (nil ~= gitu) then
+      return gitu:close()
+    else
+      return nil
+    end
+  end
+  close = _22_
   local on_create
-  local function _23_(term)
+  local function _24_(term)
     map("t", "<ESC>", "i<ESC>", {buffer = term.bufnr, noremap = true, silent = true})
     return vim.api.nvim_create_autocmd("BufLeave", {buffer = term.bufnr, callback = close})
   end
-  on_create = _23_
+  on_create = _24_
   local float_opts
-  local function _24_()
+  local function _25_()
     return math.floor((vim.o.lines * 0.9))
   end
-  local function _25_()
+  local function _26_()
     return math.floor((vim.o.columns * 0.9))
   end
-  float_opts = {height = _24_, width = _25_}
+  float_opts = {height = _25_, width = _26_}
   local open
-  local function _26_()
-    local _28_
-    do
-      local _27_ = st.term
-      if (nil ~= _27_) then
-        local term = _27_
-        _28_ = term
+  local function _27_()
+    if (gitu_dir == nil) then
+      gitu_dir = vim.fn.getcwd()
+    else
+      local cwd = vim.fn.getcwd()
+      if (gitu_dir ~= cwd) then
+        gitu_dir = cwd
+        gitu = nil
       else
-        local _ = _27_
-        local term = require("toggleterm.terminal").Terminal:new({direction = "float", cmd = "gitu", on_create = on_create, float_opts = float_opts, shade_terminals = false})
-        st["term"] = term
-        _28_ = term
       end
     end
-    _28_:open()
+    if (gitu == nil) then
+      gitu = require("toggleterm.terminal").Terminal:new({direction = "float", cmd = "gitu", on_create = on_create, float_opts = float_opts, shade_terminals = false})
+    else
+    end
+    gitu:open()
     return vim.cmd("startinsert")
   end
-  open = _26_
+  open = _27_
   M.register("gitu", {open = open, close = close, is_open = is_open})
-  local function _33_()
-    st["term"] = nil
+  local function _31_()
+    gitu = nil
     return nil
   end
-  create_command("ClearGitu", _33_, {})
+  create_command("ClearGitu", _31_, {})
 end
 do
   local st = {recent_type = nil}
   local mk_open
-  local function _34_(opt, type)
-    local function _35_()
+  local function _32_(opt, type)
+    local function _33_()
       require("trouble").open(opt)
       st["recent_type"] = type
       return nil
     end
-    return with_keep_window(_35_)
+    return with_keep_window(_33_)
   end
-  mk_open = _34_
+  mk_open = _32_
   local close
-  local function _36_()
-    local _37_ = package.loaded.trouble
-    if (nil ~= _37_) then
-      local t = _37_
+  local function _34_()
+    local _35_ = package.loaded.trouble
+    if (nil ~= _35_) then
+      local t = _35_
       return t.close()
     else
       return nil
     end
   end
-  close = _36_
+  close = _34_
   local mk_is_open
-  local function _39_(type)
-    local function _40_()
-      local _41_ = package.loaded.trouble
-      if (nil ~= _41_) then
-        local t = _41_
+  local function _37_(type)
+    local function _38_()
+      local _39_ = package.loaded.trouble
+      if (nil ~= _39_) then
+        local t = _39_
         return (t.is_open() and (st.recent_type == type))
       else
-        local _ = _41_
+        local _ = _39_
         return false
       end
     end
-    return _40_
+    return _38_
   end
-  mk_is_open = _39_
+  mk_is_open = _37_
   M.register("trouble-doc", {open = mk_open({mode = "diagnostics", filter = {buf = 0}}, "doc"), close = close, is_open = mk_is_open("doc")})
   M.register("trouble-ws", {open = mk_open({mode = "diagnostics"}, "ws"), close = close, is_open = mk_is_open("ws")})
 end
 do
   local signs = require("gitsigns")
   local open
-  local function _43_()
+  local function _41_()
     signs.blame()
-    local function _44_()
+    local function _42_()
       return vim.cmd("wincmd w")
     end
-    return vim.defer_fn(_44_, 100)
+    return vim.defer_fn(_42_, 100)
   end
-  open = _43_
+  open = _41_
   local close
-  local function _45_()
+  local function _43_()
     for _, win in ipairs(vim.api.nvim_list_wins()) do
       if (vim.api.nvim_win_is_valid(win) and (vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "filetype") == "gitsigns-blame")) then
         vim.api.nvim_win_close(win, true)
@@ -203,36 +207,36 @@ do
     end
     return nil
   end
-  close = _45_
+  close = _43_
   local is_open
-  local function _47_()
+  local function _45_()
     return filetype_exists("gitsigns-blame")
   end
-  is_open = _47_
+  is_open = _45_
   M.register("blame", {open = open, close = close, is_open = is_open})
 end
 local dapui = nil
 do
   local open
-  local function _48_()
+  local function _46_()
     if (dapui == nil) then
       dapui = require("dapui")
     else
     end
     return dapui:open({reset = true})
   end
-  open = _48_
+  open = _46_
   local close
-  local function _50_()
+  local function _48_()
     if (dapui ~= nil) then
       return dapui.close()
     else
       return nil
     end
   end
-  close = _50_
+  close = _48_
   local is_open
-  local function _52_()
+  local function _50_()
     for _, win in ipairs(require("dapui.windows").layouts) do
       if win:is_open() then
         return true
@@ -241,39 +245,39 @@ do
     end
     return false
   end
-  is_open = _52_
+  is_open = _50_
   M.register("dapui", {open = open, close = close, is_open = is_open})
 end
 local neotest = nil
 do
   local open
-  local function _54_()
+  local function _52_()
     if (neotest == nil) then
       neotest = require("neotest")
     else
     end
     return neotest.output_panel.open()
   end
-  open = _54_
+  open = _52_
   local close
-  local function _56_()
+  local function _54_()
     if (neotest ~= nil) then
       return neotest.output_panel.close()
     else
       return nil
     end
   end
-  close = _56_
+  close = _54_
   local is_open
-  local function _58_()
+  local function _56_()
     return filetype_exists("neotest-output-panel")
   end
-  is_open = _58_
+  is_open = _56_
   M.register("neotest-output", {open = open, close = close, is_open = is_open})
 end
 do
   local open
-  local function _59_()
+  local function _57_()
     if (neotest == nil) then
       neotest = require("neotest")
       return nil
@@ -281,45 +285,45 @@ do
       return neotest.summary.open()
     end
   end
-  open = _59_
+  open = _57_
   local close
-  local function _61_()
+  local function _59_()
     if (neotest ~= nil) then
       return neotest.summary.close()
     else
       return nil
     end
   end
-  close = _61_
+  close = _59_
   local is_open
-  local function _63_()
+  local function _61_()
     return filetype_exists("neotest-summary")
   end
-  is_open = _63_
+  is_open = _61_
   M.register("neotest-summary", {open = open, close = close, is_open = is_open})
 end
 local aerial = nil
 local open
-local function _64_()
+local function _62_()
   if (aerial == nil) then
     aerial = require("aerial")
   else
   end
   return aerial.open()
 end
-open = _64_
+open = _62_
 local close
-local function _66_()
+local function _64_()
   if (aerial ~= nil) then
     return aerial.close()
   else
     return nil
   end
 end
-close = _66_
+close = _64_
 local is_open
-local function _68_()
+local function _66_()
   return filetype_exists("aerial")
 end
-is_open = _68_
+is_open = _66_
 return M.register("aerial", {open = open, close = close, is_open = is_open})
