@@ -68,7 +68,7 @@ avante.setup({
     ---@type "right" | "left" | "top" | "bottom"
     position = "right",
     wrap = true,
-    width = 30,
+    width = 50,
     sidebar_header = {
       enabled = false,
       align = "center",
