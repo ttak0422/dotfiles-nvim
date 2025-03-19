@@ -6495,11 +6495,11 @@
     "vimade": {
       "flake": false,
       "locked": {
-        "lastModified": 1738073149,
-        "narHash": "sha256-mosToOo39iqtV/6QJbRu4qsuysKeuGt3RbUuyscldGM=",
+        "lastModified": 1740892294,
+        "narHash": "sha256-nTuRXjf2B/YMzFB5fG12ZKpsPQFut4op+WRTQuDrl5k=",
         "owner": "TaDaa",
         "repo": "vimade",
-        "rev": "0ec1bbb1b6126d73b4ed8d243e3b047abb9e52ff",
+        "rev": "f63ca5cb9cf811b2c526694e820b87fe2238deb6",
         "type": "github"
       },
       "original": {
