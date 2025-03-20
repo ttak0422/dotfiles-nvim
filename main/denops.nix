@@ -182,6 +182,7 @@ rec {
       "DduRg"
       "DduRgLive"
     ];
+    hooks.events = [ "UIEnter" ];
     useDenops = true;
   };
 }
