@@ -1258,11 +1258,11 @@
     "ddc-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1740376451,
-        "narHash": "sha256-1LyGM9TF1ctXq8F6lEkikny2iL66w/sgxV9zpQqR6yQ=",
+        "lastModified": 1740878457,
+        "narHash": "sha256-U9Kt7dXxy39yKNkT2YkKFEZ3UXwSVsfLAagTi8nyEzA=",
         "owner": "Shougo",
         "repo": "ddc.vim",
-        "rev": "d4d36f55d7ccedda41cd9fd9973386df72953a3a",
+        "rev": "7538d53940542b3769a551b35afee2aa4495b5d8",
         "type": "github"
       },
       "original": {
@@ -3444,11 +3444,11 @@
     "neco-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1692062905,
-        "narHash": "sha256-5tFAsxc7qYOw611qCsMc8iDjpydlm7s3ZSPir7zfNz8=",
+        "lastModified": 1741256084,
+        "narHash": "sha256-uBUl7DTCSRN8/YGiFKSUzTAg+BllvQ8PsTy7nzul10c=",
         "owner": "Shougo",
         "repo": "neco-vim",
-        "rev": "1b95bedbeed0b4c81466d40b16bfb0c0ff16721d",
+        "rev": "7b722cd13a44645e4ed9b1e4fe6ff8ad64f947f6",
         "type": "github"
       },
       "original": {
@@ -5013,11 +5013,11 @@
     "pum-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1740369180,
-        "narHash": "sha256-oLAYbiEpPuERB3hon2KiUGEt/4HkFmVhnCUtDf9Oa9E=",
+        "lastModified": 1740438653,
+        "narHash": "sha256-uLdC3RhKGN2kuF6CtasfdyvBpIWLCPaLDvGdUuJPEcc=",
         "owner": "Shougo",
         "repo": "pum.vim",
-        "rev": "e572a3481721dc4792f6430654cfedc5bc968fd5",
+        "rev": "2c76e582e7f180da6ee3ba2be1787bec3ffead3d",
         "type": "github"
       },
       "original": {
