@@ -28,7 +28,7 @@ rec {
     package = git-conflict-nvim;
     depends = [ lib.plenary ];
     postConfig = read ../lua/autogen/git-conflict.lua;
-    hooks.events = [ "BufReadPost" ];
+    hooks.events = [ "BufReadPre" ];
   };
   gitsigns = {
     package = gitsigns-nvim;
