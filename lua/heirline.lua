@@ -173,7 +173,9 @@ end
 -- }
 
 local lsp = {
-	provider = require("lsp-progress").progress,
+	provider = function()
+		return require("lsp-progress").progress({ max_size = 100 })
+	end,
 	update = {
 		"User",
 		pattern = "LspProgressStatusUpdated",
