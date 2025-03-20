@@ -204,10 +204,6 @@
       url = "github:mrjones2014/legendary.nvim";
       flake = false;
     };
-    neogit = {
-      url = "github:TimUntersberger/neogit";
-      flake = false;
-    };
     nvim-cmp = {
       url = "github:hrsh7th/nvim-cmp";
       flake = false;

@@ -3473,22 +3473,6 @@
         "type": "github"
       }
     },
-    "neogit": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1740470137,
-        "narHash": "sha256-b343KyeUxZCehKImwwjg799IUyxn2y2SK/ZfjRLQdj4=",
-        "owner": "TimUntersberger",
-        "repo": "neogit",
-        "rev": "12f78aaabb37b4946254dd5e47cf7b552904937a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "TimUntersberger",
-        "repo": "neogit",
-        "type": "github"
-      }
-    },
     "neorg": {
       "flake": false,
       "locked": {
@@ -5303,7 +5287,6 @@
         "nap-nvim": "nap-nvim",
         "neco-vim": "neco-vim",
         "neogen": "neogen",
-        "neogit": "neogit",
         "neorg": "neorg",
         "neorg-jupyter": "neorg-jupyter",
         "neorg-telescope": "neorg-telescope",

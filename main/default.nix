@@ -44,7 +44,6 @@ let
       gina
       git-conflict
       gitsigns
-      neogit
       octo
       ;
     inherit (callPackage ./helper.nix { })

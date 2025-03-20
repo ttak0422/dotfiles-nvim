@@ -44,17 +44,6 @@ rec {
       commands = [ "Gitsigns" ];
     };
   };
-  neogit = {
-    package = pkgs.vimPlugins.neogit;
-    depends = [
-      lib.plenary
-      search.telescope
-      diffview
-    ];
-    extraPackages = [ pkgs.gh ];
-    postConfig = read ../lua/autogen/neogit.lua;
-    hooks.commands = [ "Neogit" ];
-  };
   octo = {
     package = octo-nvim;
     depends = [
