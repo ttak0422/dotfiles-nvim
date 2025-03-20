@@ -576,11 +576,11 @@
     "copilot-lua": {
       "flake": false,
       "locked": {
-        "lastModified": 1734926641,
-        "narHash": "sha256-c2UE0dLBtoYMvMxg+jXzfsD+wN9sZLvftJq4gGmooZU=",
+        "lastModified": 1739230958,
+        "narHash": "sha256-632UIbG1jwam+tug5+jODkT509+uBfJgUN21C3ppnEo=",
         "owner": "zbirenbaum",
         "repo": "copilot.lua",
-        "rev": "886ee73b6d464b2b3e3e6a7ff55ce87feac423a9",
+        "rev": "30321e33b03cb924fdcd6a806a0dc6fa0b0eafb9",
         "type": "github"
       },
       "original": {
@@ -4551,11 +4551,11 @@
     "nvim-lint": {
       "flake": false,
       "locked": {
-        "lastModified": 1732288955,
-        "narHash": "sha256-oRVyd2UtmVafoc8TEov+1Hlln6/AFnVokoiENh45X74=",
+        "lastModified": 1742238476,
+        "narHash": "sha256-rYrFVUf4uRK1ivL7yGHfkGCYkjyD0wN6RbVL3JfybXM=",
         "owner": "mfussenegger",
         "repo": "nvim-lint",
-        "rev": "6b46370d02cd001509a765591a3ffc481b538794",
+        "rev": "936197073214c26a347fb933c9459c8766376b23",
         "type": "github"
       },
       "original": {
@@ -4663,11 +4663,11 @@
     "nvim-surround": {
       "flake": false,
       "locked": {
-        "lastModified": 1732818349,
-        "narHash": "sha256-sC+V86FEDfIapY4Qy0Ch2dTUpqe+C/xEUR/iSIEY6LA=",
+        "lastModified": 1742110828,
+        "narHash": "sha256-iMgCLWuOqrJTiPGeffGMwvRvc4Wkob3GYV1W5xx+qrA=",
         "owner": "kylechui",
         "repo": "nvim-surround",
-        "rev": "9f0cb495f25bff32c936062d85046fbda0c43517",
+        "rev": "6c54643ef42016b744888b06d2381abd23f9b7ea",
         "type": "github"
       },
       "original": {
@@ -5712,11 +5712,11 @@
     "statuscol-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1736505198,
-        "narHash": "sha256-EWqzYmqH5WLusHQXDFYanbHrbSPzXeA1XyuA7U8pNeU=",
+        "lastModified": 1740993267,
+        "narHash": "sha256-pZDi4VtnzJ0w4hs+mSBKvB4h4bnMijOkpnXALQmHQ0U=",
         "owner": "luukvbaal",
         "repo": "statuscol.nvim",
-        "rev": "a2a0e3ed55ba0f636ce0b2ccf61bca4050edd288",
+        "rev": "c399884e8f64019ec9bb581251f9710915b7f996",
         "type": "github"
       },
       "original": {
@@ -5760,11 +5760,11 @@
     "switch-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1716137360,
-        "narHash": "sha256-5QUAmnGWB8FmQqx27e6s9FWiX2jXrWSo16ZvU3sMQpY=",
+        "lastModified": 1739475392,
+        "narHash": "sha256-tev5ZqUQNpkBlYaFk1gwoi9K3O/q97wnMmF/Mo0PT10=",
         "owner": "AndrewRadev",
         "repo": "switch.vim",
-        "rev": "21defb202ebb8406b8ed63183a43ea026f2645b3",
+        "rev": "b6bab56113312ebaa53038461c1a61bcb1e4a9d9",
         "type": "github"
       },
       "original": {
