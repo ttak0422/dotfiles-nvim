@@ -30,9 +30,15 @@
       open_idx (fn [idx]
                  (-> (case (. st idx)
                        term term
-                       _ (let [term (-> (require :toggleterm.terminal)
+                       _ (let [session (.. :VIM idx)
+                               ; WIP: on_create (fn [term] (term:send (.. "zellij -s " session " --layout " zellij_layout))
+                               term (-> (require :toggleterm.terminal)
                                         (. :Terminal)
-                                        (: :new {:direction :float}))]
+                                        (: :new
+                                           {:direction :float
+                                            :float_opts {:border :none}
+                                            :cmd (.. "zellij attach " session
+                                                     " --create")}))]
                            (tset st idx term)
                            term))
                      (: :open)))
