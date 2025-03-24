@@ -48,7 +48,7 @@ local function _5_(path0)
   return dirman.create_file(path0, nil, {})
 end
 create_file = _5_
-create_command("NeorgFuzzySearch", "Telescope neorg find_linkable", {})
+create_command("NeorgFuzzySearch", "Telescope neorg find_norg_files", {})
 local function _6_()
   local _7_ = vim.fn.input("\238\152\179 Title: ")
   local and_8_ = (nil ~= _7_)

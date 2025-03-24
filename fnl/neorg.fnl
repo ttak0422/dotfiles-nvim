@@ -74,7 +74,7 @@
                          (error "branch not found"))))
       create_file (fn [path]
                     (dirman.create_file path nil {}))]
-  (create_command :NeorgFuzzySearch "Telescope neorg find_linkable" {})
+  (create_command :NeorgFuzzySearch "Telescope neorg find_norg_files" {})
   (create_command :NeorgUID
                   (fn []
                     (case (vim.fn.input " Title: ")

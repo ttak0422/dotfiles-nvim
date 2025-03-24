@@ -76,7 +76,7 @@
           "<Plug>(neorg.tempus.insert-date)"
           (opts " Insert date")]]
       I [[:<C-l>
-          "<C-o><Plug>(neorg.telescope.insert_link)"
+          "<C-o><Plug>(neorg.telescope.insert_file_link)"
           (opts " Insert link")]
          [:<C-t>
           "<C-o><Plug>(neorg.promo.promote)"
