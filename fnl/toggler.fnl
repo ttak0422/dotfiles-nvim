@@ -71,6 +71,8 @@
                   (vim.api.nvim_create_autocmd :BufLeave
                                                {:buffer term.bufnr
                                                 :callback close}))
+      on_open (fn []
+                (vim.cmd :startinsert))
       float_opts {:height (fn [] (math.floor (* vim.o.lines 0.9)))
                   :width (fn [] (math.floor (* vim.o.columns 0.9)))}
       open (fn []
@@ -89,9 +91,9 @@
                                    :cmd :gitu
                                    :shade_terminals false
                                    : on_create
+                                   : on_open
                                    : float_opts}))))
-             (gitu:open)
-             (vim.cmd :startinsert))]
+             (gitu:open))]
   (M.register :gitu {: open : close : is_open})
   (create_command :ClearGitu (fn [] (set gitu nil)) {}))
 
