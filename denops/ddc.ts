@@ -23,8 +23,8 @@ export class Config extends BaseConfig {
       backspaceCompletion: false,
       sources: [
         "lsp",
-        "denippet",
         "around",
+        "denippet",
       ],
       cmdlineSources: {
         ":": ["cmdline", "cmdline_history", "around"],
