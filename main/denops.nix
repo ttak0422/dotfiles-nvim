@@ -64,7 +64,6 @@ rec {
       ddc-source-line
       ddc-source-lsp
       ddc-source-vsnip
-      ddc-source-vsnip
       ddc-source-neorg
       ddc-treesitter
       ddc-converter_remove_overlap
