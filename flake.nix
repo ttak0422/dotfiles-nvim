@@ -1432,6 +1432,10 @@
       url = "github:tyru/capture.vim";
       flake = false;
     };
+    trace-pr-nvim = {
+      url = "github:h3pei/trace-pr.nvim";
+      flake = false;
+    };
   };
 
   outputs =

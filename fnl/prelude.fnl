@@ -85,6 +85,7 @@
                       ; [:G (C :Neogit) (D " client")]
                       [:G (T :gitu) (D " client")]
                       [:gb (T :blame) (D " blame")]
+                      [:go (C :TracePR) (D " open PR")]
                       ;; filter
                       [:tb
                        ; (lcmd "require('oil').toggle_float()")

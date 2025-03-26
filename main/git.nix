@@ -54,4 +54,10 @@ rec {
     postConfig = read ../lua/autogen/octo.lua;
     hooks.commands = [ "Octo" ];
   };
+  trace-pr = {
+    package = trace-pr-nvim;
+    extraPackages = with pkgs; [ gh ];
+    postConfig = read ../lua/autogen/trace-pr.lua;
+    hooks.commands = [ "TracePR" ];
+  };
 }

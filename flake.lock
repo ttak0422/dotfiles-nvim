@@ -5419,6 +5419,7 @@
         "todo-comments-nvim": "todo-comments-nvim",
         "toggler": "toggler",
         "toggleterm-nvim": "toggleterm-nvim",
+        "trace-pr-nvim": "trace-pr-nvim",
         "translate-nvim": "translate-nvim",
         "tree-sitter-norg-meta": "tree-sitter-norg-meta",
         "trim-nvim": "trim-nvim",
@@ -6152,6 +6153,22 @@
       "original": {
         "owner": "akinsho",
         "repo": "toggleterm.nvim",
+        "type": "github"
+      }
+    },
+    "trace-pr-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1742631707,
+        "narHash": "sha256-m3Atf7PRUrv1KBCZhK5CbYXfwLEjcGOJV9CSSXBJFxw=",
+        "owner": "h3pei",
+        "repo": "trace-pr.nvim",
+        "rev": "b85b09723d5508fea15433b8aebba3ab1aaa93d9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "h3pei",
+        "repo": "trace-pr.nvim",
         "type": "github"
       }
     },

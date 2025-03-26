@@ -45,6 +45,7 @@ let
       git-conflict
       gitsigns
       octo
+      trace-pr
       ;
     inherit (callPackage ./helper.nix { })
       direnv
