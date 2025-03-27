@@ -38,7 +38,7 @@ do
   local completion = {favoriteStaticMembers = favoriteStaticMembers, filteredTypes = filteredTypes}
   local edit = {smartSemicolonDetection = enabled, validateAllOpenBuffersOnChanges = false}
   local sources = {organizeImports = {starThreshold = 9999, staticStarThreshold = 9999}}
-  local java = {autobuild = disabled, maxConcurrentBuilds = 8, signatureHelp = enabled, completion = completion, edit = edit, sources = sources}
+  local java = {autobuild = disabled, maxConcurrentBuilds = 8, signatureHelp = enabled, format = disabled, completion = completion, edit = edit, sources = sources}
   settings = {java = java}
 end
 local bundles

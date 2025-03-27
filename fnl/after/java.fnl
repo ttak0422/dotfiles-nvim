@@ -83,6 +83,7 @@
                       java {:autobuild disabled
                             :maxConcurrentBuilds 8
                             :signatureHelp enabled
+                            :format disabled
                             : completion
                             : edit
                             : sources}]
