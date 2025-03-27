@@ -83,14 +83,12 @@
                    (if (client.supports_method :textDocument/formatting)
                        (vim.keymap.set :n :<leader>cF vim.lsp.buf.format
                                        (desc " format"))
-                       (vim.keymap.set :n :<C-CR> vim.lsp.buf.format
+                       (vim.keymap.set [:n :v] :<C-CR> vim.lsp.buf.format
                                        (desc " format"))) ; config (builtin)
                    (if (client.supports_method :textDocument/publishDiagnostics)
                        ;; delay update diagnostics
                        (set vim.lsp.handlers.textDocument/publishDiagnostics
                             (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
-                              {:update_in_insert false}))) ; config (plugin)
-                   ; (if (client.supports_method :textDocument/inlayHint)
-                   ;     (vim.lsp.inlay_hint.enable (not= client.name :jdtls)))
+                              {:update_in_insert false}))) ; config (plugin) ; (if (client.supports_method :textDocument/inlayHint) ;     (vim.lsp.inlay_hint.enable (not= client.name :jdtls)))
                    ))]
   (vim.api.nvim_create_autocmd :LspAttach {: callback}))
