@@ -30,7 +30,10 @@
             ;; カレントウィンドウの最小幅
             :winwidth 20
             ;; カレントウィンドウの最小高
-            :winheight 1}]
+            :winheight 1
+            ;; 不可視文字
+            :listchars "tab:> ,trail:-"
+            :list true}]
   (each [k v (pairs opts)]
     (tset vim.o k v))
   (vim.opt.fillchars:append {:eob " "
