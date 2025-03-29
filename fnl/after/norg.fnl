@@ -74,7 +74,10 @@
           (opts " Edit code block")]
          [:<LocalLeader>id
           "<Plug>(neorg.tempus.insert-date)"
-          (opts " Insert date")]]
+          (opts " Insert date")]
+         [:<LocalLeader>O
+          ":execute 'Neorg export to-file ' . expand('%:r') . '.md'<cr>"
+          (opts " Export as markdown")]]
       I [[:<C-l>
           "<C-o><Plug>(neorg.telescope.insert_file_link)"
           (opts " Insert link")]
