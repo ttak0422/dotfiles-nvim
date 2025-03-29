@@ -6,6 +6,7 @@
 
 (let [neorg (require :neorg) ; completion {:engine :nvim-cmp}
       defaults {:disable []}
+      markdown {:extensions :all}
       dirman {:workspaces {:notes "~/neorg"
                            ;; WIP
                            :dotfiles "~/ghq/github.com/ttak0422/Limbo/notes"}
@@ -34,6 +35,8 @@
       load {:core.autocommands {}
             ; :core.completion {:config completion}
             :core.defaults {:config defaults}
+            :core.export {}
+            :core.export.markdown {:config markdown}
             :core.dirman {:config dirman}
             :core.highlights {:config highlights}
             ; :core.integrations.nvim-cmp {}

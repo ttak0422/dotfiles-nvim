@@ -87,7 +87,10 @@
          ;  (opts " Continue object")]
          ]
       V [[">" "<Plug>(neorg.promo.promote.range)" (opts " Promote range")]
-         ["<" "<Plug>(neorg.promo.demote.range)" (opts " Demote range")]]]
+         ["<" "<Plug>(neorg.promo.demote.range)" (opts " Demote range")]
+         [:<LocalLeader>C
+          ":Neorg export to-clipboard markdown<cr>"
+          (opts " Export to clipboard")]]]
   (each [mode ks (pairs {:n N :i I :v V})]
     (each [_ k (ipairs ks)]
       (map mode (. k 1) (. k 2) (. k 3)))))
