@@ -41,7 +41,7 @@ end
 for _, k in ipairs({{"to", toggle("aerial"), desc("toggle outline")}}) do
   vim.keymap.set("n", ("<Leader>" .. k[1]), k[2], (k[3] or opts))
 end
-for _, k in ipairs({{"T", cmd("Translate JA")}, {"ta", cmd("CopilotChat")}}) do
+for _, k in ipairs({{"T", ":Translate JA<cr>"}, {"ta", cmd("CopilotChat")}}) do
   vim.keymap.set("v", ("<Leader>" .. k[1]), k[2], (k[3] or opts))
 end
 for _, k in ipairs({{"K", lcmd("require('dapui').eval()"), desc("dap evaluate expression")}, {"tT", cmd("Neotest"), desc("\238\169\185 run test (file)")}, {"tt", cmd("NeotestNearest"), desc("\238\169\185 run test (unit)")}, {"to", toggle("neotest-output"), desc("\238\169\185 show test results")}, {"tO", toggle("neotest-summary"), desc("\238\169\185 show test tree")}, {"tK", cmd("NeotestOpenOutput"), desc("\238\169\185 hover (test)")}}) do

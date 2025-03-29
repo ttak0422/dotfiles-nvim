@@ -97,7 +97,7 @@
   (each [_ k (ipairs [[:to (toggle :aerial) (desc "toggle outline")]])]
     (vim.keymap.set :n (.. :<Leader> (. k 1)) (. k 2) (or (. k 3) opts)))
   (each [_ k (ipairs [;; translate
-                      [:T (cmd "Translate JA")]
+                      [:T ":Translate JA<cr>"]
                       ;; copilot caht
                       [:ta (cmd :CopilotChat)]])]
     (vim.keymap.set :v (.. :<Leader> (. k 1)) (. k 2) (or (. k 3) opts)))
