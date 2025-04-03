@@ -30,7 +30,8 @@
       open_idx (fn [idx]
                  (-> (case (. st idx)
                        term term
-                       _ (let [session (.. :VIM idx)
+                       _ (let [cwd (vim.fn.fnamemodify (vim.fn.getcwd) ":t")
+                               session (.. cwd "_" idx)
                                ; WIP: on_create (fn [term] (term:send (.. "zellij -s " session " --layout " zellij_layout))
                                term (-> (require :toggleterm.terminal)
                                         (. :Terminal)

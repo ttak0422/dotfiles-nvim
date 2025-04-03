@@ -41,7 +41,8 @@ do
         _8_ = term
       else
         local _ = _7_
-        local session = ("VIM" .. idx)
+        local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+        local session = (cwd .. "_" .. idx)
         local term = require("toggleterm.terminal").Terminal:new({direction = "float", float_opts = {border = "none"}, cmd = ("zellij attach " .. session .. " --create")})
         st[idx] = term
         _8_ = term
