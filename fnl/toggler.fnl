@@ -26,36 +26,50 @@
                                   0))})
 
 ; toggleterm
-(let [st {}
-      open_idx (fn [idx]
-                 (-> (case (. st idx)
-                       term term
-                       _ (let [cwd (vim.fn.fnamemodify (vim.fn.getcwd) ":t")
-                               session (.. cwd "_" idx)
-                               ; WIP: on_create (fn [term] (term:send (.. "zellij -s " session " --layout " zellij_layout))
-                               term (-> (require :toggleterm.terminal)
-                                        (. :Terminal)
-                                        (: :new
-                                           {:direction :float
-                                            :float_opts {:border :none}
-                                            :cmd (.. "zellij attach " session
-                                                     " --create")}))]
-                           (tset st idx term)
-                           term))
-                     (: :open)))
+(fn tmux_attach_or_create [session window]
+  (if (-> (vim.system [:tmux :has-session :-t session])
+          (: :wait)
+          (. :code)
+          (not= 0))
+      (: (vim.system [:tmux :new-session :-d :-s session]) :wait))
+  (if (not= window "")
+      (let [windows (-> (vim.system [:tmux :list-windows :-t session])
+                        (: :wait)
+                        (. :stdout)
+                        (: :gmatch "[^\n]+"))
+            exists (accumulate [acc false w _ windows]
+                     (or acc
+                         (not= (w:match (.. "^" (vim.pesc window) ":")) nil)))]
+        (if (not exists)
+            (: (vim.system [:tmux :new-window :-t (.. session ":" window)])
+               :wait)))))
+
+(local toggleterm {})
+(let [open_idx (fn [idx]
+                 (let [terminal (require :toggleterm.terminal)
+                       cwd (vim.fn.fnamemodify (vim.fn.getcwd) ":t")
+                       target (.. cwd "_" idx)]
+                   (tmux_attach_or_create target :0)
+                   (-> (case (. toggleterm idx)
+                         t t
+                         _ (let [t (terminal.Terminal:new {:direction :float
+                                                           :float_opts {:border :single}
+                                                           :cmd (.. "tmux attach-session -t "
+                                                                    target)})]
+                             (tset toggleterm idx t)
+                             t))
+                       (: :open))))
       is_open_idx (fn [idx]
-                    (let [term (. st idx)]
-                      (and term (term:is_open))))
+                    (let [t (. toggleterm idx)] (and t (t:is_open))))
       close_idx (fn [idx]
-                  (let [term (. st idx)]
-                    (if (and term (term:is_open))
-                        (term:close))))]
+                  (let [t (. toggleterm idx)]
+                    (if (and t (t:is_open))
+                        (t:close))))]
   (for [i 0 9]
     (M.register (.. :term i)
                 {:open (fn [] (open_idx i))
                  :close (fn [] (close_idx i))
-                 :is_open (fn [] (is_open_idx i))})
-    (create_command (.. :ClearTerm i) (fn [] (tset st i nil)) {})))
+                 :is_open (fn [] (is_open_idx i))})))
 
 ; gitu
 (var gitu nil)
@@ -123,8 +137,7 @@
 ; gitsigns
 (let [signs (require :gitsigns)
       open (fn []
-             (signs.blame)
-             ;; 待つと安定する...
+             (signs.blame) ; ; 待つと安定する...
              (vim.defer_fn (fn []
                              (vim.cmd "wincmd w"))
                100))

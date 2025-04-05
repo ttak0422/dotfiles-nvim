@@ -88,6 +88,13 @@ with pkgs.vimPlugins;
   toggler = {
     package = pkgs.vimPlugins.toggler;
     depends = [ style.noice ];
+    extraPackages = with pkgs; [
+      (writeShellApplication {
+        name = "tmux";
+        runtimeInputs = [ ];
+        text = ''${tmux}/bin/tmux -f ${../tmux/tmux.conf} "$@"'';
+      })
+    ];
     postConfig = read ../lua/autogen/toggler.lua;
     hooks.modules = [ "toggler" ];
   };
