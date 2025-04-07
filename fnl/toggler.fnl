@@ -44,6 +44,7 @@
             (: (vim.system [:tmux :new-window :-t (.. session ":" window)])
                :wait)))))
 
+; TODO: refactor
 (local toggleterm {})
 (let [open_idx (fn [idx]
                  (let [terminal (require :toggleterm.terminal)
