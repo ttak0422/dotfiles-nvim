@@ -11,7 +11,7 @@
                 :<C-c> M.actions.quit
                 :a M.actions.newfile
                 :r M.actions.rename
-                :d M.actions.delete}
+                :d M.actions.wipeout}
       float {:winblend 0
              :curdir_window {:enable true :highlight_dirname true}
              :win_opts (fn []

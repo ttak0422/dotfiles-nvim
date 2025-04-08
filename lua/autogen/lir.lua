@@ -2,7 +2,7 @@
 local M = setmetatable({git = require("lir.git_status"), actions = require("lir.actions")}, {__index = require("lir")})
 local ignore = {".DS_Store"}
 local devicons = {enable = true, highlight_dirname = true}
-local mappings = {e = M.actions.edit, ["<CR>"] = M.actions.edit, L = M.actions.edit, H = M.actions.up, q = M.actions.quit, ["<C-c>"] = M.actions.quit, a = M.actions.newfile, r = M.actions.rename, d = M.actions.delete}
+local mappings = {e = M.actions.edit, ["<CR>"] = M.actions.edit, L = M.actions.edit, H = M.actions.up, q = M.actions.quit, ["<C-c>"] = M.actions.quit, a = M.actions.newfile, r = M.actions.rename, d = M.actions.wipeout}
 local float
 local function _1_()
   local width = math.floor((vim.o.columns / 2))
