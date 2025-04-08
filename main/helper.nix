@@ -96,6 +96,7 @@ with pkgs.vimPlugins;
           let
             conf = writeText "tmux.conf" ''
               set -g status off
+              set -g update-environment "NVIM "
 
               # keymaps
               bind r source-file ${placeholder "out"} \; display-message "Reload!"
