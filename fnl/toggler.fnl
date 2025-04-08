@@ -44,16 +44,14 @@
             (: (vim.system [:tmux :new-window :-t (.. session ":" window)])
                :wait)))))
 
-; TODO: refactor
 (local toggleterm {})
 (let [open_idx (fn [idx]
                  (let [terminal (require :toggleterm.terminal)
                        cwd (vim.fn.fnamemodify (vim.fn.getcwd) ":t")
                        target (.. cwd "_" idx)]
                    (tmux_attach_or_create target :0)
-                   (-> (case (. toggleterm idx)
-                         t t
-                         _ (let [t (terminal.Terminal:new {:direction :float
+                   (-> (or (. toggleterm idx)
+                           (let [t (terminal.Terminal:new {:direction :float
                                                            :float_opts {:border :single}
                                                            :cmd (.. "tmux attach-session -t "
                                                                     target)})]
