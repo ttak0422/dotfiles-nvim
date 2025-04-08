@@ -92,21 +92,17 @@ with pkgs.vimPlugins;
       (writeShellApplication {
         name = "tmux";
         runtimeInputs = [ ];
-        text =
-          let
-            conf = writeText "tmux.conf" ''
-              set -g status off
-              set -g update-environment "NVIM "
+        text = ''${tmux}/bin/tmux -f ${writeText "tmux.conf" ''
+          set -g status off
+          set -g update-environment "NVIM "
 
-              # keymaps
-              bind r source-file ${placeholder "out"} \; display-message "Reload!"
+          # keymaps
+          bind r source-file ${placeholder "out"} \; display-message "Reload!"
 
-              # plugins
-              run-shell ${tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
-              run-shell ${tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux
-            '';
-          in
-          ''${tmux}/bin/tmux -f ${conf} "$@"'';
+          # plugins
+          run-shell ${tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
+          run-shell ${tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux
+        ''} "$@"'';
       })
     ];
     postConfig = read ../lua/autogen/toggler.lua;
