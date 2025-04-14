@@ -3395,11 +3395,11 @@
     "morimo": {
       "flake": false,
       "locked": {
-        "lastModified": 1743299995,
-        "narHash": "sha256-AUcWqdmZKmGjHSuSxwBfIzB8pecrtKK789QBHC+xM0A=",
+        "lastModified": 1744602478,
+        "narHash": "sha256-DShaL4TFPDAZHX/8h+Naq8wptfp3d0Bfpzobyr/dw3w=",
         "owner": "ttak0422",
         "repo": "morimo",
-        "rev": "791c00f2c980e92e5014618d0138142ccdd3580d",
+        "rev": "4a4cbc3a24dd2ab5e91f829267e8f33fe29c2a69",
         "type": "github"
       },
       "original": {
