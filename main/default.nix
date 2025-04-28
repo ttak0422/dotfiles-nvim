@@ -2,7 +2,7 @@
 let
   inherit (pkgs) callPackage;
   read = builtins.readFile;
-  package = pkgs.pkgs-stable.neovim-unwrapped;
+  package = pkgs.neovim-unwrapped;
 
   extraPackages = with pkgs; [
     neovim-remote
