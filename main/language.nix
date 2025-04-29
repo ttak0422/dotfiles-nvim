@@ -68,7 +68,7 @@ rec {
           gitlint
           hadolint
           # ctags-lsp
-          pkgs.pkgs-stable.vtsls
+          pkgs.vtsls
         ];
       }
       climbdir-nvim
