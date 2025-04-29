@@ -3035,11 +3035,11 @@
     "inc-rename-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1737408744,
-        "narHash": "sha256-7XaYG2UUzFuvtmRALftDv2xlmR4xHF/OjhoGTz0mnl4=",
+        "lastModified": 1742763317,
+        "narHash": "sha256-Uz3nwx8Rvlo+Fuacq+xg/8maKbZ/83Va4IAFdf5HKrM=",
         "owner": "smjonas",
         "repo": "inc-rename.nvim",
-        "rev": "f9b9e5b9a75074810f40881b7e254b5bbeaf122e",
+        "rev": "87ebe7bee0b83d3b6e4f1494c74abed21b318175",
         "type": "github"
       },
       "original": {
@@ -4247,11 +4247,11 @@
     "nui-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1741233810,
-        "narHash": "sha256-BYTY2ezYuxsneAl/yQbwL1aQvVWKSsN3IVqzTlrBSEU=",
+        "lastModified": 1745394971,
+        "narHash": "sha256-Ne2evWxGUjRzhCGPibmrhNBCWmzUEHxT/U14iolptXw=",
         "owner": "MunifTanjim",
         "repo": "nui.nvim",
-        "rev": "8d3bce9764e627b62b07424e0df77f680d47ffdb",
+        "rev": "8d5b0b568517935d3c84f257f272ef004d9f5a59",
         "type": "github"
       },
       "original": {
@@ -4599,11 +4599,11 @@
     "nvim-notify": {
       "flake": false,
       "locked": {
-        "lastModified": 1737405174,
-        "narHash": "sha256-6vNfc7E9DMXF0IBXJCLA8Rp+uOgbDch/Q7beW0ys3Vo=",
+        "lastModified": 1744548826,
+        "narHash": "sha256-m4dQ8KuMhbEpRh6zLTlIUDN9ojFj69LZnXXLepmdFI8=",
         "owner": "rcarriga",
         "repo": "nvim-notify",
-        "rev": "22f29093eae7785773ee9d543f8750348b1a195c",
+        "rev": "b5825cf9ee881dd8e43309c93374ed5b87b7a896",
         "type": "github"
       },
       "original": {
