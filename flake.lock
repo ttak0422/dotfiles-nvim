@@ -304,11 +304,11 @@
     "climbdir-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1740932991,
-        "narHash": "sha256-RqE4v07hnVyiOLu8BFC2aPXiAOot+gTH1poLjkwskqA=",
+        "lastModified": 1744195421,
+        "narHash": "sha256-IwOzEXg1/klGLqAhfMm1ps9+O1u3llIzsPNVTLSQVjU=",
         "owner": "kyoh86",
         "repo": "climbdir.nvim",
-        "rev": "d4183801f3defcbd2664413beb36be2a0c47d881",
+        "rev": "9844e5129c2e066bac1bd7953a87f670fbc44cad",
         "type": "github"
       },
       "original": {
