@@ -6095,11 +6095,11 @@
     "tiny-inline-diagnostic-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1743410095,
-        "narHash": "sha256-g2gfvjqoApbngI6m+fiKZD93bgDDf69Qq+BFrwBYYl0=",
+        "lastModified": 1744957228,
+        "narHash": "sha256-9o+vHZVpY46j2xPOgjgT2JUfJ+FAzJGJaj6LXQ77QtU=",
         "owner": "rachartier",
         "repo": "tiny-inline-diagnostic.nvim",
-        "rev": "15becb1c2a4b90321214d3db45fe36829fc48b8d",
+        "rev": "cd401038de4cbae37651cfe02510294ccf5cdc98",
         "type": "github"
       },
       "original": {
