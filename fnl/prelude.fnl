@@ -4,7 +4,7 @@
 
 (each [k v (pairs {:langmenu :none
                    :shortmess (.. vim.o.shortmess :sWcS)
-                   :cmdheight 1
+                   :cmdheight 0
                    :showmode false
                    :termguicolors true
                    :number true
@@ -21,6 +21,9 @@
                    :wrap false
                    :completeopt []})]
   (tset vim.opt k v))
+
+(each [k v (pairs {:messagesopt "wait:3000,history:500"})]
+  (tset vim.o k v))
 
 (each [k v (pairs {:mapleader " "
                    :maplocalleader ","

@@ -361,6 +361,6 @@ heirline.setup({
 
 vim.api.nvim_create_autocmd("VimResized", {
 	callback = function()
-		vim.o.cmdheight = 1
+		vim.o.cmdheight = 0
 	end,
 })
