@@ -84,20 +84,31 @@ rec {
       denops
       {
         package = skkeleton;
-        depends = [
-          denops
-          # {
-          #   package = skkeleton_indicator-nvim;
-          #   postConfig = read ../lua/autogen/skkeleton_indicator.lua;
-          # }
-        ];
-        postConfig = {
-          language = "vim";
-          code = read ../vim/skk.vim;
-          args = {
-            jisyo = "${pkgs.skk-dict}/SKK-JISYO.L";
-          };
-        };
+        postConfig = ''
+          local active_server = vim.system({"lsof", "-i", "tcp:1178"}):wait().stdout:match("yaskkserv") ~= nil
+
+          if active_server then
+            vim.fn["skkeleton#config"]({
+              sources = { "skk_server" },
+              globalDictionaries = { "${pkgs.skk-dict}/SKK-JISYO.L" },
+              skkServerHost       = "127.0.0.1",
+              skkServerPort       = 1178,
+              markerHenkan        = "",
+              markerHenkanSelect  = "",
+            })
+          else
+            vim.fn["skkeleton#config"]({
+              sources = { "skk_dictionary" },
+              globalDictionaries = { "${pkgs.skk-dict}/SKK-JISYO.L" },
+              markerHenkan        = "",
+              markerHenkanSelect  = "",
+            })
+          end
+
+          vim.keymap.set("i", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
+          vim.keymap.set("c", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
+          vim.keymap.set("t", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
+        '';
         useDenops = true;
       }
       {

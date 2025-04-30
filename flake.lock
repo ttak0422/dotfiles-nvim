@@ -5584,11 +5584,11 @@
     "skkeleton": {
       "flake": false,
       "locked": {
-        "lastModified": 1736064963,
-        "narHash": "sha256-V86J+8rg1/5ZUL9t0k2S5H+z7KZ1DZwLwmb5yM0+vts=",
+        "lastModified": 1745739517,
+        "narHash": "sha256-u5fWC8a4HBGgWinGH5KCmusRJSalrVv7ke4YUkBj+zs=",
         "owner": "vim-skk",
         "repo": "skkeleton",
-        "rev": "8bb1b8782227291c8cbe2aa62a9af732557690cc",
+        "rev": "dcd538c1cb63026543665d762feb4740d591ddf5",
         "type": "github"
       },
       "original": {
