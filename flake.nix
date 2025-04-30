@@ -319,10 +319,6 @@
       url = "github:rbtnn/vim-ambiwidth";
       flake = false;
     };
-    vim-asterisk = {
-      url = "github:haya14busa/vim-asterisk";
-      flake = false;
-    };
     auto-indent-nvim = {
       url = "github:VidocqH/auto-indent.nvim";
       flake = false;

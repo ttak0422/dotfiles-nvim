@@ -5445,7 +5445,6 @@
         "undotree": "undotree",
         "venn-nvim": "venn-nvim",
         "vim-ambiwidth": "vim-ambiwidth",
-        "vim-asterisk": "vim-asterisk",
         "vim-bufsurf": "vim-bufsurf",
         "vim-markdown": "vim-markdown",
         "vim-mr": "vim-mr",
@@ -6314,22 +6313,6 @@
       "original": {
         "owner": "rbtnn",
         "repo": "vim-ambiwidth",
-        "type": "github"
-      }
-    },
-    "vim-asterisk": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1580751879,
-        "narHash": "sha256-MkuY+hIgLiIeJMzF2W6WuwlDQMTHlASs+29NvYlMqa4=",
-        "owner": "haya14busa",
-        "repo": "vim-asterisk",
-        "rev": "77e97061d6691637a034258cc415d98670698459",
-        "type": "github"
-      },
-      "original": {
-        "owner": "haya14busa",
-        "repo": "vim-asterisk",
         "type": "github"
       }
     },
