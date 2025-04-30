@@ -1,53 +1,37 @@
 -- [nfnl] Compiled from fnl/lsp.fnl by https://github.com/Olical/nfnl, do not edit.
-local lsp = require("lspconfig")
-local climb = require("climbdir")
-local marker = require("climbdir.marker")
-local capabilities = dofile(args.capabilities_path)
-lsp.lua_ls.setup({settings = {Lua = {runtime = {version = "LuaJIT", special = {reload = "require"}}, diagnostics = {globals = {"vim"}}}, workspace = {library = {vim.fn.expand("$VIMRUNTIME/lua")}}, telemetry = {enable = false}}, capabilities = capabilities})
-lsp.fennel_ls.setup({settings = {["fennel-ls"] = {["extra-globals"] = "vim"}}, capabilities = capabilities})
-lsp.nil_ls.setup({autostart = true, settings = {["nil"] = {formatting = {command = {"nixpkgs-fmt"}}}}, capabilities = capabilities})
-lsp.bashls.setup({capabilities = capabilities})
-lsp.csharp_ls.setup({capabilities = capabilities})
-lsp.pyright.setup({capabilities = capabilities})
-lsp.solargraph.setup({capabilities = capabilities})
-lsp.taplo.setup({capabilities = capabilities})
-lsp.gopls.setup({capabilities = capabilities})
-lsp.dartls.setup({capabilities = capabilities})
-lsp.dhall_lsp_server.setup({capabilities = capabilities})
-lsp.yamlls.setup({settings = {yaml = {keyOrdering = false}}, capabilities = capabilities})
-lsp.html.setup({capabilities = capabilities})
-lsp.cssls.setup({capabilities = capabilities})
-lsp.jsonls.setup({capabilities = capabilities})
-local function _1_(path)
-  return climb.climb(path, marker.one_of(marker.has_readable_file("package.json"), marker.has_directory("node_modules")), {halt = marker.one_of(marker.has_readable_file("deno.json"))})
-end
-lsp.vtsls.setup({settings = {separate_diagnostic_server = true, publish_diagnostic_on = "insert_leave", typescript = {suggest = {completeFunctionCalls = true}, preferences = {importModuleSpecifier = "relative"}}}, root_dir = _1_, flags = {debounce_text_changes = 1000}, vtsls = {experimental = {completion = {enableServerSideFuzzyMatch = true}}}, capabilities = capabilities, single_file_support = false})
-local function _2_(path)
-  local found = climb.climb(path, marker.one_of(marker.has_readable_file("deno.json"), marker.has_readable_file("deno.jsonc"), marker.has_directory("denops")), {halt = marker.one_of(marker.has_readable_file("package.json"), marker.has_directory("node_modules"))})
-  local buf = vim.b[vim.fn.bufnr()]
-  if found then
-    buf.deno_deps_candidate = (found .. "/deps.ts")
-  else
-  end
-  return found
-end
-lsp.denols.setup({root_dir = _2_, init_options = {lint = true, suggest = {completeFunctionCalls = true, names = true, paths = true, autoImports = true, imports = {autoDiscover = true, hosts = vim.empty_dict()}}, unstable = false}, settings = {deno = {enable = true}}, capabilities = capabilities, single_file_support = false})
-lsp.marksman.setup({capabilities = capabilities})
-lsp.ast_grep.setup({capabilities = capabilities})
+vim.lsp.set_log_level(vim.log.levels.ERROR)
 do
-  local luacheck = require("efmls-configs.linters.luacheck")
-  local eslint = require("efmls-configs.linters.eslint")
-  local yamllint = require("efmls-configs.linters.yamllint")
-  local statix = require("efmls-configs.linters.statix")
-  local stylelint = require("efmls-configs.linters.stylelint")
-  local vint = require("efmls-configs.linters.vint")
-  local shellcheck = require("efmls-configs.linters.shellcheck")
-  local pylint = require("efmls-configs.linters.pylint")
-  local gitlint = require("efmls-configs.linters.gitlint")
-  local hadolint = require("efmls-configs.linters.hadolint")
-  local languages = {lua = {luacheck}, typescript = {eslint}, javascript = {eslint}, sh = {shellcheck}, yaml = {yamllint}, nix = {statix}, css = {stylelint}, scss = {stylelint}, less = {stylelint}, saas = {stylelint}, vim = {vint}, python = {pylint}, gitcommit = {gitlint}, docker = {hadolint}}
-  local settings = {rootMarkers = {".git/"}, languages = languages}
-  local init_options = {documentFormatting = true, documentRangeFormatting = true}
-  lsp.efm.setup({single_file_support = true, filetypes = vim.tbl_keys(languages), settings = settings, init_options = init_options, capabilities = capabilities})
+  local tmp_9_auto = vim.lsp.handlers
+  tmp_9_auto["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = "none"})
+  tmp_9_auto["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {update_in_insert = false})
 end
-return lsp.kotlin_language_server.setup({capabilities = capabilities})
+vim.diagnostic.config({severity_sort = true, signs = {text = {[vim.diagnostic.severity.ERROR] = "\239\145\132", [vim.diagnostic.severity.WARN] = "\239\145\132", [vim.diagnostic.severity.INFO] = "\239\145\132", [vim.diagnostic.severity.HINT] = "\239\145\132"}, numhl = {[vim.diagnostic.severity.ERROR] = "", [vim.diagnostic.severity.WARN] = "", [vim.diagnostic.severity.INFO] = "", [vim.diagnostic.severity.HINT] = ""}}, update_in_insert = false, virtual_text = false})
+do
+  local cmd
+  local function _1_(c)
+    return ("<cmd>" .. c .. "<cr>")
+  end
+  cmd = _1_
+  local noice_lsp = require("noice.lsp")
+  local callback
+  local function _2_(ctx)
+    local bufnr = ctx.buf
+    local desc
+    local function _3_(d)
+      return {noremap = true, silent = true, buffer = bufnr, desc = d}
+    end
+    desc = _3_
+    for _, k in ipairs({{"gd", vim.lsp.buf.definition, "go to definition"}, {"gi", vim.lsp.buf.implementation, "go to implementation"}, {"gr", vim.lsp.buf.references, "go to references"}, {"<Leader>K", vim.lsp.buf.signature_help, "show signature"}, {"<Leader>D", vim.lsp.buf.type_definition, "show type"}, {"<Leader>ca", vim.lsp.buf.code_action, "code action"}, {"K", noice_lsp.hover, "show doc"}, {"gD", cmd("Glance definitions"), "go to definition"}, {"gI", cmd("Glance implementations"), "go to impl"}, {"gR", cmd("Glance references"), "go to references"}, {"<leader>cc", cmd("Neogen class"), "class comment"}, {"<leader>cf", cmd("Neogen func"), "fn comment"}, {"<leader>rn", ":IncRename ", "rename"}}) do
+      vim.keymap.set("n", k[1], k[2], desc(("\238\171\132 " .. k[3])))
+    end
+    local function _4_()
+      return (":IncRename " .. vim.fn.expand("<cword>"))
+    end
+    vim.keymap.set("n", "<leader>rN", _4_, {noremap = true, silent = true, expr = true, buffer = bufnr, desc = "rename"})
+    vim.keymap.set("n", "<leader>cF", vim.lsp.buf.format, desc("\238\171\132 format"))
+    return vim.keymap.set({"n", "v"}, "<C-CR>", vim.lsp.buf.format, desc("\238\171\132 format"))
+  end
+  callback = _2_
+  vim.api.nvim_create_autocmd("LspAttach", {desc = "register lsp keymaps", callback = callback})
+end
+return vim.lsp.enable({"ast_grep", "bashls", "csharp_ls", "cssls", "dartls", "denols", "dhall_lsp_server", "efm", "fennel_ls", "gopls", "html", "jsonls", "kotlin_language_server", "lua_ls", "marksman", "nil_ls", "pyright", "solargraph", "taplo", "vtsls", "yamlls"})

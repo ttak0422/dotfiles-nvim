@@ -99,11 +99,10 @@ rec {
       taplo-cli
       kotlin-language-server
     ];
-    preConfig =
-      # ''
-      #   vim.env.PATH = "${pkgs.universal-ctags}/bin:" .. vim.env.PATH
-      # '' +
-      read ../lua/autogen/lsp-pre.lua;
+    # preConfig =
+    #   # ''
+    #   #   vim.env.PATH = "${pkgs.universal-ctags}/bin:" .. vim.env.PATH
+    #   # '';
     postConfig = {
       code = read ../lua/autogen/lsp.lua;
       args.capabilities_path = ../lua/autogen/capabilities.lua;

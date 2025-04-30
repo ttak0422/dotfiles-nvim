@@ -22,7 +22,7 @@ let
     ${read ./../lua/autogen/prelude.lua}
   '';
   after = {
-    inherit (callPackage ./after.nix { }) plugin ftplugin ftdetect;
+    inherit (callPackage ./after.nix { }) plugin ftplugin ftdetect lsp;
   };
   eager = with pkgs.vimPlugins; {
     morimo.package = morimo;

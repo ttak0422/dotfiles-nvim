@@ -12,6 +12,15 @@ let
     };
   };
 
+  lsp = {
+    denols = read ../lua/autogen/after/lsp/denols.lua;
+    efm = read ../lua/autogen/after/lsp/efm.lua;
+    fennel_ls = read ../lua/autogen/after/lsp/fennel_ls.lua;
+    lua_ls = read ../lua/autogen/after/lsp/lua_ls.lua;
+    nil_ls = read ../lua/autogen/after/lsp/nil_ls.lua;
+    yamlls = read ../lua/autogen/after/lsp/yamlls.lua;
+  };
+
   hashkellTools = ''
     dofile("${pkgs.vimPlugins.haskell-tools-nvim}/ftplugin/haskell.lua")
   '';
@@ -106,5 +115,10 @@ let
   };
 in
 {
-  inherit plugin ftplugin ftdetect;
+  inherit
+    plugin
+    ftplugin
+    ftdetect
+    lsp
+    ;
 }
