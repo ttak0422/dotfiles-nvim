@@ -1436,6 +1436,10 @@
       url = "github:h3pei/trace-pr.nvim";
       flake = false;
     };
+    lasterisk-nvim = {
+      url = "github:rapan931/lasterisk.nvim";
+      flake = false;
+    };
   };
 
   outputs =

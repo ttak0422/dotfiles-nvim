@@ -8,6 +8,14 @@ let
 in
 with pkgs.vimPlugins;
 rec {
+  _search = {
+    packages = [
+      lasterisk-nvim
+      nvim-hlslens
+    ];
+    postConfig = read ../lua/autogen/_search.lua;
+    hooks.events = [ "CursorMoved" ];
+  };
   telescope = {
     packages = [
       telescope-nvim
@@ -40,11 +48,6 @@ rec {
       code = read ../vim/asterisk.vim;
     };
     hooks.events = [ "CursorMoved" ];
-  };
-  hlslens = {
-    package = nvim-hlslens;
-    postConfig = read ../lua/autogen/hlslens.lua;
-    hooks.events = [ "CmdlineEnter" ];
   };
   legendary = {
     package = legendary-nvim;

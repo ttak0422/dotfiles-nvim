@@ -3120,6 +3120,22 @@
         "type": "github"
       }
     },
+    "lasterisk-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1672212846,
+        "narHash": "sha256-tZD9zcYUQba5xl1oquJrjpV2qiWB2A8zCLRTlPPWc74=",
+        "owner": "rapan931",
+        "repo": "lasterisk.nvim",
+        "rev": "bbcfcaeca50f686e338a03386e41645fc3305f44",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rapan931",
+        "repo": "lasterisk.nvim",
+        "type": "github"
+      }
+    },
     "leap-ast-nvim": {
       "flake": false,
       "locked": {
@@ -4503,11 +4519,11 @@
     "nvim-hlslens": {
       "flake": false,
       "locked": {
-        "lastModified": 1718365029,
-        "narHash": "sha256-2yfzkdn1tsXDEoiRLBcA6ZcttoV+vzDlloofFccFvY4=",
+        "lastModified": 1745645721,
+        "narHash": "sha256-BwqrIytPWy3CZ4ZXIPWh54ZpWJbj27aqxzzdFAr9PRc=",
         "owner": "kevinhwang91",
         "repo": "nvim-hlslens",
-        "rev": "1db56afda3e85791a14b096e483dfda699dd9163",
+        "rev": "1e650c136f9f9d5fefe34947ad27c80010d3321f",
         "type": "github"
       },
       "original": {
@@ -5265,6 +5281,7 @@
         "jol": "jol",
         "junit-console": "junit-console",
         "kmonad-vim": "kmonad-vim",
+        "lasterisk-nvim": "lasterisk-nvim",
         "leap-ast-nvim": "leap-ast-nvim",
         "leap-nvim": "leap-nvim",
         "leap-spooky-nvim": "leap-spooky-nvim",

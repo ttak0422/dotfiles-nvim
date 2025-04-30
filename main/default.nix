@@ -134,9 +134,8 @@ let
       ;
     inherit (callPackage ./quickfix.nix { }) bqf qf qfreplace;
     inherit (callPackage ./search.nix { })
+      _search
       telescope
-      asterisk
-      hlslens
       legendary
       reacher
       fzf
