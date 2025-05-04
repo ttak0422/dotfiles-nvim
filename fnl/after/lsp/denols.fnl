@@ -1,3 +1,6 @@
+(local climb (require :climbdir))
+(local marker (require :climbdir.marker))
+
 {:single_file_support false
  :root_dir (fn [path]
              (climb.climb path
