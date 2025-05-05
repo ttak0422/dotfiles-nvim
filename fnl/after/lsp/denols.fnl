@@ -1,14 +1,6 @@
-(local climb (require :climbdir))
-(local marker (require :climbdir.marker))
-
 {:single_file_support false
- :root_dir (fn [path]
-             (climb.climb path
-                          (marker.one_of (marker.has_readable_file :deno.json)
-                                         (marker.has_readable_file :deno.jsonc)
-                                         (marker.has_directory :denops))
-                          {:halt (marker.one_of (marker.has_readable_file :package.json)
-                                                (marker.has_directory :node_modules))}))
+ :workspace_required true
+ :root_markers [:deno.json :deno.jsonc :.deno_project]
  :init_options {:lint true
                 :unstable false
                 :suggest {:completeFunctionCalls true

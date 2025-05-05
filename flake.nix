@@ -277,10 +277,6 @@
       url = "github:stevearc/dressing.nvim";
       flake = false;
     };
-    climbdir-nvim = {
-      url = "github:kyoh86/climbdir.nvim";
-      flake = false;
-    };
     efmls-configs-nvim = {
       url = "github:creativenull/efmls-configs-nvim";
       flake = false;

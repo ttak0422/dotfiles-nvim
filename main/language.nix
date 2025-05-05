@@ -71,7 +71,6 @@ rec {
           pkgs.vtsls
         ];
       }
-      climbdir-nvim
       # virtual-types-nvim
     ];
     extraPackages = with pkgs; [

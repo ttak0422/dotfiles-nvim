@@ -14,6 +14,7 @@ let
 
   lsp = {
     denols = read ../lua/autogen/after/lsp/denols.lua;
+    vtsls = read ../lua/autogen/after/lsp/vtsls.lua;
     efm = read ../lua/autogen/after/lsp/efm.lua;
     fennel_ls = read ../lua/autogen/after/lsp/fennel_ls.lua;
     lua_ls = read ../lua/autogen/after/lsp/lua_ls.lua;
