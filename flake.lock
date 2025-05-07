@@ -4519,11 +4519,11 @@
     "nvim-jdtls": {
       "flake": false,
       "locked": {
-        "lastModified": 1739436896,
-        "narHash": "sha256-pDwa4l7rT2L3l2cFiG/ErDyr4I2iOJ18ISjkiYXnBAM=",
+        "lastModified": 1745512700,
+        "narHash": "sha256-cMOZBw1xsYPa2lbVfO2w8YVdLtZls8igG6GwRq9+YWo=",
         "owner": "mfussenegger",
         "repo": "nvim-jdtls",
-        "rev": "2f7bff9b8d2ee1918b36ca55f19547d9d335a268",
+        "rev": "c23f200fee469a415c77265ca55b496feb646992",
         "type": "github"
       },
       "original": {
