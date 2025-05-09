@@ -25,10 +25,10 @@
                      :next {:rhs (fn []
                                    (: (: (require :harpoon) :list) :next))
                             :opts {:desc "next registered file"}}}
-                 :m {:prev {:rhs "<Plug>(Marks-prev)"
-                            :opts {:desc "prev mark"}}
-                     :next {:rhs "<Plug>(Marks-next)"
-                            :opts {:desc "next mark"}}}
+                 ; :m {:prev {:rhs "<Plug>(Marks-prev)"
+                 ;            :opts {:desc "prev mark"}}
+                 ;     :next {:rhs "<Plug>(Marks-next)"
+                 ;            :opts {:desc "next mark"}}}
                  :b {:prev {:rhs (cmd :bprevious) :opts {:desc "prev buffer"}}
                      :next {:rhs (cmd :bnext) :opts {:desc "next buffer"}}}
                  :B {:prev {:rhs (cmd :BufSurfBack)
