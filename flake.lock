@@ -2756,11 +2756,11 @@
     "goto-preview": {
       "flake": false,
       "locked": {
-        "lastModified": 1719471879,
-        "narHash": "sha256-TyTijbaRUJjrVy3+fjR5WgRA30dNvawElFiOUb9HhuI=",
+        "lastModified": 1743610349,
+        "narHash": "sha256-WPY0lRkbCEdmnRaOOOCGJEl9a6/GtQqBBdcCy7arAuc=",
         "owner": "rmagatti",
         "repo": "goto-preview",
-        "rev": "1519ea3512828c944eed5b2bbb66a8f8deb92447",
+        "rev": "d1faf6ea992b5bcaaaf2c682e1aba3131a01143e",
         "type": "github"
       },
       "original": {
