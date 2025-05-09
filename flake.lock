@@ -4311,11 +4311,11 @@
     "nvim-bqf": {
       "flake": false,
       "locked": {
-        "lastModified": 1735989427,
-        "narHash": "sha256-JhVi208hCsenyYy5XIyjeyeAopgw8cHzBm1w2QH+tf4=",
+        "lastModified": 1743258321,
+        "narHash": "sha256-prYpUlsPIESgA3HXSk5WNFXhxAYVFZeOMQoYZxq9rj8=",
         "owner": "kevinhwang91",
         "repo": "nvim-bqf",
-        "rev": "ebb6d2689e4427452180f17c53f29f7e460236f1",
+        "rev": "e20417d5e589e03eaaaadc4687904528500608be",
         "type": "github"
       },
       "original": {
