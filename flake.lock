@@ -5503,11 +5503,11 @@
     "scope-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1711884167,
-        "narHash": "sha256-8Bd1DI6nuUxkTCx0wCfWKHdi6UXQNuDygj5UuSGypLs=",
+        "lastModified": 1746736850,
+        "narHash": "sha256-VS+r2QmS5ep3MKS2/X2ffdwP4gbGOeUEspZ4CXDC3eE=",
         "owner": "tiagovla",
         "repo": "scope.nvim",
-        "rev": "86a0f5b594b08b2ad65f470ffdee81654942b6ac",
+        "rev": "6b4208f017da9b122d69ddc5841e040dffe7313c",
         "type": "github"
       },
       "original": {

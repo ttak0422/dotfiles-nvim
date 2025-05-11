@@ -19,6 +19,7 @@
 
       bundler-nvim = {
         main = import ./main params;
+        v2 = import ./v2 params;
         test-skk = import ./test-skk params;
         tiny = {
           eager = {
