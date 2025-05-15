@@ -151,6 +151,8 @@ inputs: with inputs; [
         version = inputs.ctags-lsp.rev;
         vendorHash = null;
       };
+
+      inherit (blink-cmp.packages) blink-cmp;
     }
   )
 ]

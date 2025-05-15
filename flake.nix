@@ -1432,6 +1432,7 @@
       url = "github:rapan931/lasterisk.nvim";
       flake = false;
     };
+    blink-cmp.url = "github:Saghen/blink.cmp";
   };
 
   outputs =

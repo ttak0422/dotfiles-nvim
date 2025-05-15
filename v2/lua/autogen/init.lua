@@ -68,4 +68,7 @@ do
   end
 end
 vim.cmd("colorscheme morimo")
+for _, p in ipairs({"nvim-notify", "treesitter", "gitsigns", "lir", "dap", "git-conflict", "lir"}) do
+  require("morimo").load(p)
+end
 return require("config-local").setup({silent = true})

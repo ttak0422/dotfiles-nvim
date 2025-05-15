@@ -83,4 +83,12 @@
 
 ; startup plugin configs
 (vim.cmd "colorscheme morimo")
+(each [_ p (ipairs [:nvim-notify
+                    :treesitter
+                    :gitsigns
+                    :lir
+                    :dap
+                    :git-conflict
+                    :lir])]
+  ((. (require :morimo) :load) p))
 ((. (require :config-local) :setup) {:silent true})
