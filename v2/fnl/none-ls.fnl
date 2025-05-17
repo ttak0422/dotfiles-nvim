@@ -1,14 +1,7 @@
 (local null_ls (require :null-ls))
-(local utils (require :null-ls.utils))
 (local diagnostics null_ls.builtins.diagnostics)
 (local formatting null_ls.builtins.formatting)
-
-(fn lsp_active? [lsp_name]
-  (let [bufnr (vim.api.nvim_get_current_buf)
-        clients (vim.lsp.get_clients {: bufnr})]
-    (accumulate [acc false _ client (ipairs clients)]
-      (or acc (= lsp_name client.name)))))
-
+(local utils (require :null-ls.utils))
 (local sources [;;; code actions ;;;
                 ;;; diagnostics ;;;
                 diagnostics.actionlint
@@ -18,7 +11,8 @@
                 diagnostics.dotenv_linter
                 diagnostics.editorconfig_checker
                 diagnostics.gitlint
-                diagnostics.hodolint
+                ; TODO: 
+                ; diagnostics.hodolint
                 diagnostics.ktlint
                 diagnostics.selene
                 diagnostics.staticcheck
@@ -26,7 +20,15 @@
                 diagnostics.stylelint
                 diagnostics.vint
                 diagnostics.yamllint
-                (. (require "none-ls.diagnostics.eslint"))
+                (formatting.prettier.with {:prefer_local :node_modules/.bin
+                                           ; `condition`は起動時に固定されるため利用しない
+                                           ; LSPの判定と同様の値を利用する。Activeになるものの適用されない。
+                                           :runtime_condition #((. (require :null-ls.util)
+                                                                   :root_has_file) [:tsconfig.json
+                                                                                    :package.json
+                                                                                    :jsconfig.json
+                                                                                    :.node_project])})
+                (. (require :none-ls.diagnostics.eslint))
                 ;;; completion ;;;
                 ;;; formatting ;;;
                 formatting.biome
@@ -37,9 +39,6 @@
                 formatting.google_java_format
                 formatting.ktlint
                 formatting.nixfmt
-                (formatting.prettier.with {:prefer_local :node_modules/.bin
-                                           :runtime_condition (fn [...]
-                                                                (not (lsp_active? :denols)))})
                 formatting.shfmt
                 formatting.stylelint
                 formatting.stylua
@@ -53,18 +52,21 @@
                 :cmd [:nvim]
                 :debounce 300
                 :debug false
-                :default_timeout 50000
+                :default_timeout 20000
                 :diagnostic_config {}
-                :diagnostics_format "#{m}"
+                :diagnostics_format "#{m} (#{s})"
                 :fallback_severity vim.diagnostic.severity.ERROR
                 :log_level :warn
                 :notify_format "[null-ls] %s"
                 :on_attach nil
                 :on_init nil
                 :on_exit nil
-                :root_dir (utils.root_pattern :.null-ls-root :Makefile :.git)
+                :root_dir (utils.root_pattern [:.null-ls-root :.git])
                 :root_dir_async nil
                 :should_attach nil
                 :temp_dir nil
                 :update_in_insert false
                 : sources})
+
+(vim.api.nvim_create_user_command :NoneLsInfo #(vim.cmd :NullLsInfo) {})
+(vim.api.nvim_create_user_command :NoneLsLog #(vim.cmd :NullLsLog) {})

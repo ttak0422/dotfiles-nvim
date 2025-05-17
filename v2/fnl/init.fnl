@@ -33,43 +33,88 @@
                                           (vim.opt_local.formatoptions:remove :o))})
 
 ; register keymaps
+(macro leader [...]
+  `,(.. :<Leader> ...))
+
+(macro local_leader [...]
+  `,(.. :<LocalLeader> ...))
+
+(macro cmd [c]
+  `,(.. :<Cmd> c :<CR>))
+
 (let [opts {:noremap true :silent true}
       desc (fn [d] {:noremap true :silent true :desc d})
-      cmd (fn [c] (.. :<cmd> c :<cr>))
+      lua_ (fn [mod f opt]
+             #(if (= opt nil)
+                  ((. (require mod) f))
+                  ((. (require mod) f) opt)))
       git (fn []
             (vim.cmd :enew)
             (let [bufnr (vim.api.nvim_get_current_buf)
-                  on_exit (fn []
-                            (fn []
-                              (if (vim.api.nvim_buf_is_valid bufnr)
-                                  (vim.api.nvim_buf_delete bufnr {:force true}))))]
+                  on_exit ##(if (vim.api.nvim_buf_is_valid bufnr)
+                                (vim.api.nvim_buf_delete bufnr {:force true}))]
               (vim.fn.termopen :gitu {: on_exit})
               (vim.cmd :startinsert)
               (tset (. vim.bo bufnr) :bufhidden :wipe)
               (tset (. vim.bo bufnr) :swapfile false)
-              (tset (. vim.bo bufnr) :buflisted false) ; (vim.api.nvim_create_autocmd :BufLeave ;                              {:buffer bufnr ;                               :once true ;                               :callback on_exit})
+              (tset (. vim.bo bufnr) :buflisted false)
+              (vim.api.nvim_create_autocmd :BufLeave
+                                           {:buffer bufnr
+                                            :once true
+                                            :callback on_exit})
               (vim.api.nvim_create_autocmd :TermClose
                                            {:buffer bufnr
                                             :once true
-                                            :callback (fn []
-                                                        (vim.api.nvim_feedkeys :i
-                                                                               :n
-                                                                               false))})))
+                                            :callback #(vim.api.nvim_feedkeys :i
+                                                                              :n
+                                                                              false)})))
       toggle (fn [id]
-               (fn []
-                 ((. (require :toggler) :toggle) id)))]
+               #((. (require :toggler) :toggle) id))]
   (each [m ks (pairs {:n [["¥" "\\"]
                           [";" ":"]
-                          ; toggle
-                          [:tq (toggle :qf) (desc " quickfix")]
-                          [:tb
-                           (cmd "lua require('lir.float').toggle()")
+                          [:j :gj]
+                          [:k :gk]
+                          [:<esc><esc> (cmd :nohl)]
+                          ; close
+                          [(leader :q) (cmd :BufDel) (desc "close buffer")]
+                          [(leader :Q)
+                           (cmd :BufDelAll)
+                           (desc "close all buffers")]
+                          [(leader :A) (cmd :tabclose)]
+                          ;  Toggle
+                          [(leader :tq) (toggle :qf) (desc " quickfix")]
+                          [(leader :tb)
+                           (lua_ :lir.float :toggle)
                            (desc " explorer")]
-                          [:tB
-                           (cmd "lua require('oil').open()")
+                          [(leader :tB)
+                           (lua_ :oil :open)
                            (desc " explorer")]
-                          ; git
-                          [:<Leader>G git (desc " client")]]
+                          ; 󰢷 Harpoon
+                          [(leader :H)
+                           (toggle :harpoon)
+                           (desc "󰢷 show items")]
+                          [(leader :ha)
+                           (cmd "lua require('harpoon'):list():add()")
+                           (desc "󰢷 register item")]
+                          ;  Telescope
+                          [(leader :ff)
+                           (cmd "Telescope live_grep_args")
+                           (desc " livegrep")]
+                          [(leader :fF)
+                           (cmd "Telescope ast_grep")
+                           (desc " AST")]
+                          [(leader :fb)
+                           (cmd :TelescopeBuffer)
+                           (desc " buffer")]
+                          [(leader :ft)
+                           (cmd "Telescope sonictemplate templates")
+                           (desc " template")]
+                          ;  Git
+                          [(leader :G) git (desc " client")]
+                          [(leader :gb) (toggle :blame) (desc " blame")]
+                          [(leader :go) (cmd :TracePR) (desc " open PR")]
+                          ;
+                          ]
                       :i [["¥" "\\"]]
                       :c [["¥" "\\"]]
                       :t [["¥" "\\"] [:<S-Space> :<Space>]]
@@ -91,4 +136,5 @@
                     :git-conflict
                     :lir])]
   ((. (require :morimo) :load) p))
+
 ((. (require :config-local) :setup) {:silent true})

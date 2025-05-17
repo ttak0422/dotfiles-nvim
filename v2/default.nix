@@ -12,6 +12,7 @@ in
     neovim-remote
     inputs'.gitu.packages.gitu
     # gitu
+
   ];
 
   extraConfig = ''
@@ -69,7 +70,10 @@ in
     bufferPlugins =
       let
         treesitter = {
-          package = nvim-treesitter;
+          packages = [
+            nvim-treesitter
+            nvim-treesitter-textobjects
+          ];
           postConfig =
             let
               buildGrammar =
@@ -149,7 +153,6 @@ in
                 efm-langserver
                 stylua
                 luajitPackages.luacheck
-                # fnlfmt
                 nodePackages.prettier
                 nodePackages.eslint
                 nodePackages.fixjson
@@ -171,50 +174,8 @@ in
               ];
             }
             {
-              package = none-ls-nvim;
-              depends = [
-                plenary
-                none-ls-extras-nvim
-              ];
-              extraPackages =
-                with pkgs;
-                # diagnostics
-                [
-                  actionlint # GitHub Actions
-                  checkmake # Makefile
-                  checkstyle # Java
-                  deadnix # Nix
-                  dotenv-linter # .env
-                  editorconfig-checker # .editorconfig
-                  gitlint # Git
-                  hadolint # Dockerfile
-                  ktlint # Kotlin
-                  selene # Lua
-                  go-tools # Go (staticcheck)
-                  statix # Nix
-                  stylelint # CSS, SCSS, LESS, SASS
-                  vim-vint # Vim script
-                  yamllint # YAML
-                ]
-                ++
-                  # formatters
-                  [
-                    biome # WEB
-                    fantomas # F#
-                    fnlfmt # Fennel
-                    gofumpt # Go
-                    go-tools # Go
-                    google-java-format # Java
-                    ktlint # Kotlin
-                    nixfmt-rfc-style # Nix
-                    nodePackages.prettier # JS, TS, ...
-                    shfmt # shell
-                    stylelint # CSS, SCSS, LESS, SASS
-                    stylua # Lua
-                    html-tidy # HTML
-                    yapf # Python
-                  ];
-              postConfig = read "./fnl/none-ls.fnl";
+              package = guess-indent-nvim;
+              postConfig = read "./fnl/guess-indent.fnl";
             }
           ];
           postConfig = read "./fnl/lsp.fnl";
@@ -241,8 +202,56 @@ in
             rubyPackages.solargraph
             rust-analyzer
             taplo-cli
+            typos-lsp
             vscode-langservers-extracted
           ];
+        };
+        none-ls = {
+          package = none-ls-nvim;
+          depends = [
+            plenary
+            none-ls-extras-nvim
+            lsp
+          ];
+          extraPackages =
+            with pkgs;
+            # diagnostics
+            [
+              actionlint # GitHub Actions
+              checkmake # Makefile
+              checkstyle # Java
+              deadnix # Nix
+              dotenv-linter # .env
+              editorconfig-checker # .editorconfig
+              gitlint # Git
+              hadolint # Dockerfile
+              ktlint # Kotlin
+              selene # Lua
+              go-tools # Go (staticcheck)
+              statix # Nix
+              stylelint # CSS, SCSS, LESS, SASS
+              vim-vint # Vim script
+              yamllint # YAML
+            ]
+            ++
+              # formatters
+              [
+                biome # WEB
+                fantomas # F#
+                fnlfmt # Fennel
+                gofumpt # Go
+                go-tools # Go
+                google-java-format # Java
+                ktlint # Kotlin
+                nixfmt-rfc-style # Nix
+                nodePackages.prettier # JS, TS, ...
+                shfmt # shell
+                stylelint # CSS, SCSS, LESS, SASS
+                stylua # Lua
+                html-tidy # HTML
+                yapf # Python
+              ];
+          postConfig = read "./fnl/none-ls.fnl";
         };
         complete-blink = {
           packages = [ blink-cmp ];
@@ -257,6 +266,7 @@ in
         depends = [
           treesitter
           lsp
+          none-ls
           complete-blink
           {
             package = bufferline-nvim;
@@ -278,6 +288,58 @@ in
         ];
         hooks.events = [ "BufReadPost" ];
       };
+
+    inputPlugins = {
+      depends = [
+        {
+          package = nvim-autopairs;
+          depends = [ bufferPlugins ];
+          postConfig = read "./fnl/autopairs.fnl";
+        }
+        {
+          package = auto-save-nvim;
+          postConfig = read "./fnl/auto-save.fnl";
+        }
+      ];
+      hooks.events = [ "InsertEnter" ];
+    };
+
+    editPlugins = {
+      depends = [
+        {
+          package = nvim-surround;
+          depends = [ bufferPlugins ];
+          postConfig = read "./fnl/surround.fnl";
+        }
+        {
+          package = dmacro-vim;
+          postConfig = {
+            code = ''
+              inoremap <C-q> <Plug>(dmacro-play-macro)
+              nnoremap <C-q> <Plug>(dmacro-play-macro)
+            '';
+            language = "vim";
+          };
+        }
+        {
+          package = switch-vim;
+          preConfig = {
+            language = "vim";
+            code = ''
+              let g:switch_mapping = '-'
+            '';
+          };
+        }
+        {
+          package = which-key-nvim;
+          postConfig = read "./fnl/which-key.fnl";
+        }
+      ];
+      hooks.events = [
+        "InsertEnter"
+        "CursorMoved"
+      ];
+    };
 
     togglePlugins = {
       package = pkgs.vimPlugins.toggler;
@@ -311,34 +373,64 @@ in
       hooks.modules = [ "toggleterm.terminal" ];
     };
 
-    lir = {
+    telescope = {
       packages = [
-        lir-nvim
-        lir-git-status-nvim
+        telescope-nvim
+        telescope-fzf-native-nvim
+        telescope-live-grep-args-nvim
+        telescope-sonictemplate-nvim
+        telescope-sg
       ];
       depends = [
         plenary
-        devicons
+        quickfixPlugins
+        {
+          package = vim-sonictemplate.overrideAttrs (old: {
+            src = pkgs.nix-filter {
+              root = vim-sonictemplate.src;
+              exclude = [
+                "template/java"
+                "template/make"
+              ];
+            };
+          });
+          preConfig =
+            let
+              template = pkgs.stdenv.mkDerivation {
+                pname = "sonictemplate";
+                version = "custom";
+                src = ./../tmpl/sonic;
+                installPhase = ''
+                  mkdir $out
+                  cp -r ./* $out
+                '';
+              };
+            in
+            ''
+              vim.g.sonictemplate_vim_template_dir = "${template}"
+                           vim.g.sonictemplate_key = 0
+                           vim.g.sonictemplate_intelligent_key = 0
+                           vim.g.sonictemplate_postfix_key = 0
+            '';
+        }
       ];
-      postConfig = ''
-        require("morimo").load("lir")
-        ${read "./fnl/lir.fnl"}
-      '';
-      hooks.modules = [ "lir.float" ];
+      postConfig = read "./fnl/telescope.fnl";
+      hooks.commands = [
+        "Telescope"
+        "TelescopeBuffer"
+      ];
     };
 
-    oil = {
-      package = oil-nvim;
-      depends = [ devicons ];
-      postConfig = read "./fnl/oil.fnl";
-      hooks.modules = [ "oil" ];
-    };
-    capture = {
-      package = capture-vim;
-      hooks.commands = [ "Capture" ];
+    trouble = {
+      package = trouble-nvim;
+      depends = [
+        devicons
+        bufferPlugins
+      ];
+      postConfig = read "./fnl/trouble.fnl";
+      hooks.modules = [ "trouble" ];
     };
 
-    # filetype plugins
     stickybuf = {
       package = stickybuf-nvim;
       postConfig = read "./fnl/buffer-plugins.fnl";
@@ -351,28 +443,118 @@ in
         "toggleterm"
       ];
     };
-    vim-nix = {
-      package = pkgs.vimPlugins.vim-nix;
-      hooks = {
-        fileTypes = [ "nix" ];
-      };
-    };
-    nfnl = {
-      package = pkgs.vimPlugins.nfnl;
-      extraPackages = with pkgs; [
-        sd
-        fd
+
+    quickfixPlugins = {
+      depends = [
+        {
+          package = nvim-bqf;
+          depends = [ bufferPlugins ];
+          postConfig = read "./fnl/bqf.fnl";
+        }
+        {
+          package = qf-nvim;
+          postConfig = read "./fnl/qf.fnl";
+          hooks.commands = [
+            "Qnext"
+            "Qprev"
+            "Lnext"
+            "Lprev"
+          ];
+        }
+        { package = vim-qfreplace; }
       ];
-      hooks.fileTypes = [ "fennel" ];
+      hooks.events = [
+        "QuickFixCmdPost"
+        "CmdlineEnter"
+      ];
     };
-    nginx = {
-      package = nginx-vim.overrideAttrs (old: {
-        src = pkgs.nix-filter {
-          root = nginx-vim.src;
-          exclude = [ "ftdetect/nginx.vim" ];
-        };
-      });
-      hooks.fileTypes = [ "nginx" ];
+
+    commandPlugins = {
+      depends = [
+        {
+          packages = [
+            lir-nvim
+            lir-git-status-nvim
+          ];
+          depends = [
+            plenary
+            devicons
+          ];
+          postConfig = read "./fnl/lir.fnl";
+          hooks.modules = [ "lir.float" ];
+        }
+        {
+          package = oil-nvim;
+          depends = [ devicons ];
+          postConfig = read "./fnl/oil.fnl";
+          hooks.modules = [ "oil" ];
+        }
+        {
+          package = capture-vim;
+          hooks.commands = [ "Capture" ];
+        }
+        {
+          package = harpoon-2;
+          depends = [ plenary ];
+          postConfig = read "./fnl/harpoon.fnl";
+          hooks.modules = [ "harpoon" ];
+        }
+        {
+          package = nvim-bufdel;
+          postConfig = read "./fnl/bufdel.fnl";
+          hooks.commands = [
+            "BufDel"
+            "BufDel!"
+            "BufDelAll"
+          ];
+        }
+      ];
+    };
+
+    cmdlinePlugins = {
+      depends = [
+        {
+          package = helpview-nvim;
+          postConfig = read "./fnl/helpview.fnl";
+          depends = [ bufferPlugins ];
+        }
+      ];
+      postConfig = read "./fnl/cmdline-plugins.fnl";
+      hooks.events = [ "CmdlineEnter" ];
+    };
+
+    filetypePlugins = {
+      depends = [
+        {
+          package = crates-nvim;
+          postConfig = read "./fnl/crates.fnl";
+          depends = [ bufferPlugins ];
+          hooks.fileTypes = [ "toml" ];
+        }
+        {
+          package = pkgs.vimPlugins.vim-nix;
+          hooks = {
+            fileTypes = [ "nix" ];
+          };
+        }
+        {
+          package = pkgs.vimPlugins.nfnl;
+          extraPackages = with pkgs; [
+            sd
+            fd
+          ];
+          hooks.fileTypes = [ "fennel" ];
+        }
+        {
+          package = nginx-vim.overrideAttrs (old: {
+            src = pkgs.nix-filter {
+              root = nginx-vim.src;
+              exclude = [ "ftdetect/nginx.vim" ];
+            };
+          });
+          hooks.fileTypes = [ "nginx" ];
+        }
+      ];
     };
   };
 }

@@ -111,5 +111,6 @@
                  :pyright
                  :solargraph
                  :taplo
+                 :typos_lsp
                  :vtsls
                  :yamlls])

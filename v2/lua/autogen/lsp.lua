@@ -41,4 +41,4 @@ do
   callback = _2_
   vim.api.nvim_create_autocmd("LspAttach", {desc = "register lsp keymaps", callback = callback})
 end
-return vim.lsp.enable({"ast_grep", "bashls", "csharp_ls", "cssls", "dartls", "denols", "dhall_lsp_server", "efm", "fennel_ls", "gopls", "html", "jsonls", "kotlin_language_server", "lua_ls", "marksman", "nil_ls", "pyright", "solargraph", "taplo", "vtsls", "yamlls"})
+return vim.lsp.enable({"ast_grep", "bashls", "csharp_ls", "cssls", "dartls", "denols", "dhall_lsp_server", "efm", "fennel_ls", "gopls", "html", "jsonls", "kotlin_language_server", "lua_ls", "marksman", "nil_ls", "pyright", "solargraph", "taplo", "typos_lsp", "vtsls", "yamlls"})

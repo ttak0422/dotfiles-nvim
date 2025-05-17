@@ -18,47 +18,55 @@ do
     return {noremap = true, silent = true, desc = d}
   end
   desc = _2_
-  local cmd
-  local function _3_(c)
-    return ("<cmd>" .. c .. "<cr>")
+  local lua_
+  local function _3_(mod, f, opt)
+    local function _4_()
+      if (opt == nil) then
+        return require(mod)[f]()
+      else
+        return require(mod)[f](opt)
+      end
+    end
+    return _4_
   end
-  cmd = _3_
+  lua_ = _3_
   local git
-  local function _4_()
+  local function _6_()
     vim.cmd("enew")
     local bufnr = vim.api.nvim_get_current_buf()
     local on_exit
-    local function _5_()
-      local function _6_()
+    local function _7_()
+      local function _8_()
         if vim.api.nvim_buf_is_valid(bufnr) then
           return vim.api.nvim_buf_delete(bufnr, {force = true})
         else
           return nil
         end
       end
-      return _6_
+      return _8_
     end
-    on_exit = _5_
+    on_exit = _7_
     vim.fn.termopen("gitu", {on_exit = on_exit})
     vim.cmd("startinsert")
     vim.bo[bufnr]["bufhidden"] = "wipe"
     vim.bo[bufnr]["swapfile"] = false
     vim.bo[bufnr]["buflisted"] = false
-    local function _8_()
+    vim.api.nvim_create_autocmd("BufLeave", {buffer = bufnr, once = true, callback = on_exit})
+    local function _10_()
       return vim.api.nvim_feedkeys("i", "n", false)
     end
-    return vim.api.nvim_create_autocmd("TermClose", {buffer = bufnr, once = true, callback = _8_})
+    return vim.api.nvim_create_autocmd("TermClose", {buffer = bufnr, once = true, callback = _10_})
   end
-  git = _4_
+  git = _6_
   local toggle
-  local function _9_(id)
-    local function _10_()
+  local function _11_(id)
+    local function _12_()
       return require("toggler").toggle(id)
     end
-    return _10_
+    return _12_
   end
-  toggle = _9_
-  for m, ks in pairs({n = {{"\194\165", "\\"}, {";", ":"}, {"tq", toggle("qf"), desc("\239\136\132 quickfix")}, {"tb", cmd("lua require('lir.float').toggle()"), desc("\239\136\132 explorer")}, {"tB", cmd("lua require('oil').open()"), desc("\239\136\132 explorer")}, {"<Leader>G", git, desc("\239\135\147 client")}}, i = {{"\194\165", "\\"}}, c = {{"\194\165", "\\"}}, t = {{"\194\165", "\\"}, {"<S-Space>", "<Space>"}}, v = {{"\194\165", "\\"}, {";", ":"}}}) do
+  toggle = _11_
+  for m, ks in pairs({n = {{"\194\165", "\\"}, {";", ":"}, {"j", "gj"}, {"k", "gk"}, {"<esc><esc>", "<Cmd>nohl<CR>"}, {"<Leader>q", "<Cmd>BufDel<CR>", desc("close buffer")}, {"<Leader>Q", "<Cmd>BufDelAll<CR>", desc("close all buffers")}, {"<Leader>A", "<Cmd>tabclose<CR>"}, {"<Leader>tq", toggle("qf"), desc("\239\136\132 quickfix")}, {"<Leader>tb", lua_("lir.float", "toggle"), desc("\239\136\132 explorer")}, {"<Leader>tB", lua_("oil", "open"), desc("\239\136\132 explorer")}, {"<Leader>H", toggle("harpoon"), desc("\243\176\162\183 show items")}, {"<Leader>ha", "<Cmd>lua require('harpoon'):list():add()<CR>", desc("\243\176\162\183 register item")}, {"<Leader>ff", "<Cmd>Telescope live_grep_args<CR>", desc("\238\169\173 livegrep")}, {"<Leader>fF", "<Cmd>Telescope ast_grep<CR>", desc("\238\169\173 AST")}, {"<Leader>fb", "<Cmd>TelescopeBuffer<CR>", desc("\238\169\173 buffer")}, {"<Leader>ft", "<Cmd>Telescope sonictemplate templates<CR>", desc("\238\169\173 template")}, {"<Leader>G", git, desc("\239\135\147 client")}, {"<Leader>gb", toggle("blame"), desc("\239\135\147 blame")}, {"<Leader>go", "<Cmd>TracePR<CR>", desc("\239\135\147 open PR")}}, i = {{"\194\165", "\\"}}, c = {{"\194\165", "\\"}}, t = {{"\194\165", "\\"}, {"<S-Space>", "<Space>"}}, v = {{"\194\165", "\\"}, {";", ":"}}}) do
     for _, k in ipairs(ks) do
       vim.keymap.set(m, k[1], k[2], (k[3] or opts))
     end

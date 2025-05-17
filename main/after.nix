@@ -85,7 +85,6 @@ let
       code = read ../vim/after/ddu-ui-ff.vim;
     };
     json = readVim ../vim/after/json.vim;
-    help = read "${pkgs.vimPlugins.helpview-nvim}/ftplugin/help.lua";
     Avante = {
       language = "vim";
       code = ''

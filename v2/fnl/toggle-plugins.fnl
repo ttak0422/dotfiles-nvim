@@ -1,18 +1,52 @@
+;; TODO: 安定化
 (local toggler (require :toggler))
 
 (fn with_keep_window [f]
   (fn []
     (let [win (vim.api.nvim_get_current_win)]
       (f)
-      (vim.api.nvim_set_current_win win))))
+      (if (vim.api.nvim_win_is_valid win)
+          (vim.api.nvim_set_current_win win)))))
+
+; NOTE: toggler側でパラメータとして提供できそう
+(fn filetype_exists [ft]
+  (each [_ win (ipairs (vim.api.nvim_list_wins))]
+    (when (and (vim.api.nvim_win_is_valid win)
+               (= (vim.api.nvim_buf_get_option (vim.api.nvim_win_get_buf win)
+                                               :filetype) ft))
+      (lua "return true")))
+  false)
 
 ;;; quickfix ;;;
-(toggler.register :qf {:open (with_keep_window (fn [] (vim.cmd :copen)))
-                       :close (fn [] (vim.cmd :cclose))
-                       :is_open (fn []
-                                  (not= (-> (vim.fn.getqflist {:winid 0})
-                                            (. :winid))
-                                        0))})
+; (toggler.register :qf {:open (with_keep_window (fn [] (vim.cmd :copen)))
+;                        :close (fn [] (vim.cmd :cclose))
+;                        :is_open (fn []
+;                                   (not= (-> (vim.fn.getqflist {:winid 0})
+;                                             (. :winid))
+;                                         0))})
+(var qf? false)
+(toggler.register :qf {:open (with_keep_window #(if (not qf?)
+                                                    (do
+                                                      (vim.cmd :copen)
+                                                      (set qf? true))))
+                       :close #(if qf?
+                                   (do
+                                     (vim.cmd :cclose)
+                                     (set qf? false)))
+                       :is_open #(let [is_open (filetype_exists :qf)]
+                                   (set qf? is_open)
+                                   is_open)})
+
+;;; harpoon ;;;
+(var harpoon? false)
+(let [toggle #(let [h (require :harpoon)]
+                (h.ui:toggle_quick_menu (h:list) {:border :none}))]
+  (toggler.register :harpoon
+                    {:open #(if (not harpoon?) (toggle))
+                     :close #(if harpoon? (toggle))
+                     :is_open #(let [is_open (filetype_exists :harpoon)]
+                                 (set harpoon? is_open)
+                                 is_open)}))
 
 ;;; terminal ;;;
 ; NOTE: `toggleterm-nvim` and `tmux` required
