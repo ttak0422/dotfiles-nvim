@@ -508,6 +508,10 @@ in
             "BufDelAll"
           ];
         }
+        {
+          package = detour-nvim;
+          hooks.modules = [ "detour" ];
+        }
       ];
     };
 
