@@ -5,6 +5,8 @@
 
 (auto_save.setup {:events [:InsertLeave :TextChanged]
                   :condition (fn [buf]
-                               (and (= (vim.fn.getbufvar buf :&modifiable) 1)
-                                    (. targets
-                                       (vim.fn.getbufvar buf :&filetype))))})
+                               (or (and (= (vim.fn.getbufvar buf :&modifiable)
+                                           1)
+                                        (. targets
+                                           (vim.fn.getbufvar buf :&filetype)))
+                                   false))})
