@@ -67,6 +67,17 @@ in
       postConfig = read "./fnl/devicons.fnl";
     };
 
+    denops = {
+      package = denops-vim;
+      preConfig = {
+        language = "vim";
+        code = ''
+          let g:denops#deno = '${pkgs.deno}/bin/deno'
+          let g:denops#server#deno_args = ['-q', '--no-lock', '-A', '--unstable-kv']
+        '';
+      };
+    };
+
     bufferPlugins =
       let
         treesitter = {
@@ -300,8 +311,40 @@ in
           package = auto-save-nvim;
           postConfig = read "./fnl/auto-save.fnl";
         }
+        {
+          package = skkeleton;
+          depends = [ denops ];
+          postConfig = ''
+            local active_server = vim.system({"lsof", "-i", "tcp:1178"}):wait().stdout:match("yaskkserv") ~= nil
+            if active_server then
+              vim.fn["skkeleton#config"]({
+                sources = { "skk_server" },
+                globalDictionaries = { "${pkgs.skk-dict}/SKK-JISYO.L" },
+                skkServerHost       = "127.0.0.1",
+                skkServerPort       = 1178,
+                markerHenkan        = "",
+                markerHenkanSelect  = "",
+              })
+            else
+              vim.fn["skkeleton#config"]({
+                sources = { "skk_dictionary" },
+                globalDictionaries = { "${pkgs.skk-dict}/SKK-JISYO.L" },
+                markerHenkan        = "",
+                markerHenkanSelect  = "",
+              })
+            end
+
+            vim.keymap.set("i", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
+            vim.keymap.set("c", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
+            vim.keymap.set("t", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
+          '';
+          useDenops = true;
+        }
       ];
-      hooks.events = [ "InsertEnter" ];
+      hooks.events = [
+        "InsertEnter"
+        "CmdlineEnter"
+      ];
     };
 
     editPlugins = {
