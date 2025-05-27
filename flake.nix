@@ -479,6 +479,10 @@
       url = "github:mfussenegger/nvim-jdtls";
       flake = false;
     };
+    vim-lastplace = {
+      url = "github:farmergreg/vim-lastplace";
+      flake = false;
+    };
     nvim-lastplace = {
       url = "github:mrcjkb/nvim-lastplace";
       flake = false;

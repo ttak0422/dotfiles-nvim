@@ -308,6 +308,21 @@ in
         ];
         hooks.events = [ "BufReadPost" ];
       };
+    preBufferPlugins = {
+      depends = [
+        {
+          package = vim-lastplace;
+          preConfig = {
+            language = "vim";
+            code = ''
+              let g:lastplace_ignore = "gitcommit,gitrebase,undotree,gitsigns-blame"
+              let g:lastplace_ignore_buftype = "help,nofile,quickfix"
+            '';
+          };
+        }
+      ];
+      hooks.events = [ "BufReadPre" ];
+    };
 
     inputPlugins = {
       depends = [

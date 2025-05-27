@@ -5518,6 +5518,7 @@
         "venn-nvim": "venn-nvim",
         "vim-ambiwidth": "vim-ambiwidth",
         "vim-bufsurf": "vim-bufsurf",
+        "vim-lastplace": "vim-lastplace",
         "vim-markdown": "vim-markdown",
         "vim-mr": "vim-mr",
         "vim-nix": "vim-nix",
@@ -6418,6 +6419,22 @@
       "original": {
         "owner": "ton",
         "repo": "vim-bufsurf",
+        "type": "github"
+      }
+    },
+    "vim-lastplace": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1715994909,
+        "narHash": "sha256-6/Gl7l3ImGqfKkOp0kkHdSQhRCw3jM2NyzRuQfAqAh4=",
+        "owner": "farmergreg",
+        "repo": "vim-lastplace",
+        "rev": "e58cb0df716d3c88605ae49db5c4741db8b48aa9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "farmergreg",
+        "repo": "vim-lastplace",
         "type": "github"
       }
     },
