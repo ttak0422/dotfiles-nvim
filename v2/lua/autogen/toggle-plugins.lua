@@ -1,4 +1,4 @@
--- [nfnl] Compiled from v2/fnl/toggle-plugins.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] v2/fnl/toggle-plugins.fnl
 local toggler = require("toggler")
 local function with_keep_window(f)
   local function _1_()
@@ -75,6 +75,47 @@ do
   end
   toggler.register("harpoon", {open = _10_, close = _12_, is_open = _14_})
 end
+do
+  local st = {recent_type = nil}
+  local mk_open
+  local function _15_(opt, type)
+    local function _16_()
+      require("trouble").open(opt)
+      st["recent_type"] = type
+      return nil
+    end
+    return with_keep_window(_16_)
+  end
+  mk_open = _15_
+  local close
+  local function _17_()
+    local _18_ = package.loaded.trouble
+    if (nil ~= _18_) then
+      local t = _18_
+      return t.close()
+    else
+      return nil
+    end
+  end
+  close = _17_
+  local mk_is_open
+  local function _20_(type)
+    local function _21_()
+      local _22_ = package.loaded.trouble
+      if (nil ~= _22_) then
+        local t = _22_
+        return (t.is_open() and (st.recent_type == type))
+      else
+        local _ = _22_
+        return false
+      end
+    end
+    return _21_
+  end
+  mk_is_open = _20_
+  toggler.register("trouble-doc", {open = mk_open({mode = "diagnostics", filter = {buf = 0}}, "doc"), close = close, is_open = mk_is_open("doc")})
+  toggler.register("trouble-ws", {open = mk_open({mode = "diagnostics"}, "ws"), close = close, is_open = mk_is_open("ws")})
+end
 local function tmux_attach_or_create(session, window)
   if (vim.system({"tmux", "has-session", "-t", session}):wait().code ~= 0) then
     vim.system({"tmux", "new-session", "-d", "-s", session}):wait()
@@ -101,28 +142,28 @@ local function tmux_attach_or_create(session, window)
 end
 local toggleterm = {}
 local open_idx
-local function _18_(idx)
+local function _27_(idx)
   local terminal = require("toggleterm.terminal")
   local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
   local target = (cwd .. "_" .. idx)
   tmux_attach_or_create(target, "0")
-  local or_19_ = toggleterm[idx]
-  if not or_19_ then
+  local or_28_ = toggleterm[idx]
+  if not or_28_ then
     local t = terminal.Terminal:new({direction = "float", float_opts = {border = "single"}, cmd = ("tmux attach-session -t " .. target)})
     toggleterm[idx] = t
-    or_19_ = t
+    or_28_ = t
   end
-  return (or_19_):open()
+  return (or_28_):open()
 end
-open_idx = _18_
+open_idx = _27_
 local is_open_idx
-local function _21_(idx)
+local function _30_(idx)
   local t = toggleterm[idx]
   return (t and t:is_open())
 end
-is_open_idx = _21_
+is_open_idx = _30_
 local close_idx
-local function _22_(idx)
+local function _31_(idx)
   local t = toggleterm[idx]
   if (t and t:is_open()) then
     return t:close()
@@ -130,17 +171,17 @@ local function _22_(idx)
     return nil
   end
 end
-close_idx = _22_
+close_idx = _31_
 for i = 0, 9 do
-  local function _24_()
+  local function _33_()
     return open_idx(i)
   end
-  local function _25_()
+  local function _34_()
     return close_idx(i)
   end
-  local function _26_()
+  local function _35_()
     return is_open_idx(i)
   end
-  toggler.register(("term" .. i), {open = _24_, close = _25_, is_open = _26_})
+  toggler.register(("term" .. i), {open = _33_, close = _34_, is_open = _35_})
 end
 return nil

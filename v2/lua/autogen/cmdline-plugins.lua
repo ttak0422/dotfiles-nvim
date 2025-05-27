@@ -1,22 +1,20 @@
--- [nfnl] Compiled from v2/fnl/cmdline-plugins.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] v2/fnl/cmdline-plugins.fnl
 for k, v in pairs({ignorecase = true, smartcase = true, hlsearch = true, incsearch = true}) do
   vim.opt[k] = v
 end
-do
-  local opts = {noremap = true, silent = true}
-  local desc
-  local function _1_(d)
-    return {noremap = true, silent = true, desc = d}
-  end
-  desc = _1_
-  local function _2_()
-    return vim.cmd("vimgrep //gj %")
-  end
-  local function _3_()
-    return vim.cmd("vimgrepadd //gj %")
-  end
-  for _, k in ipairs({{"<Leader>/", _2_, desc("register search results to qf")}, {"<Leader>?", _3_, desc("add search results to qf")}}) do
-    vim.keymap.set("n", k[1], k[2], (k[3] or opts))
-  end
+local opts = {noremap = true, silent = true}
+local desc
+local function _1_(d)
+  return {noremap = true, silent = true, desc = d}
 end
-return vim.cmd("\ncnoremap <expr> <C-a> '<Home>'\ncnoremap <expr> <C-b> '<Left>'\ncnoremap <expr> <C-f> '<Right>'\ncabbrev <expr> r getcmdtype() .. getcmdline() ==# ':r' ? [getchar(), ''][1] .. '%s//g<Left><Left>' : (getcmdline() ==# ''<,'>r' ?  [getchar(), ''][1] .. 's//g<Left><Left>' : 'r')\n         ")
+desc = _1_
+local function _2_()
+  return vim.cmd("vimgrep //gj %")
+end
+local function _3_()
+  return vim.cmd("vimgrepadd //gj %")
+end
+for _, k in ipairs({{"<Leader>/", _2_, desc("register search results to qf")}, {"<Leader>?", _3_, desc("add search results to qf")}}) do
+  vim.keymap.set("n", k[1], k[2], (k[3] or opts))
+end
+return nil

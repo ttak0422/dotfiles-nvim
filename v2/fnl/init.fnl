@@ -9,7 +9,7 @@
                              :number true
                              ;; signcolumnを起動時に表示
                              :signcolumn :yes
-                             ;; tablineを起動時に非表示
+
                              :showtabline 0
                              ; statuslineを起動時に非表示
                              :laststatus 0
@@ -25,12 +25,6 @@
                            :loaded_netrwPlugin 1}})]
   (each [k v (pairs kvp)]
     (tset (. vim opt) k v)))
-
-(vim.api.nvim_create_autocmd :FileType
-                             {:pattern "*"
-                              :callback (fn []
-                                          (vim.opt_local.formatoptions:remove :r)
-                                          (vim.opt_local.formatoptions:remove :o))})
 
 ; register keymaps
 (macro leader [...]
@@ -48,14 +42,24 @@
              #(if (= opt nil)
                   ((. (require mod) f))
                   ((. (require mod) f) opt)))
+      ; splitしなかったときに閉じないようにしたい
       git (fn []
-            (let [w (vim.api.nvim_win_get_width 0)
-                  h (* (vim.api.nvim_win_get_height 0) 2.1)]
-              (if (> h w) (vim.cmd.split) (vim.cmd.vsplit)))
+            (if (= (length (vim.api.nvim_list_wins)) 1)
+                (let [w (vim.api.nvim_win_get_width 0)
+                      h (* (vim.api.nvim_win_get_height 0) 2.1)]
+                  (if (> h w) (vim.cmd.split) (vim.cmd.vsplit))))
             (vim.cmd.enew)
             (let [bufnr (vim.api.nvim_get_current_buf)
-                  on_exit ##(if (vim.api.nvim_buf_is_valid bufnr)
-                                (vim.api.nvim_buf_delete bufnr {:force true}))]
+                  on_exit (fn []
+                            (if (not= (length (vim.api.nvim_list_wins)) 1)
+                                (let [buf (vim.fn.bufnr "#")]
+                                  (if (and (not= buf -1)
+                                           (vim.api.nvim_buf_is_valid buf))
+                                      (vim.api.nvim_win_set_buf (vim.api.nvim_get_current_win)
+                                                                buf)))
+                                (if (vim.api.nvim_buf_is_valid bufnr)
+                                    (vim.api.nvim_buf_delete bufnr
+                                                             {:force true}))))]
               (vim.fn.termopen :gitu {: on_exit})
               (vim.cmd.startinsert)
               (tset (. vim.bo bufnr) :bufhidden :wipe)
@@ -68,13 +72,10 @@
               (vim.api.nvim_create_autocmd :TermClose
                                            {:buffer bufnr
                                             :once true
-                                            :callback #(vim.api.nvim_feedkeys :i
-                                                                              :n
-                                                                              false)})))
+                                            :callback (fn [])})))
       toggle (fn [id]
                #((. (require :toggler) :toggle) id))]
   (each [m ks (pairs {:n [["¥" "\\"]
-                          [";" ":"]
                           [:j :gj]
                           [:k :gk]
                           [:<esc><esc> (cmd :nohl)]
@@ -92,6 +93,12 @@
                           [(leader :tB)
                            (lua_ :oil :open)
                            (desc " explorer")]
+                          [(leader :td)
+                           (toggle :trouble-doc)
+                           (desc " diagnostics (doc)")]
+                          [(leader :tD)
+                           (toggle :trouble-ws)
+                           (desc " diagnostics (ws)")]
                           ; 󰢷 Harpoon
                           [(leader :H)
                            (toggle :harpoon)
@@ -106,6 +113,9 @@
                           [(leader :fF)
                            (cmd "Telescope ast_grep")
                            (desc " AST")]
+                          [(leader :fp)
+                           (cmd "Telescope find_files hidden=true")
+                           (desc " files")]
                           [(leader :fb)
                            (cmd :TelescopeBuffer)
                            (desc " buffer")]
@@ -121,9 +131,7 @@
                       :i [["¥" "\\"]]
                       :c [["¥" "\\"]]
                       :t [["¥" "\\"] [:<S-Space> :<Space>]]
-                      :v [["¥" "\\"]
-                          [";" ":"]
-                          ]})]
+                      :v [["¥" "\\"]]})]
     (each [_ k (ipairs ks)]
       (vim.keymap.set m (. k 1) (. k 2) (or (. k 3) opts))))
   (for [i 0 9]

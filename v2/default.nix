@@ -264,8 +264,13 @@ in
               ];
           postConfig = read "./fnl/none-ls.fnl";
         };
+        luasnip = {
+          package = LuaSnip;
+          postConfig = read "./fnl/luasnip.fnl";
+        };
         complete-blink = {
           packages = [ blink-cmp ];
+          depends = [ luasnip ];
           postConfig = ''
             -- TODO: support linux
             package.cpath = package.cpath .. ';${inputs'.blink-cmp.packages.blink-fuzzy-lib}/lib/libblink_cmp_fuzzy.dylib'
@@ -378,6 +383,7 @@ in
           postConfig = read "./fnl/which-key.fnl";
         }
       ];
+      postConfig = read "./fnl/edit-plugins.fnl";
       hooks.events = [
         "InsertEnter"
         "CursorMoved"
@@ -428,7 +434,7 @@ in
         plenary
         quickfixPlugins
         {
-          package = vim-sonictemplate.overrideAttrs (old: {
+          package = vim-sonictemplate.overrideAttrs (_: {
             src = pkgs.nix-filter {
               root = vim-sonictemplate.src;
               exclude = [
@@ -451,9 +457,9 @@ in
             in
             ''
               vim.g.sonictemplate_vim_template_dir = "${template}"
-                           vim.g.sonictemplate_key = 0
-                           vim.g.sonictemplate_intelligent_key = 0
-                           vim.g.sonictemplate_postfix_key = 0
+              vim.g.sonictemplate_key = 0
+              vim.g.sonictemplate_intelligent_key = 0
+              vim.g.sonictemplate_postfix_key = 0
             '';
         }
       ];
@@ -566,7 +572,11 @@ in
           depends = [ bufferPlugins ];
         }
       ];
-      postConfig = read "./fnl/cmdline-plugins.fnl";
+      postConfig =
+        ''
+          vim.cmd([[source ${./vim/cmdline-plugins.vim}]]) 
+        ''
+        + read "./fnl/cmdline-plugins.fnl";
       hooks.events = [ "CmdlineEnter" ];
     };
 
@@ -593,7 +603,7 @@ in
           hooks.fileTypes = [ "fennel" ];
         }
         {
-          package = nginx-vim.overrideAttrs (old: {
+          package = nginx-vim.overrideAttrs (_: {
             src = pkgs.nix-filter {
               root = nginx-vim.src;
               exclude = [ "ftdetect/nginx.vim" ];

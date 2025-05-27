@@ -48,6 +48,27 @@
                                  (set harpoon? is_open)
                                  is_open)}))
 
+;;; trouble ;;;
+(let [st {:recent_type nil}
+      mk_open (fn [opt type]
+                (with_keep_window (fn []
+                                    ((. (require :trouble) :open) opt)
+                                    (tset st :recent_type type))))
+      close #(case (. package.loaded :trouble)
+               t (t.close))
+      mk_is_open (fn [type]
+                   #(case (. package.loaded :trouble)
+                      t (and (t.is_open) (= st.recent_type type))
+                      _ false))]
+  (toggler.register :trouble-doc
+                    {:open (mk_open {:mode :diagnostics :filter {:buf 0}} :doc)
+                     : close
+                     :is_open (mk_is_open :doc)})
+  (toggler.register :trouble-ws
+                    {:open (mk_open {:mode :diagnostics} :ws)
+                     : close
+                     :is_open (mk_is_open :ws)}))
+
 ;;; terminal ;;;
 ; NOTE: `toggleterm-nvim` and `tmux` required
 (fn tmux_attach_or_create [session window]

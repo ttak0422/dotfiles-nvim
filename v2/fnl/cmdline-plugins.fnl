@@ -13,10 +13,3 @@
                        #(vim.cmd "vimgrepadd //gj %")
                        (desc "add search results to qf")]])]
     (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts))))
-
-(vim.cmd "
-cnoremap <expr> <C-a> '<Home>'
-cnoremap <expr> <C-b> '<Left>'
-cnoremap <expr> <C-f> '<Right>'
-cabbrev <expr> r getcmdtype() .. getcmdline() ==# ':r' ? [getchar(), ''][1] .. '%s//g<Left><Left>' : (getcmdline() ==# ''<,'>r' ?  [getchar(), ''][1] .. 's//g<Left><Left>' : 'r')
-         ")

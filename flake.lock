@@ -67,11 +67,11 @@
     "LuaSnip": {
       "flake": false,
       "locked": {
-        "lastModified": 1719606247,
-        "narHash": "sha256-zYSzhpiKfk5hEYGaXzViA6PpxgOWdcRltOxIS2FaBJ8=",
+        "lastModified": 1747034085,
+        "narHash": "sha256-uELUF3179ECLLboeycAPMpJXDEGYE7Z1zGWq3NqJKl0=",
         "ref": "refs/heads/master",
-        "rev": "ce0a05ab4e2839e1c48d072c5236cce846a387bc",
-        "revCount": 2143,
+        "rev": "c1851d5c519611dfc451b6582961b2602e0af89b",
+        "revCount": 2248,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/L3MON4D3/LuaSnip"
@@ -3991,11 +3991,11 @@
     "nfnl": {
       "flake": false,
       "locked": {
-        "lastModified": 1740057718,
-        "narHash": "sha256-t5m/pISDdJt3UrfhRusezOZH2FFuYtpYhbJDuxkIOag=",
+        "lastModified": 1747680483,
+        "narHash": "sha256-eItE1iC84ByhFoSc8I26susdLADx4G+fZS6bp7lrQww=",
         "owner": "Olical",
         "repo": "nfnl",
-        "rev": "2358f508932d5cc3d22e1999519020eb86956383",
+        "rev": "19cac83657514a0718b7af4a086d06bd73269b7a",
         "type": "github"
       },
       "original": {
@@ -4335,11 +4335,11 @@
     "nui-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1745394971,
-        "narHash": "sha256-Ne2evWxGUjRzhCGPibmrhNBCWmzUEHxT/U14iolptXw=",
+        "lastModified": 1746270059,
+        "narHash": "sha256-SJc9nfV6cnBKYwRWsv0iHy+RbET8frNV85reICf+pt8=",
         "owner": "MunifTanjim",
         "repo": "nui.nvim",
-        "rev": "8d5b0b568517935d3c84f257f272ef004d9f5a59",
+        "rev": "f535005e6ad1016383f24e39559833759453564e",
         "type": "github"
       },
       "original": {
