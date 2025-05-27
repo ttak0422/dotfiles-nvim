@@ -295,6 +295,10 @@ in
             postConfig = read "./fnl/bufferline.fnl";
           }
           {
+            package = gitsigns-nvim;
+            postConfig = read "./fnl/gitsigns.fnl";
+          }
+          {
             package = nap-nvim;
             depends = [
               vim-bufsurf
