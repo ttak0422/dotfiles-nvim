@@ -575,6 +575,10 @@ in
           postConfig = read "./fnl/helpview.fnl";
           depends = [ bufferPlugins ];
         }
+        {
+          package = history-ignore-nvim;
+          postConfig = read "./fnl/history-ignore.fnl";
+        }
       ];
       postConfig =
         ''
