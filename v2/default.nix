@@ -3,7 +3,9 @@ let
   read =
     path:
     with builtins;
-    readFile (./. + (replaceStrings [ "./fnl/" ".fnl" ] [ "/lua/autogen/" ".lua" ] path));
+    readFile (
+      ./. + (replaceStrings [ "./fnl/" "./lua/" ".fnl" ] [ "/lua/autogen/" "/lua/" ".lua" ] path)
+    );
 in
 {
   package = pkgs.neovim-unwrapped;
@@ -184,10 +186,6 @@ in
                 vtsls
               ];
             }
-            {
-              package = guess-indent-nvim;
-              postConfig = read "./fnl/guess-indent.fnl";
-            }
           ];
           postConfig = read "./fnl/lsp.fnl";
           extraPackages = with pkgs; [
@@ -277,6 +275,21 @@ in
             ${read "./fnl/blink.fnl"}
           '';
         };
+        gitsigns = {
+          package = gitsigns-nvim;
+          postConfig = read "./fnl/gitsigns.fnl";
+        };
+        heirline = {
+          package = heirline-nvim;
+          postConfig = read "./lua/heirline.lua";
+          depends = [
+            gitsigns
+            {
+              package = lsp-progress-nvim;
+              postConfig = read "./fnl/lsp-progress.fnl";
+            }
+          ];
+        };
       in
       {
         depends = [
@@ -284,6 +297,8 @@ in
           lsp
           none-ls
           complete-blink
+          gitsigns
+          heirline
           {
             package = bufferline-nvim;
             depends = [
@@ -293,10 +308,6 @@ in
               }
             ];
             postConfig = read "./fnl/bufferline.fnl";
-          }
-          {
-            package = gitsigns-nvim;
-            postConfig = read "./fnl/gitsigns.fnl";
           }
           {
             package = nap-nvim;
@@ -320,16 +331,20 @@ in
             '';
           };
         }
+        {
+          package = guess-indent-nvim;
+          postConfig = read "./fnl/guess-indent.fnl";
+        }
       ];
+      preConfig = read "./fnl/pre-buffer-plugins-pre.fnl";
       hooks.events = [ "BufReadPre" ];
     };
 
     inputPlugins = {
       depends = [
         {
-          package = nvim-autopairs;
-          depends = [ bufferPlugins ];
-          postConfig = read "./fnl/autopairs.fnl";
+          package = autoclose-nvim;
+          postConfig = read "./fnl/autoclose.fnl";
         }
         {
           package = auto-save-nvim;

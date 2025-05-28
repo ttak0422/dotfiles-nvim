@@ -1,0 +1,3 @@
+std = "vim"
+
+exclude = ["lua/autogen/*", "v2/lua/autogen/*", "*.spec.lua"]
