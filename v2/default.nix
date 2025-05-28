@@ -425,6 +425,19 @@ in
           package = which-key-nvim;
           postConfig = read "./fnl/which-key.fnl";
         }
+        {
+          packages = [
+            leap-nvim
+            leap-spooky-nvim
+          ];
+          depends = [ vim-repeat ];
+          postConfig = read "./fnl/leap.fnl";
+        }
+        {
+          package = flit-nvim;
+          depends = [ vim-repeat ];
+          postConfig = read "./fnl/flit.fnl";
+        }
       ];
       postConfig = read "./fnl/edit-plugins.fnl";
       hooks.events = [
