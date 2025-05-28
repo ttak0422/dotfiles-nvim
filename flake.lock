@@ -2158,11 +2158,11 @@
     "dropbar-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1721885574,
-        "narHash": "sha256-M5PSMiglIu22FA7Hzr6bhfLyXBFVPyV13PaZbiU+jSs=",
+        "lastModified": 1748064206,
+        "narHash": "sha256-P1bRZJ+NmsfjNfNQbc0bbYVMbJJJwqEUM3/evqSP8IA=",
         "owner": "Bekaboo",
         "repo": "dropbar.nvim",
-        "rev": "aa4c0ab1ade45ff9a3c5d4c06365c9b119f32d36",
+        "rev": "f7ecb0c3600ca1dc467c361e9af40f97289d7aad",
         "type": "github"
       },
       "original": {

@@ -40,6 +40,7 @@ rec {
       "Telescope"
       "TelescopeB"
     ];
+    hooks.modules = [ "fzf_lib" ];
   };
   asterisk = {
     package = vim-asterisk;

@@ -290,6 +290,14 @@ in
             }
           ];
         };
+        dropbar = {
+          package = dropbar-nvim;
+          postConfig = read "./fnl/dropbar.fnl";
+          depends = [
+            lsp
+            treesitter
+          ];
+        };
       in
       {
         depends = [
@@ -299,6 +307,7 @@ in
           complete-blink
           gitsigns
           heirline
+          dropbar
           {
             package = bufferline-nvim;
             depends = [
