@@ -532,11 +532,11 @@
     "colorful-winsep-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1726911725,
-        "narHash": "sha256-OlddU0ehlkbrLzI+Wsq53azzT72HP+75UsaVqIziSvs=",
+        "lastModified": 1744337773,
+        "narHash": "sha256-3ZXbpUNZqLHaUWgb2wHnfQfcGkMpcRtAt8q7z0tmo1o=",
         "owner": "nvim-zh",
         "repo": "colorful-winsep.nvim",
-        "rev": "0070484536ea55ec64a8453d41e3badace04a61a",
+        "rev": "7bbe4e1353c0fe37c98bad2758aafc410280f6b3",
         "type": "github"
       },
       "original": {

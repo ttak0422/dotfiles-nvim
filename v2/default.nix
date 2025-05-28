@@ -640,6 +640,16 @@ in
       hooks.events = [ "CmdlineEnter" ];
     };
 
+    windowPlugins = {
+      depends = [
+        {
+          package = colorful-winsep-nvim;
+          postConfig = read "./fnl/winsep.fnl";
+        }
+      ];
+      hooks.events = [ "WinNew" ];
+    };
+
     filetypePlugins = {
       depends = [
         {
