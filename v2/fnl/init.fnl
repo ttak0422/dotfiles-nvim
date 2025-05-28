@@ -9,7 +9,6 @@
                              :number true
                              ;; signcolumnを起動時に表示
                              :signcolumn :yes
-
                              :showtabline 0
                              ; statuslineを起動時に非表示
                              :laststatus 0
@@ -76,8 +75,6 @@
       toggle (fn [id]
                #((. (require :toggler) :toggle) id))]
   (each [m ks (pairs {:n [["¥" "\\"]
-                          [:j :gj]
-                          [:k :gk]
                           [:<esc><esc> (cmd :nohl)]
                           ; close
                           [(leader :q) (cmd :BufDel) (desc "close buffer")]

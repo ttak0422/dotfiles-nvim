@@ -438,6 +438,11 @@ in
           depends = [ vim-repeat ];
           postConfig = read "./fnl/flit.fnl";
         }
+        {
+          package = copilot-lua;
+          extraPackages = with pkgs; [ nodejs ];
+          postConfig = read "./fnl/copilot.fnl";
+        }
       ];
       postConfig = read "./fnl/edit-plugins.fnl";
       hooks.events = [
@@ -574,6 +579,22 @@ in
       ];
     };
 
+    modulePlugins = {
+      depends = [
+        {
+          package = treesj;
+          postConfig = read "./fnl/treesj.fnl";
+          hooks.modules = [ "treesj" ];
+        }
+        {
+          package = codewindow-nvim;
+          postConfig = read "./fnl/codewindow.fnl";
+          depends = [ bufferPlugins ];
+          hooks.modules = [ "codewindow" ];
+        }
+      ];
+    };
+
     commandPlugins = {
       depends = [
         {
@@ -634,7 +655,7 @@ in
       ];
       postConfig =
         ''
-          vim.cmd([[source ${./vim/cmdline-plugins.vim}]]) 
+          vim.cmd([[source ${./vim/cmdline-plugins.vim}]])
         ''
         + read "./fnl/cmdline-plugins.fnl";
       hooks.events = [ "CmdlineEnter" ];

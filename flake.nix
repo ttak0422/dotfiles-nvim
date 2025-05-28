@@ -1437,6 +1437,10 @@
       flake = false;
     };
     blink-cmp.url = "github:Saghen/blink.cmp";
+    treesj = {
+      url = "github:Wansmer/treesj";
+      flake = false;
+    };
   };
 
   outputs =

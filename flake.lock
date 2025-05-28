@@ -516,11 +516,11 @@
     "codewindow-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1717593052,
-        "narHash": "sha256-HAqVTAkFZ1/vBiBP/QDE1fmwOl/PbznAxz/jmUFxs88=",
+        "lastModified": 1747921514,
+        "narHash": "sha256-eT6AU8kSgMFyDllcbShQd1WRO/z0S44TdSVUf61v2oo=",
         "owner": "gorbit99",
         "repo": "codewindow.nvim",
-        "rev": "dd7017617962943eb1d152fc58940f11c6775a4a",
+        "rev": "a8e175043ce3baaa89e0a6b5171bcd920aab3dad",
         "type": "github"
       },
       "original": {
@@ -580,11 +580,11 @@
     "copilot-lua": {
       "flake": false,
       "locked": {
-        "lastModified": 1739230958,
-        "narHash": "sha256-632UIbG1jwam+tug5+jODkT509+uBfJgUN21C3ppnEo=",
+        "lastModified": 1748392948,
+        "narHash": "sha256-0vDQU8YC3E+vNTA4YUHEkgp9RSMB51lQRXonJTZyiiE=",
         "owner": "zbirenbaum",
         "repo": "copilot.lua",
-        "rev": "30321e33b03cb924fdcd6a806a0dc6fa0b0eafb9",
+        "rev": "5f726c8e6bbcd7461ee0b870d4e6c8a973b55b64",
         "type": "github"
       },
       "original": {
@@ -5511,6 +5511,7 @@
         "trace-pr-nvim": "trace-pr-nvim",
         "translate-nvim": "translate-nvim",
         "tree-sitter-norg-meta": "tree-sitter-norg-meta",
+        "treesj": "treesj",
         "trim-nvim": "trim-nvim",
         "trouble-nvim": "trouble-nvim",
         "tshjkl-nvim": "tshjkl-nvim",
@@ -6307,6 +6308,22 @@
       "original": {
         "owner": "nvim-neorg",
         "repo": "tree-sitter-norg-meta",
+        "type": "github"
+      }
+    },
+    "treesj": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1745646531,
+        "narHash": "sha256-kGbBXaWIrC3P0Pk45zYBUZZ8nW36u5JBsZ7cL644tHk=",
+        "owner": "Wansmer",
+        "repo": "treesj",
+        "rev": "3b4a2bc42738a63de17e7485d4cc5e49970ddbcc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Wansmer",
+        "repo": "treesj",
         "type": "github"
       }
     },
