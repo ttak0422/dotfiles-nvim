@@ -356,6 +356,11 @@ in
           ];
           postConfig = read "./fnl/nap.fnl";
         }
+        {
+          package = nvim-fundo;
+          depends = [ promise-async ];
+          postConfig = read "./fnl/fundo.fnl";
+        }
       ];
       postConfig = read "./fnl/buffer-plugins.fnl";
       hooks.events = [ "BufReadPost" ];

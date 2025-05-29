@@ -1,4 +1,20 @@
-(each [k v (pairs {:updatetime 100})]
+(local cachedir (vim.fn.stdpath :cache))
+(each [k v (pairs {:updatetime 100
+                   :hidden true
+                   :autoread true
+                   :startofline false
+                   ;; undofile
+                   :undofile true
+                   :undodir (.. cachedir :/undo)
+                   ;; swapfile
+                   :swapfile true
+                   :directory (.. cachedir :/swap)
+                   ;; backup
+                   :backup true
+                   :backupcopy :yes
+                   :backupdir (.. cachedir :/backup)
+                   ;; ウィンドウ分割時にサイズを均等にしようとしない
+                   :equalalways false})]
   (tset vim.opt k v))
 
 (let [opts {:noremap true :silent true}
