@@ -529,6 +529,18 @@ in
           depends = [ vim-repeat ];
           postConfig = read "./fnl/flit.fnl";
         }
+        {
+          package = lasterisk-nvim;
+          depends = [
+            {
+              package = nvim-hlslens;
+              postConfig = ''
+                require("hlslens").setup()
+              '';
+            }
+          ];
+          postConfig = read "./fnl/lasterisk.fnl";
+        }
       ];
       postConfig = read "./fnl/edit-plugins.fnl";
       hooks.events = [

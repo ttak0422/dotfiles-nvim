@@ -47,27 +47,6 @@ let
       octo
       trace-pr
       ;
-    inherit (callPackage ./helper.nix { })
-      direnv
-      fundo
-      history-ignore
-      lastplace
-      mkdir
-      open
-      project
-      registers
-      smart-splits
-      stickybuf
-      todo-comments
-      toggler
-      trim
-      vimdoc-ja
-      whichkey
-      winshift
-      bufdel
-      fix-auto-scroll
-      capture
-      ;
     inherit (callPackage ./hook.nix { })
       hookBuffer
       hookCmdline
