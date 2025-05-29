@@ -440,6 +440,10 @@ in
     editPlugins = {
       depends = [
         {
+          package = better-escape-nvim;
+          postConfig = read "./fnl/better-escape.fnl";
+        }
+        {
           package = nvim-surround;
           depends = [ treesitter ];
           postConfig = read "./fnl/surround.fnl";

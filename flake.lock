@@ -181,11 +181,11 @@
     "better-escape-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1720800503,
-        "narHash": "sha256-dFLXDEZdY7hkkNm7vERPGBy/8QRjqV+MwbWkhZp4C1Q=",
+        "lastModified": 1745934497,
+        "narHash": "sha256-OmCZQN9qMSSEBmZaRR5QoJ+RRm13pnu+0uAUoz6X7oA=",
         "owner": "max397574",
         "repo": "better-escape.nvim",
-        "rev": "62015330fc831306f5229f24b2db981d07f816c1",
+        "rev": "19a38aab94961016430905ebec30d272a01e9742",
         "type": "github"
       },
       "original": {
