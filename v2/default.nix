@@ -364,7 +364,7 @@ in
         {
           package = project-nvim;
           postConfig = read "./fnl/project.fnl";
-          hookds.commands = [ "Telescope" ];
+          hooks.commands = [ "Telescope" ];
         }
       ];
       postConfig = read "./fnl/buffer-plugins.fnl";
