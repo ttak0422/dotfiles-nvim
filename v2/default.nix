@@ -761,6 +761,10 @@ in
           package = colorful-winsep-nvim;
           postConfig = read "./fnl/winsep.fnl";
         }
+        {
+          package = smart-splits-nvim;
+          postConfig = read "./fnl/smart-splits.fnl";
+        }
       ];
       hooks.events = [ "WinNew" ];
     };
