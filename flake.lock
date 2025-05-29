@@ -6364,11 +6364,11 @@
     "trim-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1710476749,
-        "narHash": "sha256-iTaf2Vmak7R4sfL56UMFp4NqNV1XiQJoR7e6YRUoHME=",
+        "lastModified": 1735220222,
+        "narHash": "sha256-CZwIa9GccHS/nZ+lq27A6NfpBCqEHOrTC7Hd7skPwnc=",
         "owner": "cappyzawa",
         "repo": "trim.nvim",
-        "rev": "4fe47a46c02a58894ded8328ca81f6c214a892f5",
+        "rev": "d0760a840ca2fe4958353dee567a90c2994e70a7",
         "type": "github"
       },
       "original": {

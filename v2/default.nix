@@ -376,6 +376,10 @@ in
           postConfig = read "./fnl/todo-comments.fnl";
           extraPackages = with pkgs; [ ripgrep ];
         }
+        {
+          package = trim-nvim;
+          postConfig = read "./fnl/trim.fnl";
+        }
       ];
       postConfig = read "./fnl/buffer-plugins.fnl";
       hooks.events = [ "BufReadPost" ];
