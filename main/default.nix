@@ -76,17 +76,6 @@ let
       hookWindow
       hookTerm
       ;
-    inherit (callPackage ./input.nix { })
-      # cmp
-      treesj
-      # autopairs
-      autoclose
-      better-escape
-      comment
-      tabout
-      undotree
-      # ed-cmd
-      ;
     inherit (callPackage ./language.nix { })
       lsp
       gopher

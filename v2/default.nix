@@ -774,5 +774,14 @@ in
         }
       ];
     };
+
+    preDirChangedPlugins = {
+      depends = [
+        {
+          package = direnv-vim;
+          postConfig = read "./fnl/direnv.fnl";
+        }
+      ];
+    };
   };
 }
