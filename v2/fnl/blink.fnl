@@ -27,11 +27,15 @@
 
 (local appearance {:nerd_font_variant :mono})
 (local completion {:documentation {:auto_show false}})
-(local sources {:default [;:lsp 
+(local sources {:default [:avante
+                          ;:lsp 
                           ;:path
                           :snippets
                           :buffer]
-                :providers {:lsp {:fallbacks {}}}
+                :providers {:lsp {:fallbacks {}}
+                            :avante {:module :blink-cmp-avante
+                                     :name :Avante
+                                     :opts {}}}
                 ; :snippets {:should_show_items (fn [ctx]
                 ;                                 (not= ctx.trigger.initial_kind
                 ;                                       :trigger_character))}

@@ -1441,6 +1441,10 @@
       url = "github:Wansmer/treesj";
       flake = false;
     };
+    blink-cmp-avante = {
+      url = "github:Kaiser-Yang/blink-cmp-avante";
+      flake = false;
+    };
   };
 
   outputs =

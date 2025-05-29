@@ -64,11 +64,11 @@ in
 
     # utils
     plenary.package = plenary-nvim;
+    nui.package = nui-nvim;
     devicons = {
       package = nvim-web-devicons;
       postConfig = read "./fnl/devicons.fnl";
     };
-
     denops = {
       package = denops-vim;
       preConfig = {
@@ -80,254 +80,280 @@ in
       };
     };
 
-    bufferPlugins =
-      let
-        treesitter = {
-          packages = [
-            nvim-treesitter
-            nvim-treesitter-textobjects
-          ];
-          postConfig =
-            let
-              buildGrammar =
-                { language, src }:
-                pkgs.stdenv.mkDerivation {
-                  inherit src;
-                  pname = "custom-grammar-${language}";
-                  version = "custom";
-                  CFLAGS = [
-                    "-Isrc"
-                    "-O2"
-                  ];
-                  CXXFLAGS = [
-                    "-Isrc"
-                    "-O2"
-                  ];
-                  buildPhase = ''
-                    if [[ -e src/scanner.cc ]]; then
-                    $CXX -fPIC -c src/scanner.cc -o scanner.o $CXXFLAGS
-                    elif [[ -e src/scanner.c ]]; then
-                    $CC -fPIC -c src/scanner.c -o scanner.o $CFLAGS
-                    fi
-                    $CC -fPIC -c src/parser.c -o parser.o $CFLAGS
-                    rm -rf parser
-                    $CXX -shared -o parser *.o
-                  '';
-                  installPhase = ''
-                    mkdir -p $out/parser
-                    mv parser $out/parser/${language}.so
-                  '';
-                };
-              dap-repl = buildGrammar {
-                language = "dap_repl";
-                src = nvim-dap-repl-highlights;
-              };
-              norg-meta = buildGrammar {
-                language = "norg_meta";
-                src = tree-sitter-norg-meta;
-              };
-              parserDrv = pkgs.stdenv.mkDerivation {
-                name = "treesitter-custom-grammars";
-                buildCommand = ''
-                  mkdir -p $out/parser
-                  echo "${
-                    pkgs.lib.strings.concatStringsSep "," (
-                      nvim-treesitter.withAllGrammars.dependencies
-                      ++ [
-                        dap-repl
-                        norg-meta
-                      ]
-                    )
-                  }" \
-                  | tr ',' '\n' \
-                  | xargs -I {} find {} -not -type d -name '*.so' \
-                  | xargs -I {} ln -s {} $out/parser
-                '';
-              };
-            in
-            {
-              # TODO: add support for custom grammars
-              code = read "./fnl/treesitter.fnl";
-              args.parser = toString parserDrv;
+    render-markdown = {
+      package = render-markdown-nvim;
+      depends = [
+        devicons
+        treesitter
+        # 循環参照になるため
+        # blink
+      ];
+      postConfig = read "./fnl/render-markdown.fnl";
+      hooks.fileTypes = [
+        "markdown"
+      ];
+    };
+
+    copilot = {
+      package = copilot-lua;
+      extraPackages = with pkgs; [ nodejs ];
+      postConfig = read "./fnl/copilot.fnl";
+    };
+
+    avante = {
+      package = pkgs.pkgs-nightly.vimPlugins.avante-nvim.overrideAttrs {
+        dependencies = [ ];
+        doCheck = false;
+      };
+      depends = [
+        plenary
+        nui
+        render-markdown
+        copilot
+        {
+          package = dressing-nvim;
+          postConfig = read "./fnl/dressing.fnl";
+          depends = [ telescope ];
+        }
+      ];
+      postConfig = read "./fnl/avante.fnl";
+    };
+
+    luasnip = {
+      package = LuaSnip;
+      postConfig = read "./fnl/luasnip.fnl";
+    };
+
+    treesitter = {
+      packages = [
+        nvim-treesitter
+        nvim-treesitter-textobjects
+      ];
+      postConfig =
+        let
+          buildGrammar =
+            { language, src }:
+            pkgs.stdenv.mkDerivation {
+              inherit src;
+              pname = "custom-grammar-${language}";
+              version = "custom";
+              CFLAGS = [
+                "-Isrc"
+                "-O2"
+              ];
+              CXXFLAGS = [
+                "-Isrc"
+                "-O2"
+              ];
+              buildPhase = ''
+                if [[ -e src/scanner.cc ]]; then
+                $CXX -fPIC -c src/scanner.cc -o scanner.o $CXXFLAGS
+                elif [[ -e src/scanner.c ]]; then
+                $CC -fPIC -c src/scanner.c -o scanner.o $CFLAGS
+                fi
+                $CC -fPIC -c src/parser.c -o parser.o $CFLAGS
+                rm -rf parser
+                $CXX -shared -o parser *.o
+              '';
+              installPhase = ''
+                mkdir -p $out/parser
+                mv parser $out/parser/${language}.so
+              '';
             };
+          dap-repl = buildGrammar {
+            language = "dap_repl";
+            src = nvim-dap-repl-highlights;
+          };
+          norg-meta = buildGrammar {
+            language = "norg_meta";
+            src = tree-sitter-norg-meta;
+          };
+          parserDrv = pkgs.stdenv.mkDerivation {
+            name = "treesitter-custom-grammars";
+            buildCommand = ''
+              mkdir -p $out/parser
+              echo "${
+                pkgs.lib.strings.concatStringsSep "," (
+                  nvim-treesitter.withAllGrammars.dependencies
+                  ++ [
+                    dap-repl
+                    norg-meta
+                  ]
+                )
+              }" \
+              | tr ',' '\n' \
+              | xargs -I {} find {} -not -type d -name '*.so' \
+              | xargs -I {} ln -s {} $out/parser
+            '';
+          };
+        in
+        {
+          # TODO: add support for custom grammars
+          code = read "./fnl/treesitter.fnl";
+          args.parser = toString parserDrv;
         };
-        lsp = {
-          packages = [
-            nvim-lspconfig
-            nvim-dd
-            garbage-day-nvim
-            # lsp-lens-nvim
-            tiny-inline-diagnostic-nvim
-          ];
-          depends = [
-            {
-              package = efmls-configs-nvim;
-              extraPackages = with pkgs; [
-                efm-langserver
-                stylua
-                luajitPackages.luacheck
-                nodePackages.prettier
-                nodePackages.eslint
-                nodePackages.fixjson
-                shfmt
-                taplo
-                yamllint
-                statix
-                nixfmt-rfc-style
-                google-java-format
-                stylelint
-                vim-vint
-                yapf
-                pylint
-                shellcheck
-                rustfmt
-                gitlint
-                hadolint
-                vtsls
-              ];
-            }
-          ];
-          postConfig = read "./fnl/lsp.fnl";
+    };
+
+    lsp = {
+      packages = [
+        nvim-lspconfig
+        nvim-dd
+        garbage-day-nvim
+        # lsp-lens-nvim
+        tiny-inline-diagnostic-nvim
+      ];
+      depends = [
+        {
+          package = efmls-configs-nvim;
           extraPackages = with pkgs; [
-            ast-grep
-            dart
-            deno
-            dhall-lsp-server
-            fennel-ls
-            flutter
-            go
-            go-tools
+            efm-langserver
+            stylua
+            luajitPackages.luacheck
+            nodePackages.prettier
+            nodePackages.eslint
+            nodePackages.fixjson
+            shfmt
+            taplo
+            yamllint
+            statix
+            nixfmt-rfc-style
             google-java-format
-            gopls
-            kotlin-language-server
-            lua-language-server
-            marksman
-            nil
-            nixd
-            nodePackages.bash-language-server
-            nodePackages.typescript
-            nodePackages.yaml-language-server
-            pyright
-            rubyPackages.solargraph
-            rust-analyzer
-            taplo-cli
-            typos-lsp
-            vscode-langservers-extracted
+            stylelint
+            vim-vint
+            yapf
+            pylint
+            shellcheck
+            rustfmt
+            gitlint
+            hadolint
+            vtsls
           ];
-        };
-        none-ls = {
-          package = none-ls-nvim;
-          depends = [
-            plenary
-            none-ls-extras-nvim
-            lsp
+        }
+      ];
+      postConfig = read "./fnl/lsp.fnl";
+      extraPackages = with pkgs; [
+        ast-grep
+        dart
+        deno
+        dhall-lsp-server
+        fennel-ls
+        flutter
+        go
+        go-tools
+        google-java-format
+        gopls
+        kotlin-language-server
+        lua-language-server
+        marksman
+        nil
+        nixd
+        nodePackages.bash-language-server
+        nodePackages.typescript
+        nodePackages.yaml-language-server
+        pyright
+        rubyPackages.solargraph
+        rust-analyzer
+        taplo-cli
+        typos-lsp
+        vscode-langservers-extracted
+      ];
+    };
+
+    none-ls = {
+      package = none-ls-nvim;
+      depends = [
+        plenary
+        none-ls-extras-nvim
+        lsp
+      ];
+      extraPackages =
+        with pkgs;
+        # diagnostics
+        [
+          actionlint # GitHub Actions
+          checkmake # Makefile
+          checkstyle # Java
+          deadnix # Nix
+          dotenv-linter # .env
+          editorconfig-checker # .editorconfig
+          gitlint # Git
+          hadolint # Dockerfile
+          ktlint # Kotlin
+          selene # Lua
+          go-tools # Go (staticcheck)
+          statix # Nix
+          stylelint # CSS, SCSS, LESS, SASS
+          vim-vint # Vim script
+          yamllint # YAML
+        ]
+        ++
+          # formatters
+          [
+            biome # WEB
+            fantomas # F#
+            fnlfmt # Fennel
+            gofumpt # Go
+            go-tools # Go
+            google-java-format # Java
+            ktlint # Kotlin
+            nixfmt-rfc-style # Nix
+            nodePackages.prettier # JS, TS, ...
+            shfmt # shell
+            stylelint # CSS, SCSS, LESS, SASS
+            stylua # Lua
+            html-tidy # HTML
+            yapf # Python
           ];
-          extraPackages =
-            with pkgs;
-            # diagnostics
-            [
-              actionlint # GitHub Actions
-              checkmake # Makefile
-              checkstyle # Java
-              deadnix # Nix
-              dotenv-linter # .env
-              editorconfig-checker # .editorconfig
-              gitlint # Git
-              hadolint # Dockerfile
-              ktlint # Kotlin
-              selene # Lua
-              go-tools # Go (staticcheck)
-              statix # Nix
-              stylelint # CSS, SCSS, LESS, SASS
-              vim-vint # Vim script
-              yamllint # YAML
-            ]
-            ++
-              # formatters
-              [
-                biome # WEB
-                fantomas # F#
-                fnlfmt # Fennel
-                gofumpt # Go
-                go-tools # Go
-                google-java-format # Java
-                ktlint # Kotlin
-                nixfmt-rfc-style # Nix
-                nodePackages.prettier # JS, TS, ...
-                shfmt # shell
-                stylelint # CSS, SCSS, LESS, SASS
-                stylua # Lua
-                html-tidy # HTML
-                yapf # Python
-              ];
-          postConfig = read "./fnl/none-ls.fnl";
-        };
-        luasnip = {
-          package = LuaSnip;
-          postConfig = read "./fnl/luasnip.fnl";
-        };
-        complete-blink = {
-          packages = [ blink-cmp ];
-          depends = [ luasnip ];
-          postConfig = ''
-            -- TODO: support linux
-            package.cpath = package.cpath .. ';${inputs'.blink-cmp.packages.blink-fuzzy-lib}/lib/libblink_cmp_fuzzy.dylib'
-            ${read "./fnl/blink.fnl"}
-          '';
-        };
-        gitsigns = {
-          package = gitsigns-nvim;
-          postConfig = read "./fnl/gitsigns.fnl";
-        };
-        heirline = {
-          package = heirline-nvim;
-          postConfig = read "./lua/heirline.lua";
-          depends = [
-            gitsigns
-            {
-              package = lsp-progress-nvim;
-              postConfig = read "./fnl/lsp-progress.fnl";
-            }
-          ];
-        };
-        dropbar = {
+      postConfig = read "./fnl/none-ls.fnl";
+    };
+
+    bufferPlugins = {
+      depends = [
+        treesitter
+        lsp
+        none-ls
+        {
           package = dropbar-nvim;
           postConfig = read "./fnl/dropbar.fnl";
           depends = [
             lsp
             treesitter
           ];
-        };
-      in
-      {
-        depends = [
-          treesitter
-          lsp
-          none-ls
-          complete-blink
-          gitsigns
-          heirline
-          dropbar
-          {
-            package = bufferline-nvim;
-            depends = [
-              {
-                package = scope-nvim;
-                postConfig = read "./fnl/scope.fnl";
-              }
-            ];
-            postConfig = read "./fnl/bufferline.fnl";
-          }
-          {
-            package = nap-nvim;
-            depends = [
-              vim-bufsurf
-            ];
-            postConfig = read "./fnl/nap.fnl";
-          }
-        ];
-        hooks.events = [ "BufReadPost" ];
-      };
+        }
+        {
+          package = heirline-nvim;
+          postConfig = read "./lua/heirline.lua";
+          depends = [
+            {
+              package = gitsigns-nvim;
+              postConfig = read "./fnl/gitsigns.fnl";
+            }
+            {
+              package = lsp-progress-nvim;
+              postConfig = read "./fnl/lsp-progress.fnl";
+            }
+          ];
+        }
+        {
+          package = bufferline-nvim;
+          depends = [
+            {
+              package = scope-nvim;
+              postConfig = read "./fnl/scope.fnl";
+            }
+          ];
+          postConfig = read "./fnl/bufferline.fnl";
+        }
+        {
+          package = nap-nvim;
+          depends = [
+            vim-bufsurf
+          ];
+          postConfig = read "./fnl/nap.fnl";
+        }
+      ];
+      hooks.events = [ "BufReadPost" ];
+    };
     preBufferPlugins = {
       depends = [
         {
@@ -351,6 +377,22 @@ in
 
     inputPlugins = {
       depends = [
+        copilot
+        {
+          packages = [
+            blink-cmp
+            blink-cmp-avante
+          ];
+          depends = [
+            luasnip
+            avante
+          ];
+          postConfig = ''
+            -- TODO: support linux
+            package.cpath = package.cpath .. ';${inputs'.blink-cmp.packages.blink-fuzzy-lib}/lib/libblink_cmp_fuzzy.dylib'
+            ${read "./fnl/blink.fnl"}
+          '';
+        }
         {
           package = autoclose-nvim;
           postConfig = read "./fnl/autoclose.fnl";
@@ -399,7 +441,7 @@ in
       depends = [
         {
           package = nvim-surround;
-          depends = [ bufferPlugins ];
+          depends = [ treesitter ];
           postConfig = read "./fnl/surround.fnl";
         }
         {
@@ -438,11 +480,6 @@ in
           depends = [ vim-repeat ];
           postConfig = read "./fnl/flit.fnl";
         }
-        {
-          package = copilot-lua;
-          extraPackages = with pkgs; [ nodejs ];
-          postConfig = read "./fnl/copilot.fnl";
-        }
       ];
       postConfig = read "./fnl/edit-plugins.fnl";
       hooks.events = [
@@ -476,9 +513,7 @@ in
 
     toggleterm = {
       package = toggleterm-nvim;
-      depends = [
-        term-gf-nvim
-      ];
+      depends = [ term-gf-nvim ];
       postConfig = read "./fnl/toggleterm.fnl";
       hooks.modules = [ "toggleterm.terminal" ];
     };
@@ -592,6 +627,15 @@ in
           depends = [ bufferPlugins ];
           hooks.modules = [ "codewindow" ];
         }
+        {
+          package = img-clip-nvim;
+          postConfig = read "./fnl/img-clip.fnl";
+          hooks.modules = [
+            "img-clip"
+            "img-clip.nvim"
+            "img-clip.util"
+          ];
+        }
       ];
     };
 
@@ -646,7 +690,10 @@ in
         {
           package = helpview-nvim;
           postConfig = read "./fnl/helpview.fnl";
-          depends = [ bufferPlugins ];
+          depends = [
+            devicons
+            treesitter
+          ];
         }
         {
           package = history-ignore-nvim;
@@ -676,7 +723,7 @@ in
         {
           package = crates-nvim;
           postConfig = read "./fnl/crates.fnl";
-          depends = [ bufferPlugins ];
+          depends = [ none-ls ];
           hooks.fileTypes = [ "toml" ];
         }
         {
