@@ -727,6 +727,7 @@ in
           package = history-ignore-nvim;
           postConfig = read "./fnl/history-ignore.fnl";
         }
+        { package = mkdir-nvim; }
       ];
       postConfig =
         ''
