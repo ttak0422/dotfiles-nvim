@@ -3,6 +3,7 @@
 (vim.cmd "language messages en_US.UTF-8")
 
 (each [opt kvp (pairs {:opt {:langmenu :none
+                             :timeoutlen 1000
                              :shortmess (.. vim.o.shortmess :sWcS)
                              :cmdheight 0
                              :showmode false

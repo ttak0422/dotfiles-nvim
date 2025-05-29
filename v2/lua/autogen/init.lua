@@ -1,7 +1,7 @@
 -- [nfnl] v2/fnl/init.fnl
 vim.loader.enable()
 vim.cmd("language messages en_US.UTF-8")
-for opt, kvp in pairs({opt = {langmenu = "none", shortmess = (vim.o.shortmess .. "sWcS"), cmdheight = 0, number = true, signcolumn = "yes", showtabline = 0, laststatus = 0, foldcolumn = "1", splitkeep = "screen", showmode = false}, env = {VISUAL = "nvr --remote-wait-silent", EDITOR = "nvr --remote-wait-silent", GIT_EDITOR = "nvr --remote-wait-silent"}, g = {mapleader = " ", maplocalleader = ",", loaded_netrw = 1, loaded_netrwPlugin = 1}}) do
+for opt, kvp in pairs({opt = {langmenu = "none", timeoutlen = 1000, shortmess = (vim.o.shortmess .. "sWcS"), cmdheight = 0, number = true, signcolumn = "yes", showtabline = 0, laststatus = 0, foldcolumn = "1", splitkeep = "screen", showmode = false}, env = {VISUAL = "nvr --remote-wait-silent", EDITOR = "nvr --remote-wait-silent", GIT_EDITOR = "nvr --remote-wait-silent"}, g = {mapleader = " ", maplocalleader = ",", loaded_netrw = 1, loaded_netrwPlugin = 1}}) do
   for k, v in pairs(kvp) do
     vim[opt][k] = v
   end
