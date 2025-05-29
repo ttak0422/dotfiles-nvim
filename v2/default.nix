@@ -399,6 +399,11 @@ in
           '';
         }
         {
+          package = tabout-nvim;
+          depends = [ treesitter ];
+          postConfig = read "./fnl/tabout.fnl";
+        }
+        {
           package = autoclose-nvim;
           postConfig = read "./fnl/autoclose.fnl";
         }
