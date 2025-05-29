@@ -17,3 +17,5 @@
                  : parser_install_dir
                  : highlight
                  : indent}))
+
+((. (require :ts_context_commentstring) :setup))

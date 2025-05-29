@@ -1,4 +1,7 @@
 -- [nfnl] v2/fnl/buffer-plugins.fnl
+for k, v in pairs({updatetime = 100}) do
+  vim.opt[k] = v
+end
 local opts = {noremap = true, silent = true}
 local desc
 local function _1_(d)

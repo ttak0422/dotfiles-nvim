@@ -1194,7 +1194,6 @@
     bufferline-nvim = {
       url = "github:akinsho/bufferline.nvim";
       flake = false;
-
     };
     neco-vim = {
       url = "github:Shougo/neco-vim";
@@ -1443,6 +1442,10 @@
     };
     blink-cmp-avante = {
       url = "github:Kaiser-Yang/blink-cmp-avante";
+      flake = false;
+    };
+    nvim-ts-context-commentstring = {
+      url = "github:JoosepAlviste/nvim-ts-context-commentstring";
       flake = false;
     };
   };

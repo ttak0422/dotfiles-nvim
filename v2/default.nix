@@ -128,6 +128,7 @@ in
       packages = [
         nvim-treesitter
         nvim-treesitter-textobjects
+        nvim-ts-context-commentstring
       ];
       postConfig =
         let
@@ -397,6 +398,10 @@ in
             package.cpath = package.cpath .. ';${inputs'.blink-cmp.packages.blink-fuzzy-lib}/lib/libblink_cmp_fuzzy.dylib'
             ${read "./fnl/blink.fnl"}
           '';
+        }
+        {
+          package = Comment-nvim;
+          postConfig = read "./fnl/comment.fnl";
         }
         {
           package = tabout-nvim;
