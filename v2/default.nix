@@ -628,6 +628,19 @@ in
     modulePlugins = {
       depends = [
         {
+          package = open-nvim;
+          depends = [ plenary ];
+          postConfig = ''
+            require("open").setup({
+              system_open = {
+                cmd = "${if pkgs.stdenv.isDarwin then "open" else "xdg-open"}",
+                args = {},
+              }
+            })
+          '';
+          hooks.modules = [ "open" ];
+        }
+        {
           package = treesj;
           postConfig = read "./fnl/treesj.fnl";
           hooks.modules = [ "treesj" ];
