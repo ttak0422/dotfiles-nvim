@@ -313,6 +313,10 @@ in
         lsp
         none-ls
         {
+          package = stickybuf-nvim;
+          postConfig = read "./fnl/stickybuf.fnl";
+        }
+        {
           package = dropbar-nvim;
           postConfig = read "./fnl/dropbar.fnl";
           depends = [
@@ -352,6 +356,7 @@ in
           postConfig = read "./fnl/nap.fnl";
         }
       ];
+      postConfig = read "./fnl/buffer-plugins.fnl";
       hooks.events = [ "BufReadPost" ];
     };
     preBufferPlugins = {
@@ -580,19 +585,6 @@ in
       hooks.modules = [ "trouble" ];
     };
 
-    stickybuf = {
-      package = stickybuf-nvim;
-      postConfig = read "./fnl/buffer-plugins.fnl";
-      hooks.fileTypes = [
-        "aerial"
-        "dap-*"
-        "dapui_*"
-        "help"
-        "qf"
-        "toggleterm"
-      ];
-    };
-
     quickfixPlugins = {
       depends = [
         {
@@ -685,6 +677,23 @@ in
         {
           package = detour-nvim;
           hooks.modules = [ "detour" ];
+        }
+        {
+          package = undotree;
+          preConfig = {
+            language = "vim";
+            code = ''
+              let g:undotree_ShortIndicators=1
+              function g:Undotree_CustomMap()
+                nmap <buffer> U <plug>UndotreePreviousSavedState
+                nmap <buffer> R <plug>UndotreeNextSavedState
+                nmap <buffer> u <plug>UndotreeUndo
+                nmap <buffer> r <plug>UndotreeRedo
+                nmap <buffer> <C-c> <plug>UndotreeClose
+              endfunc
+            '';
+          };
+          hooks.commands = [ "UndotreeToggle" ];
         }
       ];
     };
