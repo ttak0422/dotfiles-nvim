@@ -361,6 +361,11 @@ in
           depends = [ promise-async ];
           postConfig = read "./fnl/fundo.fnl";
         }
+        {
+          package = project-nvim;
+          postConfig = read "./fnl/project.fnl";
+          hookds.commands = [ "Telescope" ];
+        }
       ];
       postConfig = read "./fnl/buffer-plugins.fnl";
       hooks.events = [ "BufReadPost" ];

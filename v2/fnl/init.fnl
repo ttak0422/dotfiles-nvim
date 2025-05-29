@@ -113,6 +113,9 @@
                           [(leader :fp)
                            (cmd "Telescope find_files hidden=true")
                            (desc " files")]
+                          [(leader :fP)
+                           (cmd "Telescope projects")
+                           (desc " project files")]
                           [(leader :fb)
                            (cmd :TelescopeBuffer)
                            (desc " buffer")]
