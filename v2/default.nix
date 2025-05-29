@@ -748,6 +748,11 @@ in
           };
           hooks.commands = [ "UndotreeToggle" ];
         }
+        {
+          package = winshift-nvim;
+          postConfig = read "./fnl/winshift.fnl";
+          hooks.commands = [ "WinShift" ];
+        }
       ];
     };
 
@@ -787,6 +792,7 @@ in
           postConfig = read "./fnl/smart-splits.fnl";
         }
       ];
+      postConfig = read "./fnl/window-plugins.fnl";
       hooks.events = [ "WinNew" ];
     };
 
