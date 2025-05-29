@@ -760,6 +760,7 @@ in
           postConfig = read "./fnl/history-ignore.fnl";
         }
         { package = mkdir-nvim; }
+        { package = vimdoc-ja; }
       ];
       postConfig =
         ''
