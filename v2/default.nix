@@ -366,6 +366,16 @@ in
           postConfig = read "./fnl/project.fnl";
           hooks.commands = [ "Telescope" ];
         }
+        {
+          package = todo-comments-nvim;
+          depends = [
+            plenary
+            devicons
+            trouble
+          ];
+          postConfig = read "./fnl/todo-comments.fnl";
+          extraPackages = with pkgs; [ ripgrep ];
+        }
       ];
       postConfig = read "./fnl/buffer-plugins.fnl";
       hooks.events = [ "BufReadPost" ];
@@ -599,7 +609,7 @@ in
       package = trouble-nvim;
       depends = [
         devicons
-        bufferPlugins
+        treesitter
       ];
       postConfig = read "./fnl/trouble.fnl";
       hooks.modules = [ "trouble" ];
