@@ -702,6 +702,11 @@ in
             "img-clip.util"
           ];
         }
+        {
+          package = nvim-window;
+          postConfig = read "./fnl/nvim-window.fnl";
+          hooks.modules = [ "nvim-window" ];
+        }
       ];
     };
 

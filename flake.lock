@@ -4847,11 +4847,11 @@
     "nvim-window": {
       "flake": false,
       "locked": {
-        "lastModified": 1715793611,
-        "narHash": "sha256-5tNX7H+qPfyYot+QQb4EcDcrI1oNQx+YnhxmCi2D4n4=",
+        "lastModified": 1743439095,
+        "narHash": "sha256-FYUC0aGhhIh9V7kzjv/4hYODefdgOL9nzjfLFFKF4HE=",
         "owner": "yorickpeterse",
         "repo": "nvim-window",
-        "rev": "81f29840ac3aaeea6fc2153edfabebd00d692476",
+        "rev": "322809de1cc5d76ea069daa70c4a45f575bf614d",
         "type": "github"
       },
       "original": {
