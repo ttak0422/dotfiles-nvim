@@ -829,6 +829,15 @@ in
           package = smart-splits-nvim;
           postConfig = read "./fnl/smart-splits.fnl";
         }
+        {
+          package = winresizer;
+          preConfig = {
+            language = "vim";
+            code = ''
+              let g:winresizer_start_key = '<C-w>e'
+            '';
+          };
+        }
       ];
       postConfig = read "./fnl/window-plugins.fnl";
       hooks.events = [ "WinNew" ];
