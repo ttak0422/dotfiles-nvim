@@ -41,6 +41,7 @@ in
       yaml = read "./fnl/after/ftplugin/yaml.fnl";
       jproperties = read "./fnl/after/ftplugin/jproperties.fnl";
       make = read "./fnl/after/ftplugin/make.fnl";
+      Avante = read "./fnl/after/ftplugin/avante.fnl";
     };
     lsp = {
       denols = read "./fnl/after/lsp/denols.fnl";
