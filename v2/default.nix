@@ -387,6 +387,10 @@ in
             require('fix-auto-scroll').setup()
           '';
         }
+        {
+          package = nvim-ufo;
+          postConfig = read "./fnl/ufo.fnl";
+        }
       ];
       postConfig = read "./fnl/buffer-plugins.fnl";
       hooks.events = [ "BufReadPost" ];

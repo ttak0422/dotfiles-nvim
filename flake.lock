@@ -4815,11 +4815,11 @@
     "nvim-ufo": {
       "flake": false,
       "locked": {
-        "lastModified": 1739551642,
-        "narHash": "sha256-lgvaI/+U15mRjWJqA8p3YNkC9ibeDThafxy14C3MY7s=",
+        "lastModified": 1746639431,
+        "narHash": "sha256-4lsnjnhOv1+EMX9TTIs1BMLKPDjgDGu6tDqcqm3Aa6o=",
         "owner": "kevinhwang91",
         "repo": "nvim-ufo",
-        "rev": "a52c92c3bbaa10f0c9b547a50adaa8c7d8b29f94",
+        "rev": "3c7a3570e9c9dc198a2ad4491b0b0e51c4d4ba08",
         "type": "github"
       },
       "original": {

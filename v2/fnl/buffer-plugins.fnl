@@ -14,7 +14,12 @@
                    :backupcopy :yes
                    :backupdir (.. cachedir :/backup)
                    ;; ウィンドウ分割時にサイズを均等にしようとしない
-                   :equalalways false})]
+                   :equalalways false
+                   ;; fold
+                   :foldcolumn 1
+                   :foldlevel 99
+                   :foldlevelstart 99
+                   :foldenable true})]
   (tset vim.opt k v))
 
 (let [opts {:noremap true :silent true}
