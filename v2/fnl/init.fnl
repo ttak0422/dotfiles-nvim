@@ -13,7 +13,6 @@
                              :showtabline 0
                              ; statuslineを起動時に非表示
                              :laststatus 0
-                             :foldcolumn :1
                              :splitkeep :screen}
                        ; :o {}
                        :env {:VISUAL "nvr --remote-wait-silent"

@@ -388,7 +388,14 @@ in
           '';
         }
         {
+          package = statuscol-nvim;
+          postConfig = read "./fnl/statuscol.fnl";
+        }
+        {
           package = nvim-ufo;
+          depends = [
+            promise-async
+          ];
           postConfig = read "./fnl/ufo.fnl";
         }
       ];

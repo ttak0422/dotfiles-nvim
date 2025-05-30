@@ -9,7 +9,18 @@
                    ;; 補完の表示列
                    :ph 20
                    ;; 短径選択を寛容に
-                   :virtualedit :block})]
+                   :virtualedit :block
+                   ;; fold
+                   :foldcolumn :1
+                   :foldlevel 99
+                   :foldlevelstart 99
+                   :foldenable true})]
   (tset vim.o k v))
+
+(vim.opt.fillchars:append {:eob " "
+                           :fold " "
+                           :foldopen "▾"
+                           :foldsep " "
+                           :foldclose "▸"})
 
 (vim.opt.nrformats:append :unsigned)
