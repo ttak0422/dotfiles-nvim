@@ -707,6 +707,11 @@ in
           postConfig = read "./fnl/nvim-window.fnl";
           hooks.modules = [ "nvim-window" ];
         }
+        {
+          package = foldnav-nvim;
+          depends = [ treesitter ];
+          hooks.modules = [ "foldnav" ];
+        }
       ];
     };
 

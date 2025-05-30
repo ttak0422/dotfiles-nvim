@@ -1,4 +1,4 @@
--- [nfnl] Compiled from v2/fnl/edit-plugins.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] v2/fnl/edit-plugins.fnl
 vim.cmd("\nau FileType * setlocal formatoptions-=ro\nau WinEnter * checktime\nvnoremap ; :\nnnoremap ; :\n")
 local opts = {noremap = true, silent = true}
 local desc
@@ -15,7 +15,19 @@ end
 local function _4_()
   return require("codewindow").toggle_minimap()
 end
-for _, k in ipairs({{"j", "gj"}, {"k", "gk"}, {"<Leader>m", _2_, desc("\239\136\132 join/split")}, {"<Leader>M", _3_, desc("\239\136\132 join/split (recursive)")}, {"<Leader>tm", _4_, desc("\239\136\132 minimap")}}) do
+local function _5_()
+  return require("foldnav").goto_start()
+end
+local function _6_()
+  return require("foldnav").goto_next()
+end
+local function _7_()
+  return require("foldnav").goto_prev_start()
+end
+local function _8_()
+  return require("foldnav").goto_end()
+end
+for _, k in ipairs({{"j", "gj"}, {"k", "gk"}, {"<Leader>m", _2_, desc("\239\136\132 join/split")}, {"<Leader>M", _3_, desc("\239\136\132 join/split (recursive)")}, {"<Leader>tm", _4_, desc("\239\136\132 minimap")}, {"<C-h>", _5_}, {"<C-j>", _6_}, {"<C-k>", _7_}, {"<C-l>", _8_}}) do
   vim.keymap.set("n", k[1], k[2], (k[3] or opts))
 end
 return nil

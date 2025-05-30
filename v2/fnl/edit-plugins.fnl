@@ -17,5 +17,9 @@ nnoremap ; :
                        (desc " join/split (recursive)")]
                       [:<Leader>tm
                        #((. (require :codewindow) :toggle_minimap))
-                       (desc " minimap")]])]
+                       (desc " minimap")]
+                      [:<C-h> #((. (require :foldnav) :goto_start))]
+                      [:<C-j> #((. (require :foldnav) :goto_next))]
+                      [:<C-k> #((. (require :foldnav) :goto_prev_start))]
+                      [:<C-l> #((. (require :foldnav) :goto_end))]])]
     (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts))))
