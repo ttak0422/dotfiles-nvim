@@ -69,7 +69,7 @@
 
 (trouble.setup {:auto_close false
                 :auto_open false
-                :auto_preview true
+                :auto_preview false
                 :auto_refresh true
                 :auto_jump false
                 :focus false
@@ -79,8 +79,8 @@
                 :max_items 200
                 :multiline true
                 :pinned false
-                :warn_no_results true
-                :open_no_results false
+                :warn_no_results false
+                :open_no_results true
                 : win
                 : preview
                 : throttle
