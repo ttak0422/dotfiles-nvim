@@ -542,6 +542,10 @@ in
           ];
           postConfig = read "./fnl/lasterisk.fnl";
         }
+        {
+          package = marks-nvim;
+          postConfig = read "./fnl/marks.fnl";
+        }
       ];
       postConfig = read "./fnl/edit-plugins.fnl";
       hooks.events = [
