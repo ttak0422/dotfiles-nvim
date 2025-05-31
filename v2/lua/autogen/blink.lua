@@ -2,6 +2,7 @@
 vim.opt.completeopt = {}
 vim.keymap.set("i", "<C-Space>", "<C-n>", {noremap = true})
 local cmp = require("blink.cmp")
+local types = require("blink.cmp.types")
 local keymap
 do
   local lsp_provider
@@ -18,7 +19,14 @@ do
 end
 local appearance = {nerd_font_variant = "mono"}
 local completion = {documentation = {auto_show = false}}
-local sources = {default = {"avante", "snippets", "buffer"}, providers = {lsp = {fallbacks = {}}, avante = {module = "blink-cmp-avante", name = "Avante", opts = {}}}}
+local sources
+local function _3_(_, items)
+  local function _4_(item)
+    return (item.kind ~= types.CompletionItemKind.Keyword)
+  end
+  return vim.tbl_filter(_4_, items)
+end
+sources = {default = {"avante", "snippets", "buffer"}, providers = {lsp = {fallbacks = {}, transform_items = _3_}, avante = {module = "blink-cmp-avante", name = "Avante", opts = {}}}}
 local fuzzy = {implementation = "prefer_rust_with_warning", use_frecency = true, use_proximity = true, sorts = {"score", "sort_text"}, prebuilt_binaries = {force_version = nil, force_system_triple = nil, extra_curl_args = {}, proxy = {from_env = true, url = nil}, download = false, ignore_version_mismatch = false}, use_unsafe_no_lock = false}
 cmp.setup({keymap = keymap, appearance = appearance, completion = completion, sources = sources, fuzzy = fuzzy})
 return vim.lsp.config("*", {capabilities = cmp.get_lsp_capabilities()})

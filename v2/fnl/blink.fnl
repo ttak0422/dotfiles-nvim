@@ -3,6 +3,7 @@
 (vim.keymap.set :i :<C-Space> :<C-n> {:noremap true :noremap true})
 
 (local cmp (require :blink.cmp))
+(local types (require :blink.cmp.types))
 
 (local keymap
        (let [lsp_provider (fn [cmp]
@@ -28,11 +29,17 @@
 (local appearance {:nerd_font_variant :mono})
 (local completion {:documentation {:auto_show false}})
 (local sources {:default [:avante
-                          ;:lsp 
+                          ;:lsp
                           ;:path
                           :snippets
                           :buffer]
-                :providers {:lsp {:fallbacks {}}
+                :providers {:lsp {:fallbacks {}
+                                  ; ignore keyword
+                                  :transform_items (fn [_ items]
+                                                     (-> (fn [item]
+                                                           (not= item.kind
+                                                                 types.CompletionItemKind.Keyword))
+                                                         (vim.tbl_filter items)))}
                             :avante {:module :blink-cmp-avante
                                      :name :Avante
                                      :opts {}}}

@@ -43,7 +43,6 @@ let
       diffview
       gina
       git-conflict
-      gitsigns
       octo
       trace-pr
       ;
