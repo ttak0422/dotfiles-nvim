@@ -66,6 +66,7 @@ in
     # utils
     plenary.package = plenary-nvim;
     nui.package = nui-nvim;
+    nio.package = nvim-nio;
     devicons = {
       package = nvim-web-devicons;
       postConfig = read "./fnl/devicons.fnl";
