@@ -729,6 +729,12 @@ in
     commandPlugins = {
       depends = [
         {
+          package = trace-pr-nvim;
+          extraPackages = with pkgs; [ gh ];
+          postConfig = read "./fnl/trace-pr.fnl";
+          hooks.commands = [ "TracePR" ];
+        }
+        {
           packages = [
             lir-nvim
             lir-git-status-nvim

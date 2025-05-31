@@ -6300,11 +6300,11 @@
     "trace-pr-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1742631707,
-        "narHash": "sha256-m3Atf7PRUrv1KBCZhK5CbYXfwLEjcGOJV9CSSXBJFxw=",
+        "lastModified": 1745016076,
+        "narHash": "sha256-F5Bn0fq5gwkLTWL0mjCUP3vn6fLq4odSNyRB3T/g7jo=",
         "owner": "h3pei",
         "repo": "trace-pr.nvim",
-        "rev": "b85b09723d5508fea15433b8aebba3ab1aaa93d9",
+        "rev": "f6fdeb533a26ad0a20bb3b8527ea3267ef650fb6",
         "type": "github"
       },
       "original": {
