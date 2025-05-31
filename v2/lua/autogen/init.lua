@@ -62,20 +62,17 @@ do
     vim.bo[bufnr]["bufhidden"] = "wipe"
     vim.bo[bufnr]["swapfile"] = false
     vim.bo[bufnr]["buflisted"] = false
-    vim.api.nvim_create_autocmd("BufLeave", {buffer = bufnr, once = true, callback = on_exit})
-    local function _12_()
-    end
-    return vim.api.nvim_create_autocmd("TermClose", {buffer = bufnr, once = true, callback = _12_})
+    return vim.api.nvim_create_autocmd("BufLeave", {buffer = bufnr, once = true, callback = on_exit})
   end
   git = _5_
   local toggle
-  local function _13_(id)
-    local function _14_()
+  local function _12_(id)
+    local function _13_()
       return require("toggler").toggle(id)
     end
-    return _14_
+    return _13_
   end
-  toggle = _13_
+  toggle = _12_
   for m, ks in pairs({n = {{"\194\165", "\\"}, {"<esc><esc>", "<Cmd>nohl<CR>"}, {"<Leader>q", "<Cmd>BufDel<CR>", desc("close buffer")}, {"<Leader>Q", "<Cmd>BufDelAll<CR>", desc("close all buffers")}, {"<Leader>A", "<Cmd>tabclose<CR>"}, {"<Leader>tq", toggle("qf"), desc("\239\136\132 quickfix")}, {"<Leader>tb", lua_("lir.float", "toggle"), desc("\239\136\132 explorer")}, {"<Leader>tB", lua_("oil", "open"), desc("\239\136\132 explorer")}, {"<Leader>td", toggle("trouble-doc"), desc("\239\136\132 diagnostics (doc)")}, {"<Leader>tD", toggle("trouble-ws"), desc("\239\136\132 diagnostics (ws)")}, {"<Leader>H", toggle("harpoon"), desc("\243\176\162\183 show items")}, {"<Leader>ha", "<Cmd>lua require('harpoon'):list():add()<CR>", desc("\243\176\162\183 register item")}, {"<Leader>ff", "<Cmd>Telescope live_grep_args<CR>", desc("\238\169\173 livegrep")}, {"<Leader>fF", "<Cmd>Telescope ast_grep<CR>", desc("\238\169\173 AST")}, {"<Leader>fp", "<Cmd>Telescope find_files hidden=true<CR>", desc("\238\169\173 files")}, {"<Leader>fP", "<Cmd>Telescope projects<CR>", desc("\238\169\173 project files")}, {"<Leader>fb", "<Cmd>TelescopeBuffer<CR>", desc("\238\169\173 buffer")}, {"<Leader>ft", "<Cmd>Telescope sonictemplate templates<CR>", desc("\238\169\173 template")}, {"<Leader>G", git, desc("\239\135\147 client")}, {"<Leader>gb", toggle("blame"), desc("\239\135\147 blame")}, {"<Leader>go", "<Cmd>TracePR<CR>", desc("\239\135\147 open PR")}}, i = {{"\194\165", "\\"}}, c = {{"\194\165", "\\"}}, t = {{"\194\165", "\\"}, {"<S-Space>", "<Space>"}}, v = {{"\194\165", "\\"}}}) do
     for _, k in ipairs(ks) do
       vim.keymap.set(m, k[1], k[2], (k[3] or opts))

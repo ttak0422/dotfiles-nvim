@@ -68,11 +68,7 @@
               (vim.api.nvim_create_autocmd :BufLeave
                                            {:buffer bufnr
                                             :once true
-                                            :callback on_exit})
-              (vim.api.nvim_create_autocmd :TermClose
-                                           {:buffer bufnr
-                                            :once true
-                                            :callback (fn [])})))
+                                            :callback on_exit})))
       toggle (fn [id]
                #((. (require :toggler) :toggle) id))]
   (each [m ks (pairs {:n [["¥" "\\"]
