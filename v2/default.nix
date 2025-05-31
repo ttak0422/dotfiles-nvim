@@ -405,6 +405,10 @@ in
     preBufferPlugins = {
       depends = [
         {
+          package = git-conflict-nvim;
+          postConfig = read "./fnl/git-conflict.fnl";
+        }
+        {
           package = vim-lastplace;
           preConfig = {
             language = "vim";
