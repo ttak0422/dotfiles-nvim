@@ -558,7 +558,11 @@ in
           postConfig = read "./fnl/marks.fnl";
         }
       ];
-      postConfig = read "./fnl/edit-plugins.fnl";
+      postConfig =
+        ''
+          vim.cmd([[source ${./vim/edit-plugins.vim}]])
+        ''
+        + read "./fnl/edit-plugins.fnl";
       hooks.events = [
         "InsertEnter"
         "CursorMoved"
