@@ -11,7 +11,7 @@
                 diagnostics.dotenv_linter
                 diagnostics.editorconfig_checker
                 diagnostics.gitlint
-                ; TODO: 
+                ; TODO:
                 ; diagnostics.hodolint
                 diagnostics.ktlint
                 diagnostics.selene
@@ -23,11 +23,32 @@
                 (formatting.prettier.with {:prefer_local :node_modules/.bin
                                            ; `condition`は起動時に固定されるため利用しない
                                            ; LSPの判定と同様の値を利用する。Activeになるものの適用されない。
-                                           :runtime_condition #((. (require :null-ls.util)
+                                           :runtime_condition #((. (require :null-ls.utils)
                                                                    :root_has_file) [:tsconfig.json
                                                                                     :package.json
                                                                                     :jsconfig.json
-                                                                                    :.node_project])})
+                                                                                    :.node_project])
+                                           :filetypes [:javascript
+                                                       :javascriptreact
+                                                       :typescript
+                                                       :typescriptreact
+                                                       :vue
+                                                       :css
+                                                       :scss
+                                                       :less
+                                                       ; use tidy
+                                                       ; :html
+                                                       :json
+                                                       :jsonc
+                                                       ; use yamlfmt
+                                                       ; :yaml
+                                                       :markdown
+                                                       :markdown.mdx
+                                                       :graphql
+                                                       :handlebars
+                                                       :svelte
+                                                       :astro
+                                                       :htmlangular]})
                 (. (require :none-ls.diagnostics.eslint))
                 ;;; completion ;;;
                 ;;; formatting ;;;

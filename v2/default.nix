@@ -316,10 +316,10 @@ in
           dotenv-linter # .env
           editorconfig-checker # .editorconfig
           gitlint # Git
+          go-tools # Go (staticcheck)
           hadolint # Dockerfile
           ktlint # Kotlin
           selene # Lua
-          go-tools # Go (staticcheck)
           statix # Nix
           stylelint # CSS, SCSS, LESS, SASS
           vim-vint # Vim script
@@ -331,16 +331,17 @@ in
             biome # WEB
             fantomas # F#
             fnlfmt # Fennel
-            gofumpt # Go
             go-tools # Go
+            gofumpt # Go
             google-java-format # Java
+            html-tidy # HTML
             ktlint # Kotlin
             nixfmt-rfc-style # Nix
             nodePackages.prettier # JS, TS, ...
             shfmt # shell
             stylelint # CSS, SCSS, LESS, SASS
             stylua # Lua
-            html-tidy # HTML
+            yamlfmt # YAML
             yapf # Python
           ];
       postConfig = read "./fnl/none-ls.fnl";
