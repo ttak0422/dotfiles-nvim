@@ -300,6 +300,9 @@ in
       ];
     };
 
+    # TODO:
+    # haskell-tools = { package = haskell-tools-nvim; };
+
     none-ls = {
       package = none-ls-nvim;
       depends = [
