@@ -2564,11 +2564,11 @@
     "fzf-lua": {
       "flake": false,
       "locked": {
-        "lastModified": 1721537390,
-        "narHash": "sha256-4lbeZLJGrtirPoN85j9iTSTR+BqsGkX6F2BuIJj6iVY=",
+        "lastModified": 1748610523,
+        "narHash": "sha256-U3rc4ViIj0KTwj1m7//oau262HkT6JFQvtoTi3lq9xA=",
         "owner": "ibhagwan",
         "repo": "fzf-lua",
-        "rev": "e5c14900e8abaa962f6880853ce0f749b511aa85",
+        "rev": "8c8845ca6d05bc768b7ce27ebe3682ddf7e6a996",
         "type": "github"
       },
       "original": {
@@ -2768,11 +2768,11 @@
     "go-impl-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1737556933,
-        "narHash": "sha256-tlO2Eic3hurTMsJyi+qW7HImp95ACUrk1VotRq48so4=",
+        "lastModified": 1744250597,
+        "narHash": "sha256-W3Ne6QiGYfKXmXQegMaUKI5WQpafBY94JfmPQ3uMQE0=",
         "owner": "fang2hou",
         "repo": "go-impl.nvim",
-        "rev": "9a7e94d368376fbc76b8d8c230c13cdb41d504ea",
+        "rev": "d25f95b15ed4f4d38e4bf9bc885260bcca5981aa",
         "type": "github"
       },
       "original": {
@@ -2800,11 +2800,11 @@
     "gopher-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1734986653,
-        "narHash": "sha256-5UpNPRh4YdAtpiFTazqCSLeJ0TMmPCm8lVyNFsIJ3lE=",
+        "lastModified": 1743688358,
+        "narHash": "sha256-gxiD5y+uhGSTxE4td3Zhlns4wvJAbMdRSmB2/BZnQaA=",
         "owner": "olexsmir",
         "repo": "gopher.nvim",
-        "rev": "0ed14a40d9799ac8d92aaf9eb1cd9be22ffd6b14",
+        "rev": "9db5931af1293ae52500921d92c02145d86df02c",
         "type": "github"
       },
       "original": {

@@ -40,11 +40,6 @@ let
       ;
     inherit (callPackage ./diagnostic.nix { }) trouble;
     inherit (callPackage ./git.nix { })
-      diffview
-      gina
-      git-conflict
-      octo
-      trace-pr
       ;
     inherit (callPackage ./hook.nix { })
       hookBuffer

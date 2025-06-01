@@ -81,6 +81,10 @@ in
         '';
       };
     };
+    snacks = {
+      package = snacks-nvim;
+      postConfig = read "./fnl/snacks.fnl";
+    };
 
     render-markdown = {
       package = render-markdown-nvim;
@@ -259,6 +263,39 @@ in
         taplo-cli
         typos-lsp
         vscode-langservers-extracted
+      ];
+    };
+
+    gopher = {
+      package = gopher-nvim;
+      postConfig = read "./fnl/gopher.fnl";
+      extraPackages = with pkgs; [
+        go
+        gomodifytags
+        gotests
+        iferr
+        impl
+      ];
+      depends = [
+        lsp
+        treesitter
+        {
+          package = goplements-nvim;
+          postConfig = read "./fnl/goplements.fnl";
+        }
+        {
+          package = go-impl-nvim;
+          postConfig = read "./fnl/go-impl.fnl";
+          depends = [
+            nui
+            plenary
+            snacks
+          ];
+        }
+      ];
+      hooks.fileTypes = [
+        "go"
+        "gomod"
       ];
     };
 
