@@ -139,59 +139,29 @@ in
       ];
       postConfig =
         let
-          buildGrammar =
-            { language, src }:
-            pkgs.stdenv.mkDerivation {
-              inherit src;
-              pname = "custom-grammar-${language}";
-              version = "custom";
-              CFLAGS = [
-                "-Isrc"
-                "-O2"
-              ];
-              CXXFLAGS = [
-                "-Isrc"
-                "-O2"
-              ];
-              buildPhase = ''
-                if [[ -e src/scanner.cc ]]; then
-                $CXX -fPIC -c src/scanner.cc -o scanner.o $CXXFLAGS
-                elif [[ -e src/scanner.c ]]; then
-                $CC -fPIC -c src/scanner.c -o scanner.o $CFLAGS
-                fi
-                $CC -fPIC -c src/parser.c -o parser.o $CFLAGS
-                rm -rf parser
-                $CXX -shared -o parser *.o
-              '';
-              installPhase = ''
-                mkdir -p $out/parser
-                mv parser $out/parser/${language}.so
-              '';
-            };
+          inherit (pkgs.tree-sitter) buildGrammar version;
+
           dap-repl = buildGrammar {
+            inherit version;
             language = "dap_repl";
             src = nvim-dap-repl-highlights;
           };
           norg-meta = buildGrammar {
+            inherit version;
             language = "norg_meta";
             src = tree-sitter-norg-meta;
           };
+
           parserDrv = pkgs.stdenv.mkDerivation {
             name = "treesitter-custom-grammars";
             buildCommand = ''
               mkdir -p $out/parser
-              echo "${
-                pkgs.lib.strings.concatStringsSep "," (
-                  nvim-treesitter.withAllGrammars.dependencies
-                  ++ [
-                    dap-repl
-                    norg-meta
-                  ]
-                )
-              }" \
+              echo "${pkgs.lib.strings.concatStringsSep "," nvim-treesitter.withAllGrammars.dependencies}" \
               | tr ',' '\n' \
               | xargs -I {} find {} -not -type d -name '*.so' \
               | xargs -I {} ln -s {} $out/parser
+              ln -s ${dap-repl}/parser $out/parser/dap_repl.so
+              ln -s ${norg-meta}/parser $out/parser/norg_meta.so
             '';
           };
         in
@@ -264,6 +234,30 @@ in
         taplo-cli
         typos-lsp
         vscode-langservers-extracted
+      ];
+    };
+
+    dap = {
+      packages = [
+        nvim-dap
+        nvim-dap-virtual-text
+        nvim-dap-repl-highlights
+      ];
+      depends = [ treesitter ];
+      postConfig = read "./fnl/dap.fnl";
+      hooks.modules = [ "dap" ];
+    };
+
+    dap-ui = {
+      package = nvim-dap-ui;
+      depends = [
+        dap
+        nio
+        devicons
+      ];
+      hooks.modules = [
+        "dapui"
+        "dapui.windows"
       ];
     };
 

@@ -1,7 +1,9 @@
--- [nfnl] Compiled from v2/fnl/treesitter.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] v2/fnl/treesitter.fnl
 local parser_install_dir = args.parser
 vim.opt.runtimepath:prepend(parser_install_dir)
 local config = require("nvim-treesitter.configs")
+local parser = require("nvim-treesitter.parsers")
+local parser_configs = parser.get_parser_configs()
 local highlight
 local function _1_(_lang, buf)
   local max_filesize = (100 * 1024)
@@ -10,4 +12,6 @@ local function _1_(_lang, buf)
 end
 highlight = {enable = true, disable = _1_, additional_vim_regex_highlighting = false}
 local indent = {enable = true}
+parser_configs["dap_repl"] = {install_info = {}}
+parser_configs["norg_meta"] = {install_info = {}}
 return config.setup({ignore_install = {}, parser_install_dir = parser_install_dir, highlight = highlight, indent = indent, auto_install = false, sync_install = false})
