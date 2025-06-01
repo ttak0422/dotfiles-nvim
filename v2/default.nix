@@ -255,6 +255,7 @@ in
         nio
         devicons
       ];
+      postConfig = read "./fnl/dap-ui.fnl";
       hooks.modules = [
         "dapui"
         "dapui.windows"

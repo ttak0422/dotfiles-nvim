@@ -141,47 +141,79 @@ local function tmux_attach_or_create(session, window)
   end
 end
 local toggleterm = {}
-local open_idx
-local function _27_(idx)
-  local terminal = require("toggleterm.terminal")
-  local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-  local target = (cwd .. "_" .. idx)
-  tmux_attach_or_create(target, "0")
-  local or_28_ = toggleterm[idx]
-  if not or_28_ then
-    local t = terminal.Terminal:new({direction = "float", float_opts = {border = "single"}, cmd = ("tmux attach-session -t " .. target)})
-    toggleterm[idx] = t
-    or_28_ = t
+do
+  local open_idx
+  local function _27_(idx)
+    local terminal = require("toggleterm.terminal")
+    local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+    local target = (cwd .. "_" .. idx)
+    tmux_attach_or_create(target, "0")
+    local or_28_ = toggleterm[idx]
+    if not or_28_ then
+      local t = terminal.Terminal:new({direction = "float", float_opts = {border = "single"}, cmd = ("tmux attach-session -t " .. target)})
+      toggleterm[idx] = t
+      or_28_ = t
+    end
+    return (or_28_):open()
   end
-  return (or_28_):open()
+  open_idx = _27_
+  local is_open_idx
+  local function _30_(idx)
+    local t = toggleterm[idx]
+    return (t and t:is_open())
+  end
+  is_open_idx = _30_
+  local close_idx
+  local function _31_(idx)
+    local t = toggleterm[idx]
+    if (t and t:is_open()) then
+      return t:close()
+    else
+      return nil
+    end
+  end
+  close_idx = _31_
+  for i = 0, 9 do
+    local function _33_()
+      return open_idx(i)
+    end
+    local function _34_()
+      return close_idx(i)
+    end
+    local function _35_()
+      return is_open_idx(i)
+    end
+    toggler.register(("term" .. i), {open = _33_, close = _34_, is_open = _35_})
+  end
 end
-open_idx = _27_
-local is_open_idx
-local function _30_(idx)
-  local t = toggleterm[idx]
-  return (t and t:is_open())
+local dapui = nil
+local open
+local function _36_()
+  if (dapui == nil) then
+    dapui = require("dapui")
+  else
+  end
+  return dapui:open({reset = true})
 end
-is_open_idx = _30_
-local close_idx
-local function _31_(idx)
-  local t = toggleterm[idx]
-  if (t and t:is_open()) then
-    return t:close()
+open = _36_
+local close
+local function _38_()
+  if (dapui ~= nil) then
+    return dapui.close()
   else
     return nil
   end
 end
-close_idx = _31_
-for i = 0, 9 do
-  local function _33_()
-    return open_idx(i)
+close = _38_
+local is_open
+local function _40_()
+  for _, win in ipairs(require("dapui.windows").layouts) do
+    if win:is_open() then
+      return true
+    else
+    end
   end
-  local function _34_()
-    return close_idx(i)
-  end
-  local function _35_()
-    return is_open_idx(i)
-  end
-  toggler.register(("term" .. i), {open = _33_, close = _34_, is_open = _35_})
+  return false
 end
-return nil
+is_open = _40_
+return toggler.register("dapui", {open = open, close = close, is_open = is_open})

@@ -114,3 +114,18 @@
                       {:open (fn [] (open_idx i))
                        :close (fn [] (close_idx i))
                        :is_open (fn [] (is_open_idx i))})))
+
+;;; dap-ui ;;;
+(var dapui nil)
+(let [open (fn []
+             (if (= dapui nil)
+                 (set dapui (require :dapui)))
+             (dapui:open {:reset true}))
+      close #(if (not= dapui nil)
+                 (dapui.close))
+      is_open (fn []
+                (each [_ win (ipairs (. (require :dapui.windows) :layouts))]
+                  (if (win:is_open)
+                      (lua "return true")))
+                false)]
+  (toggler.register :dapui {: open : close : is_open}))
