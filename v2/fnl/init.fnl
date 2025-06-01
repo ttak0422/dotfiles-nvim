@@ -14,7 +14,12 @@
                              ; statuslineを起動時に非表示
                              :laststatus 0
                              :wrap false
-                             :splitkeep :screen}
+                             :splitkeep :screen
+                             ;; fold
+                             :foldcolumn :1
+                             :foldlevel 99
+                             :foldlevelstart 99
+                             :foldenable true}
                        ; :o {}
                        :env {:VISUAL "nvr --remote-wait-silent"
                              :EDITOR "nvr --remote-wait-silent"
