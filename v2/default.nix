@@ -49,6 +49,7 @@ in
       fennel_ls = read "./fnl/after/lsp/fennel_ls.fnl";
       lua_ls = read "./fnl/after/lsp/lua_ls.fnl";
       nil_ls = read "./fnl/after/lsp/nil_ls.fnl";
+      typos_lsp = read "./fnl/after/lsp/typos_lsp.fnl";
       vtsls = read "./fnl/after/lsp/vtsls.fnl";
       yamlls = read "./fnl/after/lsp/yamlls.fnl";
     };
