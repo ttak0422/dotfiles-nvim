@@ -33,15 +33,35 @@ in
       };
     };
     ftplugin = {
+      Avante = read "./fnl/after/ftplugin/avante.fnl";
       fennel = read "./fnl/after/ftplugin/fennel.fnl";
       gitcommit = read "./fnl/after/ftplugin/gitcommit.fnl";
+      java = {
+        code = read "./fnl/after/ftplugin/java.fnl";
+        args =
+          let
+            inherit (pkgs.vscode-marketplace.vscjava) vscode-java-debug vscode-java-test;
+            jdtls = pkgs.pkgs-nightly.jdt-language-server;
+          in
+          {
+            java_path = "${pkgs.jdk}/bin/java";
+            jdtls_jar_pattern = "${jdtls}/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*.jar";
+            jdtls_config_path = "${jdtls}/share/java/jdtls/${
+              if pkgs.stdenv.isDarwin then "config_mac" else "config_linux"
+            }";
+            java_debug_jar_pattern = "${vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server/com.microsoft.java.debug.plugin-*.jar";
+            java_test_jar_pattern = "${vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server/*.jar";
+            jol_jar_path = pkgs.javaPackages.jol;
+            lombok_jar_path = "${pkgs.lombok}/share/java/lombok.jar";
+            vscode_spring_boot_path = "${pkgs.vscode-marketplace.vmware.vscode-spring-boot}/share/vscode/extensions/vmware.vscode-spring-boot";
+          };
+      };
+      jproperties = read "./fnl/after/ftplugin/jproperties.fnl";
+      make = read "./fnl/after/ftplugin/make.fnl";
       nix = read "./fnl/after/ftplugin/nix.fnl";
       qf = read "./fnl/after/ftplugin/qf.fnl";
       qfreplace = read "./fnl/after/ftplugin/qfreplace.fnl";
       yaml = read "./fnl/after/ftplugin/yaml.fnl";
-      jproperties = read "./fnl/after/ftplugin/jproperties.fnl";
-      make = read "./fnl/after/ftplugin/make.fnl";
-      Avante = read "./fnl/after/ftplugin/avante.fnl";
     };
     lsp = {
       denols = read "./fnl/after/lsp/denols.fnl";
@@ -297,6 +317,19 @@ in
 
     # TODO:
     # haskell-tools = { package = haskell-tools-nvim; };
+
+    java = {
+      packages = [
+        nvim-jdtls
+        spring-boot-nvim
+      ];
+      depends = [
+        lsp
+        dap
+        dap-ui
+      ];
+      hooks.modules = [ "jdtls" ];
+    };
 
     none-ls = {
       package = none-ls-nvim;

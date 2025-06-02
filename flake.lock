@@ -5806,11 +5806,11 @@
     "spring-boot-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1736818476,
-        "narHash": "sha256-JYI/7VSafU4YD9VkZ7swgrJqRZbS56VSGNuUNIG6bZs=",
+        "lastModified": 1748772509,
+        "narHash": "sha256-nQ3+3vaN8oTl43wtrY9vfsL6TRtbtwX9sJR2fAlFTs4=",
         "owner": "JavaHello",
         "repo": "spring-boot.nvim",
-        "rev": "fc474dfd4bbe78188fdd5b2984e7013e124c46fe",
+        "rev": "8186861a996a23896ab2874e9fac4589cf49cd20",
         "type": "github"
       },
       "original": {
