@@ -959,6 +959,10 @@ in
     filetypePlugins = {
       depends = [
         {
+          package = markdown-preview-nvim;
+          hooks.fileTypes = [ "markdown" ];
+        }
+        {
           package = crates-nvim;
           postConfig = read "./fnl/crates.fnl";
           depends = [ none-ls ];
