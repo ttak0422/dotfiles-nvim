@@ -380,6 +380,10 @@ in
         lsp
         none-ls
         {
+          package = git-conflict-nvim;
+          postConfig = read "./fnl/git-conflict.fnl";
+        }
+        {
           package = stickybuf-nvim;
           postConfig = read "./fnl/stickybuf.fnl";
         }
