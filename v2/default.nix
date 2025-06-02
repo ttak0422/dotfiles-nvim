@@ -318,19 +318,6 @@ in
     # TODO:
     # haskell-tools = { package = haskell-tools-nvim; };
 
-    java = {
-      packages = [
-        nvim-jdtls
-        spring-boot-nvim
-      ];
-      depends = [
-        lsp
-        dap
-        dap-ui
-      ];
-      hooks.modules = [ "jdtls" ];
-    };
-
     none-ls = {
       package = none-ls-nvim;
       depends = [
@@ -759,6 +746,18 @@ in
 
     modulePlugins = {
       depends = [
+        {
+          packages = [
+            nvim-jdtls
+            spring-boot-nvim
+          ];
+          depends = [
+            lsp
+            dap
+            dap-ui
+          ];
+          hooks.modules = [ "jdtls" ];
+        }
         {
           package = open-nvim;
           depends = [ plenary ];
