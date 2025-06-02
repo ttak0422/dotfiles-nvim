@@ -318,6 +318,13 @@ in
     # TODO:
     # haskell-tools = { package = haskell-tools-nvim; };
 
+    # TODO:
+    # rustaceanvim = { package = rustaceanvim; };
+    # crates = { package = crates-nvim; };
+
+    # TODO:
+    # vtsls = { package = vtsls-nvim; };
+
     none-ls = {
       package = none-ls-nvim;
       depends = [
@@ -479,6 +486,10 @@ in
         {
           package = guess-indent-nvim;
           postConfig = read "./fnl/guess-indent.fnl";
+        }
+        {
+          package = diffview-nvim;
+          postConfig = read "./fnl/diffview.fnl";
         }
       ];
       preConfig = read "./fnl/pre-buffer-plugins-pre.fnl";
@@ -806,6 +817,15 @@ in
 
     commandPlugins = {
       depends = [
+        {
+          package = diffview-nvim;
+          depends = [ devicons ];
+          postConfig = read "./fnl/diffview.fnl";
+          hooks.commands = [
+            "DiffviewOpen"
+            "DiffviewToggleFiles"
+          ];
+        }
         {
           package = trace-pr-nvim;
           extraPackages = with pkgs; [ gh ];
