@@ -14,7 +14,10 @@
                    :backupcopy :yes
                    :backupdir (.. cachedir :/backup)
                    ;; ウィンドウ分割時にサイズを均等にしようとしない
-                   :equalalways false})]
+                   :equalalways false
+                   ;; 不可視文字
+                   :listchars "tab:> ,trail:-"
+                   :list true})]
   (tset vim.opt k v))
 
 (let [opts {:noremap true :silent true}

@@ -1,6 +1,6 @@
 -- [nfnl] v2/fnl/buffer-plugins.fnl
 local cachedir = vim.fn.stdpath("cache")
-for k, v in pairs({updatetime = 100, hidden = true, autoread = true, undofile = true, undodir = (cachedir .. "/undo"), swapfile = true, directory = (cachedir .. "/swap"), backup = true, backupcopy = "yes", backupdir = (cachedir .. "/backup"), equalalways = false, startofline = false}) do
+for k, v in pairs({updatetime = 100, hidden = true, autoread = true, undofile = true, undodir = (cachedir .. "/undo"), swapfile = true, directory = (cachedir .. "/swap"), backup = true, backupcopy = "yes", backupdir = (cachedir .. "/backup"), listchars = "tab:> ,trail:-", list = true, equalalways = false, startofline = false}) do
   vim.opt[k] = v
 end
 local opts = {noremap = true, silent = true}

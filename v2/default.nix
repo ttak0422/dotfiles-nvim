@@ -985,13 +985,19 @@ in
       ];
     };
 
-    preDirChangedPlugins = {
+    dirChangedPrePlugins = {
       depends = [
         {
           package = direnv-vim;
           postConfig = read "./fnl/direnv.fnl";
         }
       ];
+      hooks.events = [ "DirChangedPre" ];
+    };
+
+    termOpenPlugins = {
+      postConfig = read "./fnl/term-open-plugins.fnl";
+      hooks.events = [ "TermOpen" ];
     };
   };
 }
