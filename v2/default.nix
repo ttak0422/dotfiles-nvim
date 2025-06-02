@@ -762,6 +762,11 @@ in
     modulePlugins = {
       depends = [
         {
+          package = goto-preview;
+          postConfig = read "./fnl/goto-preview.fnl";
+          hooks.modules = [ "goto-preview" ];
+        }
+        {
           packages = [
             nvim-jdtls
             spring-boot-nvim
