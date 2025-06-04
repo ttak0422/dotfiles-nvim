@@ -1448,6 +1448,14 @@
       url = "github:JoosepAlviste/nvim-ts-context-commentstring";
       flake = false;
     };
+    neorg-interim-ls = {
+      url = "github:benlubas/neorg-interim-ls";
+      flake = false;
+    };
+    neorg-conceal-wrap = {
+      url = "github:/benlubas/neorg-conceal-wrap";
+      flake = false;
+    };
   };
 
   outputs =

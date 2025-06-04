@@ -124,10 +124,31 @@
                           [(leader :ft)
                            (cmd "Telescope sonictemplate templates")
                            (desc " template")]
+                          [(leader :fn)
+                           (cmd :NeorgFuzzySearch)
+                           (desc " Neorg")]
                           ;  Git
                           [(leader :G) git (desc " client")]
                           [(leader :gb) (toggle :blame) (desc " blame")]
                           [(leader :go) (cmd :TracePR) (desc " open PR")]
+                          ;  Neorg
+                          [(leader :N) (cmd :Neorg) (desc " enter")]
+                          [(leader :ny)
+                           (cmd "Neorg journal yesterday")
+                           (desc " yesterday")]
+                          [(leader :nt)
+                           (cmd "Neorg journal today")
+                           (desc " today")]
+                          [(leader :nT)
+                           (cmd "Neorg journal tomorrow")
+                           (desc " tomorrow")]
+                          [(leader :nn)
+                           (cmd :NeorgScratch)
+                           (desc " scratch")]
+                          [(leader :ngg) (cmd :NeorgGit) (desc " Git")]
+                          [(leader :ngb)
+                           (cmd :NeorgGitBranch)
+                           (desc " Git (branch)")]
                           ;
                           ]
                       :i [["¥" "\\"]]

@@ -3565,6 +3565,38 @@
         "type": "github"
       }
     },
+    "neorg-conceal-wrap": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1725735873,
+        "narHash": "sha256-375izZm21/qk1mV8xlKayMIEvdJKsU8ffc2dXTMHxMs=",
+        "owner": "benlubas",
+        "repo": "neorg-conceal-wrap",
+        "rev": "e08b06042b175355496d3b5b033658021b90cd82",
+        "type": "github"
+      },
+      "original": {
+        "owner": "benlubas",
+        "repo": "neorg-conceal-wrap",
+        "type": "github"
+      }
+    },
+    "neorg-interim-ls": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1739757865,
+        "narHash": "sha256-3+nFHePVPbGtMT8mVsd4DYDoIgyzLhN3RMYe4XXdX+8=",
+        "owner": "benlubas",
+        "repo": "neorg-interim-ls",
+        "rev": "348cd121d8b872248e9b0e48e3611c54dfad83f0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "benlubas",
+        "repo": "neorg-interim-ls",
+        "type": "github"
+      }
+    },
     "neorg-jupyter": {
       "flake": false,
       "locked": {
@@ -5410,6 +5442,8 @@
         "neco-vim": "neco-vim",
         "neogen": "neogen",
         "neorg": "neorg",
+        "neorg-conceal-wrap": "neorg-conceal-wrap",
+        "neorg-interim-ls": "neorg-interim-ls",
         "neorg-jupyter": "neorg-jupyter",
         "neorg-telescope": "neorg-telescope",
         "neorg-templates": "neorg-templates",

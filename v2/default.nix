@@ -827,6 +827,33 @@ in
     commandPlugins = {
       depends = [
         {
+          packages = [
+            neorg
+            neorg-jupyter
+            neorg-templates
+            neorg-telescope
+            neorg-interim-ls
+            neorg-conceal-wrap
+          ];
+          depends = [
+            lua-utils-nvim
+            nio
+            nui
+            pathlib-nvim
+            plenary
+            telescope
+            treesitter
+          ];
+          postConfig = read "./fnl/neorg.fnl";
+          hooks.commands = [
+            "Neorg"
+            "NeorgFuzzySearch"
+            "NeorgScratch"
+            "NeorgGit"
+            "NeorgGitBranch"
+          ];
+        }
+        {
           package = diffview-nvim;
           depends = [ devicons ];
           postConfig = read "./fnl/diffview.fnl";
