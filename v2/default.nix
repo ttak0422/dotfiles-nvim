@@ -59,6 +59,7 @@ in
       jproperties = read "./fnl/after/ftplugin/jproperties.fnl";
       make = read "./fnl/after/ftplugin/make.fnl";
       nix = read "./fnl/after/ftplugin/nix.fnl";
+      norg = read "./fnl/after/ftplugin/norg.fnl";
       qf = read "./fnl/after/ftplugin/qf.fnl";
       qfreplace = read "./fnl/after/ftplugin/qfreplace.fnl";
       yaml = read "./fnl/after/ftplugin/yaml.fnl";
