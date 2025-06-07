@@ -382,6 +382,11 @@ in
         none-ls
         vim-ambiwidth
         {
+          package = nvim_context_vt;
+          depends = [ treesitter ];
+          postConfig = read "./fnl/context-vt.fnl";
+        }
+        {
           package = git-conflict-nvim;
           postConfig = read "./fnl/git-conflict.fnl";
         }
