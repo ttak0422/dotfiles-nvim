@@ -187,33 +187,60 @@ do
   end
 end
 local dapui = nil
+do
+  local open
+  local function _36_()
+    if (dapui == nil) then
+      dapui = require("dapui")
+    else
+    end
+    return dapui:open({reset = true})
+  end
+  open = _36_
+  local close
+  local function _38_()
+    if (dapui ~= nil) then
+      return dapui.close()
+    else
+      return nil
+    end
+  end
+  close = _38_
+  local is_open
+  local function _40_()
+    for _, win in ipairs(require("dapui.windows").layouts) do
+      if win:is_open() then
+        return true
+      else
+      end
+    end
+    return false
+  end
+  is_open = _40_
+  toggler.register("dapui", {open = open, close = close, is_open = is_open})
+end
+local aerial = nil
 local open
-local function _36_()
-  if (dapui == nil) then
-    dapui = require("dapui")
+local function _42_()
+  if (aerial == nil) then
+    aerial = require("aerial")
   else
   end
-  return dapui:open({reset = true})
+  return aerial.open()
 end
-open = _36_
+open = _42_
 local close
-local function _38_()
-  if (dapui ~= nil) then
-    return dapui.close()
+local function _44_()
+  if (aerial ~= nil) then
+    return aerial.close()
   else
     return nil
   end
 end
-close = _38_
+close = _44_
 local is_open
-local function _40_()
-  for _, win in ipairs(require("dapui.windows").layouts) do
-    if win:is_open() then
-      return true
-    else
-    end
-  end
-  return false
+local function _46_()
+  return filetype_exists("aerial")
 end
-is_open = _40_
-return toggler.register("dapui", {open = open, close = close, is_open = is_open})
+is_open = _46_
+return toggler.register("aerial", {open = open, close = close, is_open = is_open})

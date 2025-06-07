@@ -15,9 +15,6 @@ nnoremap ; :
                       [:<Leader>M
                        #((. (require :treesj) :toggle) {:split {:recursive true}})
                        (desc " join/split (recursive)")]
-                      [:<Leader>tm
-                       #((. (require :codewindow) :toggle_minimap))
-                       (desc " minimap")]
                       [:<C-h> #((. (require :foldnav) :goto_start))]
                       [:<C-j> #((. (require :foldnav) :goto_next))]
                       [:<C-k> #((. (require :foldnav) :goto_prev_start))]

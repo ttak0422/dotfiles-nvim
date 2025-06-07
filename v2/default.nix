@@ -774,6 +774,11 @@ in
     modulePlugins = {
       depends = [
         {
+          package = aerial-nvim;
+          postConfig = read "./fnl/aerial.fnl";
+          hooks.modules = [ "aerial" ];
+        }
+        {
           package = goto-preview;
           postConfig = read "./fnl/goto-preview.fnl";
           hooks.modules = [ "goto-preview" ];

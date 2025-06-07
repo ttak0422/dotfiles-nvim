@@ -129,3 +129,14 @@
                       (lua "return true")))
                 false)]
   (toggler.register :dapui {: open : close : is_open}))
+
+;;; aerial ;;;
+(var aerial nil)
+(let [open (fn []
+             (if (= aerial nil)
+                 (set aerial (require :aerial)))
+             (aerial.open))
+      close #(if (not= aerial nil)
+                 (aerial.close))
+      is_open #(filetype_exists :aerial)]
+  (toggler.register :aerial {: open : close : is_open}))
