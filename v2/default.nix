@@ -1009,6 +1009,19 @@ in
     filetypePlugins = {
       depends = [
         {
+          package = nvim-ts-autotag;
+          depends = [ treesitter ];
+          postConfig = read "./fnl/ts-autotag.fnl";
+          hooks.fileTypes = [
+            "javascript"
+            "typescript"
+            "jsx"
+            "tsx"
+            "vue"
+            "html"
+          ];
+        }
+        {
           package = markdown-preview-nvim;
           hooks.fileTypes = [ "markdown" ];
         }
