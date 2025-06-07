@@ -987,6 +987,16 @@ in
       hooks.events = [ "CmdlineEnter" ];
     };
 
+    vimLeavePrePlugins = {
+      depends = [
+        {
+          package = logrotate-nvim;
+          postConfig = read "./fnl/logrotate.fnl";
+        }
+      ];
+      hooks.events = [ "VimLeavePre" ];
+    };
+
     windowPlugins = {
       depends = [
         {
