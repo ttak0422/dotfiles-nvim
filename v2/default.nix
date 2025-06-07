@@ -380,6 +380,7 @@ in
         treesitter
         lsp
         none-ls
+        vim-ambiwidth
         {
           package = git-conflict-nvim;
           postConfig = read "./fnl/git-conflict.fnl";
