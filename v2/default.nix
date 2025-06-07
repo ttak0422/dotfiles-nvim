@@ -581,6 +581,11 @@ in
     editPlugins = {
       depends = [
         {
+          package = hlchunk-nvim;
+          depends = [ treesitter ];
+          postConfig = read "./fnl/hlchunk.fnl";
+        }
+        {
           package = better-escape-nvim;
           postConfig = read "./fnl/better-escape.fnl";
         }
