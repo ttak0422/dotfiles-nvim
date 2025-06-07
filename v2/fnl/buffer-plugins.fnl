@@ -25,6 +25,9 @@
       toggle (fn [id]
                #((. (require :toggler) :toggle) id))]
   (each [_ k (ipairs [[:<Leader>tz :<Cmd>NeoZoomToggle<CR> (desc " zoom")]
+                      [:<Leader>to
+                       "<Cmd>lua require('codewindow').toggle_minimap()<CR>"
+                       (desc " minimap")]
                       [:<Leader>U
                        :<Cmd>UndotreeToggle<CR>
                        (desc " undotree")]
