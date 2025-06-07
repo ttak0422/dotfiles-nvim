@@ -2752,11 +2752,11 @@
     "glance-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1740591447,
-        "narHash": "sha256-PDzTKDYiaGEUzXB8XYABlkWRt6YyO7DAZKpLPoajIK4=",
+        "lastModified": 1747942432,
+        "narHash": "sha256-3O4i5heazBefr8oN/3buze5NKAZp/+FYBSc5KNMFLRE=",
         "owner": "DNLHC",
         "repo": "glance.nvim",
-        "rev": "cb19b86349cbe634eec0ea768b9a27fdd6d24f34",
+        "rev": "1649b772a7216bfd55125c627e100d065ddf3de9",
         "type": "github"
       },
       "original": {

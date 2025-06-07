@@ -828,6 +828,12 @@ in
     commandPlugins = {
       depends = [
         {
+          package = glance-nvim;
+          depends = [ trouble ];
+          postConfig = read "./fnl/glance.fnl";
+          hooks.commands = [ "Glance" ];
+        }
+        {
           packages = [
             neorg
             neorg-jupyter
