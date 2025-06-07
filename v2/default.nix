@@ -828,6 +828,11 @@ in
     commandPlugins = {
       depends = [
         {
+          package = NeoZoom-lua;
+          postConfig = read "./fnl/neozoom.fnl";
+          hooks.commands = [ "NeoZoomToggle" ];
+        }
+        {
           package = glance-nvim;
           depends = [ trouble ];
           postConfig = read "./fnl/glance.fnl";

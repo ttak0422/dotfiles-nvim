@@ -24,7 +24,8 @@
       desc (fn [d] {:noremap true :silent true :desc d})
       toggle (fn [id]
                #((. (require :toggler) :toggle) id))]
-  (each [_ k (ipairs [[:<Leader>U
+  (each [_ k (ipairs [[:<Leader>tz :<Cmd>NeoZoomToggle<CR> (desc " zoom")]
+                      [:<Leader>U
                        :<Cmd>UndotreeToggle<CR>
                        (desc " undotree")]
                       [:gx #((. (require :open) :open_cword)) (desc :open)]
