@@ -3407,11 +3407,11 @@
     "menu": {
       "flake": false,
       "locked": {
-        "lastModified": 1736046401,
-        "narHash": "sha256-O5tmN9P77euiScSh/EU1aF2tYFoPHVt8tIBvKmWbZcI=",
+        "lastModified": 1748784363,
+        "narHash": "sha256-4GfQ6Mo32rsoQAXKZF9Bpnm/sms2hfbrTldpLp5ySoY=",
         "owner": "nvzone",
         "repo": "menu",
-        "rev": "bea08e6f8772cb4d362795b0c7ae6343d0b229df",
+        "rev": "7a0a4a2896b715c066cfbe320bdc048091874cc6",
         "type": "github"
       },
       "original": {
@@ -3423,11 +3423,11 @@
     "minty": {
       "flake": false,
       "locked": {
-        "lastModified": 1732979777,
-        "narHash": "sha256-U6IxF/i1agIGzcePYg/k388GdemBtA7igBUMwyQ3d3I=",
+        "lastModified": 1740723349,
+        "narHash": "sha256-jdz0cR1uz1EdxFCuxndsK9gyTZ2jg8wdYA0v33SevOg=",
         "owner": "nvzone",
         "repo": "minty",
-        "rev": "6dce9f097667862537823d515a0250ce58faab05",
+        "rev": "aafc9e8e0afe6bf57580858a2849578d8d8db9e0",
         "type": "github"
       },
       "original": {
@@ -5711,11 +5711,11 @@
     "showkeys": {
       "flake": false,
       "locked": {
-        "lastModified": 1735865298,
-        "narHash": "sha256-a4ZMn3dmLLjuh1V6ASIN6uWWB9XRtjnoqj+2L8AIZys=",
+        "lastModified": 1748072946,
+        "narHash": "sha256-mn/SBtk9YbYZRTJZ054IVsSVOlrry5gsHOXQEnd3b7M=",
         "owner": "nvzone",
         "repo": "showkeys",
-        "rev": "891f95ef94ac80bc7690a0df09c6112b4b822cac",
+        "rev": "cb0a50296f11f1e585acffba8c253b9e8afc1f84",
         "type": "github"
       },
       "original": {
@@ -6238,11 +6238,11 @@
     "timerly": {
       "flake": false,
       "locked": {
-        "lastModified": 1735360913,
-        "narHash": "sha256-ZcKarKBPqBMiSm/h8apHIJlYvMFWx/UsRgZrs9W0Apk=",
+        "lastModified": 1744766198,
+        "narHash": "sha256-olax+zPVIOYEjK7n8cVHS6Ss3o2KdnsbcK2kZVHi3lk=",
         "owner": "nvzone",
         "repo": "timerly",
-        "rev": "fa7c53a106b481bd58af5b766c566dc4507f1e65",
+        "rev": "17299a4d332c483ce09052fe8478b41b992f2594",
         "type": "github"
       },
       "original": {
@@ -6734,11 +6734,11 @@
     "volt": {
       "flake": false,
       "locked": {
-        "lastModified": 1735615775,
-        "narHash": "sha256-4ui29j2+QezEReMYWHpz9OrtbdZzwz38Ov0UtJGKIxg=",
+        "lastModified": 1749727664,
+        "narHash": "sha256-szq/QBI2Y6DKeqBuJ8qA4LlGYnarLT6D/fvwepIgSVc=",
         "owner": "nvzone",
         "repo": "volt",
-        "rev": "b7582c8e2ab3a411a72ab058251ba22d24e70f4a",
+        "rev": "7b8c5e790120d9f08c8487dcb80692db6d2087a1",
         "type": "github"
       },
       "original": {

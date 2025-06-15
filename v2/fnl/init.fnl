@@ -78,6 +78,8 @@
                #((. (require :toggler) :toggle) id))]
   (each [m ks (pairs {:n [["¥" "\\"]
                           [:<esc><esc> (cmd :nohl)]
+                          ; menu
+                          [:<C-t> (cmd :OpenMenu)]
                           ; close
                           [(leader :q) (cmd :BufDel) (desc "close buffer")]
                           [(leader :Q)
@@ -154,7 +156,9 @@
                       :i [["¥" "\\"]]
                       :c [["¥" "\\"]]
                       :t [["¥" "\\"] [:<S-Space> :<Space>]]
-                      :v [["¥" "\\"]]})]
+                      :v [["¥" "\\"]
+                          ; menu
+                          [:<C-t> (cmd :OpenMenu)]]})]
     (each [_ k (ipairs ks)]
       (vim.keymap.set m (. k 1) (. k 2) (or (. k 3) opts))))
   (for [i 0 9]

@@ -844,6 +844,31 @@ in
     commandPlugins = {
       depends = [
         {
+          package = menu;
+          depends = [ volt ];
+          postConfig = read "./fnl/menu.fnl";
+          hooks.commands = [ "OpenMenu" ];
+        }
+        {
+          package = minty;
+          depends = [ volt ];
+          hooks.commands = [
+            "Shades"
+            "Huefy"
+          ];
+        }
+        {
+          package = timerly;
+          depends = [ volt ];
+          postConfig = read "./fnl/timerly.fnl";
+          hooks.commands = [ "TimerlyToggle" ];
+        }
+        {
+          package = showkeys;
+          depends = [ volt ];
+          hooks.commands = [ "ShowkeysToggle" ];
+        }
+        {
           package = NeoZoom-lua;
           postConfig = read "./fnl/neozoom.fnl";
           hooks.commands = [ "NeoZoomToggle" ];
