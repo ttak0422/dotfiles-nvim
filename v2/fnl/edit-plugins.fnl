@@ -19,4 +19,6 @@ nnoremap ; :
                       [:<C-j> #((. (require :foldnav) :goto_next))]
                       [:<C-k> #((. (require :foldnav) :goto_prev_start))]
                       [:<C-l> #((. (require :foldnav) :goto_end))]])]
-    (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts))))
+    (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts)))
+  (each [_ k (ipairs [[:<Leader>T ":Translate JA<CR>"]])]
+    (vim.keymap.set :v (. k 1) (. k 2) (or (. k 3) opts))))

@@ -844,6 +844,11 @@ in
     commandPlugins = {
       depends = [
         {
+          package = translate-nvim;
+          postConfig = read "./fnl/translate.fnl";
+          hooks.commands = [ "Translate" ];
+        }
+        {
           package = menu;
           depends = [ volt ];
           postConfig = read "./fnl/menu.fnl";
