@@ -4783,11 +4783,11 @@
     "nvim-spectre": {
       "flake": false,
       "locked": {
-        "lastModified": 1736733406,
-        "narHash": "sha256-pZ7AH1U95IWMmhk/uBO0Lsxx78H5H9ygPxk/HIqFFlY=",
+        "lastModified": 1747104704,
+        "narHash": "sha256-WPEizIClDmseDEhomCasLx/zfAMT7lq7ZBnfc/a8CuA=",
         "owner": "nvim-pack",
         "repo": "nvim-spectre",
-        "rev": "ddd7383e856a7c939cb4f5143278fe041bbb8cb9",
+        "rev": "72f56f7585903cd7bf92c665351aa585e150af0f",
         "type": "github"
       },
       "original": {

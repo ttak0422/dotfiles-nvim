@@ -774,6 +774,19 @@ in
     modulePlugins = {
       depends = [
         {
+          package = nvim-spectre;
+          depends = [
+            devicons
+            plenary
+          ];
+          postConfig = read "./fnl/spectre.fnl";
+          extraPackages = with pkgs; [
+            ripgrep
+            sd
+          ];
+          hooks.modules = [ "spectre" ];
+        }
+        {
           package = aerial-nvim;
           postConfig = read "./fnl/aerial.fnl";
           hooks.modules = [ "aerial" ];

@@ -100,6 +100,9 @@
                           [(leader :tD)
                            (toggle :trouble-ws)
                            (desc " diagnostics (ws)")]
+                          [(leader :tR)
+                           (lua_ :spectre :toggle)
+                           (desc " replace")]
                           ; 󰢷 Harpoon
                           [(leader :H)
                            (toggle :harpoon)
