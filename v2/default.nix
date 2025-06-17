@@ -857,6 +857,10 @@ in
     commandPlugins = {
       depends = [
         {
+          package = vim-startuptime;
+          hooks.commands = [ "StartupTime" ];
+        }
+        {
           package = translate-nvim;
           postConfig = read "./fnl/translate.fnl";
           hooks.commands = [ "Translate" ];
