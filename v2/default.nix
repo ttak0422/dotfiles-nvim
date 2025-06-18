@@ -188,7 +188,6 @@ in
           code = read "./fnl/treesitter.fnl";
           args.parser = toString parserDrv;
         };
-      hooks.events = [ "TermOpen" ];
     };
 
     lsp = {
