@@ -6,8 +6,7 @@ let
 
   extraPackages = with pkgs; [
     neovim-remote
-    inputs'.gitu.packages.gitu
-    # gitu
+    gitu
   ];
   extraConfig = ''
     if vim.g.neovide then

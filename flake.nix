@@ -32,9 +32,6 @@
     #   url = "github:nvim-neorg/norg-fmt";
     #   flake = false;
     # };
-    gitu = {
-      url = "github:altsem/gitu";
-    };
 
     # javaPackages
     junit-console = {

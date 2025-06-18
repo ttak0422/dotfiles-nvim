@@ -12,9 +12,6 @@ in
 
   extraPackages = with pkgs; [
     neovim-remote
-    inputs'.gitu.packages.gitu
-    # gitu
-
   ];
 
   extraConfig = ''
@@ -191,6 +188,7 @@ in
           code = read "./fnl/treesitter.fnl";
           args.parser = toString parserDrv;
         };
+      hooks.events = [ "TermOpen" ];
     };
 
     lsp = {
@@ -856,6 +854,13 @@ in
 
     commandPlugins = {
       depends = [
+        {
+          packages = [ ];
+          depends = [ treesitter ];
+          extraPackages = with pkgs; [ gitu ];
+          postConfig = read "./fnl/gitu.fnl";
+          hooks.commands = [ "Gitu" ];
+        }
         {
           package = vim-startuptime;
           hooks.commands = [ "StartupTime" ];
