@@ -8,7 +8,8 @@
                        :open :<M-CR>}
               :layout {:position :bottom :ratio 0.4}})
 
-(local suggestion {:auto_trigger true
+(local suggestion {:enabled (or vim.g.copilot false)
+                   :auto_trigger true
                    :hide_during_completion true
                    :debounce 150
                    :keymap {:accept :<C-a>

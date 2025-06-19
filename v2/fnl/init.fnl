@@ -2,6 +2,9 @@
 (vim.loader.enable)
 (vim.cmd "language messages en_US.UTF-8")
 
+;; WIP
+(pcall dofile (vim.fn.expand :$HOME/config.lua))
+
 (each [opt kvp (pairs {:opt {:langmenu :none
                              :timeoutlen 1000
                              :shortmess (.. vim.o.shortmess :sWcS)
