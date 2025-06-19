@@ -14,6 +14,7 @@
     systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
     nix-filter.url = "github:numtide/nix-filter";
+    nixpkgs-neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
@@ -27,11 +28,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-
-    # norg-fmt = {
-    #   url = "github:nvim-neorg/norg-fmt";
-    #   flake = false;
-    # };
 
     # javaPackages
     junit-console = {
@@ -68,10 +64,6 @@
     };
     nvim-dap-repl-highlights = {
       url = "github:LiadOz/nvim-dap-repl-highlights";
-      flake = false;
-    };
-    tree-sitter-norg-meta = {
-      url = "github:nvim-neorg/tree-sitter-norg-meta";
       flake = false;
     };
     plenary-nvim = {
@@ -164,26 +156,6 @@
     };
     harpoon-2 = {
       url = "github:ThePrimeagen/harpoon/harpoon2";
-      flake = false;
-    };
-    neorg = {
-      url = "github:nvim-neorg/neorg";
-      flake = false;
-    };
-    neorg-jupyter = {
-      url = "github:tamton-aquib/neorg-jupyter";
-      flake = false;
-    };
-    neorg-templates = {
-      url = "github:pysan3/neorg-templates";
-      flake = false;
-    };
-    neorg-telescope = {
-      url = "github:nvim-neorg/neorg-telescope";
-      flake = false;
-    };
-    lua-utils-nvim = {
-      url = "github:nvim-neorg/lua-utils.nvim";
       flake = false;
     };
     nvim-nio = {

@@ -1,6 +1,7 @@
 inputs: with inputs; [
   nix-filter.overlays.default
   nix-vscode-extensions.overlays.default
+  nixpkgs-neorg-overlay.overlays.default
   # neovim-nightly-overlay.overlays.default
   (
     final: prev:

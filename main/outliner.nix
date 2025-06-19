@@ -61,8 +61,6 @@ with pkgs.vimPlugins;
       pkgs.vimPlugins.neorg
       lua-utils-nvim
       pathlib-nvim
-      neorg-jupyter
-      neorg-templates
       neorg-telescope
     ];
     depends = [

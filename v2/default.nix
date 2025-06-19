@@ -164,11 +164,6 @@ in
             language = "dap_repl";
             src = nvim-dap-repl-highlights;
           };
-          norg-meta = buildGrammar {
-            inherit version;
-            language = "norg_meta";
-            src = tree-sitter-norg-meta;
-          };
 
           parserDrv = pkgs.stdenv.mkDerivation {
             name = "treesitter-custom-grammars";
@@ -177,9 +172,8 @@ in
               echo "${pkgs.lib.strings.concatStringsSep "," nvim-treesitter.withAllGrammars.dependencies}" \
               | tr ',' '\n' \
               | xargs -I {} find {} -not -type d -name '*.so' \
-              | xargs -I {} ln -s {} $out/parser
+              | xargs -I {} ln -sf {} $out/parser
               ln -s ${dap-repl}/parser $out/parser/dap_repl.so
-              ln -s ${norg-meta}/parser $out/parser/norg_meta.so
             '';
           };
         in
@@ -908,9 +902,6 @@ in
         {
           packages = [
             neorg
-            neorg-jupyter
-            neorg-templates
-            neorg-telescope
             neorg-interim-ls
             neorg-conceal-wrap
           ];
