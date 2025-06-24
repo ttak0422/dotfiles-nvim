@@ -183,6 +183,8 @@ in
           code = read "./fnl/treesitter.fnl";
           args.parser = toString parserDrv;
         };
+      # TODO: eager loading
+      hooks.events = [ "VimEnter" ];
     };
 
     lsp = {
@@ -646,6 +648,7 @@ in
         + read "./fnl/edit-plugins.fnl";
       hooks.events = [
         "InsertEnter"
+        "CmdlineEnter"
         "CursorMoved"
       ];
     };
