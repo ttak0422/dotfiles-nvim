@@ -1,5 +1,7 @@
 -- [nfnl] v2/fnl/neorg.fnl
 local neorg = require("neorg")
+local telescope_builtin = require("telescope.builtin")
+local vault_path = "~/neorg"
 do
   local metagen = {type = "auto", undojoin_updates = true}
   local journal = {journal_folder = "journal", strategy = "flat"}
@@ -7,9 +9,9 @@ do
   local completion = {engine = {module_name = "external.lsp-completion"}}
   local interim_ls = {completion_provider = {enable = true, documentation = true, categories = false}}
   local concealer = {icons = {code_block = {conceal = false}, heading = {icons = {"\243\176\188\143", "\243\176\142\168", "\243\176\188\145", "\243\176\142\178", "\243\176\188\147", "\243\176\142\180"}}, todo = {done = {icon = "\239\128\140"}, pending = {icon = "\243\176\158\140"}, undone = {icon = "\239\128\141"}, uncertain = {icon = "?"}, on_hold = {icon = "\239\128\163"}, cancelled = {icon = "\239\135\184"}, recurring = {icon = "\239\128\161"}, urgent = {icon = "\239\148\155"}}}}
-  local dirman = {workspaces = {default = "~/neorg"}, default_workspace = "default"}
+  local dirman = {workspaces = {default = vault_path}, default_workspace = "default"}
   local markdown = {extensions = "all"}
-  local load = {["core.defaults"] = {config = {disable = {}}}, ["core.esupports.metagen"] = {config = metagen}, ["core.journal"] = {config = journal}, ["core.keybinds"] = {config = keybinds}, ["core.completion"] = {config = completion}, ["core.concealer"] = {config = concealer}, ["core.dirman"] = {config = dirman}, ["core.export.markdown"] = {config = markdown}, ["external.interim-ls"] = {config = interim_ls}, ["external.conceal-wrap"] = {}}
+  local load = {["core.defaults"] = {config = {disable = {}}}, ["core.esupports.metagen"] = {config = metagen}, ["core.journal"] = {config = journal}, ["core.keybinds"] = {config = keybinds}, ["core.completion"] = {config = completion}, ["core.concealer"] = {config = concealer}, ["core.dirman"] = {config = dirman}, ["core.export.markdown"] = {config = markdown}, ["core.integrations.telescope"] = {}, ["external.interim-ls"] = {config = interim_ls}, ["external.conceal-wrap"] = {}}
   neorg.setup({load = load})
 end
 local dirman = neorg.modules.get_module("core.dirman")
@@ -54,34 +56,37 @@ end
 scratch_path = _8_
 local commands
 local function _9_()
-  local _10_ = vim.fn.input("\238\152\179 Title: ")
-  local and_11_ = (nil ~= _10_)
-  if and_11_ then
-    local title = _10_
-    and_11_ = (title ~= "")
+  return telescope_builtin.live_grep({cwd = vault_path})
+end
+local function _10_()
+  local _11_ = vim.fn.input("\238\152\179 Title: ")
+  local and_12_ = (nil ~= _11_)
+  if and_12_ then
+    local title = _11_
+    and_12_ = (title ~= "")
   end
-  if and_11_ then
-    local title = _10_
+  if and_12_ then
+    local title = _11_
     return create_file(scratch_path(dated_title(title)))
   else
     return nil
   end
 end
-local function _14_()
+local function _15_()
   if git_dir_3f() then
     return create_file(("project/" .. get_dir() .. "/main"))
   else
     return vim.notify("Not a git repository", "warn")
   end
 end
-local function _16_()
+local function _17_()
   if git_dir_3f() then
     return create_file(("project/" .. get_dir() .. "/" .. get_branch()))
   else
     return vim.notify("Not a git repository", "warn")
   end
 end
-commands = {NeorgFuzzySearch = "Telescope neorg find_norg_files", NeorgScratch = _9_, NeorgGit = _14_, NeorgGitBranch = _16_}
+commands = {NeorgFindFile = "Telescope neorg find_norg_files", NeorgFuzzySearch = _9_, NeorgScratch = _10_, NeorgGit = _15_, NeorgGitBranch = _17_}
 for name, fun in pairs(commands) do
   vim.api.nvim_create_user_command(name, fun, {})
 end

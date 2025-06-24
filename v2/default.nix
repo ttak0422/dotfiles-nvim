@@ -905,6 +905,7 @@ in
             neorg
             neorg-interim-ls
             neorg-conceal-wrap
+            neorg-telescope
           ];
           depends = [
             lua-utils-nvim
@@ -918,6 +919,7 @@ in
           postConfig = read "./fnl/neorg.fnl";
           hooks.commands = [
             "Neorg"
+            "NeorgFindFile"
             "NeorgFuzzySearch"
             "NeorgScratch"
             "NeorgGit"

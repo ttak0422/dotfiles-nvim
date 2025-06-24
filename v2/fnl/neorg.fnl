@@ -1,4 +1,7 @@
 (local neorg (require :neorg))
+(local telescope_builtin (require :telescope.builtin))
+
+(local vault_path "~/neorg")
 
 (let [metagen {:type :auto :undojoin_updates true}
       journal {:journal_folder :journal :strategy :flat}
@@ -22,7 +25,7 @@
                                 :cancelled {:icon ""}
                                 :recurring {:icon ""}
                                 :urgent {:icon ""}}}}
-      dirman {:workspaces {:default "~/neorg"} :default_workspace :default}
+      dirman {:workspaces {:default vault_path} :default_workspace :default}
       markdown {:extensions :all}
       load {;; default modules
             :core.defaults {:config {:disable []}}
@@ -35,6 +38,7 @@
             :core.dirman {:config dirman}
             :core.export.markdown {:config markdown}
             ;; external
+            :core.integrations.telescope {}
             :external.interim-ls {:config interim-ls}
             :external.conceal-wrap {}}]
   (neorg.setup {: load}))
@@ -56,7 +60,8 @@
                         ((fn [t]
                            (.. (os.date "%Y%m%d%H%M%S") "_" t)))))
       scratch_path (fn [path] (.. :scratch/ path))
-      commands {:NeorgFuzzySearch "Telescope neorg find_norg_files"
+      commands {:NeorgFindFile "Telescope neorg find_norg_files"
+                :NeorgFuzzySearch #(telescope_builtin.live_grep {:cwd vault_path})
                 :NeorgScratch #(case (vim.fn.input " Title: ")
                                  (where title (not= title "")) (-> title
                                                                    (dated_title)

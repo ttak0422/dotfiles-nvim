@@ -107,7 +107,10 @@
                            (desc " template")]
                           [(leader :fn)
                            (cmd :NeorgFuzzySearch)
-                           (desc " Neorg")]
+                           (desc " fuzzy search")]
+                          [(leader :fN)
+                           (cmd :NeorgFindFile)
+                           (desc " find file")]
                           ;  Git
                           [(leader :G) (cmd :Gitu) (desc " client")]
                           [(leader :gb) (toggle :blame) (desc " blame")]
