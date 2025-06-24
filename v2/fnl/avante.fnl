@@ -90,7 +90,7 @@
 
 (avante_lib.load)
 (avante.setup {:mode :agentic
-               :provider :copilot
+               :provider :claude
                :tokenizer :tiktoken
                : behaviour
                : history

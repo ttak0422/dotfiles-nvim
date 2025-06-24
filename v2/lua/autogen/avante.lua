@@ -11,5 +11,5 @@ local diff = {autojump = true, override_timeoutlen = 1000}
 local hints = {enabled = true}
 local repo_map = {ignore_patterns = {"%.git", "%.worktree", "__pycache__", "node_modules", "result"}, negate_patterns = {}}
 avante_lib.load()
-avante.setup({mode = "agentic", provider = "copilot", tokenizer = "tiktoken", behaviour = behaviour, history = history, highlights = highlights, img_paste = img_paste, mappings = mappings, windows = windows, diff = diff, hints = hints, repo_map = repo_map})
+avante.setup({mode = "agentic", provider = "claude", tokenizer = "tiktoken", behaviour = behaviour, history = history, highlights = highlights, img_paste = img_paste, mappings = mappings, windows = windows, diff = diff, hints = hints, repo_map = repo_map})
 return pcall(dofile, (vim.env.HOME .. "/.config/nvim/avante.lua"))
