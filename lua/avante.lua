@@ -4,7 +4,7 @@ pcall(dofile, vim.env.HOME .. "/.config/nvim/avante.lua")
 local avante = require("avante")
 require("avante_lib").load()
 avante.setup({
-  provider = "copilot",
+  provider = "claude",
   auto_suggestions_provider = "claude",
   dual_boost = { enabled = false },
   hints = { enabled = true },
