@@ -852,6 +852,12 @@ in
     commandPlugins = {
       depends = [
         {
+          package = claudecode-nvim;
+          depends = [ snacks ];
+          postConfig = read "./fnl/claudecode.fnl";
+          hooks.commands = [ "ClaudeCode" ];
+        }
+        {
           packages = [ ];
           depends = [ treesitter ];
           extraPackages = with pkgs; [ gitu ];

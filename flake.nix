@@ -1425,6 +1425,10 @@
       url = "github:/benlubas/neorg-conceal-wrap";
       flake = false;
     };
+    claudecode-nvim = {
+      url = "github:coder/claudecode.nvim";
+      flake = false;
+    };
   };
 
   outputs =

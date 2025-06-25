@@ -337,6 +337,22 @@
         "type": "github"
       }
     },
+    "claudecode-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1750517185,
+        "narHash": "sha256-h56TYz3SvdYw2R6f+NCtiFk3BRRV1+hOVa+BKjnav8E=",
+        "owner": "coder",
+        "repo": "claudecode.nvim",
+        "rev": "91357d810ccf92f6169f3754436901c6ff5237ec",
+        "type": "github"
+      },
+      "original": {
+        "owner": "coder",
+        "repo": "claudecode.nvim",
+        "type": "github"
+      }
+    },
     "cmp-buffer": {
       "flake": false,
       "locked": {
@@ -5292,6 +5308,7 @@
         "bufresize-nvim": "bufresize-nvim",
         "bundler": "bundler",
         "capture-vim": "capture-vim",
+        "claudecode-nvim": "claudecode-nvim",
         "cmp-buffer": "cmp-buffer",
         "cmp-calc": "cmp-calc",
         "cmp-cmdline": "cmp-cmdline",
