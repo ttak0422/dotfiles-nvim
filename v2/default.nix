@@ -105,6 +105,11 @@ in
       package = snacks-nvim;
       postConfig = read "./fnl/snacks.fnl";
     };
+    dressing = {
+      package = dressing-nvim;
+      postConfig = read "./fnl/dressing.fnl";
+      depends = [ telescope ];
+    };
 
     render-markdown = {
       package = render-markdown-nvim;
@@ -136,11 +141,7 @@ in
         nui
         render-markdown
         copilot
-        {
-          package = dressing-nvim;
-          postConfig = read "./fnl/dressing.fnl";
-          depends = [ telescope ];
-        }
+        dressing
       ];
       postConfig = read "./fnl/avante.fnl";
     };
@@ -924,6 +925,8 @@ in
             plenary
             telescope
             treesitter
+            lsp
+            dressing
           ];
           postConfig = read "./fnl/neorg.fnl";
           hooks.commands = [
