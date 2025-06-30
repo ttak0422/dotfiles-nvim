@@ -12,13 +12,9 @@ local jdtls_dap = require("jdtls.dap")
 local spring_boot = require("spring_boot")
 local root_dir = vim.fs.root(0, {"gradlew", "mvnw", ".git"})
 local function setup()
-  if vim.env.JAVA_HOME(nil) then
-    vim.env.JAVA_HOME = jdk_path
-  else
-  end
   local workspace_dir = (os.getenv("HOME") .. "/.local/share/eclipse/" .. string.gsub(vim.fn.fnamemodify(root_dir, ":p:h"), "/", "_"))
   local dir_3f
-  local function _2_(path)
+  local function _1_(path)
     local tmp_3_ = vim.uv.fs_stat(path)
     if (nil ~= tmp_3_) then
       local tmp_3_0 = tmp_3_[type]
@@ -31,7 +27,7 @@ local function setup()
       return nil
     end
   end
-  dir_3f = _2_
+  dir_3f = _1_
   local cmd = {java_path, "-Declipse.application=org.eclipse.jdt.ls.core.id1", "-Dosgi.bundles.defaultStartLevel=4", "-Declipse.product=org.eclipse.jdt.ls.core.product", ("-Dosgi.sharedConfiguration.area=" .. jdtls_config_path), "-Dosgi.sharedConfiguration.area.readOnly=true", "-Dosgi.checkConfiguration=true", "-Dosgi.configuration.cascaded=true", "-Dlog.protocol=true", "-Dlog.level=ERROR", "-Xlog:disable", "-XX:+AlwaysPreTouch", "-Xmx10g", ("-javaagent:" .. lombok_jar_path), "--add-modules=ALL-SYSTEM", "--add-opens", "java.base/java.util=ALL-UNNAMED", "--add-opens", "java.base/java.lang=ALL-UNNAMED", "-jar", vim.fn.glob(jdtls_jar_pattern), "-data", workspace_dir}
   local settings
   do
@@ -50,28 +46,28 @@ local function setup()
     local debug_jars = vim.split(vim.fn.glob(java_debug_jar_pattern, 1), "\n")
     local test_jars = vim.split(vim.fn.glob(java_test_jar_pattern, 1), "\n")
     local jar_filter
-    local function _5_(_, v)
+    local function _4_(_, v)
       return (("" ~= v) and not vim.endswith(v, "com.microsoft.java.test.runner-jar-with-dependencies.jar") and not vim.endswith(v, "jacocoagent.jar"))
     end
-    jar_filter = _5_
-    local function _6_(_, v)
+    jar_filter = _4_
+    local function _5_(_, v)
       return v
     end
-    bundles = vim.iter(ipairs(vim.list_extend(vim.list_extend(vim.list_extend({}, debug_jars), test_jars), spring_boot.java_extensions()))):filter(jar_filter):map(_6_):totable()
+    bundles = vim.iter(ipairs(vim.list_extend(vim.list_extend(vim.list_extend({}, debug_jars), test_jars), spring_boot.java_extensions()))):filter(jar_filter):map(_5_):totable()
   end
   local extendedClientCapabilities = vim.tbl_deep_extend("force", jdtls.extendedClientCapabilities, {resolveAdditionalTextEditsSupport = true, progressReportProvider = false})
   local init_options = {bundles = bundles, extendedClientCapabilities = extendedClientCapabilities}
   local on_attach
-  local function _7_(client, bufnr)
+  local function _6_(client, bufnr)
     local build_timeout = 10000
     local desc
-    local function _8_(desc0)
+    local function _7_(desc0)
       return {silent = true, buffer = bufnr, desc = desc0}
     end
-    desc = _8_
+    desc = _7_
     local with_compile
-    local function _9_(f)
-      local function _10_()
+    local function _8_(f)
+      local function _9_()
         if vim.bo.modified then
           vim.cmd("w")
         else
@@ -79,25 +75,25 @@ local function setup()
         client.request_sync("java/buildWorkspace", false, build_timeout, bufnr)
         return f()
       end
-      return _10_
+      return _9_
     end
-    with_compile = _9_
+    with_compile = _8_
     jdtls_dap.setup_dap({hotcodereplace = "auto"})
     jdtls_dap.setup_dap_main_class_configs()
-    local function _12_()
+    local function _11_()
       return os.execute(("rm -rf " .. workspace_dir))
     end
-    for _, k in ipairs({{"<LocalLeader>OO", _12_, desc("\238\153\173 clean workspace")}, {"<LocalLeader>Tt", with_compile(jdtls.test_nearest_method), desc("\238\153\173 test nearest")}, {"<LocalLeader>TT", with_compile(jdtls.test_class), desc("\238\153\173 test class")}}) do
+    for _, k in ipairs({{"<LocalLeader>OO", _11_, desc("\238\153\173 clean workspace")}, {"<LocalLeader>Tt", with_compile(jdtls.test_nearest_method), desc("\238\153\173 test nearest")}, {"<LocalLeader>TT", with_compile(jdtls.test_class), desc("\238\153\173 test class")}}) do
       vim.keymap.set("n", k[1], k[2], k[3])
     end
     return nil
   end
-  on_attach = _7_
+  on_attach = _6_
   local flags = {allow_incremental_sync = true, debounce_text_changes = 300}
   local handlers
-  local function _13_()
+  local function _12_()
   end
-  handlers = {["language/status"] = _13_}
+  handlers = {["language/status"] = _12_}
   if not dir_3f(workspace_dir) then
     vim.uv.fs_mkdir(workspace_dir, 493)
   else

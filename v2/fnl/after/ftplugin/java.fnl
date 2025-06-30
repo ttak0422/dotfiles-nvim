@@ -14,8 +14,8 @@
 (local root_dir (vim.fs.root 0 [:gradlew :mvnw :.git]))
 
 (fn setup []
-  (if (vim.env.JAVA_HOME nil)
-      (set vim.env.JAVA_HOME jdk_path))
+  ; (if (vim.env.JAVA_HOME nil)
+  ;     (set vim.env.JAVA_HOME jdk_path))
   (let [workspace_dir (.. (os.getenv :HOME) :/.local/share/eclipse/
                           (-> root_dir
                               (vim.fn.fnamemodify ":p:h")
