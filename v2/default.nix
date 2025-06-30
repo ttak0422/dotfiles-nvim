@@ -41,7 +41,11 @@ in
             jdtls = pkgs.pkgs-nightly.jdt-language-server;
           in
           {
-            jdk_path = "${pkgs.jdk}";
+            jdk8_path = "${pkgs.jdk8}";
+            jdk11_path = "${pkgs.jdk11}";
+            jdk17_path = "${pkgs.jdk17}";
+            jdk21_path = "${pkgs.jdk}";
+            jdk23_path = "${pkgs.jdk23}";
             java_path = "${pkgs.jdk}/bin/java";
             jdtls_jar_pattern = "${jdtls}/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*.jar";
             jdtls_config_path = "${jdtls}/share/java/jdtls/${
