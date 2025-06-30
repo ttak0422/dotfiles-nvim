@@ -246,6 +246,22 @@
         "type": "github"
       }
     },
+    "blink-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1748464440,
+        "narHash": "sha256-EMQC+2hjgAGYcBoSKkR5LV7jUsl3Oi8rL3K7FNIHXIw=",
+        "owner": "Saghen",
+        "repo": "blink.compat",
+        "rev": "1454f14a8d855a578ceeba77c62538fa1459a67c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Saghen",
+        "repo": "blink.compat",
+        "type": "github"
+      }
+    },
     "btw-nvim": {
       "flake": false,
       "locked": {
@@ -4984,6 +5000,22 @@
         "type": "github"
       }
     },
+    "obsidian-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1751208170,
+        "narHash": "sha256-PM0y6cyuu9YBc7Vwgek9IEHX9d/6qFoVNV39Cjh0XUY=",
+        "owner": "obsidian-nvim",
+        "repo": "obsidian.nvim",
+        "rev": "527970f7fe263d927ea56d9de1e6c0f445b83029",
+        "type": "github"
+      },
+      "original": {
+        "owner": "obsidian-nvim",
+        "repo": "obsidian.nvim",
+        "type": "github"
+      }
+    },
     "octo-nvim": {
       "flake": false,
       "locked": {
@@ -5303,6 +5335,7 @@
         "bigfile-nvim": "bigfile-nvim",
         "blink-cmp": "blink-cmp",
         "blink-cmp-avante": "blink-cmp-avante",
+        "blink-compat": "blink-compat",
         "btw-nvim": "btw-nvim",
         "bufferline-nvim": "bufferline-nvim",
         "bufresize-nvim": "bufresize-nvim",
@@ -5558,6 +5591,7 @@
         "nvim-window-picker": "nvim-window-picker",
         "nvim-yati": "nvim-yati",
         "nvim_context_vt": "nvim_context_vt",
+        "obsidian-nvim": "obsidian-nvim",
         "octo-nvim": "octo-nvim",
         "oil-nvim": "oil-nvim",
         "oil-vcs-status": "oil-vcs-status",

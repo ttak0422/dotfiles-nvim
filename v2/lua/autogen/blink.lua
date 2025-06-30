@@ -30,7 +30,7 @@ end
 local function _7_(_ctx)
   return 2
 end
-sources = {default = {"avante", "lsp", "snippets", "buffer"}, providers = {lsp = {fallbacks = {}, min_keyword_length = _1_, transform_items = _4_}, avante = {module = "blink-cmp-avante", name = "Avante", opts = {}}, snippets = {should_show_items = _6_}}, min_keyword_length = _7_}
+sources = {default = {"avante", "lsp", "snippets", "buffer"}, per_filetype = {AvanteInput = {"avante", "buffer"}}, providers = {lsp = {fallbacks = {}, min_keyword_length = _1_, transform_items = _4_}, avante = {module = "blink-cmp-avante", name = "Avante", opts = {}}, snippets = {should_show_items = _6_}}, min_keyword_length = _7_}
 local snippets = {preset = "luasnip"}
 local fuzzy = {implementation = "rust", use_frecency = true, use_proximity = true, sorts = {"score", "sort_text"}, prebuilt_binaries = {force_version = nil, force_system_triple = nil, extra_curl_args = {}, proxy = {from_env = true, url = nil}, download = false, ignore_version_mismatch = false}, use_unsafe_no_lock = false}
 cmp.setup({completion = completion, appearance = appearance, fuzzy = fuzzy, keymap = keymap, sources = sources, snippets = snippets})

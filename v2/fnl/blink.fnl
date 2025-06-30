@@ -64,6 +64,14 @@
                           ; :path
                           :snippets
                           :buffer]
+                :per_filetype {:AvanteInput [:avante :buffer]
+                               ; :markdown [:lsp
+                               ;            :path
+                               ;            :buffer
+                               ;            :obsidian
+                               ;            :obsidian_new
+                               ;            :obsidian_tags]
+                               }
                 :providers {:lsp {:fallbacks {}
                                   :min_keyword_length (fn [ctx]
                                                         (case ctx.trigger.initial_kind

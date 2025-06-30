@@ -1413,6 +1413,10 @@
       url = "github:Kaiser-Yang/blink-cmp-avante";
       flake = false;
     };
+    blink-compat = {
+      url = "github:Saghen/blink.compat";
+      flake = false;
+    };
     nvim-ts-context-commentstring = {
       url = "github:JoosepAlviste/nvim-ts-context-commentstring";
       flake = false;
@@ -1427,6 +1431,10 @@
     };
     claudecode-nvim = {
       url = "github:coder/claudecode.nvim";
+      flake = false;
+    };
+    obsidian-nvim = {
+      url = "github:obsidian-nvim/obsidian.nvim";
       flake = false;
     };
   };

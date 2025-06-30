@@ -146,6 +146,25 @@ in
       postConfig = read "./fnl/avante.fnl";
     };
 
+    blink = {
+      packages = [
+        blink-cmp
+        blink-cmp-avante
+        blink-compat
+      ];
+      depends = [
+        luasnip
+        avante
+        # obsidian
+      ];
+      postConfig = ''
+        -- TODO: support linux
+        package.cpath = package.cpath .. ';${inputs'.blink-cmp.packages.blink-fuzzy-lib}/lib/libblink_cmp_fuzzy.dylib'
+        ${read "./fnl/blink.fnl"}
+      '';
+      hooks.modules = [ "blink.cmp" ];
+    };
+
     luasnip = {
       package = LuaSnip;
       postConfig = read "./fnl/luasnip.fnl";
@@ -505,21 +524,7 @@ in
     inputPlugins = {
       depends = [
         copilot
-        {
-          packages = [
-            blink-cmp
-            blink-cmp-avante
-          ];
-          depends = [
-            luasnip
-            avante
-          ];
-          postConfig = ''
-            -- TODO: support linux
-            package.cpath = package.cpath .. ';${inputs'.blink-cmp.packages.blink-fuzzy-lib}/lib/libblink_cmp_fuzzy.dylib'
-            ${read "./fnl/blink.fnl"}
-          '';
-        }
+        blink
         {
           package = Comment-nvim;
           postConfig = read "./fnl/comment.fnl";
@@ -740,6 +745,22 @@ in
       ];
       postConfig = read "./fnl/trouble.fnl";
       hooks.modules = [ "trouble" ];
+    };
+
+    obsidian = {
+      package = obsidian-nvim;
+      depends = [
+        plenary
+        lsp
+        telescope
+        treesitter
+        blink
+      ];
+      extraPackages = with pkgs; [ pngpaste ];
+      postConfig = read "./fnl/obsidian.fnl";
+      hooks.commands = [
+        "Obsidian"
+      ];
     };
 
     quickfixPlugins = {
