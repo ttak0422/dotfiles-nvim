@@ -224,26 +224,27 @@ in
           package = efmls-configs-nvim;
           extraPackages = with pkgs; [
             efm-langserver
-            stylua
+            gitlint
+            google-java-format
+            hadolint
             luajitPackages.luacheck
-            nodePackages.prettier
+            nixfmt-rfc-style
             nodePackages.eslint
             nodePackages.fixjson
-            shfmt
-            taplo
-            yamllint
-            statix
-            nixfmt-rfc-style
-            google-java-format
-            stylelint
-            vim-vint
-            yapf
+            nodePackages.prettier
             pylint
-            shellcheck
+            rubocop
             rustfmt
-            gitlint
-            hadolint
+            shellcheck
+            shfmt
+            statix
+            stylelint
+            stylua
+            taplo
+            vim-vint
             vtsls
+            yamllint
+            yapf
           ];
         }
       ];

@@ -99,6 +99,7 @@
                  :dartls
                  :denols
                  :dhall_lsp_server
+                 :rubocop
                  :efm
                  :fennel_ls
                  :gopls

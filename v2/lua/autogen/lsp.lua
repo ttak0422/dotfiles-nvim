@@ -1,9 +1,9 @@
--- [nfnl] Compiled from v2/fnl/lsp.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] v2/fnl/lsp.fnl
 vim.lsp.set_log_level(vim.log.levels.ERROR)
 do
-  local tmp_9_auto = vim.lsp.handlers
-  tmp_9_auto["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = "none"})
-  tmp_9_auto["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {update_in_insert = false})
+  local tmp_9_ = vim.lsp.handlers
+  tmp_9_["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = "none"})
+  tmp_9_["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {update_in_insert = false})
 end
 vim.diagnostic.config({severity_sort = true, signs = {text = {[vim.diagnostic.severity.ERROR] = "\239\145\132", [vim.diagnostic.severity.WARN] = "\239\145\132", [vim.diagnostic.severity.INFO] = "\239\145\132", [vim.diagnostic.severity.HINT] = "\239\145\132"}, numhl = {[vim.diagnostic.severity.ERROR] = "", [vim.diagnostic.severity.WARN] = "", [vim.diagnostic.severity.INFO] = "", [vim.diagnostic.severity.HINT] = ""}}, update_in_insert = false, virtual_text = false})
 do
@@ -41,4 +41,4 @@ do
   callback = _2_
   vim.api.nvim_create_autocmd("LspAttach", {desc = "register lsp keymaps", callback = callback})
 end
-return vim.lsp.enable({"ast_grep", "bashls", "csharp_ls", "cssls", "dartls", "denols", "dhall_lsp_server", "efm", "fennel_ls", "gopls", "html", "jsonls", "kotlin_language_server", "lua_ls", "marksman", "nil_ls", "pyright", "solargraph", "taplo", "typos_lsp", "vtsls", "yamlls"})
+return vim.lsp.enable({"ast_grep", "bashls", "csharp_ls", "cssls", "dartls", "denols", "dhall_lsp_server", "rubocop", "efm", "fennel_ls", "gopls", "html", "jsonls", "kotlin_language_server", "lua_ls", "marksman", "nil_ls", "pyright", "solargraph", "taplo", "typos_lsp", "vtsls", "yamlls"})
