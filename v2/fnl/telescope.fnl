@@ -16,19 +16,15 @@
                                    :n {:<Down> actions.cycle_history_next
                                        :<Up> actions.cycle_history_prev}}}))
 
-(local extensions {:live_grep_args {:auto_quoting true
-                                    :mappings {:i {:<C-t> (lga_actions.quote_prompt {:postfix " -t "})
-                                                   :<C-i> (lga_actions.quote_prompt {:postfix " --iglob "})}}}
-                   :ast_grep {:command [:sg :--json=stream]
-                              :grep_open_files false
-                              :lang nil}})
+(local extensions
+       {:live_grep_args {:auto_quoting true
+                         :mappings {:i {:<C-t> (lga_actions.quote_prompt {:postfix " -t "})
+                                        :<C-i> (lga_actions.quote_prompt {:postfix " --iglob "})}}}})
 
 (telescope.setup {: defaults : extensions})
 (telescope.load_extension :live_grep_args)
-(telescope.load_extension :ast_grep)
 (telescope.load_extension :sonictemplate)
 (vim.api.nvim_create_user_command :TelescopeBuffer
-                                  (fn []
-                                    (builtin.buffers {:sort_mru true
-                                                      :ignore_current_buffer true}))
+                                  #(builtin.buffers {:sort_mru true
+                                                     :ignore_current_buffer true})
                                   {})

@@ -1,4 +1,9 @@
-{ inputs', pkgs, ... }:
+{
+  inputs',
+  pkgs,
+  lib,
+  ...
+}:
 let
   read =
     path:
@@ -183,6 +188,12 @@ in
       postConfig =
         let
           inherit (pkgs.tree-sitter) buildGrammar version;
+          inherit (inputs'.norg.packages)
+            tree-sitter-norg
+            ;
+          inherit (inputs'.norg-meta.packages)
+            tree-sitter-norg-meta
+            ;
 
           dap-repl = buildGrammar {
             inherit version;
@@ -199,6 +210,9 @@ in
               | xargs -I {} find {} -not -type d -name '*.so' \
               | xargs -I {} ln -sf {} $out/parser
               ln -s ${dap-repl}/parser $out/parser/dap_repl.so
+              # overwrite norg parser
+              ln -sf ${tree-sitter-norg}/parser $out/parser/norg.so
+              ln -s ${tree-sitter-norg-meta}/parser $out/parser/norg-meta.so
             '';
           };
         in
@@ -700,7 +714,6 @@ in
         telescope-fzf-native-nvim
         telescope-live-grep-args-nvim
         telescope-sonictemplate-nvim
-        telescope-sg
       ];
       depends = [
         plenary
@@ -735,6 +748,7 @@ in
             '';
         }
       ];
+      extraPackages = with pkgs; [ ripgrep ];
       postConfig = read "./fnl/telescope.fnl";
       hooks.commands = [
         "Telescope"
@@ -938,10 +952,16 @@ in
         }
         {
           packages = [
-            neorg
+            (neorg.overrideAttrs {
+              dependencies = [ ];
+              doCheck = false;
+            })
             neorg-interim-ls
             neorg-conceal-wrap
-            neorg-telescope
+            (neorg-telescope.overrideAttrs {
+              dependencies = [ ];
+              doCheck = false;
+            })
           ];
           depends = [
             lua-utils-nvim

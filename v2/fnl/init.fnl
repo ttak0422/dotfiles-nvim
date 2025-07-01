@@ -90,9 +90,6 @@
                           [(leader :ff)
                            (cmd "Telescope live_grep_args")
                            (desc " livegrep")]
-                          [(leader :fF)
-                           (cmd "Telescope ast_grep")
-                           (desc " AST")]
                           [(leader :fp)
                            (cmd "Telescope find_files hidden=true")
                            (desc " files")]

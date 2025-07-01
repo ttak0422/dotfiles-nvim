@@ -1437,6 +1437,8 @@
       url = "github:obsidian-nvim/obsidian.nvim";
       flake = false;
     };
+    norg.url = "github:nvim-neorg/tree-sitter-norg/dev";
+    norg-meta.url = "github:nvim-neorg/tree-sitter-norg-meta";
   };
 
   outputs =

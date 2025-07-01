@@ -58,7 +58,10 @@ with pkgs.vimPlugins;
   };
   neorg = {
     packages = [
-      pkgs.vimPlugins.neorg
+      pkgs.vimPlugins.neorg.overrideAttrs {
+        dependencies = [];
+        doCheck = false;
+      }
       lua-utils-nvim
       pathlib-nvim
       neorg-telescope
