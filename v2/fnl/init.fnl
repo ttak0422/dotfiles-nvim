@@ -91,7 +91,7 @@
                            (cmd "Telescope live_grep_args")
                            (desc " livegrep")]
                           [(leader :fp)
-                           (cmd "Telescope find_files hidden=true")
+                           (cmd "Telescope find_files")
                            (desc " files")]
                           [(leader :fP)
                            (cmd "Telescope projects")
