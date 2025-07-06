@@ -86,6 +86,49 @@ in
   eager = with pkgs.vimPlugins; {
     morimo.package = morimo;
     config-local.package = nvim-config-local;
+    treesitter = {
+      packages = [
+        nvim-treesitter
+        nvim-treesitter-textobjects
+        nvim-ts-context-commentstring
+      ];
+      startupConfig =
+        let
+          inherit (pkgs.tree-sitter) buildGrammar version;
+          inherit (inputs'.norg.packages)
+            tree-sitter-norg
+            ;
+          inherit (inputs'.norg-meta.packages)
+            tree-sitter-norg-meta
+            ;
+
+          dap-repl = buildGrammar {
+            inherit version;
+            language = "dap_repl";
+            src = nvim-dap-repl-highlights;
+          };
+
+          parserDrv = pkgs.stdenv.mkDerivation {
+            name = "treesitter-custom-grammars";
+            buildCommand = ''
+              mkdir -p $out/parser
+              echo "${pkgs.lib.strings.concatStringsSep "," nvim-treesitter.withAllGrammars.dependencies}" \
+              | tr ',' '\n' \
+              | xargs -I {} find {} -not -type d -name '*.so' \
+              | xargs -I {} ln -sf {} $out/parser
+              ln -s ${dap-repl}/parser $out/parser/dap_repl.so
+              # overwrite norg parser
+              ln -sf ${tree-sitter-norg}/parser $out/parser/norg.so
+              ln -s ${tree-sitter-norg-meta}/parser $out/parser/norg-meta.so
+            '';
+          };
+        in
+        {
+          # TODO: add support for custom grammars
+          code = read "./fnl/treesitter.fnl";
+          args.parser = toString parserDrv;
+        };
+    };
   };
 
   lazy = with pkgs.vimPlugins; rec {
@@ -124,7 +167,6 @@ in
       package = render-markdown-nvim;
       depends = [
         devicons
-        treesitter
         # 循環参照になるため
         # blink
       ];
@@ -177,52 +219,6 @@ in
     luasnip = {
       package = LuaSnip;
       postConfig = read "./fnl/luasnip.fnl";
-    };
-
-    treesitter = {
-      packages = [
-        nvim-treesitter
-        nvim-treesitter-textobjects
-        nvim-ts-context-commentstring
-      ];
-      postConfig =
-        let
-          inherit (pkgs.tree-sitter) buildGrammar version;
-          inherit (inputs'.norg.packages)
-            tree-sitter-norg
-            ;
-          inherit (inputs'.norg-meta.packages)
-            tree-sitter-norg-meta
-            ;
-
-          dap-repl = buildGrammar {
-            inherit version;
-            language = "dap_repl";
-            src = nvim-dap-repl-highlights;
-          };
-
-          parserDrv = pkgs.stdenv.mkDerivation {
-            name = "treesitter-custom-grammars";
-            buildCommand = ''
-              mkdir -p $out/parser
-              echo "${pkgs.lib.strings.concatStringsSep "," nvim-treesitter.withAllGrammars.dependencies}" \
-              | tr ',' '\n' \
-              | xargs -I {} find {} -not -type d -name '*.so' \
-              | xargs -I {} ln -sf {} $out/parser
-              ln -s ${dap-repl}/parser $out/parser/dap_repl.so
-              # overwrite norg parser
-              ln -sf ${tree-sitter-norg}/parser $out/parser/norg.so
-              ln -s ${tree-sitter-norg-meta}/parser $out/parser/norg-meta.so
-            '';
-          };
-        in
-        {
-          # TODO: add support for custom grammars
-          code = read "./fnl/treesitter.fnl";
-          args.parser = toString parserDrv;
-        };
-      # TODO: eager loading
-      hooks.events = [ "VimEnter" ];
     };
 
     lsp = {
@@ -297,7 +293,6 @@ in
         nvim-dap-virtual-text
         nvim-dap-repl-highlights
       ];
-      depends = [ treesitter ];
       postConfig = read "./fnl/dap.fnl";
       hooks.modules = [ "dap" ];
     };
@@ -328,7 +323,6 @@ in
       ];
       depends = [
         lsp
-        treesitter
         {
           package = goplements-nvim;
           postConfig = read "./fnl/goplements.fnl";
@@ -410,13 +404,11 @@ in
 
     bufferPlugins = {
       depends = [
-        treesitter
         lsp
         none-ls
         vim-ambiwidth
         {
           package = nvim_context_vt;
-          depends = [ treesitter ];
           postConfig = read "./fnl/context-vt.fnl";
         }
         {
@@ -432,7 +424,6 @@ in
           postConfig = read "./fnl/dropbar.fnl";
           depends = [
             lsp
-            treesitter
           ];
         }
         {
@@ -550,7 +541,6 @@ in
         }
         {
           package = tabout-nvim;
-          depends = [ treesitter ];
           postConfig = read "./fnl/tabout.fnl";
         }
         {
@@ -601,7 +591,6 @@ in
       depends = [
         {
           package = hlchunk-nvim;
-          depends = [ treesitter ];
           postConfig = read "./fnl/hlchunk.fnl";
         }
         {
@@ -610,7 +599,6 @@ in
         }
         {
           package = nvim-surround;
-          depends = [ treesitter ];
           postConfig = read "./fnl/surround.fnl";
         }
         {
@@ -760,7 +748,6 @@ in
       package = trouble-nvim;
       depends = [
         devicons
-        treesitter
       ];
       postConfig = read "./fnl/trouble.fnl";
       hooks.modules = [ "trouble" ];
@@ -772,7 +759,6 @@ in
         plenary
         lsp
         telescope
-        treesitter
         blink
       ];
       extraPackages = with pkgs; [ pngpaste ];
@@ -884,7 +870,6 @@ in
         }
         {
           package = foldnav-nvim;
-          depends = [ treesitter ];
           hooks.modules = [ "foldnav" ];
         }
       ];
@@ -900,7 +885,6 @@ in
         }
         {
           packages = [ ];
-          depends = [ treesitter ];
           extraPackages = with pkgs; [ gitu ];
           postConfig = read "./fnl/gitu.fnl";
           hooks.commands = [ "Gitu" ];
@@ -970,7 +954,6 @@ in
             pathlib-nvim
             plenary
             telescope
-            treesitter
             lsp
             dressing
           ];
@@ -1072,7 +1055,6 @@ in
           postConfig = read "./fnl/helpview.fnl";
           depends = [
             devicons
-            treesitter
           ];
         }
         {
@@ -1128,7 +1110,6 @@ in
       depends = [
         {
           package = nvim-ts-autotag;
-          depends = [ treesitter ];
           postConfig = read "./fnl/ts-autotag.fnl";
           hooks.fileTypes = [
             "javascript"
