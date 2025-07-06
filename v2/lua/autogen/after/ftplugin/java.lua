@@ -111,4 +111,4 @@ local function setup()
     return nil
   end
 end
-return vim.api.nvim_create_autocmd("CursorMoved", {buffer = 0, once = true, callback = setup})
+return setup()

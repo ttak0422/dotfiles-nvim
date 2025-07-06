@@ -80,16 +80,16 @@
                              :smartSemicolonDetection enabled}
                        sources {:organizeImports {:starThreshold 9999
                                                   :staticStarThreshold 9999}}
-                      configuration {:runtimes [{:name :JavaSE-1.8 :path jdk8_path}
-                                                {:name :JavaSE-11
-                                                 :path jdk11_path}
-                                                {:name :JavaSE-17
-                                                 :path jdk17_path}
-                                                {:name :JavaSE-21
-                                                 :path jdk21_path}
-                                                {:name :JavaSE-23
-                                                 :path jdk23_path}]}
-
+                       configuration {:runtimes [{:name :JavaSE-1.8
+                                                  :path jdk8_path}
+                                                 {:name :JavaSE-11
+                                                  :path jdk11_path}
+                                                 {:name :JavaSE-17
+                                                  :path jdk17_path}
+                                                 {:name :JavaSE-21
+                                                  :path jdk21_path}
+                                                 {:name :JavaSE-23
+                                                  :path jdk23_path}]}
                        java {:autobuild disabled
                              :maxConcurrentBuilds 8
                              :signatureHelp enabled
@@ -174,4 +174,4 @@
                                              :-Dsts.lsp.client=vscode
                                              :-Dlogging.level.org.springframework=OFF]}})))))
 
-(vim.api.nvim_create_autocmd :CursorMoved {:buffer 0 :once true :callback setup})
+(setup)
