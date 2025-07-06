@@ -222,6 +222,27 @@ in
       postConfig = read "./fnl/luasnip.fnl";
     };
 
+    notify = {
+      package = nvim-notify;
+      postConfig = read "./fnl/notify.fnl";
+    };
+
+    noice = {
+      package = noice-nvim;
+      depends = [
+        snacks
+        nui
+        telescope
+        lsp
+        notify
+      ];
+      postConfig = read "./fnl/noice.fnl";
+      hooks.events = [
+        "BufReadPost"
+        "CmdlineEnter"
+      ];
+    };
+
     lsp = {
       packages = [
         nvim-lspconfig
