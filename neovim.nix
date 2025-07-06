@@ -18,26 +18,7 @@
       };
 
       bundler-nvim = {
-        main = import ./main params;
         v2 = import ./v2 params;
-        test-skk = import ./test-skk params;
-        tiny = {
-          eager = {
-            morimo.package = pkgs.vimPlugins.morimo;
-            config-local.package = pkgs.vimPlugins.nvim-config-local;
-            sorairo.package = pkgs.vimPlugins.sorairo;
-          };
-        };
-        telescope = {
-          eager = {
-            telescope = {
-              packages = with pkgs.vimPlugins; [
-                telescope-nvim
-                plenary-nvim
-              ];
-            };
-          };
-        };
       };
     };
 }

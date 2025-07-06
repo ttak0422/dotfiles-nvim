@@ -1,1 +1,0 @@
-[:undotree :gitsigns-blame]
