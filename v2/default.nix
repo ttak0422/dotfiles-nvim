@@ -845,6 +845,7 @@ in
             nvim-jdtls
             spring-boot-nvim
           ];
+          postConfig = read "./fnl/jdtls.fnl";
           depends = [
             lsp
             dap

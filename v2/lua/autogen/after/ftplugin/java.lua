@@ -85,10 +85,7 @@ local function setup()
     with_compile = _8_
     jdtls_dap.setup_dap({hotcodereplace = "auto"})
     jdtls_dap.setup_dap_main_class_configs()
-    local function _11_()
-      return os.execute(("rm -rf " .. workspace_dir))
-    end
-    for _, k in ipairs({{"<LocalLeader>OO", _11_, desc("\238\153\173 clean workspace")}, {"<LocalLeader>Tt", with_compile(jdtls.test_nearest_method), desc("\238\153\173 test nearest")}, {"<LocalLeader>TT", with_compile(jdtls.test_class), desc("\238\153\173 test class")}}) do
+    for _, k in ipairs({{"<LocalLeader>Tt", with_compile(jdtls.test_nearest_method), desc("\238\153\173 test nearest")}, {"<LocalLeader>TT", with_compile(jdtls.test_class), desc("\238\153\173 test class")}}) do
       vim.keymap.set("n", k[1], k[2], k[3])
     end
     return nil
@@ -96,9 +93,9 @@ local function setup()
   on_attach = _6_
   local flags = {allow_incremental_sync = true, debounce_text_changes = 300}
   local handlers
-  local function _12_()
+  local function _11_()
   end
-  handlers = {["language/status"] = _12_}
+  handlers = {["language/status"] = _11_}
   if not dir_3f(workspace_dir) then
     vim.uv.fs_mkdir(workspace_dir, 493)
   else
