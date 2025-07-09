@@ -94,7 +94,7 @@
 ;; setup
 (vim.lsp.enable [:ast_grep
                  :bashls
-                 :csharp_ls
+                 ; :csharp_ls
                  :cssls
                  :dartls
                  :denols
