@@ -96,7 +96,7 @@
                        target (.. cwd "_" idx)]
                    (tmux_attach_or_create target :0)
                    (-> (or (. toggleterm idx)
-                           (let [t (terminal.Terminal:new {:direction :float
+                           (let [t (terminal.Terminal:new {:direction :horizontal
                                                            :float_opts {:border :single}
                                                            :cmd (.. "tmux attach-session -t "
                                                                     target)})]

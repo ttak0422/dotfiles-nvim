@@ -1,10 +1,10 @@
 (let [M (require :toggleterm)
       size (fn [term]
-             (if (= term.direction :horizontal) (* vim.o.lines 0.35)
+             (if (= term.direction :horizontal) (* vim.o.lines 0.5)
                  (* vim.o.columns 0.5)))
       float_opts {:border :single
-                  :width (fn [] (math.min vim.o.columns 150))
-                  :height (fn [] (math.floor (* vim.o.lines 0.8)))
+                  :width #(math.floor (* vim.o.columns 0.95))
+                  :height #(math.floor (* vim.o.lines 0.9))
                   :title_pos :center}]
   (M.setup {: size
             : float_opts
