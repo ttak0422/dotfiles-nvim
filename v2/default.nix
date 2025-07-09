@@ -808,7 +808,6 @@ in
       depends = [
         {
           package = nvim-bqf;
-          depends = [ bufferPlugins ];
           postConfig = read "./fnl/bqf.fnl";
         }
         {
