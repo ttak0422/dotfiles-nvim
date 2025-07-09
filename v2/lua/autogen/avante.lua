@@ -1,6 +1,27 @@
 -- [nfnl] v2/fnl/avante.fnl
 local avante = require("avante")
 local avante_lib = require("avante_lib")
+local hub = require("mcphub")
+local hub_ext = require("mcphub.extensions.avante")
+local system_prompt
+local function _1_()
+  local _2_
+  do
+    local tmp_3_ = hub.get_hub_instance()
+    if (nil ~= tmp_3_) then
+      _2_ = tmp_3_:get_active_servers_prompt()
+    else
+      _2_ = nil
+    end
+  end
+  return (_2_ or "")
+end
+system_prompt = _1_
+local custom_tools
+local function _4_()
+  return {hub_ext.mcp_tool()}
+end
+custom_tools = _4_
 local behaviour = {auto_set_highlight_group = true, auto_set_keymaps = true, support_paste_from_clipboard = true, minimize_diff = true, enable_token_counting = true, auto_apply_diff_after_generation = false, auto_focus_on_diff_view = false, auto_focus_sidebar = false, auto_suggestions = false, auto_suggestions_respect_ignore = false, jump_result_buffer_on_finish = false, use_cwd_as_project_root = false}
 local history = {max_tokens = 8192, carried_entry_count = nil, storage_path = (vim.fn.stdpath("state") .. "/avante"), paste = {extension = "png", filename = "pasted-%Y%m%d%H%M%S"}}
 local highlights = {diff = {current = "DiffText", incoming = "DiffAdd"}}
@@ -11,5 +32,5 @@ local diff = {autojump = true, override_timeoutlen = 1000}
 local hints = {enabled = true}
 local repo_map = {ignore_patterns = {"%.git", "%.worktree", "__pycache__", "node_modules", "result"}, negate_patterns = {}}
 avante_lib.load()
-avante.setup({mode = "agentic", provider = "claude", tokenizer = "tiktoken", behaviour = behaviour, history = history, highlights = highlights, img_paste = img_paste, mappings = mappings, windows = windows, diff = diff, hints = hints, repo_map = repo_map})
+avante.setup({mode = "agentic", provider = "claude", tokenizer = "tiktoken", system_prompt = system_prompt, custom_tools = custom_tools, behaviour = behaviour, history = history, highlights = highlights, img_paste = img_paste, mappings = mappings, windows = windows, diff = diff, hints = hints, repo_map = repo_map})
 return pcall(dofile, (vim.env.HOME .. "/.config/nvim/avante.lua"))

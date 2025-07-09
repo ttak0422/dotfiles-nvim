@@ -194,8 +194,22 @@ in
         render-markdown
         copilot
         dressing
+        mcphub
       ];
       postConfig = read "./fnl/avante.fnl";
+    };
+
+    mcphub = {
+      package = mcphub-nvim;
+      depends = [
+        plenary
+      ];
+      extraPackages = with pkgs; [
+        nodejs
+        nodePackages.mcp-hub
+        uv
+      ];
+      postConfig = read "./fnl/mcphub.fnl";
     };
 
     blink = {

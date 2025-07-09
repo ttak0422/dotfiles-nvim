@@ -3480,6 +3480,38 @@
         "type": "github"
       }
     },
+    "mcp-hub": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1751948197,
+        "narHash": "sha256-yyAByuTic8WR5P5793Gh7xW/RQ8qCNhVoszGrJ4iGfY=",
+        "owner": "ravitemer",
+        "repo": "mcp-hub",
+        "rev": "c0b088e277cddc8d086ce417c9a912fe87749751",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ravitemer",
+        "repo": "mcp-hub",
+        "type": "github"
+      }
+    },
+    "mcphub-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1751951033,
+        "narHash": "sha256-QIJP/PINqMR2wWzP09LGoKjPI0uG0p5PlCBZY65H7Y8=",
+        "owner": "ravitemer",
+        "repo": "mcphub.nvim",
+        "rev": "3f676c6060bb9c610f74b85b0f11a66798877f4a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ravitemer",
+        "repo": "mcphub.nvim",
+        "type": "github"
+      }
+    },
     "menu": {
       "flake": false,
       "locked": {
@@ -5643,6 +5675,8 @@
         "lsp-progress-nvim": "lsp-progress-nvim",
         "marks-nvim": "marks-nvim",
         "markview-nvim": "markview-nvim",
+        "mcp-hub": "mcp-hub",
+        "mcphub-nvim": "mcphub-nvim",
         "menu": "menu",
         "minty": "minty",
         "mkdir-nvim": "mkdir-nvim",

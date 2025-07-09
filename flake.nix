@@ -1439,6 +1439,14 @@
     };
     norg.url = "github:nvim-neorg/tree-sitter-norg/dev";
     norg-meta.url = "github:nvim-neorg/tree-sitter-norg-meta";
+    mcphub-nvim = {
+      url = "github:ravitemer/mcphub.nvim";
+      flake = false;
+    };
+    mcp-hub = {
+      url = "github:ravitemer/mcp-hub";
+      flake = false;
+    };
   };
 
   outputs =

@@ -1,6 +1,16 @@
 (local avante (require :avante))
 (local avante_lib (require :avante_lib))
 
+; MCP
+(local hub (require :mcphub))
+(local hub_ext (require :mcphub.extensions.avante))
+(local system_prompt (fn []
+                       (or (-?> (hub.get_hub_instance)
+                                (: :get_active_servers_prompt))
+                           "")))
+
+(local custom_tools (fn [] [(hub_ext.mcp_tool)]))
+
 (local behaviour {:auto_focus_sidebar false
                   :auto_suggestions false
                   :auto_suggestions_respect_ignore false
@@ -92,6 +102,8 @@
 (avante.setup {:mode :agentic
                :provider :claude
                :tokenizer :tiktoken
+               : system_prompt
+               : custom_tools
                : behaviour
                : history
                : highlights
