@@ -130,6 +130,35 @@ in
           args.parser = toString parserDrv;
         };
     };
+    lsp0 = {
+      package = nvim-lspconfig;
+      startupConfig = read "./fnl/lsp.fnl";
+      extraPackages = with pkgs; [
+        dart
+        deno
+        dhall-lsp-server
+        fennel-ls
+        flutter
+        go
+        go-tools
+        google-java-format
+        gopls
+        kotlin-language-server
+        lua-language-server
+        marksman
+        nil
+        nixd
+        nodePackages.bash-language-server
+        nodePackages.typescript
+        nodePackages.yaml-language-server
+        pyright
+        rubyPackages.solargraph
+        rust-analyzer
+        taplo-cli
+        typos-lsp
+        vscode-langservers-extracted
+      ];
+    };
   };
 
   lazy = with pkgs.vimPlugins; rec {
@@ -263,69 +292,13 @@ in
       ];
     };
 
+    # TODO: refactor
     lsp = {
       packages = [
-        nvim-lspconfig
         nvim-dd
         garbage-day-nvim
         # lsp-lens-nvim
         tiny-inline-diagnostic-nvim
-      ];
-      depends = [
-        {
-          package = efmls-configs-nvim;
-          extraPackages = with pkgs; [
-            efm-langserver
-            gitlint
-            google-java-format
-            hadolint
-            luajitPackages.luacheck
-            nixfmt-rfc-style
-            nodePackages.eslint
-            nodePackages.fixjson
-            nodePackages.prettier
-            pylint
-            rubocop
-            rustfmt
-            shellcheck
-            shfmt
-            statix
-            stylelint
-            stylua
-            taplo
-            vim-vint
-            vtsls
-            yamllint
-            yapf
-          ];
-        }
-      ];
-      postConfig = read "./fnl/lsp.fnl";
-      extraPackages = with pkgs; [
-        ast-grep
-        dart
-        deno
-        dhall-lsp-server
-        fennel-ls
-        flutter
-        go
-        go-tools
-        google-java-format
-        gopls
-        kotlin-language-server
-        lua-language-server
-        marksman
-        nil
-        nixd
-        nodePackages.bash-language-server
-        nodePackages.typescript
-        nodePackages.yaml-language-server
-        pyright
-        rubyPackages.solargraph
-        rust-analyzer
-        taplo-cli
-        typos-lsp
-        vscode-langservers-extracted
       ];
     };
 

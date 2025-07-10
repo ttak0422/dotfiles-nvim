@@ -92,8 +92,7 @@
                                {:desc "register lsp keymaps" : callback}))
 
 ;; setup
-(vim.lsp.enable [:ast_grep
-                 :bashls
+(vim.lsp.enable [:bashls
                  ; :csharp_ls
                  :cssls
                  :dartls
