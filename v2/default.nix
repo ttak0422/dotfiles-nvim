@@ -164,6 +164,12 @@ in
       depends = [ telescope ];
     };
 
+    project = {
+      package = project-nvim;
+      postConfig = read "./fnl/project.fnl";
+      hooks.commands = [ "Telescope" ];
+    };
+
     render-markdown = {
       package = render-markdown-nvim;
       depends = [
@@ -499,11 +505,6 @@ in
           postConfig = read "./fnl/fundo.fnl";
         }
         {
-          package = project-nvim;
-          postConfig = read "./fnl/project.fnl";
-          hooks.commands = [ "Telescope" ];
-        }
-        {
           package = todo-comments-nvim;
           depends = [
             plenary
@@ -742,6 +743,7 @@ in
       depends = [
         plenary
         quickfixPlugins
+        project
         {
           package = vim-sonictemplate.overrideAttrs (_: {
             src = pkgs.nix-filter {
