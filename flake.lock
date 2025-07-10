@@ -4930,11 +4930,11 @@
     "nvim-lspconfig": {
       "flake": false,
       "locked": {
-        "lastModified": 1751281449,
-        "narHash": "sha256-zznE+Y+So3moPw2ZOZONiSqWadrOMifyCZUsSIvIAtY=",
+        "lastModified": 1752024140,
+        "narHash": "sha256-Ap1t8NFR7k9Tl93d2h8EAamjSl8RTBiLnypWNP0yFlM=",
         "owner": "neovim",
         "repo": "nvim-lspconfig",
-        "rev": "1cb30b1bafe5a63a5c6ac20dc39f83487df38855",
+        "rev": "592916db3f4ecdf062962b3aa83583aebe3c4a14",
         "type": "github"
       },
       "original": {
