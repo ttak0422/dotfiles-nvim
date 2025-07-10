@@ -515,10 +515,6 @@ in
           extraPackages = with pkgs; [ ripgrep ];
         }
         {
-          package = trim-nvim;
-          postConfig = read "./fnl/trim.fnl";
-        }
-        {
           package = fix-auto-scroll-nvim;
           postConfig = ''
             require('fix-auto-scroll').setup()
@@ -626,6 +622,10 @@ in
 
     editPlugins = {
       depends = [
+        {
+          package = trim-nvim;
+          postConfig = read "./fnl/trim.fnl";
+        }
         {
           package = hlchunk-nvim;
           postConfig = read "./fnl/hlchunk.fnl";
