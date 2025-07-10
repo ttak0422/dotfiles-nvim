@@ -43,7 +43,7 @@ in
         args =
           let
             inherit (pkgs.vscode-marketplace.vscjava) vscode-java-debug vscode-java-test;
-            jdtls = pkgs.pkgs-nightly.jdt-language-server;
+            jdtls = pkgs.jdt-language-server;
           in
           {
             jdk8_path = "${pkgs.jdk8}";
