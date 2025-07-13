@@ -6272,11 +6272,11 @@
     "telescope-file-browser-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1729728595,
-        "narHash": "sha256-VJbRi91TTOwUkQYyTM6Njl7MtX8/mOjINiqWYWEtyxg=",
+        "lastModified": 1750040034,
+        "narHash": "sha256-NHcU3c+1pLeypHr9xXKmqvdwB1QM/vj5axzjpFEQCLQ=",
         "owner": "nvim-telescope",
         "repo": "telescope-file-browser.nvim",
-        "rev": "626998e5c1b71c130d8bc6cf7abb6709b98287bb",
+        "rev": "7bf55ed0ff5be182ad3301cff266581fc1c56cce",
         "type": "github"
       },
       "original": {
