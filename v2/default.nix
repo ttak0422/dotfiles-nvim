@@ -76,6 +76,7 @@ in
       denols = read "./fnl/after/lsp/denols.fnl";
       efm = read "./fnl/after/lsp/efm.fnl";
       fennel_ls = read "./fnl/after/lsp/fennel_ls.fnl";
+      jdtls = read "./fnl/after/lsp/jdtls.fnl";
       lua_ls = read "./fnl/after/lsp/lua_ls.fnl";
       nil_ls = read "./fnl/after/lsp/nil_ls.fnl";
       typos_lsp = read "./fnl/after/lsp/typos_lsp.fnl";
