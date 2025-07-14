@@ -19,6 +19,7 @@ else
 end
 local obsidian = require("obsidian")
 local workspaces = {{name = "default", path = default_vault}}
-local daily_notes = {folder = "notes/journal", date_format = "%Y-%m-%d", alias_format = "%B %-d %Y", default_tags = {"journal"}, template = nil}
+local daily_notes = {folder = "journal", date_format = "%Y-%m-%d", default_tags = {"journal"}, template = nil}
 local completion = {blink = true, min_chars = 2, create_new = true, nvim_cmp = false}
-return obsidian.setup({workspaces = workspaces, daily_notes = daily_notes, completion = completion, notes_subdir = "notes", log_level = vim.log.levels.WARN})
+local ui = {ignore_conceal_warn = true}
+return obsidian.setup({workspaces = workspaces, daily_notes = daily_notes, completion = completion, ui = ui, log_level = vim.log.levels.WARN})

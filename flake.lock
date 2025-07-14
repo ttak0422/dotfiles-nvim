@@ -5170,11 +5170,11 @@
     "obsidian-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1751208170,
-        "narHash": "sha256-PM0y6cyuu9YBc7Vwgek9IEHX9d/6qFoVNV39Cjh0XUY=",
+        "lastModified": 1752485394,
+        "narHash": "sha256-UZ3yrzKBun6wqR05sQHhTu0xEqyycNPAynS4Nf5LMdo=",
         "owner": "obsidian-nvim",
         "repo": "obsidian.nvim",
-        "rev": "527970f7fe263d927ea56d9de1e6c0f445b83029",
+        "rev": "3181c7caee34d169d185ad81829d3ce5d63f625a",
         "type": "github"
       },
       "original": {

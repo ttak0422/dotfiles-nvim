@@ -14,16 +14,17 @@
 
 (local workspaces [{:name :default :path default_vault}])
 
-(local daily_notes {:folder :notes/journal
+(local daily_notes {:folder :journal
                     :date_format "%Y-%m-%d"
-                    :alias_format "%B %-d %Y"
                     :default_tags [:journal]
                     :template nil})
 
 (local completion {:nvim_cmp false :blink true :min_chars 2 :create_new true})
 
+(local ui {:ignore_conceal_warn true})
+
 (obsidian.setup {: workspaces
                  : daily_notes
                  : completion
-                 :notes_subdir :notes
+                 : ui
                  :log_level vim.log.levels.WARN})
