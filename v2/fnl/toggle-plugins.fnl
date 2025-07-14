@@ -93,7 +93,7 @@
 (let [open_idx (fn [idx]
                  (let [terminal (require :toggleterm.terminal)
                        cwd (vim.fn.fnamemodify (vim.fn.getcwd) ":t")
-                       target (.. cwd "_" idx)]
+                       target (.. (string.gsub cwd "%." "_") "_" idx)]
                    (tmux_attach_or_create target :0)
                    (-> (or (. toggleterm idx)
                            (let [t (terminal.Terminal:new {:direction :horizontal

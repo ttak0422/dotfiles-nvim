@@ -146,11 +146,11 @@ do
   local function _27_(idx)
     local terminal = require("toggleterm.terminal")
     local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-    local target = (cwd .. "_" .. idx)
+    local target = (string.gsub(cwd, "%.", "_") .. "_" .. idx)
     tmux_attach_or_create(target, "0")
     local or_28_ = toggleterm[idx]
     if not or_28_ then
-      local t = terminal.Terminal:new({direction = "float", float_opts = {border = "single"}, cmd = ("tmux attach-session -t " .. target)})
+      local t = terminal.Terminal:new({direction = "horizontal", float_opts = {border = "single"}, cmd = ("tmux attach-session -t " .. target)})
       toggleterm[idx] = t
       or_28_ = t
     end
