@@ -2693,11 +2693,11 @@
     "garbage-day-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1727087946,
-        "narHash": "sha256-XBt1EMbd3QTwfxHZcTVO1Rd0rocATrv8HMEBPxbs60w=",
+        "lastModified": 1750765130,
+        "narHash": "sha256-7SUy35WKzg2rSVI6CBKy9kvC6t9ATjhOTSOIN9KqZTM=",
         "owner": "Zeioth",
         "repo": "garbage-day.nvim",
-        "rev": "750ef08ae6031ee3683014c5349144340c08ead6",
+        "rev": "cce4a0b394d33878bde3c1648f4e6b358e8769bb",
         "type": "github"
       },
       "original": {
