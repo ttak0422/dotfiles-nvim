@@ -84,10 +84,23 @@ in
       yamlls = read "./fnl/after/lsp/yamlls.fnl";
     };
   };
-
   eager = with pkgs.vimPlugins; {
     morimo.package = morimo;
+    plenary.package = plenary-nvim;
+    nui.package = nui-nvim;
     config-local.package = nvim-config-local;
+    snacks = {
+      package = snacks-nvim;
+      startupConfig = read "./fnl/snacks.fnl";
+    };
+    notify = {
+      package = nvim-notify;
+      startupConfig = read "./fnl/notify.fnl";
+    };
+    noice = {
+      package = noice-nvim;
+      startupConfig = read "./fnl/noice.fnl";
+    };
     treesitter = {
       packages = [
         nvim-treesitter
@@ -131,7 +144,25 @@ in
           args.parser = toString parserDrv;
         };
     };
-    lsp0 = {
+    scope = {
+      package = scope-nvim;
+      startupConfig = read "./fnl/scope.fnl";
+    };
+    bufferline = {
+      package = bufferline-nvim;
+      startupConfig = read "./fnl/bufferline.fnl";
+    };
+    lastplace = {
+      package = vim-lastplace;
+      startupConfig = {
+        language = "vim";
+        code = ''
+          let g:lastplace_ignore = "gitcommit,gitrebase,undotree,gitsigns-blame"
+          let g:lastplace_ignore_buftype = "help,nofile,quickfix"
+        '';
+      };
+    };
+    lsp = {
       package = nvim-lspconfig;
       startupConfig = read "./fnl/lsp.fnl";
       extraPackages = with pkgs; [
@@ -160,6 +191,60 @@ in
         vscode-langservers-extracted
       ];
     };
+    none-ls = {
+      packages = [
+        none-ls-extras-nvim
+        none-ls-nvim
+      ];
+      extraPackages =
+        with pkgs;
+        # diagnostics
+        [
+          actionlint # GitHub Actions
+          checkmake # Makefile
+          checkstyle # Java
+          deadnix # Nix
+          dotenv-linter # .env
+          editorconfig-checker # .editorconfig
+          gitlint # Git
+          go-tools # Go (staticcheck)
+          hadolint # Dockerfile
+          ktlint # Kotlin
+          selene # Lua
+          statix # Nix
+          stylelint # CSS, SCSS, LESS, SASS
+          vim-vint # Vim script
+          yamllint # YAML
+        ]
+        ++
+          # formatters
+          [
+            biome # WEB
+            fantomas # F#
+            fnlfmt # Fennel
+            go-tools # Go
+            gofumpt # Go
+            google-java-format # Java
+            html-tidy # HTML
+            ktlint # Kotlin
+            nixfmt-rfc-style # Nix
+            nodePackages.prettier # JS, TS, ...
+            shfmt # shell
+            stylelint # CSS, SCSS, LESS, SASS
+            stylua # Lua
+            yamlfmt # YAML
+            yapf # Python
+          ];
+      startupConfig = read "./fnl/none-ls.fnl";
+    };
+    gitsigns = {
+      package = gitsigns-nvim;
+      startupConfig = read "./fnl/gitsigns.fnl";
+    };
+    heirline = {
+      package = heirline-nvim;
+      startupConfig = read "./lua/heirline.lua";
+    };
   };
 
   lazy = with pkgs.vimPlugins; rec {
@@ -167,8 +252,6 @@ in
     sorairo.package = pkgs.vimPlugins.sorairo;
 
     # utils
-    plenary.package = plenary-nvim;
-    nui.package = nui-nvim;
     nio.package = nvim-nio;
     devicons = {
       package = nvim-web-devicons;
@@ -183,10 +266,6 @@ in
           let g:denops#server#deno_args = ['-q', '--no-lock', '-A', '--unstable-kv']
         '';
       };
-    };
-    snacks = {
-      package = snacks-nvim;
-      postConfig = read "./fnl/snacks.fnl";
     };
     dressing = {
       package = dressing-nvim;
@@ -225,8 +304,6 @@ in
         doCheck = false;
       };
       depends = [
-        plenary
-        nui
         render-markdown
         copilot
         dressing
@@ -238,7 +315,6 @@ in
     mcphub = {
       package = mcphub-nvim;
       depends = [
-        plenary
       ];
       extraPackages = with pkgs; [
         nodejs
@@ -272,30 +348,14 @@ in
       postConfig = read "./fnl/luasnip.fnl";
     };
 
-    notify = {
-      package = nvim-notify;
-      postConfig = read "./fnl/notify.fnl";
-    };
-
-    noice = {
-      package = noice-nvim;
-      depends = [
-        snacks
-        nui
-        telescope
-        notify
-      ];
-      postConfig = read "./fnl/noice.fnl";
-      hooks.events = [
-        "BufReadPost"
-        "CmdlineEnter"
-      ];
-    };
-
     # TODO: refactor
     lspPlugins = {
       packages = [ ];
       depends = [
+        {
+          package = lsp-progress-nvim;
+          postConfig = read "./fnl/lsp-progress.fnl";
+        }
         {
           package = garbage-day-nvim;
           postConfig = read "./fnl/garbage-day.fnl";
@@ -351,9 +411,6 @@ in
           package = go-impl-nvim;
           postConfig = read "./fnl/go-impl.fnl";
           depends = [
-            nui
-            plenary
-            snacks
           ];
         }
       ];
@@ -373,57 +430,8 @@ in
     # TODO:
     # vtsls = { package = vtsls-nvim; };
 
-    none-ls = {
-      package = none-ls-nvim;
-      depends = [
-        plenary
-        none-ls-extras-nvim
-      ];
-      extraPackages =
-        with pkgs;
-        # diagnostics
-        [
-          actionlint # GitHub Actions
-          checkmake # Makefile
-          checkstyle # Java
-          deadnix # Nix
-          dotenv-linter # .env
-          editorconfig-checker # .editorconfig
-          gitlint # Git
-          go-tools # Go (staticcheck)
-          hadolint # Dockerfile
-          ktlint # Kotlin
-          selene # Lua
-          statix # Nix
-          stylelint # CSS, SCSS, LESS, SASS
-          vim-vint # Vim script
-          yamllint # YAML
-        ]
-        ++
-          # formatters
-          [
-            biome # WEB
-            fantomas # F#
-            fnlfmt # Fennel
-            go-tools # Go
-            gofumpt # Go
-            google-java-format # Java
-            html-tidy # HTML
-            ktlint # Kotlin
-            nixfmt-rfc-style # Nix
-            nodePackages.prettier # JS, TS, ...
-            shfmt # shell
-            stylelint # CSS, SCSS, LESS, SASS
-            stylua # Lua
-            yamlfmt # YAML
-            yapf # Python
-          ];
-      postConfig = read "./fnl/none-ls.fnl";
-    };
-
     bufferPlugins = {
       depends = [
-        none-ls
         vim-ambiwidth
         {
           package = nvim_context_vt;
@@ -444,30 +452,6 @@ in
           ];
         }
         {
-          package = heirline-nvim;
-          postConfig = read "./lua/heirline.lua";
-          depends = [
-            {
-              package = gitsigns-nvim;
-              postConfig = read "./fnl/gitsigns.fnl";
-            }
-            {
-              package = lsp-progress-nvim;
-              postConfig = read "./fnl/lsp-progress.fnl";
-            }
-          ];
-        }
-        {
-          package = bufferline-nvim;
-          depends = [
-            {
-              package = scope-nvim;
-              postConfig = read "./fnl/scope.fnl";
-            }
-          ];
-          postConfig = read "./fnl/bufferline.fnl";
-        }
-        {
           package = nap-nvim;
           depends = [
             vim-bufsurf
@@ -482,7 +466,6 @@ in
         {
           package = todo-comments-nvim;
           depends = [
-            plenary
             devicons
             trouble
           ];
@@ -515,20 +498,6 @@ in
         {
           package = git-conflict-nvim;
           postConfig = read "./fnl/git-conflict.fnl";
-        }
-        {
-          package = vim-lastplace;
-          preConfig = {
-            language = "vim";
-            code = ''
-              let g:lastplace_ignore = "gitcommit,gitrebase,undotree,gitsigns-blame"
-              let g:lastplace_ignore_buftype = "help,nofile,quickfix"
-            '';
-          };
-        }
-        {
-          package = guess-indent-nvim;
-          postConfig = read "./fnl/guess-indent.fnl";
         }
         {
           package = diffview-nvim;
@@ -597,6 +566,10 @@ in
 
     editPlugins = {
       depends = [
+        {
+          package = guess-indent-nvim;
+          postConfig = read "./fnl/guess-indent.fnl";
+        }
         {
           package = nvim-dd;
           postConfig = read "./fnl/dd.fnl";
@@ -720,7 +693,6 @@ in
         telescope-sonictemplate-nvim
       ];
       depends = [
-        plenary
         quickfixPlugins
         project
         {
@@ -773,7 +745,6 @@ in
     obsidian = {
       package = obsidian-nvim;
       depends = [
-        plenary
         telescope
         blink
       ];
@@ -814,7 +785,6 @@ in
           package = nvim-spectre;
           depends = [
             devicons
-            plenary
           ];
           postConfig = read "./fnl/spectre.fnl";
           extraPackages = with pkgs; [
@@ -847,7 +817,7 @@ in
         }
         {
           package = open-nvim;
-          depends = [ plenary ];
+          depends = [ ];
           postConfig = ''
             require("open").setup({
               system_open = {
@@ -894,7 +864,7 @@ in
       depends = [
         {
           package = claudecode-nvim;
-          depends = [ snacks ];
+          depends = [ ];
           postConfig = read "./fnl/claudecode.fnl";
           hooks.commands = [ "ClaudeCode" ];
         }
@@ -965,9 +935,7 @@ in
           depends = [
             lua-utils-nvim
             nio
-            nui
             pathlib-nvim
-            plenary
             telescope
             dressing
           ];
@@ -1002,7 +970,6 @@ in
             lir-git-status-nvim
           ];
           depends = [
-            plenary
             devicons
           ];
           postConfig = read "./fnl/lir.fnl";
@@ -1020,7 +987,7 @@ in
         }
         {
           package = harpoon-2;
-          depends = [ plenary ];
+          depends = [ ];
           postConfig = read "./fnl/harpoon.fnl";
           hooks.modules = [ "harpoon" ];
         }
@@ -1141,7 +1108,7 @@ in
         {
           package = crates-nvim;
           postConfig = read "./fnl/crates.fnl";
-          depends = [ none-ls ];
+          depends = [ ];
           hooks.fileTypes = [ "toml" ];
         }
         {

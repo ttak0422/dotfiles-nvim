@@ -2,7 +2,7 @@
 
 (notify.setup {:timeout 2500
                :render :default
-               :top_down false
+               :top_down true
                :stages :static
                :background_colour "#000000"})
 
