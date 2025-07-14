@@ -296,7 +296,6 @@ in
     # TODO: refactor
     lsp = {
       packages = [
-        nvim-dd
         garbage-day-nvim
         # lsp-lens-nvim
         tiny-inline-diagnostic-nvim
@@ -596,6 +595,10 @@ in
 
     editPlugins = {
       depends = [
+        {
+          package = nvim-dd;
+          postConfig = read "./fnl/dd.fnl";
+        }
         {
           package = trim-nvim;
           postConfig = read "./fnl/trim.fnl";
