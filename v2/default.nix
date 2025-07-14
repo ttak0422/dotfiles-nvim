@@ -39,7 +39,7 @@ in
       fennel = read "./fnl/after/ftplugin/fennel.fnl";
       gitcommit = read "./fnl/after/ftplugin/gitcommit.fnl";
       java = {
-        code = read "./fnl/after/ftplugin/java.fnl";
+        code = read "./fnl/after/ftplugin/java_mini.fnl";
         args =
           let
             inherit (pkgs.vscode-marketplace.vscjava) vscode-java-debug vscode-java-test;
