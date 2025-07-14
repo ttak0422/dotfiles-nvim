@@ -55,4 +55,7 @@ local handlers
 local function _7_()
 end
 handlers = {["language/status"] = _7_}
-return jdtls.start_or_attach({root_dir = root_dir, cmd = cmd, settings = settings, init_options = init_options, on_attach = on_attach, flags = flags, handlers = handlers})
+local function _8_()
+  return jdtls.start_or_attach({root_dir = root_dir, cmd = cmd, settings = settings, init_options = init_options, on_attach = on_attach, flags = flags, handlers = handlers})
+end
+return vim.defer_fn(_8_, 100)
