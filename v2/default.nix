@@ -283,7 +283,6 @@ in
         snacks
         nui
         telescope
-        lsp
         notify
       ];
       postConfig = read "./fnl/noice.fnl";
@@ -294,11 +293,19 @@ in
     };
 
     # TODO: refactor
-    lsp = {
-      packages = [
-        # lsp-lens-nvim
-        tiny-inline-diagnostic-nvim
+    lspPlugins = {
+      packages = [ ];
+      depends = [
+        {
+          package = garbage-day-nvim;
+          postConfig = read "./fnl/garbage-day.fnl";
+        }
+        {
+          package = tiny-inline-diagnostic-nvim;
+          postConfig = read "./fnl/tiny-inline-diagnostic.fnl";
+        }
       ];
+      hooks.events = [ "LspAttach" ];
     };
 
     dap = {
@@ -336,7 +343,6 @@ in
         impl
       ];
       depends = [
-        lsp
         {
           package = goplements-nvim;
           postConfig = read "./fnl/goplements.fnl";
@@ -372,7 +378,6 @@ in
       depends = [
         plenary
         none-ls-extras-nvim
-        lsp
       ];
       extraPackages =
         with pkgs;
@@ -418,7 +423,6 @@ in
 
     bufferPlugins = {
       depends = [
-        lsp
         none-ls
         vim-ambiwidth
         {
@@ -437,7 +441,6 @@ in
           package = dropbar-nvim;
           postConfig = read "./fnl/dropbar.fnl";
           depends = [
-            lsp
           ];
         }
         {
@@ -594,10 +597,6 @@ in
 
     editPlugins = {
       depends = [
-        {
-          package = garbage-day-nvim;
-          postConfig = read "./fnl/garbage-day.fnl";
-        }
         {
           package = nvim-dd;
           postConfig = read "./fnl/dd.fnl";
@@ -775,7 +774,6 @@ in
       package = obsidian-nvim;
       depends = [
         plenary
-        lsp
         telescope
         blink
       ];
@@ -842,7 +840,6 @@ in
           ];
           postConfig = read "./fnl/jdtls.fnl";
           depends = [
-            lsp
             dap
             dap-ui
           ];
@@ -972,7 +969,6 @@ in
             pathlib-nvim
             plenary
             telescope
-            lsp
             dressing
           ];
           postConfig = read "./fnl/neorg.fnl";
