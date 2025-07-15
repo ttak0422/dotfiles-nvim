@@ -15,4 +15,5 @@
               :sign_priority 6
               :update_debounce 1000
               :max_file_length 40000
+              :current_line_blame true
               : current_line_blame_opts})
