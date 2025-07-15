@@ -130,8 +130,7 @@
                           [(leader :ngb)
                            (cmd :NeorgGitBranch)
                            (desc " Git (branch)")]
-                          ;
-                          ]
+                          [:<C-c> (cmd :AvanteFocus) (desc "Avante Chat")]]
                       :i [["¥" "\\"]]
                       :c [["¥" "\\"]]
                       :t [["¥" "\\"] [:<S-Space> :<Space>]]

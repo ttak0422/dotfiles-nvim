@@ -310,6 +310,7 @@ in
         mcphub
       ];
       postConfig = read "./fnl/avante.fnl";
+      hooks.commands = [ "AvanteFocus" ];
     };
 
     mcphub = {
