@@ -27,4 +27,5 @@
                  : daily_notes
                  : completion
                  : ui
+                 :footer {:enabled false}
                  :log_level vim.log.levels.WARN})
