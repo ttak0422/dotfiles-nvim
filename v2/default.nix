@@ -567,6 +567,10 @@ in
     editPlugins = {
       depends = [
         {
+          package = nvim-autopairs;
+          postConfig = read "./fnl/autopairs.fnl";
+        }
+        {
           package = guess-indent-nvim;
           postConfig = read "./fnl/guess-indent.fnl";
         }
