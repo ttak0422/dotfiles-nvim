@@ -1,3 +1,3 @@
 (local hub (require :mcphub))
 
-(hub.setup {})
+(hub.setup {:auto_approve true})

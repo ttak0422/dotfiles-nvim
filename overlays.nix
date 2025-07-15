@@ -83,7 +83,7 @@ inputs: with inputs; [
           pname = "mcp-hub";
           version = inputs.mcp-hub.rev;
           src = cleanSource inputs.mcp-hub;
-          npmDepsHash = "sha256-7SDNbWsolCyp3bxscCEQ/ExBk8ExR4fNRzc8eVwNFq4";
+          npmDepsHash = "sha256-MaVoFgYiFdD6nSrAAvT1opG1mFB9UudITozA/WtIni4=";
         };
       };
 

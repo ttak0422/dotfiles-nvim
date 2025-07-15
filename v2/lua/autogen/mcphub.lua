@@ -1,3 +1,3 @@
 -- [nfnl] v2/fnl/mcphub.fnl
 local hub = require("mcphub")
-return hub.setup({})
+return hub.setup({auto_approve = true})
