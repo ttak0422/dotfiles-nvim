@@ -100,7 +100,12 @@
 
 (avante_lib.load)
 (avante.setup {:mode :agentic
-               :provider :claude
+               :provider :sonet4
+               :providers {:sonet4 {:__inherited_from :claude
+                                    :model :claude-sonnet-4-0}
+                           :opus4 {:__inherited_from :claude
+                                   :model :claude-opus-4-0
+                                   :extra_request_body {:max_tokens 32000}}}
                :tokenizer :tiktoken
                : system_prompt
                : custom_tools
