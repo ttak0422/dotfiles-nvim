@@ -431,6 +431,14 @@ in
     # TODO:
     # vtsls = { package = vtsls-nvim; };
 
+    hlslens = {
+      package = nvim-hlslens;
+      postConfig = ''
+        require("hlslens").setup()
+      '';
+      hooks.events = [ "CmdlineEnter" ];
+    };
+
     bufferPlugins = {
       depends = [
         vim-ambiwidth
@@ -633,14 +641,7 @@ in
         }
         {
           package = lasterisk-nvim;
-          depends = [
-            {
-              package = nvim-hlslens;
-              postConfig = ''
-                require("hlslens").setup()
-              '';
-            }
-          ];
+          depends = [ hlslens ];
           postConfig = read "./fnl/lasterisk.fnl";
         }
         {
