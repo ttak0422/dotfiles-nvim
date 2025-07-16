@@ -1447,6 +1447,10 @@
       url = "github:ravitemer/mcp-hub";
       flake = false;
     };
+    claude-code-nvim = {
+      url = "github:greggh/claude-code.nvim";
+      flake = false;
+    };
   };
 
   outputs =

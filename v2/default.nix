@@ -874,6 +874,11 @@ in
           hooks.commands = [ "ClaudeCode" ];
         }
         {
+          package = claude-code-nvim;
+          postConfig = read "./fnl/claude-code.fnl";
+          # hooks.commands = [ "ClaudeCode" ];
+        }
+        {
           packages = [ ];
           extraPackages = with pkgs; [ gitu ];
           postConfig = read "./fnl/gitu.fnl";
