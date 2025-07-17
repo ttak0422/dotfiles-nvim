@@ -89,7 +89,7 @@
 
 (local diff {:autojump true :override_timeoutlen 1000})
 
-(local hints {:enabled true})
+(local hints {:enabled false})
 
 (local repo_map {:ignore_patterns ["%.git"
                                    "%.worktree"
