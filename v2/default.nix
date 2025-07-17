@@ -788,6 +788,11 @@ in
     modulePlugins = {
       depends = [
         {
+          package = goto-preview;
+          postConfig = read "./fnl/goto-preview.fnl";
+          hooks.modules = [ "goto-preview" ];
+        }
+        {
           package = nvim-spectre;
           depends = [
             devicons

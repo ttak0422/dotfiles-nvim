@@ -1,3 +1,6 @@
+(macro cmd [c]
+  `,(.. :<Cmd> c :<CR>))
+
 ;; global configs
 (vim.lsp.set_log_level vim.log.levels.ERROR)
 
@@ -21,8 +24,7 @@
                                         vim.diagnostic.severity.HINT ""}}})
 
 ;; keymaps
-(let [cmd (fn [c] (.. :<cmd> c :<cr>))
-      callback (fn [ctx]
+(let [callback (fn [ctx]
                  (let [bufnr ctx.buf
                        desc (fn [d]
                               {:noremap true
@@ -58,6 +60,18 @@
                                                 (vim.lsp.buf.hover) ; fallback
                                                 )))
                                         "show doc"]
+                                       [:gpd
+                                        (cmd "lua require('goto-preview').goto_preview_definition()")
+                                        "preview definition"]
+                                       [:gpi
+                                        (cmd "lua require('goto-preview').goto_preview_implementation()")
+                                        "preview implementation"]
+                                       [:gpr
+                                        (cmd "lua require('goto-preview').goto_preview_references()")
+                                        "preview references"]
+                                       [:gP
+                                        (cmd "lua require('goto-preview').close_all_win()")
+                                        "close all preview"]
                                        [:gD
                                         (cmd "Glance definitions")
                                         "go to definition"]

@@ -4,4 +4,4 @@
              :width 120
              :default_mappings false
              :resizing_mappings false
-             :border :none})
+             :border :single})
