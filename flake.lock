@@ -3171,11 +3171,11 @@
     "hydra-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1725503396,
-        "narHash": "sha256-oPlKrHT6xRN0FZXlBmor5XW3hYE2yjbjxaT9TsHuOzk=",
+        "lastModified": 1746313605,
+        "narHash": "sha256-lYwl4wrVsCq1JVbkDyq1lB1hBGrz+XtQ9DQWIQ6lkyg=",
         "owner": "nvimtools",
         "repo": "hydra.nvim",
-        "rev": "7f5341643107d05a8d7d4fdea00b29af28517380",
+        "rev": "8c4a9f621ec7cdc30411a1f3b6d5eebb12b469dc",
         "type": "github"
       },
       "original": {

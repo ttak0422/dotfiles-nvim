@@ -576,6 +576,10 @@ in
     editPlugins = {
       depends = [
         {
+          package = hydra-nvim;
+          postConfig = read "./fnl/hydra.fnl";
+        }
+        {
           package = nvim-autopairs;
           postConfig = read "./fnl/autopairs.fnl";
         }
@@ -873,6 +877,14 @@ in
 
     commandPlugins = {
       depends = [
+        {
+          package = venn-nvim;
+          hooks.commands = [
+            "VBox"
+            "VBoxD"
+            "VBoxH"
+          ];
+        }
         {
           package = claudecode-nvim;
           depends = [ ];
