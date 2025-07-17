@@ -107,6 +107,7 @@
                                    :model :claude-opus-4-0
                                    :extra_request_body {:max_tokens 32000}}}
                :tokenizer :tiktoken
+               :disabled_tools [:web_search]
                : system_prompt
                : custom_tools
                : behaviour
