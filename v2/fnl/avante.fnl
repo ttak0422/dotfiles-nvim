@@ -22,7 +22,23 @@
                   :minimize_diff true
                   :enable_token_counting true
                   :use_cwd_as_project_root false
-                  :auto_focus_on_diff_view false})
+                  :auto_focus_on_diff_view false
+                  :auto_approve_tool_permissions [:rag_search
+                                                  :python
+                                                  :git_diff
+                                                  ;:git_commit
+                                                  :glob
+                                                  :search_keyword
+                                                  :read_file_toplevel_symbols
+                                                  :read_file
+                                                  :create_file
+                                                  :move_path
+                                                  :copy_path
+                                                  ;:delete_path
+                                                  :create_dir
+                                                  :bash
+                                                  :web_search
+                                                  :fetch]})
 
 (local history
        {:max_tokens 8192

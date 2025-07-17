@@ -22,7 +22,7 @@ local function _4_()
   return {hub_ext.mcp_tool()}
 end
 custom_tools = _4_
-local behaviour = {auto_set_highlight_group = true, auto_set_keymaps = true, support_paste_from_clipboard = true, minimize_diff = true, enable_token_counting = true, auto_apply_diff_after_generation = false, auto_focus_on_diff_view = false, auto_focus_sidebar = false, auto_suggestions = false, auto_suggestions_respect_ignore = false, jump_result_buffer_on_finish = false, use_cwd_as_project_root = false}
+local behaviour = {auto_set_highlight_group = true, auto_set_keymaps = true, support_paste_from_clipboard = true, minimize_diff = true, enable_token_counting = true, auto_approve_tool_permissions = {"rag_search", "python", "git_diff", "glob", "search_keyword", "read_file_toplevel_symbols", "read_file", "create_file", "move_path", "copy_path", "create_dir", "bash", "web_search", "fetch"}, auto_apply_diff_after_generation = false, auto_focus_on_diff_view = false, auto_focus_sidebar = false, auto_suggestions = false, auto_suggestions_respect_ignore = false, jump_result_buffer_on_finish = false, use_cwd_as_project_root = false}
 local history = {max_tokens = 8192, carried_entry_count = nil, storage_path = (vim.fn.stdpath("state") .. "/avante"), paste = {extension = "png", filename = "pasted-%Y%m%d%H%M%S"}}
 local highlights = {diff = {current = "DiffText", incoming = "DiffAdd"}}
 local img_paste = {url_encode_path = true, template = "\nimage: $FILE_PATH\n"}
