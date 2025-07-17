@@ -11,6 +11,7 @@
     (vim.fn.mkdir default_vault :p))
 
 (local obsidian (require :obsidian))
+(local api (require :obsidian.api))
 
 (local workspaces [{:name :default :path default_vault}])
 
@@ -23,9 +24,23 @@
 
 (local ui {:ignore_conceal_warn true})
 
+(local callbacks
+       ; overwrite smart_action
+       {:enter_note (fn [_ _note]
+                      (vim.keymap.set :n :<CR>
+                                      #(if (api.cursor_on_markdown_link nil nil
+                                                                        true)
+                                           (vim.cmd "Obsidian follow_link")
+                                           (if (api.cursor_tag)
+                                               (vim.cmd "Obsidian tags")))
+                                      {:expr true
+                                       :buffer true
+                                       :desc "Obsidian Smart Action"}))})
+
 (obsidian.setup {: workspaces
                  : daily_notes
                  : completion
                  : ui
+                 : callbacks
                  :footer {:enabled false}
                  :log_level vim.log.levels.WARN})
