@@ -24,8 +24,7 @@
 
 (local ui {:ignore_conceal_warn true})
 
-(local callbacks
-       ; overwrite smart_action
+(local callbacks ; overwrite smart_action
        {:enter_note (fn [_ _note]
                       (vim.keymap.set :n :<CR>
                                       #(if (api.cursor_on_markdown_link nil nil
@@ -42,5 +41,7 @@
                  : completion
                  : ui
                  : callbacks
+                 :legacy_commands false
+                 :statusline {:enabled false}
                  :footer {:enabled false}
                  :log_level vim.log.levels.WARN})
