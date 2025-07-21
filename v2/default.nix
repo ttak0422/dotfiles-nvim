@@ -163,7 +163,7 @@ in
       };
     };
     lsp = {
-      package = nvim-lspconfig;
+      package = v2.nvim-lspconfig;
       startupConfig = read "./fnl/lsp.fnl";
       extraPackages = with pkgs; [
         dart

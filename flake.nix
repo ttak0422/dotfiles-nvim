@@ -230,10 +230,6 @@
       url = "github:Zeioth/garbage-day.nvim";
       flake = false;
     };
-    nvim-lspconfig = {
-      url = "github:neovim/nvim-lspconfig";
-      flake = false;
-    };
     lsp-lens-nvim = {
       url = "github:VidocqH/lsp-lens.nvim";
       flake = false;

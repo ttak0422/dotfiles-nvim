@@ -104,7 +104,31 @@ inputs: with inputs; [
       };
 
       vimPlugins =
+        let
+          buildPlugins =
+            sources:
+            (listToAttrs (
+              map (
+                name:
+                let
+                  plugin = getAttr name sources;
+                in
+                {
+                  inherit name;
+                  value = buildVimPlugin {
+                    version = plugin.revision;
+                    pname = name;
+                    src = plugin;
+                    doCheck = false;
+                  };
+                }
+              ) (attrNames sources)
+            ));
+        in
         prev.vimPlugins
+        // {
+          v2 = buildPlugins (import ./v2/npins);
+        }
         // (listToAttrs (
           map (name: {
             inherit name;
