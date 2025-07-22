@@ -855,15 +855,6 @@ in
           hooks.modules = [ "codewindow" ];
         }
         {
-          package = img-clip-nvim;
-          postConfig = read "./fnl/img-clip.fnl";
-          hooks.modules = [
-            "img-clip"
-            "img-clip.nvim"
-            "img-clip.util"
-          ];
-        }
-        {
           package = nvim-window;
           postConfig = read "./fnl/nvim-window.fnl";
           hooks.modules = [ "nvim-window" ];
@@ -884,6 +875,11 @@ in
             "VBoxD"
             "VBoxH"
           ];
+        }
+        {
+          package = img-clip-nvim;
+          postConfig = read "./fnl/img-clip.fnl";
+          hooks.commands = [ "PasteImage" ];
         }
         {
           package = claudecode-nvim;
