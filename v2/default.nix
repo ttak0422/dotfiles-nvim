@@ -35,7 +35,8 @@ in
       };
     };
     ftplugin = {
-      Avante = read "./fnl/after/ftplugin/avante.fnl";
+      Avante = read "./fnl/after/ftplugin/Avante.fnl";
+      AvanteInput = read "./fnl/after/ftplugin/AvanteInput.fnl";
       fennel = read "./fnl/after/ftplugin/fennel.fnl";
       gitcommit = read "./fnl/after/ftplugin/gitcommit.fnl";
       java = {
