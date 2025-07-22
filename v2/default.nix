@@ -668,23 +668,7 @@ in
 
     togglePlugins = {
       package = pkgs.vimPlugins.toggler;
-      extraPackages = with pkgs; [
-        (writeShellApplication {
-          name = "tmux";
-          runtimeInputs = [ ];
-          text = ''${tmux}/bin/tmux -f ${writeText "tmux.conf" ''
-            set -g status off
-            set -g update-environment "NVIM "
-
-            # keymaps
-            bind r source-file ${placeholder "out"} \; display-message "Reload!"
-
-            # plugins
-            run-shell ${tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
-            run-shell ${tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux
-          ''} "$@"'';
-        })
-      ];
+      extraPackages = with pkgs; [ tmux ];
       postConfig = read "./fnl/toggle-plugins.fnl";
       hooks.modules = [ "toggler" ];
     };

@@ -16,6 +16,7 @@ inputs: with inputs; [
       inherit (prev.lib) optionalString cleanSource;
       inherit (prev.stdenv) system isDarwin mkDerivation;
       inherit (prev.vimUtils) buildVimPlugin;
+      inherit (prev) writeShellApplication writeText;
       excludeInputs = [
         "self"
         "nixpkgs"
@@ -37,6 +38,23 @@ inputs: with inputs; [
     {
       pkgs-stable = import nixpkgs-stable { inherit system; };
       pkgs-nightly = import nixpkgs-nightly { inherit system; };
+
+      tmux =
+        writeShellApplication {
+          name = "tmux";
+          runtimeInputs = [ ];
+          text = ''${prev.tmux}/bin/tmux -f ${writeText "tmux.conf" ''
+          set -g status off
+          set -g update-environment "NVIM "
+
+          # keymaps
+          bind r source-file ${placeholder "out"} \; display-message "Reload!"
+
+          # plugins
+          run-shell ${prev.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
+          run-shell ${prev.tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux
+          ''} "$@"'';
+        };
 
       norg-fmt = prev.rustPlatform.buildRustPackage {
         pname = "neorg-fmt";
