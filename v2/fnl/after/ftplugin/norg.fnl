@@ -14,7 +14,10 @@
 (each [k v (pairs {:swapfile false
                    :wrap false
                    :conceallevel 3
-                   :concealcursor :n})]
+                   :concealcursor :n
+                   :number false
+                   :signcolumn :no
+                   :foldcolumn :0})]
   (tset vim.opt_local k v))
 
 (vim.opt_local.iskeyword:append ["$" "/"])

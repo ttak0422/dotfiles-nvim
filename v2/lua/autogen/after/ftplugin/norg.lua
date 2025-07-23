@@ -1,5 +1,5 @@
 -- [nfnl] v2/fnl/after/ftplugin/norg.fnl
-for k, v in pairs({conceallevel = 3, concealcursor = "n", swapfile = false, wrap = false}) do
+for k, v in pairs({conceallevel = 3, concealcursor = "n", signcolumn = "no", foldcolumn = "0", number = false, swapfile = false, wrap = false}) do
   vim.opt_local[k] = v
 end
 vim.opt_local.iskeyword:append({"$", "/"})
