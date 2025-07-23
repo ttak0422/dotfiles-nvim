@@ -1,5 +1,21 @@
 {
   "pins": {
+    "dropbar.nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Bekaboo",
+        "repo": "dropbar.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v14.2.0",
+      "revision": "5c3b0afdae4eeebb17497062ffad58d98b1c1c79",
+      "url": "https://api.github.com/repos/Bekaboo/dropbar.nvim/tarball/v14.2.0",
+      "hash": "17br1j1r5mg915y9k28n3f66gfpiz5z7qfvd8fx22ld3lkrsqia9"
+    },
     "hydra.nvim": {
       "type": "GitRelease",
       "repository": {

@@ -2178,22 +2178,6 @@
         "type": "github"
       }
     },
-    "dropbar-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1748064206,
-        "narHash": "sha256-P1bRZJ+NmsfjNfNQbc0bbYVMbJJJwqEUM3/evqSP8IA=",
-        "owner": "Bekaboo",
-        "repo": "dropbar.nvim",
-        "rev": "f7ecb0c3600ca1dc467c361e9af40f97289d7aad",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Bekaboo",
-        "repo": "dropbar.nvim",
-        "type": "github"
-      }
-    },
     "ed-cmd-nvim": {
       "flake": false,
       "locked": {
@@ -5521,7 +5505,6 @@
         "dmacro-vim": "dmacro-vim",
         "dotfyle-metadata-nvim": "dotfyle-metadata-nvim",
         "dressing-nvim": "dressing-nvim",
-        "dropbar-nvim": "dropbar-nvim",
         "ed-cmd-nvim": "ed-cmd-nvim",
         "efmls-configs-nvim": "efmls-configs-nvim",
         "endscroll-nvim": "endscroll-nvim",

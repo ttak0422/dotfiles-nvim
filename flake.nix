@@ -492,7 +492,6 @@
       url = "github:rcarriga/nvim-notify";
       flake = false;
     };
-    
     numb-nvim = {
       url = "github:nacro90/numb.nvim";
       flake = false;
@@ -935,10 +934,6 @@
     };
     fzf-lua = {
       url = "github:/ibhagwan/fzf-lua";
-      flake = false;
-    };
-    dropbar-nvim = {
-      url = "github:Bekaboo/dropbar.nvim";
       flake = false;
     };
     alpha-nvim = {

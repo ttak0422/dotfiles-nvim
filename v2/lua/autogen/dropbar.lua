@@ -50,4 +50,14 @@ do
   fuzzy = _8_
   menu = {keymaps = {q = "<C-w>q", ["<Esc>"] = "<C-w>q", H = "<C-w>q", L = select, ["<CR>"] = select, i = fuzzy}}
 end
-return dropbar.setup({icons = icons, bar = bar, menu = menu})
+local sources0
+local function _11_(_, win)
+  local ok, cwd = pcall(vim.fn.getcwd, win)
+  if ok then
+    return cwd
+  else
+    return vim.fn.getcwd()
+  end
+end
+sources0 = {path = {relative_to = _11_}}
+return dropbar.setup({icons = icons, bar = bar, menu = menu, sources = sources0})

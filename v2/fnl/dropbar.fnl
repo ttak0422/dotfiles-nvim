@@ -103,4 +103,10 @@
                          :<CR> select
                          :i fuzzy}}))
 
-(dropbar.setup {: icons : bar : menu})
+(local sources {:path {:relative_to (fn [_ win]
+                                      (let [(ok cwd) (pcall vim.fn.getcwd win)]
+                                        (if ok
+                                            cwd
+                                            (vim.fn.getcwd))))}})
+
+(dropbar.setup {: icons : bar : menu : sources})
