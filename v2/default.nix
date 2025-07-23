@@ -460,14 +460,10 @@ in
         {
           package = dropbar-nvim;
           postConfig = read "./fnl/dropbar.fnl";
-          depends = [
-          ];
         }
         {
           package = nap-nvim;
-          depends = [
-            vim-bufsurf
-          ];
+          depends = [ vim-bufsurf ];
           postConfig = read "./fnl/nap.fnl";
         }
         {

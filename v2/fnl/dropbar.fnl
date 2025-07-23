@@ -103,10 +103,18 @@
                          :<CR> select
                          :i fuzzy}}))
 
-(local sources {:path {:relative_to (fn [_ win]
-                                      (let [(ok cwd) (pcall vim.fn.getcwd win)]
-                                        (if ok
-                                            cwd
-                                            (vim.fn.getcwd))))}})
+(local sources
+       {:path {:relative_to (fn [buf win]
+                              (let [default_vault (vim.fn.fnamemodify (.. (os.getenv :HOME)
+                                                                          :/vaults/default/)
+                                                                      ":p:h")
+                                    buf_path (vim.api.nvim_buf_get_name buf)]
+                                (if (and (= (. vim.bo buf :ft) :markdown)
+                                         (buf_path:find (.. "^" default_vault)))
+                                    default_vault
+                                    (let [(ok cwd) (pcall vim.fn.getcwd win)]
+                                      (if ok
+                                          cwd
+                                          (vim.fn.getcwd))))))}})
 
 (dropbar.setup {: icons : bar : menu : sources})
