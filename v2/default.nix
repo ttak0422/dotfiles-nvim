@@ -29,7 +29,7 @@ in
       nginx = {
         language = "vim";
         code = ''
-          source ${pkgs.vimPlugins.nginx-vim}/ftdetect/nginx.vim
+          source ${pkgs.vimPlugins.v2.nginx-vim}/ftdetect/nginx.vim
           au BufRead,BufNewFile *.nginxconf set ft=nginx
         '';
       };
@@ -85,7 +85,7 @@ in
       yamlls = read "./fnl/after/lsp/yamlls.fnl";
     };
   };
-  eager = with pkgs.vimPlugins; {
+  eager = with pkgs.vimPlugins.v2; {
     morimo.package = morimo;
     plenary.package = plenary-nvim;
     nui.package = nui-nvim;
@@ -104,8 +104,8 @@ in
     };
     treesitter = {
       packages = [
-        nvim-treesitter
-        nvim-treesitter-textobjects
+        pkgs.vimPlugins.nvim-treesitter
+        pkgs.vimPlugins.nvim-treesitter-textobjects
         nvim-ts-context-commentstring
       ];
       startupConfig =
@@ -128,7 +128,7 @@ in
             name = "treesitter-custom-grammars";
             buildCommand = ''
               mkdir -p $out/parser
-              echo "${pkgs.lib.strings.concatStringsSep "," nvim-treesitter.withAllGrammars.dependencies}" \
+              echo "${pkgs.lib.strings.concatStringsSep "," pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies}" \
               | tr ',' '\n' \
               | xargs -I {} find {} -not -type d -name '*.so' \
               | xargs -I {} ln -sf {} $out/parser
@@ -164,7 +164,7 @@ in
       };
     };
     lsp = {
-      package = v2.nvim-lspconfig;
+      package = nvim-lspconfig;
       startupConfig = read "./fnl/lsp.fnl";
       extraPackages = with pkgs; [
         dart
@@ -248,9 +248,9 @@ in
     };
   };
 
-  lazy = with pkgs.vimPlugins; rec {
+  lazy = with pkgs.vimPlugins.v2; rec {
     # colorschemes
-    sorairo.package = pkgs.vimPlugins.sorairo;
+    sorairo.package = pkgs.vimPlugins.v2.sorairo;
 
     # utils
     nio.package = nvim-nio;
@@ -339,7 +339,7 @@ in
       ];
       postConfig = ''
         -- TODO: support linux
-        package.cpath = package.cpath .. ';${inputs'.blink-cmp.packages.blink-fuzzy-lib}/lib/libblink_cmp_fuzzy.dylib'
+        package.cpath = package.cpath .. ';${inputs'.v2-blink-cmp.packages.blink-fuzzy-lib}/lib/libblink_cmp_fuzzy.dylib'
         ${read "./fnl/blink.fnl"}
       '';
       hooks.modules = [ "blink.cmp" ];
@@ -667,7 +667,7 @@ in
     };
 
     togglePlugins = {
-      package = pkgs.vimPlugins.toggler;
+      package = toggler;
       extraPackages = with pkgs; [ tmux ];
       postConfig = read "./fnl/toggle-plugins.fnl";
       hooks.modules = [ "toggler" ];
@@ -930,21 +930,21 @@ in
         }
         {
           packages = [
-            (neorg.overrideAttrs {
+            (pkgs.vimPlugins.neorg.overrideAttrs {
               dependencies = [ ];
               doCheck = false;
             })
             neorg-interim-ls
             neorg-conceal-wrap
-            (neorg-telescope.overrideAttrs {
+            (pkgs.vimPlugins.neorg-telescope.overrideAttrs {
               dependencies = [ ];
               doCheck = false;
             })
           ];
           depends = [
-            lua-utils-nvim
+            pkgs.vimPlugins.lua-utils-nvim
+            pkgs.vimPlugins.pathlib-nvim
             nio
-            pathlib-nvim
             telescope
             dressing
           ];
@@ -1111,7 +1111,7 @@ in
           ];
         }
         {
-          package = markdown-preview-nvim;
+          package = pkgs.vimPlugins.markdown-preview-nvim;
           hooks.fileTypes = [ "markdown" ];
         }
         {
@@ -1121,13 +1121,13 @@ in
           hooks.fileTypes = [ "toml" ];
         }
         {
-          package = pkgs.vimPlugins.vim-nix;
+          package = vim-nix;
           hooks = {
             fileTypes = [ "nix" ];
           };
         }
         {
-          package = pkgs.vimPlugins.nfnl;
+          package = nfnl;
           extraPackages = with pkgs; [
             sd
             fd

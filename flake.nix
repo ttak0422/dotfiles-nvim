@@ -1400,7 +1400,7 @@
       url = "github:rapan931/lasterisk.nvim";
       flake = false;
     };
-    blink-cmp.url = "github:Saghen/blink.cmp";
+    v2-blink-cmp.url = "github:Saghen/blink.cmp";
     treesj = {
       url = "github:Wansmer/treesj";
       flake = false;
