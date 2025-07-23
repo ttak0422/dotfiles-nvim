@@ -4441,70 +4441,6 @@
         "type": "github"
       }
     },
-    "none-ls-extras-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1746362580,
-        "narHash": "sha256-OJHg2+h3zvlK7LJ8kY6f7et0w6emnxfcDbjD1YyWRTw=",
-        "owner": "nvimtools",
-        "repo": "none-ls-extras.nvim",
-        "rev": "924fe88a9983c7d90dbb31fc4e3129a583ea0a90",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nvimtools",
-        "repo": "none-ls-extras.nvim",
-        "type": "github"
-      }
-    },
-    "none-ls-luacheck-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1710836509,
-        "narHash": "sha256-XXxXQAasvu/APhZO+7FTr06JXBrHyr+UjhU9prcsmxg=",
-        "owner": "gbprod",
-        "repo": "none-ls-luacheck.nvim",
-        "rev": "a1dfea0d4c40c4023829c8b9a7ab0a26135985ca",
-        "type": "github"
-      },
-      "original": {
-        "owner": "gbprod",
-        "repo": "none-ls-luacheck.nvim",
-        "type": "github"
-      }
-    },
-    "none-ls-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1747021092,
-        "narHash": "sha256-nLv9XR6uBFCK9peAjcq7yWLr7bfefrCzlSAp3SbdE9s=",
-        "owner": "nvimtools",
-        "repo": "none-ls.nvim",
-        "rev": "90e4a27ccaa25979a6b732b9f06dfa43b54957b7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nvimtools",
-        "repo": "none-ls.nvim",
-        "type": "github"
-      }
-    },
-    "none-ls-shellcheck-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1710845791,
-        "narHash": "sha256-t06Nu7wVEGoJtaaZh/psvuC9kdYhwh6JeOd0cg3WVHY=",
-        "owner": "gbprod",
-        "repo": "none-ls-shellcheck.nvim",
-        "rev": "0f84461241e76e376a95fb7391deac82dc3efdbf",
-        "type": "github"
-      },
-      "original": {
-        "owner": "gbprod",
-        "repo": "none-ls-shellcheck.nvim",
-        "type": "github"
-      }
-    },
     "norg": {
       "inputs": {
         "flake-compat": "flake-compat_5",
@@ -5684,10 +5620,6 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "no-neck-pain-nvim": "no-neck-pain-nvim",
         "noice-nvim": "noice-nvim",
-        "none-ls-extras-nvim": "none-ls-extras-nvim",
-        "none-ls-luacheck-nvim": "none-ls-luacheck-nvim",
-        "none-ls-nvim": "none-ls-nvim",
-        "none-ls-shellcheck-nvim": "none-ls-shellcheck-nvim",
         "norg": "norg_2",
         "norg-meta": "norg-meta_2",
         "nui-nvim": "nui-nvim",

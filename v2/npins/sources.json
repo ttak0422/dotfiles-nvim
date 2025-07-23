@@ -16,6 +16,58 @@
       "url": "https://api.github.com/repos/nvimtools/hydra.nvim/tarball/v1.0.3",
       "hash": "13dd1q951pbwi36r4s1zfs02mk5pyfvwlj1pmv4l8bnc4fs242qv"
     },
+    "none-ls-extras.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvimtools",
+        "repo": "none-ls-extras.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "924fe88a9983c7d90dbb31fc4e3129a583ea0a90",
+      "url": "https://github.com/nvimtools/none-ls-extras.nvim/archive/924fe88a9983c7d90dbb31fc4e3129a583ea0a90.tar.gz",
+      "hash": "0g25js6dbhxq1pf1g7x6lz1p9szdky792z5jxi5gkkkpx3dy149q"
+    },
+    "none-ls-luacheck.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "gbprod",
+        "repo": "none-ls-luacheck.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "a1dfea0d4c40c4023829c8b9a7ab0a26135985ca",
+      "url": "https://github.com/gbprod/none-ls-luacheck.nvim/archive/a1dfea0d4c40c4023829c8b9a7ab0a26135985ca.tar.gz",
+      "hash": "064v5jvscg8misabzjn739f8jkmgafqznkhn7v0fzgmc0r05fz2x"
+    },
+    "none-ls-shellcheck.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "gbprod",
+        "repo": "none-ls-shellcheck.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "0f84461241e76e376a95fb7391deac82dc3efdbf",
+      "url": "https://github.com/gbprod/none-ls-shellcheck.nvim/archive/0f84461241e76e376a95fb7391deac82dc3efdbf.tar.gz",
+      "hash": "0xjlsq6p4x77g24ixhi1ss8vvq5ydkx8g6d6nl4nl40mpjxqskmp"
+    },
+    "none-ls.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvimtools",
+        "repo": "none-ls.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "103b0926a31be1bc95743c6328cee309768f0a88",
+      "url": "https://github.com/nvimtools/none-ls.nvim/archive/103b0926a31be1bc95743c6328cee309768f0a88.tar.gz",
+      "hash": "0yf10d89ibh5yfpzlfjskdgv5jzs7lprj63ijvzdnf1hhrddbx5g"
+    },
     "nvim-lspconfig": {
       "type": "GitRelease",
       "repository": {

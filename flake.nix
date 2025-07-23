@@ -492,22 +492,7 @@
       url = "github:rcarriga/nvim-notify";
       flake = false;
     };
-    none-ls-nvim = {
-      url = "github:nvimtools/none-ls.nvim";
-      flake = false;
-    };
-    none-ls-extras-nvim = {
-      url = "github:nvimtools/none-ls-extras.nvim";
-      flake = false;
-    };
-    none-ls-shellcheck-nvim = {
-      url = "github:gbprod/none-ls-shellcheck.nvim";
-      flake = false;
-    };
-    none-ls-luacheck-nvim = {
-      url = "github:gbprod/none-ls-luacheck.nvim";
-      flake = false;
-    };
+    
     numb-nvim = {
       url = "github:nacro90/numb.nvim";
       flake = false;

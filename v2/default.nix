@@ -193,9 +193,11 @@ in
       ];
     };
     none-ls = {
-      packages = [
-        none-ls-extras-nvim
+      packages = with pkgs.vimPlugins.v2; [
         none-ls-nvim
+        none-ls-extras-nvim
+        none-ls-shellcheck-nvim
+        none-ls-luacheck-nvim
       ];
       extraPackages =
         with pkgs;
