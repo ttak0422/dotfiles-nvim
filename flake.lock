@@ -3148,22 +3148,6 @@
         "type": "github"
       }
     },
-    "hydra-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1746313605,
-        "narHash": "sha256-lYwl4wrVsCq1JVbkDyq1lB1hBGrz+XtQ9DQWIQ6lkyg=",
-        "owner": "nvimtools",
-        "repo": "hydra.nvim",
-        "rev": "8c4a9f621ec7cdc30411a1f3b6d5eebb12b469dc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nvimtools",
-        "repo": "hydra.nvim",
-        "type": "github"
-      }
-    },
     "img-clip-nvim": {
       "flake": false,
       "locked": {
@@ -5634,7 +5618,6 @@
         "highlight-undo-nvim": "highlight-undo-nvim",
         "history-ignore-nvim": "history-ignore-nvim",
         "hlchunk-nvim": "hlchunk-nvim",
-        "hydra-nvim": "hydra-nvim",
         "img-clip-nvim": "img-clip-nvim",
         "inc-rename-nvim": "inc-rename-nvim",
         "indent-blankline-nvim": "indent-blankline-nvim",

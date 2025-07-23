@@ -1,7 +1,7 @@
 -- [nfnl] v2/fnl/hydra.fnl
 local hydra = require("hydra")
 local float_opts = {border = "single"}
-hydra.setup({timeout = 10000})
+hydra.setup({timeout = false})
 local heads = {{"H", "<C-v>h:VBox<CR>"}, {"J", "<C-v>j:VBox<CR>"}, {"K", "<C-v>k:VBox<CR>"}, {"L", "<C-v>l:VBox<CR>"}, {"r", ":VBoxD<CR>", {mode = "v"}}, {"f", ":VBox<CR>", {mode = "v"}}, {"v", ":VBoxH<CR>", {mode = "v"}}, {"<Esc>", nil, {desc = "close", exit = true}}}
 local config
 local function _1_()

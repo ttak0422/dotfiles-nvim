@@ -129,12 +129,13 @@ inputs: with inputs; [
                 name:
                 let
                   plugin = getAttr name sources;
+                  sanitizedName = builtins.replaceStrings ["."] ["-"] name;
                 in
                 {
-                  inherit name;
+                  name = sanitizedName;
                   value = buildVimPlugin {
                     version = plugin.revision;
-                    pname = name;
+                    pname = sanitizedName;
                     src = plugin;
                     doCheck = false;
                   };

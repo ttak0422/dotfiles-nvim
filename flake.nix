@@ -424,10 +424,6 @@
       url = "github:kevinhwang91/nvim-hlslens";
       flake = false;
     };
-    hydra-nvim = {
-      url = "github:nvimtools/hydra.nvim";
-      flake = false;
-    };
     img-clip-nvim = {
       url = "github:HakonHarnes/img-clip.nvim";
       flake = false;

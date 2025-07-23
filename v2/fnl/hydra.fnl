@@ -1,7 +1,7 @@
 (local hydra (require :hydra))
 (local float_opts {:border :single})
 
-(hydra.setup {:timeout 10000})
+(hydra.setup {:timeout false})
 
 (let [heads [[:H "<C-v>h:VBox<CR>"]
              [:J "<C-v>j:VBox<CR>"]

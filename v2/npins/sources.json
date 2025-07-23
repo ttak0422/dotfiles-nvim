@@ -1,5 +1,21 @@
 {
   "pins": {
+    "hydra.nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvimtools",
+        "repo": "hydra.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.0.3",
+      "revision": "f3d4822060376cb253d4cc0d5af2c272c28de2a7",
+      "url": "https://api.github.com/repos/nvimtools/hydra.nvim/tarball/v1.0.3",
+      "hash": "13dd1q951pbwi36r4s1zfs02mk5pyfvwlj1pmv4l8bnc4fs242qv"
+    },
     "nvim-lspconfig": {
       "type": "GitRelease",
       "repository": {
