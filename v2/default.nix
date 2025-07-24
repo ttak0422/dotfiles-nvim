@@ -21,7 +21,8 @@ in
 
   extraConfig = ''
     vim.loader.enable()
-    ${builtins.readFile ./lua/autogen/init.lua}
+    if vim.g.neovide then dofile("${./lua/autogen/neovide.lua}") end
+    ${read "./fnl/init.fnl"}
   '';
 
   after = {
