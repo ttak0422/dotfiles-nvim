@@ -4,6 +4,7 @@
 (local targets (data.set_of [:md :markdown :norg :neorg]))
 
 (auto_save.setup {:events [:InsertLeave :TextChanged]
+                  :debounce_delay 500
                   :condition (fn [buf]
                                (or (and (= (vim.fn.getbufvar buf :&modifiable)
                                            1)
