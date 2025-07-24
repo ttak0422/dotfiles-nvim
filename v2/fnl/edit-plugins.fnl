@@ -7,9 +7,7 @@ nnoremap ; :
 
 (let [opts {:noremap true :silent true}
       desc (fn [d] {:noremap true :silent true :desc d})]
-  (each [_ k (ipairs [[:j :gj]
-                      [:k :gk]
-                      [:<Leader>m
+  (each [_ k (ipairs [[:<Leader>m
                        #((. (require :treesj) :toggle) {:split {:recursive false}})
                        (desc " join/split")]
                       [:<Leader>M

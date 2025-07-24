@@ -640,10 +640,6 @@
       url = "github:notomo/waitevent.nvim";
       flake = false;
     };
-    which-key-nvim = {
-      url = "github:folke/which-key.nvim";
-      flake = false;
-    };
     nvim-window-picker = {
       url = "github:s1n7ax/nvim-window-picker";
       flake = false;

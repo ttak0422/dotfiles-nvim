@@ -52,7 +52,9 @@
                   ((. (require mod) f) opt)))
       toggle (fn [id]
                #((. (require :toggler) :toggle) id))]
-  (each [m ks (pairs {:n [["¥" "\\"]
+  (each [m ks (pairs {:n [[:j :gj]
+                          [:k :gk]
+                          ["¥" "\\"]
                           [:<esc><esc> (cmd :nohl)]
                           ; menu
                           [:<C-t> (cmd :OpenMenu)]

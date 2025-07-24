@@ -5726,7 +5726,6 @@
         "volt": "volt",
         "vtsls": "vtsls",
         "waitevent-nvim": "waitevent-nvim",
-        "which-key-nvim": "which-key-nvim",
         "winresizer": "winresizer",
         "winshift-nvim": "winshift-nvim"
       }
@@ -6902,22 +6901,6 @@
       "original": {
         "owner": "notomo",
         "repo": "waitevent.nvim",
-        "type": "github"
-      }
-    },
-    "which-key-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1740233407,
-        "narHash": "sha256-uvMcSduMr7Kd2oUmIOYzvWF4FIl6bZxIYm9FSw/3pCo=",
-        "owner": "folke",
-        "repo": "which-key.nvim",
-        "rev": "370ec46f710e058c9c1646273e6b225acf47cbed",
-        "type": "github"
-      },
-      "original": {
-        "owner": "folke",
-        "repo": "which-key.nvim",
         "type": "github"
       }
     },
