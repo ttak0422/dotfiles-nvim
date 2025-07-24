@@ -9,9 +9,23 @@
 (local routes [{:filter {:event :lsp
                          :kind :progress
                          :any [{:cond (fn [message]
-                                        (= (vim.tbl_get message.opts :progress
-                                                        :client)
-                                           :null-ls))}]}
+                                        (case (vim.tbl_get message.opts
+                                                           :progress :client)
+                                          :null-ls true
+                                          :jdtls (let [title (vim.tbl_get message.opts
+                                                                          :progress
+                                                                          :title)]
+                                                   (or (= title
+                                                          "Publish Diagnostics")
+                                                       (= title
+                                                          "Validate documents")
+                                                       (and (= title
+                                                               "Background task")
+                                                            (= (vim.tbl_get message.opts
+                                                                            :progress
+                                                                            :percentage)
+                                                               0))))
+                                          _ false))}]}
                 :opts {:skip true}}])
 
 (noice.setup {: lsp : routes})
