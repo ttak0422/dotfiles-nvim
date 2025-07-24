@@ -132,7 +132,7 @@
                           [(leader :ngb)
                            (cmd :NeorgGitBranch)
                            (desc " Git (branch)")]
-                          [:<C-c> (cmd :AvanteFocus) (desc "Avante Chat")]
+                          ; [:<C-c> (cmd :AvanteFocus) (desc "Avante Chat")]
                           ;  Obsidian
                           [(leader :O) (cmd :Obsidian) (desc " enter ")]]
                       :i [["¥" "\\"]]
