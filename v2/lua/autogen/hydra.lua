@@ -5,9 +5,11 @@ hydra.setup({timeout = false})
 local heads = {{"H", "<C-v>h:VBox<CR>"}, {"J", "<C-v>j:VBox<CR>"}, {"K", "<C-v>k:VBox<CR>"}, {"L", "<C-v>l:VBox<CR>"}, {"r", ":VBoxD<CR>", {mode = "v"}}, {"f", ":VBox<CR>", {mode = "v"}}, {"v", ":VBoxH<CR>", {mode = "v"}}, {"<Esc>", nil, {desc = "close", exit = true}}}
 local config
 local function _1_()
+  vim.cmd("NoiceDisable")
   return vim.cmd("setlocal ve=all")
 end
 local function _2_()
+  vim.cmd("NoiceEnable")
   return vim.cmd("setlocal ve=")
 end
 config = {invoke_on_body = true, color = "pink", on_enter = _1_, on_exit = _2_, hint = {type = "window", position = "bottom-right", float_opts = float_opts}}

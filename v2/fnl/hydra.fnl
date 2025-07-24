@@ -13,8 +13,12 @@
              [:<Esc> nil {:desc :close :exit true}]]
       config {:invoke_on_body true
               :color :pink
-              :on_enter #(vim.cmd "setlocal ve=all")
-              :on_exit #(vim.cmd "setlocal ve=")
+              :on_enter #(do
+                           (vim.cmd :NoiceDisable)
+                           (vim.cmd "setlocal ve=all"))
+              :on_exit #(do
+                          (vim.cmd :NoiceEnable)
+                          (vim.cmd "setlocal ve="))
               :hint {:type :window :position :bottom-right : float_opts}}
       hint ":Move    Select region with <C-v>
 -------  -------------------------
