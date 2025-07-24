@@ -16,16 +16,22 @@ local function _2_()
   return nil
 end
 toggle_zoom = _2_
-vim.o.guifont = "PlemolJP Console NF:h15"
+local paste_from_clipboard_insert
 local function _3_()
+  return vim.api.nvim_put(vim.fn.getreg("+", 1, true), vim.fn.getregtype("+"), true, true)
+end
+paste_from_clipboard_insert = _3_
+vim.o.guifont = "PlemolJP Console NF:h15"
+local function _4_()
   return change_scale(scale)
 end
-map("n", "<C-+>", _3_)
-local function _4_()
+map("n", "<C-+>", _4_)
+local function _5_()
   return change_scale((1 / scale))
 end
-map("n", "<C-->", _4_)
+map("n", "<C-->", _5_)
 map("n", "<A-Enter>", toggle_zoom)
-map({"i", "c"}, "<D-v>", "<C-r>+")
+map("i", "<D-v>", paste_from_clipboard_insert)
+map("c", "<D-v>", "<C-r>+")
 map("t", "<D-v>", "<C-\\><C-n>\"+pi")
 return vim.api.nvim_create_user_command("ToggleNeovideFullScreen", toggle_zoom, {})
