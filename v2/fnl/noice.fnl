@@ -6,4 +6,12 @@
             :override {:vim.lsp.util.convert_input_to_markdown_lines true
                        :vim.lsp.util.stylize_markdown true}})
 
-(noice.setup {: lsp})
+(local routes [{:filter {:event :lsp
+                         :kind :progress
+                         :any [{:cond (fn [message]
+                                        (= (vim.tbl_get message.opts :progress
+                                                        :client)
+                                           :null-ls))}]}
+                :opts {:skip true}}])
+
+(noice.setup {: lsp : routes})
