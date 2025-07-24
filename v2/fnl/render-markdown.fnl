@@ -4,7 +4,7 @@
        {:sign false :icons ["󰼏 " "󰎨 " "󰼑 " "󰎲 " "󰼓 " "󰎴 "]})
 
 (local completions {:blink {:enabled true}})
-(local win_options {:conceallevel {:rendered 3} :concealcursor {:rendered :n}})
+(local win_options {:concealcursor {:rendered :nvic}})
 
 (rm.setup {:preset :obsidian
            :render_modes [:n :c :t]

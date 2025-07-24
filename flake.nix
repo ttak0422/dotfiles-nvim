@@ -1328,10 +1328,6 @@
       url = "github:fang2hou/go-impl.nvim";
       flake = false;
     };
-    render-markdown-nvim = {
-      url = "github:MeanderingProgrammer/render-markdown.nvim";
-      flake = false;
-    };
     nginx-vim = {
       url = "github:chr4/nginx.vim";
       flake = false;

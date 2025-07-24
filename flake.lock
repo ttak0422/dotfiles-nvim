@@ -5353,22 +5353,6 @@
         "type": "github"
       }
     },
-    "render-markdown-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1748376831,
-        "narHash": "sha256-OOl0Qmaq/sGmxzb/aiHqjaHuLJW1n3uQJob866SqWkg=",
-        "owner": "MeanderingProgrammer",
-        "repo": "render-markdown.nvim",
-        "rev": "4a39681990fb515d00dd898de3d7bf2973805f1a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "MeanderingProgrammer",
-        "repo": "render-markdown.nvim",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "BufferBrowser": "BufferBrowser",
@@ -5656,7 +5640,6 @@
         "qf-nvim": "qf-nvim",
         "reacher-nvim": "reacher-nvim",
         "registers-nvim": "registers-nvim",
-        "render-markdown-nvim": "render-markdown-nvim",
         "rustaceanvim": "rustaceanvim",
         "scope-nvim": "scope-nvim",
         "screenkey-nvim": "screenkey-nvim",

@@ -284,15 +284,9 @@ in
 
     render-markdown = {
       package = render-markdown-nvim;
-      depends = [
-        devicons
-        # 循環参照になるため
-        # blink
-      ];
+      depends = [ devicons ];
       postConfig = read "./fnl/render-markdown.fnl";
-      hooks.fileTypes = [
-        "markdown"
-      ];
+      hooks.fileTypes = [ "markdown" ];
     };
 
     copilot = {

@@ -116,6 +116,22 @@
       "url": "https://api.github.com/repos/nvim-tree/nvim-web-devicons/tarball/v0.100",
       "hash": "0d7gzk06f6z9wq496frbaavx90mcxvdhrswqd3pcayj2872i698d"
     },
+    "render-markdown.nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "MeanderingProgrammer",
+        "repo": "render-markdown.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v8.6.0",
+      "revision": "6f01734e4859c73029ea0e2300938bf1292ac4ef",
+      "url": "https://api.github.com/repos/MeanderingProgrammer/render-markdown.nvim/tarball/v8.6.0",
+      "hash": "1fsw5hxfs5z1b1l4636bc4zjm90449ymadyh0scv7nmiip7v2d6g"
+    },
     "which-key.nvim": {
       "type": "GitRelease",
       "repository": {
