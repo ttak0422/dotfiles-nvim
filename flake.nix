@@ -1397,10 +1397,6 @@
       url = "github:coder/claudecode.nvim";
       flake = false;
     };
-    obsidian-nvim = {
-      url = "github:obsidian-nvim/obsidian.nvim";
-      flake = false;
-    };
     norg.url = "github:nvim-neorg/tree-sitter-norg/dev";
     norg-meta.url = "github:nvim-neorg/tree-sitter-norg-meta";
     mcphub-nvim = {

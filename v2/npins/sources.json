@@ -116,6 +116,19 @@
       "url": "https://api.github.com/repos/nvim-tree/nvim-web-devicons/tarball/v0.100",
       "hash": "0d7gzk06f6z9wq496frbaavx90mcxvdhrswqd3pcayj2872i698d"
     },
+    "obsidian.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "obsidian-nvim",
+        "repo": "obsidian.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "f0b231b286bd643d0c79f32d263bb9181389aea5",
+      "url": "https://github.com/obsidian-nvim/obsidian.nvim/archive/f0b231b286bd643d0c79f32d263bb9181389aea5.tar.gz",
+      "hash": "1lg3kgl4chyvsxi3l19wh77xyii4iwkwg8sfdb2prd864q11zq4b"
+    },
     "render-markdown.nvim": {
       "type": "GitRelease",
       "repository": {
