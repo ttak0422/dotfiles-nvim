@@ -20,7 +20,7 @@
                     :default_tags [:journal]
                     :template nil})
 
-(local completion {:nvim_cmp false :blink true :min_chars 2 :create_new true})
+(local completion {:nvim_cmp false :blink true :min_chars 1 :create_new true})
 
 (local ui {:ignore_conceal_warn true})
 
