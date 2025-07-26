@@ -1,8 +1,6 @@
 {
   inputs',
   pkgs,
-  lib,
-  ...
 }:
 let
   read =

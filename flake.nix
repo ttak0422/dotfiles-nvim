@@ -1417,7 +1417,26 @@
     inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import inputs.systems;
-      imports = [ ./neovim.nix ];
-      perSystem = { pkgs, ... }: { } // import ./apps.nix { inherit pkgs; };
+      imports = [ inputs.bundler.flakeModules.neovim ];
+      perSystem =
+        {
+          inputs',
+          system,
+          pkgs,
+          ...
+        }:
+        {
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = import ./overlays.nix inputs;
+          };
+          bundler-nvim = {
+            v2 = import ./v2 {
+              inherit inputs';
+              inherit pkgs;
+            };
+          };
+        }
+        // import ./apps.nix { inherit pkgs; };
     };
 }
