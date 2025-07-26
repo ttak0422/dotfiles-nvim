@@ -27,8 +27,7 @@
 (local callbacks ; overwrite smart_action
        {:enter_note (fn [_ _note]
                       (vim.keymap.set :n :<CR>
-                                      #(if (api.cursor_on_markdown_link nil nil
-                                                                        true)
+                                      #(if (api.cursor_link nil nil true)
                                            (vim.cmd "Obsidian follow_link")
                                            (if (api.cursor_tag)
                                                (vim.cmd "Obsidian tags")))

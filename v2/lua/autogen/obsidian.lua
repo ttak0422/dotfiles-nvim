@@ -26,7 +26,7 @@ local ui = {ignore_conceal_warn = true}
 local callbacks
 local function _4_(_, _note)
   local function _5_()
-    if api.cursor_on_markdown_link(nil, nil, true) then
+    if api.cursor_link(nil, nil, true) then
       return vim.cmd("Obsidian follow_link")
     else
       if api.cursor_tag() then
