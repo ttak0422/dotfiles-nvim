@@ -665,7 +665,7 @@ in
 
     togglePlugins = {
       package = toggler;
-      extraPackages = with pkgs; [ tmux ];
+      extraPackages = with pkgs; [ v2-tmux ];
       postConfig = read "./fnl/toggle-plugins.fnl";
       hooks.modules = [ "toggler" ];
     };
@@ -702,7 +702,7 @@ in
               template = pkgs.stdenv.mkDerivation {
                 pname = "sonictemplate";
                 version = "custom";
-                src = ./../tmpl/sonic;
+                src = ./../v2/tmpl/sonic;
                 installPhase = ''
                   mkdir $out
                   cp -r ./* $out

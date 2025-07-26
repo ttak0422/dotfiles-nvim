@@ -39,12 +39,14 @@ inputs: with inputs; [
       pkgs-stable = import nixpkgs-stable { inherit system; };
       pkgs-nightly = import nixpkgs-nightly { inherit system; };
 
-      tmux = writeShellApplication {
+      v2-tmux = writeShellApplication {
         name = "tmux";
         runtimeInputs = [ ];
         text = ''${prev.tmux}/bin/tmux -f ${writeText "tmux.conf" ''
           set -g status off
-          set -g update-environment "NVIM "
+          set -g update-environment "NVIM"
+
+          set-window-option -g mode-keys vi
 
           # keymaps
           bind r source-file ${placeholder "out"} \; display-message "Reload!"
