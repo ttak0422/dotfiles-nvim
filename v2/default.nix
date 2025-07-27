@@ -247,10 +247,10 @@ in
       package = heirline-nvim;
       startupConfig = read "./lua/heirline.lua";
     };
-    direnv = {
-      package = direnv-vim;
-      startupConfig = read "./fnl/direnv.fnl";
-    };
+    # direnv = {
+    #   package = direnv-vim;
+    #   startupConfig = read "./fnl/direnv.fnl";
+    # };
     alpha = {
       package = alpha-nvim;
       startupConfig = read "./fnl/alpha.fnl";
