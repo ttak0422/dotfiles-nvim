@@ -158,6 +158,22 @@
       "url": "https://api.github.com/repos/MeanderingProgrammer/render-markdown.nvim/tarball/v8.6.0",
       "hash": "1fsw5hxfs5z1b1l4636bc4zjm90449ymadyh0scv7nmiip7v2d6g"
     },
+    "snacks.nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "folke",
+        "repo": "snacks.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v2.22.0",
+      "revision": "5eac729fa290248acfe10916d92a5ed5e5c0f9ed",
+      "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.22.0",
+      "hash": "1hbm4fnw51qdp0nz83fcxbvnxjq2k57a37w6dp0wz6wkcx7cwxw9"
+    },
     "which-key.nvim": {
       "type": "GitRelease",
       "repository": {

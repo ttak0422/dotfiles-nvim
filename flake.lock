@@ -5615,7 +5615,6 @@
         "skkeleton_indicator-nvim": "skkeleton_indicator-nvim",
         "smart-splits-nvim": "smart-splits-nvim",
         "smear-cursor-nvim": "smear-cursor-nvim",
-        "snacks-nvim": "snacks-nvim",
         "sorairo": "sorairo",
         "spring-boot-nvim": "spring-boot-nvim",
         "springboot-nvim": "springboot-nvim",
@@ -5855,22 +5854,6 @@
       "original": {
         "owner": "sphamba",
         "repo": "smear-cursor.nvim",
-        "type": "github"
-      }
-    },
-    "snacks-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1740868622,
-        "narHash": "sha256-Gw0Bp2YeoESiBLs3NPnqke3xwEjuiQDDU1CPofrhtig=",
-        "owner": "folke",
-        "repo": "snacks.nvim",
-        "rev": "bc0630e43be5699bb94dadc302c0d21615421d93",
-        "type": "github"
-      },
-      "original": {
-        "owner": "folke",
-        "repo": "snacks.nvim",
         "type": "github"
       }
     },

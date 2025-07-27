@@ -1212,10 +1212,6 @@
       url = "github:smilhey/ed-cmd.nvim";
       flake = false;
     };
-    snacks-nvim = {
-      url = "github:folke/snacks.nvim";
-      flake = false;
-    };
     pgmnt-vim = {
       url = "github:cocopon/pgmnt.vim";
       flake = false;
