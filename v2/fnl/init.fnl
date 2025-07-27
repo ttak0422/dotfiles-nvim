@@ -134,7 +134,16 @@
                            (desc " Git (branch)")]
                           ; [:<C-c> (cmd :AvanteFocus) (desc "Avante Chat")]
                           ;  Obsidian
-                          [(leader :O) (cmd :Obsidian) (desc " enter ")]]
+                          [(leader :O) (cmd :Obsidian) (desc " enter")]
+                          [(leader :ot)
+                           (cmd "Obsidian today")
+                           (desc "  journal today")]
+                          [(leader :oo)
+                           (cmd "Obsidian new")
+                           (desc "  new note")]
+                          [(leader :fo)
+                           (cmd "Obsidian search")
+                           (desc "  fuzzy search")]]
                       :i [["¥" "\\"]]
                       :c [["¥" "\\"]]
                       :t [["¥" "\\"] [:<S-Space> :<Space>]]
