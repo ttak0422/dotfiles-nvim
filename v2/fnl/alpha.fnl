@@ -32,7 +32,4 @@
 
 (alpha.setup theme.config)
 
-(local buffer (vim.api.nvim_get_current_buf))
-
-(vim.api.nvim_create_autocmd :BufLeave
-                             {: buffer :once true :callback #(vim.cmd.Alpha)})
+(vim.api.nvim_create_autocmd :BufLeave {:once true :callback #(vim.cmd.Alpha)})

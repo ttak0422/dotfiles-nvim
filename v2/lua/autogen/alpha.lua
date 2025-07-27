@@ -11,8 +11,7 @@ do
 end
 theme.config = {layout = {{type = "padding", val = f.max({2, f.floor((f.winheight(0) * 0.3))})}, section.header, {type = "padding", val = 2}, section.buttons, section.footer}, opts = {margin = 5}}
 alpha.setup(theme.config)
-local buffer = vim.api.nvim_get_current_buf()
 local function _1_()
   return vim.cmd.Alpha()
 end
-return vim.api.nvim_create_autocmd("BufLeave", {buffer = buffer, once = true, callback = _1_})
+return vim.api.nvim_create_autocmd("BufLeave", {once = true, callback = _1_})
