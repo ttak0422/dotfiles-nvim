@@ -28,7 +28,7 @@
                             {:type :padding :val 2}
                             section.buttons
                             section.footer]
-                   :opts {:margin 5}})
+                   :opts {:margin 5 :noautocmd true}})
 
 (alpha.setup theme.config)
 
