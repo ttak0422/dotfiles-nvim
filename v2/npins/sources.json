@@ -1,5 +1,18 @@
 {
   "pins": {
+    "alpha-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "goolord",
+        "repo": "alpha-nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "2b3cbcdd980cae1e022409289245053f62fb50f6",
+      "url": "https://github.com/goolord/alpha-nvim/archive/2b3cbcdd980cae1e022409289245053f62fb50f6.tar.gz",
+      "hash": "1ngim3ia9qbv1sxkscryvbn8xkw95rna5iy724yxgnq5sqxxg1jc"
+    },
     "dropbar.nvim": {
       "type": "GitRelease",
       "repository": {

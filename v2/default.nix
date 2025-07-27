@@ -251,6 +251,10 @@ in
       package = direnv-vim;
       startupConfig = read "./fnl/direnv.fnl";
     };
+    alpha = {
+      package = alpha-nvim;
+      startupConfig = read "./fnl/alpha.fnl";
+    };
   };
 
   lazy = with pkgs.vimPlugins.v2; rec {

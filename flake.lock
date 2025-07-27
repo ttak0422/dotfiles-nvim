@@ -114,22 +114,6 @@
         "type": "github"
       }
     },
-    "alpha-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1708891191,
-        "narHash": "sha256-kTVPKZ/e1us/uHfSwFwR38lFYN8EotJq2jKz6xm/eqg=",
-        "owner": "goolord",
-        "repo": "alpha-nvim",
-        "rev": "41283fb402713fc8b327e60907f74e46166f4cfd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "goolord",
-        "repo": "alpha-nvim",
-        "type": "github"
-      }
-    },
     "auto-indent-nvim": {
       "flake": false,
       "locked": {
@@ -5346,7 +5330,6 @@
         "LuaSnip": "LuaSnip",
         "NeoZoom-lua": "NeoZoom-lua",
         "aerial-nvim": "aerial-nvim",
-        "alpha-nvim": "alpha-nvim",
         "auto-indent-nvim": "auto-indent-nvim",
         "auto-save-nvim": "auto-save-nvim",
         "autoclose-nvim": "autoclose-nvim",

@@ -932,10 +932,6 @@
       url = "github:/ibhagwan/fzf-lua";
       flake = false;
     };
-    alpha-nvim = {
-      url = "github:goolord/alpha-nvim";
-      flake = false;
-    };
     btw-nvim = {
       url = "github:letieu/btw.nvim";
       flake = false;
