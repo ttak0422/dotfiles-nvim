@@ -9,7 +9,7 @@ do
   local v = vim.version()
   theme.section.footer.val = ("v" .. v.major .. "." .. v.minor .. "." .. v.patch)
 end
-theme.config = {layout = {{type = "padding", val = f.max({2, f.floor((f.winheight(0) * 0.3))})}, section.header, {type = "padding", val = 2}, section.buttons, section.footer}, opts = {margin = 5, noautocmd = true}}
+theme.config = {layout = {{type = "padding", val = f.max({2, f.floor((f.winheight(0) * 0.3))})}, section.header, {type = "padding", val = 2}, section.buttons, section.footer}, opts = {margin = 5, noautocmd = true, redraw_on_resize = false}}
 alpha.setup(theme.config)
 local function _1_()
   return vim.cmd.Alpha()
