@@ -107,6 +107,10 @@
 
 (local hints {:enabled false})
 
+(local selector {:provider :snacks})
+
+(local input {:provider :snacks :provider_opts {}})
+
 (local repo_map {:ignore_patterns ["%.git"
                                    "%.worktree"
                                    :__pycache__
@@ -134,6 +138,8 @@
                : windows
                : diff
                : hints
+               : selector
+               : input
                : repo_map})
 
 ;; vim.env.ANTHROPIC_API_KEY=...

@@ -30,7 +30,9 @@ local mappings = {diff = {ours = "co", theirs = "ct", all_theirs = "ca", both = 
 local windows = {position = "right", fillchars = "eob: ", wrap = true, width = 50, height = 50, sidebar_header = {align = "center", enabled = false, rounded = false}, input = {prefix = "\239\146\181 ", height = 8}, edit = {border = {[" "] = " "}, start_insert = true}, ask = {border = {[" "] = " "}, start_insert = true, focus_on_apply = "ours", floating = false}}
 local diff = {autojump = true, override_timeoutlen = 1000}
 local hints = {enabled = false}
+local selector = {provider = "snacks"}
+local input = {provider = "snacks", provider_opts = {}}
 local repo_map = {ignore_patterns = {"%.git", "%.worktree", "__pycache__", "node_modules", "result"}, negate_patterns = {}}
 avante_lib.load()
-avante.setup({mode = "agentic", provider = "sonet4", providers = {sonet4 = {__inherited_from = "claude", model = "claude-sonnet-4-0"}, opus4 = {__inherited_from = "claude", model = "claude-opus-4-0", extra_request_body = {max_tokens = 32000}}}, tokenizer = "tiktoken", disabled_tools = {"web_search"}, system_prompt = system_prompt, custom_tools = custom_tools, behaviour = behaviour, history = history, highlights = highlights, img_paste = img_paste, mappings = mappings, windows = windows, diff = diff, hints = hints, repo_map = repo_map})
+avante.setup({mode = "agentic", provider = "sonet4", providers = {sonet4 = {__inherited_from = "claude", model = "claude-sonnet-4-0"}, opus4 = {__inherited_from = "claude", model = "claude-opus-4-0", extra_request_body = {max_tokens = 32000}}}, tokenizer = "tiktoken", disabled_tools = {"web_search"}, system_prompt = system_prompt, custom_tools = custom_tools, behaviour = behaviour, history = history, highlights = highlights, img_paste = img_paste, mappings = mappings, windows = windows, diff = diff, hints = hints, selector = selector, input = input, repo_map = repo_map})
 return pcall(dofile, (vim.env.HOME .. "/.config/nvim/avante.lua"))
