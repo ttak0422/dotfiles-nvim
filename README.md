@@ -9,3 +9,22 @@
 </div>
 
 ![image](./assets/v1.0.png)
+
+## Directory Structure
+
+```
+.
+├── flake.nix         # Nix flake configuration
+├── apps.nix          # Application definitions
+├── overlays.nix      # Nix overlays
+├── assets/           # Documentation images
+└── v2/               # Main configuration directory
+    ├── default.nix   # Nix configuration entry point
+    ├── fnl/          # Fennel source files
+    ├── lua/autogen/  # Compiled Lua files
+    ├── lua/          # Lua source files
+    ├── npins/        # Nix package management for v2
+    ├── tmpl/         # Template files
+    └── vim/          # Vim script configurations
+```
+
