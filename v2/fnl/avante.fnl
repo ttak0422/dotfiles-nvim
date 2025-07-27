@@ -96,10 +96,9 @@
                 :height 50
                 :sidebar_header {:enabled false :align :center :rounded false}
                 :input {:prefix " " :height 8}
-                :edit {:border {" " " " " " " " " " " " " " " "}
-                       :start_insert true}
+                :edit {:border :single :start_insert true}
                 :ask {:floating false
-                      :border {" " " " " " " " " " " " " " " "}
+                      :border :single
                       :start_insert true
                       :focus_on_apply :ours}})
 
