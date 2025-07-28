@@ -4,6 +4,8 @@
 ; MCP
 (local hub (require :mcphub))
 (local hub_ext (require :mcphub.extensions.avante))
+(hub.setup {:extensions {:avante {:make_slash_commands true}}})
+
 (local system_prompt (fn []
                        (or (-?> (hub.get_hub_instance)
                                 (: :get_active_servers_prompt))
@@ -117,6 +119,13 @@
                                    :result]
                  :negate_patterns []})
 
+(local slash_commands
+       [{:name :commit_staged
+         :description "Commit the staged changes only"
+         :details "Commit the staged changes. Unstaged changes are not included"
+         :callback (fn [_ _ cb]
+                     (if cb (cb "unstaged changes are not included")))}])
+
 (avante_lib.load)
 (avante.setup {:mode :agentic
                :provider :sonet4
@@ -139,7 +148,8 @@
                : hints
                : selector
                : input
-               : repo_map})
+               : repo_map
+               : slash_commands})
 
 ;; vim.env.ANTHROPIC_API_KEY=...
 (pcall dofile (.. vim.env.HOME :/.config/nvim/avante.lua))

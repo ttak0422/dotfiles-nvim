@@ -3,6 +3,7 @@ local avante = require("avante")
 local avante_lib = require("avante_lib")
 local hub = require("mcphub")
 local hub_ext = require("mcphub.extensions.avante")
+hub.setup({extensions = {avante = {make_slash_commands = true}}})
 local system_prompt
 local function _1_()
   local _2_
@@ -33,6 +34,15 @@ local hints = {enabled = false}
 local selector = {provider = "snacks"}
 local input = {provider = "snacks", provider_opts = {}}
 local repo_map = {ignore_patterns = {"%.git", "%.worktree", "__pycache__", "node_modules", "result"}, negate_patterns = {}}
+local slash_commands
+local function _5_(_, _0, cb)
+  if cb then
+    return cb("unstaged changes are not included")
+  else
+    return nil
+  end
+end
+slash_commands = {{name = "commit_staged", description = "Commit the staged changes only", details = "Commit the staged changes. Unstaged changes are not included", callback = _5_}}
 avante_lib.load()
-avante.setup({mode = "agentic", provider = "sonet4", providers = {sonet4 = {__inherited_from = "claude", model = "claude-sonnet-4-0"}, opus4 = {__inherited_from = "claude", model = "claude-opus-4-0", extra_request_body = {max_tokens = 32000}}}, tokenizer = "tiktoken", disabled_tools = {"web_search"}, system_prompt = system_prompt, custom_tools = custom_tools, behaviour = behaviour, history = history, highlights = highlights, img_paste = img_paste, mappings = mappings, windows = windows, diff = diff, hints = hints, selector = selector, input = input, repo_map = repo_map})
+avante.setup({mode = "agentic", provider = "sonet4", providers = {sonet4 = {__inherited_from = "claude", model = "claude-sonnet-4-0"}, opus4 = {__inherited_from = "claude", model = "claude-opus-4-0", extra_request_body = {max_tokens = 32000}}}, tokenizer = "tiktoken", disabled_tools = {"web_search"}, system_prompt = system_prompt, custom_tools = custom_tools, behaviour = behaviour, history = history, highlights = highlights, img_paste = img_paste, mappings = mappings, windows = windows, diff = diff, hints = hints, selector = selector, input = input, repo_map = repo_map, slash_commands = slash_commands})
 return pcall(dofile, (vim.env.HOME .. "/.config/nvim/avante.lua"))
