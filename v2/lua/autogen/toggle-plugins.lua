@@ -116,13 +116,14 @@ do
   toggler.register("trouble-doc", {open = mk_open({mode = "diagnostics", filter = {buf = 0}}, "doc"), close = close, is_open = mk_is_open("doc")})
   toggler.register("trouble-ws", {open = mk_open({mode = "diagnostics"}, "ws"), close = close, is_open = mk_is_open("ws")})
 end
+local tmux = args.tmux_path
 local function tmux_attach_or_create(session, window)
-  if (vim.system({"tmux", "has-session", "-t", session}):wait().code ~= 0) then
-    vim.system({"tmux", "new-session", "-d", "-s", session}):wait()
+  if (vim.system({tmux, "has-session", "-t", session}):wait().code ~= 0) then
+    vim.system({tmux, "new-session", "-d", "-s", session}):wait()
   else
   end
   if (window ~= "") then
-    local windows = vim.system({"tmux", "list-windows", "-t", session}):wait().stdout:gmatch("[^\n]+")
+    local windows = vim.system({tmux, "list-windows", "-t", session}):wait().stdout:gmatch("[^\n]+")
     local exists
     do
       local acc = false
@@ -132,7 +133,7 @@ local function tmux_attach_or_create(session, window)
       exists = acc
     end
     if not exists then
-      return vim.system({"tmux", "new-window", "-t", (session .. ":" .. window)}):wait()
+      return vim.system({tmux, "new-window", "-t", (session .. ":" .. window)}):wait()
     else
       return nil
     end

@@ -668,7 +668,10 @@ in
     togglePlugins = {
       package = toggler;
       extraPackages = with pkgs; [ v2-tmux ];
-      postConfig = read "./fnl/toggle-plugins.fnl";
+      postConfig = {
+        code = read "./fnl/toggle-plugins.fnl";
+        args.tmux_path = "${pkgs.v2-tmux}/bin/tmux";
+      };
       hooks.modules = [ "toggler" ];
     };
 

@@ -71,14 +71,15 @@
 
 ;;; terminal ;;;
 ; NOTE: `toggleterm-nvim` and `tmux` required
+(local tmux args.tmux_path)
 (fn tmux_attach_or_create [session window]
-  (if (-> (vim.system [:tmux :has-session :-t session])
+  (if (-> (vim.system [tmux :has-session :-t session])
           (: :wait)
           (. :code)
           (not= 0))
-      (: (vim.system [:tmux :new-session :-d :-s session]) :wait))
+      (: (vim.system [tmux :new-session :-d :-s session]) :wait))
   (if (not= window "")
-      (let [windows (-> (vim.system [:tmux :list-windows :-t session])
+      (let [windows (-> (vim.system [tmux :list-windows :-t session])
                         (: :wait)
                         (. :stdout)
                         (: :gmatch "[^\n]+"))
@@ -86,7 +87,7 @@
                      (or acc
                          (not= (w:match (.. "^" (vim.pesc window) ":")) nil)))]
         (if (not exists)
-            (: (vim.system [:tmux :new-window :-t (.. session ":" window)])
+            (: (vim.system [tmux :new-window :-t (.. session ":" window)])
                :wait)))))
 
 (local toggleterm {})
