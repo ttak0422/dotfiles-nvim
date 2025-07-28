@@ -2034,22 +2034,6 @@
         "type": "github"
       }
     },
-    "denops-vim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1734315938,
-        "narHash": "sha256-kqvNcCX4wlvb8BVrSF+WD5uGY8zHaS2mp75y8tenMnk=",
-        "owner": "vim-denops",
-        "repo": "denops.vim",
-        "rev": "4ff8f353ee54ee67288c1099242444ccb0ab5b69",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vim-denops",
-        "repo": "denops.vim",
-        "type": "github"
-      }
-    },
     "detour-nvim": {
       "flake": false,
       "locked": {
@@ -5432,7 +5416,6 @@
         "denops-popup-preview-vim": "denops-popup-preview-vim",
         "denops-signature_help": "denops-signature_help",
         "denops-translate-vim": "denops-translate-vim",
-        "denops-vim": "denops-vim",
         "detour-nvim": "detour-nvim",
         "diagflow-nvim": "diagflow-nvim",
         "diffview-nvim": "diffview-nvim",
@@ -5594,7 +5577,6 @@
         "screenkey-nvim": "screenkey-nvim",
         "showkeys": "showkeys",
         "skk-dict": "skk-dict",
-        "skkeleton": "skkeleton",
         "skkeleton_indicator-nvim": "skkeleton_indicator-nvim",
         "smart-splits-nvim": "smart-splits-nvim",
         "smear-cursor-nvim": "smear-cursor-nvim",
@@ -5772,22 +5754,6 @@
       "original": {
         "owner": "skk-dev",
         "repo": "dict",
-        "type": "github"
-      }
-    },
-    "skkeleton": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1752390027,
-        "narHash": "sha256-CjEckt3P+hzRy0XGsEOI7EkeKdQ3m3mbwtgFvyzpkEE=",
-        "owner": "vim-skk",
-        "repo": "skkeleton",
-        "rev": "1dac3eec07e5edb004be56360546320112ded218",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vim-skk",
-        "repo": "skkeleton",
         "type": "github"
       }
     },

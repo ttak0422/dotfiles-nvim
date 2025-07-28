@@ -13,6 +13,19 @@
       "url": "https://github.com/goolord/alpha-nvim/archive/2b3cbcdd980cae1e022409289245053f62fb50f6.tar.gz",
       "hash": "1ngim3ia9qbv1sxkscryvbn8xkw95rna5iy724yxgnq5sqxxg1jc"
     },
+    "denops.vim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "vim-denops",
+        "repo": "denops.vim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "29e830de41f1b02e6381960392cdf2e0226dbf4e",
+      "url": "https://github.com/vim-denops/denops.vim/archive/29e830de41f1b02e6381960392cdf2e0226dbf4e.tar.gz",
+      "hash": "138pgif80jr7l5h2rf1rjdjzgzw08vhsgd502qvnv04zas5378qn"
+    },
     "dropbar.nvim": {
       "type": "GitRelease",
       "repository": {
@@ -170,6 +183,19 @@
       "revision": "6f01734e4859c73029ea0e2300938bf1292ac4ef",
       "url": "https://api.github.com/repos/MeanderingProgrammer/render-markdown.nvim/tarball/v8.6.0",
       "hash": "1fsw5hxfs5z1b1l4636bc4zjm90449ymadyh0scv7nmiip7v2d6g"
+    },
+    "skkeleton": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "vim-skk",
+        "repo": "skkeleton"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "4412cfb90cd4dab8c03d8df88660f857fad370c2",
+      "url": "https://github.com/vim-skk/skkeleton/archive/4412cfb90cd4dab8c03d8df88660f857fad370c2.tar.gz",
+      "hash": "1spxb4mnd7hpi9js8bf6k5avasxa9ma4i9fq4kfcqk7bq0r7zxd8"
     },
     "snacks.nvim": {
       "type": "GitRelease",
