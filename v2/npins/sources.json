@@ -46,20 +46,17 @@
       "hash": "13dd1q951pbwi36r4s1zfs02mk5pyfvwlj1pmv4l8bnc4fs242qv"
     },
     "mcphub.nvim": {
-      "type": "GitRelease",
+      "type": "Git",
       "repository": {
         "type": "GitHub",
         "owner": "ravitemer",
         "repo": "mcphub.nvim"
       },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
+      "branch": "main",
       "submodules": false,
-      "version": "v6.0.0",
-      "revision": "f100847ddff3bc3b5e83870afd60b2eef0c34144",
-      "url": "https://api.github.com/repos/ravitemer/mcphub.nvim/tarball/v6.0.0",
-      "hash": "0rlfgsi47p19rkqhbn4fz102dvawr2yy0x4khk4iw93ffmawwwvs"
+      "revision": "0b92eae385da36601f1311b30122c18de9e273e9",
+      "url": "https://github.com/ravitemer/mcphub.nvim/archive/0b92eae385da36601f1311b30122c18de9e273e9.tar.gz",
+      "hash": "1hsavlfc318lhgg3jsrpyds4bv4g6w060xm0dr6yd24xaxh3fnrp"
     },
     "none-ls-extras.nvim": {
       "type": "Git",
