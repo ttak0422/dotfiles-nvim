@@ -178,58 +178,6 @@
       url = "github:mrjones2014/legendary.nvim";
       flake = false;
     };
-    nvim-cmp = {
-      url = "github:hrsh7th/nvim-cmp";
-      flake = false;
-    };
-    cmp-vsnip = {
-      url = "github:hrsh7th/cmp-vsnip";
-      flake = false;
-    };
-    cmp-path = {
-      url = "github:hrsh7th/cmp-path";
-      flake = false;
-    };
-    cmp-buffer = {
-      url = "github:hrsh7th/cmp-buffer";
-      flake = false;
-    };
-    cmp-calc = {
-      url = "github:hrsh7th/cmp-calc";
-      flake = false;
-    };
-    cmp-treesitter = {
-      url = "github:ray-x/cmp-treesitter";
-      flake = false;
-    };
-    cmp-nvim-lsp = {
-      url = "github:hrsh7th/cmp-nvim-lsp";
-      flake = false;
-    };
-    cmp-nvim-lua = {
-      url = "github:hrsh7th/cmp-nvim-lua";
-      flake = false;
-    };
-    cmp_luasnip = {
-      url = "github:saadparwaiz1/cmp_luasnip";
-      flake = false;
-    };
-    cmp-nvim-lsp-signature-help = {
-      url = "github:hrsh7th/cmp-nvim-lsp-signature-help";
-      flake = false;
-    };
-    cmp-cmdline-history = {
-      url = "github:dmitmel/cmp-cmdline-history";
-      flake = false;
-    };
-    cmp-nvim-lsp-document-symbol = {
-      url = "github:hrsh7th/cmp-nvim-lsp-document-symbol";
-      flake = false;
-    };
-    cmp-cmdline = {
-      url = "github:hrsh7th/cmp-cmdline";
-      flake = false;
-    };
     garbage-day-nvim = {
       url = "github:Zeioth/garbage-day.nvim";
       flake = false;
