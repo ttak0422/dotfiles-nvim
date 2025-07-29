@@ -58,6 +58,32 @@
       "url": "https://api.github.com/repos/nvimtools/hydra.nvim/tarball/v1.0.3",
       "hash": "13dd1q951pbwi36r4s1zfs02mk5pyfvwlj1pmv4l8bnc4fs242qv"
     },
+    "leap-spooky.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ggandor",
+        "repo": "leap-spooky.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "5f44a1f63dc1c4ce50244e92da5bc0d8d1f6eb47",
+      "url": "https://github.com/ggandor/leap-spooky.nvim/archive/5f44a1f63dc1c4ce50244e92da5bc0d8d1f6eb47.tar.gz",
+      "hash": "18bnydmqnspwsahfxrr1r35a4r2xyji0pwq2x8lsarwck0b875ay"
+    },
+    "leap.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ggandor",
+        "repo": "leap.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "ebaf38f7fd7193cc918c10eb955afed63301cd76",
+      "url": "https://github.com/ggandor/leap.nvim/archive/ebaf38f7fd7193cc918c10eb955afed63301cd76.tar.gz",
+      "hash": "116iij1wksp1sz7z7wf3izi6s8vljqdbc28g08sy71pjxs8fx2v4"
+    },
     "mcphub.nvim": {
       "type": "Git",
       "repository": {
@@ -212,6 +238,19 @@
       "revision": "5eac729fa290248acfe10916d92a5ed5e5c0f9ed",
       "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.22.0",
       "hash": "1hbm4fnw51qdp0nz83fcxbvnxjq2k57a37w6dp0wz6wkcx7cwxw9"
+    },
+    "vim-repeat": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "tpope",
+        "repo": "vim-repeat"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "65846025c15494983dafe5e3b46c8f88ab2e9635",
+      "url": "https://github.com/tpope/vim-repeat/archive/65846025c15494983dafe5e3b46c8f88ab2e9635.tar.gz",
+      "hash": "0n8sx6s2sbjb21dv9j6y5lyqda9vvxraffg2jz423daamn96dxqv"
     },
     "which-key.nvim": {
       "type": "GitRelease",

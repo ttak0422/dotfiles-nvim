@@ -328,22 +328,6 @@
       url = "github:AckslD/nvim-FeMaco.lua";
       flake = false;
     };
-    leap-ast-nvim = {
-      url = "github:ggandor/leap-ast.nvim";
-      flake = false;
-    };
-    leap-spooky-nvim = {
-      url = "github:ggandor/leap-spooky.nvim";
-      flake = false;
-    };
-    leap-nvim = {
-      url = "github:ggandor/leap.nvim";
-      flake = false;
-    };
-    vim-repeat = {
-      url = "github:/tpope/vim-repeat";
-      flake = false;
-    };
     flit-nvim = {
       url = "github:ggandor/flit.nvim";
       flake = false;

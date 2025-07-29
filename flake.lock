@@ -3220,54 +3220,6 @@
         "type": "github"
       }
     },
-    "leap-ast-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1665424688,
-        "narHash": "sha256-6ZbO0ND/JSoJVXSLNCfQzWgXoiUYJut2OGtAcpvPaMk=",
-        "owner": "ggandor",
-        "repo": "leap-ast.nvim",
-        "rev": "1a21b70505ebb868a1e196c0d63797e1426b53a5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ggandor",
-        "repo": "leap-ast.nvim",
-        "type": "github"
-      }
-    },
-    "leap-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1747304454,
-        "narHash": "sha256-3wbQPc3mpkbotNrPHhI1l5ea6+/V5gzMqF8PglvPu2U=",
-        "owner": "ggandor",
-        "repo": "leap.nvim",
-        "rev": "189102b07cdd24de3bd7132e57da8c9614c385fc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ggandor",
-        "repo": "leap.nvim",
-        "type": "github"
-      }
-    },
-    "leap-spooky-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1707412269,
-        "narHash": "sha256-XpWDFpiMZ6Up6gLzC6L0XWSiysgh5+6g0vxqi2vzdqE=",
-        "owner": "ggandor",
-        "repo": "leap-spooky.nvim",
-        "rev": "5f44a1f63dc1c4ce50244e92da5bc0d8d1f6eb47",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ggandor",
-        "repo": "leap-spooky.nvim",
-        "type": "github"
-      }
-    },
     "legendary-nvim": {
       "flake": false,
       "locked": {
@@ -5463,9 +5415,6 @@
         "junit-console": "junit-console",
         "kmonad-vim": "kmonad-vim",
         "lasterisk-nvim": "lasterisk-nvim",
-        "leap-ast-nvim": "leap-ast-nvim",
-        "leap-nvim": "leap-nvim",
-        "leap-spooky-nvim": "leap-spooky-nvim",
         "legendary-nvim": "legendary-nvim",
         "lir-git-status-nvim": "lir-git-status-nvim",
         "lir-nvim": "lir-nvim",
@@ -5627,7 +5576,6 @@
         "vim-mr": "vim-mr",
         "vim-nix": "vim-nix",
         "vim-qfreplace": "vim-qfreplace",
-        "vim-repeat": "vim-repeat",
         "vim-sonictemplate": "vim-sonictemplate",
         "vim-startuptime": "vim-startuptime",
         "vim-test": "vim-test",
@@ -6588,22 +6536,6 @@
       "original": {
         "owner": "thinca",
         "repo": "vim-qfreplace",
-        "type": "github"
-      }
-    },
-    "vim-repeat": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1720473942,
-        "narHash": "sha256-G/dmkq1KtSHIl+I5p3LfO6mGPS3eyLRbEEsuLbTpGlk=",
-        "owner": "tpope",
-        "repo": "vim-repeat",
-        "rev": "65846025c15494983dafe5e3b46c8f88ab2e9635",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tpope",
-        "repo": "vim-repeat",
         "type": "github"
       }
     },
