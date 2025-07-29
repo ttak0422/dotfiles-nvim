@@ -50,6 +50,10 @@
       url = "git+https://github.com/yioneko/vtsls?submodules=1";
       flake = false;
     };
+    mcp-hub = {
+      url = "github:ravitemer/mcp-hub";
+      flake = false;
+    };
 
     # plugins
     morimo = {
@@ -1059,10 +1063,6 @@
     };
     norg.url = "github:nvim-neorg/tree-sitter-norg/dev";
     norg-meta.url = "github:nvim-neorg/tree-sitter-norg-meta";
-    mcp-hub = {
-      url = "github:ravitemer/mcp-hub";
-      flake = false;
-    };
     claude-code-nvim = {
       url = "github:greggh/claude-code.nvim";
       flake = false;
