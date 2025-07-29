@@ -18,18 +18,23 @@ end
 toggle_zoom = _2_
 local paste_from_clipboard_insert
 local function _3_()
-  return vim.api.nvim_put(vim.fn.getreg("+", 1, true), vim.fn.getregtype("+"), true, true)
+  local lines = vim.fn.getreg("+", 1, true)
+  if (#lines == 1) then
+    return vim.api.nvim_paste(lines[1], true, -1)
+  else
+    return vim.api.nvim_put(lines, vim.fn.getregtype("+"), true, true)
+  end
 end
 paste_from_clipboard_insert = _3_
 vim.o.guifont = "PlemolJP Console NF:h15"
-local function _4_()
+local function _5_()
   return change_scale(scale)
 end
-map("n", "<C-+>", _4_)
-local function _5_()
+map("n", "<C-+>", _5_)
+local function _6_()
   return change_scale((1 / scale))
 end
-map("n", "<C-->", _5_)
+map("n", "<C-->", _6_)
 map("n", "<A-Enter>", toggle_zoom)
 map("i", "<D-v>", paste_from_clipboard_insert)
 map("c", "<D-v>", "<C-r>+")

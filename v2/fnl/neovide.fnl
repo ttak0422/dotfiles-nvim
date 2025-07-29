@@ -11,12 +11,14 @@
       change_scale (fn [delta]
                      (set vim.g.neovide_scale_factor
                           (* vim.g.neovide_scale_factor delta)))
-      toggle_zoom (fn []
-                    (set vim.g.neovide_fullscreen
-                         (not vim.g.neovide_fullscreen)))
-      paste-from-clipboard-insert #(vim.api.nvim_put (vim.fn.getreg "+" 1 true)
-                                                     (vim.fn.getregtype "+")
-                                                     true true)]
+      toggle_zoom #(set vim.g.neovide_fullscreen (not vim.g.neovide_fullscreen))
+      paste-from-clipboard-insert #(let [lines (vim.fn.getreg "+" 1 true)]
+                                     (if (= (length lines) 1)
+                                         (vim.api.nvim_paste (. lines 1) true
+                                                             -1)
+                                         (vim.api.nvim_put lines
+                                                           (vim.fn.getregtype "+")
+                                                           true true)))]
   (set vim.o.guifont "PlemolJP Console NF:h15")
   (map :n :<C-+> #(change_scale scale))
   (map :n :<C--> #(change_scale (/ 1 scale)))
