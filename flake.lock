@@ -4014,7 +4014,6 @@
         "toggler": "toggler",
         "toggleterm-nvim": "toggleterm-nvim",
         "trace-pr-nvim": "trace-pr-nvim",
-        "translate-nvim": "translate-nvim",
         "treesj": "treesj",
         "trim-nvim": "trim-nvim",
         "trouble-nvim": "trouble-nvim",
@@ -4745,22 +4744,6 @@
       "original": {
         "owner": "h3pei",
         "repo": "trace-pr.nvim",
-        "type": "github"
-      }
-    },
-    "translate-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1748004624,
-        "narHash": "sha256-gFpiI6FBXIicEG5IIcBLi6N0TpReJrKz5dr663AV+L4=",
-        "owner": "uga-rosa",
-        "repo": "translate.nvim",
-        "rev": "1a841e56407ba02e919ed9af573dbe531404aebb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "uga-rosa",
-        "repo": "translate.nvim",
         "type": "github"
       }
     },

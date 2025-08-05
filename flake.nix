@@ -820,10 +820,6 @@
       url = "github:voldikss/vim-translator";
       flake = false;
     };
-    translate-nvim = {
-      url = "github:uga-rosa/translate.nvim";
-      flake = false;
-    };
     crates-nvim = {
       url = "github:Saecki/crates.nvim";
       flake = false;

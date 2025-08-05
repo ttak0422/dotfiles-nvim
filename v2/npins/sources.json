@@ -252,6 +252,19 @@
       "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.22.0",
       "hash": "1hbm4fnw51qdp0nz83fcxbvnxjq2k57a37w6dp0wz6wkcx7cwxw9"
     },
+    "translate.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "uga-rosa",
+        "repo": "translate.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "1a841e56407ba02e919ed9af573dbe531404aebb",
+      "url": "https://github.com/uga-rosa/translate.nvim/archive/1a841e56407ba02e919ed9af573dbe531404aebb.tar.gz",
+      "hash": "1gpq2mqfpynswnrv49jyji7798wb9g022j3f22f8hp21l4in4nl0"
+    },
     "vim-repeat": {
       "type": "Git",
       "repository": {

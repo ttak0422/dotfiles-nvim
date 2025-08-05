@@ -1,5 +1,13 @@
 (local translate (require :translate))
 
-(local preset {:output {:floating {:zindex 150}}})
+(local preset {:output {:floating {:zindex 150}
+                        :split {:position :bottom
+                                :min_size 5
+                                :max_size 0.5
+                                :name "translate://output"
+                                :filetype :translate
+                                :append false}}})
 
-(translate.setup {: preset})
+(local default {:output :split})
+
+(translate.setup {: preset : default})
