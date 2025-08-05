@@ -372,6 +372,11 @@ in
           package = tiny-inline-diagnostic-nvim;
           postConfig = read "./fnl/tiny-inline-diagnostic.fnl";
         }
+        {
+          package = neogen;
+          depends = [ luasnip ];
+          postConfig = read "./fnl/neogen.fnl";
+        }
       ];
       hooks.events = [ "LspAttach" ];
     };

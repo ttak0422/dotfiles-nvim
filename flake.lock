@@ -2085,22 +2085,6 @@
         "type": "github"
       }
     },
-    "neogen": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1740046779,
-        "narHash": "sha256-ebYUXDsVRI4Gz6boSVRrWv1aQbT2fKnO21iBraBp+mQ=",
-        "owner": "danymat",
-        "repo": "neogen",
-        "rev": "05d754004da8c89115b291f2a23ca530a8cac8fd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "danymat",
-        "repo": "neogen",
-        "type": "github"
-      }
-    },
     "neorg": {
       "flake": false,
       "locked": {
@@ -3904,7 +3888,6 @@
         "mr-vim": "mr-vim",
         "nap-nvim": "nap-nvim",
         "neco-vim": "neco-vim",
-        "neogen": "neogen",
         "neorg-conceal-wrap": "neorg-conceal-wrap",
         "neorg-interim-ls": "neorg-interim-ls",
         "neotest": "neotest",

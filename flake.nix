@@ -208,10 +208,6 @@
       url = "github:DNLHC/glance.nvim";
       flake = false;
     };
-    neogen = {
-      url = "github:danymat/neogen";
-      flake = false;
-    };
     conform-nvim = {
       url = "github:stevearc/conform.nvim";
       flake = false;

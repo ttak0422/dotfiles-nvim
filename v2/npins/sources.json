@@ -97,6 +97,19 @@
       "url": "https://github.com/ravitemer/mcphub.nvim/archive/0b92eae385da36601f1311b30122c18de9e273e9.tar.gz",
       "hash": "1hsavlfc318lhgg3jsrpyds4bv4g6w060xm0dr6yd24xaxh3fnrp"
     },
+    "neogen": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "danymat",
+        "repo": "neogen"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "d7f9461727751fb07f82011051338a9aba07581d",
+      "url": "https://github.com/danymat/neogen/archive/d7f9461727751fb07f82011051338a9aba07581d.tar.gz",
+      "hash": "04fyip1px2x8i5ibvh8qh7cw52dymj57qlfdr92qkqyfj9hpqxdr"
+    },
     "none-ls-extras.nvim": {
       "type": "Git",
       "repository": {
