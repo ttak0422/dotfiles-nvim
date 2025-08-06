@@ -116,9 +116,7 @@
                                                              {:path buf_path
                                                               :upward true})]
                                       (if (> (length found) 0)
-                                          (do
-                                            (vim.fn.fnamemodify (. found 1)
-                                                                ":h"))
+                                          (vim.fn.fnamemodify (. found 1) ":h")
                                           (vim.fn.getcwd))))))}})
 
 (dropbar.setup {: icons : bar : menu : sources})
