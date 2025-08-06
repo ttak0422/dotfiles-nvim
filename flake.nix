@@ -276,10 +276,6 @@
       url = "github:AckslD/nvim-FeMaco.lua";
       flake = false;
     };
-    flit-nvim = {
-      url = "github:ggandor/flit.nvim";
-      flake = false;
-    };
     flow-nvim = {
       url = "github:arjunmahishi/flow.nvim";
       flake = false;

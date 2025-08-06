@@ -42,6 +42,19 @@
       "url": "https://api.github.com/repos/Bekaboo/dropbar.nvim/tarball/v14.2.0",
       "hash": "17br1j1r5mg915y9k28n3f66gfpiz5z7qfvd8fx22ld3lkrsqia9"
     },
+    "flit.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ggandor",
+        "repo": "flit.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "7fbf60207cc170be75db3f42e6f6db0d4d887e5d",
+      "url": "https://github.com/ggandor/flit.nvim/archive/7fbf60207cc170be75db3f42e6f6db0d4d887e5d.tar.gz",
+      "hash": "1xma8wwms81dlh55c65mfbi4yzij7k58lh1vs23hzz5k7hyjd3nc"
+    },
     "hydra.nvim": {
       "type": "GitRelease",
       "repository": {

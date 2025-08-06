@@ -1150,22 +1150,6 @@
         "type": "github"
       }
     },
-    "flit-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1718795547,
-        "narHash": "sha256-lLlad/kbrjwPE8ZdzebJMhA06AqpmEI+PJCWz12LYRM=",
-        "owner": "ggandor",
-        "repo": "flit.nvim",
-        "rev": "1ef72de6a02458d31b10039372c8a15ab8989e0d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ggandor",
-        "repo": "flit.nvim",
-        "type": "github"
-      }
-    },
     "flow-nvim": {
       "flake": false,
       "locked": {
@@ -3835,7 +3819,6 @@
         "endscroll-nvim": "endscroll-nvim",
         "fix-auto-scroll-nvim": "fix-auto-scroll-nvim",
         "flake-parts": "flake-parts_2",
-        "flit-nvim": "flit-nvim",
         "flow-nvim": "flow-nvim",
         "foldnav-nvim": "foldnav-nvim",
         "fzf-lua": "fzf-lua",
