@@ -12,6 +12,8 @@
 
 (local obsidian (require :obsidian))
 (local api (require :obsidian.api))
+(local path (require :obsidian.path))
+(local note (require :obsidian.note))
 
 (local workspaces [{:name :default :path default_vault}])
 
@@ -44,3 +46,18 @@
                  :statusline {:enabled false}
                  :footer {:enabled false}
                  :log_level vim.log.levels.WARN})
+
+(fn open_scratch []
+  (let [dir (. (. _G :Obsidian) :dir)
+        opts (. (. _G :Obsidian) :opts)
+        scratch_path (/ (path:new dir) (.. :scratch.md))
+        id scratch_path.stem]
+    (: (if (scratch_path:exists)
+           (note.from_file scratch_path opts.load)
+           (: (note.create {: id
+                            :aliases []
+                            :tags []
+                            :dir (scratch_path:parent)}) :write
+              {:template nil})) :open)))
+
+(vim.api.nvim_create_user_command :ObsidianScratch open_scratch {})

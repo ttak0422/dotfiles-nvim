@@ -755,7 +755,10 @@ in
       ];
       extraPackages = with pkgs; [ pngpaste ];
       postConfig = read "./fnl/obsidian.fnl";
-      hooks.commands = [ "Obsidian" ];
+      hooks.commands = [
+        "Obsidian"
+        "ObsidianScratch"
+      ];
     };
 
     quickfixPlugins = {

@@ -137,13 +137,16 @@
                           [(leader :O) (cmd :Obsidian) (desc " enter")]
                           [(leader :ot)
                            (cmd "Obsidian today")
-                           (desc "  journal today")]
+                           (desc " journal today")]
                           [(leader :oo)
+                           (cmd :ObsidianScratch)
+                           (desc " new note")]
+                          [(leader :on)
                            (cmd "Obsidian new")
-                           (desc "  new note")]
+                           (desc " new note")]
                           [(leader :fo)
                            (cmd "Obsidian search")
-                           (desc "  fuzzy search")]]
+                           (desc " fuzzy search")]]
                       :i [["¥" "\\"]]
                       :c [["¥" "\\"]]
                       :t [["¥" "\\"] [:<S-Space> :<Space>]]
