@@ -104,7 +104,7 @@
                          :i fuzzy}}))
 
 (local sources
-       {:path {:relative_to (fn [buf win]
+       {:path {:relative_to (fn [buf _win]
                               (let [default_vault (vim.fn.fnamemodify (.. (os.getenv :HOME)
                                                                           :/vaults/default/)
                                                                       ":p:h")
@@ -112,9 +112,13 @@
                                 (if (and (= (. vim.bo buf :ft) :markdown)
                                          (buf_path:find (.. "^" default_vault)))
                                     default_vault
-                                    (let [(ok cwd) (pcall vim.fn.getcwd win)]
-                                      (if ok
-                                          cwd
+                                    (let [found (vim.fs.find [:.git]
+                                                             {:path buf_path
+                                                              :upward true})]
+                                      (if (> (length found) 0)
+                                          (do
+                                            (vim.fn.fnamemodify (. found 1)
+                                                                ":h"))
                                           (vim.fn.getcwd))))))}})
 
 (dropbar.setup {: icons : bar : menu : sources})

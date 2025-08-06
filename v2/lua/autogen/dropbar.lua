@@ -51,15 +51,15 @@ do
   menu = {keymaps = {q = "<C-w>q", ["<Esc>"] = "<C-w>q", H = "<C-w>q", L = select, ["<CR>"] = select, i = fuzzy}}
 end
 local sources0
-local function _11_(buf, win)
+local function _11_(buf, _win)
   local default_vault = vim.fn.fnamemodify((os.getenv("HOME") .. "/vaults/default/"), ":p:h")
   local buf_path = vim.api.nvim_buf_get_name(buf)
   if ((vim.bo[buf].ft == "markdown") and buf_path:find(("^" .. default_vault))) then
     return default_vault
   else
-    local ok, cwd = pcall(vim.fn.getcwd, win)
-    if ok then
-      return cwd
+    local found = vim.fs.find({".git"}, {path = buf_path, upward = true})
+    if (#found > 0) then
+      return vim.fn.fnamemodify(found[1], ":h")
     else
       return vim.fn.getcwd()
     end
