@@ -175,6 +175,19 @@
       "url": "https://github.com/nvimtools/none-ls.nvim/archive/103b0926a31be1bc95743c6328cee309768f0a88.tar.gz",
       "hash": "0yf10d89ibh5yfpzlfjskdgv5jzs7lprj63ijvzdnf1hhrddbx5g"
     },
+    "nvim-autopairs": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "windwp",
+        "repo": "nvim-autopairs"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "23320e75953ac82e559c610bec5a90d9c6dfa743",
+      "url": "https://github.com/windwp/nvim-autopairs/archive/23320e75953ac82e559c610bec5a90d9c6dfa743.tar.gz",
+      "hash": "12lkkyl6ink1qrpggbjfck2ab3yfj5mpa6jfgkrw451d1ycd4rz5"
+    },
     "nvim-lspconfig": {
       "type": "GitRelease",
       "repository": {

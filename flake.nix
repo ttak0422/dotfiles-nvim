@@ -220,10 +220,6 @@
       url = "github:yorickpeterse/nvim-dd";
       flake = false;
     };
-    nvim-autopairs = {
-      url = "github:windwp/nvim-autopairs";
-      flake = false;
-    };
     vim-ambiwidth = {
       url = "github:rbtnn/vim-ambiwidth";
       flake = false;

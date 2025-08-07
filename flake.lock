@@ -3003,22 +3003,6 @@
         "type": "github"
       }
     },
-    "nvim-autopairs": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1744514355,
-        "narHash": "sha256-v7vqCbrXAlzj1oLS+pQ4CooGbnIYMvGcDYcW0BPa12A=",
-        "owner": "windwp",
-        "repo": "nvim-autopairs",
-        "rev": "4d74e75913832866aa7de35e4202463ddf6efd1b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "windwp",
-        "repo": "nvim-autopairs",
-        "type": "github"
-      }
-    },
     "nvim-bqf": {
       "flake": false,
       "locked": {
@@ -3911,7 +3895,6 @@
         "nui-nvim": "nui-nvim",
         "numb-nvim": "numb-nvim",
         "nvim-FeMaco-lua": "nvim-FeMaco-lua",
-        "nvim-autopairs": "nvim-autopairs",
         "nvim-bqf": "nvim-bqf",
         "nvim-bufdel": "nvim-bufdel",
         "nvim-colorizer-lua": "nvim-colorizer-lua",
