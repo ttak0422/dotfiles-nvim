@@ -91,16 +91,58 @@
                :wait)))))
 
 (local toggleterm {})
-(let [open_idx (fn [idx]
+(let [;; TODO: use index
+      open_idx (fn [idx]
                  (let [terminal (require :toggleterm.terminal)
                        cwd (vim.fn.fnamemodify (vim.fn.getcwd) ":t")
-                       target (.. (string.gsub cwd "%." "_") "_" idx)]
-                   (tmux_attach_or_create target :0)
+                       session (.. (string.gsub cwd "%." "_") "_" idx)
+                       target (.. session ":0")
+                       copy_with (fn [cmd]
+                                   (each [_ cs (ipairs [[tmux
+                                                         :copy-mode
+                                                         :-t
+                                                         target]
+                                                        [tmux
+                                                         :send
+                                                         :-X
+                                                         :-t
+                                                         target
+                                                         cmd]])]
+                                     (: (vim.system cs) :wait)))
+                       copy_with_send (fn [key]
+                                        (each [_ cs (ipairs [[tmux
+                                                              :copy-mode
+                                                              :-t
+                                                              target]
+                                                             [tmux
+                                                              :send
+                                                              :-t
+                                                              target
+                                                              key]])]
+                                          (: (vim.system cs) :wait)))
+                       on_open (fn [term]
+                                 (each [k v (pairs {:<C-f> #(copy_with :page-down)
+                                                    :<C-b> #(copy_with :page-up)
+                                                    :<C-d> #(copy_with :halfpage-down)
+                                                    :<C-u> #(copy_with :halfpage-up)
+                                                    :/ #(copy_with_send "/")
+                                                    :gg #(copy_with_send :g)
+                                                    :G #(copy_with_send :G)})]
+                                   (vim.keymap.set :n k v
+                                                   {:buffer term.bufnr
+                                                    :noremap true
+                                                    :silent true})))]
+                   (tmux_attach_or_create session :0)
                    (-> (or (. toggleterm idx)
                            (let [t (terminal.Terminal:new {:direction :horizontal
                                                            :float_opts {:border :single}
-                                                           :cmd (.. "tmux attach-session -t "
-                                                                    target)})]
+                                                           :cmd (.. tmux
+                                                                    " attach-session -t "
+                                                                    session)
+                                                           : on_open})]
+                             ;                             vim.keymap.set("n", "q", "<cmd>close<CR>", {buffer = term.bufnr, noremap = true, silent = true})
+                             ; on_open = function(term) ;        vim.cmd("startinsert!") ;        vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
+                             ;      end,
                              (tset toggleterm idx t)
                              t))
                        (: :open))))

@@ -278,6 +278,19 @@
       "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.22.0",
       "hash": "1hbm4fnw51qdp0nz83fcxbvnxjq2k57a37w6dp0wz6wkcx7cwxw9"
     },
+    "toggleterm.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "akinsho",
+        "repo": "toggleterm.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "9a88eae817ef395952e08650b3283726786fb5fb",
+      "url": "https://github.com/akinsho/toggleterm.nvim/archive/9a88eae817ef395952e08650b3283726786fb5fb.tar.gz",
+      "hash": "17plyvajwdhpiadsd80vph75qll8pv9571c2wnw35ngmw9gmnavz"
+    },
     "translate.nvim": {
       "type": "Git",
       "repository": {

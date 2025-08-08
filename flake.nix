@@ -432,10 +432,6 @@
       url = "github:stevearc/overseer.nvim";
       flake = false;
     };
-    toggleterm-nvim = {
-      url = "github:akinsho/toggleterm.nvim";
-      flake = false;
-    };
     term-gf-nvim = {
       url = "github:yutkat/term-gf.nvim";
       flake = false;

@@ -3978,7 +3978,6 @@
         "tiny-inline-diagnostic-nvim": "tiny-inline-diagnostic-nvim",
         "todo-comments-nvim": "todo-comments-nvim",
         "toggler": "toggler",
-        "toggleterm-nvim": "toggleterm-nvim",
         "trace-pr-nvim": "trace-pr-nvim",
         "treesj": "treesj",
         "trim-nvim": "trim-nvim",
@@ -4678,22 +4677,6 @@
       "original": {
         "owner": "ttak0422",
         "repo": "toggler-nvim",
-        "type": "github"
-      }
-    },
-    "toggleterm-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1741512039,
-        "narHash": "sha256-fytbX+L12TK45YKFU9K+iFJcDrwboKabihc2LtX29J4=",
-        "owner": "akinsho",
-        "repo": "toggleterm.nvim",
-        "rev": "9a88eae817ef395952e08650b3283726786fb5fb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "akinsho",
-        "repo": "toggleterm.nvim",
         "type": "github"
       }
     },

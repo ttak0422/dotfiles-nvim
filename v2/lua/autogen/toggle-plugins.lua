@@ -147,25 +147,71 @@ do
   local function _27_(idx)
     local terminal = require("toggleterm.terminal")
     local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-    local target = (string.gsub(cwd, "%.", "_") .. "_" .. idx)
-    tmux_attach_or_create(target, "0")
-    local or_28_ = toggleterm[idx]
-    if not or_28_ then
-      local t = terminal.Terminal:new({direction = "horizontal", float_opts = {border = "single"}, cmd = ("tmux attach-session -t " .. target)})
-      toggleterm[idx] = t
-      or_28_ = t
+    local session = (string.gsub(cwd, "%.", "_") .. "_" .. idx)
+    local target = (session .. ":0")
+    local copy_with
+    local function _28_(cmd)
+      for _, cs in ipairs({{tmux, "copy-mode", "-t", target}, {tmux, "send", "-X", "-t", target, cmd}}) do
+        vim.system(cs):wait()
+      end
+      return nil
     end
-    return (or_28_):open()
+    copy_with = _28_
+    local copy_with_send
+    local function _29_(key)
+      for _, cs in ipairs({{tmux, "copy-mode", "-t", target}, {tmux, "send", "-t", target, key}}) do
+        vim.system(cs):wait()
+      end
+      return nil
+    end
+    copy_with_send = _29_
+    local on_open
+    local function _30_(term)
+      local function _31_()
+        return copy_with("page-down")
+      end
+      local function _32_()
+        return copy_with("page-up")
+      end
+      local function _33_()
+        return copy_with("halfpage-down")
+      end
+      local function _34_()
+        return copy_with("halfpage-up")
+      end
+      local function _35_()
+        return copy_with_send("/")
+      end
+      local function _36_()
+        return copy_with_send("g")
+      end
+      local function _37_()
+        return copy_with_send("G")
+      end
+      for k, v in pairs({["<C-f>"] = _31_, ["<C-b>"] = _32_, ["<C-d>"] = _33_, ["<C-u>"] = _34_, ["/"] = _35_, gg = _36_, G = _37_}) do
+        vim.keymap.set("n", k, v, {buffer = term.bufnr, noremap = true, silent = true})
+      end
+      return nil
+    end
+    on_open = _30_
+    tmux_attach_or_create(session, "0")
+    local or_38_ = toggleterm[idx]
+    if not or_38_ then
+      local t = terminal.Terminal:new({direction = "horizontal", float_opts = {border = "single"}, cmd = (tmux .. " attach-session -t " .. session), on_open = on_open})
+      toggleterm[idx] = t
+      or_38_ = t
+    end
+    return (or_38_):open()
   end
   open_idx = _27_
   local is_open_idx
-  local function _30_(idx)
+  local function _40_(idx)
     local t = toggleterm[idx]
     return (t and t:is_open())
   end
-  is_open_idx = _30_
+  is_open_idx = _40_
   local close_idx
-  local function _31_(idx)
+  local function _41_(idx)
     local t = toggleterm[idx]
     if (t and t:is_open()) then
       return t:close()
@@ -173,42 +219,42 @@ do
       return nil
     end
   end
-  close_idx = _31_
+  close_idx = _41_
   for i = 0, 9 do
-    local function _33_()
+    local function _43_()
       return open_idx(i)
     end
-    local function _34_()
+    local function _44_()
       return close_idx(i)
     end
-    local function _35_()
+    local function _45_()
       return is_open_idx(i)
     end
-    toggler.register(("term" .. i), {open = _33_, close = _34_, is_open = _35_})
+    toggler.register(("term" .. i), {open = _43_, close = _44_, is_open = _45_})
   end
 end
 local dapui = nil
 do
   local open
-  local function _36_()
+  local function _46_()
     if (dapui == nil) then
       dapui = require("dapui")
     else
     end
     return dapui:open({reset = true})
   end
-  open = _36_
+  open = _46_
   local close
-  local function _38_()
+  local function _48_()
     if (dapui ~= nil) then
       return dapui.close()
     else
       return nil
     end
   end
-  close = _38_
+  close = _48_
   local is_open
-  local function _40_()
+  local function _50_()
     for _, win in ipairs(require("dapui.windows").layouts) do
       if win:is_open() then
         return true
@@ -217,31 +263,31 @@ do
     end
     return false
   end
-  is_open = _40_
+  is_open = _50_
   toggler.register("dapui", {open = open, close = close, is_open = is_open})
 end
 local aerial = nil
 local open
-local function _42_()
+local function _52_()
   if (aerial == nil) then
     aerial = require("aerial")
   else
   end
   return aerial.open()
 end
-open = _42_
+open = _52_
 local close
-local function _44_()
+local function _54_()
   if (aerial ~= nil) then
     return aerial.close()
   else
     return nil
   end
 end
-close = _44_
+close = _54_
 local is_open
-local function _46_()
+local function _56_()
   return filetype_exists("aerial")
 end
-is_open = _46_
+is_open = _56_
 return toggler.register("aerial", {open = open, close = close, is_open = is_open})
