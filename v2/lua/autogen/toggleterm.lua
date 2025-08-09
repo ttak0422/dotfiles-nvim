@@ -14,7 +14,7 @@ local function _3_()
   return math.floor((vim.o.columns * 0.95))
 end
 local function _4_()
-  return math.floor((vim.o.lines * 0.9))
+  return math.floor((vim.o.lines * 0.95))
 end
 float_opts = {border = "single", width = _3_, height = _4_, title_pos = "center"}
-return M.setup({size = size, float_opts = float_opts, start_in_insert = true, winbar = {enabled = false}, auto_scroll = false, shade_terminals = false})
+return M.setup({size = size, direction = "float", float_opts = float_opts, start_in_insert = true, winbar = {enabled = false}, auto_scroll = false, shade_terminals = false})

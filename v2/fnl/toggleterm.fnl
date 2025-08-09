@@ -4,9 +4,10 @@
                  (* vim.o.columns 0.5)))
       float_opts {:border :single
                   :width #(math.floor (* vim.o.columns 0.95))
-                  :height #(math.floor (* vim.o.lines 0.9))
+                  :height #(math.floor (* vim.o.lines 0.95))
                   :title_pos :center}]
   (M.setup {: size
+            :direction :float
             : float_opts
             :shade_terminals false
             :auto_scroll false

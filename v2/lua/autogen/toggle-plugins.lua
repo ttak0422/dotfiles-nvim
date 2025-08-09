@@ -180,7 +180,7 @@ do
     tmux_attach_or_create(session, window)
     local or_36_ = toggleterm[idx]
     if not or_36_ then
-      local t = terminal.Terminal:new({direction = "horizontal", float_opts = {border = "single"}, cmd = (tmux .. " attach-session -t " .. session), on_open = on_open})
+      local t = terminal.Terminal:new({cmd = (tmux .. " attach-session -t " .. session), on_open = on_open})
       toggleterm[idx] = t
       or_36_ = t
     end

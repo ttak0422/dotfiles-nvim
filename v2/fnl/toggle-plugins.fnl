@@ -123,9 +123,7 @@
                                                     :silent true})))]
                    (tmux_attach_or_create session window)
                    (-> (or (. toggleterm idx)
-                           (let [t (terminal.Terminal:new {:direction :horizontal
-                                                           :float_opts {:border :single}
-                                                           :cmd (.. tmux
+                           (let [t (terminal.Terminal:new {:cmd (.. tmux
                                                                     " attach-session -t "
                                                                     session)
                                                            : on_open})]
