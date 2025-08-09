@@ -15,4 +15,4 @@ local function _1_(message)
   end
 end
 routes = {{filter = {event = "lsp", kind = "progress", any = {{cond = _1_}}}, opts = {skip = true}}}
-return noice.setup({lsp = lsp, routes = routes})
+return noice.setup({lsp = lsp, routes = routes, cmdline = {enabled = false}, messages = {enabled = false}})

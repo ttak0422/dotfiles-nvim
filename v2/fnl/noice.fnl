@@ -28,4 +28,7 @@
                                           _ false))}]}
                 :opts {:skip true}}])
 
-(noice.setup {: lsp : routes})
+(noice.setup {: lsp
+              : routes
+              :cmdline {:enabled false}
+              :messages {:enabled false}})
