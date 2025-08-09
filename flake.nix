@@ -460,10 +460,6 @@
       url = "github:mrcjkb/rustaceanvim";
       flake = false;
     };
-    skkeleton_indicator-nvim = {
-      url = "github:delphinus/skkeleton_indicator.nvim/v2";
-      flake = false;
-    };
     smart-splits-nvim = {
       url = "github:mrjones2014/smart-splits.nvim";
       flake = false;

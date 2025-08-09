@@ -22,9 +22,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "29e830de41f1b02e6381960392cdf2e0226dbf4e",
-      "url": "https://github.com/vim-denops/denops.vim/archive/29e830de41f1b02e6381960392cdf2e0226dbf4e.tar.gz",
-      "hash": "138pgif80jr7l5h2rf1rjdjzgzw08vhsgd502qvnv04zas5378qn"
+      "revision": "f63fa7ffb3fc9693a742c7c1f774223cc111a2d9",
+      "url": "https://github.com/vim-denops/denops.vim/archive/f63fa7ffb3fc9693a742c7c1f774223cc111a2d9.tar.gz",
+      "hash": "0bgmj41fp0kl7g6129pgcppsl2mc8ylvhj5b1d91s12klxv5jk9y"
     },
     "dropbar.nvim": {
       "type": "GitRelease",
@@ -271,9 +271,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "4412cfb90cd4dab8c03d8df88660f857fad370c2",
-      "url": "https://github.com/vim-skk/skkeleton/archive/4412cfb90cd4dab8c03d8df88660f857fad370c2.tar.gz",
-      "hash": "1spxb4mnd7hpi9js8bf6k5avasxa9ma4i9fq4kfcqk7bq0r7zxd8"
+      "revision": "5ddb49351854fb5c3406c071a82d2f50612afcf3",
+      "url": "https://github.com/vim-skk/skkeleton/archive/5ddb49351854fb5c3406c071a82d2f50612afcf3.tar.gz",
+      "hash": "1a86ahpps804qvrvdlrw8b21dfraapnvqk4y6w7jj0yhzm5ishav"
     },
     "snacks.nvim": {
       "type": "GitRelease",
