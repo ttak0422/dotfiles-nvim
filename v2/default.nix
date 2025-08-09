@@ -293,7 +293,7 @@ in
       package = render-markdown-nvim;
       depends = [ devicons ];
       postConfig = read "./fnl/render-markdown.fnl";
-      hooks.fileTypes = [ "markdown" ];
+      hooks.fileTypes = [ "markdown" "Avante" ];
     };
 
     copilot = {
