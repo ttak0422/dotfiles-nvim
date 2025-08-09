@@ -57,7 +57,7 @@
                           ["¥" "\\"]
                           [:<esc><esc> (cmd :nohl)]
                           ; menu
-                          [:<C-t> (cmd :OpenMenu)]
+                          [:<C-Space> (cmd :OpenMenu)]
                           ; close
                           [(leader :q) (cmd :BufDel) (desc "close buffer")]
                           [(leader :Q)

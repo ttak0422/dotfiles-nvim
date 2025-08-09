@@ -244,10 +244,6 @@
       url = "github:ojroques/nvim-bufdel";
       flake = false;
     };
-    nvim-colorizer-lua = {
-      url = "github:norcalli/nvim-colorizer.lua";
-      flake = false;
-    };
     Comment-nvim = {
       url = "github:numToStr/Comment.nvim";
       flake = false;

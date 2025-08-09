@@ -3019,22 +3019,6 @@
         "type": "github"
       }
     },
-    "nvim-colorizer-lua": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1715313687,
-        "narHash": "sha256-gjO89Sx335PqVgceM9DBfcVozNjovC8KML1OZCRNMGw=",
-        "owner": "norcalli",
-        "repo": "nvim-colorizer.lua",
-        "rev": "a065833f35a3a7cc3ef137ac88b5381da2ba302e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "norcalli",
-        "repo": "nvim-colorizer.lua",
-        "type": "github"
-      }
-    },
     "nvim-config-local": {
       "flake": false,
       "locked": {
@@ -3880,7 +3864,6 @@
         "nvim-FeMaco-lua": "nvim-FeMaco-lua",
         "nvim-bqf": "nvim-bqf",
         "nvim-bufdel": "nvim-bufdel",
-        "nvim-colorizer-lua": "nvim-colorizer-lua",
         "nvim-config-local": "nvim-config-local",
         "nvim-dap": "nvim-dap",
         "nvim-dap-go": "nvim-dap-go",

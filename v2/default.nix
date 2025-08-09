@@ -865,6 +865,11 @@ in
     commandPlugins = {
       depends = [
         {
+          package = nvim-colorizer-lua;
+          postConfig = read "./fnl/colorizer.fnl";
+          hooks.commands = [ "ColorizerToggle" ];
+        }
+        {
           package = venn-nvim;
           hooks.commands = [
             "VBox"

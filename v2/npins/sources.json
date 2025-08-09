@@ -201,6 +201,19 @@
       "url": "https://github.com/windwp/nvim-autopairs/archive/23320e75953ac82e559c610bec5a90d9c6dfa743.tar.gz",
       "hash": "12lkkyl6ink1qrpggbjfck2ab3yfj5mpa6jfgkrw451d1ycd4rz5"
     },
+    "nvim-colorizer.lua": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "norcalli",
+        "repo": "nvim-colorizer.lua"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "a065833f35a3a7cc3ef137ac88b5381da2ba302e",
+      "url": "https://github.com/norcalli/nvim-colorizer.lua/archive/a065833f35a3a7cc3ef137ac88b5381da2ba302e.tar.gz",
+      "hash": "0v1h9lj68kmx6052zg78v366iibxq78367h7avm97pvp5ksvqcw2"
+    },
     "nvim-lspconfig": {
       "type": "GitRelease",
       "repository": {
