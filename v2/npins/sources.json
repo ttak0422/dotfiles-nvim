@@ -257,10 +257,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v8.6.0",
-      "revision": "6f01734e4859c73029ea0e2300938bf1292ac4ef",
-      "url": "https://api.github.com/repos/MeanderingProgrammer/render-markdown.nvim/tarball/v8.6.0",
-      "hash": "1fsw5hxfs5z1b1l4636bc4zjm90449ymadyh0scv7nmiip7v2d6g"
+      "version": "v8.7.0",
+      "revision": "86da825416d24a0539a5e768c5be685a44b939f9",
+      "url": "https://api.github.com/repos/MeanderingProgrammer/render-markdown.nvim/tarball/v8.7.0",
+      "hash": "161d99nnqmlsrzqx96p7bz2v0lbp0nh4kqfkq9k9cam8jr2b4p6d"
     },
     "skkeleton": {
       "type": "Git",
