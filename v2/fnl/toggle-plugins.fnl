@@ -77,18 +77,7 @@
           (: :wait)
           (. :code)
           (not= 0))
-      (: (vim.system [tmux :new-session :-d :-s session]) :wait))
-  (if (not= window "")
-      (let [windows (-> (vim.system [tmux :list-windows :-t session])
-                        (: :wait)
-                        (. :stdout)
-                        (: :gmatch "[^\n]+"))
-            exists (accumulate [acc false w _ windows]
-                     (or acc
-                         (not= (w:match (.. "^" (vim.pesc window) ":")) nil)))]
-        (if (not exists)
-            (: (vim.system [tmux :new-window :-t (.. session ":" window)])
-               :wait)))))
+      (: (vim.system [tmux :new-session :-d :-s session :-n window]) :wait)))
 
 (local toggleterm {})
 (let [;; TODO: use index
@@ -96,28 +85,28 @@
                  (let [terminal (require :toggleterm.terminal)
                        cwd (vim.fn.fnamemodify (vim.fn.getcwd) ":t")
                        session (.. (string.gsub cwd "%." "_") "_" idx)
-                       target (.. session ":0")
+                       window :default
                        copy_with (fn [cmd]
                                    (each [_ cs (ipairs [[tmux
                                                          :copy-mode
                                                          :-t
-                                                         target]
+                                                         session]
                                                         [tmux
                                                          :send
                                                          :-X
                                                          :-t
-                                                         target
+                                                         session
                                                          cmd]])]
                                      (: (vim.system cs) :wait)))
                        copy_with_send (fn [key]
                                         (each [_ cs (ipairs [[tmux
                                                               :copy-mode
                                                               :-t
-                                                              target]
+                                                              session]
                                                              [tmux
                                                               :send
                                                               :-t
-                                                              target
+                                                              session
                                                               key]])]
                                           (: (vim.system cs) :wait)))
                        on_open (fn [term]
@@ -132,7 +121,7 @@
                                                    {:buffer term.bufnr
                                                     :noremap true
                                                     :silent true})))]
-                   (tmux_attach_or_create session :0)
+                   (tmux_attach_or_create session window)
                    (-> (or (. toggleterm idx)
                            (let [t (terminal.Terminal:new {:direction :horizontal
                                                            :float_opts {:border :single}
@@ -140,9 +129,6 @@
                                                                     " attach-session -t "
                                                                     session)
                                                            : on_open})]
-                             ;                             vim.keymap.set("n", "q", "<cmd>close<CR>", {buffer = term.bufnr, noremap = true, silent = true})
-                             ; on_open = function(term) ;        vim.cmd("startinsert!") ;        vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
-                             ;      end,
                              (tset toggleterm idx t)
                              t))
                        (: :open))))
@@ -154,9 +140,9 @@
                         (t:close))))]
   (for [i 0 9]
     (toggler.register (.. :term i)
-                      {:open (fn [] (open_idx i))
-                       :close (fn [] (close_idx i))
-                       :is_open (fn [] (is_open_idx i))})))
+                      {:open #(open_idx i)
+                       :close #(close_idx i)
+                       :is_open #(is_open_idx i)})))
 
 ;;; dap-ui ;;;
 (var dapui nil)

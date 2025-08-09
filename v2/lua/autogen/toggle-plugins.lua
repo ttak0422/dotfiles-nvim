@@ -119,24 +119,7 @@ end
 local tmux = args.tmux_path
 local function tmux_attach_or_create(session, window)
   if (vim.system({tmux, "has-session", "-t", session}):wait().code ~= 0) then
-    vim.system({tmux, "new-session", "-d", "-s", session}):wait()
-  else
-  end
-  if (window ~= "") then
-    local windows = vim.system({tmux, "list-windows", "-t", session}):wait().stdout:gmatch("[^\n]+")
-    local exists
-    do
-      local acc = false
-      for w, _ in windows do
-        acc = (acc or (w:match(("^" .. vim.pesc(window) .. ":")) ~= nil))
-      end
-      exists = acc
-    end
-    if not exists then
-      return vim.system({tmux, "new-window", "-t", (session .. ":" .. window)}):wait()
-    else
-      return nil
-    end
+    return vim.system({tmux, "new-session", "-d", "-s", session, "-n", window}):wait()
   else
     return nil
   end
@@ -144,74 +127,74 @@ end
 local toggleterm = {}
 do
   local open_idx
-  local function _27_(idx)
+  local function _25_(idx)
     local terminal = require("toggleterm.terminal")
     local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
     local session = (string.gsub(cwd, "%.", "_") .. "_" .. idx)
-    local target = (session .. ":0")
+    local window = "default"
     local copy_with
-    local function _28_(cmd)
-      for _, cs in ipairs({{tmux, "copy-mode", "-t", target}, {tmux, "send", "-X", "-t", target, cmd}}) do
+    local function _26_(cmd)
+      for _, cs in ipairs({{tmux, "copy-mode", "-t", session}, {tmux, "send", "-X", "-t", session, cmd}}) do
         vim.system(cs):wait()
       end
       return nil
     end
-    copy_with = _28_
+    copy_with = _26_
     local copy_with_send
-    local function _29_(key)
-      for _, cs in ipairs({{tmux, "copy-mode", "-t", target}, {tmux, "send", "-t", target, key}}) do
+    local function _27_(key)
+      for _, cs in ipairs({{tmux, "copy-mode", "-t", session}, {tmux, "send", "-t", session, key}}) do
         vim.system(cs):wait()
       end
       return nil
     end
-    copy_with_send = _29_
+    copy_with_send = _27_
     local on_open
-    local function _30_(term)
-      local function _31_()
+    local function _28_(term)
+      local function _29_()
         return copy_with("page-down")
       end
-      local function _32_()
+      local function _30_()
         return copy_with("page-up")
       end
-      local function _33_()
+      local function _31_()
         return copy_with("halfpage-down")
       end
-      local function _34_()
+      local function _32_()
         return copy_with("halfpage-up")
       end
-      local function _35_()
+      local function _33_()
         return copy_with_send("/")
       end
-      local function _36_()
+      local function _34_()
         return copy_with_send("g")
       end
-      local function _37_()
+      local function _35_()
         return copy_with_send("G")
       end
-      for k, v in pairs({["<C-f>"] = _31_, ["<C-b>"] = _32_, ["<C-d>"] = _33_, ["<C-u>"] = _34_, ["/"] = _35_, gg = _36_, G = _37_}) do
+      for k, v in pairs({["<C-f>"] = _29_, ["<C-b>"] = _30_, ["<C-d>"] = _31_, ["<C-u>"] = _32_, ["/"] = _33_, gg = _34_, G = _35_}) do
         vim.keymap.set("n", k, v, {buffer = term.bufnr, noremap = true, silent = true})
       end
       return nil
     end
-    on_open = _30_
-    tmux_attach_or_create(session, "0")
-    local or_38_ = toggleterm[idx]
-    if not or_38_ then
+    on_open = _28_
+    tmux_attach_or_create(session, window)
+    local or_36_ = toggleterm[idx]
+    if not or_36_ then
       local t = terminal.Terminal:new({direction = "horizontal", float_opts = {border = "single"}, cmd = (tmux .. " attach-session -t " .. session), on_open = on_open})
       toggleterm[idx] = t
-      or_38_ = t
+      or_36_ = t
     end
-    return (or_38_):open()
+    return (or_36_):open()
   end
-  open_idx = _27_
+  open_idx = _25_
   local is_open_idx
-  local function _40_(idx)
+  local function _38_(idx)
     local t = toggleterm[idx]
     return (t and t:is_open())
   end
-  is_open_idx = _40_
+  is_open_idx = _38_
   local close_idx
-  local function _41_(idx)
+  local function _39_(idx)
     local t = toggleterm[idx]
     if (t and t:is_open()) then
       return t:close()
@@ -219,42 +202,42 @@ do
       return nil
     end
   end
-  close_idx = _41_
+  close_idx = _39_
   for i = 0, 9 do
-    local function _43_()
+    local function _41_()
       return open_idx(i)
     end
-    local function _44_()
+    local function _42_()
       return close_idx(i)
     end
-    local function _45_()
+    local function _43_()
       return is_open_idx(i)
     end
-    toggler.register(("term" .. i), {open = _43_, close = _44_, is_open = _45_})
+    toggler.register(("term" .. i), {open = _41_, close = _42_, is_open = _43_})
   end
 end
 local dapui = nil
 do
   local open
-  local function _46_()
+  local function _44_()
     if (dapui == nil) then
       dapui = require("dapui")
     else
     end
     return dapui:open({reset = true})
   end
-  open = _46_
+  open = _44_
   local close
-  local function _48_()
+  local function _46_()
     if (dapui ~= nil) then
       return dapui.close()
     else
       return nil
     end
   end
-  close = _48_
+  close = _46_
   local is_open
-  local function _50_()
+  local function _48_()
     for _, win in ipairs(require("dapui.windows").layouts) do
       if win:is_open() then
         return true
@@ -263,31 +246,31 @@ do
     end
     return false
   end
-  is_open = _50_
+  is_open = _48_
   toggler.register("dapui", {open = open, close = close, is_open = is_open})
 end
 local aerial = nil
 local open
-local function _52_()
+local function _50_()
   if (aerial == nil) then
     aerial = require("aerial")
   else
   end
   return aerial.open()
 end
-open = _52_
+open = _50_
 local close
-local function _54_()
+local function _52_()
   if (aerial ~= nil) then
     return aerial.close()
   else
     return nil
   end
 end
-close = _54_
+close = _52_
 local is_open
-local function _56_()
+local function _54_()
   return filetype_exists("aerial")
 end
-is_open = _56_
+is_open = _54_
 return toggler.register("aerial", {open = open, close = close, is_open = is_open})
