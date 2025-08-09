@@ -71,6 +71,19 @@
       "url": "https://api.github.com/repos/nvimtools/hydra.nvim/tarball/v1.0.3",
       "hash": "13dd1q951pbwi36r4s1zfs02mk5pyfvwlj1pmv4l8bnc4fs242qv"
     },
+    "inc-rename.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "smjonas",
+        "repo": "inc-rename.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "8ae25b35ae16ca4bd5de3d3c472eec3b574018d4",
+      "url": "https://github.com/smjonas/inc-rename.nvim/archive/8ae25b35ae16ca4bd5de3d3c472eec3b574018d4.tar.gz",
+      "hash": "0abkii2l8zrjr4lxb7hh8ylklwkvpw954wgn435ylkmpy23mqd48"
+    },
     "leap-spooky.nvim": {
       "type": "Git",
       "repository": {

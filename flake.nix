@@ -924,10 +924,6 @@
       url = "github:chr4/nginx.vim";
       flake = false;
     };
-    inc-rename-nvim = {
-      url = "github:smjonas/inc-rename.nvim";
-      flake = false;
-    };
     guess-indent-nvim = {
       url = "github:NMAC427/guess-indent.nvim";
       flake = false;

@@ -1064,6 +1064,11 @@ in
         }
         { package = mkdir-nvim; }
         { package = vimdoc-ja; }
+        {
+          package = inc-rename-nvim;
+          postConfig = read "./fnl/inc-rename.fnl";
+          hooks.commands = [ "IncRename" ];
+        }
       ];
       postConfig =
         ''

@@ -1676,22 +1676,6 @@
         "type": "github"
       }
     },
-    "inc-rename-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1742763317,
-        "narHash": "sha256-Uz3nwx8Rvlo+Fuacq+xg/8maKbZ/83Va4IAFdf5HKrM=",
-        "owner": "smjonas",
-        "repo": "inc-rename.nvim",
-        "rev": "87ebe7bee0b83d3b6e4f1494c74abed21b318175",
-        "type": "github"
-      },
-      "original": {
-        "owner": "smjonas",
-        "repo": "inc-rename.nvim",
-        "type": "github"
-      }
-    },
     "indent-blankline-nvim": {
       "flake": false,
       "locked": {
@@ -3830,7 +3814,6 @@
         "history-ignore-nvim": "history-ignore-nvim",
         "hlchunk-nvim": "hlchunk-nvim",
         "img-clip-nvim": "img-clip-nvim",
-        "inc-rename-nvim": "inc-rename-nvim",
         "indent-blankline-nvim": "indent-blankline-nvim",
         "indent-o-matic": "indent-o-matic",
         "jol": "jol",
