@@ -59,6 +59,16 @@
                                 :Operator "󰆕"
                                 :TypeParameter "󰗴"}})
 
+(local cmdline (let [search_src [:buffer]
+                     cmd_src [:cmdline :buffer]]
+                 {:enabled true
+                  :keymap {:preset :cmdline}
+                  :sources #(case (vim.fn.getcmdtype)
+                              "/" search_src
+                              "?" search_src
+                              ":" cmd_src
+                              "@" cmd_src)}))
+
 (local sources {:default [:avante
                           :lsp
                           ; :path
@@ -106,7 +116,13 @@
                             :extra_curl_args []
                             :proxy {:from_env true :url nil}}})
 
-(cmp.setup {: completion : appearance : fuzzy : keymap : sources : snippets})
+(cmp.setup {: completion
+            : appearance
+            : fuzzy
+            : keymap
+            : sources
+            : snippets
+            : cmdline})
 
 (vim.lsp.config "*" {:capabilities (cmp.get_lsp_capabilities)})
 

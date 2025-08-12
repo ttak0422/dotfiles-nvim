@@ -4731,11 +4731,11 @@
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
-        "lastModified": 1753376425,
-        "narHash": "sha256-aUyIEvuE2oeKa/awzmr2Y/hG6PAAnQHqdORGt1jjAFE=",
+        "lastModified": 1755028431,
+        "narHash": "sha256-M/1hQClgBdw+KuwwOW6RBaJBOaqOgZdKMPYwQXtULY8=",
         "owner": "Saghen",
         "repo": "blink.cmp",
-        "rev": "bbdc39953ff2dc336129de162fae0833a816bf4b",
+        "rev": "2665197779e3ba4db58a91dbffac0026b9fcc2e9",
         "type": "github"
       },
       "original": {
