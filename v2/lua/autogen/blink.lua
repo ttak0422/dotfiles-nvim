@@ -1,6 +1,8 @@
 -- [nfnl] v2/fnl/blink.fnl
 vim.opt.completeopt = {}
-vim.keymap.set("i", "<C-Space>", "<C-n>", {noremap = true})
+for lhs, rhs in pairs({["<C-Space>"] = "<C-n>", ["<C-S-Space>"] = "<C-p>"}) do
+  vim.keymap.set("i", lhs, rhs, {noremap = true})
+end
 local cmp = require("blink.cmp")
 local types = require("blink.cmp.types")
 local keymap = {preset = "none", ["<C-e>"] = {"hide"}, ["<C-y>"] = {"select_and_accept"}, ["<C-p>"] = {"select_prev", "fallback_to_mappings"}, ["<C-n>"] = {"select_next", "fallback_to_mappings"}, ["<C-b>"] = {"scroll_documentation_up", "fallback"}, ["<C-f>"] = {"scroll_documentation_down", "fallback"}, ["<Tab>"] = {"snippet_forward", "fallback"}, ["<S-Tab>"] = {"snippet_backward", "fallback"}, ["<C-k>"] = {"show_signature", "hide_signature", "fallback"}}
