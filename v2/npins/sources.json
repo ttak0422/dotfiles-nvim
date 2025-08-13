@@ -13,6 +13,19 @@
       "url": "https://github.com/goolord/alpha-nvim/archive/2b3cbcdd980cae1e022409289245053f62fb50f6.tar.gz",
       "hash": "1ngim3ia9qbv1sxkscryvbn8xkw95rna5iy724yxgnq5sqxxg1jc"
     },
+    "autoclose.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "m4xshen",
+        "repo": "autoclose.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "3f86702b54a861a17d7994b2e32a7c648cb12fb1",
+      "url": "https://github.com/m4xshen/autoclose.nvim/archive/3f86702b54a861a17d7994b2e32a7c648cb12fb1.tar.gz",
+      "hash": "0ya4nqavhg7pqgrl15jh14yn36g414axhknqxjraryc43qpvi6b0"
+    },
     "denops.vim": {
       "type": "Git",
       "repository": {

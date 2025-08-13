@@ -924,10 +924,6 @@
       url = "github:moyiz/command-and-cursor.nvim";
       flake = false;
     };
-    autoclose-nvim = {
-      url = "github:m4xshen/autoclose.nvim";
-      flake = false;
-    };
     kmonad-vim = {
       url = "github:kmonad/kmonad-vim";
       flake = false;

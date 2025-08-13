@@ -146,22 +146,6 @@
         "type": "github"
       }
     },
-    "autoclose-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1721556834,
-        "narHash": "sha256-mIInxvk4CQ6gXVTPyGNTFHpmtCYb8J5U+99+NyyPSmM=",
-        "owner": "m4xshen",
-        "repo": "autoclose.nvim",
-        "rev": "b2077aa2c83df7ebc19b2a20a3a0654b24ae9c8f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "m4xshen",
-        "repo": "autoclose.nvim",
-        "type": "github"
-      }
-    },
     "better-escape-nvim": {
       "flake": false,
       "locked": {
@@ -3732,7 +3716,6 @@
         "aerial-nvim": "aerial-nvim",
         "auto-indent-nvim": "auto-indent-nvim",
         "auto-save-nvim": "auto-save-nvim",
-        "autoclose-nvim": "autoclose-nvim",
         "better-escape-nvim": "better-escape-nvim",
         "bigfile-nvim": "bigfile-nvim",
         "blink-cmp-avante": "blink-cmp-avante",
