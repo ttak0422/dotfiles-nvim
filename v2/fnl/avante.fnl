@@ -91,15 +91,15 @@
                  :select_model :<leader>a?
                  :select_history :<leader>ah})
 
-(local windows {:position :right
+(local windows {:position :left
                 :fillchars "eob: "
                 :wrap true
-                :width 50
+                :width 30
                 :height 50
                 :sidebar_header {:enabled false :align :center :rounded false}
                 :input {:prefix " " :height 8}
                 :edit {:border :single :start_insert true}
-                :ask {:floating false
+                :ask {:floating true
                       :border :single
                       :start_insert true
                       :focus_on_apply :ours}})
