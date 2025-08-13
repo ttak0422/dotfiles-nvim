@@ -756,10 +756,6 @@
       url = "github:CopilotC-Nvim/CopilotChat.nvim";
       flake = false;
     };
-    bufresize-nvim = {
-      url = "github:kwkarlwang/bufresize.nvim";
-      flake = false;
-    };
     winresizer = {
       url = "github:simeji/winresizer";
       flake = false;

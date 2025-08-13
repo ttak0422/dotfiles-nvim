@@ -247,6 +247,11 @@ in
       package = heirline-nvim;
       startupConfig = read "./lua/heirline.lua";
     };
+    # 動作しない？
+    # bufresize = {
+    #   package = bufresize-nvim;
+    #   startupConfig = read "./fnl/bufresize.fnl";
+    # };
     # direnv = {
     #   package = direnv-vim;
     #   startupConfig = read "./fnl/direnv.fnl";
@@ -293,7 +298,10 @@ in
       package = render-markdown-nvim;
       depends = [ devicons ];
       postConfig = read "./fnl/render-markdown.fnl";
-      hooks.fileTypes = [ "markdown" "Avante" ];
+      hooks.fileTypes = [
+        "markdown"
+        "Avante"
+      ];
     };
 
     copilot = {

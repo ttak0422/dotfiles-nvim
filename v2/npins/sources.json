@@ -26,6 +26,19 @@
       "url": "https://github.com/m4xshen/autoclose.nvim/archive/3f86702b54a861a17d7994b2e32a7c648cb12fb1.tar.gz",
       "hash": "0ya4nqavhg7pqgrl15jh14yn36g414axhknqxjraryc43qpvi6b0"
     },
+    "bufresize.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "kwkarlwang",
+        "repo": "bufresize.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "3b19527ab936d6910484dcc20fb59bdb12322d8b",
+      "url": "https://github.com/kwkarlwang/bufresize.nvim/archive/3b19527ab936d6910484dcc20fb59bdb12322d8b.tar.gz",
+      "hash": "1s0zmpwg7z76l3ca1p426mkh33cw94m18q7rfsvnz4h4xwlsafpa"
+    },
     "denops.vim": {
       "type": "Git",
       "repository": {
