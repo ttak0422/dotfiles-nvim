@@ -114,7 +114,6 @@
                                                     :<C-b> #(copy_with :page-up)
                                                     :<C-d> #(copy_with :halfpage-down)
                                                     :<C-u> #(copy_with :halfpage-up)
-                                                    :/ #(copy_with_send "/")
                                                     :gg #(copy_with_send :g)
                                                     :G #(copy_with_send :G)})]
                                    (vim.keymap.set :n k v

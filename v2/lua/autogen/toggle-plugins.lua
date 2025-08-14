@@ -163,38 +163,35 @@ do
         return copy_with("halfpage-up")
       end
       local function _33_()
-        return copy_with_send("/")
-      end
-      local function _34_()
         return copy_with_send("g")
       end
-      local function _35_()
+      local function _34_()
         return copy_with_send("G")
       end
-      for k, v in pairs({["<C-f>"] = _29_, ["<C-b>"] = _30_, ["<C-d>"] = _31_, ["<C-u>"] = _32_, ["/"] = _33_, gg = _34_, G = _35_}) do
+      for k, v in pairs({["<C-f>"] = _29_, ["<C-b>"] = _30_, ["<C-d>"] = _31_, ["<C-u>"] = _32_, gg = _33_, G = _34_}) do
         vim.keymap.set("n", k, v, {buffer = term.bufnr, noremap = true, silent = true})
       end
       return nil
     end
     on_open = _28_
     tmux_attach_or_create(session, window)
-    local or_36_ = toggleterm[idx]
-    if not or_36_ then
+    local or_35_ = toggleterm[idx]
+    if not or_35_ then
       local t = terminal.Terminal:new({cmd = (tmux .. " attach-session -t " .. session), on_open = on_open})
       toggleterm[idx] = t
-      or_36_ = t
+      or_35_ = t
     end
-    return (or_36_):open()
+    return (or_35_):open()
   end
   open_idx = _25_
   local is_open_idx
-  local function _38_(idx)
+  local function _37_(idx)
     local t = toggleterm[idx]
     return (t and t:is_open())
   end
-  is_open_idx = _38_
+  is_open_idx = _37_
   local close_idx
-  local function _39_(idx)
+  local function _38_(idx)
     local t = toggleterm[idx]
     if (t and t:is_open()) then
       return t:close()
@@ -202,42 +199,42 @@ do
       return nil
     end
   end
-  close_idx = _39_
+  close_idx = _38_
   for i = 0, 9 do
-    local function _41_()
+    local function _40_()
       return open_idx(i)
     end
-    local function _42_()
+    local function _41_()
       return close_idx(i)
     end
-    local function _43_()
+    local function _42_()
       return is_open_idx(i)
     end
-    toggler.register(("term" .. i), {open = _41_, close = _42_, is_open = _43_})
+    toggler.register(("term" .. i), {open = _40_, close = _41_, is_open = _42_})
   end
 end
 local dapui = nil
 do
   local open
-  local function _44_()
+  local function _43_()
     if (dapui == nil) then
       dapui = require("dapui")
     else
     end
     return dapui:open({reset = true})
   end
-  open = _44_
+  open = _43_
   local close
-  local function _46_()
+  local function _45_()
     if (dapui ~= nil) then
       return dapui.close()
     else
       return nil
     end
   end
-  close = _46_
+  close = _45_
   local is_open
-  local function _48_()
+  local function _47_()
     for _, win in ipairs(require("dapui.windows").layouts) do
       if win:is_open() then
         return true
@@ -246,31 +243,31 @@ do
     end
     return false
   end
-  is_open = _48_
+  is_open = _47_
   toggler.register("dapui", {open = open, close = close, is_open = is_open})
 end
 local aerial = nil
 local open
-local function _50_()
+local function _49_()
   if (aerial == nil) then
     aerial = require("aerial")
   else
   end
   return aerial.open()
 end
-open = _50_
+open = _49_
 local close
-local function _52_()
+local function _51_()
   if (aerial ~= nil) then
     return aerial.close()
   else
     return nil
   end
 end
-close = _52_
+close = _51_
 local is_open
-local function _54_()
+local function _53_()
   return filetype_exists("aerial")
 end
-is_open = _54_
+is_open = _53_
 return toggler.register("aerial", {open = open, close = close, is_open = is_open})
