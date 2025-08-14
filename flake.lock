@@ -3921,7 +3921,6 @@
         "vim-bufsurf": "vim-bufsurf",
         "vim-lastplace": "vim-lastplace",
         "vim-markdown": "vim-markdown",
-        "vim-mr": "vim-mr",
         "vim-nix": "vim-nix",
         "vim-qfreplace": "vim-qfreplace",
         "vim-sonictemplate": "vim-sonictemplate",
@@ -4787,22 +4786,6 @@
       "original": {
         "owner": "preservim",
         "repo": "vim-markdown",
-        "type": "github"
-      }
-    },
-    "vim-mr": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1720030137,
-        "narHash": "sha256-++HvDYf03xyheNT/9Tw59TO0IGSr25Ll5KOvL0Guhl0=",
-        "owner": "lambdalisue",
-        "repo": "vim-mr",
-        "rev": "c71e18356201757eda00e66f7a66996f69b359e8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lambdalisue",
-        "repo": "vim-mr",
         "type": "github"
       }
     },

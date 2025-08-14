@@ -19,7 +19,6 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-
     bundler = {
       url = "github:ttak0422/bundler/v3";
       # url = "path:/Users/tak/ghq/github.com/ttak0422/bundler";
@@ -558,10 +557,6 @@
     };
     mr-vim = {
       url = "github:lambdalisue/mr.vim";
-      flake = false;
-    };
-    vim-mr = {
-      url = "github:lambdalisue/vim-mr";
       flake = false;
     };
     neotest-golang = {

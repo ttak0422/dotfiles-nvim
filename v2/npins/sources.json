@@ -330,6 +330,19 @@
       "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.22.0",
       "hash": "1hbm4fnw51qdp0nz83fcxbvnxjq2k57a37w6dp0wz6wkcx7cwxw9"
     },
+    "telescope-mr": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ttak0422",
+        "repo": "telescope-mr"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "a0a2e78b9af3a25871bb751642f20d2a89fd1f0d",
+      "url": "https://github.com/ttak0422/telescope-mr/archive/a0a2e78b9af3a25871bb751642f20d2a89fd1f0d.tar.gz",
+      "hash": "051fh7rbyqz35r6nq0njvm4mb6q4rh6dyflk25ncv12wsjzl6vcv"
+    },
     "toggleterm.nvim": {
       "type": "Git",
       "repository": {
@@ -355,6 +368,19 @@
       "revision": "1a841e56407ba02e919ed9af573dbe531404aebb",
       "url": "https://github.com/uga-rosa/translate.nvim/archive/1a841e56407ba02e919ed9af573dbe531404aebb.tar.gz",
       "hash": "1gpq2mqfpynswnrv49jyji7798wb9g022j3f22f8hp21l4in4nl0"
+    },
+    "vim-mr": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "lambdalisue",
+        "repo": "vim-mr"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "c71e18356201757eda00e66f7a66996f69b359e8",
+      "url": "https://github.com/lambdalisue/vim-mr/archive/c71e18356201757eda00e66f7a66996f69b359e8.tar.gz",
+      "hash": "0pc6mr0jzbx3wkjr5nxbchhb8czm74ygbzylg2hirpzlhw6yzqgv"
     },
     "vim-repeat": {
       "type": "Git",

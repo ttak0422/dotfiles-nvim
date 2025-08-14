@@ -700,6 +700,7 @@ in
 
     telescope = {
       packages = [
+        telescope-mr
         telescope-nvim
         telescope-fzf-native-nvim
         telescope-live-grep-args-nvim
@@ -707,6 +708,11 @@ in
       ];
       depends = [
         quickfixPlugins
+        {
+          package = vim-mr;
+          depends = [ denops ];
+          useDenops = true;
+        }
         project
         {
           package = vim-sonictemplate.overrideAttrs (_: {

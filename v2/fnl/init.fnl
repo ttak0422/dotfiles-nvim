@@ -104,6 +104,15 @@
                           [(leader :ft)
                            (cmd "Telescope sonictemplate templates")
                            (desc " template")]
+                          [(leader :fru)
+                           (cmd "Telescope mr mru")
+                           (desc " MRU")]
+                          [(leader :frr)
+                           (cmd "Telescope mr mrr")
+                           (desc " MRR")]
+                          [(leader :frw)
+                           (cmd "Telescope mr mrw")
+                           (desc " MRW")]
                           [(leader :fn)
                            (cmd :NeorgFuzzySearch)
                            (desc " fuzzy search")]

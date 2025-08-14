@@ -24,6 +24,7 @@
 (telescope.setup {: defaults : extensions})
 (telescope.load_extension :live_grep_args)
 (telescope.load_extension :sonictemplate)
+(telescope.load_extension :mr)
 (vim.api.nvim_create_user_command :TelescopeBuffer
                                   #(builtin.buffers {:sort_mru true
                                                      :ignore_current_buffer true})
