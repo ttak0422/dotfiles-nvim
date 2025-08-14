@@ -1,13 +1,20 @@
 ; builtinのpopupとの干渉を回避する
 (set vim.opt.completeopt [])
-(each [lhs rhs (pairs {:<C-Space> :<C-n> :<C-S-Space> :<C-p>})]
+(each [lhs rhs (pairs {:<C-Space> :<C-n>
+                       :<C-S-Space> :<C-p>
+                       :<C-a> :<Home>
+                       :<C-e> :<End>})]
   (vim.keymap.set :i lhs rhs {:noremap true :noremap true}))
 
 (local cmp (require :blink.cmp))
 (local types (require :blink.cmp.types))
 (local keymap
        {:preset :none
-        :<C-e> [:hide]
+        :<C-e> [(fn [cmp]
+                  (if (cmp.is_visible)
+                      (do
+                        (cmp.hide) true)))
+                :fallback_to_mappings]
         :<C-y> [:select_and_accept]
         :<C-p> [:select_prev :fallback_to_mappings]
         :<C-n> [:select_next :fallback_to_mappings]
