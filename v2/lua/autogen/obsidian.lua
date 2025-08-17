@@ -42,17 +42,46 @@ local function _4_(_, _note)
 end
 callbacks = {enter_note = _4_}
 obsidian.setup({workspaces = workspaces, daily_notes = daily_notes, completion = completion, ui = ui, callbacks = callbacks, statusline = {enabled = false}, footer = {enabled = false}, log_level = vim.log.levels.WARN, legacy_commands = false})
-local function open_scratch()
-  local dir = _G.Obsidian.dir
-  local opts = _G.Obsidian.opts
+local dir = _G.Obsidian.dir
+local opts = _G.Obsidian.opts
+local get_branch
+local function _8_()
+  local out = vim.system({"git", "rev-parse", "--abbrev-ref", "HEAD"}):wait()
+  if (out.code == 0) then
+    return out.stdout:gsub("%s+", "")
+  else
+    return error("branch not found")
+  end
+end
+get_branch = _8_
+local ObsidianScratch
+local function _10_()
   local scratch_path = (path:new(dir) / "scratch.md")
   local id = scratch_path.stem
-  local _8_
+  local _11_
   if scratch_path:exists() then
-    _8_ = note.from_file(scratch_path, opts.load)
+    _11_ = note.from_file(scratch_path, opts.load)
   else
-    _8_ = note.create({id = id, aliases = {}, tags = {}, dir = scratch_path:parent()}):write({template = nil})
+    _11_ = note.create({id = id, aliases = {}, tags = {}, dir = scratch_path:parent()}):write({template = nil})
   end
-  return _8_:open()
+  return _11_:open()
 end
-return vim.api.nvim_create_user_command("ObsidianScratch", open_scratch, {})
+ObsidianScratch = _10_
+local ObsidianGitBranch
+local function _13_()
+  local branch = get_branch()
+  local rel_path = vim.fs.relpath(vim.fn.expand("~"), vim.fn.getcwd())
+  local target = path:new((dir / rel_path / branch))
+  local _14_
+  if target:exists() then
+    _14_ = note.from_file(target, opts.load)
+  else
+    _14_ = note.create({id = (rel_path .. "/" .. branch), aliases = {}, tags = {vim.fn.fnamemodify(vim.fn.getcwd(), ":t"), branch}, dir = path:parent()}):write({template = nil})
+  end
+  return _14_:open()
+end
+ObsidianGitBranch = _13_
+for lhs, rhs in pairs({ObsidianScratch = ObsidianScratch, ObsidianGitBranch = ObsidianGitBranch}) do
+  vim.api.nvim_create_user_command(lhs, rhs, {})
+end
+return nil

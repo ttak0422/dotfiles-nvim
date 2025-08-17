@@ -150,6 +150,9 @@
                           [(leader :oo)
                            (cmd :ObsidianScratch)
                            (desc " new note")]
+                          [(leader :ogb)
+                           (cmd :ObsidianGitBranch)
+                           (desc " Git branch")]
                           [(leader :on)
                            (cmd "Obsidian new")
                            (desc " new note")]
