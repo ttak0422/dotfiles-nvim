@@ -66,15 +66,14 @@
                                                  :tags []
                                                  :dir (scratch_path:parent)})
                                    :write {:template nil}))
-                            :open)) ; WIP
-      ; WIP
+                            :open))
       ObsidianGitBranch #(let [branch (get_branch)
                                rel_path (vim.fs.relpath (vim.fn.expand "~")
                                                         (vim.fn.getcwd))
                                target (path:new (/ dir rel_path branch))]
                            (: (if (target:exists)
                                   (note.from_file target opts.load)
-                                  (: (note.create {:id target.name
+                                  (: (note.create {:id target.stem
                                                    :aliases []
                                                    :tags [(vim.fn.fnamemodify (vim.fn.getcwd)
                                                                               ":t")
