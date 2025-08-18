@@ -149,6 +149,32 @@
       "url": "https://github.com/ravitemer/mcphub.nvim/archive/0b92eae385da36601f1311b30122c18de9e273e9.tar.gz",
       "hash": "1hsavlfc318lhgg3jsrpyds4bv4g6w060xm0dr6yd24xaxh3fnrp"
     },
+    "menu": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvzone",
+        "repo": "menu"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "7a0a4a2896b715c066cfbe320bdc048091874cc6",
+      "url": "https://github.com/nvzone/menu/archive/7a0a4a2896b715c066cfbe320bdc048091874cc6.tar.gz",
+      "hash": "11jafag2wsap9vmzd19ndfrbyyd685gn9jh580lbpniprbld0rz0"
+    },
+    "minty": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvzone",
+        "repo": "minty"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "aafc9e8e0afe6bf57580858a2849578d8d8db9e0",
+      "url": "https://github.com/nvzone/minty/archive/aafc9e8e0afe6bf57580858a2849578d8d8db9e0.tar.gz",
+      "hash": "1s5wkrsdybqdc0fwr0x3km6k5n1bdivwdbjhqhfm3kvf3mqz9p4d"
+    },
     "neogen": {
       "type": "Git",
       "repository": {
@@ -313,6 +339,19 @@
       "revision": "86da825416d24a0539a5e768c5be685a44b939f9",
       "url": "https://api.github.com/repos/MeanderingProgrammer/render-markdown.nvim/tarball/v8.7.0",
       "hash": "161d99nnqmlsrzqx96p7bz2v0lbp0nh4kqfkq9k9cam8jr2b4p6d"
+    },
+    "showkeys": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvzone",
+        "repo": "showkeys"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "cb0a50296f11f1e585acffba8c253b9e8afc1f84",
+      "url": "https://github.com/nvzone/showkeys/archive/cb0a50296f11f1e585acffba8c253b9e8afc1f84.tar.gz",
+      "hash": "1cvgfxvi5l753hn9ijzbb8x9bi2n12gd6n9j8lcvcq9xv43d4zws"
     },
     "skkeleton": {
       "type": "Git",
@@ -538,6 +577,19 @@
       "url": "https://github.com/nvim-telescope/telescope.nvim/archive/b4da76be54691e854d3e0e02c36b0245f945c2c7.tar.gz",
       "hash": "161qlx099ymi62qsd89srda605ynks1sswx3djamrwqp3dxb9596"
     },
+    "timerly": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvzone",
+        "repo": "timerly"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "1c78999480af0e4f8201fe6bfa1e5e0b70a59acf",
+      "url": "https://github.com/nvzone/timerly/archive/1c78999480af0e4f8201fe6bfa1e5e0b70a59acf.tar.gz",
+      "hash": "0jbncbq03vp1v9fyd1s6mjymbgxp81qjklfal6s02xw9x41azxjw"
+    },
     "toggleterm.nvim": {
       "type": "Git",
       "repository": {
@@ -589,6 +641,19 @@
       "revision": "65846025c15494983dafe5e3b46c8f88ab2e9635",
       "url": "https://github.com/tpope/vim-repeat/archive/65846025c15494983dafe5e3b46c8f88ab2e9635.tar.gz",
       "hash": "0n8sx6s2sbjb21dv9j6y5lyqda9vvxraffg2jz423daamn96dxqv"
+    },
+    "volt": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvzone",
+        "repo": "volt"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "7b8c5e790120d9f08c8487dcb80692db6d2087a1",
+      "url": "https://github.com/nvzone/volt/archive/7b8c5e790120d9f08c8487dcb80692db6d2087a1.tar.gz",
+      "hash": "0ms94297mw7vzn1kwbdbfri4dfg0h352fvm0gb5a0qrn290byfmk"
     },
     "which-key.nvim": {
       "type": "GitRelease",

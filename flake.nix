@@ -803,26 +803,6 @@
       url = "github:bennypowers/nvim-regexplainer";
       flake = false;
     };
-    volt = {
-      url = "github:nvzone/volt";
-      flake = false;
-    };
-    minty = {
-      url = "github:nvzone/minty";
-      flake = false;
-    };
-    timerly = {
-      url = "github:nvzone/timerly";
-      flake = false;
-    };
-    showkeys = {
-      url = "github:nvzone/showkeys";
-      flake = false;
-    };
-    menu = {
-      url = "github:nvzone/menu";
-      flake = false;
-    };
     nvim-yati = {
       url = "github:yioneko/nvim-yati";
       flake = false;

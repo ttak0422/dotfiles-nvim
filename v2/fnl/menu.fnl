@@ -11,4 +11,5 @@
         {:name " Show keys" :cmd #(vim.cmd :ShowkeysToggle)}
         {:name " Color Picker" :cmd #(vim.cmd :Huefy)}])
 
-(vim.api.nvim_create_user_command :OpenMenu #(menu.open default {}) {})
+(vim.api.nvim_create_user_command :OpenMenu #(menu.open default {:border true})
+                                  {})
