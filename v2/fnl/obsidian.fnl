@@ -74,12 +74,12 @@
                                target (path:new (/ dir rel_path branch))]
                            (: (if (target:exists)
                                   (note.from_file target opts.load)
-                                  (: (note.create {:id (.. rel_path "/" branch)
+                                  (: (note.create {:id target.name
                                                    :aliases []
                                                    :tags [(vim.fn.fnamemodify (vim.fn.getcwd)
                                                                               ":t")
                                                           branch]
-                                                   :dir (path:parent)})
+                                                   :dir (target:parent)})
                                      :write {:template nil}))
                               :open))]
   (each [lhs rhs (pairs {: ObsidianScratch : ObsidianGitBranch})]

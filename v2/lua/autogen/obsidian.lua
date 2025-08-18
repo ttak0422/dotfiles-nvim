@@ -76,7 +76,7 @@ local function _13_()
   if target:exists() then
     _14_ = note.from_file(target, opts.load)
   else
-    _14_ = note.create({id = (rel_path .. "/" .. branch), aliases = {}, tags = {vim.fn.fnamemodify(vim.fn.getcwd(), ":t"), branch}, dir = path:parent()}):write({template = nil})
+    _14_ = note.create({id = target.name, aliases = {}, tags = {vim.fn.fnamemodify(vim.fn.getcwd(), ":t"), branch}, dir = target:parent()}):write({template = nil})
   end
   return _14_:open()
 end
