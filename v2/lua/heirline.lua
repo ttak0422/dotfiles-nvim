@@ -121,7 +121,7 @@ do
         self.show = self.warns > 0
       end,
       provider = function(self)
-        return self.show and "  " .. self.warns or "-"
+        return self.show and "  " .. self.warns or ""
       end,
       hl = function(self)
         return { fg = self.show and vim.g["terminal_color_3"] or "fg" }
