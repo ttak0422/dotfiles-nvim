@@ -10,7 +10,7 @@
                              :shortmess (.. vim.o.shortmess :sWcS)
                              :cmdheight 0
                              :showmode false
-                             :number true
+                             :number false
                              ;; signcolumnを起動時に表示
                              :signcolumn :yes
                              :showtabline 0
