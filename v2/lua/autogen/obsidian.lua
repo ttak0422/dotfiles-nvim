@@ -54,33 +54,28 @@ local function _8_()
   end
 end
 get_branch = _8_
-local ObsidianScratch
-local function _10_()
-  local scratch_path = (path:new(dir) / "scratch.md")
-  local id = scratch_path.stem
+local open_note
+local function _10_(p, aliases, tags)
   local _11_
-  if scratch_path:exists() then
-    _11_ = note.from_file(scratch_path, opts.load)
+  if p:exists() then
+    _11_ = note.from_file(p, opts.load)
   else
-    _11_ = note.create({id = id, aliases = {}, tags = {}, dir = scratch_path:parent()}):write({template = nil})
+    _11_ = note.create({id = p.stem, aliases = aliases, tags = tags, dir = p:parent()}):write({template = nil})
   end
   return _11_:open()
 end
-ObsidianScratch = _10_
-local ObsidianGitBranch
+open_note = _10_
+local ObsidianScratch
 local function _13_()
-  local branch = get_branch()
-  local rel_path = vim.fs.relpath(vim.fn.expand("~"), vim.fn.getcwd())
-  local target = path:new((dir / rel_path / branch))
-  local _14_
-  if target:exists() then
-    _14_ = note.from_file(target, opts.load)
-  else
-    _14_ = note.create({id = target.stem, aliases = {}, tags = {vim.fn.fnamemodify(vim.fn.getcwd(), ":t"), branch}, dir = target:parent()}):write({template = nil})
-  end
-  return _14_:open()
+  return open_note((path:new(dir) / "scratch.md"), {}, {})
 end
-ObsidianGitBranch = _13_
+ObsidianScratch = _13_
+local ObsidianGitBranch
+local function _14_()
+  local branch = get_branch()
+  return open_note(path:new((dir / vim.fs.relpath(vim.fn.expand("~"), vim.fn.getcwd()) / branch)), {}, {vim.fn.fnamemodify(vim.fn.getcwd(), ":t"), branch})
+end
+ObsidianGitBranch = _14_
 for lhs, rhs in pairs({ObsidianScratch = ObsidianScratch, ObsidianGitBranch = ObsidianGitBranch}) do
   vim.api.nvim_create_user_command(lhs, rhs, {})
 end

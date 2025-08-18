@@ -53,33 +53,26 @@
                                             :rev-parse
                                             :--abbrev-ref
                                             :HEAD])
-                               :wait)] ; lua =vim.system({"git", "rev-parse", "--abbrev-ref", "HEAD"}):wait().stdout:gsub("%s+", "")
+                               :wait)]
                     (if (= (. out :code) 0)
                         (: (. out :stdout) :gsub "%s+" "")
                         (error "branch not found")))
-      ObsidianScratch #(let [scratch_path (/ (path:new dir) :scratch.md)
-                             id scratch_path.stem]
-                         (: (if (scratch_path:exists)
-                                (note.from_file scratch_path opts.load)
-                                (: (note.create {: id
-                                                 :aliases []
-                                                 :tags []
-                                                 :dir (scratch_path:parent)})
-                                   :write {:template nil}))
-                            :open))
-      ObsidianGitBranch #(let [branch (get_branch)
-                               rel_path (vim.fs.relpath (vim.fn.expand "~")
-                                                        (vim.fn.getcwd))
-                               target (path:new (/ dir rel_path branch))]
-                           (: (if (target:exists)
-                                  (note.from_file target opts.load)
-                                  (: (note.create {:id target.stem
-                                                   :aliases []
-                                                   :tags [(vim.fn.fnamemodify (vim.fn.getcwd)
-                                                                              ":t")
-                                                          branch]
-                                                   :dir (target:parent)})
-                                     :write {:template nil}))
-                              :open))]
+      open_note (fn [p aliases tags]
+                  (: (if (p:exists)
+                         (note.from_file p opts.load)
+                         (: (note.create {:id p.stem
+                                          : aliases
+                                          : tags
+                                          :dir (p:parent)})
+                            :write {:template nil})) :open))
+      ObsidianScratch #(open_note (/ (path:new dir) :scratch.md) [] [])
+      ObsidianGitBranch #(let [branch (get_branch)]
+                           (open_note (path:new (/ dir
+                                                   (vim.fs.relpath (vim.fn.expand "~")
+                                                                   (vim.fn.getcwd))
+                                                   branch))
+                                      []
+                                      [(vim.fn.fnamemodify (vim.fn.getcwd) ":t")
+                                       branch]))]
   (each [lhs rhs (pairs {: ObsidianScratch : ObsidianGitBranch})]
     (vim.api.nvim_create_user_command lhs rhs {})))
