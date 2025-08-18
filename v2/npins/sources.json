@@ -343,6 +343,19 @@
       "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.22.0",
       "hash": "1hbm4fnw51qdp0nz83fcxbvnxjq2k57a37w6dp0wz6wkcx7cwxw9"
     },
+    "statuscol.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "luukvbaal",
+        "repo": "statuscol.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "c46172d0911aa5d49ba5f39f4351d1bb7aa289cc",
+      "url": "https://github.com/luukvbaal/statuscol.nvim/archive/c46172d0911aa5d49ba5f39f4351d1bb7aa289cc.tar.gz",
+      "hash": "02aajcwrbhjxkd4hykjcwj8anv3vq09ma04sj1n49ysmkr210lcw"
+    },
     "telescope-command-palette.nvim": {
       "type": "Git",
       "repository": {

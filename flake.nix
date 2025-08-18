@@ -411,10 +411,6 @@
       url = "github:dstein64/vim-startuptime";
       flake = false;
     };
-    statuscol-nvim = {
-      url = "github:luukvbaal/statuscol.nvim";
-      flake = false;
-    };
     stickybuf-nvim = {
       url = "github:stevearc/stickybuf.nvim";
       flake = false;

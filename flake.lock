@@ -3866,7 +3866,6 @@
         "spring-boot-nvim": "spring-boot-nvim",
         "springboot-nvim": "springboot-nvim",
         "sqlite-lua": "sqlite-lua",
-        "statuscol-nvim": "statuscol-nvim",
         "stickybuf-nvim": "stickybuf-nvim",
         "surround-ui-nvim": "surround-ui-nvim",
         "switch-vim": "switch-vim",
@@ -4114,22 +4113,6 @@
       "original": {
         "owner": "kkharji",
         "repo": "sqlite.lua",
-        "type": "github"
-      }
-    },
-    "statuscol-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1745171338,
-        "narHash": "sha256-fY9GgyzqZerDSOiAzleg4yLG2u2p3RNwzRyN/WuRfEw=",
-        "owner": "luukvbaal",
-        "repo": "statuscol.nvim",
-        "rev": "a2580e009a3b4c51b5978768d907dafae2c919ac",
-        "type": "github"
-      },
-      "original": {
-        "owner": "luukvbaal",
-        "repo": "statuscol.nvim",
         "type": "github"
       }
     },
