@@ -256,6 +256,19 @@
       "url": "https://api.github.com/repos/neovim/nvim-lspconfig/tarball/v2.3.0",
       "hash": "0xlad1n0jzk1cir2fp4mnry7l6rbsq3rh2j1y1i5v7j25nk81rf0"
     },
+    "nvim-ufo": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "kevinhwang91",
+        "repo": "nvim-ufo"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "d31e2a9fd572a25a4d5011776677223a8ccb7e35",
+      "url": "https://github.com/kevinhwang91/nvim-ufo/archive/d31e2a9fd572a25a4d5011776677223a8ccb7e35.tar.gz",
+      "hash": "172v3fh3h3765d93h2ymzzm539i41dw04pj4cxyn2ljb2rb0hfiv"
+    },
     "nvim-web-devicons": {
       "type": "GitRelease",
       "repository": {

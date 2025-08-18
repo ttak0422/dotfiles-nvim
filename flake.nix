@@ -451,10 +451,6 @@
       url = "github:gsuuon/tshjkl.nvim";
       flake = false;
     };
-    nvim-ufo = {
-      url = "github:kevinhwang91/nvim-ufo";
-      flake = false;
-    };
     indent-blankline-nvim = {
       url = "github:lukas-reineke/indent-blankline.nvim";
       flake = false;
