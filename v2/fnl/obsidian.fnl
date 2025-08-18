@@ -57,6 +57,15 @@
                     (if (= (. out :code) 0)
                         (: (. out :stdout) :gsub "%s+" "")
                         (error "branch not found")))
+      get_default_branch #(let [out (: (vim.system [:git
+                                                    :symbolic-ref
+                                                    :refs/remotes/origin/HEAD])
+                                       :wait)]
+                            (if (= (. out :code) 0)
+                                (-> (. out :stdout)
+                                    (: :gsub :^refs/remotes/origin/ "")
+                                    (: :gsub "%s+$" ""))
+                                (error "branch not found")))
       open_note (fn [p aliases tags]
                   (: (if (p:exists)
                          (note.from_file p opts.load)
@@ -66,6 +75,13 @@
                                           :dir (p:parent)})
                             :write {:template nil})) :open))
       ObsidianScratch #(open_note (/ (path:new dir) :scratch.md) [] [])
+      ObsidianGit #(let [branch (get_default_branch)]
+                     (open_note (path:new (/ dir
+                                             (vim.fs.relpath (vim.fn.expand "~")
+                                                             (vim.fn.getcwd))
+                                             branch))
+                                [] [(vim.fn.fnamemodify (vim.fn.getcwd) ":t")
+                                   branch]))
       ObsidianGitBranch #(let [branch (get_branch)]
                            (open_note (path:new (/ dir
                                                    (vim.fs.relpath (vim.fn.expand "~")
@@ -74,5 +90,5 @@
                                       []
                                       [(vim.fn.fnamemodify (vim.fn.getcwd) ":t")
                                        branch]))]
-  (each [lhs rhs (pairs {: ObsidianScratch : ObsidianGitBranch})]
+  (each [lhs rhs (pairs {: ObsidianScratch : ObsidianGit : ObsidianGitBranch})]
     (vim.api.nvim_create_user_command lhs rhs {})))

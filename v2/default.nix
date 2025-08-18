@@ -772,6 +772,7 @@ in
       hooks.commands = [
         "Obsidian"
         "ObsidianScratch"
+        "ObsidianGit"
         "ObsidianGitBranch"
       ];
     };

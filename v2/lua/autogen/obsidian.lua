@@ -54,29 +54,45 @@ local function _8_()
   end
 end
 get_branch = _8_
-local open_note
-local function _10_(p, aliases, tags)
-  local _11_
-  if p:exists() then
-    _11_ = note.from_file(p, opts.load)
+local get_default_branch
+local function _10_()
+  local out = vim.system({"git", "symbolic-ref", "refs/remotes/origin/HEAD"}):wait()
+  if (out.code == 0) then
+    return out.stdout:gsub("^refs/remotes/origin/", ""):gsub("%s+$", "")
   else
-    _11_ = note.create({id = p.stem, aliases = aliases, tags = tags, dir = p:parent()}):write({template = nil})
+    return error("branch not found")
   end
-  return _11_:open()
 end
-open_note = _10_
+get_default_branch = _10_
+local open_note
+local function _12_(p, aliases, tags)
+  local _13_
+  if p:exists() then
+    _13_ = note.from_file(p, opts.load)
+  else
+    _13_ = note.create({id = p.stem, aliases = aliases, tags = tags, dir = p:parent()}):write({template = nil})
+  end
+  return _13_:open()
+end
+open_note = _12_
 local ObsidianScratch
-local function _13_()
+local function _15_()
   return open_note((path:new(dir) / "scratch.md"), {}, {})
 end
-ObsidianScratch = _13_
+ObsidianScratch = _15_
+local ObsidianGit
+local function _16_()
+  local branch = get_default_branch()
+  return open_note(path:new((dir / vim.fs.relpath(vim.fn.expand("~"), vim.fn.getcwd()) / branch)), {}, {vim.fn.fnamemodify(vim.fn.getcwd(), ":t"), branch})
+end
+ObsidianGit = _16_
 local ObsidianGitBranch
-local function _14_()
+local function _17_()
   local branch = get_branch()
   return open_note(path:new((dir / vim.fs.relpath(vim.fn.expand("~"), vim.fn.getcwd()) / branch)), {}, {vim.fn.fnamemodify(vim.fn.getcwd(), ":t"), branch})
 end
-ObsidianGitBranch = _14_
-for lhs, rhs in pairs({ObsidianScratch = ObsidianScratch, ObsidianGitBranch = ObsidianGitBranch}) do
+ObsidianGitBranch = _17_
+for lhs, rhs in pairs({ObsidianScratch = ObsidianScratch, ObsidianGit = ObsidianGit, ObsidianGitBranch = ObsidianGitBranch}) do
   vim.api.nvim_create_user_command(lhs, rhs, {})
 end
 return nil
