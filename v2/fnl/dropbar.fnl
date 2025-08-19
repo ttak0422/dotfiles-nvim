@@ -4,7 +4,8 @@
 
 (local icons {:ui {:bar {:separator " " :extends "…"}
                    :menu {:separator " " :indicator " "}}
-              :kinds {:symbols {:Array ""
+              :kinds {:file_icon (fn [_path] "")
+                      :symbols {:Array ""
                                 :BlockMappingPair ""
                                 :Boolean ""
                                 :BreakStatement ""
