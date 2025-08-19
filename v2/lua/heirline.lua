@@ -271,7 +271,7 @@ local s_terminal = {
 
 local s_default = {
   -- left
-  symbol,
+  -- symbol,
   git,
   diagnostics,
   space,
