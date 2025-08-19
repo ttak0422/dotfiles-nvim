@@ -105,19 +105,22 @@
                          :i fuzzy}}))
 
 (local sources
-       {:path {:relative_to (fn [buf _win]
-                              (let [default_vault (vim.fn.fnamemodify (.. (os.getenv :HOME)
-                                                                          :/vaults/default/)
-                                                                      ":p:h")
-                                    buf_path (vim.api.nvim_buf_get_name buf)]
-                                (if (and (= (. vim.bo buf :ft) :markdown)
-                                         (buf_path:find (.. "^" default_vault)))
-                                    default_vault
-                                    (let [found (vim.fs.find [:.git]
-                                                             {:path buf_path
-                                                              :upward true})]
-                                      (if (> (length found) 0)
-                                          (vim.fn.fnamemodify (. found 1) ":h")
-                                          (vim.fn.getcwd))))))}})
+       {:path {:relative_to (let [default_vault (-> (.. (os.getenv :HOME)
+                                                        :/vaults/default/)
+                                                    (vim.fn.fnamemodify ":p:h")
+                                                    (vim.uv.fs_realpath)
+                                                    (vim.pesc))]
+                              (fn [buf _win]
+                                (let [buf_path (vim.api.nvim_buf_get_name buf)]
+                                  (if (and (= (. vim.bo buf :ft) :markdown)
+                                           (buf_path:find (.. "^" default_vault)))
+                                      default_vault
+                                      (let [found (vim.fs.find [:.git]
+                                                               {:path buf_path
+                                                                :upward true})]
+                                        (if (> (length found) 0)
+                                            (vim.fn.fnamemodify (. found 1)
+                                                                ":h")
+                                            (vim.fn.getcwd)))))))}})
 
 (dropbar.setup {: icons : bar : menu : sources})
