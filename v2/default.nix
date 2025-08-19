@@ -503,17 +503,6 @@ in
             require('fix-auto-scroll').setup()
           '';
         }
-        {
-          package = statuscol-nvim;
-          postConfig = read "./fnl/statuscol.fnl";
-        }
-        {
-          package = nvim-ufo;
-          depends = [
-            promise-async
-          ];
-          postConfig = read "./fnl/ufo.fnl";
-        }
       ];
       postConfig = read "./fnl/buffer-plugins.fnl";
       hooks.events = [ "BufReadPost" ];
@@ -527,6 +516,15 @@ in
         {
           package = diffview-nvim;
           postConfig = read "./fnl/diffview.fnl";
+        }
+        {
+          package = statuscol-nvim;
+          postConfig = read "./fnl/statuscol.fnl";
+        }
+        {
+          package = nvim-ufo;
+          depends = [ promise-async ];
+          postConfig = read "./fnl/ufo.fnl";
         }
       ];
       preConfig = read "./fnl/pre-buffer-plugins-pre.fnl";

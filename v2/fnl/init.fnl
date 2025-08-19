@@ -19,7 +19,7 @@
                              :wrap false
                              :splitkeep :screen
                              ;; fold
-                             :foldcolumn :1
+                             :foldcolumn "auto:1"
                              :foldlevel 99
                              :foldlevelstart 99
                              :foldenable true}
@@ -150,9 +150,7 @@
                           [(leader :oo)
                            (cmd :ObsidianScratch)
                            (desc " new note")]
-                          [(leader :ogg)
-                           (cmd :ObsidianGit)
-                           (desc " Git")]
+                          [(leader :ogg) (cmd :ObsidianGit) (desc " Git")]
                           [(leader :ogb)
                            (cmd :ObsidianGitBranch)
                            (desc " Git branch")]
