@@ -42,7 +42,7 @@ local align = { provider = "%=" }
 local space = { provider = " " }
 local bar = { provider = "  " }
 
-local symbol = { provider = "█" }
+local symbol = { provider = "" }
 
 local git
 do
@@ -280,8 +280,8 @@ local s_default = {
   -- right
   ruler,
   bar,
-  file_properties,
-  bar,
+  -- file_properties,
+  -- bar,
   working_dir,
 }
 
