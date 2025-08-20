@@ -2,5 +2,6 @@
                          :number false
                          :signcolumn :no
                          :foldcolumn :0
-                         :listchars "tab:> "})]
+                         :listchars "tab:> "
+                         :virtualedit :all})]
   (tset vim.opt_local key value))
