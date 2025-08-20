@@ -655,6 +655,19 @@
       "url": "https://github.com/nvzone/volt/archive/7b8c5e790120d9f08c8487dcb80692db6d2087a1.tar.gz",
       "hash": "0ms94297mw7vzn1kwbdbfri4dfg0h352fvm0gb5a0qrn290byfmk"
     },
+    "wf.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Cassin01",
+        "repo": "wf.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "5b96c7300d4391f990d4bef22eace9d834167da4",
+      "url": "https://github.com/Cassin01/wf.nvim/archive/5b96c7300d4391f990d4bef22eace9d834167da4.tar.gz",
+      "hash": "15yywz5m3qqxa0fld8q1ii6q80zjvihyri2gfa8q739mqa2sqwb6"
+    },
     "which-key.nvim": {
       "type": "GitRelease",
       "repository": {

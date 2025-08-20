@@ -641,8 +641,8 @@ in
           };
         }
         {
-          package = which-key-nvim;
-          postConfig = read "./fnl/which-key.fnl";
+          package = wf-nvim;
+          postConfig = read "./fnl/wf.fnl";
         }
         {
           packages = [
