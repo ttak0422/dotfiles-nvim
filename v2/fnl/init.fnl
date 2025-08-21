@@ -16,6 +16,7 @@
                              :showtabline 0
                              ; statuslineを起動時に非表示
                              :laststatus 0
+                             :showtabline 0
                              :wrap false
                              :splitkeep :screen
                              ;; fold

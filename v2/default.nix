@@ -148,10 +148,10 @@ in
       package = scope-nvim;
       startupConfig = read "./fnl/scope.fnl";
     };
-    bufferline = {
-      package = bufferline-nvim;
-      startupConfig = read "./fnl/bufferline.fnl";
-    };
+    # bufferline = {
+    #   package = bufferline-nvim;
+    #   startupConfig = read "./fnl/bufferline.fnl";
+    # };
     lastplace = {
       package = vim-lastplace;
       startupConfig = {
