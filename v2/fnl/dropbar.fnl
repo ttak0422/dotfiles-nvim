@@ -1,4 +1,5 @@
 (local dropbar (require :dropbar))
+(local api (require :dropbar.api))
 (local utils (require :dropbar.utils))
 (local sources (require :dropbar.sources))
 
@@ -125,3 +126,5 @@
                                             (vim.fn.getcwd)))))))}})
 
 (dropbar.setup {: icons : bar : menu : sources})
+
+(vim.keymap.set :n :gB api.pick {:noremap true :silent true :desc "pick file"})

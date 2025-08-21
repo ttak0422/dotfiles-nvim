@@ -1,5 +1,6 @@
 -- [nfnl] v2/fnl/dropbar.fnl
 local dropbar = require("dropbar")
+local api = require("dropbar.api")
 local utils = require("dropbar.utils")
 local sources = require("dropbar.sources")
 local icons
@@ -74,4 +75,5 @@ do
   _12_ = _13_
 end
 sources0 = {path = {relative_to = _12_}}
-return dropbar.setup({icons = icons, bar = bar, menu = menu, sources = sources0})
+dropbar.setup({icons = icons, bar = bar, menu = menu, sources = sources0})
+return vim.keymap.set("n", "gB", api.pick, {noremap = true, silent = true, desc = "pick file"})

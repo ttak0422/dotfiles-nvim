@@ -122,7 +122,7 @@
                            (desc " find file")]
                           ;  Git
                           [(leader :G) (cmd :Gitu) (desc " client")]
-                          [(leader :gb) (toggle :blame) (desc " blame")]
+                          ;[(leader :gb) (toggle :blame) (desc " blame")]
                           [(leader :go) (cmd :TracePR) (desc " open PR")]
                           ;  Neorg
                           [(leader :N) (cmd :Neorg) (desc " enter")]
