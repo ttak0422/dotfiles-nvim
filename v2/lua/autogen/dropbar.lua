@@ -57,10 +57,10 @@ end
 local sources0
 local _12_
 do
-  local default_vault = vim.pesc(vim.uv.fs_realpath(vim.fn.fnamemodify((os.getenv("HOME") .. "/vaults/default/"), ":p:h")))
+  local default_vault = vim.uv.fs_realpath(vim.fn.fnamemodify((os.getenv("HOME") .. "/vaults/default/"), ":p:h"))
   local function _13_(buf, _win)
     local buf_path = vim.api.nvim_buf_get_name(buf)
-    if ((vim.bo[buf].ft == "markdown") and buf_path:find(("^" .. default_vault))) then
+    if (default_vault and (vim.bo[buf].ft == "markdown") and vim.startswith(buf_path, default_vault)) then
       return default_vault
     else
       local found = vim.fs.find({".git"}, {path = buf_path, upward = true})

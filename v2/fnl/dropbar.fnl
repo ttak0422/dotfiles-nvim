@@ -108,12 +108,13 @@
        {:path {:relative_to (let [default_vault (-> (.. (os.getenv :HOME)
                                                         :/vaults/default/)
                                                     (vim.fn.fnamemodify ":p:h")
-                                                    (vim.uv.fs_realpath)
-                                                    (vim.pesc))]
+                                                    (vim.uv.fs_realpath))]
                               (fn [buf _win]
                                 (let [buf_path (vim.api.nvim_buf_get_name buf)]
-                                  (if (and (= (. vim.bo buf :ft) :markdown)
-                                           (buf_path:find (.. "^" default_vault)))
+                                  (if (and default_vault
+                                           (= (. vim.bo buf :ft) :markdown)
+                                           (vim.startswith buf_path
+                                                           default_vault))
                                       default_vault
                                       (let [found (vim.fs.find [:.git]
                                                                {:path buf_path
