@@ -77,14 +77,6 @@
       url = "github:mattn/vim-sonictemplate";
       flake = false;
     };
-    lir-nvim = {
-      url = "github:tamago324/lir.nvim";
-      flake = false;
-    };
-    lir-git-status-nvim = {
-      url = "github:tamago324/lir-git-status.nvim";
-      flake = false;
-    };
     oil-nvim = {
       url = "github:stevearc/oil.nvim";
       flake = false;

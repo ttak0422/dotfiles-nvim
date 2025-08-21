@@ -1748,38 +1748,6 @@
         "type": "github"
       }
     },
-    "lir-git-status-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1681908088,
-        "narHash": "sha256-o6rxSF7MTKBRs0bXB8fO6tmIPqFDmOU5r5sKPjSd+KI=",
-        "owner": "tamago324",
-        "repo": "lir-git-status.nvim",
-        "rev": "4d574f6a9e6d7ce3fe6cccb87a601fb72fb0404d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tamago324",
-        "repo": "lir-git-status.nvim",
-        "type": "github"
-      }
-    },
-    "lir-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1716735240,
-        "narHash": "sha256-l19tu6Rg4PGU7FT/++4UJoCQ6wV7bbV8tWc0NDMlqzA=",
-        "owner": "tamago324",
-        "repo": "lir.nvim",
-        "rev": "5b1a927cfee45845d7d4450a1e8f2f63cf0baaac",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tamago324",
-        "repo": "lir.nvim",
-        "type": "github"
-      }
-    },
     "log-highlight-nvim": {
       "flake": false,
       "locked": {
@@ -3723,8 +3691,6 @@
         "kmonad-vim": "kmonad-vim",
         "lasterisk-nvim": "lasterisk-nvim",
         "legendary-nvim": "legendary-nvim",
-        "lir-git-status-nvim": "lir-git-status-nvim",
-        "lir-nvim": "lir-nvim",
         "log-highlight-nvim": "log-highlight-nvim",
         "logrotate-nvim": "logrotate-nvim",
         "lsp-lens-nvim": "lsp-lens-nvim",

@@ -136,6 +136,32 @@
       "url": "https://github.com/ggandor/leap.nvim/archive/ebaf38f7fd7193cc918c10eb955afed63301cd76.tar.gz",
       "hash": "116iij1wksp1sz7z7wf3izi6s8vljqdbc28g08sy71pjxs8fx2v4"
     },
+    "lir-git-status.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "tamago324",
+        "repo": "lir-git-status.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "4d574f6a9e6d7ce3fe6cccb87a601fb72fb0404d",
+      "url": "https://github.com/tamago324/lir-git-status.nvim/archive/4d574f6a9e6d7ce3fe6cccb87a601fb72fb0404d.tar.gz",
+      "hash": "18pqkls3w2lvmwwyb623l4z8ingarv3hgms6nd8s0k6cbr4g3am3"
+    },
+    "lir.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "tamago324",
+        "repo": "lir.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "5b1a927cfee45845d7d4450a1e8f2f63cf0baaac",
+      "url": "https://github.com/tamago324/lir.nvim/archive/5b1a927cfee45845d7d4450a1e8f2f63cf0baaac.tar.gz",
+      "hash": "0c5b4lrk8d37nmybavbv0pmr10162kpgpzslxjag3q30ljxnspwp"
+    },
     "mcphub.nvim": {
       "type": "Git",
       "repository": {
