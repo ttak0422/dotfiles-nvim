@@ -232,7 +232,7 @@ do
 			return n ~= "" and n or "[No Name]"
 		end,
 		update = { "BufEnter" },
-		hl = { fg = "bg", bg = "fg" },
+		hl = { fg = "bg", bg = "fg", bold = true },
 	}
 	local cond = {
 		-- condition = function()
