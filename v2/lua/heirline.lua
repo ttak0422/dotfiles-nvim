@@ -226,6 +226,20 @@ do
 	local surround = {
 		provider = "█",
 	}
+	local page = {
+		fallthrough = false,
+		update = { "TabEnter" },
+		{
+			condition = function()
+				return #vim.api.nvim_list_tabpages() > 1
+			end,
+			provider = function()
+				return vim.fn.tabpagenr()
+			end,
+			hl = { fg = "bg", bg = "fg", bold = true },
+		},
+		surround,
+	}
 	local name = {
 		provider = function(self)
 			local n = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
@@ -246,7 +260,9 @@ do
 		hl = { fg = "bg", bg = "fg" },
 	}
 	filename = {
-		{ provider = "██" },
+		surround,
+		page,
+		surround,
 		name,
 		cond,
 		surround,

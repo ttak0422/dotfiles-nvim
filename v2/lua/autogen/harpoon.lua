@@ -1,4 +1,4 @@
--- [nfnl] Compiled from v2/fnl/harpoon.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] v2/fnl/harpoon.fnl
 local harpoon = require("harpoon")
 local function _1_()
   return vim.loop.cwd()
