@@ -3451,22 +3451,6 @@
         "type": "github"
       }
     },
-    "plenary-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1739311008,
-        "narHash": "sha256-8FV5RjF7QbDmQOQynpK7uRKONKbPRYbOPugf9ZxNvUs=",
-        "owner": "nvim-lua",
-        "repo": "plenary.nvim",
-        "rev": "857c5ac632080dba10aae49dba902ce3abf91b35",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nvim-lua",
-        "repo": "plenary.nvim",
-        "type": "github"
-      }
-    },
     "popup-nvim": {
       "flake": false,
       "locked": {
@@ -3779,7 +3763,6 @@
         "overseer-nvim": "overseer-nvim",
         "pathlib-nvim": "pathlib-nvim",
         "pgmnt-vim": "pgmnt-vim",
-        "plenary-nvim": "plenary-nvim",
         "popup-nvim": "popup-nvim",
         "project-nvim": "project-nvim",
         "promise-async": "promise-async",

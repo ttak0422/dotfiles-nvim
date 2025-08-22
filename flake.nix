@@ -69,10 +69,6 @@
       url = "github:LiadOz/nvim-dap-repl-highlights";
       flake = false;
     };
-    plenary-nvim = {
-      url = "github:nvim-lua/plenary.nvim";
-      flake = false;
-    };
     vim-sonictemplate = {
       url = "github:mattn/vim-sonictemplate";
       flake = false;
