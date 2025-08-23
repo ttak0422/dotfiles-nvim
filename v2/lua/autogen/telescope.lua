@@ -9,6 +9,7 @@ local extensions = {live_grep_args = {auto_quoting = true, mappings = {i = {["<C
 telescope.setup({defaults = defaults, extensions = extensions})
 telescope.load_extension("live_grep_args")
 telescope.load_extension("sonictemplate")
+telescope.load_extension("projects")
 telescope.load_extension("mr")
 local function _1_()
   return builtin.buffers({sort_mru = true, ignore_current_buffer = true})

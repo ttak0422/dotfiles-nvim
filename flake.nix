@@ -359,10 +359,6 @@
       url = "github:yutkat/term-gf.nvim";
       flake = false;
     };
-    project-nvim = {
-      url = "github:ahmedkhalf/project.nvim";
-      flake = false;
-    };
     qf-nvim = {
       url = "github:ten3roberts/qf.nvim";
       flake = false;
