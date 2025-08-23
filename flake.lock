@@ -1612,22 +1612,6 @@
         "type": "github"
       }
     },
-    "hlchunk-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1746491539,
-        "narHash": "sha256-zXWMwUNvofGNjLVYK/pPW7b062zP/yqUMk6lj3zgZqs=",
-        "owner": "shellRaining",
-        "repo": "hlchunk.nvim",
-        "rev": "474ec5d0f220158afa83aaefab32402e710d3032",
-        "type": "github"
-      },
-      "original": {
-        "owner": "shellRaining",
-        "repo": "hlchunk.nvim",
-        "type": "github"
-      }
-    },
     "img-clip-nvim": {
       "flake": false,
       "locked": {
@@ -3666,7 +3650,6 @@
         "helpview-nvim": "helpview-nvim",
         "highlight-undo-nvim": "highlight-undo-nvim",
         "history-ignore-nvim": "history-ignore-nvim",
-        "hlchunk-nvim": "hlchunk-nvim",
         "img-clip-nvim": "img-clip-nvim",
         "indent-blankline-nvim": "indent-blankline-nvim",
         "indent-o-matic": "indent-o-matic",
