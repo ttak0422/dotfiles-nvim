@@ -3751,7 +3751,6 @@
         "switch-vim": "switch-vim",
         "systems": "systems_3",
         "tabout-nvim": "tabout-nvim",
-        "term-gf-nvim": "term-gf-nvim",
         "tint-nvim": "tint-nvim",
         "tiny-inline-diagnostic-nvim": "tiny-inline-diagnostic-nvim",
         "todo-comments-nvim": "todo-comments-nvim",
@@ -4084,22 +4083,6 @@
       "original": {
         "owner": "abecodes",
         "repo": "tabout.nvim",
-        "type": "github"
-      }
-    },
-    "term-gf-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1682523277,
-        "narHash": "sha256-QRMnvNjCkqlIXyXCv9pUE5Nbx4uhlVH94E+dBaDP+Vo=",
-        "owner": "yutkat",
-        "repo": "term-gf.nvim",
-        "rev": "be02449c0edbe24d624ae8347561f255056019ca",
-        "type": "github"
-      },
-      "original": {
-        "owner": "yutkat",
-        "repo": "term-gf.nvim",
         "type": "github"
       }
     },

@@ -642,6 +642,19 @@
       "url": "https://github.com/nvim-telescope/telescope.nvim/archive/b4da76be54691e854d3e0e02c36b0245f945c2c7.tar.gz",
       "hash": "161qlx099ymi62qsd89srda605ynks1sswx3djamrwqp3dxb9596"
     },
+    "term-gf.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "yutkat",
+        "repo": "term-gf.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "be02449c0edbe24d624ae8347561f255056019ca",
+      "url": "https://github.com/yutkat/term-gf.nvim/archive/be02449c0edbe24d624ae8347561f255056019ca.tar.gz",
+      "hash": "0nprryh0b7agw3ym35d1ig3mp4qkakdbzhi5bx4ak4n2v2y2f4s1"
+    },
     "timerly": {
       "type": "Git",
       "repository": {

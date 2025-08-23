@@ -355,10 +355,6 @@
       url = "github:stevearc/overseer.nvim";
       flake = false;
     };
-    term-gf-nvim = {
-      url = "github:yutkat/term-gf.nvim";
-      flake = false;
-    };
     qf-nvim = {
       url = "github:ten3roberts/qf.nvim";
       flake = false;
