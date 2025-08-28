@@ -101,7 +101,8 @@
                                     :desc :rename})
                    (vim.keymap.set :n :<leader>cF vim.lsp.buf.format
                                    (desc " format"))
-                   (vim.keymap.set [:n :v] :<C-CR> vim.lsp.buf.format
+                   (vim.keymap.set [:n :v] :<C-CR>
+                                   #(vim.lsp.buf.format {:timeout_ms 10000})
                                    (desc " format"))))]
   (vim.api.nvim_create_autocmd :LspAttach
                                {:desc "register lsp keymaps" : callback}))

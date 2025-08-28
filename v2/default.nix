@@ -237,7 +237,13 @@ in
             yamlfmt # YAML
             yapf # Python
           ];
-      startupConfig = read "./fnl/none-ls.fnl";
+      startupConfig = {
+        code = read "./fnl/none-ls.fnl";
+        args = {
+          # TODO: support Linux
+          idea = "${pkgs.jetbrains.idea-community}/Applications/IntelliJ\ IDEA\ CE.app/Contents/MacOS/idea";
+        };
+      };
     };
     gitsigns = {
       package = gitsigns-nvim;

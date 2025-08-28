@@ -2,6 +2,12 @@
 (local diagnostics null_ls.builtins.diagnostics)
 (local formatting null_ls.builtins.formatting)
 (local utils (require :null-ls.utils))
+(local helpers (require :null-ls.helpers))
+(local methods (require :null-ls.methods))
+(local FORMATTING methods.internal.FORMATTING)
+
+(set vim.g.idea_path args.idea)
+
 (local sources [;;; code actions ;;;
                 ;;; diagnostics ;;;
                 diagnostics.actionlint
@@ -57,7 +63,25 @@
                 formatting.fnlfmt
                 formatting.gofumpt
                 formatting.goimports
-                formatting.google_java_format
+                ; `vim.g.idea_format`が設定されている場合ideaを利用する
+                (helpers.make_builtin {:name :idea
+                                       :method FORMATTING
+                                       :filetypes [:java :groovy :kotlin]
+                                       :runtime_condition #(not= vim.g.idea_format
+                                                                 nil)
+                                       :generator_opts {:command args.idea
+                                                        :args #[:format
+                                                                :-s
+                                                                vim.g.idea_format
+                                                                :$FILENAME]
+                                                        :timeout 20000
+                                                        :to_stdin false
+                                                        :from_temp_file true
+                                                        :to_temp_file true}
+                                       :factory helpers.formatter_factory})
+                (formatting.google_java_format.with {:runtime_condition #(= vim.g.idea_format
+                                                                            nil)
+                                                     :timeout 20000})
                 formatting.ktlint
                 formatting.nixfmt
                 formatting.shfmt
@@ -73,7 +97,7 @@
                 :cmd [:nvim]
                 :debounce 300
                 :debug false
-                :default_timeout 20000
+                :default_timeout 10000
                 :diagnostic_config {}
                 :diagnostics_format "#{m} (#{s})"
                 :fallback_severity vim.diagnostic.severity.ERROR

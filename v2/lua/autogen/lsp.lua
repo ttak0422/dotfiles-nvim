@@ -31,7 +31,10 @@ do
     end
     vim.keymap.set("n", "<leader>rN", _5_, {noremap = true, silent = true, expr = true, buffer = bufnr, desc = "rename"})
     vim.keymap.set("n", "<leader>cF", vim.lsp.buf.format, desc("\238\171\132 format"))
-    return vim.keymap.set({"n", "v"}, "<C-CR>", vim.lsp.buf.format, desc("\238\171\132 format"))
+    local function _6_()
+      return vim.lsp.buf.format({timeout_ms = 10000})
+    end
+    return vim.keymap.set({"n", "v"}, "<C-CR>", _6_, desc("\238\171\132 format"))
   end
   callback = _1_
   vim.api.nvim_create_autocmd("LspAttach", {desc = "register lsp keymaps", callback = callback})
