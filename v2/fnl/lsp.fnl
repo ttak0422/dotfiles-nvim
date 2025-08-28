@@ -23,6 +23,7 @@
                                         vim.diagnostic.severity.INFO ""
                                         vim.diagnostic.severity.HINT ""}}})
 
+;; TODO: lazy
 ;; keymaps
 (let [callback (fn [ctx]
                  (let [bufnr ctx.buf
