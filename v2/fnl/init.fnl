@@ -107,12 +107,24 @@
                            (cmd "Telescope sonictemplate templates")
                            (desc " template")]
                           [(leader :fru)
-                           (cmd "Telescope mr mru")
+                           #(vim.cmd (.. "Telescope mr mru cwd="
+                                         (vim.fn.fnameescape (vim.fn.getcwd))))
                            (desc " MRU")]
                           [(leader :frr)
-                           (cmd "Telescope mr mrr")
+                           #(vim.cmd (.. "Telescope mr mrr cwd="
+                                         (vim.fn.fnameescape (vim.fn.getcwd))))
                            (desc " MRR")]
                           [(leader :frw)
+                           #(vim.cmd (.. "Telescope mr mrw cwd="
+                                         (vim.fn.fnameescape (vim.fn.getcwd))))
+                           (desc " MRW")]
+                          [(leader :frU)
+                           (cmd "Telescope mr mru")
+                           (desc " MRU")]
+                          [(leader :frR)
+                           (cmd "Telescope mr mrr")
+                           (desc " MRR")]
+                          [(leader :frW)
                            (cmd "Telescope mr mrw")
                            (desc " MRW")]
                           [(leader :fn)

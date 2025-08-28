@@ -547,9 +547,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "f04f2260a670d0b76c330fda3849482a56dd29b0",
-      "url": "https://github.com/ttak0422/telescope-mr/archive/f04f2260a670d0b76c330fda3849482a56dd29b0.tar.gz",
-      "hash": "1mkkdq18bakbmscmq7zjx8hiiah7s82nmxzpkkshi4fvfh22wcdr"
+      "revision": "e1b6e02eaeb9b19937cb2967963e9b9a3b8d3f6b",
+      "url": "https://github.com/ttak0422/telescope-mr/archive/e1b6e02eaeb9b19937cb2967963e9b9a3b8d3f6b.tar.gz",
+      "hash": "1hanwivm6jkqgz3r5nffslgn8kri6y2mc83plms65s19ix1jhx9m"
     },
     "telescope-repo.nvim": {
       "type": "Git",
