@@ -99,6 +99,12 @@
                           [(leader :fp)
                            (cmd "Telescope find_files")
                            (desc " files")]
+                          [(leader :Ff)
+                           (cmd "Telescope live_grep_args cwd=~/ghq")
+                           (desc " livegrep (ghq)")]
+                          [(leader :Fp)
+                           (cmd "Telescope find_files cwd=~/ghq")
+                           (desc " files (ghq)")]
                           [(leader :fP)
                            (cmd "Telescope projects")
                            (desc " project files")]
