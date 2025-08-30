@@ -126,13 +126,13 @@
                            #(vim.cmd (.. "Telescope mr mrw cwd="
                                          (vim.fn.fnameescape (vim.fn.getcwd))))
                            (desc " MRW")]
-                          [(leader :frU)
+                          [(leader :fRu)
                            (cmd "Telescope mr mru")
                            (desc " MRU")]
-                          [(leader :frR)
+                          [(leader :fRr)
                            (cmd "Telescope mr mrr")
                            (desc " MRR")]
-                          [(leader :frW)
+                          [(leader :fRw)
                            (cmd "Telescope mr mrw")
                            (desc " MRW")]
                           [(leader :fn)
