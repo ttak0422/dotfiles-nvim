@@ -7,7 +7,7 @@
                {:noremap true :silent true :buffer bufnr :desc d})]
     (each [_ k (ipairs [; builtin
                         [:gd
-                                        vim.lsp.buf.definition
+                         vim.lsp.buf.definition
                          ;; #((. (require :lookup) :lookup_definition))
                          "go to definition"]
                         [:gi vim.lsp.buf.implementation "go to implementation"]
