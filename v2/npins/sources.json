@@ -253,6 +253,19 @@
       "url": "https://github.com/tamago324/lir.nvim/archive/5b1a927cfee45845d7d4450a1e8f2f63cf0baaac.tar.gz",
       "hash": "0c5b4lrk8d37nmybavbv0pmr10162kpgpzslxjag3q30ljxnspwp"
     },
+    "lookup.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "srcrip",
+        "repo": "lookup.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "2f7d05ebc5ebc6553691676d517dfbd4c7c87a6a",
+      "url": "https://github.com/srcrip/lookup.nvim/archive/2f7d05ebc5ebc6553691676d517dfbd4c7c87a6a.tar.gz",
+      "hash": "00fap16zccf66d9cv2dx5r0ncmxqigk201rqcxvl6ljyk28m052n"
+    },
     "mcphub.nvim": {
       "type": "Git",
       "repository": {

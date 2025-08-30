@@ -164,7 +164,10 @@ in
     };
     lsp = {
       package = nvim-lspconfig;
-      startupConfig = read "./fnl/lsp.fnl";
+      startupConfig = {
+        code = read "./fnl/lsp.fnl";
+        args.attach_path = ./lua/autogen/lsp-attach.lua;
+      };
       extraPackages = with pkgs; [
         dart
         deno
@@ -807,6 +810,12 @@ in
 
     modulePlugins = {
       depends = [
+        {
+          package = lookup-nvim;
+          depends = [ telescope ];
+          postConfig = read "./fnl/lookup.fnl";
+          hooks.modules = [ "lookup" ];
+        }
         {
           package = goto-preview;
           postConfig = read "./fnl/goto-preview.fnl";
