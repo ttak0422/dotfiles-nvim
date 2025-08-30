@@ -40,7 +40,7 @@
 ;;; harpoon ;;;
 (var harpoon? false)
 (let [toggle #(let [h (require :harpoon)]
-                (h.ui:toggle_quick_menu (h:list) {:border :none}))]
+                (h.ui:toggle_quick_menu (h:list) {:title "" :border :single}))]
   (toggler.register :harpoon
                     {:open #(if (not harpoon?) (toggle))
                      :close #(if harpoon? (toggle))

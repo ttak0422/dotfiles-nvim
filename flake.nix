@@ -81,14 +81,6 @@
       url = "github:gorbit99/codewindow.nvim";
       flake = false;
     };
-    harpoon = {
-      url = "github:ThePrimeagen/harpoon";
-      flake = false;
-    };
-    harpoon-2 = {
-      url = "github:ThePrimeagen/harpoon/harpoon2";
-      flake = false;
-    };
     nvim-nio = {
       url = "github:nvim-neotest/nvim-nio";
       flake = false;

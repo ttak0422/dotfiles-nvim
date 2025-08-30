@@ -1363,39 +1363,6 @@
         "type": "github"
       }
     },
-    "harpoon": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1703631439,
-        "narHash": "sha256-SIqssvuNnkw1YbEEElLYCHmh9OLnoHzggXNIZMb3jYI=",
-        "owner": "ThePrimeagen",
-        "repo": "harpoon",
-        "rev": "ccae1b9bec717ae284906b0bf83d720e59d12b91",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ThePrimeagen",
-        "repo": "harpoon",
-        "type": "github"
-      }
-    },
-    "harpoon-2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1739222527,
-        "narHash": "sha256-L7FvOV6KvD58BnY3no5IudiKTdgkGqhpS85RoSxtl7U=",
-        "owner": "ThePrimeagen",
-        "repo": "harpoon",
-        "rev": "ed1f853847ffd04b2b61c314865665e1dadf22c7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ThePrimeagen",
-        "ref": "harpoon2",
-        "repo": "harpoon",
-        "type": "github"
-      }
-    },
     "harpoonline": {
       "flake": false,
       "locked": {
@@ -3538,8 +3505,6 @@
         "goto-preview": "goto-preview",
         "guess-indent-nvim": "guess-indent-nvim",
         "hardtime-nvim": "hardtime-nvim",
-        "harpoon": "harpoon",
-        "harpoon-2": "harpoon-2",
         "harpoonline": "harpoonline",
         "haskell-tools-nvim": "haskell-tools-nvim",
         "heirline-components-nvim": "heirline-components-nvim",

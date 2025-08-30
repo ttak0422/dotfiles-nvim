@@ -1031,7 +1031,7 @@ in
           hooks.commands = [ "Capture" ];
         }
         {
-          package = harpoon-2;
+          package = harpoon;
           depends = [ ];
           postConfig = read "./fnl/harpoon.fnl";
           hooks.modules = [ "harpoon" ];

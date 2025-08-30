@@ -146,6 +146,19 @@
       "url": "https://github.com/lambdalisue/gin.vim/archive/7c4b98011a2d5bdf7342031f9c8ae7a1c11b584b.tar.gz",
       "hash": "0r1lb11hahwnlr1hi188zl427fi5izci4xikyhi8bi0pdh0f7a90"
     },
+    "harpoon": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ThePrimeagen",
+        "repo": "harpoon"
+      },
+      "branch": "harpoon2",
+      "submodules": false,
+      "revision": "ed1f853847ffd04b2b61c314865665e1dadf22c7",
+      "url": "https://github.com/ThePrimeagen/harpoon/archive/ed1f853847ffd04b2b61c314865665e1dadf22c7.tar.gz",
+      "hash": "1dcpdlna2lff9dlsh6i4v16qmn5r9279wdvn0ry3xg4abqwnzc9g"
+    },
     "hlchunk.nvim": {
       "type": "Git",
       "repository": {

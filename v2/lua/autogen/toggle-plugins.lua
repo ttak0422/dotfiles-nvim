@@ -51,7 +51,7 @@ do
   local toggle
   local function _9_()
     local h = require("harpoon")
-    return h.ui:toggle_quick_menu(h:list(), {border = "none"})
+    return h.ui:toggle_quick_menu(h:list(), {title = "", border = "single"})
   end
   toggle = _9_
   local function _10_()
