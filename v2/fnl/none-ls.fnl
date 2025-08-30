@@ -26,8 +26,9 @@
                                                                :/google_checks.xml)]})
                 diagnostics.deadnix
                 diagnostics.dotenv_linter
-                diagnostics.editorconfig_checker.with
-                {:runtime_condition (fn [ps] (not= ps.bufname ""))}
+                (diagnostics.editorconfig_checker.with {:runtime_condition (fn [ps]
+                                                                             (not= ps.bufname
+                                                                                   ""))})
                 diagnostics.gitlint
                 ; TODO:
                 ; diagnostics.hodolint
