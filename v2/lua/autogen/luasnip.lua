@@ -1,2 +1,3 @@
--- [nfnl] Compiled from v2/fnl/luasnip.fnl by https://github.com/Olical/nfnl, do not edit.
-
+-- [nfnl] v2/fnl/luasnip.fnl
+local ls = require("luasnip")
+return ls.setup({})

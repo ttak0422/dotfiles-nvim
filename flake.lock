@@ -64,24 +64,6 @@
         "type": "github"
       }
     },
-    "LuaSnip": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1747034085,
-        "narHash": "sha256-uELUF3179ECLLboeycAPMpJXDEGYE7Z1zGWq3NqJKl0=",
-        "ref": "refs/heads/master",
-        "rev": "c1851d5c519611dfc451b6582961b2602e0af89b",
-        "revCount": 2248,
-        "submodules": true,
-        "type": "git",
-        "url": "https://github.com/L3MON4D3/LuaSnip"
-      },
-      "original": {
-        "submodules": true,
-        "type": "git",
-        "url": "https://github.com/L3MON4D3/LuaSnip"
-      }
-    },
     "NeoZoom-lua": {
       "flake": false,
       "locked": {
@@ -175,38 +157,6 @@
       "original": {
         "owner": "LunarVim",
         "repo": "bigfile.nvim",
-        "type": "github"
-      }
-    },
-    "blink-cmp-avante": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1745821878,
-        "narHash": "sha256-YCBYae/hP0B7eaRf/Q9nel9RiqKV5ih1LkTdIa1hymU=",
-        "owner": "Kaiser-Yang",
-        "repo": "blink-cmp-avante",
-        "rev": "ddefb8de3cb1286ab39e0ccec0f32a45d03391f2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Kaiser-Yang",
-        "repo": "blink-cmp-avante",
-        "type": "github"
-      }
-    },
-    "blink-compat": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1748464440,
-        "narHash": "sha256-EMQC+2hjgAGYcBoSKkR5LV7jUsl3Oi8rL3K7FNIHXIw=",
-        "owner": "Saghen",
-        "repo": "blink.compat",
-        "rev": "1454f14a8d855a578ceeba77c62538fa1459a67c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Saghen",
-        "repo": "blink.compat",
         "type": "github"
       }
     },
@@ -1179,22 +1129,6 @@
       "original": {
         "owner": "Zeioth",
         "repo": "garbage-day.nvim",
-        "type": "github"
-      }
-    },
-    "gin-vim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1727271277,
-        "narHash": "sha256-ozESeZ+vEIOMVG9EvHk+s6sUB7YW6whf+yXiwp8Rgmw=",
-        "owner": "lambdalisue",
-        "repo": "gin.vim",
-        "rev": "0d0fc6efa72a65bace3bd4ae1f76ad753006ca0d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lambdalisue",
-        "repo": "gin.vim",
         "type": "github"
       }
     },
@@ -3567,15 +3501,12 @@
         "Comment-nvim": "Comment-nvim",
         "CopilotChat-nvim": "CopilotChat-nvim",
         "JABS-nvim": "JABS-nvim",
-        "LuaSnip": "LuaSnip",
         "NeoZoom-lua": "NeoZoom-lua",
         "aerial-nvim": "aerial-nvim",
         "auto-indent-nvim": "auto-indent-nvim",
         "auto-save-nvim": "auto-save-nvim",
         "better-escape-nvim": "better-escape-nvim",
         "bigfile-nvim": "bigfile-nvim",
-        "blink-cmp-avante": "blink-cmp-avante",
-        "blink-compat": "blink-compat",
         "btw-nvim": "btw-nvim",
         "bufferline-nvim": "bufferline-nvim",
         "bundler": "bundler",
@@ -3613,7 +3544,6 @@
         "foldnav-nvim": "foldnav-nvim",
         "fzf-lua": "fzf-lua",
         "garbage-day-nvim": "garbage-day-nvim",
-        "gin-vim": "gin-vim",
         "gina-vim": "gina-vim",
         "git-conflict-nvim": "git-conflict-nvim",
         "gitsigns-nvim": "gitsigns-nvim",
@@ -3769,7 +3699,6 @@
         "vim-markdown": "vim-markdown",
         "vim-nix": "vim-nix",
         "vim-qfreplace": "vim-qfreplace",
-        "vim-sonictemplate": "vim-sonictemplate",
         "vim-startuptime": "vim-startuptime",
         "vim-test": "vim-test",
         "vim-translator": "vim-translator",
@@ -4253,11 +4182,11 @@
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
-        "lastModified": 1755028431,
-        "narHash": "sha256-M/1hQClgBdw+KuwwOW6RBaJBOaqOgZdKMPYwQXtULY8=",
+        "lastModified": 1755177592,
+        "narHash": "sha256-g57GuirQ0jDuCGum3Ly6Troll8tt0SmUjOGXce/Y9Gk=",
         "owner": "Saghen",
         "repo": "blink.cmp",
-        "rev": "2665197779e3ba4db58a91dbffac0026b9fcc2e9",
+        "rev": "4e9edba1b1cef1585cc65e54287229e5d34e4df8",
         "type": "github"
       },
       "original": {
@@ -4375,22 +4304,6 @@
       "original": {
         "owner": "thinca",
         "repo": "vim-qfreplace",
-        "type": "github"
-      }
-    },
-    "vim-sonictemplate": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1739715370,
-        "narHash": "sha256-t9U/itV+o2NsUEI0s3nvXy1KtV/bYBnQJeS+7g0ZAjY=",
-        "owner": "mattn",
-        "repo": "vim-sonictemplate",
-        "rev": "822a784af2f9df60d5bf5c0d00b816faa40cedeb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mattn",
-        "repo": "vim-sonictemplate",
         "type": "github"
       }
     },

@@ -1,5 +1,18 @@
 {
   "pins": {
+    "LuaSnip": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "L3MON4D3",
+        "repo": "LuaSnip"
+      },
+      "branch": "master",
+      "submodules": true,
+      "revision": "de10d8414235b0a8cabfeba60d07c24304e71f5c",
+      "url": null,
+      "hash": "0m9qgjfdzq2yr3qs41xv9zmifq3wzgl8s86j87i6izd8np49z610"
+    },
     "alpha-nvim": {
       "type": "Git",
       "repository": {
@@ -25,6 +38,32 @@
       "revision": "3f86702b54a861a17d7994b2e32a7c648cb12fb1",
       "url": "https://github.com/m4xshen/autoclose.nvim/archive/3f86702b54a861a17d7994b2e32a7c648cb12fb1.tar.gz",
       "hash": "0ya4nqavhg7pqgrl15jh14yn36g414axhknqxjraryc43qpvi6b0"
+    },
+    "blink-cmp-avante": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Kaiser-Yang",
+        "repo": "blink-cmp-avante"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "4f494c6e124acbe31a8f5d58effa0c14aa38a6d5",
+      "url": "https://github.com/Kaiser-Yang/blink-cmp-avante/archive/4f494c6e124acbe31a8f5d58effa0c14aa38a6d5.tar.gz",
+      "hash": "06gx892hhgcg79gng4dblyv74iw5kqqrmfknfw2k4xzl0cxdg35n"
+    },
+    "blink.compat": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Saghen",
+        "repo": "blink.compat"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "1454f14a8d855a578ceeba77c62538fa1459a67c",
+      "url": "https://github.com/Saghen/blink.compat/archive/1454f14a8d855a578ceeba77c62538fa1459a67c.tar.gz",
+      "hash": "132w0z919fvj5wmjyfkpr59f6pidg522l4hsf2c03033d3xh5i0h"
     },
     "bufresize.nvim": {
       "type": "Git",
@@ -80,6 +119,19 @@
       "revision": "7fbf60207cc170be75db3f42e6f6db0d4d887e5d",
       "url": "https://github.com/ggandor/flit.nvim/archive/7fbf60207cc170be75db3f42e6f6db0d4d887e5d.tar.gz",
       "hash": "1xma8wwms81dlh55c65mfbi4yzij7k58lh1vs23hzz5k7hyjd3nc"
+    },
+    "gin.vim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "lambdalisue",
+        "repo": "gin.vim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "7c4b98011a2d5bdf7342031f9c8ae7a1c11b584b",
+      "url": "https://github.com/lambdalisue/gin.vim/archive/7c4b98011a2d5bdf7342031f9c8ae7a1c11b584b.tar.gz",
+      "hash": "0r1lb11hahwnlr1hi188zl427fi5izci4xikyhi8bi0pdh0f7a90"
     },
     "hlchunk.nvim": {
       "type": "Git",
@@ -719,6 +771,19 @@
       "revision": "65846025c15494983dafe5e3b46c8f88ab2e9635",
       "url": "https://github.com/tpope/vim-repeat/archive/65846025c15494983dafe5e3b46c8f88ab2e9635.tar.gz",
       "hash": "0n8sx6s2sbjb21dv9j6y5lyqda9vvxraffg2jz423daamn96dxqv"
+    },
+    "vim-sonictemplate": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mattn",
+        "repo": "vim-sonictemplate"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "e4b040b67e46f591efe35fbd2a3be8d2a792f47f",
+      "url": "https://github.com/mattn/vim-sonictemplate/archive/e4b040b67e46f591efe35fbd2a3be8d2a792f47f.tar.gz",
+      "hash": "1pc94irzk3y8pp267ypsr8iyxflk7yq8pm3d87mpvvar551drw1y"
     },
     "volt": {
       "type": "Git",

@@ -69,10 +69,6 @@
       url = "github:LiadOz/nvim-dap-repl-highlights";
       flake = false;
     };
-    vim-sonictemplate = {
-      url = "github:mattn/vim-sonictemplate";
-      flake = false;
-    };
     oil-nvim = {
       url = "github:stevearc/oil.nvim";
       flake = false;
@@ -128,12 +124,6 @@
     efmls-configs-nvim = {
       url = "github:creativenull/efmls-configs-nvim";
       flake = false;
-    };
-    LuaSnip = {
-      url = "https://github.com/L3MON4D3/LuaSnip";
-      flake = false;
-      type = "git";
-      submodules = true;
     };
     glance-nvim = {
       url = "github:DNLHC/glance.nvim";
@@ -213,10 +203,6 @@
     };
     gina-vim = {
       url = "github:lambdalisue/gina.vim";
-      flake = false;
-    };
-    gin-vim = {
-      url = "github:lambdalisue/gin.vim";
       flake = false;
     };
     git-conflict-nvim = {
@@ -830,14 +816,6 @@
     v2-blink-cmp.url = "github:Saghen/blink.cmp";
     treesj = {
       url = "github:Wansmer/treesj";
-      flake = false;
-    };
-    blink-cmp-avante = {
-      url = "github:Kaiser-Yang/blink-cmp-avante";
-      flake = false;
-    };
-    blink-compat = {
-      url = "github:Saghen/blink.compat";
       flake = false;
     };
     nvim-ts-context-commentstring = {
