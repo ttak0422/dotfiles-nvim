@@ -2,7 +2,7 @@
 
 (macro cmd [c]
   (let [out (.. :<Cmd> c :<CR>)]
-    `(.. :<Cmd> ,out :<CR>)))
+    `,out))
 
 (macro def [desc prev-cmd next-cmd]
   (let [prev_desc (.. "< " desc)
