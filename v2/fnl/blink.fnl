@@ -12,8 +12,7 @@
        {:preset :none
         :<C-e> [(fn [cmp]
                   (if (cmp.is_visible)
-                      (do
-                        (cmp.hide) true)))
+                      (cmp.hide) true))
                 :fallback_to_mappings]
         :<C-y> [:select_and_accept]
         :<C-p> [:select_prev :fallback_to_mappings]
@@ -23,6 +22,8 @@
         :<Tab> [:snippet_forward :fallback]
         :<S-Tab> [:snippet_backward :fallback]
         :<C-k> [:show_signature :hide_signature :fallback]})
+
+(local signature {:enabled true})
 
 (local completion {:accept {:auto_brackets {:enabled true
                                             :force_allow_filetypes {}
@@ -125,6 +126,7 @@
                             :proxy {:from_env true :url nil}}})
 
 (cmp.setup {: completion
+            : signature
             : appearance
             : fuzzy
             : keymap
