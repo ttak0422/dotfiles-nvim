@@ -1,7 +1,8 @@
 (local nap (require :nap))
 
-(macro cmd [...]
-  `(.. :<Cmd> ,... :<CR>))
+(macro cmd [c]
+  (let [out (.. :<Cmd> c :<CR>)]
+    `(.. :<Cmd> ,out :<CR>)))
 
 (macro def [desc prev-cmd next-cmd]
   (let [prev_desc (.. "< " desc)
@@ -44,11 +45,11 @@
                        #(vim.diagnostic.goto_prev diagnostic_err_options)
                        #(vim.diagnostic.goto_next diagnostic_err_options))
                   :e (def :edit "g," "g;")
+                  :j (def :jump :<C-o> :<C-i>)
                   :h (def :harpoon
                        #(-> (require :harpoon)
                             (: :list)
-                            (: :next)
-			    )
+                            (: :next))
                        #(: (: (require :harpoon) :list) :next))
                   :q (def "qf (item)"
                        (cmd :Qprev)
@@ -58,7 +59,8 @@
                            (cmd :cnfile))
                   :<M-q> (def "qf (list)"
                            safe_qf_colder
-                           safe_qf_cnewer)})
+                           safe_qf_cnewer)
+                  :g (nap.gitsigns)})
 
 (nap.setup {:next_prefix "]"
             :prev_prefix "["

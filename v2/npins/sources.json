@@ -292,6 +292,19 @@
       "url": "https://github.com/nvzone/minty/archive/aafc9e8e0afe6bf57580858a2849578d8d8db9e0.tar.gz",
       "hash": "1s5wkrsdybqdc0fwr0x3km6k5n1bdivwdbjhqhfm3kvf3mqz9p4d"
     },
+    "nap.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "liangxianzhe",
+        "repo": "nap.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "98037cff509a12412cf8f32d1b12a9fdcad558ad",
+      "url": "https://github.com/liangxianzhe/nap.nvim/archive/98037cff509a12412cf8f32d1b12a9fdcad558ad.tar.gz",
+      "hash": "0bcimaz7wq3prl6p8kdmxkwlxv4kpjk8d1gky8hr81icrxjdxpa2"
+    },
     "neogen": {
       "type": "Git",
       "repository": {

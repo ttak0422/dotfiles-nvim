@@ -285,10 +285,6 @@
       url = "github:/jakewvincent/mkdnflow.nvim";
       flake = false;
     };
-    nap-nvim = {
-      url = "github:liangxianzhe/nap.nvim";
-      flake = false;
-    };
     BufferBrowser = {
       url = "sourcehut:~marcc/BufferBrowser";
       flake = false;

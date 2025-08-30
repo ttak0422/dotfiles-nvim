@@ -1794,22 +1794,6 @@
         "type": "github"
       }
     },
-    "nap-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1699846937,
-        "narHash": "sha256-Qt3eZM8sBpQh8vOFhqa8k+xO+ey1TXQNzXdgfr6qkS0=",
-        "owner": "liangxianzhe",
-        "repo": "nap.nvim",
-        "rev": "98037cff509a12412cf8f32d1b12a9fdcad558ad",
-        "type": "github"
-      },
-      "original": {
-        "owner": "liangxianzhe",
-        "repo": "nap.nvim",
-        "type": "github"
-      }
-    },
     "neco-vim": {
       "flake": false,
       "locked": {
@@ -3531,7 +3515,6 @@
         "mkdnflow-nvim": "mkdnflow-nvim",
         "morimo": "morimo",
         "mr-vim": "mr-vim",
-        "nap-nvim": "nap-nvim",
         "neco-vim": "neco-vim",
         "neorg-conceal-wrap": "neorg-conceal-wrap",
         "neorg-interim-ls": "neorg-interim-ls",
