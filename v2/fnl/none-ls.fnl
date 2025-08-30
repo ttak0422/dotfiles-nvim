@@ -12,7 +12,18 @@
                 ;;; diagnostics ;;;
                 diagnostics.actionlint
                 diagnostics.checkmake
-                diagnostics.checkstyle
+                ; TODO: idea inspect ?
+                ; <headless_idea_path>/Applications/IntelliJ\ IDEA\ CE.app/Contents/MacOS/idea \
+                ; -Didea.config.path=~/Library/Application\ Support/JetBrains/<versions>/options/ \
+                ; inspect \
+                ; <target_path>
+                ; .idea/inspectionProfiles/Project_Default.xml  \
+                ; /tmp/profile
+                (diagnostics.checkstyle.with {:runtime_condition #(not= vim.g.checkstyle
+                                                                        nil)
+                                              :extra_args [:-c
+                                                           (or vim.g.checkstyle
+                                                               :/google_checks.xml)]})
                 diagnostics.deadnix
                 diagnostics.dotenv_linter
                 diagnostics.editorconfig_checker

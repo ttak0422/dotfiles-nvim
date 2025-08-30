@@ -8,5 +8,6 @@ vim.g.sonic_license_header = nil
 
 -- Java ------------------------------------------------------------------------
 vim.g.idea_format = nil
-
+-- "/google_checks.xml" | "/sun_checks.xml" | custom config
+vim.g.checkstyle = nil
 --------------------------------------------------------------------------------
