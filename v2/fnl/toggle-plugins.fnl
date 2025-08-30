@@ -80,11 +80,9 @@
       (: (vim.system [tmux :new-session :-d :-s session :-n window]) :wait)))
 
 (local toggleterm {})
-(let [;; TODO: use index
-      open_idx (fn [idx]
+(let [open_idx (fn [idx]
                  (let [terminal (require :toggleterm.terminal)
-                       cwd (vim.fn.fnamemodify (vim.fn.getcwd) ":t")
-                       session (.. (string.gsub cwd "%." "_") "_" idx)
+                       session (.. :vim_ idx)
                        window :default
                        copy_with (fn [cmd]
                                    (each [_ cs (ipairs [[tmux

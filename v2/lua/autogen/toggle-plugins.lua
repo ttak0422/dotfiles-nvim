@@ -129,8 +129,7 @@ do
   local open_idx
   local function _25_(idx)
     local terminal = require("toggleterm.terminal")
-    local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-    local session = (string.gsub(cwd, "%.", "_") .. "_" .. idx)
+    local session = ("vim_" .. idx)
     local window = "default"
     local copy_with
     local function _26_(cmd)
