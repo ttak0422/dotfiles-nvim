@@ -646,10 +646,10 @@ in
             '';
           };
         }
-        {
-          package = wf-nvim;
-          postConfig = read "./fnl/wf.fnl";
-        }
+        # {
+        #   package = wf-nvim;
+        #   postConfig = read "./fnl/wf.fnl";
+        # }
         {
           packages = [
             leap-nvim
