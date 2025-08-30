@@ -445,10 +445,6 @@
       url = "github:s1n7ax/nvim-window-picker";
       flake = false;
     };
-    colorful-winsep-nvim = {
-      url = "github:nvim-zh/colorful-winsep.nvim";
-      flake = false;
-    };
     winshift-nvim = {
       url = "github:sindrets/winshift.nvim";
       flake = false;

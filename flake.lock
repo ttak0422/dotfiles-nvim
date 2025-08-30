@@ -283,22 +283,6 @@
         "type": "github"
       }
     },
-    "colorful-winsep-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1744337773,
-        "narHash": "sha256-3ZXbpUNZqLHaUWgb2wHnfQfcGkMpcRtAt8q7z0tmo1o=",
-        "owner": "nvim-zh",
-        "repo": "colorful-winsep.nvim",
-        "rev": "7bbe4e1353c0fe37c98bad2758aafc410280f6b3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nvim-zh",
-        "repo": "colorful-winsep.nvim",
-        "type": "github"
-      }
-    },
     "command-and-cursor-nvim": {
       "flake": false,
       "locked": {
@@ -3514,7 +3498,6 @@
         "claude-code-nvim": "claude-code-nvim",
         "claudecode-nvim": "claudecode-nvim",
         "codewindow-nvim": "codewindow-nvim",
-        "colorful-winsep-nvim": "colorful-winsep-nvim",
         "command-and-cursor-nvim": "command-and-cursor-nvim",
         "conform-nvim": "conform-nvim",
         "copilot-lua": "copilot-lua",

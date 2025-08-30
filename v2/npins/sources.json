@@ -78,6 +78,19 @@
       "url": "https://github.com/kwkarlwang/bufresize.nvim/archive/3b19527ab936d6910484dcc20fb59bdb12322d8b.tar.gz",
       "hash": "1s0zmpwg7z76l3ca1p426mkh33cw94m18q7rfsvnz4h4xwlsafpa"
     },
+    "colorful-winsep.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvim-zh",
+        "repo": "colorful-winsep.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "5cce948992866514c744a66cb754a0e025fa95e9",
+      "url": "https://github.com/nvim-zh/colorful-winsep.nvim/archive/5cce948992866514c744a66cb754a0e025fa95e9.tar.gz",
+      "hash": "0i2yng9wj5bwmbswm55z4rf6g6s9msajn6d56jgrxrima2fn7yk3"
+    },
     "denops.vim": {
       "type": "Git",
       "repository": {
