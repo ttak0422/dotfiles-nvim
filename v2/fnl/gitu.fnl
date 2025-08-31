@@ -12,6 +12,7 @@
         (set vim.wo.number false)
         (set vim.wo.foldcolumn :0)
         (set vim.wo.signcolumn :no)
+        (set vim.wo.statuscolumn "")
         (let [bufnr (vim.api.nvim_get_current_buf)
               on_exit #(if (not= (length (vim.api.nvim_list_wins)) 1)
                            (let [buf (vim.fn.bufnr "#")]
