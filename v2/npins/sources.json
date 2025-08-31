@@ -266,6 +266,19 @@
       "url": "https://github.com/srcrip/lookup.nvim/archive/2f7d05ebc5ebc6553691676d517dfbd4c7c87a6a.tar.gz",
       "hash": "00fap16zccf66d9cv2dx5r0ncmxqigk201rqcxvl6ljyk28m052n"
     },
+    "lush.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "rktjmp",
+        "repo": "lush.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "1be16d9002f8b2e8973a19ceac199ad394dea76a",
+      "url": "https://github.com/rktjmp/lush.nvim/archive/1be16d9002f8b2e8973a19ceac199ad394dea76a.tar.gz",
+      "hash": "074wlbr208y0859s9symvkgqfm6hh8szziygq4d1qdgd3n17a8xa"
+    },
     "mcphub.nvim": {
       "type": "Git",
       "repository": {

@@ -894,6 +894,13 @@ in
     commandPlugins = {
       depends = [
         {
+          package = lush-nvim;
+          hooks.commands = [
+            "Lushify"
+            "LushRunTutorial"
+          ];
+        }
+        {
           package = nvim-colorizer-lua;
           postConfig = read "./fnl/colorizer.fnl";
           hooks.commands = [ "ColorizerToggle" ];
