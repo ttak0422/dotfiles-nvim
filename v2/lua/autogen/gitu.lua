@@ -14,6 +14,9 @@ local function gitu()
     else
     end
     vim.cmd.enew()
+    vim.wo.number = false
+    vim.wo.foldcolumn = "0"
+    vim.wo.signcolumn = "no"
     local bufnr = vim.api.nvim_get_current_buf()
     local on_exit
     local function _3_()
