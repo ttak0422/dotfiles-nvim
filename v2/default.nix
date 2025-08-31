@@ -894,6 +894,11 @@ in
     commandPlugins = {
       depends = [
         {
+          package = no-neck-pain-nvim;
+          postConfig = read "./fnl/no-neck-pain.fnl";
+          hooks.commands = [ "NoNeckPain" ];
+        }
+        {
           package = lush-nvim;
           hooks.commands = [
             "Lushify"

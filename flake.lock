@@ -2582,22 +2582,6 @@
         "type": "github"
       }
     },
-    "no-neck-pain-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1728030488,
-        "narHash": "sha256-ygZ+WsqeFvAKbrN+p2IkcU8ynvVWgxN53EcbOP3qZis=",
-        "owner": "shortcuts",
-        "repo": "no-neck-pain.nvim",
-        "rev": "c7efdbd0b739646c58d22fa44f6fffa2973f303e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "shortcuts",
-        "repo": "no-neck-pain.nvim",
-        "type": "github"
-      }
-    },
     "noice-nvim": {
       "flake": false,
       "locked": {
@@ -3549,7 +3533,6 @@
         "nixpkgs-neorg-overlay": "nixpkgs-neorg-overlay",
         "nixpkgs-nightly": "nixpkgs-nightly",
         "nixpkgs-stable": "nixpkgs-stable",
-        "no-neck-pain-nvim": "no-neck-pain-nvim",
         "noice-nvim": "noice-nvim",
         "norg": "norg_2",
         "norg-meta": "norg-meta_2",

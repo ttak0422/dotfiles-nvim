@@ -649,10 +649,6 @@
       url = "github:LunarVim/bigfile.nvim";
       flake = false;
     };
-    no-neck-pain-nvim = {
-      url = "github:shortcuts/no-neck-pain.nvim";
-      flake = false;
-    };
     highlight-undo-nvim = {
       url = "github:tzachar/highlight-undo.nvim";
       flake = false;

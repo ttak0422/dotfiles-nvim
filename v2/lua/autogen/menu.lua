@@ -11,7 +11,7 @@ end
 local function _3_()
   return vim.cmd("Huefy")
 end
-default = {{name = "Copy all content", cmd = "%y+"}, {name = "\238\154\144 Edit local config", cmd = "ConfigLocalEdit"}, {name = "\239\136\132 Toggle colorize", cmd = "ColorizerToggle"}, separator, {name = "\243\176\132\137 Timer", cmd = _1_}, {name = "\239\132\156 Show keys", cmd = _2_}, {name = "\239\133\128 Color Picker", cmd = _3_}}
+default = {{name = "Copy all content", cmd = "%y+"}, {name = "\238\154\144 Edit local config", cmd = "ConfigLocalEdit"}, {name = "\239\136\132 Toggle NoNeckPain", cmd = "NoNeckPain"}, {name = "\239\136\132 Toggle colorize", cmd = "ColorizerToggle"}, separator, {name = "\243\176\132\137 Timer", cmd = _1_}, {name = "\239\132\156 Show keys", cmd = _2_}, {name = "\239\133\128 Color Picker", cmd = _3_}}
 local function _4_()
   return menu.open(default, {border = true})
 end

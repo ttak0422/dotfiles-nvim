@@ -344,6 +344,22 @@
       "url": "https://github.com/danymat/neogen/archive/d7f9461727751fb07f82011051338a9aba07581d.tar.gz",
       "hash": "04fyip1px2x8i5ibvh8qh7cw52dymj57qlfdr92qkqyfj9hpqxdr"
     },
+    "no-neck-pain.nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "shortcuts",
+        "repo": "no-neck-pain.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v2.4.6",
+      "revision": "76ccd195fb2195ae1b9b9f0d539c517fa3f8a2b9",
+      "url": "https://api.github.com/repos/shortcuts/no-neck-pain.nvim/tarball/v2.4.6",
+      "hash": "0f2wqd0i6sadvzzpbil0avi5sl6nzl7b57p5am2qf2m413lrzafc"
+    },
     "none-ls-extras.nvim": {
       "type": "Git",
       "repository": {

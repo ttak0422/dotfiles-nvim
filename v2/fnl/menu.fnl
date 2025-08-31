@@ -5,6 +5,7 @@
 (local default
        [{:name "Copy all content" :cmd "%y+"}
         {:name " Edit local config" :cmd :ConfigLocalEdit}
+        {:name " Toggle NoNeckPain" :cmd :NoNeckPain}
         {:name " Toggle colorize" :cmd :ColorizerToggle}
         separator
         {:name "󰄉 Timer" :cmd #(vim.cmd :TimerlyToggle)}
