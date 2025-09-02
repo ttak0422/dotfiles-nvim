@@ -47,6 +47,7 @@ inputs: with inputs; [
           set -g update-environment "NVIM"
 
           # options
+          set-option -g update-environment "PATH"
           set-option -g default-terminal "xterm-256color"
           set-option -ga terminal-overrides ",xterm-256color:RGB"
           set-window-option -g mode-keys vi
