@@ -288,9 +288,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "0b92eae385da36601f1311b30122c18de9e273e9",
-      "url": "https://github.com/ravitemer/mcphub.nvim/archive/0b92eae385da36601f1311b30122c18de9e273e9.tar.gz",
-      "hash": "1hsavlfc318lhgg3jsrpyds4bv4g6w060xm0dr6yd24xaxh3fnrp"
+      "revision": "bd3dc1cf39812691c197989327cd36c41d5a1fb6",
+      "url": "https://github.com/ravitemer/mcphub.nvim/archive/bd3dc1cf39812691c197989327cd36c41d5a1fb6.tar.gz",
+      "hash": "0zpgc3ij3x5n659fv5rjrzysyf51srwxvc4srzii29zng2617256"
     },
     "menu": {
       "type": "Git",
