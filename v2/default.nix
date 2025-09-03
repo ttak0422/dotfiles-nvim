@@ -192,6 +192,7 @@ in
         taplo-cli
         typos-lsp
         vscode-langservers-extracted
+        vtsls
       ];
     };
     none-ls = {

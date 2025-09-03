@@ -34,7 +34,7 @@
                  :denols
                  :dhall_lsp_server
                  :rubocop
-                 :efm
+                 ; :efm
                  :fennel_ls
                  :gopls
                  :html
