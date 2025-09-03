@@ -3048,22 +3048,6 @@
         "type": "github"
       }
     },
-    "nvim-ts-autotag": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1739910276,
-        "narHash": "sha256-a3Bcql68mp3y5bH9XMiDTQB0e75T+qFB593objIGg/I=",
-        "owner": "windwp",
-        "repo": "nvim-ts-autotag",
-        "rev": "a1d526af391f6aebb25a8795cbc05351ed3620b5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "windwp",
-        "repo": "nvim-ts-autotag",
-        "type": "github"
-      }
-    },
     "nvim-ts-context-commentstring": {
       "flake": false,
       "locked": {
@@ -3559,7 +3543,6 @@
         "nvim-regexplainer": "nvim-regexplainer",
         "nvim-spectre": "nvim-spectre",
         "nvim-surround": "nvim-surround",
-        "nvim-ts-autotag": "nvim-ts-autotag",
         "nvim-ts-context-commentstring": "nvim-ts-context-commentstring",
         "nvim-vtsls": "nvim-vtsls",
         "nvim-window": "nvim-window",

@@ -454,6 +454,19 @@
       "url": "https://api.github.com/repos/neovim/nvim-lspconfig/tarball/v2.3.0",
       "hash": "0xlad1n0jzk1cir2fp4mnry7l6rbsq3rh2j1y1i5v7j25nk81rf0"
     },
+    "nvim-ts-autotag": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "windwp",
+        "repo": "nvim-ts-autotag"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "a1d526af391f6aebb25a8795cbc05351ed3620b5",
+      "url": "https://github.com/windwp/nvim-ts-autotag/archive/a1d526af391f6aebb25a8795cbc05351ed3620b5.tar.gz",
+      "hash": "1wl30qr6xs6xwx0s3yjkprxp802dhg45rzdiwpr9v6mwbsm5qw3b"
+    },
     "nvim-ufo": {
       "type": "Git",
       "repository": {

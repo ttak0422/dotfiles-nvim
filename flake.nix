@@ -389,10 +389,6 @@
       url = "github:cappyzawa/trim.nvim";
       flake = false;
     };
-    nvim-ts-autotag = {
-      url = "github:windwp/nvim-ts-autotag";
-      flake = false;
-    };
     tshjkl-nvim = {
       url = "github:gsuuon/tshjkl.nvim";
       flake = false;
