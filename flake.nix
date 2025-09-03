@@ -373,10 +373,6 @@
       url = "github:levouh/tint.nvim";
       flake = false;
     };
-    todo-comments-nvim = {
-      url = "github:folke/todo-comments.nvim";
-      flake = false;
-    };
     trouble-nvim = {
       url = "github:folke/trouble.nvim";
       flake = false;

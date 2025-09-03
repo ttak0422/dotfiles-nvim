@@ -3580,7 +3580,6 @@
         "tabout-nvim": "tabout-nvim",
         "tint-nvim": "tint-nvim",
         "tiny-inline-diagnostic-nvim": "tiny-inline-diagnostic-nvim",
-        "todo-comments-nvim": "todo-comments-nvim",
         "toggler": "toggler",
         "trace-pr-nvim": "trace-pr-nvim",
         "treesj": "treesj",
@@ -3941,22 +3940,6 @@
       "original": {
         "owner": "rachartier",
         "repo": "tiny-inline-diagnostic.nvim",
-        "type": "github"
-      }
-    },
-    "todo-comments-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1736873412,
-        "narHash": "sha256-at9OSBtQqyiDdxKdNn2x6z4k8xrDD90sACKEK7uKNUM=",
-        "owner": "folke",
-        "repo": "todo-comments.nvim",
-        "rev": "304a8d204ee787d2544d8bc23cd38d2f929e7cc5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "folke",
-        "repo": "todo-comments.nvim",
         "type": "github"
       }
     },
