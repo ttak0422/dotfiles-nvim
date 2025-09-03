@@ -17,6 +17,20 @@
 ;                            :highlight :RenderMarkdownChecked
 ;                            :scope_highlight nil}})
 
+(local link {:custom {:web {:pattern :^http :icon "󰖟 "}
+                      :discord {:pattern "discord%.com" :icon "󰙯 "}
+                      :github {:pattern "github%.com" :icon "󰊤 "}
+                      :gitlab {:pattern "gitlab%.com" :icon "󰮠 "}
+                      :google {:pattern "google%.com" :icon "󰊭 "}
+                      :neovim {:pattern "neovim%.io" :icon " "}
+                      :reddit {:pattern "reddit%.com" :icon "󰑍 "}
+                      :stackoverflow {:pattern "stackoverflow%.com"
+                                      :icon "󰓌 "}
+                      :wikipedia {:pattern "wikipedia%.org" :icon "󰖬 "}
+                      :youtube {:pattern "youtube%.com" :icon "󰗃 "}}
+             :slack {:pattern "%.slack.com" :icon " "}
+             :confluence {:pattern "%/confluence/" :icon " "}})
+
 (local completions {:blink {:enabled false}})
 (local win_options {:concealcursor {:rendered :nc}})
 
@@ -28,6 +42,7 @@
            : heading
            : code
            ;: checkbox
+           : link
            : completions})
 
 (vim.cmd :RenderMarkdown)
