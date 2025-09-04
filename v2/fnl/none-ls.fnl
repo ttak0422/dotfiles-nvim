@@ -55,14 +55,15 @@
                                                        :css
                                                        :scss
                                                        :less
-                                                       ; use tidy
+                                                       ;; use tidy
                                                        ; :html
                                                        :json
                                                        :jsonc
-                                                       ; use yamlfmt
+                                                       ;: use yamlfmt
                                                        ; :yaml
-                                                       :markdown
-                                                       :markdown.mdx
+                                                       ;; WIP
+                                                       ; :markdown
+                                                       ; :markdown.mdx
                                                        :graphql
                                                        :handlebars
                                                        :svelte
