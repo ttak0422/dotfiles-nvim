@@ -38,7 +38,11 @@ local function _4_(_, _note)
       end
     end
   end
-  return vim.keymap.set("n", "<CR>", _5_, {expr = true, buffer = true, desc = "Obsidian Smart Action"})
+  vim.keymap.set("n", "<CR>", _5_, {expr = true, buffer = true, desc = "Obsidian Smart Action"})
+  for lhs, rhs in pairs({["<LocalLeader>r"] = "<Cmd>Obsidian backlinks<CR>", ["<LocalLeader>t"] = "<Cmd>Obsidian toggle_checkbox<CR>"}) do
+    vim.keymap.set("n", lhs, rhs, {buffer = true})
+  end
+  return vim.keymap.set("x", "<LocalLeader>l", "<Cmd>Obsidian link<CR>", {buffer = true, desc = "Obsidian Link"})
 end
 callbacks = {enter_note = _4_}
 obsidian.setup({workspaces = workspaces, daily_notes = daily_notes, completion = completion, ui = ui, callbacks = callbacks, statusline = {enabled = false}, footer = {enabled = false}, log_level = vim.log.levels.WARN, legacy_commands = false})

@@ -35,7 +35,13 @@
                                                (vim.cmd "Obsidian tags")))
                                       {:expr true
                                        :buffer true
-                                       :desc "Obsidian Smart Action"}))})
+                                       :desc "Obsidian Smart Action"})
+                      (each [lhs rhs (pairs {:<LocalLeader>r "<Cmd>Obsidian backlinks<CR>"
+                                             :<LocalLeader>t "<Cmd>Obsidian toggle_checkbox<CR>"})]
+                        (vim.keymap.set :n lhs rhs {:buffer true}))
+                      (vim.keymap.set :x :<LocalLeader>l
+                                      "<Cmd>Obsidian link<CR>"
+                                      {:buffer true :desc "Obsidian Link"}))})
 
 (obsidian.setup {: workspaces
                  : daily_notes
