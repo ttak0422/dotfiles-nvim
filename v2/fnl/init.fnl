@@ -111,6 +111,9 @@
                           [(leader :fb)
                            (cmd :TelescopeBuffer)
                            (desc " buffer")]
+                          [(leader :fB)
+                           (cmd :TelescopeBufferName)
+                           (desc " buffer")]
                           [(leader :ft)
                            (cmd "Telescope sonictemplate templates")
                            (desc " template")]

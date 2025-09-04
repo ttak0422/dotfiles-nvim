@@ -27,6 +27,9 @@
 (telescope.load_extension :projects)
 (telescope.load_extension :mr)
 (vim.api.nvim_create_user_command :TelescopeBuffer
+                                  #(builtin.live_grep {:grep_open_files true})
+                                  {})
+(vim.api.nvim_create_user_command :TelescopeBufferName
                                   #(builtin.buffers {:sort_mru true
-                                                     :ignore_current_buffer true})
+                                                     :ignore_current_buffer false})
                                   {})

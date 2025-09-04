@@ -757,6 +757,7 @@ in
       hooks.commands = [
         "Telescope"
         "TelescopeBuffer"
+        "TelescopeBufferName"
       ];
     };
 

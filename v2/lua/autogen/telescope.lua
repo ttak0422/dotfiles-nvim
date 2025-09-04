@@ -12,6 +12,10 @@ telescope.load_extension("sonictemplate")
 telescope.load_extension("projects")
 telescope.load_extension("mr")
 local function _1_()
-  return builtin.buffers({sort_mru = true, ignore_current_buffer = true})
+  return builtin.live_grep({grep_open_files = true})
 end
-return vim.api.nvim_create_user_command("TelescopeBuffer", _1_, {})
+vim.api.nvim_create_user_command("TelescopeBuffer", _1_, {})
+local function _2_()
+  return builtin.buffers({sort_mru = true, ignore_current_buffer = false})
+end
+return vim.api.nvim_create_user_command("TelescopeBufferName", _2_, {})
