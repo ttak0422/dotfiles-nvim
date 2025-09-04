@@ -1165,6 +1165,11 @@ in
     filetypePlugins = {
       depends = [
         {
+          package = csvview-nvim;
+          postConfig = read "./fnl/csvview.fnl";
+          hooks.fileTypes = [ "csv" "tsv" ];
+        }
+        {
           package = nvim-ts-autotag;
           postConfig = read "./fnl/ts-autotag.fnl";
           hooks.fileTypes = [

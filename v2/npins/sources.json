@@ -91,6 +91,19 @@
       "url": "https://github.com/nvim-zh/colorful-winsep.nvim/archive/5cce948992866514c744a66cb754a0e025fa95e9.tar.gz",
       "hash": "0i2yng9wj5bwmbswm55z4rf6g6s9msajn6d56jgrxrima2fn7yk3"
     },
+    "csvview.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hat0uma",
+        "repo": "csvview.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "a4c45eadb03a462a80dd1a545d0f9cb636b73664",
+      "url": "https://github.com/hat0uma/csvview.nvim/archive/a4c45eadb03a462a80dd1a545d0f9cb636b73664.tar.gz",
+      "hash": "1x6iwsyx0d0xpxhws7h0i7xjgs6x1hlyyfilm6f0frcv1mwnvzdy"
+    },
     "denops.vim": {
       "type": "Git",
       "repository": {
