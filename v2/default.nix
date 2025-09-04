@@ -331,6 +331,8 @@ in
         dressing
         mcphub
       ];
+      # TODO: fix priority
+      extraPackages = with pkgs; [ curl ];
       postConfig = read "./fnl/avante.fnl";
       hooks = {
         commands = [ "AvanteFocus" ];
