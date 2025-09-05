@@ -669,10 +669,6 @@
       url = "github:smilhey/ed-cmd.nvim";
       flake = false;
     };
-    pgmnt-vim = {
-      url = "github:cocopon/pgmnt.vim";
-      flake = false;
-    };
     smear-cursor-nvim = {
       url = "github:sphamba/smear-cursor.nvim";
       flake = false;
