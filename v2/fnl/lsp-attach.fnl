@@ -19,14 +19,11 @@
                         [:<Leader>ca vim.lsp.buf.code_action "code action"]
                         ; plugin
                         [:K
-                         vim.lsp.buf.hover
-                         ;; (fn []
-                         ;;   (let [(ok noice_lsp) (pcall require
-                         ;;                               :noice.lsp)]
-                         ;;     (if ok
-                         ;;         (noice_lsp.hover) ; https://github.com/neovim/nvim-lspconfig/issues/3036
-                         ;;         (vim.lsp.buf.hover) ; fallback
-                         ;;         )))
+                         #(let [(ok noice_lsp) (pcall require :noice.lsp)]
+                            (if ok
+                                (noice_lsp.hover) ; https://github.com/neovim/nvim-lspconfig/issues/3036
+                                (vim.lsp.buf.hover) ; fallback
+                                ))
                          "show doc"]
                         [:gpd
                          (cmd "lua require('goto-preview').goto_preview_definition()")
