@@ -8,6 +8,7 @@ local java_path = args.java_path
 local jdtls_jar_pattern = args.jdtls_jar_pattern
 local jdtls_config_path = args.jdtls_config_path
 local lombok_jar_path = args.lombok_jar_path
+local attach_path = args.attach_path
 local jdtls = require("jdtls")
 local root_dir = vim.fs.root(0, {"gradlew", "mvnw", ".git"})
 local workspace_dir = (os.getenv("HOME") .. "/.local/share/eclipse/" .. string.gsub(vim.fn.fnamemodify(root_dir, ":p:h"), "/", "_"))
@@ -47,7 +48,8 @@ local bundles = {}
 local extendedClientCapabilities = vim.tbl_deep_extend("force", jdtls.extendedClientCapabilities, {resolveAdditionalTextEditsSupport = true, progressReportProvider = false})
 local init_options = {bundles = bundles, extendedClientCapabilities = extendedClientCapabilities}
 local on_attach
-local function _6_(_client, _bufnr)
+local function _6_(_client, bufnr)
+  return dofile(attach_path)({buf = bufnr})
 end
 on_attach = _6_
 local flags = {allow_incremental_sync = true, debounce_text_changes = 300}

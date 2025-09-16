@@ -11,6 +11,7 @@ local java_debug_jar_pattern = args.java_debug_jar_pattern
 local java_test_jar_pattern = args.java_test_jar_pattern
 local lombok_jar_path = args.lombok_jar_path
 local vscode_spring_boot_path = args.vscode_spring_boot_path
+local attach_path = args.attach_path
 local jdtls = require("jdtls")
 local jdtls_dap = require("jdtls.dap")
 local spring_boot = require("spring_boot")
@@ -83,6 +84,7 @@ local function setup()
       return _9_
     end
     with_compile = _8_
+    dofile(attach_path)({buf = bufnr})
     jdtls_dap.setup_dap({hotcodereplace = "auto"})
     jdtls_dap.setup_dap_main_class_configs()
     for _, k in ipairs({{"<LocalLeader>Tt", with_compile(jdtls.test_nearest_method), desc("\238\153\173 test nearest")}, {"<LocalLeader>TT", with_compile(jdtls.test_class), desc("\238\153\173 test class")}}) do

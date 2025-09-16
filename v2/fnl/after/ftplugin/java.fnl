@@ -10,6 +10,7 @@
 (local java_test_jar_pattern args.java_test_jar_pattern)
 (local lombok_jar_path args.lombok_jar_path)
 (local vscode_spring_boot_path args.vscode_spring_boot_path)
+(local attach_path args.attach_path)
 
 (local jdtls (require :jdtls))
 (local jdtls_dap (require :jdtls.dap))
@@ -134,6 +135,7 @@
                                                                 build_timeout
                                                                 bufnr)
                                            (f)))]
+                      ((dofile attach_path) {:buf bufnr})
                       (jdtls_dap.setup_dap {:hotcodereplace :auto})
                       (jdtls_dap.setup_dap_main_class_configs)
                       (each [_ k (ipairs [; [:<LocalLeader>o

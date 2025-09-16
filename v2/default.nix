@@ -39,6 +39,7 @@ in
       fennel = read "./fnl/after/ftplugin/fennel.fnl";
       gitcommit = read "./fnl/after/ftplugin/gitcommit.fnl";
       java = {
+        # WIP
         code = read "./fnl/after/ftplugin/java_mini.fnl";
         args =
           let
@@ -61,6 +62,7 @@ in
             jol_jar_path = pkgs.javaPackages.jol;
             lombok_jar_path = "${pkgs.lombok}/share/java/lombok.jar";
             vscode_spring_boot_path = "${pkgs.vscode-marketplace.vmware.vscode-spring-boot}/share/vscode/extensions/vmware.vscode-spring-boot";
+            attach_path = ./lua/autogen/lsp-attach.lua;
           };
       };
       jproperties = read "./fnl/after/ftplugin/jproperties.fnl";
@@ -1167,7 +1169,10 @@ in
         {
           package = csvview-nvim;
           postConfig = read "./fnl/csvview.fnl";
-          hooks.fileTypes = [ "csv" "tsv" ];
+          hooks.fileTypes = [
+            "csv"
+            "tsv"
+          ];
         }
         {
           package = nvim-ts-autotag;

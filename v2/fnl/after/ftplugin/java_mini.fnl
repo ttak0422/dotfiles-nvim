@@ -7,6 +7,7 @@
 (local jdtls_jar_pattern args.jdtls_jar_pattern)
 (local jdtls_config_path args.jdtls_config_path)
 (local lombok_jar_path args.lombok_jar_path)
+(local attach_path args.attach_path)
 
 (local jdtls (require :jdtls))
 
@@ -102,7 +103,9 @@
                              :progressReportProvider false}))
 
 (local init_options {: bundles : extendedClientCapabilities})
-(local on_attach (fn [_client _bufnr]))
+(local on_attach (fn [_client bufnr]
+                      ((dofile attach_path) {:buf bufnr})
+                   ))
 (local flags {:allow_incremental_sync true :debounce_text_changes 300})
 (local handlers {:language/status (fn [])})
 
