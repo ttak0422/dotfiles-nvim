@@ -777,10 +777,6 @@
       url = "github:h3pei/trace-pr.nvim";
       flake = false;
     };
-    lasterisk-nvim = {
-      url = "github:rapan931/lasterisk.nvim";
-      flake = false;
-    };
     v2-blink-cmp.url = "github:Saghen/blink.cmp";
     treesj = {
       url = "github:Wansmer/treesj";

@@ -214,6 +214,19 @@
       "url": "https://github.com/smjonas/inc-rename.nvim/archive/8ae25b35ae16ca4bd5de3d3c472eec3b574018d4.tar.gz",
       "hash": "0abkii2l8zrjr4lxb7hh8ylklwkvpw954wgn435ylkmpy23mqd48"
     },
+    "lasterisk.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "rapan931",
+        "repo": "lasterisk.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "bbcfcaeca50f686e338a03386e41645fc3305f44",
+      "url": "https://github.com/rapan931/lasterisk.nvim/archive/bbcfcaeca50f686e338a03386e41645fc3305f44.tar.gz",
+      "hash": "1gkksvrr8lxl10rhzn414nm7d5cfdgials2xqswvch8lqv6zv45m"
+    },
     "leap-spooky.nvim": {
       "type": "Git",
       "repository": {

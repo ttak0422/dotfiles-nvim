@@ -1585,22 +1585,6 @@
         "type": "github"
       }
     },
-    "lasterisk-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1672212846,
-        "narHash": "sha256-tZD9zcYUQba5xl1oquJrjpV2qiWB2A8zCLRTlPPWc74=",
-        "owner": "rapan931",
-        "repo": "lasterisk.nvim",
-        "rev": "bbcfcaeca50f686e338a03386e41645fc3305f44",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rapan931",
-        "repo": "lasterisk.nvim",
-        "type": "github"
-      }
-    },
     "legendary-nvim": {
       "flake": false,
       "locked": {
@@ -3454,7 +3438,6 @@
         "jol": "jol",
         "junit-console": "junit-console",
         "kmonad-vim": "kmonad-vim",
-        "lasterisk-nvim": "lasterisk-nvim",
         "legendary-nvim": "legendary-nvim",
         "log-highlight-nvim": "log-highlight-nvim",
         "logrotate-nvim": "logrotate-nvim",
