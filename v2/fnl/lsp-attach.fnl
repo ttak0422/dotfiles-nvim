@@ -2,7 +2,6 @@
   `,(.. :<Cmd> c :<CR>))
 
 (fn [ctx]
-  (print :start)
   (if (not vim.b.lsp_attached)
       (do
         (set vim.b.lsp_attached true)

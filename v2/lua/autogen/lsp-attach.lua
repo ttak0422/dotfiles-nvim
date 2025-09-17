@@ -1,6 +1,5 @@
 -- [nfnl] v2/fnl/lsp-attach.fnl
 local function _1_(ctx)
-  print("start")
   if not vim.b.lsp_attached then
     vim.b.lsp_attached = true
     local bufnr = ctx.buf
