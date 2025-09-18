@@ -24,7 +24,8 @@
 (vim.api.nvim_create_autocmd :LspAttach
                              {:desc "register lsp keymaps"
                               :callback (fn [ctx]
-                                          ((dofile args.attach_path) ctx))})
+                                          ((dofile args.attach_path) {:buf ctx.buf
+                                                                      :client (vim.lsp.get_client_by_id ctx.data.client_id)}))})
 
 ;; setup
 (vim.lsp.enable [:bashls

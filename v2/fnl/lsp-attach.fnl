@@ -1,6 +1,7 @@
 (macro cmd [c]
   `,(.. :<Cmd> c :<CR>))
 
+;; { buf, client }
 (fn [ctx]
   (if (not vim.b.lsp_attached)
       (do
@@ -70,4 +71,5 @@
           (vim.keymap.set :n :<leader>cF vim.lsp.buf.format (desc " format"))
           (vim.keymap.set [:n :v] :<C-CR>
                           #(vim.lsp.buf.format {:timeout_ms 10000})
-                          (desc " format"))))))
+                          (desc " format"))
+          ((. (require :inlay-hints) :on_attach) ctx.client bufnr)))))

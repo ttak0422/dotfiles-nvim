@@ -817,6 +817,11 @@ in
     modulePlugins = {
       depends = [
         {
+          package = inlay-hints-nvim;
+          postConfig = read "./fnl/inlay-hints.fnl";
+          hooks.modules = [ "inlay-hints" ];
+        }
+        {
           package = lookup-nvim;
           depends = [ telescope ];
           postConfig = read "./fnl/lookup.fnl";

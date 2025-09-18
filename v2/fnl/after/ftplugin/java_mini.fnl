@@ -93,7 +93,10 @@
                             : configuration
                             : completion
                             : edit
-                            : sources}]
+                            : sources
+                            :referencesCodeLens {:enabled true}
+                            :implementationsCodeLens {:enabled true}
+                            :inlayHints {:parameterNames {:enabled :all}}}]
                   {: java}))
 
 (local bundles [])
@@ -103,9 +106,10 @@
                              :progressReportProvider false}))
 
 (local init_options {: bundles : extendedClientCapabilities})
-(local on_attach (fn [_client bufnr]
-                      ((dofile attach_path) {:buf bufnr})
-                   ))
+(local on_attach
+       (fn [client bufnr]
+         ((dofile attach_path) {:buf bufnr : client})))
+
 (local flags {:allow_incremental_sync true :debounce_text_changes 300})
 (local handlers {:language/status (fn [])})
 

@@ -41,15 +41,15 @@ do
   local edit = {smartSemicolonDetection = enabled, validateAllOpenBuffersOnChanges = false}
   local sources = {organizeImports = {starThreshold = 9999, staticStarThreshold = 9999}}
   local configuration = {runtimes = {{name = "JavaSE-1.8", path = jdk8_path}, {name = "JavaSE-11", path = jdk11_path}, {name = "JavaSE-17", path = jdk17_path}, {name = "JavaSE-21", path = jdk21_path}, {name = "JavaSE-23", path = jdk23_path}}}
-  local java = {autobuild = disabled, maxConcurrentBuilds = 8, signatureHelp = enabled, format = disabled, configuration = configuration, completion = completion, edit = edit, sources = sources}
+  local java = {autobuild = disabled, maxConcurrentBuilds = 8, signatureHelp = enabled, format = disabled, configuration = configuration, completion = completion, edit = edit, sources = sources, referencesCodeLens = {enabled = true}, implementationsCodeLens = {enabled = true}, inlayHints = {parameterNames = {enabled = "all"}}}
   settings = {java = java}
 end
 local bundles = {}
 local extendedClientCapabilities = vim.tbl_deep_extend("force", jdtls.extendedClientCapabilities, {resolveAdditionalTextEditsSupport = true, progressReportProvider = false})
 local init_options = {bundles = bundles, extendedClientCapabilities = extendedClientCapabilities}
 local on_attach
-local function _6_(_client, bufnr)
-  return dofile(attach_path)({buf = bufnr})
+local function _6_(client, bufnr)
+  return dofile(attach_path)({buf = bufnr, client = client})
 end
 on_attach = _6_
 local flags = {allow_incremental_sync = true, debounce_text_changes = 300}

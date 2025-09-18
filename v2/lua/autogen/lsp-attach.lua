@@ -27,7 +27,8 @@ local function _1_(ctx)
     local function _6_()
       return vim.lsp.buf.format({timeout_ms = 10000})
     end
-    return vim.keymap.set({"n", "v"}, "<C-CR>", _6_, desc("\238\171\132 format"))
+    vim.keymap.set({"n", "v"}, "<C-CR>", _6_, desc("\238\171\132 format"))
+    return require("inlay-hints").on_attach(ctx.client, bufnr)
   else
     return nil
   end

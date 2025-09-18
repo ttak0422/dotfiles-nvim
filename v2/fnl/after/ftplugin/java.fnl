@@ -135,7 +135,7 @@
                                                                 build_timeout
                                                                 bufnr)
                                            (f)))]
-                      ((dofile attach_path) {:buf bufnr})
+                      ((dofile attach_path) {:buf bufnr : client})
                       (jdtls_dap.setup_dap {:hotcodereplace :auto})
                       (jdtls_dap.setup_dap_main_class_configs)
                       (each [_ k (ipairs [; [:<LocalLeader>o
