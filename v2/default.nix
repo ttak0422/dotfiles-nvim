@@ -1168,6 +1168,10 @@ in
             '';
           };
         }
+        {
+          package = keep-split-ratio-nvim;
+          postConfig = read "./fnl/keep-split-ratio.fnl";
+        }
       ];
       postConfig = read "./fnl/window-plugins.fnl";
       hooks.events = [ "WinNew" ];

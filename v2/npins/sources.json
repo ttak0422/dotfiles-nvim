@@ -253,6 +253,19 @@
       "url": "https://github.com/MysticalDevil/inlay-hints.nvim/archive/990e1f96699b8293b6665b9e73b16128c66684e6.tar.gz",
       "hash": "0y2bdk4mbxysh7hjamf164hwwcy5nm431l17z64qfm90kjk5qvhy"
     },
+    "keep-split-ratio.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "adlrwbr",
+        "repo": "keep-split-ratio.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "906aa5196e194dca12c7729069760d42e77ddcff",
+      "url": "https://github.com/adlrwbr/keep-split-ratio.nvim/archive/906aa5196e194dca12c7729069760d42e77ddcff.tar.gz",
+      "hash": "156zlmnqx97aahppd8qz12ga1yaql86yln2myw660clfa5ia5c6f"
+    },
     "lasterisk.nvim": {
       "type": "Git",
       "repository": {
