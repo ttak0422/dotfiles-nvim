@@ -59,8 +59,5 @@ do
     vim.keymap.set({"n", "t", "i"}, ("<C-" .. i .. ">"), toggle(("term" .. i)), opts)
   end
 end
-vim.cmd("colorscheme morimo")
-for _, p in ipairs({"nvim-notify", "treesitter", "gitsigns", "lir", "dap", "git-conflict", "lir"}) do
-  require("morimo").load(p)
-end
+vim.cmd("colorscheme sorairo")
 return require("config-local").setup({silent = true})
