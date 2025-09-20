@@ -266,6 +266,22 @@
       "url": "https://github.com/ggandor/leap.nvim/archive/ebaf38f7fd7193cc918c10eb955afed63301cd76.tar.gz",
       "hash": "116iij1wksp1sz7z7wf3izi6s8vljqdbc28g08sy71pjxs8fx2v4"
     },
+    "lensline.nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "oribarilan",
+        "repo": "lensline.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "1.1.2",
+      "revision": "a5a4d9daf556318ec7211222352c00a8a148afa1",
+      "url": "https://api.github.com/repos/oribarilan/lensline.nvim/tarball/1.1.2",
+      "hash": "13zjxpby4sshk6d3jaral4yfc4yjqfj1pims3k3y3a0v2yl5hsxp"
+    },
     "lir-git-status.nvim": {
       "type": "Git",
       "repository": {

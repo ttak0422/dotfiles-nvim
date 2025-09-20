@@ -383,6 +383,10 @@ in
       packages = [ ];
       depends = [
         {
+          package = lensline-nvim;
+          postConfig = read "./fnl/lensline.fnl";
+        }
+        {
           package = lsp-progress-nvim;
           postConfig = read "./fnl/lsp-progress.fnl";
         }
