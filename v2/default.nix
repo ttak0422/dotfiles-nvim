@@ -1184,6 +1184,19 @@ in
           ];
         }
         {
+          package = videre-nvim;
+          postConfig = read "./fnl/videre.fnl";
+          depends = [
+            graph_view_yaml_parser
+            graph_view_toml_parser
+          ];
+          hooks.fileTypes = [
+            # "json"
+            # "yaml"
+            # "toml"
+          ];
+        }
+        {
           package = nvim-ts-autotag;
           postConfig = read "./fnl/ts-autotag.fnl";
           hooks.fileTypes = [

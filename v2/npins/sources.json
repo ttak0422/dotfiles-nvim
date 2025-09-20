@@ -159,6 +159,32 @@
       "url": "https://github.com/lambdalisue/gin.vim/archive/7c4b98011a2d5bdf7342031f9c8ae7a1c11b584b.tar.gz",
       "hash": "0r1lb11hahwnlr1hi188zl427fi5izci4xikyhi8bi0pdh0f7a90"
     },
+    "graph_view_toml_parser": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Owen-Dechow",
+        "repo": "graph_view_toml_parser"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "e52ddcbae563c924a19faf998f862ae61d13a777",
+      "url": "https://github.com/Owen-Dechow/graph_view_toml_parser/archive/e52ddcbae563c924a19faf998f862ae61d13a777.tar.gz",
+      "hash": "1f4ihs4axkfb2b056wf3bcipsscizsblvgrbrpgv7m9vpv35bil3"
+    },
+    "graph_view_yaml_parser": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Owen-Dechow",
+        "repo": "graph_view_yaml_parser"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "ecc5ba0a0b8c3a6eb3e7fa5a2caeeee2263729c3",
+      "url": "https://github.com/Owen-Dechow/graph_view_yaml_parser/archive/ecc5ba0a0b8c3a6eb3e7fa5a2caeeee2263729c3.tar.gz",
+      "hash": "0z3afw5s9nldinxrflmxxy6psinjkmajw5c2mgq3559f18f8174x"
+    },
     "harpoon": {
       "type": "Git",
       "repository": {
@@ -920,6 +946,19 @@
       "revision": "1a841e56407ba02e919ed9af573dbe531404aebb",
       "url": "https://github.com/uga-rosa/translate.nvim/archive/1a841e56407ba02e919ed9af573dbe531404aebb.tar.gz",
       "hash": "1gpq2mqfpynswnrv49jyji7798wb9g022j3f22f8hp21l4in4nl0"
+    },
+    "videre.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Owen-Dechow",
+        "repo": "videre.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "1c75b447eb0b34884544090df5eb9be871dced5a",
+      "url": "https://github.com/Owen-Dechow/videre.nvim/archive/1c75b447eb0b34884544090df5eb9be871dced5a.tar.gz",
+      "hash": "0gy7mghbic7lcjsip2j18n9i76ajhh3a6ffz1q5ckmg1lnhfc089"
     },
     "vim-mr": {
       "type": "Git",
