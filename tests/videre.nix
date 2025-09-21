@@ -11,6 +11,7 @@
 
   extraConfig = ''
     vim.lsp.enable({"jsonls"})
+    vim.wo.winbar = "--- WINBAR ---"
   '';
 
   eager = with pkgs.vimPlugins.tests; {
