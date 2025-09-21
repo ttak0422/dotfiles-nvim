@@ -180,7 +180,8 @@ in
         go-tools
         google-java-format
         gopls
-        kotlin-language-server
+        # kotlin-language-server
+        v2.kotlin-lsp
         lua-language-server
         marksman
         nil

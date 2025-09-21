@@ -26,8 +26,8 @@
 (local signature {:enabled true})
 
 (local completion {:accept {:auto_brackets {:enabled true
-                                            :force_allow_filetypes {}
-                                            :blocked_filetypes {}}
+                                            :force_allow_filetypes []
+                                            :blocked_filetypes [:kotlin]}
                             :resolve_timeout_ms 150}
                    :documentation {:auto_show true
                                    :auto_show_delay_ms 750
