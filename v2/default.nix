@@ -1195,9 +1195,9 @@ in
             graph_view_toml_parser
           ];
           hooks.fileTypes = [
-            # "json"
-            # "yaml"
-            # "toml"
+            "json"
+            "yaml"
+            "toml"
           ];
         }
         {

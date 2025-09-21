@@ -823,12 +823,17 @@
             inherit system;
             overlays = import ./overlays.nix inputs;
           };
-          bundler-nvim = {
-            v2 = import ./v2 {
+          bundler-nvim =
+            {
+              v2 = import ./v2 {
+                inherit inputs';
+                inherit pkgs;
+              };
+            }
+            // (import ./tests {
               inherit inputs';
               inherit pkgs;
-            };
-          };
+            });
         }
         // import ./apps.nix { inherit pkgs; };
     };

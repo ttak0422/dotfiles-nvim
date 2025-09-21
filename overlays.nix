@@ -212,6 +212,7 @@ inputs: with inputs; [
             // {
               inherit (v2-blink-cmp.packages.${system}) blink-cmp;
             };
+          tests = buildPlugins (import ./tests/npins);
         };
 
       skk-dict = mkDerivation {

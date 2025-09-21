@@ -55,13 +55,10 @@
                                                        :css
                                                        :scss
                                                        :less
-                                                       ;; use tidy
                                                        ; :html
-                                                       :json
-                                                       :jsonc
-                                                       ;: use yamlfmt
+                                                       ; :json
+                                                       ; :jsonc
                                                        ; :yaml
-                                                       ;; WIP
                                                        ; :markdown
                                                        ; :markdown.mdx
                                                        :graphql
