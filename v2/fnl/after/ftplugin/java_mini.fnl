@@ -113,7 +113,8 @@
 (local flags {:allow_incremental_sync true :debounce_text_changes 300})
 (local handlers {:language/status (fn [])})
 
-(vim.defer_fn #(jdtls.start_or_attach {: root_dir
+(vim.defer_fn #(jdtls.start_or_attach {:name :jdtls
+                                       : root_dir
                                        : cmd
                                        : settings
                                        : init_options

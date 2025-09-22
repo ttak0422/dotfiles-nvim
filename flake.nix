@@ -253,10 +253,6 @@
       url = "github:matbme/JABS.nvim";
       flake = false;
     };
-    nvim-jdtls = {
-      url = "github:mfussenegger/nvim-jdtls";
-      flake = false;
-    };
     vim-lastplace = {
       url = "github:farmergreg/vim-lastplace";
       flake = false;

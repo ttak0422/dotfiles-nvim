@@ -2885,22 +2885,6 @@
         "type": "github"
       }
     },
-    "nvim-jdtls": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1749801683,
-        "narHash": "sha256-9E9VUDgGLQ7V0xpiMpjhoNURpctR+WMMqsu2XL3ATZs=",
-        "owner": "mfussenegger",
-        "repo": "nvim-jdtls",
-        "rev": "4d77ff02063cf88963d5cf10683ab1fd15d072de",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mfussenegger",
-        "repo": "nvim-jdtls",
-        "type": "github"
-      }
-    },
     "nvim-lastplace": {
       "flake": false,
       "locked": {
@@ -3494,7 +3478,6 @@
         "nvim-dd": "nvim-dd",
         "nvim-fundo": "nvim-fundo",
         "nvim-hlslens": "nvim-hlslens",
-        "nvim-jdtls": "nvim-jdtls",
         "nvim-lastplace": "nvim-lastplace",
         "nvim-lint": "nvim-lint",
         "nvim-nio": "nvim-nio",
