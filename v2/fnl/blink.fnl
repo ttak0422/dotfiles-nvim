@@ -114,9 +114,10 @@
 (local fuzzy
        {:implementation :rust
         ;max_typos = function(keyword) return math.floor(#keyword / 4) end,
-        :use_frecency true
+        :frecency {:enabled true
+                   :path (.. (vim.fn.stdpath :state) :/blink/cmp/frecency.dat)
+                   :unsafe_no_lock false}
         :use_proximity true
-        :use_unsafe_no_lock false
         :sorts [:score :sort_text]
         :prebuilt_binaries {:download false
                             :ignore_version_mismatch false

@@ -63,7 +63,7 @@ local function _12_(_ctx)
 end
 sources = {default = {"avante", "lsp", "snippets", "buffer"}, per_filetype = {AvanteInput = {"avante", "buffer"}}, providers = {lsp = {fallbacks = {}, min_keyword_length = _6_, transform_items = _9_}, avante = {module = "blink-cmp-avante", name = "Avante", opts = {}}, snippets = {should_show_items = _11_}}, min_keyword_length = _12_}
 local snippets = {preset = "luasnip"}
-local fuzzy = {implementation = "rust", use_frecency = true, use_proximity = true, sorts = {"score", "sort_text"}, prebuilt_binaries = {force_version = nil, force_system_triple = nil, extra_curl_args = {}, proxy = {from_env = true, url = nil}, download = false, ignore_version_mismatch = false}, use_unsafe_no_lock = false}
+local fuzzy = {implementation = "rust", frecency = {enabled = true, path = (vim.fn.stdpath("state") .. "/blink/cmp/frecency.dat"), unsafe_no_lock = false}, use_proximity = true, sorts = {"score", "sort_text"}, prebuilt_binaries = {force_version = nil, force_system_triple = nil, extra_curl_args = {}, proxy = {from_env = true, url = nil}, download = false, ignore_version_mismatch = false}}
 cmp.setup({completion = completion, signature = signature, appearance = appearance, fuzzy = fuzzy, keymap = keymap, sources = sources, snippets = snippets, cmdline = cmdline})
 vim.lsp.config("*", {capabilities = cmp.get_lsp_capabilities()})
 local opts = {noremap = true, silent = true}
