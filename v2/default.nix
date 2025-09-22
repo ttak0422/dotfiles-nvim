@@ -72,7 +72,9 @@ in
       norg = read "./fnl/after/ftplugin/norg.fnl";
       qf = read "./fnl/after/ftplugin/qf.fnl";
       qfreplace = read "./fnl/after/ftplugin/qfreplace.fnl";
+      json = read "./fnl/after/ftplugin/json.fnl";
       yaml = read "./fnl/after/ftplugin/yaml.fnl";
+      toml = read "./fnl/after/ftplugin/toml.fnl";
     };
     lsp = {
       denols = read "./fnl/after/lsp/denols.fnl";
@@ -910,6 +912,15 @@ in
     commandPlugins = {
       depends = [
         {
+          package = videre-nvim;
+          postConfig = read "./fnl/videre.fnl";
+          depends = [
+            graph_view_yaml_parser
+            graph_view_toml_parser
+          ];
+          hooks.commands = [ "Videre" ];
+        }
+        {
           package = no-neck-pain-nvim;
           postConfig = read "./fnl/no-neck-pain.fnl";
           hooks.commands = [ "NoNeckPain" ];
@@ -1186,19 +1197,6 @@ in
           hooks.fileTypes = [
             "csv"
             "tsv"
-          ];
-        }
-        {
-          package = videre-nvim;
-          postConfig = read "./fnl/videre.fnl";
-          depends = [
-            graph_view_yaml_parser
-            graph_view_toml_parser
-          ];
-          hooks.fileTypes = [
-            "json"
-            "yaml"
-            "toml"
           ];
         }
         {
