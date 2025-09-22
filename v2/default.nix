@@ -217,6 +217,7 @@ in
           deadnix # Nix
           dotenv-linter # .env
           editorconfig-checker # .editorconfig
+          eslint # Javascript
           gitlint # Git
           go-tools # Go (staticcheck)
           hadolint # Dockerfile
