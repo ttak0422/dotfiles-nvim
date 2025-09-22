@@ -45,10 +45,6 @@
     };
 
     # nodePackages
-    vtsls = {
-      url = "git+https://github.com/yioneko/vtsls?submodules=1";
-      flake = false;
-    };
     mcp-hub = {
       url = "github:ravitemer/mcp-hub";
       flake = false;
