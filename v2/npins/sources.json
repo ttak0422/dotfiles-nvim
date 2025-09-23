@@ -279,6 +279,22 @@
       "url": "https://github.com/rapan931/lasterisk.nvim/archive/bbcfcaeca50f686e338a03386e41645fc3305f44.tar.gz",
       "hash": "1gkksvrr8lxl10rhzn414nm7d5cfdgials2xqswvch8lqv6zv45m"
     },
+    "lazydev.nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "folke",
+        "repo": "lazydev.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.9.0",
+      "revision": "f59bd14a852ca43db38e3662395354cb2a9b13e0",
+      "url": "https://api.github.com/repos/folke/lazydev.nvim/tarball/v1.9.0",
+      "hash": "102sxfdq6ajvfs95r4084xvbcjv2qiv5cmyrqbwijmc05isg9d8j"
+    },
     "leap-spooky.nvim": {
       "type": "Git",
       "repository": {

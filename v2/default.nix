@@ -75,6 +75,7 @@ in
       json = read "./fnl/after/ftplugin/json.fnl";
       yaml = read "./fnl/after/ftplugin/yaml.fnl";
       toml = read "./fnl/after/ftplugin/toml.fnl";
+      lua = read "./fnl/after/ftplugin/lua.fnl";
     };
     lsp = {
       denols = read "./fnl/after/lsp/denols.fnl";
@@ -1192,6 +1193,12 @@ in
 
     filetypePlugins = {
       depends = [
+        {
+          package = lazydev-nvim;
+          postConfig = read "./fnl/lazydev.fnl";
+          depends = [ blink ];
+          hooks.fileTypes = [ "lua" ];
+        }
         {
           package = csvview-nvim;
           postConfig = read "./fnl/csvview.fnl";
