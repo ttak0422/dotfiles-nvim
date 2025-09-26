@@ -690,11 +690,10 @@ in
           postConfig = read "./fnl/marks.fnl";
         }
       ];
-      postConfig =
-        ''
-          vim.cmd([[source ${./vim/edit-plugins.vim}]])
-        ''
-        + read "./fnl/edit-plugins.fnl";
+      postConfig = ''
+        vim.cmd([[source ${./vim/edit-plugins.vim}]])
+      ''
+      + read "./fnl/edit-plugins.fnl";
       hooks.events = [
         "InsertEnter"
         "CmdlineEnter"
@@ -1145,11 +1144,10 @@ in
           hooks.commands = [ "IncRename" ];
         }
       ];
-      postConfig =
-        ''
-          vim.cmd([[source ${./vim/cmdline-plugins.vim}]])
-        ''
-        + read "./fnl/cmdline-plugins.fnl";
+      postConfig = ''
+        vim.cmd([[source ${./vim/cmdline-plugins.vim}]])
+      ''
+      + read "./fnl/cmdline-plugins.fnl";
       hooks.events = [ "CmdlineEnter" ];
     };
 
@@ -1193,6 +1191,11 @@ in
 
     filetypePlugins = {
       depends = [
+        {
+          package = nvim-kotlin-lsp;
+          hooks.fileTypes = [ "kotlin" ];
+          extraPackages = [ pkgs.v2.kotlin-lsp ];
+        }
         {
           package = lazydev-nvim;
           postConfig = read "./fnl/lazydev.fnl";

@@ -561,6 +561,19 @@
       "url": "https://github.com/mfussenegger/nvim-jdtls/archive/b69924ca90014fef485ee153571bdcbc1ece8c2e.tar.gz",
       "hash": "118487xi5yl9hzrgg8fb4k1f4mlfk12vgzh0inss1vm2sh27kxdh"
     },
+    "nvim-kotlin-lsp": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ttak0422",
+        "repo": "nvim-kotlin-lsp"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "6a1504f162ad94ffdb127df9eb7bc57877d13173",
+      "url": "https://github.com/ttak0422/nvim-kotlin-lsp/archive/6a1504f162ad94ffdb127df9eb7bc57877d13173.tar.gz",
+      "hash": "08lq163xwq7ka6051iqr1aq6dilkmc4salqphdq0qx07w5ajsc4b"
+    },
     "nvim-lspconfig": {
       "type": "GitRelease",
       "repository": {
