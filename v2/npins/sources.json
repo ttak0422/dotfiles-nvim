@@ -570,9 +570,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "6a1504f162ad94ffdb127df9eb7bc57877d13173",
-      "url": "https://github.com/ttak0422/nvim-kotlin-lsp/archive/6a1504f162ad94ffdb127df9eb7bc57877d13173.tar.gz",
-      "hash": "08lq163xwq7ka6051iqr1aq6dilkmc4salqphdq0qx07w5ajsc4b"
+      "revision": "4aa59c71afe019ee0fa16f1be326d90cbd20d0bc",
+      "url": "https://github.com/ttak0422/nvim-kotlin-lsp/archive/4aa59c71afe019ee0fa16f1be326d90cbd20d0bc.tar.gz",
+      "hash": "0py9pbmzyfz429jhiqzd9l41zk1c9iqwj71hjb54n6l4j4pi8cyv"
     },
     "nvim-lspconfig": {
       "type": "GitRelease",
