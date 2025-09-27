@@ -575,7 +575,10 @@ in
           postConfig = read "./fnl/auto-save.fnl";
         }
         {
-          package = skkeleton;
+          packages = [
+            skkeleton
+            skkeleton-henkan-highlight
+          ];
           depends = [ denops ];
           postConfig = ''
             local active_server = vim.system({"lsof", "-i", "tcp:1178"}):wait().stdout:match("yaskkserv") ~= nil
@@ -585,21 +588,23 @@ in
                 globalDictionaries = { "${pkgs.skk-dict}/SKK-JISYO.L" },
                 skkServerHost       = "127.0.0.1",
                 skkServerPort       = 1178,
-                markerHenkan        = "",
-                markerHenkanSelect  = "",
+                markerHenkan        = "",
+                markerHenkanSelect  = "",
               })
             else
               vim.fn["skkeleton#config"]({
                 sources = { "skk_dictionary" },
                 globalDictionaries = { "${pkgs.skk-dict}/SKK-JISYO.L" },
-                markerHenkan        = "",
-                markerHenkanSelect  = "",
+                markerHenkan        = "",
+                markerHenkanSelect  = "",
               })
             end
 
             vim.keymap.set("i", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
             vim.keymap.set("c", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
             vim.keymap.set("t", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
+
+            vim.cmd([[highlight SkkeletonHenkan gui=underline term=underline]])
           '';
           useDenops = true;
         }

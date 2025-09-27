@@ -726,6 +726,19 @@
       "url": "https://github.com/vim-skk/skkeleton/archive/5ddb49351854fb5c3406c071a82d2f50612afcf3.tar.gz",
       "hash": "1a86ahpps804qvrvdlrw8b21dfraapnvqk4y6w7jj0yhzm5ishav"
     },
+    "skkeleton-henkan-highlight": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NI57721",
+        "repo": "skkeleton-henkan-highlight"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "b952385ff9ace7597c9d83b5c93d393c6d73a1e6",
+      "url": "https://github.com/NI57721/skkeleton-henkan-highlight/archive/b952385ff9ace7597c9d83b5c93d393c6d73a1e6.tar.gz",
+      "hash": "0lmjbrsfsjv1s4amvkr6zyyr9larvv8fd125fcnbw1gy3w1xyiz4"
+    },
     "snacks.nvim": {
       "type": "GitRelease",
       "repository": {
