@@ -27,7 +27,15 @@
 
 (local completion {:accept {:auto_brackets {:enabled true
                                             :force_allow_filetypes []
-                                            :blocked_filetypes [:kotlin]}
+                                            :blocked_filetypes []
+                                            :kind_resolution {:enabled true
+                                                              :blocked_filetypes [:typescriptreact
+                                                                                  :javascriptreact
+                                                                                  :vue
+                                                                                  :kotlin]}
+                                            :semantic_token_resolution {:enabled true
+                                                                        :blocked_filetypes [:java]
+                                                                        :timeout_ms 400}}
                             :resolve_timeout_ms 150}
                    :documentation {:auto_show true
                                    :auto_show_delay_ms 750
