@@ -2,7 +2,12 @@
 
 (winsep.setup {:smooth false
                :exponential_smoothing false
-               :no_exec_files [:undotree :gitsigns-blame]
+               :no_exec_files [:undotree
+                               :gitsigns-blame
+                               :Avante
+                               :AvanteSelectedCode
+                               :AvanteSelectedFiles
+                               :AvanteInput]
                :animate {:enabled false}
                :indicator_for_2wins {:position :center
                                      :symbols {:start_left ""
