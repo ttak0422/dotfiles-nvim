@@ -344,6 +344,7 @@ in
       hooks = {
         commands = [ "AvanteFocus" ];
         events = [ "BufReadPost" ];
+        modules = [ "avante.api" ];
       };
     };
 
