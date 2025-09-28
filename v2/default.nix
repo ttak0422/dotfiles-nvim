@@ -76,6 +76,7 @@ in
       yaml = read "./fnl/after/ftplugin/yaml.fnl";
       toml = read "./fnl/after/ftplugin/toml.fnl";
       lua = read "./fnl/after/ftplugin/lua.fnl";
+      translate = read "./fnl/after/ftplugin/translate.fnl";
     };
     lsp = {
       denols = read "./fnl/after/lsp/denols.fnl";
