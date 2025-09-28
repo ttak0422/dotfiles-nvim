@@ -1,4 +1,5 @@
 -- [nfnl] v2/fnl/avante.fnl
+pcall(dofile, (vim.env.HOME .. "/.config/nvim/avante.lua"))
 local avante = require("avante")
 local avante_lib = require("avante_lib")
 local hub = require("mcphub")
@@ -23,6 +24,7 @@ local function _4_()
   return {hub_ext.mcp_tool()}
 end
 custom_tools = _4_
+local acp_providers = {["claude-code"] = {command = "npx", args = {"@zed-industries/claude-code-acp"}, env = {NODE_NO_WARNINGS = "1", ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")}}}
 local behaviour = {auto_set_highlight_group = true, auto_set_keymaps = true, support_paste_from_clipboard = true, minimize_diff = true, enable_token_counting = true, auto_approve_tool_permissions = {"rag_search", "python", "git_diff", "glob", "search_keyword", "read_file_toplevel_symbols", "read_file", "create_file", "move_path", "copy_path", "create_dir", "bash", "web_search", "fetch"}, auto_apply_diff_after_generation = false, auto_focus_on_diff_view = false, auto_focus_sidebar = false, auto_suggestions = false, auto_suggestions_respect_ignore = false, jump_result_buffer_on_finish = false, use_cwd_as_project_root = false}
 local history = {max_tokens = 8192, carried_entry_count = nil, storage_path = (vim.fn.stdpath("state") .. "/avante"), paste = {extension = "png", filename = "pasted-%Y%m%d%H%M%S"}}
 local highlights = {diff = {current = "DiffText", incoming = "DiffAdd"}}
@@ -44,5 +46,4 @@ local function _5_(_, _0, cb)
 end
 slash_commands = {{name = "commit_staged", description = "Commit the staged changes only", details = "Commit the staged changes. Unstaged changes are not included", callback = _5_}}
 avante_lib.load()
-avante.setup({mode = "agentic", provider = "sonet4", providers = {sonet4 = {__inherited_from = "claude", model = "claude-sonnet-4-0"}, opus4 = {__inherited_from = "claude", model = "claude-opus-4-0", extra_request_body = {max_tokens = 32000}}}, tokenizer = "tiktoken", disabled_tools = {"web_search"}, system_prompt = system_prompt, custom_tools = custom_tools, behaviour = behaviour, history = history, highlights = highlights, img_paste = img_paste, mappings = mappings, windows = windows, diff = diff, hints = hints, selector = selector, input = input, repo_map = repo_map, slash_commands = slash_commands})
-return pcall(dofile, (vim.env.HOME .. "/.config/nvim/avante.lua"))
+return avante.setup({mode = "agentic", provider = "sonet4", providers = {sonet4 = {__inherited_from = "claude", model = "claude-sonnet-4-0"}, opus4 = {__inherited_from = "claude", model = "claude-opus-4-0", extra_request_body = {max_tokens = 32000}}}, tokenizer = "tiktoken", disabled_tools = {"web_search"}, system_prompt = system_prompt, custom_tools = custom_tools, acp_providers = acp_providers, behaviour = behaviour, history = history, highlights = highlights, img_paste = img_paste, mappings = mappings, windows = windows, diff = diff, hints = hints, selector = selector, input = input, repo_map = repo_map, slash_commands = slash_commands})

@@ -1,3 +1,6 @@
+;; vim.env.ANTHROPIC_API_KEY=...
+(pcall dofile (.. vim.env.HOME :/.config/nvim/avante.lua))
+
 (local avante (require :avante))
 (local avante_lib (require :avante_lib))
 
@@ -12,6 +15,18 @@
                            "")))
 
 (local custom_tools (fn [] [(hub_ext.mcp_tool)]))
+
+; ACP
+(local acp_providers
+       {; :gemini-cli
+        ; {:command :gemini
+        ;  :args [:--experimental-acp]
+        ;  :env {:NODE_NO_WARNINGS :1
+        ;        :GEMINI_API_KEY (os.getenv :GEMINI_API_KEY)}}
+        :claude-code {:command :npx
+                      :args ["@zed-industries/claude-code-acp"]
+                      :env {:NODE_NO_WARNINGS :1
+                            :ANTHROPIC_API_KEY (os.getenv :ANTHROPIC_API_KEY)}}})
 
 (local behaviour {:auto_focus_sidebar false
                   :auto_suggestions false
@@ -138,6 +153,7 @@
                :disabled_tools [:web_search]
                : system_prompt
                : custom_tools
+               : acp_providers
                : behaviour
                : history
                : highlights
@@ -150,6 +166,3 @@
                : input
                : repo_map
                : slash_commands})
-
-;; vim.env.ANTHROPIC_API_KEY=...
-(pcall dofile (.. vim.env.HOME :/.config/nvim/avante.lua))
