@@ -23,8 +23,9 @@
         ;  :args [:--experimental-acp]
         ;  :env {:NODE_NO_WARNINGS :1
         ;        :GEMINI_API_KEY (os.getenv :GEMINI_API_KEY)}}
-        :claude-code {:command :npx
-                      :args ["@zed-industries/claude-code-acp"]
+        ; npm install -g @zed-industries/claude-code-acp
+        :claude-code {:command :claude-code-acp
+                      :args []
                       :env {:NODE_NO_WARNINGS :1
                             :ANTHROPIC_API_KEY (os.getenv :ANTHROPIC_API_KEY)}}})
 
@@ -143,14 +144,24 @@
 
 (avante_lib.load)
 (avante.setup {:mode :agentic
-               :provider :sonet4
+               :provider :claude-code
                :providers {:sonet4 {:__inherited_from :claude
                                     :model :claude-sonnet-4-0}
                            :opus4 {:__inherited_from :claude
                                    :model :claude-opus-4-0
                                    :extra_request_body {:max_tokens 32000}}}
                :tokenizer :tiktoken
-               :disabled_tools [:web_search]
+               :disabled_tools [:web_search
+                                :list_files
+                                :search_files
+                                :read_file
+                                :create_file
+                                :rename_file
+                                :delete_file
+                                :create_dir
+                                :rename_dir
+                                :delete_dir
+                                :bash]
                : system_prompt
                : custom_tools
                : acp_providers
