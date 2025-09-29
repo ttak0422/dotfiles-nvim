@@ -37,6 +37,7 @@
                 diagnostics.staticcheck
                 diagnostics.statix
                 diagnostics.stylelint
+                diagnostics.terraform_validate
                 diagnostics.vint
                 diagnostics.yamllint
                 (formatting.prettier.with {:prefer_local :node_modules/.bin
@@ -98,6 +99,7 @@
                 formatting.shfmt
                 formatting.stylelint
                 formatting.stylua
+                formatting.terraform_fmt
                 formatting.tidy
                 formatting.yamlfmt
                 formatting.yapf

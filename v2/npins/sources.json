@@ -596,35 +596,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "924fe88a9983c7d90dbb31fc4e3129a583ea0a90",
-      "url": "https://github.com/nvimtools/none-ls-extras.nvim/archive/924fe88a9983c7d90dbb31fc4e3129a583ea0a90.tar.gz",
-      "hash": "0g25js6dbhxq1pf1g7x6lz1p9szdky792z5jxi5gkkkpx3dy149q"
-    },
-    "none-ls-luacheck.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "gbprod",
-        "repo": "none-ls-luacheck.nvim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "a1dfea0d4c40c4023829c8b9a7ab0a26135985ca",
-      "url": "https://github.com/gbprod/none-ls-luacheck.nvim/archive/a1dfea0d4c40c4023829c8b9a7ab0a26135985ca.tar.gz",
-      "hash": "064v5jvscg8misabzjn739f8jkmgafqznkhn7v0fzgmc0r05fz2x"
-    },
-    "none-ls-shellcheck.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "gbprod",
-        "repo": "none-ls-shellcheck.nvim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "0f84461241e76e376a95fb7391deac82dc3efdbf",
-      "url": "https://github.com/gbprod/none-ls-shellcheck.nvim/archive/0f84461241e76e376a95fb7391deac82dc3efdbf.tar.gz",
-      "hash": "0xjlsq6p4x77g24ixhi1ss8vvq5ydkx8g6d6nl4nl40mpjxqskmp"
+      "revision": "d29ccbdf83b5baa402ee959cede13a8bf0230f57",
+      "url": "https://github.com/nvimtools/none-ls-extras.nvim/archive/d29ccbdf83b5baa402ee959cede13a8bf0230f57.tar.gz",
+      "hash": "0b79y4xi3wyal13xsxxy4cv54a4fnzrjvn2p1cg4q93g7y9fahfv"
     },
     "none-ls.nvim": {
       "type": "Git",
@@ -635,9 +609,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "53ec77181d96494b9dc9457110dd62dc623cc78d",
-      "url": "https://github.com/nvimtools/none-ls.nvim/archive/53ec77181d96494b9dc9457110dd62dc623cc78d.tar.gz",
-      "hash": "0z4wcbrxv955cmw6inrsg8iml2bjp0sfxx604hk582081yc2q9dp"
+      "revision": "88e2508bd1754e2643e54e9f181e64bbda118ab9",
+      "url": "https://github.com/nvimtools/none-ls.nvim/archive/88e2508bd1754e2643e54e9f181e64bbda118ab9.tar.gz",
+      "hash": "1gqcgabni94m7r4c473y0x4sydj18dbx8q335a35x89lhvzhdwsg"
     },
     "nui.nvim": {
       "type": "Git",

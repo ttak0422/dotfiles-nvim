@@ -207,8 +207,6 @@ in
       packages = with pkgs.vimPlugins.v2; [
         none-ls-nvim
         none-ls-extras-nvim
-        none-ls-shellcheck-nvim
-        none-ls-luacheck-nvim
       ];
       extraPackages =
         with pkgs;
@@ -228,6 +226,7 @@ in
           selene # Lua
           statix # Nix
           stylelint # CSS, SCSS, LESS, SASS
+          terraform # Terraform
           vim-vint # Vim script
           yamllint # YAML
         ]
@@ -247,6 +246,7 @@ in
             shfmt # shell
             stylelint # CSS, SCSS, LESS, SASS
             stylua # Lua
+            terraform # Terraform
             yamlfmt # YAML
             yapf # Python
           ];

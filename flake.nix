@@ -718,24 +718,29 @@
           inputs',
           system,
           pkgs,
+          lib,
           ...
         }:
         {
           _module.args.pkgs = import inputs.nixpkgs {
             inherit system;
             overlays = import ./overlays.nix inputs;
+            config.allowUnfreePredicate =
+              pkg:
+              builtins.elem (lib.getName pkg) [
+                "terraform"
+              ];
           };
-          bundler-nvim =
-            {
-              v2 = import ./v2 {
-                inherit inputs';
-                inherit pkgs;
-              };
-            }
-            // (import ./tests {
+          bundler-nvim = {
+            v2 = import ./v2 {
               inherit inputs';
               inherit pkgs;
-            });
+            };
+          }
+          // (import ./tests {
+            inherit inputs';
+            inherit pkgs;
+          });
         }
         // import ./apps.nix { inherit pkgs; };
     };
