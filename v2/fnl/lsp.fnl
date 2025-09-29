@@ -47,6 +47,7 @@
                  :pyright
                  :solargraph
                  :taplo
+                 :terraformls
                  :typos_lsp
                  :vtsls
                  :yamlls])

@@ -175,6 +175,7 @@ in
         args.attach_path = ./lua/autogen/lsp-attach.lua;
       };
       extraPackages = with pkgs; [
+        # kotlin-language-server
         dart
         deno
         dhall-lsp-server
@@ -184,8 +185,6 @@ in
         go-tools
         google-java-format
         gopls
-        # kotlin-language-server
-        v2.kotlin-lsp
         lua-language-server
         marksman
         nil
@@ -197,7 +196,9 @@ in
         rubyPackages.solargraph
         rust-analyzer
         taplo-cli
+        terraform-ls
         typos-lsp
+        v2.kotlin-lsp
         vscode-langservers-extracted
         vtsls
       ];
