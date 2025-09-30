@@ -487,7 +487,6 @@ in
 
     bufferPlugins = {
       depends = [
-        vim-ambiwidth
         {
           package = nvim_context_vt;
           postConfig = read "./fnl/context-vt.fnl";
