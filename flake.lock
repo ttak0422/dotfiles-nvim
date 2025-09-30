@@ -3339,11 +3339,11 @@
     "sorairo": {
       "flake": false,
       "locked": {
-        "lastModified": 1758373595,
-        "narHash": "sha256-uasOlUkRmdABnzwBv2ktpyyc6GDNAHyfE6CzN+kGqxE=",
+        "lastModified": 1759242219,
+        "narHash": "sha256-Jgo3PVFiYqGp/A9fAwHnZv1MI1t/DNfYymD3xOQmOzs=",
         "owner": "ttak0422",
         "repo": "sorairo",
-        "rev": "3e83d163a8930fd490f01142ade3d36ee66a0c3a",
+        "rev": "8f2b4d14aa03b09ed2ef5ece97bd10aeb855c4fb",
         "type": "github"
       },
       "original": {
