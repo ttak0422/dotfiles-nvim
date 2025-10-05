@@ -40,7 +40,6 @@
                  :gopls
                  :html
                  :jsonls
-                 :kotlin_lsp
                  :lua_ls
                  :marksman
                  :nil_ls

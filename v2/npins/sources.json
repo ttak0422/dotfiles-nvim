@@ -370,6 +370,19 @@
       "url": "https://github.com/adlrwbr/keep-split-ratio.nvim/archive/906aa5196e194dca12c7729069760d42e77ddcff.tar.gz",
       "hash": "156zlmnqx97aahppd8qz12ga1yaql86yln2myw660clfa5ia5c6f"
     },
+    "kotlin.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "AlexandrosAlexiou",
+        "repo": "kotlin.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "8346563dbe74839571290375ed72b13b1d8be162",
+      "url": "https://github.com/AlexandrosAlexiou/kotlin.nvim/archive/8346563dbe74839571290375ed72b13b1d8be162.tar.gz",
+      "hash": "13f4mb8lnf2icrybjrgd80byf3mwvc88mf7crdcc6dxlyplhg898"
+    },
     "lasterisk.nvim": {
       "type": "Git",
       "repository": {

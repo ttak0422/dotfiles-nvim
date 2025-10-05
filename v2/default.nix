@@ -1199,9 +1199,12 @@ in
     filetypePlugins = {
       depends = [
         {
-          package = nvim-kotlin-lsp;
+          package = kotlin-nvim;
+          postConfig = {
+            code = read "./fnl/kotlin.fnl";
+            args.kotlin_lsp_dir = "${pkgs.v2.kotlin-lsp}/libexec/kotlin-lsp";
+          };
           hooks.fileTypes = [ "kotlin" ];
-          extraPackages = [ pkgs.v2.kotlin-lsp ];
         }
         {
           package = lazydev-nvim;
