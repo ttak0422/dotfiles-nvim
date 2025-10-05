@@ -1223,6 +1223,19 @@
       "url": "https://github.com/uga-rosa/translate.nvim/archive/1a841e56407ba02e919ed9af573dbe531404aebb.tar.gz",
       "hash": "1gpq2mqfpynswnrv49jyji7798wb9g022j3f22f8hp21l4in4nl0"
     },
+    "uv.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "benomahony",
+        "repo": "uv.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "be4a7d47a976249282bb2f71fc773ac2f5325973",
+      "url": "https://github.com/benomahony/uv.nvim/archive/be4a7d47a976249282bb2f71fc773ac2f5325973.tar.gz",
+      "hash": "1ivkmqbmz9sjfdsjqz1gk4qy1hk1hmh4103jzsnsbcalm68vrxa5"
+    },
     "videre.nvim": {
       "type": "Git",
       "repository": {

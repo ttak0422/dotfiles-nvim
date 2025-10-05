@@ -1199,6 +1199,12 @@ in
     filetypePlugins = {
       depends = [
         {
+          package = uv-nvim;
+          postConfig = read "./fnl/uv.fnl";
+          extraPackages = with pkgs; [ uv ];
+          hooks.fileTypes = [ "python" ];
+        }
+        {
           package = kotlin-nvim;
           postConfig = {
             code = read "./fnl/kotlin.fnl";
