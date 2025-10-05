@@ -1,5 +1,18 @@
 {
   "pins": {
+    "kotlin.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ttak0422",
+        "repo": "kotlin.nvim"
+      },
+      "branch": "unify-notifications",
+      "submodules": false,
+      "revision": "4f6a6bfb55093abbcd9dec3ba07e912b32252102",
+      "url": "https://github.com/ttak0422/kotlin.nvim/archive/4f6a6bfb55093abbcd9dec3ba07e912b32252102.tar.gz",
+      "hash": "1x3lf5470150iiv32288g9rbib9ih3pslyadgpfb18yf8l5b9yzn"
+    },
     "nixpkgs": {
       "type": "Channel",
       "name": "nixpkgs-unstable",

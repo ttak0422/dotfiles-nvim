@@ -7,4 +7,5 @@ let
 in
 {
   videre = import' ./videre.nix;
+  kotlin-nvim = import' ./kotlin-nvim.nix;
 }
