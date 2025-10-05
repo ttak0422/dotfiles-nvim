@@ -639,6 +639,19 @@
       "url": "https://github.com/MunifTanjim/nui.nvim/archive/de740991c12411b663994b2860f1a4fd0937c130.tar.gz",
       "hash": "0l1ga86dr2rhfjshiicsw3nn03wrhmdqks8v1gn3xmzdgfd2anz3"
     },
+    "nvim-aibo": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "lambdalisue",
+        "repo": "nvim-aibo"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "dae6b8848e93e138d373fc7bac6791e2dec28696",
+      "url": "https://github.com/lambdalisue/nvim-aibo/archive/dae6b8848e93e138d373fc7bac6791e2dec28696.tar.gz",
+      "hash": "1mywar69kg32viibs3qhp28v0jbm8zjnz6a5wik62mapqcjrwgk6"
+    },
     "nvim-autopairs": {
       "type": "Git",
       "repository": {

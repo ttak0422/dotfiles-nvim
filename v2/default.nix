@@ -920,6 +920,11 @@ in
     commandPlugins = {
       depends = [
         {
+          package = nvim-aibo;
+          postConfig = read "./fnl/aibo.fnl";
+          hooks.commands = [ "Aibo" ];
+        }
+        {
           package = videre-nvim;
           postConfig = read "./fnl/videre.fnl";
           depends = [
