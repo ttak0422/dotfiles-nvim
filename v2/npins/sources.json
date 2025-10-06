@@ -169,6 +169,19 @@
       "url": "https://github.com/vim-denops/denops.vim/archive/f63fa7ffb3fc9693a742c7c1f774223cc111a2d9.tar.gz",
       "hash": "0bgmj41fp0kl7g6129pgcppsl2mc8ylvhj5b1d91s12klxv5jk9y"
     },
+    "direnv.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NotAShelf",
+        "repo": "direnv.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "4dfc8758a1deab45e37b7f3661e0fd3759d85788",
+      "url": "https://github.com/NotAShelf/direnv.nvim/archive/4dfc8758a1deab45e37b7f3661e0fd3759d85788.tar.gz",
+      "hash": "1094iy9rxg0h2mpbdxxb6l5rdr1v5qlix9lyalaqpjym6swbr8ra"
+    },
     "dressing.nvim": {
       "type": "Git",
       "repository": {
