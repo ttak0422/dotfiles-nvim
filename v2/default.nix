@@ -229,6 +229,10 @@ in
           terraform # Terraform
           vim-vint # Vim script
           yamllint # YAML
+          mypy
+          # pydoclint
+          pylint
+          semgrep
         ]
         ++
           # formatters

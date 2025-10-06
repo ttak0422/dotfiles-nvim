@@ -40,6 +40,10 @@
                 diagnostics.terraform_validate
                 diagnostics.vint
                 diagnostics.yamllint
+                diagnostics.mypy
+                ; diagnostics.pydoclint
+                diagnostics.pylint
+                diagnostics.semgrep
                 (formatting.prettier.with {:prefer_local :node_modules/.bin
                                            ; `condition`は起動時に固定されるため利用しない
                                            ; LSPの判定と同様の値を利用する。Activeになるものの適用されない。
