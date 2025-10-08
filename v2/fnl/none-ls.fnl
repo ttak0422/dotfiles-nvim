@@ -41,8 +41,6 @@
                 diagnostics.vint
                 diagnostics.yamllint
                 diagnostics.mypy
-                ; diagnostics.pydoclint
-                diagnostics.pylint
                 diagnostics.semgrep
                 (formatting.prettier.with {:prefer_local :node_modules/.bin
                                            ; `condition`は起動時に固定されるため利用しない

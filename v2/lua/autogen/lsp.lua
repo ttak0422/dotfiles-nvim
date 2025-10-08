@@ -10,4 +10,4 @@ local function _1_(ctx)
   return dofile(args.attach_path)({buf = ctx.buf, client = vim.lsp.get_client_by_id(ctx.data.client_id)})
 end
 vim.api.nvim_create_autocmd("LspAttach", {desc = "register lsp keymaps", callback = _1_})
-return vim.lsp.enable({"bashls", "cssls", "dartls", "denols", "dhall_lsp_server", "rubocop", "fennel_ls", "gopls", "html", "jsonls", "lua_ls", "marksman", "nil_ls", "pyright", "solargraph", "taplo", "terraformls", "typos_lsp", "vtsls", "yamlls"})
+return vim.lsp.enable({"bashls", "cssls", "dartls", "denols", "dhall_lsp_server", "fennel_ls", "gopls", "html", "jsonls", "lua_ls", "marksman", "nil_ls", "pyright", "rubocop", "ruff", "solargraph", "taplo", "terraformls", "typos_lsp", "vtsls", "yamlls"})

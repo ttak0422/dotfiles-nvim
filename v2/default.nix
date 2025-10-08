@@ -194,6 +194,7 @@ in
         nodePackages.yaml-language-server
         pyright
         rubyPackages.solargraph
+        ruff
         rust-analyzer
         taplo-cli
         terraform-ls
@@ -230,8 +231,6 @@ in
           vim-vint # Vim script
           yamllint # YAML
           mypy
-          # pydoclint
-          pylint
           semgrep
         ]
         ++

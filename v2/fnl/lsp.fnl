@@ -34,8 +34,6 @@
                  :dartls
                  :denols
                  :dhall_lsp_server
-                 :rubocop
-                 ; :efm
                  :fennel_ls
                  :gopls
                  :html
@@ -44,6 +42,8 @@
                  :marksman
                  :nil_ls
                  :pyright
+                 :rubocop
+                 :ruff
                  :solargraph
                  :taplo
                  :terraformls
