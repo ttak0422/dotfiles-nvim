@@ -237,6 +237,19 @@
       "url": "https://github.com/ggandor/flit.nvim/archive/7fbf60207cc170be75db3f42e6f6db0d4d887e5d.tar.gz",
       "hash": "1xma8wwms81dlh55c65mfbi4yzij7k58lh1vs23hzz5k7hyjd3nc"
     },
+    "fyler.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "A7Lavinraj",
+        "repo": "fyler.nvim"
+      },
+      "branch": "stable",
+      "submodules": false,
+      "revision": "5e24ff1c46528d8dc2e61c22cc21fb590f626e1e",
+      "url": "https://github.com/A7Lavinraj/fyler.nvim/archive/5e24ff1c46528d8dc2e61c22cc21fb590f626e1e.tar.gz",
+      "hash": "15cxkdcqwra5sm822ahgwpz4l076lww17y1w2hwrxc02lcaarhyp"
+    },
     "garbage-day.nvim": {
       "type": "Git",
       "repository": {

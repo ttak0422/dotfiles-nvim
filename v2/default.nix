@@ -923,6 +923,12 @@ in
     commandPlugins = {
       depends = [
         {
+          package = fyler-nvim;
+          depends = [ devicons ];
+          postConfig = read "./fnl/fyler.fnl";
+          hooks.commands = [ "Fyler" ];
+        }
+        {
           package = nvim-aibo;
           postConfig = read "./fnl/aibo.fnl";
           hooks.commands = [ "Aibo" ];
