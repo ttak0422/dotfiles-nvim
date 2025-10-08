@@ -836,9 +836,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "f0b231b286bd643d0c79f32d263bb9181389aea5",
-      "url": "https://github.com/obsidian-nvim/obsidian.nvim/archive/f0b231b286bd643d0c79f32d263bb9181389aea5.tar.gz",
-      "hash": "1lg3kgl4chyvsxi3l19wh77xyii4iwkwg8sfdb2prd864q11zq4b"
+      "revision": "a1d2617a5d1db4b8c53a3431943168e7a28a38d7",
+      "url": "https://github.com/obsidian-nvim/obsidian.nvim/archive/a1d2617a5d1db4b8c53a3431943168e7a28a38d7.tar.gz",
+      "hash": "09a86glg4shkha7xz74czrain9z51i651n1frj8p3ym29kh17rpa"
     },
     "oil-vcs-status": {
       "type": "Git",
