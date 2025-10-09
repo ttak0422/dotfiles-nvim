@@ -85,6 +85,7 @@ in
       jdtls = read "./fnl/after/lsp/jdtls.fnl";
       lua_ls = read "./fnl/after/lsp/lua_ls.fnl";
       nil_ls = read "./fnl/after/lsp/nil_ls.fnl";
+      pyright = read "./fnl/after/lsp/pyright.fnl";
       typos_lsp = read "./fnl/after/lsp/typos_lsp.fnl";
       vtsls = read "./fnl/after/lsp/vtsls.fnl";
       yamlls = read "./fnl/after/lsp/yamlls.fnl";
