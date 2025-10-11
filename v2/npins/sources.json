@@ -357,6 +357,22 @@
       "url": "https://api.github.com/repos/nvimtools/hydra.nvim/tarball/v1.0.3",
       "hash": "13dd1q951pbwi36r4s1zfs02mk5pyfvwlj1pmv4l8bnc4fs242qv"
     },
+    "image.nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "3rd",
+        "repo": "image.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.4.0",
+      "revision": "446a8a5cc7a3eae3185ee0c697732c32a5547a0b",
+      "url": "https://api.github.com/repos/3rd/image.nvim/tarball/v1.4.0",
+      "hash": "18hgp9qkm596rl0k1n4rrri8y6k84fkacphf9x3mrqwgqrixx80i"
+    },
     "inc-rename.nvim": {
       "type": "Git",
       "repository": {
@@ -570,6 +586,22 @@
       "revision": "aafc9e8e0afe6bf57580858a2849578d8d8db9e0",
       "url": "https://github.com/nvzone/minty/archive/aafc9e8e0afe6bf57580858a2849578d8d8db9e0.tar.gz",
       "hash": "1s5wkrsdybqdc0fwr0x3km6k5n1bdivwdbjhqhfm3kvf3mqz9p4d"
+    },
+    "molten-nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "benlubas",
+        "repo": "molten-nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.9.2",
+      "revision": "a286aa914d9a154bc359131aab788b5a077a5a99",
+      "url": "https://api.github.com/repos/benlubas/molten-nvim/tarball/v1.9.2",
+      "hash": "15hckl6vyf015rdj6ivhv0zqi8vsvys2jj7wdf7bli77w6wxbwkx"
     },
     "morimo": {
       "type": "Git",
@@ -1365,6 +1397,19 @@
       "revision": "7b8c5e790120d9f08c8487dcb80692db6d2087a1",
       "url": "https://github.com/nvzone/volt/archive/7b8c5e790120d9f08c8487dcb80692db6d2087a1.tar.gz",
       "hash": "0ms94297mw7vzn1kwbdbfri4dfg0h352fvm0gb5a0qrn290byfmk"
+    },
+    "wezterm.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "willothy",
+        "repo": "wezterm.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "032c33b621b96cc7228955b4352b48141c482098",
+      "url": "https://github.com/willothy/wezterm.nvim/archive/032c33b621b96cc7228955b4352b48141c482098.tar.gz",
+      "hash": "16a3x84yh6p9i4h3fic59q29cbb6cwmqfx3051g9lxhh3r9dk0xb"
     },
     "wf.nvim": {
       "type": "Git",

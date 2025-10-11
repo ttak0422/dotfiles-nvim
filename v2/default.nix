@@ -13,6 +13,8 @@ in
 {
   package = pkgs.neovim-unwrapped;
 
+  withPython3 = true;
+
   extraPackages = with pkgs; [
     neovim-remote
   ];
@@ -809,6 +811,43 @@ in
         "ObsidianGit"
         "ObsidianGitBranch"
       ];
+    };
+
+    molten = {
+      package = molten-nvim;
+      depends = [
+        {
+          package = image-nvim;
+          postConfig = read "./fnl/image.fnl";
+        }
+        {
+          package = wezterm-nvim;
+          postConfig = read "./fnl/wezterm.fnl";
+        }
+      ];
+      # TODO support `extraPython3Packages`
+      extraPackages = with pkgs.python313Packages; [
+        cairosvg
+        ipykernel
+        jupyter-client
+        kaleido
+        nbformat
+        pillow
+        plotly
+        pnglatex
+        pynvim
+        pyperclip
+        requests
+        websocket-client
+      ];
+      preConfig = read "./fnl/pre-molten.fnl";
+      postConfig = read "./fnl/molten.fnl";
+      hooks = {
+        commands = [
+          "MoltenInit"
+          "MoltenEvaluateLine"
+        ];
+      };
     };
 
     quickfixPlugins = {
