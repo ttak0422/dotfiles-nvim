@@ -33,15 +33,16 @@
                 ; TODO:
                 ; diagnostics.hodolint
                 diagnostics.ktlint
+                diagnostics.mypy
                 diagnostics.selene
+                diagnostics.semgrep
+                diagnostics.sqruff
                 diagnostics.staticcheck
                 diagnostics.statix
                 diagnostics.stylelint
                 diagnostics.terraform_validate
                 diagnostics.vint
                 diagnostics.yamllint
-                diagnostics.mypy
-                diagnostics.semgrep
                 (formatting.prettier.with {:prefer_local :node_modules/.bin
                                            ; `condition`は起動時に固定されるため利用しない
                                            ; LSPの判定と同様の値を利用する。Activeになるものの適用されない。
@@ -99,6 +100,7 @@
                 formatting.ktlint
                 formatting.nixfmt
                 formatting.shfmt
+                formatting.sqruff
                 formatting.stylelint
                 formatting.stylua
                 formatting.terraform_fmt

@@ -225,14 +225,15 @@ in
           go-tools # Go (staticcheck)
           hadolint # Dockerfile
           ktlint # Kotlin
+          mypy
           selene # Lua
+          semgrep
+          sqruff
           statix # Nix
           stylelint # CSS, SCSS, LESS, SASS
           terraform # Terraform
           vim-vint # Vim script
           yamllint # YAML
-          mypy
-          semgrep
         ]
         ++
           # formatters
@@ -248,6 +249,7 @@ in
             nixfmt-rfc-style # Nix
             nodePackages.prettier # JS, TS, ...
             shfmt # shell
+            sqruff
             stylelint # CSS, SCSS, LESS, SASS
             stylua # Lua
             terraform # Terraform
