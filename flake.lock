@@ -173,18 +173,14 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1758537750,
-        "narHash": "sha256-qwU473R0Bgup4ZgBqZayQE+yTn5zDRkXQgjQqtnUwFY=",
-        "owner": "ttak0422",
-        "repo": "bundler",
-        "rev": "f34ae127e23f3a911588deb2e0cd29dced6d3fb1",
-        "type": "github"
+        "lastModified": 1760258571,
+        "narHash": "sha256-woBNXBLflUzpgIfCGMN5NLz6D7ZyQftAu7nog5ZFMTI=",
+        "path": "/Users/tak/ghq/github.com/ttak0422/bundler",
+        "type": "path"
       },
       "original": {
-        "owner": "ttak0422",
-        "ref": "v3",
-        "repo": "bundler",
-        "type": "github"
+        "path": "/Users/tak/ghq/github.com/ttak0422/bundler",
+        "type": "path"
       }
     },
     "capture-vim": {
