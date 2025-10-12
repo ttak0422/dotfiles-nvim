@@ -46,7 +46,7 @@ local function _4_(_, _note)
 end
 callbacks = {enter_note = _4_}
 obsidian.setup({workspaces = workspaces, daily_notes = daily_notes, completion = completion, ui = ui, callbacks = callbacks, statusline = {enabled = false}, footer = {enabled = false}, log_level = vim.log.levels.WARN, legacy_commands = false})
-local dir = _G.Obsidian.dir
+local dir = _G.Obsidian.workspace.path
 local opts = _G.Obsidian.opts
 local get_branch
 local function _8_()
@@ -81,19 +81,19 @@ end
 open_note = _12_
 local ObsidianScratch
 local function _15_()
-  return open_note((path:new(dir) / "scratch.md"), {}, {})
+  return open_note((path.new(dir) / "scratch.md"), {}, {})
 end
 ObsidianScratch = _15_
 local ObsidianGit
 local function _16_()
   local branch = get_default_branch()
-  return open_note(path:new((dir / vim.fs.relpath(vim.fn.expand("~"), vim.fn.getcwd()) / branch)), {}, {vim.fn.fnamemodify(vim.fn.getcwd(), ":t"), branch})
+  return open_note(path.new((dir / vim.fs.relpath(vim.fn.expand("~"), vim.fn.getcwd()) / branch)), {}, {vim.fn.fnamemodify(vim.fn.getcwd(), ":t"), branch})
 end
 ObsidianGit = _16_
 local ObsidianGitBranch
 local function _17_()
   local branch = get_branch()
-  return open_note(path:new((dir / vim.fs.relpath(vim.fn.expand("~"), vim.fn.getcwd()) / branch)), {}, {vim.fn.fnamemodify(vim.fn.getcwd(), ":t"), branch})
+  return open_note(path.new((dir / vim.fs.relpath(vim.fn.expand("~"), vim.fn.getcwd()) / branch)), {}, {vim.fn.fnamemodify(vim.fn.getcwd(), ":t"), branch})
 end
 ObsidianGitBranch = _17_
 for lhs, rhs in pairs({ObsidianScratch = ObsidianScratch, ObsidianGit = ObsidianGit, ObsidianGitBranch = ObsidianGitBranch}) do

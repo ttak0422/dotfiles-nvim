@@ -53,8 +53,8 @@
                  :footer {:enabled false}
                  :log_level vim.log.levels.WARN})
 
-(let [dir (. (. _G :Obsidian) :dir)
-      opts (. (. _G :Obsidian) :opts)
+(let [dir _G.Obsidian.workspace.path
+      opts _G.Obsidian.opts
       get_branch #(let [out (: (vim.system [:git
                                             :rev-parse
                                             :--abbrev-ref
@@ -80,16 +80,16 @@
                                           : tags
                                           :dir (p:parent)})
                             :write {:template nil})) :open))
-      ObsidianScratch #(open_note (/ (path:new dir) :scratch.md) [] [])
+      ObsidianScratch #(open_note (/ (path.new dir) :scratch.md) [] [])
       ObsidianGit #(let [branch (get_default_branch)]
-                     (open_note (path:new (/ dir
+                     (open_note (path.new (/ dir
                                              (vim.fs.relpath (vim.fn.expand "~")
                                                              (vim.fn.getcwd))
                                              branch))
                                 [] [(vim.fn.fnamemodify (vim.fn.getcwd) ":t")
                                    branch]))
       ObsidianGitBranch #(let [branch (get_branch)]
-                           (open_note (path:new (/ dir
+                           (open_note (path.new (/ dir
                                                    (vim.fs.relpath (vim.fn.expand "~")
                                                                    (vim.fn.getcwd))
                                                    branch))
