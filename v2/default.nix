@@ -346,7 +346,10 @@ in
 
     render-markdown = {
       package = render-markdown-nvim;
-      depends = [ devicons ];
+      depends = [
+        devicons
+        image
+      ];
       postConfig = read "./fnl/render-markdown.fnl";
       hooks.fileTypes = [
         "markdown"
@@ -825,6 +828,7 @@ in
       depends = [
         telescope
         blink
+        image
       ];
       extraPackages = with pkgs; [ pngpaste ];
       postConfig = read "./fnl/obsidian.fnl";
@@ -836,15 +840,18 @@ in
       ];
     };
 
+    image = {
+      package = image-nvim;
+      extraPackages = with pkgs; [ imagemagick ];
+      postConfig = read "./fnl/image.fnl";
+      hooks.fileTypes = [ "markdown" ];
+    };
+
     molten = {
       package = molten-nvim;
       extraPackages = with pkgs; [ imagemagick ];
       depends = [
-        {
-          package = image-nvim;
-          extraPackages = with pkgs; [ imagemagick ];
-          postConfig = read "./fnl/image.fnl";
-        }
+        image
         {
           package = wezterm-nvim;
           postConfig = read "./fnl/wezterm.fnl";
