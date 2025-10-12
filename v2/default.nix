@@ -38,7 +38,7 @@ in
 
   extraLuaPackages =
     ps: with ps; [
-      # molten
+      # molten and image
       magick
     ];
 
@@ -842,6 +842,7 @@ in
       depends = [
         {
           package = image-nvim;
+          extraPackages = with pkgs; [ imagemagick ];
           postConfig = read "./fnl/image.fnl";
         }
         {
