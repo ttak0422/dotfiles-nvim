@@ -21,19 +21,21 @@ in
 
   extraPython3Packages =
     ps: with ps; [
-      # molten (仮想環境を利用すべきではある)
-      cairosvg
-      ipykernel
-      jupyter-client
-      kaleido
-      nbformat
-      pillow
-      plotly
-      pnglatex
-      pynvim
-      pyperclip
-      requests
-      websocket-client
+      ### molten ###
+      # cairosvg
+      # ipykernel
+      # jupyter-client
+      # kaleido
+      # nbformat
+      # plotly
+      # pnglatex
+      # pynvim
+      # pyperclip
+      ### molten (to open image) ###
+      # pillow
+      ### molten (to connect api) ###
+      # requests
+      # websocket-client
     ];
 
   extraLuaPackages =
@@ -848,6 +850,7 @@ in
       hooks.fileTypes = [ "markdown" ];
     };
 
+    # see https://github.com/ttak0422/molten-setup
     molten = {
       package = molten-nvim;
       extraPackages = with pkgs; [ imagemagick ];
@@ -860,7 +863,7 @@ in
         {
           package = jupytext-nvim;
           postConfig = read "./fnl/jupytext.fnl";
-          extraPackages = with pkgs; [ python313Packages.jupytext ];
+          # extraPackages = with pkgs; [ python313Packages.jupytext ];
         }
         {
           package = NotebookNavigator-nvim;
