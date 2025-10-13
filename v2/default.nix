@@ -119,6 +119,7 @@ in
   eager = with pkgs.vimPlugins.v2; {
     morimo.package = morimo;
     plenary.package = plenary-nvim;
+    bg.package = bg-nvim;
     nui.package = nui-nvim;
     config-local.package = nvim-config-local;
     snacks = {

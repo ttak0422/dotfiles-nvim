@@ -78,6 +78,19 @@
       "url": "https://github.com/max397574/better-escape.nvim/archive/19a38aab94961016430905ebec30d272a01e9742.tar.gz",
       "hash": "107fjwza6570saz7p9kpdm3937x0a0g4ank60s228cbavx09jq1s"
     },
+    "bg.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "typicode",
+        "repo": "bg.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "df916e4df2493ee302eea62185ed014ba7ca40d9",
+      "url": "https://github.com/typicode/bg.nvim/archive/df916e4df2493ee302eea62185ed014ba7ca40d9.tar.gz",
+      "hash": "0cndjgy6424423j226rkzl8ww0cyjr5wv7wgmaxdgxj491glbrhz"
+    },
     "blink-cmp-avante": {
       "type": "Git",
       "repository": {
