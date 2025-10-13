@@ -22,20 +22,20 @@ in
   extraPython3Packages =
     ps: with ps; [
       ### molten ###
-      # cairosvg
-      # ipykernel
-      # jupyter-client
-      # kaleido
-      # nbformat
-      # plotly
-      # pnglatex
-      # pynvim
-      # pyperclip
+      cairosvg
+      ipykernel
+      jupyter-client
+      kaleido
+      nbformat
+      plotly
+      pnglatex
+      pynvim
+      pyperclip
       ### molten (to open image) ###
-      # pillow
+      pillow
       ### molten (to connect api) ###
-      # requests
-      # websocket-client
+      requests
+      websocket-client
     ];
 
   extraLuaPackages =
@@ -863,7 +863,7 @@ in
         {
           package = jupytext-nvim;
           postConfig = read "./fnl/jupytext.fnl";
-          # extraPackages = with pkgs; [ python313Packages.jupytext ];
+          extraPackages = with pkgs; [ python313Packages.jupytext ];
         }
         {
           package = NotebookNavigator-nvim;
