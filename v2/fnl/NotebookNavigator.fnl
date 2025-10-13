@@ -1,0 +1,1 @@
+((. (require :notebook-navigator) :setup))

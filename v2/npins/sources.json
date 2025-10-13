@@ -13,6 +13,19 @@
       "url": null,
       "hash": "0m9qgjfdzq2yr3qs41xv9zmifq3wzgl8s86j87i6izd8np49z610"
     },
+    "NotebookNavigator.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "GCBallesteros",
+        "repo": "NotebookNavigator.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "20cb6f72939194e32eb3060578b445e5f2e7ae8b",
+      "url": "https://github.com/GCBallesteros/NotebookNavigator.nvim/archive/20cb6f72939194e32eb3060578b445e5f2e7ae8b.tar.gz",
+      "hash": "1pp9rcapcj0z741djdsqqci56c3hvnl93ypghibrj8jzbckwflpq"
+    },
     "alpha-nvim": {
       "type": "Git",
       "repository": {
@@ -398,6 +411,19 @@
       "revision": "990e1f96699b8293b6665b9e73b16128c66684e6",
       "url": "https://github.com/MysticalDevil/inlay-hints.nvim/archive/990e1f96699b8293b6665b9e73b16128c66684e6.tar.gz",
       "hash": "0y2bdk4mbxysh7hjamf164hwwcy5nm431l17z64qfm90kjk5qvhy"
+    },
+    "jupytext.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "GCBallesteros",
+        "repo": "jupytext.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "c8baf3ad344c59b3abd461ecc17fc16ec44d0f7b",
+      "url": "https://github.com/GCBallesteros/jupytext.nvim/archive/c8baf3ad344c59b3abd461ecc17fc16ec44d0f7b.tar.gz",
+      "hash": "1lz8ajcy9gm02bwgq5rr5ppx4g1irzvgx074mqmbv7xawij5241c"
     },
     "keep-split-ratio.nvim": {
       "type": "Git",

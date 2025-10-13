@@ -21,7 +21,7 @@ in
 
   extraPython3Packages =
     ps: with ps; [
-      # molten
+      # molten (仮想環境を利用すべきではある)
       cairosvg
       ipykernel
       jupyter-client
@@ -855,6 +855,15 @@ in
         {
           package = wezterm-nvim;
           postConfig = read "./fnl/wezterm.fnl";
+        }
+        {
+          package = jupytext-nvim;
+          postConfig = read "./fnl/jupytext.fnl";
+          extraPackages = with pkgs; [ python313Packages.jupytext ];
+        }
+        {
+          package = NotebookNavigator-nvim;
+          postConfig = read "./fnl/NotebookNavigator.fnl";
         }
       ];
       # TODO support `extraPython3Packages` and 'extraLuaPackages'.
