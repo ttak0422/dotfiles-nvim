@@ -6,5 +6,4 @@
                                              ;; :reload  "<Leader>dr"
                                              ;; :edit  "<Leader>de"
                                              }
-                               :notifications {:level vim.log.levels.INFO
-                                               :silent_autoload false}})
+                               :notifications {:silent_autoload true}})
