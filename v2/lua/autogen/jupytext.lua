@@ -1,3 +1,2 @@
 -- [nfnl] v2/fnl/jupytext.fnl
-require("jupytext").setup()
-return vim.cmd("edit!")
+return require("jupytext").setup({style = "markdown", output_extension = "md", force_ft = "markdown"})

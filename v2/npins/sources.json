@@ -950,6 +950,19 @@
       "url": "https://github.com/stevearc/oil.nvim/archive/07f80ad645895af849a597d1cac897059d89b686.tar.gz",
       "hash": "15r6kmpki4blmlv4b49b8rpmjkl05jz03wz98raxq9vvafsxgvzz"
     },
+    "otter.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "jmbuhr",
+        "repo": "otter.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "fc0aa35b1985077d11a20ddf4006bf40f2cd7397",
+      "url": "https://github.com/jmbuhr/otter.nvim/archive/fc0aa35b1985077d11a20ddf4006bf40f2cd7397.tar.gz",
+      "hash": "010yfxip47mrg01zbmfy9pqhs3yncrj6qp0dz35wi3zw3xpl3vxh"
+    },
     "pathlib.nvim": {
       "type": "Git",
       "repository": {
@@ -1001,6 +1014,19 @@
       "revision": "8c6bad7d22eef1b71144b401c9f74ed01526a4fb",
       "url": "https://github.com/ahmedkhalf/project.nvim/archive/8c6bad7d22eef1b71144b401c9f74ed01526a4fb.tar.gz",
       "hash": "1md639mcs3dgvhvx93wi0rxiwjnb195r9al9bfqvcvl3r307gxba"
+    },
+    "quarto-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "quarto-dev",
+        "repo": "quarto-nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "0e9491509b38efbd83d3f41dbfacc7fc4bd40191",
+      "url": "https://github.com/quarto-dev/quarto-nvim/archive/0e9491509b38efbd83d3f41dbfacc7fc4bd40191.tar.gz",
+      "hash": "1vdlmmwbzw42hwk9x1dwrpk4012bwk7rymqaqaqh5f2zcwxhrhcb"
     },
     "render-markdown.nvim": {
       "type": "GitRelease",

@@ -104,6 +104,7 @@ in
       toml = read "./fnl/after/ftplugin/toml.fnl";
       lua = read "./fnl/after/ftplugin/lua.fnl";
       translate = read "./fnl/after/ftplugin/translate.fnl";
+      python = read "./fnl/after/ftplugin/python.fnl";
     };
     lsp = {
       denols = read "./fnl/after/lsp/denols.fnl";
@@ -865,9 +866,22 @@ in
           postConfig = read "./fnl/jupytext.fnl";
           extraPackages = with pkgs; [ python313Packages.jupytext ];
         }
+        # {
+        #   package = NotebookNavigator-nvim;
+        #   postConfig = read "./fnl/NotebookNavigator.fnl";
+        # }
         {
-          package = NotebookNavigator-nvim;
-          postConfig = read "./fnl/NotebookNavigator.fnl";
+          package = quarto-nvim;
+          depends = [
+            {
+              package = otter-nvim;
+              postConfig = read "./fnl/otter.fnl";
+              hooks.modules = [ "otter" ];
+            }
+          ];
+          extraPackages = with pkgs; [ quarto ];
+          postConfig = read "./fnl/quart.fnl";
+          hooks.modules = [ "quarto" ];
         }
       ];
       # TODO support `extraPython3Packages` and 'extraLuaPackages'.

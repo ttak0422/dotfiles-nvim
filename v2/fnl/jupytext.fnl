@@ -1,4 +1,3 @@
-((. (require :jupytext) :setup))
-
-;; HACK: BufReadCmdを発火させるため
-(vim.cmd :edit!)
+((. (require :jupytext) :setup) {:style :markdown
+                                 :output_extension :md
+                                 :force_ft :markdown})

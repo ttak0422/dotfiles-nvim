@@ -1,4 +1,6 @@
-(set vim.g.molten_auto_image_popup (not vim.g.neovide))
-(set vim.g.molten_auto_open_output true)
+(set vim.g.molten_auto_image_popup false)
+(set vim.g.molten_auto_open_output false)
 (set vim.g.molten_image_provider :image.nvim)
 (set vim.g.molten_output_win_max_height 20)
+(set vim.g.molten_virt_lines_off_by_1 true)
+(set vim.g.molten_virt_text_output true)
