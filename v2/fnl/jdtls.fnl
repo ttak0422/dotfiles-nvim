@@ -9,7 +9,7 @@
                                                                (vim.fn.fnamemodify ":p:h")
                                                                (string.gsub "/"
                                                                             "_")))]
-                                     (do
-                                       (os.execute (.. "rm -rf " workspace_dir))
-                                       (vim.notify "Deleted JDTLS workspace data.")))
+                                     (vim.notify "Starting to delete JDTLS workspace data.")
+                                     (os.execute (.. "rm -rf " workspace_dir))
+                                     (vim.notify "JDTLS workspace data deleted."))
                                   {})
