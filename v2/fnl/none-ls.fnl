@@ -44,13 +44,14 @@
                 diagnostics.vint
                 diagnostics.yamllint
                 (formatting.prettier.with {:prefer_local :node_modules/.bin
-                                           ; `condition`は起動時に固定されるため利用しない
-                                           ; LSPの判定と同様の値を利用する。Activeになるものの適用されない。
-                                           :runtime_condition #((. (require :null-ls.utils)
-                                                                   :root_has_file) [:tsconfig.json
-                                                                                    :package.json
-                                                                                    :jsconfig.json
-                                                                                    :.node_project])
+                                           :runtime_condition (fn [params]
+                                                                (let [bufname (vim.api.nvim_buf_get_name params.bufnr)
+                                                                      targets [:tsconfig.json
+                                                                               :package.json
+                                                                               :jsconfig.json
+                                                                               :.node_project]]
+                                                                  (vim.fs.root bufname
+                                                                               targets)))
                                            :filetypes [:javascript
                                                        :javascriptreact
                                                        :typescript

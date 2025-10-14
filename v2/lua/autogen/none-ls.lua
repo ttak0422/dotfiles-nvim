@@ -14,8 +14,10 @@ end
 local function _2_(ps)
   return (ps.bufname ~= "")
 end
-local function _3_()
-  return require("null-ls.utils").root_has_file({"tsconfig.json", "package.json", "jsconfig.json", ".node_project"})
+local function _3_(params)
+  local bufname = vim.api.nvim_buf_get_name(params.bufnr)
+  local targets = {"tsconfig.json", "package.json", "jsconfig.json", ".node_project"}
+  return vim.fs.root(bufname, targets)
 end
 local function _4_()
   return (vim.g.idea_format ~= nil)
