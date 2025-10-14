@@ -71,7 +71,13 @@
                                                        :svelte
                                                        :astro
                                                        :htmlangular]})
-                (. (require :none-ls.diagnostics.eslint))
+                 (diagnostics.eslint.with
+                   {:runtime_condition (fn [params]
+                                         (let [bufname (vim.api.nvim_buf_get_name params.bufnr)
+                                                       targets [:.eslintrc
+                                                                 :eslint.config.js]]
+                                           (vim.fs.root bufname
+                                                        targets)))})
                 ;;; completion ;;;
                 ;;; formatting ;;;
                 formatting.biome
