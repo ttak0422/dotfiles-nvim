@@ -5,6 +5,7 @@
 (local helpers (require :null-ls.helpers))
 (local methods (require :null-ls.methods))
 (local FORMATTING methods.internal.FORMATTING)
+(local eslint (require :none-ls.diagnostics.eslint))
 
 (set vim.g.idea_path args.idea)
 
@@ -71,13 +72,12 @@
                                                        :svelte
                                                        :astro
                                                        :htmlangular]})
-                 (diagnostics.eslint.with
-                   {:runtime_condition (fn [params]
-                                         (let [bufname (vim.api.nvim_buf_get_name params.bufnr)
-                                                       targets [:.eslintrc
-                                                                 :eslint.config.js]]
-                                           (vim.fs.root bufname
-                                                        targets)))})
+                (eslint.with {:runtime_condition (fn [params]
+                                                   (let [bufname (vim.api.nvim_buf_get_name params.bufnr)
+                                                         targets [:.eslintrc
+                                                                  :eslint.config.js]]
+                                                     (vim.fs.root bufname
+                                                                  targets)))})
                 ;;; completion ;;;
                 ;;; formatting ;;;
                 formatting.biome
