@@ -48,7 +48,6 @@
                                                                  helpers.cache.by_bufnr)})
                 ;;; completion ;;;
                 ;;; formatting ;;;
-                formatting.biome
                 formatting.fantomas
                 formatting.fnlfmt
                 formatting.gofumpt
@@ -83,10 +82,13 @@
                                                                             nil)
                                                      :timeout 20000})
                 (formatting.prettier.with {:prefer_local :node_modules/.bin
-                                           :runtime_condition (-> #((utils.root_pattern [:tsconfig.json
-                                                                                         :package.json
-                                                                                         :jsconfig.json
-                                                                                         :.node_project]) $1.bufname)
+                                           :runtime_condition (-> #(and ((utils.root_pattern [:tsconfig.json
+                                                                                              :package.json
+                                                                                              :jsconfig.json
+                                                                                              :.node_project]) $1.bufname)
+                                                                        (not ((utils.root_pattern [:rome.json
+                                                                                                   :biome.json
+                                                                                                   :biome.jsonc]) $1.bufname)))
                                                                   helpers.cache.by_bufnr)
                                            :filetypes [:javascript
                                                        :javascriptreact
@@ -107,6 +109,10 @@
                                                        :svelte
                                                        :astro
                                                        :htmlangular]})
+                (formatting.biome.with {:runtime_condition (-> #((utils.root_pattern [:rome.json
+                                                                                      :biome.json
+                                                                                      :biome.jsonc]) $1.bufname)
+                                                               helpers.cache.by_bufnr)})
                 ;;; hover ;;;
                 ])
 
