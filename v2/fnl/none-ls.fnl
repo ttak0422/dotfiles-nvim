@@ -5,7 +5,7 @@
 (local helpers (require :null-ls.helpers))
 (local methods (require :null-ls.methods))
 (local FORMATTING methods.internal.FORMATTING)
-(local eslint (require :none-ls.diagnostics.eslint))
+(local diagnostics_eslint (require :none-ls.diagnostics.eslint))
 
 (set vim.g.idea_path args.idea)
 
@@ -17,8 +17,7 @@
                 ; <headless_idea_path>/Applications/IntelliJ\ IDEA\ CE.app/Contents/MacOS/idea \
                 ; -Didea.config.path=~/Library/Application\ Support/JetBrains/<versions>/options/ \
                 ; inspect \
-                ; <target_path>
-                ; .idea/inspectionProfiles/Project_Default.xml  \
+                ; <target_path> .idea/inspectionProfiles/Project_Default.xml  \
                 ; /tmp/profile
                 (diagnostics.checkstyle.with {:runtime_condition #(not= vim.g.checkstyle
                                                                         nil)
@@ -44,40 +43,9 @@
                 diagnostics.terraform_validate
                 diagnostics.vint
                 diagnostics.yamllint
-                (formatting.prettier.with {:prefer_local :node_modules/.bin
-                                           :runtime_condition (fn [params]
-                                                                (let [bufname (vim.api.nvim_buf_get_name params.bufnr)
-                                                                      targets [:tsconfig.json
-                                                                               :package.json
-                                                                               :jsconfig.json
-                                                                               :.node_project]]
-                                                                  (vim.fs.root bufname
-                                                                               targets)))
-                                           :filetypes [:javascript
-                                                       :javascriptreact
-                                                       :typescript
-                                                       :typescriptreact
-                                                       :vue
-                                                       :css
-                                                       :scss
-                                                       :less
-                                                       ; :html
-                                                       ; :json
-                                                       ; :jsonc
-                                                       ; :yaml
-                                                       ; :markdown
-                                                       ; :markdown.mdx
-                                                       :graphql
-                                                       :handlebars
-                                                       :svelte
-                                                       :astro
-                                                       :htmlangular]})
-                (eslint.with {:runtime_condition (fn [params]
-                                                   (let [bufname (vim.api.nvim_buf_get_name params.bufnr)
-                                                         targets [:.eslintrc
-                                                                  :eslint.config.js]]
-                                                     (vim.fs.root bufname
-                                                                  targets)))})
+                (diagnostics_eslint.with {:runtime_condition (-> #((utils.root_pattern [:.eslintrc
+                                                                                        :eslint.config.js]) $1.bufname)
+                                                                 helpers.cache.by_bufnr)})
                 ;;; completion ;;;
                 ;;; formatting ;;;
                 formatting.biome
@@ -85,6 +53,16 @@
                 formatting.fnlfmt
                 formatting.gofumpt
                 formatting.goimports
+                formatting.ktlint
+                formatting.nixfmt
+                formatting.shfmt
+                formatting.sqruff
+                formatting.stylelint
+                formatting.stylua
+                formatting.terraform_fmt
+                formatting.tidy
+                formatting.yamlfmt
+                formatting.yapf
                 ; `vim.g.idea_format`が設定されている場合ideaを利用する
                 (helpers.make_builtin {:name :idea
                                        :method FORMATTING
@@ -104,16 +82,31 @@
                 (formatting.google_java_format.with {:runtime_condition #(= vim.g.idea_format
                                                                             nil)
                                                      :timeout 20000})
-                formatting.ktlint
-                formatting.nixfmt
-                formatting.shfmt
-                formatting.sqruff
-                formatting.stylelint
-                formatting.stylua
-                formatting.terraform_fmt
-                formatting.tidy
-                formatting.yamlfmt
-                formatting.yapf
+                (formatting.prettier.with {:prefer_local :node_modules/.bin
+                                           :runtime_condition (-> #((utils.root_pattern [:tsconfig.json
+                                                                                         :package.json
+                                                                                         :jsconfig.json
+                                                                                         :.node_project]) $1.bufname)
+                                                                  helpers.cache.by_bufnr)
+                                           :filetypes [:javascript
+                                                       :javascriptreact
+                                                       :typescript
+                                                       :typescriptreact
+                                                       :vue
+                                                       :css
+                                                       :scss
+                                                       :less
+                                                       ; :html
+                                                       ; :json
+                                                       ; :jsonc
+                                                       ; :yaml
+                                                       ; :markdown
+                                                       ; :markdown.mdx
+                                                       :graphql
+                                                       :handlebars
+                                                       :svelte
+                                                       :astro
+                                                       :htmlangular]})
                 ;;; hover ;;;
                 ])
 
