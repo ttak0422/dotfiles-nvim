@@ -911,6 +911,19 @@
       "url": "https://api.github.com/repos/nvim-tree/nvim-web-devicons/tarball/v0.100",
       "hash": "0d7gzk06f6z9wq496frbaavx90mcxvdhrswqd3pcayj2872i698d"
     },
+    "nvim_context_vt": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "andersevenrud",
+        "repo": "nvim_context_vt"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "fadbd9e57af72f6df3dd33df32ee733aa01cdbc0",
+      "url": "https://github.com/andersevenrud/nvim_context_vt/archive/fadbd9e57af72f6df3dd33df32ee733aa01cdbc0.tar.gz",
+      "hash": "0rx7lik3c40ka9y4qws0d960lzhvpnkv5hs512140dq4k2n5f6l2"
+    },
     "obsidian.nvim": {
       "type": "Git",
       "repository": {

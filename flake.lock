@@ -2820,22 +2820,6 @@
         "type": "github"
       }
     },
-    "nvim_context_vt": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1754134456,
-        "narHash": "sha256-sYMeft/cpZ55opMSNvO567h8ZI2r2yDA/UYd86y537c=",
-        "owner": "haringsrob",
-        "repo": "nvim_context_vt",
-        "rev": "b69f642f7848fec8c056a7e2c9452e3dec84c2b5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "haringsrob",
-        "repo": "nvim_context_vt",
-        "type": "github"
-      }
-    },
     "octo-nvim": {
       "flake": false,
       "locked": {
@@ -3153,7 +3137,6 @@
         "nvim-window": "nvim-window",
         "nvim-window-picker": "nvim-window-picker",
         "nvim-yati": "nvim-yati",
-        "nvim_context_vt": "nvim_context_vt",
         "octo-nvim": "octo-nvim",
         "open-nvim": "open-nvim",
         "other-nvim": "other-nvim",

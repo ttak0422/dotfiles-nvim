@@ -67,10 +67,6 @@
       url = "github:numToStr/Comment.nvim";
       flake = false;
     };
-    nvim_context_vt = {
-      url = "github:haringsrob/nvim_context_vt";
-      flake = false;
-    };
     detour-nvim = {
       url = "github:carbon-steel/detour.nvim";
       flake = false;
