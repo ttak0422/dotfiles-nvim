@@ -112,7 +112,15 @@
                 (formatting.biome.with {:runtime_condition (-> #((utils.root_pattern [:rome.json
                                                                                       :biome.json
                                                                                       :biome.jsonc]) $1.bufname)
-                                                               helpers.cache.by_bufnr)})
+                                                               helpers.cache.by_bufnr)
+                                        :filetypes [:javascript
+                                                    :typescript
+                                                    :javascriptreact
+                                                    :typescriptreact
+                                                    ; :json
+                                                    ; :jsonc
+                                                    :css
+                                                    :graphql]})
                 ;;; hover ;;;
                 ])
 
