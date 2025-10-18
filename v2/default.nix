@@ -653,7 +653,7 @@ in
               vim.keymap.set("c", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
               vim.keymap.set("t", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
 
-              vim.cmd([[highlight SkkeletonHenkan gui=underline term=underline]])
+              vim.cmd([[highlight SkkeletonHenkan gui=reverse term=reverse]])
             '';
           useDenops = true;
         }
