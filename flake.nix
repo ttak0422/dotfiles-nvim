@@ -195,10 +195,6 @@
       url = "github:nyngwang/NeoZoom.lua";
       flake = false;
     };
-    nfnl = {
-      url = "github:Olical/nfnl";
-      flake = false;
-    };
     noice-nvim = {
       url = "github:folke/noice.nvim";
       flake = false;

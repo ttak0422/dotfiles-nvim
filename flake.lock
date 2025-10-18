@@ -2050,22 +2050,6 @@
         "type": "github"
       }
     },
-    "nfnl": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1747680483,
-        "narHash": "sha256-eItE1iC84ByhFoSc8I26susdLADx4G+fZS6bp7lrQww=",
-        "owner": "Olical",
-        "repo": "nfnl",
-        "rev": "19cac83657514a0718b7af4a086d06bd73269b7a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Olical",
-        "repo": "nfnl",
-        "type": "github"
-      }
-    },
     "nginx-vim": {
       "flake": false,
       "locked": {
@@ -3104,7 +3088,6 @@
         "neotest-vim-test": "neotest-vim-test",
         "neotest-vitest": "neotest-vitest",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
-        "nfnl": "nfnl",
         "nginx-vim": "nginx-vim",
         "nix-filter": "nix-filter_2",
         "nix-vscode-extensions": "nix-vscode-extensions",

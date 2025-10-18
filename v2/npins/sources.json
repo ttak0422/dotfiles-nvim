@@ -694,6 +694,19 @@
       "url": "https://github.com/danymat/neogen/archive/d7f9461727751fb07f82011051338a9aba07581d.tar.gz",
       "hash": "04fyip1px2x8i5ibvh8qh7cw52dymj57qlfdr92qkqyfj9hpqxdr"
     },
+    "nfnl": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Olical",
+        "repo": "nfnl"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "1003f43e3420475e181ce7cf609648a5e9ce35ca",
+      "url": "https://github.com/Olical/nfnl/archive/1003f43e3420475e181ce7cf609648a5e9ce35ca.tar.gz",
+      "hash": "1n6dixfa3zqx54xrdx3ga3vj6qd11ns9wxyaz9pd6rrxj0x1pnc0"
+    },
     "no-neck-pain.nvim": {
       "type": "GitRelease",
       "repository": {
