@@ -1,3 +1,28 @@
+;; WIP
+(macro cond [...]
+  (let [xs [...]
+        n (length xs)]
+    (assert (> n 0) "cond!: at least one clause is required")
+    (assert (= (% n 2) 0) "cond!: clauses must be pairs: test expr ...")
+    (var acc nil)
+    (for [i n 2 -2]
+      (let [a (. xs (- i 1))
+            b (. xs i)]
+        (if (= a `_)
+            (do
+              (assert (= i n) "cond!: _ must be the last clause")
+              (set acc b))
+            (let [head (and (= (type a) :table) (> (length a) 0) (. a 1))]
+              (if (and head (= (tostring head) :let))
+                  (do
+                    (assert (= (length a) 3)
+                            "cond!: :let form is (:let [bindings] test)")
+                    (let [bindings (. a 2)
+                          test (. a 3)]
+                      (set acc `(let ,bindings (if ,test ,b ,acc)))))
+                  (set acc `(if ,a ,b ,acc)))))))
+    acc))
+
 (local dropbar (require :dropbar))
 (local api (require :dropbar.api))
 (local utils (require :dropbar.utils))
@@ -39,12 +64,12 @@
                                 :Log ""
                                 :Lsp ""
                                 :Macro ""
-                                :MarkdownH1 "󰉫 "
-                                :MarkdownH2 "󰉬 "
-                                :MarkdownH3 "󰉭 "
-                                :MarkdownH4 "󰉮 "
-                                :MarkdownH5 "󰉯 "
-                                :MarkdownH6 "󰉰 "
+                                :MarkdownH1 ""
+                                :MarkdownH2 ""
+                                :MarkdownH3 ""
+                                :MarkdownH4 ""
+                                :MarkdownH5 ""
+                                :MarkdownH6 ""
                                 :Method ""
                                 :Module ""
                                 :Namespace ""
@@ -79,12 +104,11 @@
                                 :WhileStatement ""}}})
 
 (local bar {:attach_events [:BufWinEnter :BufWritePost]
-            :update_events {:win [:CursorMoved :WinResized :InsertLeave]
-                            :buf [:BufModifiedSet :FileChangedShellPost]
+            :update_events {:win [:WinResized]
+                            :buf []
                             :global [:DirChanged :VimResized]}
             :sources (fn [buf _]
                        (case [(. vim.bo buf :ft) (. vim.bo buf :buftype)]
-                         [:markdown _] [sources.path sources.markdown]
                          [_ :terminal] [sources.terminal]
                          _ [sources.path]))})
 
@@ -105,25 +129,50 @@
                          :<CR> select
                          :i fuzzy}}))
 
-(local sources
-       {:path {:relative_to (let [default_vault (-> (.. (os.getenv :HOME)
-                                                        :/vaults/default/)
-                                                    (vim.fn.fnamemodify ":p:h")
-                                                    (vim.uv.fs_realpath))]
-                              (fn [buf _win]
-                                (let [buf_path (vim.api.nvim_buf_get_name buf)]
-                                  (if (and default_vault
-                                           (= (. vim.bo buf :ft) :markdown)
-                                           (vim.startswith buf_path
-                                                           default_vault))
-                                      default_vault
-                                      (let [found (vim.fs.find [:.git]
-                                                               {:path buf_path
-                                                                :upward true})]
-                                        (if (> (length found) 0)
-                                            (vim.fn.fnamemodify (. found 1)
-                                                                ":h")
-                                            (vim.fn.getcwd)))))))}})
+(local sources {:path {:relative_to (let [find (fn [path]
+                                                 (vim.fs.find [:.git]
+                                                              {: path
+                                                               :upward true}))]
+                                      (fn [buf _win]
+                                        (let [path (vim.api.nvim_buf_get_name buf)
+                                              ft (?. (. vim.bo buf) :ft)]
+                                          (or (cond ;;; obsidian ;;;
+                                                    (= ft :markdown)
+                                                    (let [vault (or (-> (.. (os.getenv :HOME)
+                                                                            :/vaults/default/)
+                                                                        (vim.fn.fnamemodify ":p:h")
+                                                                        (vim.uv.fs_realpath))
+                                                                    "")]
+                                                      (if (vim.startswith path
+                                                                          vault)
+                                                          vault))
+                                                    ;;; Maven Standard Directory Layout (java / kotlin / scala) ;;;
+                                                    (or (= ft :java)
+                                                        (= ft :kotlin)
+                                                        (= ft :scala))
+                                                    (let [root (-> (or (. (find path)
+                                                                          1)
+                                                                       "")
+                                                                   (vim.fn.fnamemodify ":h"))]
+                                                      (each [_ p (pairs [:/src/main/java
+                                                                         :/src/main/kotlin
+                                                                         :/src/main/scala
+                                                                         :/src/test/java
+                                                                         :/src/test/kotlin
+                                                                         :/src/test/scala])]
+                                                        (let [l (.. root p)]
+                                                          (if (vim.startswith path
+                                                                              l)
+                                                              ;; FIXME: nfnl's problem?
+                                                              (lua "return l"))))))
+                                              ;; fallbacks
+                                              (cond ;; git project item
+                                                    (:let [found (find path)]
+                                                          (> (length found) 0))
+                                                    (-> (. found 1)
+                                                        (vim.fn.fnamemodify ":h"))
+                                                    ;; other
+                                                    _ nil)))))}})
 
 (dropbar.setup {: icons : bar : menu : sources})
 
