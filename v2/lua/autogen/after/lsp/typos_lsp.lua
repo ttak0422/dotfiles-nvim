@@ -1,2 +1,2 @@
--- [nfnl] Compiled from v2/fnl/after/lsp/typos_lsp.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] v2/fnl/after/lsp/typos_lsp.fnl
 return {init_options = {diagnosticSeverity = "Warning"}}

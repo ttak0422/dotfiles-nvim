@@ -1,4 +1,4 @@
--- [nfnl] Compiled from v2/fnl/devicons.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] v2/fnl/devicons.fnl
 local M = require("nvim-web-devicons")
 local override_by_filename = {}
 local override_by_extension = {norg = {icon = "\238\152\179", name = "Neorg"}}

@@ -1,4 +1,4 @@
--- [nfnl] Compiled from v2/fnl/oil.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] v2/fnl/oil.fnl
 local M = require("oil")
 local function _1_(_name, _bufnr)
   return false

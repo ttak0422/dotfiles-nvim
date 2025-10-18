@@ -1,2 +1,2 @@
--- [nfnl] Compiled from v2/fnl/scope.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] v2/fnl/scope.fnl
 return require("scope").setup()

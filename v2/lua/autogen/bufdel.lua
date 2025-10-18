@@ -1,3 +1,3 @@
--- [nfnl] Compiled from v2/fnl/bufdel.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] v2/fnl/bufdel.fnl
 local bufdel = require("bufdel")
 return bufdel.setup({quit = false})

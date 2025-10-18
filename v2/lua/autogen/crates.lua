@@ -1,4 +1,4 @@
--- [nfnl] Compiled from v2/fnl/crates.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] v2/fnl/crates.fnl
 local crates = require("crates")
 local lsp = {enabled = true, actions = true, hover = true, completion = false}
 local null_ls = {enabled = true, name = "crates.nvim"}

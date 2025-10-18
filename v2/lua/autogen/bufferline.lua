@@ -1,4 +1,4 @@
--- [nfnl] Compiled from v2/fnl/bufferline.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] v2/fnl/bufferline.fnl
 local M = require("bufferline")
 local bg = {attribute = "bg", highlight = "Normal"}
 local fg = {attribute = "fg", highlight = "Normal"}

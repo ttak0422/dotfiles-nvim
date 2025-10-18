@@ -1,4 +1,4 @@
--- [nfnl] Compiled from v2/fnl/which-key.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] v2/fnl/which-key.fnl
 local wk = require("which-key")
 local win = {no_overlap = true}
 local plugins = {presets = {operators = false}}
