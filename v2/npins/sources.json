@@ -367,6 +367,19 @@
       "url": "https://github.com/shellRaining/hlchunk.nvim/archive/474ec5d0f220158afa83aaefab32402e710d3032.tar.gz",
       "hash": "1av6w1y8z9af6aa2mzygdkmz9djv9zx2nn5mij6z38bg8g0qqxfd"
     },
+    "hmts.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "calops",
+        "repo": "hmts.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "a32cd413f7d0a69d7f3d279c631f20cb117c8d30",
+      "url": "https://github.com/calops/hmts.nvim/archive/a32cd413f7d0a69d7f3d279c631f20cb117c8d30.tar.gz",
+      "hash": "1rgw40b00k1n5c0acrvwjg71ngdk3fs4dd5dv2apys4v00k4bx4g"
+    },
     "hydra.nvim": {
       "type": "GitRelease",
       "repository": {

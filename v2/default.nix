@@ -44,20 +44,22 @@ in
       magick
     ];
 
-  extraConfig = ''
-    vim.loader.enable()
-    if vim.g.neovide then dofile("${./lua/autogen/neovide.lua}") end
-    ${read "./fnl/init.fnl"}
-  '';
+  extraConfig = # lua
+    ''
+      vim.loader.enable()
+      if vim.g.neovide then dofile("${./lua/autogen/neovide.lua}") end
+      ${read "./fnl/init.fnl"}
+    '';
 
   after = {
     ftdetect = {
       nginx = {
         language = "vim";
-        code = ''
-          source ${pkgs.vimPlugins.v2.nginx-vim}/ftdetect/nginx.vim
-          au BufRead,BufNewFile *.nginxconf set ft=nginx
-        '';
+        code = # vim
+          ''
+            source ${pkgs.vimPlugins.v2.nginx-vim}/ftdetect/nginx.vim
+            au BufRead,BufNewFile *.nginxconf set ft=nginx
+          '';
       };
     };
     ftplugin = {
@@ -192,10 +194,11 @@ in
       package = vim-lastplace;
       startupConfig = {
         language = "vim";
-        code = ''
-          let g:lastplace_ignore = "gitcommit,gitrebase,undotree,gitsigns-blame"
-          let g:lastplace_ignore_buftype = "help,nofile,quickfix"
-        '';
+        code = # vim
+          ''
+            let g:lastplace_ignore = "gitcommit,gitrebase,undotree,gitsigns-blame"
+            let g:lastplace_ignore_buftype = "help,nofile,quickfix"
+          '';
       };
     };
     lsp = {
@@ -330,10 +333,11 @@ in
       package = denops-vim;
       preConfig = {
         language = "vim";
-        code = ''
-          let g:denops#deno = '${pkgs.deno}/bin/deno'
-          let g:denops#server#deno_args = ['-q', '--no-lock', '-A', '--unstable-kv']
-        '';
+        code = # vim
+          ''
+            let g:denops#deno = '${pkgs.deno}/bin/deno'
+            let g:denops#server#deno_args = ['-q', '--no-lock', '-A', '--unstable-kv']
+          '';
       };
     };
     dressing = {
@@ -411,11 +415,12 @@ in
         avante
         # obsidian
       ];
-      postConfig = ''
-        -- TODO: support linux
-        package.cpath = package.cpath .. ';${inputs'.v2-blink-cmp.packages.blink-fuzzy-lib}/lib/libblink_cmp_fuzzy.dylib'
-        ${read "./fnl/blink.fnl"}
-      '';
+      postConfig = # lua
+        ''
+          -- TODO: support linux
+          package.cpath = package.cpath .. ';${inputs'.v2-blink-cmp.packages.blink-fuzzy-lib}/lib/libblink_cmp_fuzzy.dylib'
+          ${read "./fnl/blink.fnl"}
+        '';
       hooks.modules = [ "blink.cmp" ];
     };
 
@@ -517,9 +522,10 @@ in
 
     hlslens = {
       package = nvim-hlslens;
-      postConfig = ''
-        require("hlslens").setup()
-      '';
+      postConfig = # lua
+        ''
+          require("hlslens").setup()
+        '';
       hooks.events = [ "CmdlineEnter" ];
     };
 
@@ -562,9 +568,10 @@ in
         }
         {
           package = fix-auto-scroll-nvim;
-          postConfig = ''
-            require('fix-auto-scroll').setup()
-          '';
+          postConfig = # lua
+            ''
+              require('fix-auto-scroll').setup()
+            '';
         }
       ];
       postConfig = read "./fnl/buffer-plugins.fnl";
@@ -620,32 +627,33 @@ in
             skkeleton-henkan-highlight
           ];
           depends = [ denops ];
-          postConfig = ''
-            local active_server = vim.system({"lsof", "-i", "tcp:1178"}):wait().stdout:match("yaskkserv") ~= nil
-            if active_server then
-              vim.fn["skkeleton#config"]({
-                sources = { "skk_server" },
-                globalDictionaries = { "${pkgs.skk-dict}/SKK-JISYO.L" },
-                skkServerHost       = "127.0.0.1",
-                skkServerPort       = 1178,
-                markerHenkan        = "",
-                markerHenkanSelect  = "",
-              })
-            else
-              vim.fn["skkeleton#config"]({
-                sources = { "skk_dictionary" },
-                globalDictionaries = { "${pkgs.skk-dict}/SKK-JISYO.L" },
-                markerHenkan        = "",
-                markerHenkanSelect  = "",
-              })
-            end
+          postConfig = # lua
+            ''
+              local active_server = vim.system({"lsof", "-i", "tcp:1178"}):wait().stdout:match("yaskkserv") ~= nil
+              if active_server then
+                vim.fn["skkeleton#config"]({
+                  sources = { "skk_server" },
+                  globalDictionaries = { "${pkgs.skk-dict}/SKK-JISYO.L" },
+                  skkServerHost       = "127.0.0.1",
+                  skkServerPort       = 1178,
+                  markerHenkan        = "",
+                  markerHenkanSelect  = "",
+                })
+              else
+                vim.fn["skkeleton#config"]({
+                  sources = { "skk_dictionary" },
+                  globalDictionaries = { "${pkgs.skk-dict}/SKK-JISYO.L" },
+                  markerHenkan        = "",
+                  markerHenkanSelect  = "",
+                })
+              end
 
-            vim.keymap.set("i", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
-            vim.keymap.set("c", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
-            vim.keymap.set("t", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
+              vim.keymap.set("i", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
+              vim.keymap.set("c", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
+              vim.keymap.set("t", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
 
-            vim.cmd([[highlight SkkeletonHenkan gui=underline term=underline]])
-          '';
+              vim.cmd([[highlight SkkeletonHenkan gui=underline term=underline]])
+            '';
           useDenops = true;
         }
       ];
@@ -692,10 +700,11 @@ in
         {
           package = dmacro-vim;
           postConfig = {
-            code = ''
-              inoremap <C-q> <Plug>(dmacro-play-macro)
-              nnoremap <C-q> <Plug>(dmacro-play-macro)
-            '';
+            code = # vim
+              ''
+                inoremap <C-q> <Plug>(dmacro-play-macro)
+                nnoremap <C-q> <Plug>(dmacro-play-macro)
+              '';
             language = "vim";
           };
         }
@@ -703,9 +712,10 @@ in
           package = switch-vim;
           preConfig = {
             language = "vim";
-            code = ''
-              let g:switch_mapping = '-'
-            '';
+            code = # vim
+              ''
+                let g:switch_mapping = '-'
+              '';
           };
         }
         # {
@@ -735,7 +745,8 @@ in
           postConfig = read "./fnl/marks.fnl";
         }
       ];
-      postConfig = ''
+      postConfig = # lua
+      ''
         vim.cmd([[source ${./vim/edit-plugins.vim}]])
       ''
       + read "./fnl/edit-plugins.fnl";
@@ -801,6 +812,7 @@ in
                 '';
               };
             in
+            # lua
             ''
               vim.g.sonictemplate_vim_template_dir = "${template}"
               vim.g.sonictemplate_key = 0
@@ -893,51 +905,52 @@ in
         # TODO: support rplugins lazy loading.
         # When updating, verify that there are no differences from the execution content of `UpdateRemotePlugins`
         # and that it doesn't run twice. ($HOME/.local/share/nvim/rplugin.vim)
-        code = ''
-          call remote#host#RegisterPlugin('python3', '${molten-nvim}/rplugin/python3/molten', [
-                \ {'sync': v:true, 'name': 'MoltenDeinit', 'type': 'command', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenDelete', 'type': 'command', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenEnterOutput', 'type': 'command', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenReevaluateCell', 'type': 'command', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenEvaluateLine', 'type': 'command', 'opts': {'nargs': '*'}},
-                \ {'sync': v:true, 'name': 'MoltenEvaluateOperator', 'type': 'command', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenEvaluateVisual', 'type': 'command', 'opts': {'nargs': '*'}},
-                \ {'sync': v:true, 'name': 'MoltenExportOutput', 'type': 'command', 'opts': {'bang': ''', 'nargs': '*'}},
-                \ {'sync': v:true, 'name': 'MoltenGoto', 'type': 'command', 'opts': {'nargs': '*'}},
-                \ {'sync': v:true, 'name': 'MoltenHideOutput', 'type': 'command', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenImagePopup', 'type': 'command', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenImportOutput', 'type': 'command', 'opts': {'nargs': '*'}},
-                \ {'sync': v:true, 'name': 'MoltenInfo', 'type': 'command', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenInit', 'type': 'command', 'opts': {'complete': 'file', 'nargs': '*'}},
-                \ {'sync': v:true, 'name': 'MoltenInterrupt', 'type': 'command', 'opts': {'nargs': '*'}},
-                \ {'sync': v:true, 'name': 'MoltenLoad', 'type': 'command', 'opts': {'nargs': '*'}},
-                \ {'sync': v:true, 'name': 'MoltenNext', 'type': 'command', 'opts': {'nargs': '*'}},
-                \ {'sync': v:true, 'name': 'MoltenOpenInBrowser', 'type': 'command', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenPrev', 'type': 'command', 'opts': {'nargs': '*'}},
-                \ {'sync': v:true, 'name': 'MoltenReevaluateAll', 'type': 'command', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenRestart', 'type': 'command', 'opts': {'bang': ''', 'nargs': '*'}},
-                \ {'sync': v:true, 'name': 'MoltenSave', 'type': 'command', 'opts': {'nargs': '*'}},
-                \ {'sync': v:true, 'name': 'MoltenShowOutput', 'type': 'command', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenEvaluateArgument', 'type': 'command', 'opts': {'nargs': '*'}},
-                \ {'sync': v:true, 'name': 'MoltenEvaluateRange', 'type': 'function', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenAvailableKernels', 'type': 'function', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenBufLeave', 'type': 'function', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenRunningKernels', 'type': 'function', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenDefineCell', 'type': 'function', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenOperatorfunc', 'type': 'function', 'opts': {}},
-                \ {'sync': v:false, 'name': 'MoltenSendStdin', 'type': 'function', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenTick', 'type': 'function', 'opts': {}},
-                \ {'sync': v:false, 'name': 'MoltenTickInput', 'type': 'function', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenOnBufferUnload', 'type': 'function', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenOnCursorMoved', 'type': 'function', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenOnExitPre', 'type': 'function', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenOnWinScrolled', 'type': 'function', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenStatusLineInit', 'type': 'function', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenStatusLineKernels', 'type': 'function', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenUpdateInterface', 'type': 'function', 'opts': {}},
-                \ {'sync': v:true, 'name': 'MoltenUpdateOption', 'type': 'function', 'opts': {}},
-               \ ])
-        '';
+        code = # vim
+          ''
+            call remote#host#RegisterPlugin('python3', '${molten-nvim}/rplugin/python3/molten', [
+                  \ {'sync': v:true, 'name': 'MoltenDeinit', 'type': 'command', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenDelete', 'type': 'command', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenEnterOutput', 'type': 'command', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenReevaluateCell', 'type': 'command', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenEvaluateLine', 'type': 'command', 'opts': {'nargs': '*'}},
+                  \ {'sync': v:true, 'name': 'MoltenEvaluateOperator', 'type': 'command', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenEvaluateVisual', 'type': 'command', 'opts': {'nargs': '*'}},
+                  \ {'sync': v:true, 'name': 'MoltenExportOutput', 'type': 'command', 'opts': {'bang': ''', 'nargs': '*'}},
+                  \ {'sync': v:true, 'name': 'MoltenGoto', 'type': 'command', 'opts': {'nargs': '*'}},
+                  \ {'sync': v:true, 'name': 'MoltenHideOutput', 'type': 'command', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenImagePopup', 'type': 'command', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenImportOutput', 'type': 'command', 'opts': {'nargs': '*'}},
+                  \ {'sync': v:true, 'name': 'MoltenInfo', 'type': 'command', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenInit', 'type': 'command', 'opts': {'complete': 'file', 'nargs': '*'}},
+                  \ {'sync': v:true, 'name': 'MoltenInterrupt', 'type': 'command', 'opts': {'nargs': '*'}},
+                  \ {'sync': v:true, 'name': 'MoltenLoad', 'type': 'command', 'opts': {'nargs': '*'}},
+                  \ {'sync': v:true, 'name': 'MoltenNext', 'type': 'command', 'opts': {'nargs': '*'}},
+                  \ {'sync': v:true, 'name': 'MoltenOpenInBrowser', 'type': 'command', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenPrev', 'type': 'command', 'opts': {'nargs': '*'}},
+                  \ {'sync': v:true, 'name': 'MoltenReevaluateAll', 'type': 'command', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenRestart', 'type': 'command', 'opts': {'bang': ''', 'nargs': '*'}},
+                  \ {'sync': v:true, 'name': 'MoltenSave', 'type': 'command', 'opts': {'nargs': '*'}},
+                  \ {'sync': v:true, 'name': 'MoltenShowOutput', 'type': 'command', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenEvaluateArgument', 'type': 'command', 'opts': {'nargs': '*'}},
+                  \ {'sync': v:true, 'name': 'MoltenEvaluateRange', 'type': 'function', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenAvailableKernels', 'type': 'function', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenBufLeave', 'type': 'function', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenRunningKernels', 'type': 'function', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenDefineCell', 'type': 'function', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenOperatorfunc', 'type': 'function', 'opts': {}},
+                  \ {'sync': v:false, 'name': 'MoltenSendStdin', 'type': 'function', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenTick', 'type': 'function', 'opts': {}},
+                  \ {'sync': v:false, 'name': 'MoltenTickInput', 'type': 'function', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenOnBufferUnload', 'type': 'function', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenOnCursorMoved', 'type': 'function', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenOnExitPre', 'type': 'function', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenOnWinScrolled', 'type': 'function', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenStatusLineInit', 'type': 'function', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenStatusLineKernels', 'type': 'function', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenUpdateInterface', 'type': 'function', 'opts': {}},
+                  \ {'sync': v:true, 'name': 'MoltenUpdateOption', 'type': 'function', 'opts': {}},
+                 \ ])
+          '';
         language = "vim";
       };
       hooks = {
@@ -1263,16 +1276,17 @@ in
           package = undotree;
           preConfig = {
             language = "vim";
-            code = ''
-              let g:undotree_ShortIndicators=1
-              function g:Undotree_CustomMap()
-                nmap <buffer> U <plug>UndotreePreviousSavedState
-                nmap <buffer> R <plug>UndotreeNextSavedState
-                nmap <buffer> u <plug>UndotreeUndo
-                nmap <buffer> r <plug>UndotreeRedo
-                nmap <buffer> <C-c> <plug>UndotreeClose
-              endfunc
-            '';
+            code = # vim
+              ''
+                let g:undotree_ShortIndicators=1
+                function g:Undotree_CustomMap()
+                  nmap <buffer> U <plug>UndotreePreviousSavedState
+                  nmap <buffer> R <plug>UndotreeNextSavedState
+                  nmap <buffer> u <plug>UndotreeUndo
+                  nmap <buffer> r <plug>UndotreeRedo
+                  nmap <buffer> <C-c> <plug>UndotreeClose
+                endfunc
+              '';
           };
           hooks.commands = [ "UndotreeToggle" ];
         }
@@ -1403,7 +1417,10 @@ in
           hooks.fileTypes = [ "toml" ];
         }
         {
-          package = vim-nix;
+          packages = [
+            vim-nix
+            hmts-nvim
+          ];
           hooks = {
             fileTypes = [ "nix" ];
           };
