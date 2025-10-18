@@ -1437,6 +1437,19 @@
       "url": "https://github.com/rbtnn/vim-ambiwidth/archive/4fd05792acac85d29bb0dc08f720a49093abefad.tar.gz",
       "hash": "02fjp8ij54x7axhy09ywc7f9j4lsqqsq2ccixsldj62n5pz80wsa"
     },
+    "vim-gf-improved": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "lambdalisue",
+        "repo": "vim-gf-improved"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "893709185d2f55a1f8a0183e0557690ca34e4bdd",
+      "url": "https://github.com/lambdalisue/vim-gf-improved/archive/893709185d2f55a1f8a0183e0557690ca34e4bdd.tar.gz",
+      "hash": "04dabc58lxfyr9hvi9v6azq2b2vqypgiyqlsvy3wmdnzdhpmx9j3"
+    },
     "vim-mr": {
       "type": "Git",
       "repository": {

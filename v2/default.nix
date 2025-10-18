@@ -573,6 +573,7 @@ in
               require('fix-auto-scroll').setup()
             '';
         }
+        vim-gf-improved
       ];
       postConfig = read "./fnl/buffer-plugins.fnl";
       hooks.events = [ "BufReadPost" ];
