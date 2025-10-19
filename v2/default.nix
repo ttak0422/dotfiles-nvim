@@ -374,10 +374,7 @@ in
     };
 
     avante = {
-      package = pkgs.pkgs-nightly.vimPlugins.avante-nvim.overrideAttrs {
-        dependencies = [ ];
-        doCheck = false;
-      };
+      package = avante-nvim;
       depends = [
         render-markdown
         copilot

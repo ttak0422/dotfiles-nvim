@@ -65,6 +65,19 @@
       "url": "https://github.com/m4xshen/autoclose.nvim/archive/3f86702b54a861a17d7994b2e32a7c648cb12fb1.tar.gz",
       "hash": "0ya4nqavhg7pqgrl15jh14yn36g414axhknqxjraryc43qpvi6b0"
     },
+    "avante.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "yetone",
+        "repo": "avante.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "cc7a41262e4dc38003b7578c3553a75c0ec4b8d2",
+      "url": "https://github.com/yetone/avante.nvim/archive/cc7a41262e4dc38003b7578c3553a75c0ec4b8d2.tar.gz",
+      "hash": "1jp6lb464s1xx1xa2fyawjvck07dcx85p1kcjr1cnz4gffiwx9rg"
+    },
     "better-escape.nvim": {
       "type": "Git",
       "repository": {

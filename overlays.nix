@@ -36,7 +36,6 @@ inputs: with inputs; [
     in
     {
       pkgs-stable = import nixpkgs-stable { inherit system; };
-      pkgs-nightly = import nixpkgs-nightly { inherit system; };
 
       v2-tmux = writeShellApplication {
         name = "tmux";
