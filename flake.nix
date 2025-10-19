@@ -494,10 +494,6 @@
       url = "github:Shougo/neco-vim";
       flake = false;
     };
-    fix-auto-scroll-nvim = {
-      url = "github:BranimirE/fix-auto-scroll.nvim";
-      flake = false;
-    };
     markview-nvim = {
       url = "github:OXY2DEV/markview.nvim";
       flake = false;
@@ -524,10 +520,6 @@
     };
     virtual-types-nvim = {
       url = "github:jubnzv/virtual-types.nvim";
-      flake = false;
-    };
-    endscroll-nvim = {
-      url = "github:plax-00/endscroll.nvim";
       flake = false;
     };
     bigfile-nvim = {

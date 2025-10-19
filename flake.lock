@@ -538,22 +538,6 @@
         "type": "github"
       }
     },
-    "endscroll-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1731438935,
-        "narHash": "sha256-JMVoltFLbo/GwZjgNW/cxntDWLKCCU083Sk3FiOtpZI=",
-        "owner": "plax-00",
-        "repo": "endscroll.nvim",
-        "rev": "f2ab5dff00fd1e4f5b952c1379533c90c576b446",
-        "type": "github"
-      },
-      "original": {
-        "owner": "plax-00",
-        "repo": "endscroll.nvim",
-        "type": "github"
-      }
-    },
     "fenix": {
       "inputs": {
         "nixpkgs": [
@@ -573,22 +557,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "fenix",
-        "type": "github"
-      }
-    },
-    "fix-auto-scroll-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1700694779,
-        "narHash": "sha256-nJdkGwP9L/9Q547PuD0ZZmKvEAxr/59wMXlh8UgTomI=",
-        "owner": "BranimirE",
-        "repo": "fix-auto-scroll.nvim",
-        "rev": "c211a42f4030c9ed03a1456919917cdf1a193bd9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "BranimirE",
-        "repo": "fix-auto-scroll.nvim",
         "type": "github"
       }
     },
@@ -2940,8 +2908,6 @@
         "dmacro-vim": "dmacro-vim",
         "dotfyle-metadata-nvim": "dotfyle-metadata-nvim",
         "ed-cmd-nvim": "ed-cmd-nvim",
-        "endscroll-nvim": "endscroll-nvim",
-        "fix-auto-scroll-nvim": "fix-auto-scroll-nvim",
         "flake-parts": "flake-parts_2",
         "flow-nvim": "flow-nvim",
         "foldnav-nvim": "foldnav-nvim",

@@ -292,6 +292,19 @@
       "url": "https://github.com/creativenull/efmls-configs-nvim/archive/c01b0831487238128ff4197bd4a7902dd4fce6c6.tar.gz",
       "hash": "00888b8npp23xwsw0nxqp212ip6ibd43xzafyzdm17h3ns9pzgv9"
     },
+    "fix-auto-scroll.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "BranimirE",
+        "repo": "fix-auto-scroll.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "c211a42f4030c9ed03a1456919917cdf1a193bd9",
+      "url": "https://github.com/BranimirE/fix-auto-scroll.nvim/archive/c211a42f4030c9ed03a1456919917cdf1a193bd9.tar.gz",
+      "hash": "0qm22d4g2qbr65q9zzvb1h8ayqk634yvikwfwx8gybzx0cdn95ww"
+    },
     "flit.nvim": {
       "type": "Git",
       "repository": {
