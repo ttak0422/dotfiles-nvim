@@ -14,12 +14,9 @@ inputs: with inputs; [
         getAttr
         ;
       inherit (prev.lib)
-        optionalString
         cleanSource
-        mapAttrs'
-        strings
         ;
-      inherit (prev.stdenv) system isDarwin mkDerivation;
+      inherit (prev.stdenv) system mkDerivation;
       inherit (prev.vimUtils) buildVimPlugin;
       inherit (prev) writeShellApplication writeText fetchzip;
       excludeInputs = [
@@ -178,45 +175,9 @@ inputs: with inputs; [
               }) plugins
             ))
             // (buildPlugins (import ./v2/npins))
-            // (mapAttrs' (buildPlugin (import ./v2/npins)) {
-              LuaSnip = {
-                nativeBuildInputs = [ prev.gcc ];
-                buildPhase = ''
-                  ${optionalString isDarwin "LUA_LDLIBS='-undefined dynamic_lookup -all_load'"}
-                  JSREGEXP_PATH=deps/jsregexp
-                  make "INCLUDE_DIR=-I $PWD/deps/lua51_include" LDLIBS="$LUA_LDLIBS" -C $JSREGEXP_PATH
-                  cp $JSREGEXP_PATH/jsregexp.so lua/luasnip-jsregexp.so
-                '';
-              };
-              vim-sonictemplate = {
-                src = prev.nix-filter {
-                  root = inputs.vim-sonictemplate;
-                  exclude = [
-                    "template/java"
-                    "template/make"
-                  ];
-                };
-              };
-              "gin.vim" = {
-                src = inputs.gin-vim;
-                dontPatchShebangs = true;
-                postInstall = ''
-                  substituteInPlace \
-                  $out/denops/gin/proxy/editor.ts \
-                  $out/denops/gin/proxy/askpass.ts \
-                  --replace "/usr/bin/env -S deno" "${prev.deno}/bin/deno"
-                '';
-              };
-              "telescope-fzf-native.nvim" = {
-                buildPhase = "make";
-              };
-            })
-            // {
-              inherit (v2-blink-cmp.packages.${system}) blink-cmp;
-            };
+            // import ./v2/overlay.nix { } final prev;
           tests = buildPlugins (import ./tests/npins);
         };
-
       v2 = {
         # https://github.com/JetBrains/homebrew-utils/blob/master/Formula/kotlin-lsp.rb
         kotlin-lsp = mkDerivation rec {

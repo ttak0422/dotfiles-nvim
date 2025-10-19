@@ -104,6 +104,22 @@
       "url": "https://github.com/Kaiser-Yang/blink-cmp-avante/archive/4f494c6e124acbe31a8f5d58effa0c14aa38a6d5.tar.gz",
       "hash": "06gx892hhgcg79gng4dblyv74iw5kqqrmfknfw2k4xzl0cxdg35n"
     },
+    "blink.cmp": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Saghen",
+        "repo": "blink.cmp"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.7.0",
+      "revision": "0d4a2130ffdf43040b77ff2839f107fad751e29c",
+      "url": "https://api.github.com/repos/Saghen/blink.cmp/tarball/v1.7.0",
+      "hash": "02527v0lnk5r5dpyb3avh4da081wgkd3sdam351fgdc2dn60xibq"
+    },
     "blink.compat": {
       "type": "Git",
       "repository": {
@@ -298,9 +314,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "7c4b98011a2d5bdf7342031f9c8ae7a1c11b584b",
-      "url": "https://github.com/lambdalisue/gin.vim/archive/7c4b98011a2d5bdf7342031f9c8ae7a1c11b584b.tar.gz",
-      "hash": "0r1lb11hahwnlr1hi188zl427fi5izci4xikyhi8bi0pdh0f7a90"
+      "revision": "e447c29b9eb86152cd5d293b9a1f0293e9a1311b",
+      "url": "https://github.com/lambdalisue/gin.vim/archive/e447c29b9eb86152cd5d293b9a1f0293e9a1311b.tar.gz",
+      "hash": "084nw2nwczp1nqnsd695mrl5wd70i4v2vim0xr767f1fvyhihlhr"
     },
     "glance.nvim": {
       "type": "Git",

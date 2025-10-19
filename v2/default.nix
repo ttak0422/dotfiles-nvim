@@ -1,6 +1,7 @@
 {
   inputs',
   pkgs,
+  lib,
 }:
 let
   read =
@@ -9,6 +10,7 @@ let
     readFile (
       ./. + (replaceStrings [ "./fnl/" "./lua/" ".fnl" ] [ "/lua/autogen/" "/lua/" ".lua" ] path)
     );
+  ext = pkgs.stdenv.hostPlatform.extensions.sharedLibrary;
 in
 {
   package = pkgs.neovim-unwrapped;
@@ -415,12 +417,10 @@ in
         avante
         # obsidian
       ];
-      postConfig = # lua
-        ''
-          -- TODO: support linux
-          package.cpath = package.cpath .. ';${inputs'.v2-blink-cmp.packages.blink-fuzzy-lib}/lib/libblink_cmp_fuzzy.dylib'
-          ${read "./fnl/blink.fnl"}
-        '';
+      postConfig = ''
+        package.cpath = package.cpath .. ';${blink-cmp}/libblink_cmp_fuzzy${ext}'
+      ''
+      + read "./fnl/blink.fnl";
       hooks.modules = [ "blink.cmp" ];
     };
 
@@ -792,15 +792,7 @@ in
         }
         project
         {
-          package = vim-sonictemplate.overrideAttrs (_: {
-            src = pkgs.nix-filter {
-              root = vim-sonictemplate.src;
-              exclude = [
-                "template/java"
-                "template/make"
-              ];
-            };
-          });
+          package = vim-sonictemplate;
           preConfig =
             let
               template = pkgs.stdenv.mkDerivation {

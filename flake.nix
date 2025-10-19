@@ -671,7 +671,6 @@
       url = "github:h3pei/trace-pr.nvim";
       flake = false;
     };
-    v2-blink-cmp.url = "github:Saghen/blink.cmp";
     treesj = {
       url = "github:Wansmer/treesj";
       flake = false;
@@ -725,8 +724,7 @@
           };
           bundler-nvim = {
             v2 = import ./v2 {
-              inherit inputs';
-              inherit pkgs;
+              inherit inputs' pkgs lib;
             };
           }
           // (import ./tests {
