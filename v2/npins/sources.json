@@ -91,6 +91,19 @@
       "url": "https://github.com/typicode/bg.nvim/archive/df916e4df2493ee302eea62185ed014ba7ca40d9.tar.gz",
       "hash": "0cndjgy6424423j226rkzl8ww0cyjr5wv7wgmaxdgxj491glbrhz"
     },
+    "blame.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "FabijanZulj",
+        "repo": "blame.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "d5f4ad5c8ebca3caecc773dda5983709c5a5da8f",
+      "url": "https://github.com/FabijanZulj/blame.nvim/archive/d5f4ad5c8ebca3caecc773dda5983709c5a5da8f.tar.gz",
+      "hash": "0vgwdb1x5vjsfw5xznnw00w9h1rfcc5h1cv4crfq8dh000iqmzr0"
+    },
     "blink-cmp-avante": {
       "type": "Git",
       "repository": {

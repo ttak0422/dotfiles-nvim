@@ -33,6 +33,7 @@
                        :<Cmd>UndotreeToggle<CR>
                        (desc " undotree")]
                       [:gx #((. (require :open) :open_cword)) (desc :open)]
+                      [:<Leader>gb :<Cmd>BlameToggle<CR> (desc " blame")]
                       ; dap
                       [:<LocalLeader>db
                        #((-> (require :dap)

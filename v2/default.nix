@@ -1069,6 +1069,11 @@ in
     commandPlugins = {
       depends = [
         {
+          package = blame-nvim;
+          postConfig = read "./fnl/blame.fnl";
+          hooks.commands = [ "BlameToggle" ];
+        }
+        {
           package = fyler-nvim;
           depends = [ devicons ];
           postConfig = read "./fnl/fyler.fnl";
