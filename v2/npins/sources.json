@@ -950,6 +950,19 @@
       "url": "https://github.com/nvim-neotest/nvim-nio/archive/21f5324bfac14e22ba26553caf69ec76ae8a7662.tar.gz",
       "hash": "1bz5msxwk232zkkhfxcmr7a665la8pgkdx70q99ihl4x04jg6dkq"
     },
+    "nvim-scrollbar": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "petertriho",
+        "repo": "nvim-scrollbar"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "5b103ef0fd2e8b9b4be3878ed38d224522192c6c",
+      "url": "https://github.com/petertriho/nvim-scrollbar/archive/5b103ef0fd2e8b9b4be3878ed38d224522192c6c.tar.gz",
+      "hash": "1bh34njkvlbkjzy62w48rzjmliaj6lczgxxkks455r0w7yvfklv7"
+    },
     "nvim-ts-autotag": {
       "type": "Git",
       "repository": {

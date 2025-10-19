@@ -529,6 +529,10 @@ in
     bufferPlugins = {
       depends = [
         {
+          package = nvim-scrollbar;
+          postConfig = read "./fnl/scrollbar.fnl";
+        }
+        {
           package = nvim_context_vt;
           postConfig = read "./fnl/context-vt.fnl";
         }
