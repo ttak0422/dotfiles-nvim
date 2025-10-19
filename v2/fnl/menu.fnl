@@ -3,10 +3,9 @@
 (local separator {:name :separator})
 
 (local default
-       [{:hl :Normal :name "Copy all content" :cmd "%y+"}
-        {:hl :Normal :name " Edit local config" :cmd :ConfigLocalEdit}
-        {:hl :Normal :name " Toggle NoNeckPain" :cmd :NoNeckPain}
+       [{:hl :Normal :name " Toggle NoNeckPain" :cmd :NoNeckPain}
         {:hl :Normal :name " Toggle colorize" :cmd :ColorizerToggle}
+        {:hl :Normal :name " Edit local config" :cmd :ConfigLocalEdit}
         separator
         {:hl :Normal :name "󰄉 Timer" :cmd #(vim.cmd :TimerlyToggle)}
         {:hl :Normal :name " Show keys" :cmd #(vim.cmd :ShowkeysToggle)}
