@@ -11,6 +11,7 @@ telescope.load_extension("live_grep_args")
 telescope.load_extension("sonictemplate")
 telescope.load_extension("projects")
 telescope.load_extension("mr")
+telescope.load_extension("ghq")
 local function _1_()
   return builtin.live_grep({grep_open_files = true})
 end

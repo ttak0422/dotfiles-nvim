@@ -774,10 +774,11 @@ in
 
     telescope = {
       packages = [
+        telescope-fzf-native-nvim
+        telescope-ghq-nvim
+        telescope-live-grep-args-nvim
         telescope-mr
         telescope-nvim
-        telescope-fzf-native-nvim
-        telescope-live-grep-args-nvim
         telescope-sonictemplate-nvim
       ];
       depends = [
@@ -811,7 +812,10 @@ in
             '';
         }
       ];
-      extraPackages = with pkgs; [ ripgrep ];
+      extraPackages = with pkgs; [
+        ripgrep
+        ghq
+      ];
       postConfig = read "./fnl/telescope.fnl";
       hooks.commands = [
         "Telescope"

@@ -1258,6 +1258,19 @@
       "url": "https://github.com/nvim-telescope/telescope-fzf-native.nvim/archive/1f08ed60cafc8f6168b72b80be2b2ea149813e55.tar.gz",
       "hash": "137a05qwbpcrcrfj4az7dwx5a43yyfib4crx1hi8bhjx9j5gqav7"
     },
+    "telescope-ghq.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvim-telescope",
+        "repo": "telescope-ghq.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "2bd2e2d10f1a06fce9cce1e33ffe464c84ceb63b",
+      "url": "https://github.com/nvim-telescope/telescope-ghq.nvim/archive/2bd2e2d10f1a06fce9cce1e33ffe464c84ceb63b.tar.gz",
+      "hash": "1zli494f33h61lpc4y764fdbxg770vpxp9ihvkzdyl4j2qdn1skc"
+    },
     "telescope-live-grep-args.nvim": {
       "type": "Git",
       "repository": {

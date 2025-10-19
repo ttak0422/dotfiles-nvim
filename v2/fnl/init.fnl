@@ -106,7 +106,7 @@
                            (cmd "Telescope find_files cwd=~/ghq")
                            (desc " files (ghq)")]
                           [(leader :fP)
-                           (cmd "Telescope projects")
+                           (cmd "Telescope ghq")
                            (desc " project files")]
                           [(leader :fb)
                            (cmd :TelescopeBuffer)
