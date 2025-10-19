@@ -233,9 +233,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "f63fa7ffb3fc9693a742c7c1f774223cc111a2d9",
-      "url": "https://github.com/vim-denops/denops.vim/archive/f63fa7ffb3fc9693a742c7c1f774223cc111a2d9.tar.gz",
-      "hash": "0bgmj41fp0kl7g6129pgcppsl2mc8ylvhj5b1d91s12klxv5jk9y"
+      "revision": "a278b8342459e4687f24d4d575d72ff593326cee",
+      "url": "https://github.com/vim-denops/denops.vim/archive/a278b8342459e4687f24d4d575d72ff593326cee.tar.gz",
+      "hash": "1k1zcqf88z6yxxwvs0mjcharmykqis57jh505s37xaff2zvmb114"
     },
     "direnv.nvim": {
       "type": "Git",
@@ -1147,9 +1147,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "5ddb49351854fb5c3406c071a82d2f50612afcf3",
-      "url": "https://github.com/vim-skk/skkeleton/archive/5ddb49351854fb5c3406c071a82d2f50612afcf3.tar.gz",
-      "hash": "1a86ahpps804qvrvdlrw8b21dfraapnvqk4y6w7jj0yhzm5ishav"
+      "revision": "0c67893ffe0448666ec76283bc0a9685ac31fba9",
+      "url": "https://github.com/vim-skk/skkeleton/archive/0c67893ffe0448666ec76283bc0a9685ac31fba9.tar.gz",
+      "hash": "0cn9mlgsk9mviigdf14lr6r1wky1wigasy4v2w98m28d810n3179"
     },
     "skkeleton-henkan-highlight": {
       "type": "Git",
