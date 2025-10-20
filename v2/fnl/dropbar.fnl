@@ -172,7 +172,7 @@
                                                     (-> (. found 1)
                                                         (vim.fn.fnamemodify ":h"))
                                                     ;; other
-                                                    _ nil)))))}})
+                                                    _ "")))))}})
 
 (dropbar.setup {: icons : bar : menu : sources})
 

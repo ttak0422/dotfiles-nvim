@@ -100,7 +100,7 @@ do
       if (#found > 0) then
         or_24_ = vim.fn.fnamemodify(found[1], ":h")
       else
-        or_24_ = nil
+        or_24_ = ""
       end
     end
     return or_24_
