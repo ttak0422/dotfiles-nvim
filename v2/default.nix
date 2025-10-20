@@ -1074,6 +1074,12 @@ in
     commandPlugins = {
       depends = [
         {
+          package = gin-vim;
+          depends = [ denops ];
+          useDenops = true;
+          hooks.commands = [ "Gin" ];
+        }
+        {
           package = blame-nvim;
           postConfig = read "./fnl/blame.fnl";
           hooks.commands = [ "BlameToggle" ];

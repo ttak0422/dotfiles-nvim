@@ -90,6 +90,7 @@ rec {
     buildPhase = "make";
   };
   gin-vim = vimUtils.buildVimPlugin rec {
+    pname = "gin.vim";
     src = getSrc "gin.vim";
     version = src.revision;
     # dontPatchShebangs = true;
