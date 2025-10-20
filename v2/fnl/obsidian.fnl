@@ -26,6 +26,8 @@
 
 (local ui {:ignore_conceal_warn true})
 
+(local checkbox {:enabled false :create_new true :order [" " "~" "!" ">" :x]})
+
 (local callbacks ; overwrite smart_action
        {:enter_note (fn [_ _note]
                       (vim.keymap.set :n :<CR>
@@ -36,8 +38,7 @@
                                       {:expr true
                                        :buffer true
                                        :desc "Obsidian Smart Action"})
-                      (each [lhs rhs (pairs {:<LocalLeader>r "<Cmd>Obsidian backlinks<CR>"
-                                             :<LocalLeader>t "<Cmd>Obsidian toggle_checkbox<CR>"})]
+                      (each [lhs rhs (pairs {:<LocalLeader>r "<Cmd>Obsidian backlinks<CR>"})]
                         (vim.keymap.set :n lhs rhs {:buffer true}))
                       (vim.keymap.set :x :<LocalLeader>l
                                       "<Cmd>Obsidian link<CR>"
@@ -47,6 +48,7 @@
                  : daily_notes
                  : completion
                  : ui
+                 : checkbox
                  : callbacks
                  :legacy_commands false
                  :statusline {:enabled false}
