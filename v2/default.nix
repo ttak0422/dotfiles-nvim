@@ -1074,6 +1074,11 @@ in
     commandPlugins = {
       depends = [
         {
+          package = replua-nvim;
+          postConfig = read "./fnl/replua.fnl";
+          hooks.commands = [ "RepluaOpen" ];
+        }
+        {
           package = gin-vim;
           depends = [ denops ];
           useDenops = true;

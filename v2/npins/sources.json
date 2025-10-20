@@ -1151,6 +1151,19 @@
       "url": "https://api.github.com/repos/MeanderingProgrammer/render-markdown.nvim/tarball/v8.7.0",
       "hash": "161d99nnqmlsrzqx96p7bz2v0lbp0nh4kqfkq9k9cam8jr2b4p6d"
     },
+    "replua.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mghaight",
+        "repo": "replua.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "a41c80f2ec86fc1b17652906b70ce812dd2be657",
+      "url": "https://github.com/mghaight/replua.nvim/archive/a41c80f2ec86fc1b17652906b70ce812dd2be657.tar.gz",
+      "hash": "01m0hi029pmz1s8cvg6rpgfc9fhksvngvga6bz31xi522l8cxkmm"
+    },
     "showkeys": {
       "type": "Git",
       "repository": {
