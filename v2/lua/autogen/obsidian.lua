@@ -24,8 +24,8 @@ local note = require("obsidian.note")
 local workspaces = {{name = "default", path = default_vault}}
 local daily_notes = {folder = "journal", date_format = "%Y-%m-%d", default_tags = {"journal"}, template = nil}
 local completion = {blink = true, min_chars = 1, create_new = true, nvim_cmp = false}
-local ui = {ignore_conceal_warn = true}
-local checkbox = {create_new = true, order = {" ", "~", "!", ">", "x"}, enabled = false}
+local ui = {enable = false}
+local checkbox = {enabled = false}
 local callbacks
 local function _4_(_, _note)
   local function _5_()

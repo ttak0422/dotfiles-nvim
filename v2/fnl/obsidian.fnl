@@ -24,9 +24,11 @@
 
 (local completion {:nvim_cmp false :blink true :min_chars 1 :create_new true})
 
-(local ui {:ignore_conceal_warn true})
+;; MEMO: use render-markdown
+(local ui {:enable false})
 
-(local checkbox {:enabled false :create_new true :order [" " "~" "!" ">" :x]})
+;; MEMO: use checkmate
+(local checkbox {:enabled false})
 
 (local callbacks ; overwrite smart_action
        {:enter_note (fn [_ _note]

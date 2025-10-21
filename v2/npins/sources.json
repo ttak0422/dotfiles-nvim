@@ -172,6 +172,22 @@
       "url": "https://github.com/kwkarlwang/bufresize.nvim/archive/3b19527ab936d6910484dcc20fb59bdb12322d8b.tar.gz",
       "hash": "1s0zmpwg7z76l3ca1p426mkh33cw94m18q7rfsvnz4h4xwlsafpa"
     },
+    "checkmate.nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "bngarren",
+        "repo": "checkmate.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.11.2",
+      "revision": "4cc5de61f2527e8fef6884f366b3d3f29b32e0a1",
+      "url": "https://api.github.com/repos/bngarren/checkmate.nvim/tarball/v0.11.2",
+      "hash": "0p9zmjx6fa6bs7159y6hgh5mhnw0gz493bz1g5wjw7gy7ljrzi89"
+    },
     "codewindow.nvim": {
       "type": "Git",
       "repository": {

@@ -9,13 +9,10 @@
         :icons ["󰼏 " "󰎨 " "󰼑 " "󰎲 " "󰼓 " "󰎴 "]})
 
 (local code {:conceal_delimiters false :border :thin})
-; TODO: fix multi byte bug
-; (local checkbox {:unchecked {:icon ""
-;                              :highlight :RenderMarkdownUnchecked
-;                              :scope_highlight nil}
-;                  :checked {:icon ""
-;                            :highlight :RenderMarkdownChecked
-;                            :scope_highlight nil}})
+
+;; MEMO: use checkmate
+(local checkbox {:enabled false})
+(local bullet {:enabled false})
 
 (local link {:custom {:web {:pattern :^http :icon "󰖟 "}
                       :discord {:pattern "discord%.com" :icon "󰙯 "}
@@ -41,7 +38,8 @@
            : win_options
            : heading
            : code
-           ;: checkbox
+           : checkbox
+           : bullet
            : link
            : completions})
 

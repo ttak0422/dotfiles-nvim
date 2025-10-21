@@ -367,6 +367,11 @@ in
       ];
     };
 
+    checkmate = {
+      package = checkmate-nvim;
+      postConfig = read "./fnl/checkmate.fnl";
+    };
+
     copilot = {
       package = copilot-lua;
       extraPackages = with pkgs; [ nodejs ];
@@ -843,6 +848,7 @@ in
         telescope
         blink
         image
+        checkmate
       ];
       extraPackages = with pkgs; [ pngpaste ];
       postConfig = read "./fnl/obsidian.fnl";
