@@ -29,16 +29,20 @@
                              :markdown "/"
                              :type :inactive
                              :order 100}}
+      show_todo_count true
       todo_count_formatter (fn [completed total]
                              (if (> total 4)
                                  (let [percent (* (/ completed total) 100)
                                        bar_length 10
-                                       filled (math.floor ((/ (* bar_length
-                                                                 percent)
-                                                              100)))
-                                       bar (.. (string.rep "◼︎" filled)
-                                               (string.rep "◻︎"
-                                                           (- bar_length filled)))]
-                                   (string.format "%s" bar)
-                                   (string.format "[%d/%d]" completed total))))]
-  (checkmate.setup {: files : keys : todo_states : todo_count_formatter}))
+                                       filled (math.floor (/ (* bar_length
+                                                                percent)
+                                                             100))]
+                                   (.. (string.rep "◼︎" filled)
+                                       (string.rep "◻︎"
+                                                   (- bar_length filled))))
+                                 (string.format "[%d/%d]" completed total)))]
+  (checkmate.setup {: files
+                    : keys
+                    : todo_states
+                    : show_todo_count
+                    : todo_count_formatter}))
