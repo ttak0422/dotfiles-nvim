@@ -28,7 +28,8 @@ rec {
       in
       # bash
       ''
-        ln -s ${blink-fuzzy-lib}/lib/libblink_cmp_fuzzy${ext} libblink_cmp_fuzzy${ext}
+        mkdir -p $out/target/release
+        ln -s ${blink-fuzzy-lib}/lib/libblink_cmp_fuzzy${ext} $out/target/release/libblink_cmp_fuzzy${ext}
       '';
     doCheck = false;
   };

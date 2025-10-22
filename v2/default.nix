@@ -419,10 +419,7 @@ in
         avante
         # obsidian
       ];
-      postConfig = ''
-        package.cpath = package.cpath .. ';${blink-cmp}/libblink_cmp_fuzzy${ext}'
-      ''
-      + read "./fnl/blink.fnl";
+      postConfig = read "./fnl/blink.fnl";
       hooks.modules = [ "blink.cmp" ];
     };
 
