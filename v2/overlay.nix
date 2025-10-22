@@ -1,4 +1,5 @@
-_: final: prev:
+{ inputs }:
+final: prev:
 let
 
   inherit (builtins) getAttr;
@@ -102,4 +103,5 @@ rec {
     #   --replace "/usr/bin/env -S deno" "${prev.deno}/bin/deno"
     # '';
   };
+  inherit (inputs.v2-fff-nvim.packages.${stdenv.system}) fff-nvim;
 }

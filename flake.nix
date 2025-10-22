@@ -50,6 +50,10 @@
     };
 
     # plugins
+    v2-fff-nvim = {
+      url = "github:dmtrKovalenko/fff.nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nvim-bqf = {
       url = "github:/kevinhwang91/nvim-bqf";
       flake = false;

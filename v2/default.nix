@@ -778,6 +778,12 @@ in
       hooks.modules = [ "toggleterm.terminal" ];
     };
 
+    fff = {
+      package = fff-nvim;
+      postConfig = read "./fnl/fff.fnl";
+      hooks.modules = [ "fff" ];
+    };
+
     telescope = {
       packages = [
         telescope-fzf-native-nvim
