@@ -1083,6 +1083,10 @@ in
     commandPlugins = {
       depends = [
         {
+          package = actually-doom-nvim;
+          hooks.commands = [ "Doom" ];
+        }
+        {
           package = replua-nvim;
           postConfig = read "./fnl/replua.fnl";
           hooks.commands = [ "RepluaOpen" ];

@@ -103,5 +103,26 @@ rec {
     #   --replace "/usr/bin/env -S deno" "${prev.deno}/bin/deno"
     # '';
   };
+  actually-doom-nvim =
+    let
+      doom = stdenv.mkDerivation rec {
+        pname = "doom";
+        src = getSrc "actually-doom.nvim";
+        version = src.revision;
+        nativeBuildInputs = with final; [ gcc ];
+        installPhase = ''
+          cd doom
+          make OUTDIR=$out
+        '';
+      };
+    in
+    vimUtils.buildVimPlugin rec {
+      pname = "actually-doom.nvim";
+      src = getSrc pname;
+      version = src.revision;
+      postInstall = ''
+        ln -s  ${doom} $out/doom/build
+      '';
+    };
   inherit (inputs.v2-fff-nvim.packages.${stdenv.system}) fff-nvim;
 }

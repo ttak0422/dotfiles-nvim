@@ -26,6 +26,19 @@
       "url": "https://github.com/GCBallesteros/NotebookNavigator.nvim/archive/20cb6f72939194e32eb3060578b445e5f2e7ae8b.tar.gz",
       "hash": "1pp9rcapcj0z741djdsqqci56c3hvnl93ypghibrj8jzbckwflpq"
     },
+    "actually-doom.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "seandewar",
+        "repo": "actually-doom.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "eea18456e09b00ae61ee27c7199f1e193e16c362",
+      "url": "https://github.com/seandewar/actually-doom.nvim/archive/eea18456e09b00ae61ee27c7199f1e193e16c362.tar.gz",
+      "hash": "1q3ymc25hqak9p4b53mxyql8ysq85wyv0l60jb2514mg80rhd4dm"
+    },
     "alpha-nvim": {
       "type": "Git",
       "repository": {
