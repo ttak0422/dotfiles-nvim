@@ -1,5 +1,18 @@
 {
   "pins": {
+    "Ionide-vim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ionide",
+        "repo": "Ionide-vim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "6d6583e4a23333b3bc6f7af5d2cbffed377c15a9",
+      "url": "https://github.com/ionide/Ionide-vim/archive/6d6583e4a23333b3bc6f7af5d2cbffed377c15a9.tar.gz",
+      "hash": "053ay19ykhkd6rrrs9s22i8x431haza21fd5szv824dqzxfgl04a"
+    },
     "LuaSnip": {
       "type": "Git",
       "repository": {

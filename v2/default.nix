@@ -109,6 +109,7 @@ in
       lua = read "./fnl/after/ftplugin/lua.fnl";
       translate = read "./fnl/after/ftplugin/translate.fnl";
       python = read "./fnl/after/ftplugin/python.fnl";
+      fsharp = read "./fnl/after/ftplugin/fsharp.fnl";
     };
     lsp = {
       denols = read "./fnl/after/lsp/denols.fnl";
@@ -432,6 +433,19 @@ in
     lspPlugins = {
       packages = [ ];
       depends = [
+        {
+          package = Ionide-vim;
+          preConfig = read "./fnl/ionide-pre.fnl";
+          postConfig = read "./fnl/ionide.fnl";
+          extraPackages = with pkgs; [
+            dotnet-sdk_9
+            fsautocomplete
+          ];
+          hooks = {
+            fileTypes = [ "fsharp" ];
+            modules = [ "ionide" ];
+          };
+        }
         {
           package = lensline-nvim;
           postConfig = read "./fnl/lensline.fnl";
