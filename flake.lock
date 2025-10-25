@@ -2609,22 +2609,6 @@
         "type": "github"
       }
     },
-    "nvim-spectre": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1747104704,
-        "narHash": "sha256-WPEizIClDmseDEhomCasLx/zfAMT7lq7ZBnfc/a8CuA=",
-        "owner": "nvim-pack",
-        "repo": "nvim-spectre",
-        "rev": "72f56f7585903cd7bf92c665351aa585e150af0f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nvim-pack",
-        "repo": "nvim-spectre",
-        "type": "github"
-      }
-    },
     "nvim-surround": {
       "flake": false,
       "locked": {
@@ -3027,7 +3011,6 @@
         "nvim-notify": "nvim-notify",
         "nvim-pqf": "nvim-pqf",
         "nvim-regexplainer": "nvim-regexplainer",
-        "nvim-spectre": "nvim-spectre",
         "nvim-surround": "nvim-surround",
         "nvim-ts-context-commentstring": "nvim-ts-context-commentstring",
         "nvim-vtsls": "nvim-vtsls",

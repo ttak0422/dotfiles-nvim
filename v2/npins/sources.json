@@ -1005,6 +1005,19 @@
       "url": "https://github.com/petertriho/nvim-scrollbar/archive/5b103ef0fd2e8b9b4be3878ed38d224522192c6c.tar.gz",
       "hash": "1bh34njkvlbkjzy62w48rzjmliaj6lczgxxkks455r0w7yvfklv7"
     },
+    "nvim-spectre": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvim-pack",
+        "repo": "nvim-spectre"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "72f56f7585903cd7bf92c665351aa585e150af0f",
+      "url": "https://github.com/nvim-pack/nvim-spectre/archive/72f56f7585903cd7bf92c665351aa585e150af0f.tar.gz",
+      "hash": "1q0apkv77pqrcjxmmvhk0dyg67rgmhk9hs281hg6n3m5h3625waq"
+    },
     "nvim-ts-autotag": {
       "type": "Git",
       "repository": {

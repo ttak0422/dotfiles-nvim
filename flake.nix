@@ -250,10 +250,6 @@
       url = "github:mrjones2014/smart-splits.nvim";
       flake = false;
     };
-    nvim-spectre = {
-      url = "github:nvim-pack/nvim-spectre";
-      flake = false;
-    };
     vim-startuptime = {
       url = "github:dstein64/vim-startuptime";
       flake = false;
