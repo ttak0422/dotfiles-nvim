@@ -26,8 +26,7 @@
                              :foldenable true
                              :switchbuf ""}
                        ; :o {}
-                       :env {:VISUAL "nvr -cc b# --remote"
-                             :EDITOR "nvr -cc b# --remote"
+                       :env {:EDITOR "nvr -cc b# --remote"
                              :GIT_EDITOR "nvr -cc b# --remote-wait"}
                        :g {:mapleader " "
                            :maplocalleader ","

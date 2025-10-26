@@ -2,7 +2,7 @@
 vim.loader.enable()
 vim.cmd("language messages en_US.UTF-8")
 pcall(dofile, vim.fn.expand("$HOME/config.lua"))
-for opt, kvp in pairs({opt = {langmenu = "none", timeoutlen = 1000, shortmess = (vim.o.shortmess .. "sWcS"), cmdheight = 0, signcolumn = "yes", showtabline = 0, laststatus = 0, splitkeep = "screen", foldcolumn = "auto:1", foldlevel = 99, foldlevelstart = 99, foldenable = true, switchbuf = "", number = false, showmode = false, wrap = false}, env = {VISUAL = "nvr -cc b# --remote", EDITOR = "nvr -cc b# --remote", GIT_EDITOR = "nvr -cc b# --remote-wait"}, g = {mapleader = " ", maplocalleader = ",", loaded_netrw = 1, loaded_netrwPlugin = 1}}) do
+for opt, kvp in pairs({opt = {langmenu = "none", timeoutlen = 1000, shortmess = (vim.o.shortmess .. "sWcS"), cmdheight = 0, signcolumn = "yes", showtabline = 0, laststatus = 0, splitkeep = "screen", foldcolumn = "auto:1", foldlevel = 99, foldlevelstart = 99, foldenable = true, switchbuf = "", number = false, showmode = false, wrap = false}, env = {EDITOR = "nvr -cc b# --remote", GIT_EDITOR = "nvr -cc b# --remote-wait"}, g = {mapleader = " ", maplocalleader = ",", loaded_netrw = 1, loaded_netrwPlugin = 1}}) do
   for k, v in pairs(kvp) do
     vim[opt][k] = v
   end
