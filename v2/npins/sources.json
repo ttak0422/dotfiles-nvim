@@ -1547,6 +1547,19 @@
       "url": "https://github.com/uga-rosa/translate.nvim/archive/1a841e56407ba02e919ed9af573dbe531404aebb.tar.gz",
       "hash": "1gpq2mqfpynswnrv49jyji7798wb9g022j3f22f8hp21l4in4nl0"
     },
+    "unnest.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "brianhuster",
+        "repo": "unnest.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "62790c8e20f4fce68115e42c7c2770bfad9cfdea",
+      "url": "https://github.com/brianhuster/unnest.nvim/archive/62790c8e20f4fce68115e42c7c2770bfad9cfdea.tar.gz",
+      "hash": "13krjdmkxc78l5z8nwq5kpd7gqr36w30wqwvayxchi5kwbmfj5z1"
+    },
     "uv.nvim": {
       "type": "Git",
       "repository": {

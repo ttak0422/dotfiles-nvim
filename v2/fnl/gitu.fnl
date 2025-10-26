@@ -1,35 +1,70 @@
-(fn gitu []
-  (if (not= (-> (vim.system [:git :rev-parse :--abbrev-ref :HEAD])
-                (: :wait)
-                (. :code)) 0)
-      (vim.notify "not a git repository" vim.log.levels.WARN)
-      (do
-        (if (= (length (vim.api.nvim_list_wins)) 1)
-            (let [w (vim.api.nvim_win_get_width 0)
-                  h (* (vim.api.nvim_win_get_height 0) 2.1)]
-              (if (> h w) (vim.cmd.split) (vim.cmd.vsplit))))
-        (vim.cmd.enew)
-        (set vim.wo.number false)
-        (set vim.wo.foldcolumn :0)
-        (set vim.wo.signcolumn :no)
-        (set vim.wo.statuscolumn "")
-        (let [bufnr (vim.api.nvim_get_current_buf)
-              on_exit #(if (not= (length (vim.api.nvim_list_wins)) 1)
-                           (let [buf (vim.fn.bufnr "#")]
-                             (if (and (not= buf -1)
-                                      (vim.api.nvim_buf_is_valid buf))
-                                 (vim.api.nvim_win_set_buf (vim.api.nvim_get_current_win)
-                                                           buf)))
-                           (if (vim.api.nvim_buf_is_valid bufnr)
-                               (vim.api.nvim_buf_delete bufnr {:force true})))]
-          (vim.fn.termopen :gitu {: on_exit})
-          (vim.cmd.startinsert)
-          (tset (. vim.bo bufnr) :bufhidden :wipe)
-          (tset (. vim.bo bufnr) :swapfile false)
-          (tset (. vim.bo bufnr) :buflisted false)
-          (vim.api.nvim_create_autocmd :BufLeave
-                                       {:buffer bufnr
-                                        :once true
-                                        :callback on_exit})))))
+(local Snacks (require :snacks))
+(var terminal nil)
 
-(vim.api.nvim_create_user_command :Gitu gitu {})
+(fn win_valid? [win]
+  (and win (vim.api.nvim_win_is_valid win)))
+
+(fn buf_valid? [buf]
+  (and buf (vim.api.nvim_buf_is_valid buf)))
+
+(fn buf_term? [buf]
+  (and buf (= (vim.api.nvim_buf_get_option buf :buftype) :terminal)))
+
+(local cmd :gitu)
+(local opts {:win {:position :left :width 0.4}})
+
+(fn close []
+  (when (and terminal (terminal:buf_valid))
+    (vim.api.nvim_win_close terminal.win false)))
+
+(fn open []
+  (if (and terminal (terminal:buf_valid))
+      ;; terminal exists
+      (do
+        (when (not (win_valid? terminal.win)) (terminal:toggle))
+        (terminal:focus)
+        (when (and (win_valid? terminal.win) (buf_term? terminal.buf))
+          (vim.api.nvim_win_call terminal.win #(vim.cmd.startinsert))))
+      ;; terminal not exists
+      (let [term_instance (Snacks.terminal.open cmd opts)]
+        (if (and term_instance (term_instance:buf_valid))
+            (do
+              (doto term_instance
+                ; (: :on :TermClose
+                ;    (fn []
+                ;      (set terminal nil)
+                ;      (vim.schedule #(if term_instance
+                ;                         (do
+                ;                           (term_instance:close {:buf true})
+                ;                           (vim.cmd.checktime)))))
+                ;    {:buf true})
+                ; (: :on :BufWipeout #(set terminal nil) {:buf true})
+                (: :on :BufLeave #(vim.defer_fn close 10) {:buf true}))
+              (set terminal term_instance))
+            (do
+              (vim.notify "Failed to open gitu" vim.log.levels.ERROR)
+              (set terminal nil))))))
+
+(fn toggle []
+  (if (and terminal (terminal:buf_valid))
+      ;; terminal exists
+      (if (terminal:win_valid)
+          ;; visible
+          (do
+            (vim.notfiy "terminal visible")
+            (let [current_win_id (vim.api.nvim_get_current_win)
+                  target_win_id terminal.win]
+              (if (= target_win_id current_win_id)
+                  ;; currently focused
+                  (terminal:toggle)
+                  ;; currently not focused
+                  (do
+                    (vim.api.nvim_set_current_win target_win_id)
+                    (if (and (buf_valid? terminal.buf) (buf_term? terminal.buf))
+                        (vim.cmd.startinsert))))))
+          ;; not visible
+          (terminal:toggle))
+      ;; terminal not exists
+      (open)))
+
+(vim.api.nvim_create_user_command :Gitu toggle {})

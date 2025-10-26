@@ -26,9 +26,9 @@
                              :foldenable true
                              :switchbuf ""}
                        ; :o {}
-                       :env {:VISUAL "nvr --remote-wait-silent"
-                             :EDITOR "nvr --remote-wait-silent"
-                             :GIT_EDITOR "nvr --remote-wait-silent"}
+                       :env {:VISUAL "nvr -cc b# --remote"
+                             :EDITOR "nvr -cc b# --remote"
+                             :GIT_EDITOR "nvr -cc b# --remote-wait"}
                        :g {:mapleader " "
                            :maplocalleader ","
                            :loaded_netrw 1

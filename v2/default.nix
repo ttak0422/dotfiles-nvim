@@ -320,6 +320,7 @@ in
     #   package = alpha-nvim;
     #   startupConfig = read "./fnl/alpha.fnl";
     # };
+    # unnest.package = unnest-nvim;
   };
 
   lazy = with pkgs.vimPlugins.v2; rec {

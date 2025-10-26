@@ -1,48 +1,78 @@
 -- [nfnl] v2/fnl/gitu.fnl
-local function gitu()
-  if (vim.system({"git", "rev-parse", "--abbrev-ref", "HEAD"}):wait().code ~= 0) then
-    return vim.notify("not a git repository", vim.log.levels.WARN)
+local Snacks = require("snacks")
+local terminal = nil
+local function win_valid_3f(win)
+  return (win and vim.api.nvim_win_is_valid(win))
+end
+local function buf_valid_3f(buf)
+  return (buf and vim.api.nvim_buf_is_valid(buf))
+end
+local function buf_term_3f(buf)
+  return (buf and (vim.api.nvim_buf_get_option(buf, "buftype") == "terminal"))
+end
+local cmd = "gitu"
+local opts = {win = {position = "left", width = 0.4}}
+local function close()
+  if (terminal and terminal:buf_valid()) then
+    return vim.api.nvim_win_close(terminal.win, false)
   else
-    if (#vim.api.nvim_list_wins() == 1) then
-      local w = vim.api.nvim_win_get_width(0)
-      local h = (vim.api.nvim_win_get_height(0) * 2.1)
-      if (h > w) then
-        vim.cmd.split()
-      else
-        vim.cmd.vsplit()
-      end
-    else
-    end
-    vim.cmd.enew()
-    vim.wo.number = false
-    vim.wo.foldcolumn = "0"
-    vim.wo.signcolumn = "no"
-    vim.wo.statuscolumn = ""
-    local bufnr = vim.api.nvim_get_current_buf()
-    local on_exit
-    local function _3_()
-      if (#vim.api.nvim_list_wins() ~= 1) then
-        local buf = vim.fn.bufnr("#")
-        if ((buf ~= -1) and vim.api.nvim_buf_is_valid(buf)) then
-          return vim.api.nvim_win_set_buf(vim.api.nvim_get_current_win(), buf)
-        else
-          return nil
-        end
-      else
-        if vim.api.nvim_buf_is_valid(bufnr) then
-          return vim.api.nvim_buf_delete(bufnr, {force = true})
-        else
-          return nil
-        end
-      end
-    end
-    on_exit = _3_
-    vim.fn.termopen("gitu", {on_exit = on_exit})
-    vim.cmd.startinsert()
-    vim.bo[bufnr]["bufhidden"] = "wipe"
-    vim.bo[bufnr]["swapfile"] = false
-    vim.bo[bufnr]["buflisted"] = false
-    return vim.api.nvim_create_autocmd("BufLeave", {buffer = bufnr, once = true, callback = on_exit})
+    return nil
   end
 end
-return vim.api.nvim_create_user_command("Gitu", gitu, {})
+local function open()
+  if (terminal and terminal:buf_valid()) then
+    if not win_valid_3f(terminal.win) then
+      terminal:toggle()
+    else
+    end
+    terminal:focus()
+    if (win_valid_3f(terminal.win) and buf_term_3f(terminal.buf)) then
+      local function _3_()
+        return vim.cmd.startinsert()
+      end
+      return vim.api.nvim_win_call(terminal.win, _3_)
+    else
+      return nil
+    end
+  else
+    local term_instance = Snacks.terminal.open(cmd, opts)
+    if (term_instance and term_instance:buf_valid()) then
+      do
+        local function _5_()
+          return vim.defer_fn(close, 10)
+        end
+        term_instance:on("BufLeave", _5_, {buf = true})
+      end
+      terminal = term_instance
+      return nil
+    else
+      vim.notify("Failed to open gitu", vim.log.levels.ERROR)
+      terminal = nil
+      return nil
+    end
+  end
+end
+local function toggle()
+  if (terminal and terminal:buf_valid()) then
+    if terminal:win_valid() then
+      vim.notfiy("terminal visible")
+      local current_win_id = vim.api.nvim_get_current_win()
+      local target_win_id = terminal.win
+      if (target_win_id == current_win_id) then
+        return terminal:toggle()
+      else
+        vim.api.nvim_set_current_win(target_win_id)
+        if (buf_valid_3f(terminal.buf) and buf_term_3f(terminal.buf)) then
+          return vim.cmd.startinsert()
+        else
+          return nil
+        end
+      end
+    else
+      return terminal:toggle()
+    end
+  else
+    return open()
+  end
+end
+return vim.api.nvim_create_user_command("Gitu", toggle, {})
