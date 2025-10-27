@@ -24,7 +24,9 @@
                              :foldlevel 99
                              :foldlevelstart 99
                              :foldenable true
-                             :switchbuf ""}
+                             :switchbuf ""
+                             :splitbelow true
+                             :splitright true}
                        ; :o {}
                        :env {:EDITOR "nvr -cc b# --remote"
                              :GIT_EDITOR "nvr -cc b# --remote-wait"}
