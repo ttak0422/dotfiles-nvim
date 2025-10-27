@@ -1,5 +1,5 @@
 (let [checkmate (require :checkmate)
-      files [:todo :TODO :todo.md :TODO.md :*.todo :*.todo.md :scratch.md]
+      files [:*.md]
       keys {:<LocalLeader>tt {:rhs "<cmd>Checkmate toggle<CR>"
                               :desc "Toggle todo item"
                               :modes [:n :v]}
