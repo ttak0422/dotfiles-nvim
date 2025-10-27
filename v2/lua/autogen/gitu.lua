@@ -11,7 +11,7 @@ local function buf_term_3f(buf)
   return (buf and (vim.api.nvim_buf_get_option(buf, "buftype") == "terminal"))
 end
 local cmd = "gitu"
-local opts = {win = {position = "left", width = 0.4}}
+local opts = {win = {position = "float", width = 0.4}}
 local function close()
   if (terminal and terminal:buf_valid()) then
     return vim.api.nvim_win_close(terminal.win, false)
@@ -39,9 +39,26 @@ local function open()
     if (term_instance and term_instance:buf_valid()) then
       do
         local function _5_()
-          return vim.defer_fn(close, 10)
+          terminal = nil
+          local function _6_()
+            if term_instance then
+              return term_instance:close({buf = true})
+            else
+              return nil
+            end
+          end
+          return vim.schedule(_6_)
         end
-        term_instance:on("BufLeave", _5_, {buf = true})
+        term_instance:on("TermClose", _5_, {buf = true})
+        local function _8_()
+          terminal = nil
+          return nil
+        end
+        term_instance:on("BufWipeout", _8_, {buf = true})
+        local function _9_()
+          return vim.defer_fn(close, 20)
+        end
+        term_instance:on("BufLeave", _9_, {buf = true})
       end
       terminal = term_instance
       return nil
