@@ -18,6 +18,7 @@
 ├── apps.nix          # Application definitions
 ├── overlays.nix      # Nix overlays
 ├── assets/           # Documentation images
+├── tests/            # Test configuration directory
 └── v2/               # Main configuration directory
     ├── default.nix   # Nix configuration entry point
     ├── fnl/          # Fennel source files
