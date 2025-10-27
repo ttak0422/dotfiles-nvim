@@ -1269,10 +1269,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2.22.0",
-      "revision": "5eac729fa290248acfe10916d92a5ed5e5c0f9ed",
-      "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.22.0",
-      "hash": "1hbm4fnw51qdp0nz83fcxbvnxjq2k57a37w6dp0wz6wkcx7cwxw9"
+      "version": "v2.27.0",
+      "revision": "4b3bb54d8b8bc114ceab203fa23973789a79be24",
+      "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.27.0",
+      "hash": "0gwi8hwz59n1sd44w05whmm67mz9v6q0nbv45qwy0992z0l0wis2"
     },
     "statuscol.nvim": {
       "type": "Git",
