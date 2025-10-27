@@ -3043,7 +3043,6 @@
         "systems": "systems_3",
         "tabout-nvim": "tabout-nvim",
         "tint-nvim": "tint-nvim",
-        "tiny-inline-diagnostic-nvim": "tiny-inline-diagnostic-nvim",
         "toggler": "toggler",
         "trace-pr-nvim": "trace-pr-nvim",
         "treesj": "treesj",
@@ -3405,22 +3404,6 @@
       "original": {
         "owner": "levouh",
         "repo": "tint.nvim",
-        "type": "github"
-      }
-    },
-    "tiny-inline-diagnostic-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1755566124,
-        "narHash": "sha256-odW/RWUEoya/e8GQVKBKKUVRbNfUjkb4faPqzChi2iE=",
-        "owner": "rachartier",
-        "repo": "tiny-inline-diagnostic.nvim",
-        "rev": "f64efd33a51ea89bdb847fb3aaf716e96b83ba1a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rachartier",
-        "repo": "tiny-inline-diagnostic.nvim",
         "type": "github"
       }
     },

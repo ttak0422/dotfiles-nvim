@@ -1508,6 +1508,19 @@
       "url": "https://github.com/nvzone/timerly/archive/1c78999480af0e4f8201fe6bfa1e5e0b70a59acf.tar.gz",
       "hash": "0jbncbq03vp1v9fyd1s6mjymbgxp81qjklfal6s02xw9x41azxjw"
     },
+    "tiny-inline-diagnostic.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "rachartier",
+        "repo": "tiny-inline-diagnostic.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "6e37efc9d16186c21a1cf0e8385b10f673ec582e",
+      "url": "https://github.com/rachartier/tiny-inline-diagnostic.nvim/archive/6e37efc9d16186c21a1cf0e8385b10f673ec582e.tar.gz",
+      "hash": "13hr2lbxcfk8jd5g5d32xvzh4jx35i2faj13cjn929j1zr5hy81r"
+    },
     "todo-comments.nvim": {
       "type": "Git",
       "repository": {
