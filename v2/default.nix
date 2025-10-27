@@ -1180,6 +1180,10 @@ in
         }
         {
           packages = [ ];
+          depends = [
+            # MEMO: 先に読み込まないと初回実行が安定しない
+            inputPlugins
+          ];
           extraPackages = with pkgs; [ gitu ];
           postConfig = read "./fnl/gitu.fnl";
           hooks.commands = [ "Gitu" ];
