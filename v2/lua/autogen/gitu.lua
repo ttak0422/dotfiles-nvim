@@ -11,7 +11,7 @@ local function buf_term_3f(buf)
   return (buf and (vim.api.nvim_buf_get_option(buf, "buftype") == "terminal"))
 end
 local cmd = "gitu"
-local opts = {win = {position = "float", width = 0.4}}
+local opts = {win = {position = "float", width = 0.75}}
 local function close()
   if (terminal and terminal:buf_valid()) then
     return vim.api.nvim_win_close(terminal.win, false)

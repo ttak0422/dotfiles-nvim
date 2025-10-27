@@ -11,7 +11,7 @@
   (and buf (= (vim.api.nvim_buf_get_option buf :buftype) :terminal)))
 
 (local cmd :gitu)
-(local opts {:win {:position :float :width 0.4}})
+(local opts {:win {:position :float :width 0.75}})
 
 (fn close []
   (when (and terminal (terminal:buf_valid))
