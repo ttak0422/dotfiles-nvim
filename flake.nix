@@ -37,12 +37,6 @@
       flake = false;
     };
 
-    # language server
-    ctags-lsp = {
-      url = "github:netmute/ctags-lsp";
-      flake = false;
-    };
-
     # nodePackages
     mcp-hub = {
       url = "github:ravitemer/mcp-hub";
@@ -98,10 +92,6 @@
       url = "github:kevinhwang91/promise-async";
       flake = false;
     };
-    gina-vim = {
-      url = "github:lambdalisue/gina.vim";
-      flake = false;
-    };
     git-conflict-nvim = {
       url = "github:akinsho/git-conflict.nvim";
       flake = false;
@@ -130,10 +120,6 @@
       url = "github:rebelot/heirline.nvim";
       flake = false;
     };
-    heirline-components-nvim = {
-      url = "github:Zeioth/heirline-components.nvim";
-      flake = false;
-    };
     lsp-progress-nvim = {
       url = "github:linrongbin16/lsp-progress.nvim";
       flake = false;
@@ -156,10 +142,6 @@
     };
     indent-o-matic = {
       url = "github:Darazaki/indent-o-matic";
-      flake = false;
-    };
-    JABS-nvim = {
-      url = "github:matbme/JABS.nvim";
       flake = false;
     };
     vim-lastplace = {
@@ -234,14 +216,6 @@
       url = "github:thinca/vim-qfreplace";
       flake = false;
     };
-    reacher-nvim = {
-      url = "github:notomo/reacher.nvim";
-      flake = false;
-    };
-    registers-nvim = {
-      url = "github:tversteeg/registers.nvim";
-      flake = false;
-    };
     rustaceanvim = {
       url = "github:mrcjkb/rustaceanvim";
       flake = false;
@@ -264,10 +238,6 @@
     };
     trouble-nvim = {
       url = "github:folke/trouble.nvim";
-      flake = false;
-    };
-    denops-translate-vim = {
-      url = "github:skanehira/denops-translate.vim";
       flake = false;
     };
     trim-nvim = {
@@ -308,10 +278,6 @@
     };
     winshift-nvim = {
       url = "github:sindrets/winshift.nvim";
-      flake = false;
-    };
-    mr-vim = {
-      url = "github:lambdalisue/mr.vim";
       flake = false;
     };
     neotest-golang = {
@@ -422,22 +388,6 @@
       url = "github:/ibhagwan/fzf-lua";
       flake = false;
     };
-    btw-nvim = {
-      url = "github:letieu/btw.nvim";
-      flake = false;
-    };
-    ddu-filter-matcher_ignore_files = {
-      url = "github:Shougo/ddu-filter-matcher_ignore_files";
-      flake = false;
-    };
-    ddu-filter-matcher_ignores = {
-      url = "github:Shougo/ddu-filter-matcher_ignores";
-      flake = false;
-    };
-    ddu-filter-matcher_relative = {
-      url = "github:Shougo/ddu-filter-matcher_relative";
-      flake = false;
-    };
     pum-vim = {
       url = "github:Shougo/pum.vim";
       flake = false;
@@ -466,10 +416,6 @@
       url = "github:elmcgill/springboot-nvim";
       flake = false;
     };
-    log-highlight-nvim = {
-      url = "github:fei6409/log-highlight.nvim";
-      flake = false;
-    };
     bufferline-nvim = {
       url = "github:akinsho/bufferline.nvim";
       flake = false;
@@ -488,10 +434,6 @@
     };
     helpview-nvim = {
       url = "github:OXY2DEV/helpview.nvim";
-      flake = false;
-    };
-    dotfyle-metadata-nvim = {
-      url = "github:creativenull/dotfyle-metadata.nvim";
       flake = false;
     };
     CopilotChat-nvim = {
@@ -518,16 +460,8 @@
       url = "github:NStefan002/screenkey.nvim";
       flake = false;
     };
-    vim-translator = {
-      url = "github:voldikss/vim-translator";
-      flake = false;
-    };
     crates-nvim = {
       url = "github:Saecki/crates.nvim";
-      flake = false;
-    };
-    ed-cmd-nvim = {
-      url = "github:smilhey/ed-cmd.nvim";
       flake = false;
     };
     sorairo = {
@@ -566,20 +500,12 @@
       url = "github:AndrewRadev/switch.vim";
       flake = false;
     };
-    hardtime-nvim = {
-      url = "github:m4xshen/hardtime.nvim";
-      flake = false;
-    };
     goplements-nvim = {
       url = "github:maxandron/goplements.nvim";
       flake = false;
     };
     goimpl-nvim = {
       url = "github:edolphin-ydf/goimpl.nvim";
-      flake = false;
-    };
-    popup-nvim = {
-      url = "github:nvim-lua/popup.nvim";
       flake = false;
     };
     aerial-nvim = {
@@ -592,10 +518,6 @@
     };
     nvim-yati = {
       url = "github:yioneko/nvim-yati";
-      flake = false;
-    };
-    ctags-lsp-nvim = {
-      url = "github:netmute/ctags-lsp.nvim";
       flake = false;
     };
     logrotate-nvim = {
@@ -612,14 +534,6 @@
     };
     guess-indent-nvim = {
       url = "github:NMAC427/guess-indent.nvim";
-      flake = false;
-    };
-    command-and-cursor-nvim = {
-      url = "github:moyiz/command-and-cursor.nvim";
-      flake = false;
-    };
-    kmonad-vim = {
-      url = "github:kmonad/kmonad-vim";
       flake = false;
     };
     toggler = {

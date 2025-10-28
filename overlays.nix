@@ -217,13 +217,6 @@ inputs: with inputs; [
           cp SKK-JISYO.L $out/SKK-JISYO.L
         '';
       };
-
-      ctags-lsp = prev.buildGoModule {
-        src = inputs.ctags-lsp;
-        pname = "ctags-lsp";
-        version = inputs.ctags-lsp.rev;
-        vendorHash = null;
-      };
     }
   )
 ]
