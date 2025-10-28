@@ -530,10 +530,6 @@
       url = "github:smilhey/ed-cmd.nvim";
       flake = false;
     };
-    smear-cursor-nvim = {
-      url = "github:sphamba/smear-cursor.nvim";
-      flake = false;
-    };
     sorairo = {
       url = "github:ttak0422/sorairo/v2";
       flake = false;

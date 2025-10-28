@@ -1010,6 +1010,11 @@ in
     modulePlugins = {
       depends = [
         {
+          package = smear-cursor-nvim;
+          postConfig = read "./fnl/smear-cursor.fnl";
+          hooks.modules = [ "smear_cursor" ];
+        }
+        {
           package = inlay-hints-nvim;
           postConfig = read "./fnl/inlay-hints.fnl";
           hooks.modules = [ "inlay-hints" ];

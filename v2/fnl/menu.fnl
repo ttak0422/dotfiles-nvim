@@ -7,6 +7,9 @@
         {:hl :Normal :name " Toggle colorize" :cmd :ColorizerToggle}
         {:hl :Normal :name " Edit local config" :cmd :ConfigLocalEdit}
         {:hl :Normal :name "󰞷 Open scratch buffer" :cmd :RepluaOpen}
+        {:hl :Normal
+         :name " Toggle cursor animation"
+         :cmd #((. (require :smear_cursor) :toggle))}
         separator
         {:hl :Normal :name "󰄉 Timer" :cmd #(vim.cmd :TimerlyToggle)}
         {:hl :Normal :name " Show keys" :cmd #(vim.cmd :ShowkeysToggle)}

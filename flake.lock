@@ -3032,7 +3032,6 @@
         "screenkey-nvim": "screenkey-nvim",
         "skk-dict": "skk-dict",
         "smart-splits-nvim": "smart-splits-nvim",
-        "smear-cursor-nvim": "smear-cursor-nvim",
         "sorairo": "sorairo",
         "spring-boot-nvim": "spring-boot-nvim",
         "springboot-nvim": "springboot-nvim",
@@ -3178,22 +3177,6 @@
       "original": {
         "owner": "mrjones2014",
         "repo": "smart-splits.nvim",
-        "type": "github"
-      }
-    },
-    "smear-cursor-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1733596088,
-        "narHash": "sha256-C1azBWO7rU5QsCwuBO3xPaT5WZIbIfZeVfSVMGWm9kw=",
-        "owner": "sphamba",
-        "repo": "smear-cursor.nvim",
-        "rev": "a5b840881fc132a88facbfbdee0b1b34df61eaed",
-        "type": "github"
-      },
-      "original": {
-        "owner": "sphamba",
-        "repo": "smear-cursor.nvim",
         "type": "github"
       }
     },

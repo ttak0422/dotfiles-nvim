@@ -1258,6 +1258,19 @@
       "url": "https://github.com/NI57721/skkeleton-henkan-highlight/archive/b952385ff9ace7597c9d83b5c93d393c6d73a1e6.tar.gz",
       "hash": "0lmjbrsfsjv1s4amvkr6zyyr9larvv8fd125fcnbw1gy3w1xyiz4"
     },
+    "smear-cursor.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "sphamba",
+        "repo": "smear-cursor.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "abfa5835920b1d76c0e24e1465a618ad914be90a",
+      "url": "https://github.com/sphamba/smear-cursor.nvim/archive/abfa5835920b1d76c0e24e1465a618ad914be90a.tar.gz",
+      "hash": "19g14k43rsm8i8wvra111nnv7i6nqxscbvrxhb4svcg1jh9aqvsz"
+    },
     "snacks.nvim": {
       "type": "GitRelease",
       "repository": {
