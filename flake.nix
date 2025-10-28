@@ -108,10 +108,6 @@
       url = "github:rmagatti/goto-preview";
       flake = false;
     };
-    harpoonline = {
-      url = "github:abeldekat/harpoonline";
-      flake = false;
-    };
     haskell-tools-nvim = {
       url = "github:MrcJkb/haskell-tools.nvim";
       flake = false;
@@ -384,10 +380,6 @@
       url = "github:kylechui/nvim-surround";
       flake = false;
     };
-    fzf-lua = {
-      url = "github:/ibhagwan/fzf-lua";
-      flake = false;
-    };
     pum-vim = {
       url = "github:Shougo/pum.vim";
       flake = false;
@@ -454,10 +446,6 @@
     };
     auto-save-nvim = {
       url = "github:pocco81/auto-save.nvim";
-      flake = false;
-    };
-    screenkey-nvim = {
-      url = "github:NStefan002/screenkey.nvim";
       flake = false;
     };
     crates-nvim = {

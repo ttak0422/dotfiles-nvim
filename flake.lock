@@ -751,22 +751,6 @@
         "type": "github"
       }
     },
-    "fzf-lua": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1748610523,
-        "narHash": "sha256-U3rc4ViIj0KTwj1m7//oau262HkT6JFQvtoTi3lq9xA=",
-        "owner": "ibhagwan",
-        "repo": "fzf-lua",
-        "rev": "8c8845ca6d05bc768b7ce27ebe3682ddf7e6a996",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ibhagwan",
-        "repo": "fzf-lua",
-        "type": "github"
-      }
-    },
     "git-conflict-nvim": {
       "flake": false,
       "locked": {
@@ -963,22 +947,6 @@
       "original": {
         "owner": "NMAC427",
         "repo": "guess-indent.nvim",
-        "type": "github"
-      }
-    },
-    "harpoonline": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1722186484,
-        "narHash": "sha256-3DyQSE8GbZ1690Cd08vvKH/Axy/7jP5Iczj8/qoKXzs=",
-        "owner": "abeldekat",
-        "repo": "harpoonline",
-        "rev": "50b33fbeaf6bd0349f6609013c0c33bed7effcbb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "abeldekat",
-        "repo": "harpoonline",
         "type": "github"
       }
     },
@@ -2597,7 +2565,6 @@
         "flake-parts": "flake-parts_2",
         "flow-nvim": "flow-nvim",
         "foldnav-nvim": "foldnav-nvim",
-        "fzf-lua": "fzf-lua",
         "git-conflict-nvim": "git-conflict-nvim",
         "gitsigns-nvim": "gitsigns-nvim",
         "go-impl-nvim": "go-impl-nvim",
@@ -2606,7 +2573,6 @@
         "goplements-nvim": "goplements-nvim",
         "goto-preview": "goto-preview",
         "guess-indent-nvim": "guess-indent-nvim",
-        "harpoonline": "harpoonline",
         "haskell-tools-nvim": "haskell-tools-nvim",
         "heirline-nvim": "heirline-nvim",
         "helpview-nvim": "helpview-nvim",
@@ -2689,7 +2655,6 @@
         "qf-nvim": "qf-nvim",
         "rustaceanvim": "rustaceanvim",
         "scope-nvim": "scope-nvim",
-        "screenkey-nvim": "screenkey-nvim",
         "skk-dict": "skk-dict",
         "smart-splits-nvim": "smart-splits-nvim",
         "sorairo": "sorairo",
@@ -2788,22 +2753,6 @@
       "original": {
         "owner": "tiagovla",
         "repo": "scope.nvim",
-        "type": "github"
-      }
-    },
-    "screenkey-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1725628342,
-        "narHash": "sha256-RTUkG77gM6b1PKv5AqB0/U4satHwQ+q5kJYM3U/mkAw=",
-        "owner": "NStefan002",
-        "repo": "screenkey.nvim",
-        "rev": "0589de3c857721e150ea694cfe66d6d0e8aecacb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NStefan002",
-        "repo": "screenkey.nvim",
         "type": "github"
       }
     },
