@@ -262,10 +262,6 @@
       url = "github:abecodes/tabout.nvim";
       flake = false;
     };
-    tint-nvim = {
-      url = "github:levouh/tint.nvim";
-      flake = false;
-    };
     trouble-nvim = {
       url = "github:folke/trouble.nvim";
       flake = false;
@@ -294,10 +290,6 @@
       url = "github:jbyuki/venn.nvim";
       flake = false;
     };
-    vim-markdown = {
-      url = "github:preservim/vim-markdown";
-      flake = false;
-    };
     vim-nix = {
       url = "github:LnL7/vim-nix";
       flake = false;
@@ -308,10 +300,6 @@
     };
     nvim-vtsls = {
       url = "github:yioneko/nvim-vtsls";
-      flake = false;
-    };
-    waitevent-nvim = {
-      url = "github:notomo/waitevent.nvim";
       flake = false;
     };
     nvim-window-picker = {
@@ -430,10 +418,6 @@
       url = "github:kylechui/nvim-surround";
       flake = false;
     };
-    surround-ui-nvim = {
-      url = "github:roobert/surround-ui.nvim";
-      flake = false;
-    };
     fzf-lua = {
       url = "github:/ibhagwan/fzf-lua";
       flake = false;
@@ -516,10 +500,6 @@
     };
     winresizer = {
       url = "github:simeji/winresizer";
-      flake = false;
-    };
-    virtual-types-nvim = {
-      url = "github:jubnzv/virtual-types.nvim";
       flake = false;
     };
     bigfile-nvim = {
