@@ -820,6 +820,19 @@
       "url": "https://api.github.com/repos/shortcuts/no-neck-pain.nvim/tarball/v2.4.6",
       "hash": "0f2wqd0i6sadvzzpbil0avi5sl6nzl7b57p5am2qf2m413lrzafc"
     },
+    "noice.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "folke",
+        "repo": "noice.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "5099348591f7d3ba9e547b1e631c694c65bbe0b9",
+      "url": "https://github.com/folke/noice.nvim/archive/5099348591f7d3ba9e547b1e631c694c65bbe0b9.tar.gz",
+      "hash": "12c28is03zyz8ba3qa33mmf9g0r6nb7iavxfqidbd2l0bmyqg79x"
+    },
     "none-ls-extras.nvim": {
       "type": "Git",
       "repository": {
