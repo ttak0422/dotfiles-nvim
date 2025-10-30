@@ -1743,20 +1743,17 @@
       "hash": "15yywz5m3qqxa0fld8q1ii6q80zjvihyri2gfa8q739mqa2sqwb6"
     },
     "which-key.nvim": {
-      "type": "GitRelease",
+      "type": "Git",
       "repository": {
         "type": "GitHub",
         "owner": "folke",
         "repo": "which-key.nvim"
       },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
+      "branch": "main",
       "submodules": false,
-      "version": "v3.17.0",
-      "revision": "fcbf4eea17cb299c02557d576f0d568878e354a4",
-      "url": "https://api.github.com/repos/folke/which-key.nvim/tarball/v3.17.0",
-      "hash": "17ny4b84f5m32mlp5gy0vhy4hwjhbqvajmbkzq0rxfxjck1n52li"
+      "revision": "3aab2147e74890957785941f0c1ad87d0a44c15a",
+      "url": "https://github.com/folke/which-key.nvim/archive/3aab2147e74890957785941f0c1ad87d0a44c15a.tar.gz",
+      "hash": "1dwri7gxqgb58pfy829s0ns709m0nrcj1cgz2wj1k09qfffri9mc"
     }
   },
   "version": 5

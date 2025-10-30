@@ -685,6 +685,11 @@ in
     editPlugins = {
       depends = [
         {
+          package = which-key-nvim;
+          postConfig = read "./fnl/which-key.fnl";
+          hooks.modules = [ "which-key" ];
+        }
+        {
           package = hydra-nvim;
           postConfig = read "./fnl/hydra.fnl";
         }
