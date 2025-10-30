@@ -2097,22 +2097,6 @@
         "type": "github"
       }
     },
-    "nvim-bqf": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1749565820,
-        "narHash": "sha256-3RVcm83vIxLpxFjdh9RhMPtNd62r2r9QCg53ozIIw4A=",
-        "owner": "kevinhwang91",
-        "repo": "nvim-bqf",
-        "rev": "9cbec7cf8ad2a902a0a41241ad16c3489620321b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kevinhwang91",
-        "repo": "nvim-bqf",
-        "type": "github"
-      }
-    },
     "nvim-bufdel": {
       "flake": false,
       "locked": {
@@ -2270,22 +2254,6 @@
       "original": {
         "owner": "rcarriga",
         "repo": "nvim-notify",
-        "type": "github"
-      }
-    },
-    "nvim-pqf": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1716222941,
-        "narHash": "sha256-5VH1ffXvQuMDm32xt2t2UlEJiKuZWbkAMTXJic/8BYI=",
-        "owner": "yorickpeterse",
-        "repo": "nvim-pqf",
-        "rev": "148ee2ca8b06d83fd9bf6f9b9497724ad39a07d6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "yorickpeterse",
-        "repo": "nvim-pqf",
         "type": "github"
       }
     },
@@ -2627,7 +2595,6 @@
         "norg-meta": "norg-meta_2",
         "numb-nvim": "numb-nvim",
         "nvim-FeMaco-lua": "nvim-FeMaco-lua",
-        "nvim-bqf": "nvim-bqf",
         "nvim-bufdel": "nvim-bufdel",
         "nvim-dap": "nvim-dap",
         "nvim-dap-go": "nvim-dap-go",
@@ -2638,7 +2605,6 @@
         "nvim-lastplace": "nvim-lastplace",
         "nvim-lint": "nvim-lint",
         "nvim-notify": "nvim-notify",
-        "nvim-pqf": "nvim-pqf",
         "nvim-regexplainer": "nvim-regexplainer",
         "nvim-surround": "nvim-surround",
         "nvim-ts-context-commentstring": "nvim-ts-context-commentstring",

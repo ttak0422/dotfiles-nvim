@@ -48,14 +48,6 @@
       url = "github:dmtrKovalenko/fff.nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nvim-bqf = {
-      url = "github:/kevinhwang91/nvim-bqf";
-      flake = false;
-    };
-    nvim-pqf = {
-      url = "github:yorickpeterse/nvim-pqf";
-      flake = false;
-    };
     nvim-bufdel = {
       url = "github:ojroques/nvim-bufdel";
       flake = false;
