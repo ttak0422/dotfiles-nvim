@@ -168,10 +168,6 @@
       url = "github:nyngwang/NeoZoom.lua";
       flake = false;
     };
-    noice-nvim = {
-      url = "github:folke/noice.nvim";
-      flake = false;
-    };
     nvim-notify = {
       url = "github:rcarriga/nvim-notify";
       flake = false;

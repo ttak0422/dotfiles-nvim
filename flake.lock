@@ -1967,22 +1967,6 @@
         "type": "github"
       }
     },
-    "noice-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1739300525,
-        "narHash": "sha256-0yu3JX7dXb9b+1REAVP+6K350OlYN6DBm8hEKgkQHgA=",
-        "owner": "folke",
-        "repo": "noice.nvim",
-        "rev": "0427460c2d7f673ad60eb02b35f5e9926cf67c59",
-        "type": "github"
-      },
-      "original": {
-        "owner": "folke",
-        "repo": "noice.nvim",
-        "type": "github"
-      }
-    },
     "norg": {
       "inputs": {
         "flake-compat": "flake-compat_5",
@@ -2590,7 +2574,6 @@
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-neorg-overlay": "nixpkgs-neorg-overlay",
         "nixpkgs-stable": "nixpkgs-stable",
-        "noice-nvim": "noice-nvim",
         "norg": "norg_2",
         "norg-meta": "norg-meta_2",
         "numb-nvim": "numb-nvim",

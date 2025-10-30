@@ -30,5 +30,6 @@
 
 (noice.setup {: lsp
               : routes
-              :cmdline {:enabled false}
-              :messages {:enabled false}})
+              ; :cmdline {:enabled false}
+              ; :messages {:enabled false}
+              })
