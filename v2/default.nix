@@ -687,6 +687,7 @@ in
         {
           package = which-key-nvim;
           postConfig = read "./fnl/which-key.fnl";
+          depends = [ devicons ];
           hooks.modules = [ "which-key" ];
         }
         {
