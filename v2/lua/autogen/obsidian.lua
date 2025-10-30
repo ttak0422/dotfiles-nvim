@@ -40,9 +40,6 @@ local function _4_(_, _note)
     end
   end
   vim.keymap.set("n", "<CR>", _5_, {expr = true, buffer = true, desc = "Obsidian Smart Action"})
-  for lhs, rhs in pairs({["<LocalLeader>r"] = "<Cmd>Obsidian backlinks<CR>"}) do
-    vim.keymap.set("n", lhs, rhs, {buffer = true})
-  end
   return vim.keymap.set("x", "<LocalLeader>l", "<Cmd>Obsidian link<CR>", {buffer = true, desc = "Obsidian Link"})
 end
 callbacks = {enter_note = _4_}
