@@ -105,7 +105,7 @@
 
 (local bar {:attach_events [:BufWinEnter :BufWritePost]
             :update_events {:win [:WinResized]
-                            :buf []
+                            :buf [:BufWinEnter]
                             :global [:DirChanged :VimResized]}
             :sources (fn [buf _]
                        (case [(. vim.bo buf :ft) (. vim.bo buf :buftype)]

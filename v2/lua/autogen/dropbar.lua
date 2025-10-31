@@ -19,7 +19,7 @@ local function _2_(buf, _)
     return {sources.path}
   end
 end
-bar = {attach_events = {"BufWinEnter", "BufWritePost"}, update_events = {win = {"WinResized"}, buf = {}, global = {"DirChanged", "VimResized"}}, sources = _2_}
+bar = {attach_events = {"BufWinEnter", "BufWritePost"}, update_events = {win = {"WinResized"}, buf = {"BufWinEnter"}, global = {"DirChanged", "VimResized"}}, sources = _2_}
 local menu
 do
   local select
