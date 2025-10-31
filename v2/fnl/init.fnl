@@ -97,14 +97,20 @@
                           [(leader :ff)
                            (cmd "Telescope live_grep_args")
                            (desc " livegrep")]
+                          ; [(leader :fp)
+                          ;  (cmd "Telescope find_files")
+                          ;  (desc " files")]
                           [(leader :fp)
-                           (cmd "Telescope find_files")
+                           (lua_ :fff :find_files)
                            (desc " files")]
                           [(leader :Ff)
                            (cmd "Telescope live_grep_args cwd=~/ghq")
                            (desc " livegrep (ghq)")]
+                          ; [(leader :Fp)
+                          ;  (cmd "Telescope find_files cwd=~/ghq")
+                          ;  (desc " files (ghq)")]
                           [(leader :Fp)
-                           (cmd "Telescope find_files cwd=~/ghq")
+                           (lua_ :fff "find_files_in_dir" "~/ghq")
                            (desc " files (ghq)")]
                           [(leader :fP)
                            (cmd "Telescope ghq")
