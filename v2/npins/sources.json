@@ -1,5 +1,18 @@
 {
   "pins": {
+    "CopilotChat.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "CopilotC-Nvim",
+        "repo": "CopilotChat.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "a7138a0ee04d8af42c262554eccee168bbf1454f",
+      "url": "https://github.com/CopilotC-Nvim/CopilotChat.nvim/archive/a7138a0ee04d8af42c262554eccee168bbf1454f.tar.gz",
+      "hash": "115hnj4mkpqkyal3d1w3drs1jrxp4lhiz0bfqpak5n58j2ly8678"
+    },
     "Ionide-vim": {
       "type": "Git",
       "repository": {

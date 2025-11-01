@@ -412,10 +412,6 @@
       url = "github:OXY2DEV/helpview.nvim";
       flake = false;
     };
-    CopilotChat-nvim = {
-      url = "github:CopilotC-Nvim/CopilotChat.nvim";
-      flake = false;
-    };
     winresizer = {
       url = "github:simeji/winresizer";
       flake = false;
