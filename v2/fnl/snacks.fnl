@@ -37,4 +37,9 @@
                  : header}
         :sections [{:section :header} {:section :keys :gap 1 :padding 1}]})
 
-(snacks.setup {: dashboard})
+(local bigfile {:notify true
+                ;; 1MB
+                :size (* 1 1024 1024)
+                :line_length 2000})
+
+(snacks.setup {: dashboard : bigfile})

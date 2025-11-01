@@ -156,10 +156,6 @@
       url = "github:/jakewvincent/mkdnflow.nvim";
       flake = false;
     };
-    BufferBrowser = {
-      url = "sourcehut:~marcc/BufferBrowser";
-      flake = false;
-    };
     vim-bufsurf = {
       url = "github:ton/vim-bufsurf";
       flake = false;
@@ -422,10 +418,6 @@
     };
     winresizer = {
       url = "github:simeji/winresizer";
-      flake = false;
-    };
-    bigfile-nvim = {
-      url = "github:LunarVim/bigfile.nvim";
       flake = false;
     };
     highlight-undo-nvim = {
