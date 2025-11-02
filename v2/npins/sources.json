@@ -736,6 +736,19 @@
       "url": "https://github.com/nvzone/menu/archive/7a0a4a2896b715c066cfbe320bdc048091874cc6.tar.gz",
       "hash": "11jafag2wsap9vmzd19ndfrbyyd685gn9jh580lbpniprbld0rz0"
     },
+    "mini.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvim-mini",
+        "repo": "mini.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "429e5f9dc9cd59bf76cd98b687300f0a384a7f52",
+      "url": "https://github.com/nvim-mini/mini.nvim/archive/429e5f9dc9cd59bf76cd98b687300f0a384a7f52.tar.gz",
+      "hash": "0fbnazjcldbmgzhqj65h0380r4zq6qrz86q7hspykagbq5ajz82c"
+    },
     "minty": {
       "type": "Git",
       "repository": {
