@@ -144,8 +144,8 @@ in
     };
     treesitter = {
       packages = [
-        pkgs.vimPlugins.nvim-treesitter
-        pkgs.vimPlugins.nvim-treesitter-textobjects
+        nvim-treesitter
+        nvim-treesitter-textobjects
         nvim-ts-context-commentstring
       ];
       startupConfig =

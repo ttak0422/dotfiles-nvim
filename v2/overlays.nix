@@ -13,6 +13,7 @@ let
   getSrc = name: getAttr name (import ./npins);
 in
 rec {
+  inherit (final.vimPlugins) nvim-treesitter nvim-treesitter-textobjects;
   blink-cmp = vimUtils.buildVimPlugin rec {
     pname = "blink.cmp";
     version = src.revision;
