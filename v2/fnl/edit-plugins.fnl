@@ -3,6 +3,7 @@ au FileType * setlocal formatoptions-=ro
 au WinEnter * checktime
 vnoremap ; :
 nnoremap ; :
+noremap gy \"+y
 ")
 
 (let [opts {:noremap true :silent true}
