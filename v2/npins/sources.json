@@ -438,6 +438,19 @@
       "url": "https://github.com/DNLHC/glance.nvim/archive/bf86d8b79dce808e65fdb6e9269d0b4ed6d2eefc.tar.gz",
       "hash": "1c1gdbk3z1i04mi6l4zcgr57y9n6wk3qxz91v0rpjyi5yxmsnyrp"
     },
+    "goyo.vim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "junegunn",
+        "repo": "goyo.vim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "fa0263d456dd43f5926484d1c4c7022dfcb21ba9",
+      "url": "https://github.com/junegunn/goyo.vim/archive/fa0263d456dd43f5926484d1c4c7022dfcb21ba9.tar.gz",
+      "hash": "1xiqviqbwhiaclax0zlazsahda5f54waqmd9zgjwxwklivj7cqxv"
+    },
     "graph_view_toml_parser": {
       "type": "Git",
       "repository": {
