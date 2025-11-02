@@ -174,7 +174,7 @@ inputs: with inputs; [
               }) plugins
             ))
             // (buildPlugins (import ./v2/npins))
-            // import ./v2/overlay.nix { inherit inputs; } final prev;
+            // import ./v2/overlays.nix { inherit inputs; } final prev;
           tests = buildPlugins (import ./tests/npins);
         };
       v2 = {
