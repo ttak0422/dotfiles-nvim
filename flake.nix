@@ -444,10 +444,6 @@
       url = "github:rgroli/other.nvim";
       flake = false;
     };
-    dmacro-vim = {
-      url = "github:tani/dmacro.vim";
-      flake = false;
-    };
     nvim-dap-go = {
       url = "github:leoluz/nvim-dap-go";
       flake = false;

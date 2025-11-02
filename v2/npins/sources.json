@@ -305,6 +305,19 @@
       "url": "https://github.com/NotAShelf/direnv.nvim/archive/4dfc8758a1deab45e37b7f3661e0fd3759d85788.tar.gz",
       "hash": "1094iy9rxg0h2mpbdxxb6l5rdr1v5qlix9lyalaqpjym6swbr8ra"
     },
+    "dmacro.vim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "tani",
+        "repo": "dmacro.vim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "25ab1df31d216c4ff7554c262f92b5c0c6b743f0",
+      "url": "https://github.com/tani/dmacro.vim/archive/25ab1df31d216c4ff7554c262f92b5c0c6b743f0.tar.gz",
+      "hash": "1j4ndj46500qfyy0fv1fic88s26jvyfkclpw70jzxpyms060l3wc"
+    },
     "dressing.nvim": {
       "type": "Git",
       "repository": {
