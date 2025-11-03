@@ -273,11 +273,11 @@
         "owner": "Olical",
         "repo": "conjure"
       },
-      "branch": "master",
+      "branch": "main",
       "submodules": false,
-      "revision": "8aed42faf4cb44663d06883d9733c89180260daa",
-      "url": "https://github.com/Olical/conjure/archive/8aed42faf4cb44663d06883d9733c89180260daa.tar.gz",
-      "hash": "165fis125cpc6m0mc8m63dhj4n0936gfk1258ci89jdsg8pzjhy0"
+      "revision": "dab027e0cb710beb070424a117b9065279f6083d",
+      "url": "https://github.com/Olical/conjure/archive/dab027e0cb710beb070424a117b9065279f6083d.tar.gz",
+      "hash": "0ra30mszsp4w128066isqxc4glc587gyd5sz76v0p0yh21l1kg9c"
     },
     "csvview.nvim": {
       "type": "Git",
