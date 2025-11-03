@@ -775,6 +775,19 @@
       "url": "https://github.com/srcrip/lookup.nvim/archive/2f7d05ebc5ebc6553691676d517dfbd4c7c87a6a.tar.gz",
       "hash": "00fap16zccf66d9cv2dx5r0ncmxqigk201rqcxvl6ljyk28m052n"
     },
+    "lsp-progress.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "linrongbin16",
+        "repo": "lsp-progress.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "ae52979ad412371ea6dc39ff70c8dfc681fb42b8",
+      "url": "https://github.com/linrongbin16/lsp-progress.nvim/archive/ae52979ad412371ea6dc39ff70c8dfc681fb42b8.tar.gz",
+      "hash": "0c7s82fl5wamxykdlz63r0xclwdy9s658hp6zm5hmpgl3qyjdrir"
+    },
     "lush.nvim": {
       "type": "Git",
       "repository": {

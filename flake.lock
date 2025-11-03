@@ -1049,22 +1049,6 @@
         "type": "github"
       }
     },
-    "lsp-progress-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1734338835,
-        "narHash": "sha256-WLBNiUzylljTof52+bZgiMIPjzEFeCEq3eSamdo467M=",
-        "owner": "linrongbin16",
-        "repo": "lsp-progress.nvim",
-        "rev": "f3df1df8f5ea33d082db047b5d2d2b83cc01cd8a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "linrongbin16",
-        "repo": "lsp-progress.nvim",
-        "type": "github"
-      }
-    },
     "marks-nvim": {
       "flake": false,
       "locked": {
@@ -2342,7 +2326,6 @@
         "jol": "jol",
         "junit-console": "junit-console",
         "logrotate-nvim": "logrotate-nvim",
-        "lsp-progress-nvim": "lsp-progress-nvim",
         "marks-nvim": "marks-nvim",
         "markview-nvim": "markview-nvim",
         "mkdir-nvim": "mkdir-nvim",

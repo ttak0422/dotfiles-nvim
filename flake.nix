@@ -80,10 +80,6 @@
       url = "github:MrcJkb/haskell-tools.nvim";
       flake = false;
     };
-    lsp-progress-nvim = {
-      url = "github:linrongbin16/lsp-progress.nvim";
-      flake = false;
-    };
     scope-nvim = {
       url = "github:tiagovla/scope.nvim";
       flake = false;

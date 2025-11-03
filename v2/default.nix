@@ -452,10 +452,6 @@ in
           postConfig = read "./fnl/lensline.fnl";
         }
         {
-          package = lsp-progress-nvim;
-          postConfig = read "./fnl/lsp-progress.fnl";
-        }
-        {
           package = garbage-day-nvim;
           postConfig = read "./fnl/garbage-day.fnl";
         }

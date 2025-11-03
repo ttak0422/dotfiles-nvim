@@ -145,19 +145,6 @@ do
   }
 end
 
--- local lsp = {
--- 	provider = function()
--- 		return require("lsp-progress").progress({ max_size = 100 })
--- 	end,
--- 	update = {
--- 		"User",
--- 		pattern = "LspProgressStatusUpdated",
--- 		callback = vim.schedule_wrap(function()
--- 			vim.cmd("redrawstatus")
--- 		end),
--- 	},
--- }
-
 local ruler = {
   provider = "%7(%l,%c%)",
 }
@@ -317,7 +304,6 @@ local s_default = {
   git,
   diagnostics,
   space,
-  -- lsp,
   align,
   -- right
   ruler,
