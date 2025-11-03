@@ -779,7 +779,7 @@ in
     };
 
     togglePlugins = {
-      package = toggler;
+      package = toggler-nvim;
       extraPackages = with pkgs; [ v2-tmux ];
       postConfig = {
         code = read "./fnl/toggle-plugins.fnl";

@@ -64,10 +64,6 @@
       url = "github:akinsho/git-conflict.nvim";
       flake = false;
     };
-    gitsigns-nvim = {
-      url = "github:lewis6991/gitsigns.nvim";
-      flake = false;
-    };
     gopher-nvim = {
       url = "github:olexsmir/gopher.nvim";
       flake = false;
@@ -78,14 +74,6 @@
     };
     haskell-tools-nvim = {
       url = "github:MrcJkb/haskell-tools.nvim";
-      flake = false;
-    };
-    scope-nvim = {
-      url = "github:tiagovla/scope.nvim";
-      flake = false;
-    };
-    nvim-hlslens = {
-      url = "github:kevinhwang91/nvim-hlslens";
       flake = false;
     };
     img-clip-nvim = {
@@ -104,16 +92,8 @@
       url = "github:chentoast/marks.nvim";
       flake = false;
     };
-    mkdir-nvim = {
-      url = "github:jghauser/mkdir.nvim";
-      flake = false;
-    };
     mkdnflow-nvim = {
       url = "github:/jakewvincent/mkdnflow.nvim";
-      flake = false;
-    };
-    vim-bufsurf = {
-      url = "github:ton/vim-bufsurf";
       flake = false;
     };
     NeoZoom-lua = {
@@ -430,22 +410,6 @@
     };
     guess-indent-nvim = {
       url = "github:NMAC427/guess-indent.nvim";
-      flake = false;
-    };
-    toggler = {
-      url = "github:ttak0422/toggler-nvim";
-      flake = false;
-    };
-    capture-vim = {
-      url = "github:tyru/capture.vim";
-      flake = false;
-    };
-    trace-pr-nvim = {
-      url = "github:h3pei/trace-pr.nvim";
-      flake = false;
-    };
-    treesj = {
-      url = "github:Wansmer/treesj";
       flake = false;
     };
     nvim-ts-context-commentstring = {
