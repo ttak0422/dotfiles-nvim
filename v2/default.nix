@@ -874,7 +874,10 @@ in
         image
         checkmate
       ];
-      extraPackages = with pkgs; [ pngpaste ];
+      extraPackages = with pkgs; [
+        pngpaste
+        ripgrep
+      ];
       postConfig = read "./fnl/obsidian.fnl";
       hooks.commands = [
         "Obsidian"
