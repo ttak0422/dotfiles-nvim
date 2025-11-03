@@ -2017,22 +2017,6 @@
         "type": "github"
       }
     },
-    "nvim-bufdel": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1681388521,
-        "narHash": "sha256-nnOoi37giuQHJL3u8F3XkDp7LLceKOC4nZVep/m7qAY=",
-        "owner": "ojroques",
-        "repo": "nvim-bufdel",
-        "rev": "523d58e94e7212fff3e05c247b962dc8f93bcfde",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ojroques",
-        "repo": "nvim-bufdel",
-        "type": "github"
-      }
-    },
     "nvim-dap": {
       "flake": false,
       "locked": {
@@ -2510,7 +2494,6 @@
         "norg-meta": "norg-meta_2",
         "numb-nvim": "numb-nvim",
         "nvim-FeMaco-lua": "nvim-FeMaco-lua",
-        "nvim-bufdel": "nvim-bufdel",
         "nvim-dap": "nvim-dap",
         "nvim-dap-go": "nvim-dap-go",
         "nvim-dap-ui": "nvim-dap-ui",

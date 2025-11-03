@@ -47,7 +47,8 @@
 (macro cmd [c]
   `,(.. :<Cmd> c :<CR>))
 
-(let [opts {:noremap true :silent true}
+(let [S (require :snacks)
+      opts {:noremap true :silent true}
       desc (fn [d] {:noremap true :silent true :desc d})
       lua_ (fn [mod f opt]
              #(if (= opt nil)
@@ -62,9 +63,11 @@
                           ; menu
                           [:<C-Space> (cmd :OpenMenu)]
                           ; close
-                          [(leader :q) (cmd :BufDel) (desc "close buffer")]
+                          [(leader :q)
+                           S.bufdelete.delete
+                           (desc "close buffer")]
                           [(leader :Q)
-                           (cmd :BufDelAll)
+                           S.bufdelete.all
                            (desc "close all buffers")]
                           [(leader :A) (cmd :tabclose)]
                           ;  Toggle
@@ -110,7 +113,7 @@
                           ;  (cmd "Telescope find_files cwd=~/ghq")
                           ;  (desc " files (ghq)")]
                           [(leader :Fp)
-                           (lua_ :fff "find_files_in_dir" "~/ghq")
+                           (lua_ :fff :find_files_in_dir "~/ghq")
                            (desc " files (ghq)")]
                           [(leader :fP)
                            (cmd "Telescope ghq")

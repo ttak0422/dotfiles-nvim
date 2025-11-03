@@ -1323,15 +1323,6 @@ in
           hooks.modules = [ "harpoon" ];
         }
         {
-          package = nvim-bufdel;
-          postConfig = read "./fnl/bufdel.fnl";
-          hooks.commands = [
-            "BufDel"
-            "BufDel!"
-            "BufDelAll"
-          ];
-        }
-        {
           package = detour-nvim;
           hooks.modules = [ "detour" ];
         }
