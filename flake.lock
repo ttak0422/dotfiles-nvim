@@ -891,22 +891,6 @@
         "type": "github"
       }
     },
-    "heirline-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1747961315,
-        "narHash": "sha256-kHoaeULWI+NrLp0am0DSKRKeA1vZIg4pt5NxZuFUDvY=",
-        "owner": "rebelot",
-        "repo": "heirline.nvim",
-        "rev": "fae936abb5e0345b85c3a03ecf38525b0828b992",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rebelot",
-        "repo": "heirline.nvim",
-        "type": "github"
-      }
-    },
     "helpview-nvim": {
       "flake": false,
       "locked": {
@@ -2349,7 +2333,6 @@
         "goto-preview": "goto-preview",
         "guess-indent-nvim": "guess-indent-nvim",
         "haskell-tools-nvim": "haskell-tools-nvim",
-        "heirline-nvim": "heirline-nvim",
         "helpview-nvim": "helpview-nvim",
         "highlight-undo-nvim": "highlight-undo-nvim",
         "history-ignore-nvim": "history-ignore-nvim",

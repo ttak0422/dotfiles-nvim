@@ -80,10 +80,6 @@
       url = "github:MrcJkb/haskell-tools.nvim";
       flake = false;
     };
-    heirline-nvim = {
-      url = "github:rebelot/heirline.nvim";
-      flake = false;
-    };
     lsp-progress-nvim = {
       url = "github:linrongbin16/lsp-progress.nvim";
       flake = false;
