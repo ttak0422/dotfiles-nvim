@@ -2,8 +2,8 @@
 local ufo = require("ufo")
 local provider_selector
 local function _1_(bufnr, ft, buftype)
-  local _2_ = {bufnr, ft, buftype}
-  local _ = _2_
+  local case_2_ = {bufnr, ft, buftype}
+  local _ = case_2_
   return {"treesitter", "indent"}
 end
 provider_selector = _1_

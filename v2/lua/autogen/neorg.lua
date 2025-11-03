@@ -59,14 +59,14 @@ local function _9_()
   return telescope_builtin.live_grep({cwd = vault_path})
 end
 local function _10_()
-  local _11_ = vim.fn.input("\238\152\179 Title: ")
-  local and_12_ = (nil ~= _11_)
+  local case_11_ = vim.fn.input("\238\152\179 Title: ")
+  local and_12_ = (nil ~= case_11_)
   if and_12_ then
-    local title = _11_
+    local title = case_11_
     and_12_ = (title ~= "")
   end
   if and_12_ then
-    local title = _11_
+    local title = case_11_
     return create_file(scratch_path(dated_title(title)))
   else
     return nil

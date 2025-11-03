@@ -89,9 +89,9 @@ do
   mk_open = _15_
   local close
   local function _17_()
-    local _18_ = package.loaded.trouble
-    if (nil ~= _18_) then
-      local t = _18_
+    local case_18_ = package.loaded.trouble
+    if (nil ~= case_18_) then
+      local t = case_18_
       return t.close()
     else
       return nil
@@ -101,12 +101,12 @@ do
   local mk_is_open
   local function _20_(type)
     local function _21_()
-      local _22_ = package.loaded.trouble
-      if (nil ~= _22_) then
-        local t = _22_
+      local case_22_ = package.loaded.trouble
+      if (nil ~= case_22_) then
+        local t = case_22_
         return (t.is_open() and (st.recent_type == type))
       else
-        local _ = _22_
+        local _ = case_22_
         return false
       end
     end

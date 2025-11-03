@@ -3,14 +3,14 @@ local noice = require("noice")
 local lsp = {progress = {enabled = true}, signature = {enabled = false}, hover = {silent = true}, override = {["vim.lsp.util.convert_input_to_markdown_lines"] = true, ["vim.lsp.util.stylize_markdown"] = true}}
 local routes
 local function _1_(message)
-  local _2_ = vim.tbl_get(message.opts, "progress", "client")
-  if (_2_ == "null-ls") then
+  local case_2_ = vim.tbl_get(message.opts, "progress", "client")
+  if (case_2_ == "null-ls") then
     return true
-  elseif (_2_ == "jdtls") then
+  elseif (case_2_ == "jdtls") then
     local title = vim.tbl_get(message.opts, "progress", "title")
     return ((title == "Publish Diagnostics") or (title == "Validate documents") or ((title == "Background task") and (vim.tbl_get(message.opts, "progress", "percentage") == 0)))
   else
-    local _ = _2_
+    local _ = case_2_
     return false
   end
 end

@@ -10,12 +10,12 @@ end
 icons = {ui = {bar = {separator = "\239\145\160 ", extends = "\226\128\166"}, menu = {separator = " ", indicator = "\239\145\160 "}}, kinds = {file_icon = _1_, symbols = {Array = "", BlockMappingPair = "", Boolean = "", BreakStatement = "", Call = "", CaseStatement = "", Class = "", Color = "", Constant = "", Constructor = "", ContinueStatement = "", Copilot = "", Declaration = "", Delete = "", DoStatement = "", Element = "", Enum = "", EnumMember = "", Event = "", Field = "", File = "", Folder = "", ForStatement = "", Function = "", GotoStatement = "", Identifier = "", IfStatement = "", Interface = "", Keyword = "", List = "", Log = "", Lsp = "", Macro = "", MarkdownH1 = "", MarkdownH2 = "", MarkdownH3 = "", MarkdownH4 = "", MarkdownH5 = "", MarkdownH6 = "", Method = "", Module = "", Namespace = "", Null = "", Number = "", Object = "", Operator = "", Package = "", Pair = "", Property = "", Reference = "", Regex = "", Repeat = "", Return = "", RuleSet = "", Scope = "", Section = "", Snippet = "", Specifier = "", Statement = "", String = "", Struct = "", SwitchStatement = "", Table = "", Terminal = "", Text = "", Type = "", TypeParameter = "", Unit = "", Value = "", Variable = "", WhileStatement = ""}}}
 local bar
 local function _2_(buf, _)
-  local _3_ = {vim.bo[buf].ft, vim.bo[buf].buftype}
-  if (true and (_3_[2] == "terminal")) then
-    local _0 = _3_[1]
+  local case_3_ = {vim.bo[buf].ft, vim.bo[buf].buftype}
+  if (true and (case_3_[2] == "terminal")) then
+    local _0 = case_3_[1]
     return {sources.terminal}
   else
-    local _0 = _3_
+    local _0 = case_3_
     return {sources.path}
   end
 end
@@ -24,9 +24,9 @@ local menu
 do
   local select
   local function _5_()
-    local _6_ = utils.menu.get_current()
-    if (nil ~= _6_) then
-      local menu0 = _6_
+    local case_6_ = utils.menu.get_current()
+    if (nil ~= case_6_) then
+      local menu0 = case_6_
       local cursor = vim.api.nvim_win_get_cursor(menu0.win)
       local component = menu0.entries[cursor[1]]:first_clickable(cursor[2])
       if (nil ~= component) then
@@ -41,9 +41,9 @@ do
   select = _5_
   local fuzzy
   local function _9_()
-    local _10_ = utils.menu.get_current()
-    if (nil ~= _10_) then
-      local menu0 = _10_
+    local case_10_ = utils.menu.get_current()
+    if (nil ~= case_10_) then
+      local menu0 = case_10_
       return menu0:fuzzy_find_open()
     else
       return nil

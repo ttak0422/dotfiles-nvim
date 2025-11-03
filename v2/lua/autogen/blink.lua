@@ -22,14 +22,14 @@ do
   local search_src = {"buffer"}
   local cmd_src = {"cmdline", "buffer"}
   local function _3_()
-    local _4_ = vim.fn.getcmdtype()
-    if (_4_ == "/") then
+    local case_4_ = vim.fn.getcmdtype()
+    if (case_4_ == "/") then
       return search_src
-    elseif (_4_ == "?") then
+    elseif (case_4_ == "?") then
       return search_src
-    elseif (_4_ == ":") then
+    elseif (case_4_ == ":") then
       return cmd_src
-    elseif (_4_ == "@") then
+    elseif (case_4_ == "@") then
       return cmd_src
     else
       return nil
@@ -39,13 +39,13 @@ do
 end
 local sources
 local function _6_(ctx)
-  local _7_ = ctx.trigger.initial_kind
-  if (_7_ == "trigger_character") then
+  local case_7_ = ctx.trigger.initial_kind
+  if (case_7_ == "trigger_character") then
     return 0
-  elseif (_7_ == "manual") then
+  elseif (case_7_ == "manual") then
     return 0
   else
-    local _ = _7_
+    local _ = case_7_
     return 100
   end
 end
