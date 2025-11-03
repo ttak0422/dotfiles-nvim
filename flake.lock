@@ -2473,7 +2473,6 @@
         "undotree": "undotree",
         "v2-fff-nvim": "v2-fff-nvim",
         "v2-mcp-hub": "v2-mcp-hub",
-        "venn-nvim": "venn-nvim",
         "vim-bufsurf": "vim-bufsurf",
         "vim-lastplace": "vim-lastplace",
         "vim-nix": "vim-nix",
@@ -2897,22 +2896,6 @@
       "original": {
         "owner": "ravitemer",
         "repo": "mcp-hub",
-        "type": "github"
-      }
-    },
-    "venn-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1714767101,
-        "narHash": "sha256-EFx2o0x2VcKmbTAu/Iy56vTamCvsP5Apfi/RkRmrE1Y=",
-        "owner": "jbyuki",
-        "repo": "venn.nvim",
-        "rev": "b09c2f36ddf70b498281845109bedcf08a7e0de0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jbyuki",
-        "repo": "venn.nvim",
         "type": "github"
       }
     },

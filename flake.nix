@@ -216,10 +216,6 @@
       url = "github:mbbill/undotree";
       flake = false;
     };
-    venn-nvim = {
-      url = "github:jbyuki/venn.nvim";
-      flake = false;
-    };
     vim-nix = {
       url = "github:LnL7/vim-nix";
       flake = false;

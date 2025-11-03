@@ -1170,6 +1170,7 @@ in
         }
         {
           package = venn-nvim;
+          postConfig = read "./fnl/venn.fnl";
           hooks.commands = [
             "VBox"
             "VBoxD"

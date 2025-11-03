@@ -1729,6 +1729,19 @@
       "url": "https://github.com/benomahony/uv.nvim/archive/be4a7d47a976249282bb2f71fc773ac2f5325973.tar.gz",
       "hash": "1ivkmqbmz9sjfdsjqz1gk4qy1hk1hmh4103jzsnsbcalm68vrxa5"
     },
+    "venn.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "jbyuki",
+        "repo": "venn.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "b09c2f36ddf70b498281845109bedcf08a7e0de0",
+      "url": "https://github.com/jbyuki/venn.nvim/archive/b09c2f36ddf70b498281845109bedcf08a7e0de0.tar.gz",
+      "hash": "0mhkmccr3l9ggqlr0gzc5fcdmx7ap66gqbihdnkc4mbn9jipcp0h"
+    },
     "videre.nvim": {
       "type": "Git",
       "repository": {
