@@ -945,22 +945,6 @@
         "type": "github"
       }
     },
-    "history-ignore-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1652981128,
-        "narHash": "sha256-SbvC1+CJlutVhIR4aqwf2hdc4OWmYOuYsJ01Y4SyAxA=",
-        "owner": "yutkat",
-        "repo": "history-ignore.nvim",
-        "rev": "fa873a546e739361c1b9dd6019e7504eb57d61f3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "yutkat",
-        "repo": "history-ignore.nvim",
-        "type": "github"
-      }
-    },
     "img-clip-nvim": {
       "flake": false,
       "locked": {
@@ -2303,7 +2287,6 @@
         "haskell-tools-nvim": "haskell-tools-nvim",
         "helpview-nvim": "helpview-nvim",
         "highlight-undo-nvim": "highlight-undo-nvim",
-        "history-ignore-nvim": "history-ignore-nvim",
         "img-clip-nvim": "img-clip-nvim",
         "indent-blankline-nvim": "indent-blankline-nvim",
         "indent-o-matic": "indent-o-matic",

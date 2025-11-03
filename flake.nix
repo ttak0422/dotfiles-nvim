@@ -84,10 +84,6 @@
       url = "github:tiagovla/scope.nvim";
       flake = false;
     };
-    history-ignore-nvim = {
-      url = "github:yutkat/history-ignore.nvim";
-      flake = false;
-    };
     nvim-hlslens = {
       url = "github:kevinhwang91/nvim-hlslens";
       flake = false;

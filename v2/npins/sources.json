@@ -542,6 +542,19 @@
       "url": "https://github.com/rebelot/heirline.nvim/archive/fae936abb5e0345b85c3a03ecf38525b0828b992.tar.gz",
       "hash": "1xhfakhncwcknwlhw8nrbc1rw4i9s909n6lx5rmy68yn89wilylh"
     },
+    "history-ignore.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "yutkat",
+        "repo": "history-ignore.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "fa873a546e739361c1b9dd6019e7504eb57d61f3",
+      "url": "https://github.com/yutkat/history-ignore.nvim/archive/fa873a546e739361c1b9dd6019e7504eb57d61f3.tar.gz",
+      "hash": "0403na266dcxn2cfnq56wph5q5ys3yn6ly44hiayp5l9w3bw5fs9"
+    },
     "hlchunk.nvim": {
       "type": "Git",
       "repository": {
