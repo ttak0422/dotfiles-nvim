@@ -336,10 +336,6 @@
       url = "github:vim-test/vim-test/";
       flake = false;
     };
-    nvim-lint = {
-      url = "github:mfussenegger/nvim-lint";
-      flake = false;
-    };
     copilot-lua = {
       url = "github:zbirenbaum/copilot.lua";
       flake = false;

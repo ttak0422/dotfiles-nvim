@@ -2086,22 +2086,6 @@
         "type": "github"
       }
     },
-    "nvim-lint": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1742238476,
-        "narHash": "sha256-rYrFVUf4uRK1ivL7yGHfkGCYkjyD0wN6RbVL3JfybXM=",
-        "owner": "mfussenegger",
-        "repo": "nvim-lint",
-        "rev": "936197073214c26a347fb933c9459c8766376b23",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mfussenegger",
-        "repo": "nvim-lint",
-        "type": "github"
-      }
-    },
     "nvim-notify": {
       "flake": false,
       "locked": {
@@ -2454,7 +2438,6 @@
         "nvim-fundo": "nvim-fundo",
         "nvim-hlslens": "nvim-hlslens",
         "nvim-lastplace": "nvim-lastplace",
-        "nvim-lint": "nvim-lint",
         "nvim-notify": "nvim-notify",
         "nvim-regexplainer": "nvim-regexplainer",
         "nvim-surround": "nvim-surround",
