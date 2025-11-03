@@ -2468,7 +2468,6 @@
         "toggler": "toggler",
         "trace-pr-nvim": "trace-pr-nvim",
         "treesj": "treesj",
-        "trim-nvim": "trim-nvim",
         "trouble-nvim": "trouble-nvim",
         "tshjkl-nvim": "tshjkl-nvim",
         "undotree": "undotree",
@@ -2806,22 +2805,6 @@
       "original": {
         "owner": "Wansmer",
         "repo": "treesj",
-        "type": "github"
-      }
-    },
-    "trim-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1735220222,
-        "narHash": "sha256-CZwIa9GccHS/nZ+lq27A6NfpBCqEHOrTC7Hd7skPwnc=",
-        "owner": "cappyzawa",
-        "repo": "trim.nvim",
-        "rev": "d0760a840ca2fe4958353dee567a90c2994e70a7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "cappyzawa",
-        "repo": "trim.nvim",
         "type": "github"
       }
     },

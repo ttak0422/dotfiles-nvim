@@ -204,10 +204,6 @@
       url = "github:folke/trouble.nvim";
       flake = false;
     };
-    trim-nvim = {
-      url = "github:cappyzawa/trim.nvim";
-      flake = false;
-    };
     tshjkl-nvim = {
       url = "github:gsuuon/tshjkl.nvim";
       flake = false;
