@@ -1846,6 +1846,19 @@
       "url": "https://github.com/lambdalisue/vim-gf-improved/archive/893709185d2f55a1f8a0183e0557690ca34e4bdd.tar.gz",
       "hash": "04dabc58lxfyr9hvi9v6azq2b2vqypgiyqlsvy3wmdnzdhpmx9j3"
     },
+    "vim-lastplace": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "farmergreg",
+        "repo": "vim-lastplace"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "e58cb0df716d3c88605ae49db5c4741db8b48aa9",
+      "url": "https://github.com/farmergreg/vim-lastplace/archive/e58cb0df716d3c88605ae49db5c4741db8b48aa9.tar.gz",
+      "hash": "07h25bq42vilrf6wv31p5i22293m0x4x5aa35agnm668bppabwgb"
+    },
     "vim-mr": {
       "type": "Git",
       "repository": {

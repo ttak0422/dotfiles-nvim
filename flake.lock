@@ -2022,22 +2022,6 @@
         "type": "github"
       }
     },
-    "nvim-lastplace": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1702692155,
-        "narHash": "sha256-4/fgKe5d3dBK7z4TcSmNRV/jSDkj9a6z6gXguCBupfY=",
-        "owner": "mrcjkb",
-        "repo": "nvim-lastplace",
-        "rev": "91b996e062affebd7fe787f57a2a3e212457e87b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mrcjkb",
-        "repo": "nvim-lastplace",
-        "type": "github"
-      }
-    },
     "nvim-notify": {
       "flake": false,
       "locked": {
@@ -2370,7 +2354,6 @@
         "nvim-dap-ui": "nvim-dap-ui",
         "nvim-dap-virtual-text": "nvim-dap-virtual-text",
         "nvim-hlslens": "nvim-hlslens",
-        "nvim-lastplace": "nvim-lastplace",
         "nvim-notify": "nvim-notify",
         "nvim-regexplainer": "nvim-regexplainer",
         "nvim-surround": "nvim-surround",
@@ -2405,7 +2388,6 @@
         "v2-fff-nvim": "v2-fff-nvim",
         "v2-mcp-hub": "v2-mcp-hub",
         "vim-bufsurf": "vim-bufsurf",
-        "vim-lastplace": "vim-lastplace",
         "vim-nix": "vim-nix",
         "vim-qfreplace": "vim-qfreplace",
         "vim-startuptime": "vim-startuptime",
@@ -2827,22 +2809,6 @@
       "original": {
         "owner": "ton",
         "repo": "vim-bufsurf",
-        "type": "github"
-      }
-    },
-    "vim-lastplace": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1715994909,
-        "narHash": "sha256-6/Gl7l3ImGqfKkOp0kkHdSQhRCw3jM2NyzRuQfAqAh4=",
-        "owner": "farmergreg",
-        "repo": "vim-lastplace",
-        "rev": "e58cb0df716d3c88605ae49db5c4741db8b48aa9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "farmergreg",
-        "repo": "vim-lastplace",
         "type": "github"
       }
     },

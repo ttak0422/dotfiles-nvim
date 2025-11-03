@@ -100,14 +100,6 @@
       url = "github:Darazaki/indent-o-matic";
       flake = false;
     };
-    vim-lastplace = {
-      url = "github:farmergreg/vim-lastplace";
-      flake = false;
-    };
-    nvim-lastplace = {
-      url = "github:mrcjkb/nvim-lastplace";
-      flake = false;
-    };
     sqlite-lua = {
       url = "github:kkharji/sqlite.lua";
       flake = false;
