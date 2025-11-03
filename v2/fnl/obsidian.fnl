@@ -31,18 +31,19 @@
 (local checkbox {:enabled false})
 
 (local callbacks ; overwrite smart_action
-       {:enter_note (fn [_ _note]
+       {:enter_note (fn [note]
                       (vim.keymap.set :n :<CR>
                                       #(if (api.cursor_link nil nil true)
                                            (vim.cmd "Obsidian follow_link")
                                            (if (api.cursor_tag)
                                                (vim.cmd "Obsidian tags")))
-                                      {:expr true
+                                      {:expr note.bufnr
                                        :buffer true
                                        :desc "Obsidian Smart Action"})
                       (vim.keymap.set :x :<LocalLeader>l
                                       "<Cmd>Obsidian link<CR>"
-                                      {:buffer true :desc "Obsidian Link"}))})
+                                      {:buffer note.bufnr
+                                       :desc "Obsidian Link"}))})
 
 (obsidian.setup {: workspaces
                  : daily_notes

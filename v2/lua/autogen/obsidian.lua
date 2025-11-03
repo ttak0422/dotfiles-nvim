@@ -27,7 +27,7 @@ local completion = {blink = true, min_chars = 1, create_new = true, nvim_cmp = f
 local ui = {enable = false}
 local checkbox = {enabled = false}
 local callbacks
-local function _4_(_, _note)
+local function _4_(note0)
   local function _5_()
     if api.cursor_link(nil, nil, true) then
       return vim.cmd("Obsidian follow_link")
@@ -39,8 +39,8 @@ local function _4_(_, _note)
       end
     end
   end
-  vim.keymap.set("n", "<CR>", _5_, {expr = true, buffer = true, desc = "Obsidian Smart Action"})
-  return vim.keymap.set("x", "<LocalLeader>l", "<Cmd>Obsidian link<CR>", {buffer = true, desc = "Obsidian Link"})
+  vim.keymap.set("n", "<CR>", _5_, {expr = note0.bufnr, buffer = true, desc = "Obsidian Smart Action"})
+  return vim.keymap.set("x", "<LocalLeader>l", "<Cmd>Obsidian link<CR>", {buffer = note0.bufnr, desc = "Obsidian Link"})
 end
 callbacks = {enter_note = _4_}
 obsidian.setup({workspaces = workspaces, daily_notes = daily_notes, completion = completion, ui = ui, checkbox = checkbox, callbacks = callbacks, statusline = {enabled = false}, footer = {enabled = false}, log_level = vim.log.levels.WARN, legacy_commands = false})
