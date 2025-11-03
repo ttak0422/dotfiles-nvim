@@ -1990,22 +1990,6 @@
         "type": "github"
       }
     },
-    "nvim-FeMaco-lua": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1713667878,
-        "narHash": "sha256-eDPdCU1ZBoSiMkdreExsW3AzynQjSfFFCbZQ7f+XGFM=",
-        "owner": "AckslD",
-        "repo": "nvim-FeMaco.lua",
-        "rev": "96bbf843595dbe865838b3f2484b73557f34700c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AckslD",
-        "repo": "nvim-FeMaco.lua",
-        "type": "github"
-      }
-    },
     "nvim-dap": {
       "flake": false,
       "locked": {
@@ -2480,7 +2464,6 @@
         "norg": "norg_2",
         "norg-meta": "norg-meta_2",
         "numb-nvim": "numb-nvim",
-        "nvim-FeMaco-lua": "nvim-FeMaco-lua",
         "nvim-dap": "nvim-dap",
         "nvim-dap-go": "nvim-dap-go",
         "nvim-dap-ui": "nvim-dap-ui",
@@ -2532,7 +2515,6 @@
         "vim-qfreplace": "vim-qfreplace",
         "vim-startuptime": "vim-startuptime",
         "vim-test": "vim-test",
-        "vimade": "vimade",
         "vimdoc-ja": "vimdoc-ja",
         "winresizer": "winresizer",
         "winshift-nvim": "winshift-nvim"
@@ -3078,22 +3060,6 @@
       "original": {
         "owner": "vim-test",
         "repo": "vim-test",
-        "type": "github"
-      }
-    },
-    "vimade": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1740892294,
-        "narHash": "sha256-nTuRXjf2B/YMzFB5fG12ZKpsPQFut4op+WRTQuDrl5k=",
-        "owner": "TaDaa",
-        "repo": "vimade",
-        "rev": "f63ca5cb9cf811b2c526694e820b87fe2238deb6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "TaDaa",
-        "repo": "vimade",
         "type": "github"
       }
     },
