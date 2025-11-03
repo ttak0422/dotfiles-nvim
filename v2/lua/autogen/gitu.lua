@@ -19,6 +19,10 @@ local function close()
     return nil
   end
 end
+local function clear()
+  terminal = nil
+  return nil
+end
 local function open()
   if (terminal and terminal:buf_valid()) then
     if not win_valid_3f(terminal.win) then
@@ -92,4 +96,5 @@ local function toggle()
     return open()
   end
 end
-return vim.api.nvim_create_user_command("Gitu", toggle, {})
+vim.api.nvim_create_user_command("Gitu", toggle, {})
+return vim.api.nvim_create_user_command("GituClear", clear, {})

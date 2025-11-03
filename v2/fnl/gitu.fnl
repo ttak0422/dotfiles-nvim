@@ -18,7 +18,7 @@
     (vim.api.nvim_win_close terminal.win false)))
 
 (fn clear []
-  (set terminal nil)
+  (set terminal nil))
 
 (fn open []
   (if (and terminal (terminal:buf_valid))
