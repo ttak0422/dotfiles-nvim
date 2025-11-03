@@ -512,9 +512,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "474ec5d0f220158afa83aaefab32402e710d3032",
-      "url": "https://github.com/shellRaining/hlchunk.nvim/archive/474ec5d0f220158afa83aaefab32402e710d3032.tar.gz",
-      "hash": "1av6w1y8z9af6aa2mzygdkmz9djv9zx2nn5mij6z38bg8g0qqxfd"
+      "revision": "937135185f99a30cb1413fff76a5c971f250b1a7",
+      "url": "https://github.com/shellRaining/hlchunk.nvim/archive/937135185f99a30cb1413fff76a5c971f250b1a7.tar.gz",
+      "hash": "0zqrm6fccbgcawxxxidkr7zhl91n3r0b01g7g42al5pmyc1v998y"
     },
     "hmts.nvim": {
       "type": "Git",
