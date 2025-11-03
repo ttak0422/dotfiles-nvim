@@ -1197,7 +1197,10 @@ in
           ];
           extraPackages = with pkgs; [ gitu ];
           postConfig = read "./fnl/gitu.fnl";
-          hooks.commands = [ "Gitu" ];
+          hooks.commands = [
+            "Gitu"
+            "GituClear"
+          ];
         }
         {
           package = vim-startuptime;
@@ -1421,6 +1424,10 @@ in
       hooks.events = [ "WinNew" ];
     };
 
+    conjure = {
+      package = pkgs.vimPlugins.v2.conjure;
+    };
+
     filetypePlugins = {
       depends = [
         {
@@ -1484,6 +1491,7 @@ in
         }
         {
           package = nfnl;
+          depends = [ conjure ];
           extraPackages = with pkgs; [
             sd
             fd

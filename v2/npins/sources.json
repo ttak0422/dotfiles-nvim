@@ -266,6 +266,19 @@
       "url": "https://github.com/stevearc/conform.nvim/archive/b4aab989db276993ea5dcb78872be494ce546521.tar.gz",
       "hash": "1637cpq5167dm4s2llc8w0y2sicqxn9gcq0p003x1mwb3m5wxm4g"
     },
+    "conjure": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Olical",
+        "repo": "conjure"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "8aed42faf4cb44663d06883d9733c89180260daa",
+      "url": "https://github.com/Olical/conjure/archive/8aed42faf4cb44663d06883d9733c89180260daa.tar.gz",
+      "hash": "165fis125cpc6m0mc8m63dhj4n0936gfk1258ci89jdsg8pzjhy0"
+    },
     "csvview.nvim": {
       "type": "Git",
       "repository": {

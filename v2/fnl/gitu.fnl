@@ -17,6 +17,9 @@
   (when (and terminal (terminal:buf_valid))
     (vim.api.nvim_win_close terminal.win false)))
 
+(fn clear []
+  (set terminal nil)
+
 (fn open []
   (if (and terminal (terminal:buf_valid))
       ;; terminal exists
@@ -66,3 +69,4 @@
       (open)))
 
 (vim.api.nvim_create_user_command :Gitu toggle {})
+(vim.api.nvim_create_user_command :GituClear clear {})
