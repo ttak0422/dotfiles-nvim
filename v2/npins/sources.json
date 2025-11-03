@@ -1417,6 +1417,19 @@
       "url": "https://github.com/luukvbaal/statuscol.nvim/archive/c46172d0911aa5d49ba5f39f4351d1bb7aa289cc.tar.gz",
       "hash": "02aajcwrbhjxkd4hykjcwj8anv3vq09ma04sj1n49ysmkr210lcw"
     },
+    "tabout.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "abecodes",
+        "repo": "tabout.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "9a3499480a8e53dcaa665e2836f287e3b7764009",
+      "url": "https://github.com/abecodes/tabout.nvim/archive/9a3499480a8e53dcaa665e2836f287e3b7764009.tar.gz",
+      "hash": "1mjnzrz2zh8kd95p12l70zmpw7nf5xnlr4pwss51s2cgy1wyfgz5"
+    },
     "telescope-command-palette.nvim": {
       "type": "Git",
       "repository": {

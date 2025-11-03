@@ -2464,7 +2464,6 @@
         "stickybuf-nvim": "stickybuf-nvim",
         "switch-vim": "switch-vim",
         "systems": "systems_3",
-        "tabout-nvim": "tabout-nvim",
         "toggler": "toggler",
         "trace-pr-nvim": "trace-pr-nvim",
         "treesj": "treesj",
@@ -2740,22 +2739,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "tabout-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1733826970,
-        "narHash": "sha256-5T/nefCPCR2K1vySTG0vzh5+6weHinBLahPBL37+VtY=",
-        "owner": "abecodes",
-        "repo": "tabout.nvim",
-        "rev": "9a3499480a8e53dcaa665e2836f287e3b7764009",
-        "type": "github"
-      },
-      "original": {
-        "owner": "abecodes",
-        "repo": "tabout.nvim",
         "type": "github"
       }
     },

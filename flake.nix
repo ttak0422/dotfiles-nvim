@@ -196,10 +196,6 @@
       url = "github:stevearc/stickybuf.nvim";
       flake = false;
     };
-    tabout-nvim = {
-      url = "github:abecodes/tabout.nvim";
-      flake = false;
-    };
     trouble-nvim = {
       url = "github:folke/trouble.nvim";
       flake = false;
