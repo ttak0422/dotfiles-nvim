@@ -2038,22 +2038,6 @@
         "type": "github"
       }
     },
-    "nvim-fundo": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1715880105,
-        "narHash": "sha256-+YOLS6YqxAp5hBCzLrqUJ1aM/KTnWsmAhw6zRpK3HWk=",
-        "owner": "kevinhwang91",
-        "repo": "nvim-fundo",
-        "rev": "ac9c9372c4bf677721e24f144ef29d3a05c2b589",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kevinhwang91",
-        "repo": "nvim-fundo",
-        "type": "github"
-      }
-    },
     "nvim-hlslens": {
       "flake": false,
       "locked": {
@@ -2304,22 +2288,6 @@
         "type": "github"
       }
     },
-    "promise-async": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1722813441,
-        "narHash": "sha256-9eM66brPjiFlY64vmBetRYrKnpDyN7+/URMm4GsGimA=",
-        "owner": "kevinhwang91",
-        "repo": "promise-async",
-        "rev": "119e8961014c9bfaf1487bf3c2a393d254f337e2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kevinhwang91",
-        "repo": "promise-async",
-        "type": "github"
-      }
-    },
     "pum-vim": {
       "flake": false,
       "locked": {
@@ -2435,7 +2403,6 @@
         "nvim-dap-go": "nvim-dap-go",
         "nvim-dap-ui": "nvim-dap-ui",
         "nvim-dap-virtual-text": "nvim-dap-virtual-text",
-        "nvim-fundo": "nvim-fundo",
         "nvim-hlslens": "nvim-hlslens",
         "nvim-lastplace": "nvim-lastplace",
         "nvim-notify": "nvim-notify",
@@ -2450,7 +2417,6 @@
         "open-nvim": "open-nvim",
         "other-nvim": "other-nvim",
         "overseer-nvim": "overseer-nvim",
-        "promise-async": "promise-async",
         "pum-vim": "pum-vim",
         "qf-nvim": "qf-nvim",
         "rustaceanvim": "rustaceanvim",

@@ -60,14 +60,6 @@
       url = "github:arjunmahishi/flow.nvim";
       flake = false;
     };
-    nvim-fundo = {
-      url = "github:kevinhwang91/nvim-fundo";
-      flake = false;
-    };
-    promise-async = {
-      url = "github:kevinhwang91/promise-async";
-      flake = false;
-    };
     git-conflict-nvim = {
       url = "github:akinsho/git-conflict.nvim";
       flake = false;
@@ -516,7 +508,7 @@
         {
           _module.args.pkgs = import inputs.nixpkgs {
             inherit system;
-            overlays = import ./overlays.nix {inherit inputs inputs';};
+            overlays = import ./overlays.nix { inherit inputs inputs'; };
             config.allowUnfreePredicate =
               pkg:
               builtins.elem (lib.getName pkg) [

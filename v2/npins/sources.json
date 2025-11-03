@@ -1054,6 +1054,19 @@
       "url": "https://github.com/yorickpeterse/nvim-dd/archive/ebd9398271d3249fe97ffb52365fb6ace7605277.tar.gz",
       "hash": "0ii3179p0hxy2ir6smgbqj2lj7d1f96vpl683aiv4pg1spy5mg52"
     },
+    "nvim-fundo": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "kevinhwang91",
+        "repo": "nvim-fundo"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "ac9c9372c4bf677721e24f144ef29d3a05c2b589",
+      "url": "https://github.com/kevinhwang91/nvim-fundo/archive/ac9c9372c4bf677721e24f144ef29d3a05c2b589.tar.gz",
+      "hash": "0s8xny94dcqfhy0cjnp7lky8qmi7jjx2xcqhhiwhmi1alr5qp0zr"
+    },
     "nvim-jdtls": {
       "type": "Git",
       "repository": {
@@ -1293,6 +1306,19 @@
       "revision": "8c6bad7d22eef1b71144b401c9f74ed01526a4fb",
       "url": "https://github.com/ahmedkhalf/project.nvim/archive/8c6bad7d22eef1b71144b401c9f74ed01526a4fb.tar.gz",
       "hash": "1md639mcs3dgvhvx93wi0rxiwjnb195r9al9bfqvcvl3r307gxba"
+    },
+    "promise-async": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "kevinhwang91",
+        "repo": "promise-async"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "119e8961014c9bfaf1487bf3c2a393d254f337e2",
+      "url": "https://github.com/kevinhwang91/promise-async/archive/119e8961014c9bfaf1487bf3c2a393d254f337e2.tar.gz",
+      "hash": "0q4a0rmy09hka6zvydzjj2gcm2j5mlbrhbxfcdjj33ngpblkmqzm"
     },
     "quarto-nvim": {
       "type": "Git",
