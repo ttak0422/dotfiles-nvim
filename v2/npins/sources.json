@@ -91,6 +91,19 @@
       "url": "https://github.com/goolord/alpha-nvim/archive/2b3cbcdd980cae1e022409289245053f62fb50f6.tar.gz",
       "hash": "1ngim3ia9qbv1sxkscryvbn8xkw95rna5iy724yxgnq5sqxxg1jc"
     },
+    "atone.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "XXiaoA",
+        "repo": "atone.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "7a5ef04a0a1934a397096efbcab74fae79065ccd",
+      "url": "https://github.com/XXiaoA/atone.nvim/archive/7a5ef04a0a1934a397096efbcab74fae79065ccd.tar.gz",
+      "hash": "1fhwra1b7pgar1zf81l7f3ylim7gw6zfvvyjpnk84is7i7da2x4h"
+    },
     "auto-indent.nvim": {
       "type": "Git",
       "repository": {

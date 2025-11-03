@@ -29,7 +29,7 @@ end
 local function _7_()
   return require("dap").run_last()
 end
-for _, k in ipairs({{"<Leader>tz", "<Cmd>NeoZoomToggle<CR>", desc("\239\136\132 zoom")}, {"<Leader>tm", "<Cmd>lua require('codewindow').toggle_minimap()<CR>", desc("\239\136\132 minimap")}, {"<Leader>to", toggle("aerial"), desc("\239\136\132 outline")}, {"<Leader>U", "<Cmd>UndotreeToggle<CR>", desc("\239\136\132 undotree")}, {"gx", _4_, desc("open")}, {"<Leader>gb", "<Cmd>BlameToggle<CR>", desc("\239\135\147 blame")}, {"<LocalLeader>db", _5_, desc("\238\171\152 breakpoint")}, {"<LocalLeader>dr", _6_, desc("\238\171\152 repl")}, {"<LocalLeader>dl", _7_, desc("\238\171\152 run last")}, {"<LocalLeader>dd", toggle("dapui"), desc("\238\171\152 run last")}}) do
+for _, k in ipairs({{"<Leader>tz", "<Cmd>NeoZoomToggle<CR>", desc("\239\136\132 zoom")}, {"<Leader>tm", "<Cmd>lua require('codewindow').toggle_minimap()<CR>", desc("\239\136\132 minimap")}, {"<Leader>to", toggle("aerial"), desc("\239\136\132 outline")}, {"<Leader>U", "<Cmd>Atone<CR>", desc("\239\136\132 undotree")}, {"gx", _4_, desc("open")}, {"<Leader>gb", "<Cmd>BlameToggle<CR>", desc("\239\135\147 blame")}, {"<LocalLeader>db", _5_, desc("\238\171\152 breakpoint")}, {"<LocalLeader>dr", _6_, desc("\238\171\152 repl")}, {"<LocalLeader>dl", _7_, desc("\238\171\152 run last")}, {"<LocalLeader>dd", toggle("dapui"), desc("\238\171\152 run last")}}) do
   vim.keymap.set("n", k[1], k[2], (k[3] or opts))
 end
 return nil

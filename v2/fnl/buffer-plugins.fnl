@@ -29,9 +29,7 @@
                        "<Cmd>lua require('codewindow').toggle_minimap()<CR>"
                        (desc " minimap")]
                       [:<Leader>to (toggle :aerial) (desc " outline")]
-                      [:<Leader>U
-                       :<Cmd>UndotreeToggle<CR>
-                       (desc " undotree")]
+                      [:<Leader>U :<Cmd>Atone<CR> (desc " undotree")]
                       [:gx #((. (require :open) :open_cword)) (desc :open)]
                       [:<Leader>gb :<Cmd>BlameToggle<CR> (desc " blame")]
                       ; dap
