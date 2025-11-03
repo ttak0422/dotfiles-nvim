@@ -60,14 +60,6 @@
       url = "github:sindrets/diffview.nvim";
       flake = false;
     };
-    direnv-vim = {
-      url = "github:direnv/direnv.vim";
-      flake = false;
-    };
-    nvim-FeMaco-lua = {
-      url = "github:AckslD/nvim-FeMaco.lua";
-      flake = false;
-    };
     flow-nvim = {
       url = "github:arjunmahishi/flow.nvim";
       flake = false;
@@ -442,10 +434,6 @@
     };
     nvim-dap-go = {
       url = "github:leoluz/nvim-dap-go";
-      flake = false;
-    };
-    vimade = {
-      url = "github:TaDaa/vimade";
       flake = false;
     };
     denippet-vim = {
