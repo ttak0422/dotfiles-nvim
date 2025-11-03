@@ -404,7 +404,7 @@ in
       ];
       extraPackages = with pkgs; [
         nodejs
-        nodePackages.mcp-hub
+        v2.nodePackages.mcp-hub
         uv
       ];
       postConfig = read "./fnl/mcphub.fnl";

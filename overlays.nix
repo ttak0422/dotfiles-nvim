@@ -1,4 +1,6 @@
-inputs: with inputs; [
+{ inputs, inputs' }:
+with inputs;
+[
   nix-filter.overlays.default
   nix-vscode-extensions.overlays.default
   nixpkgs-neorg-overlay.overlays.default
@@ -111,12 +113,6 @@ inputs: with inputs; [
       };
 
       nodePackages = prev.nodePackages // {
-        mcp-hub = final.buildNpmPackage {
-          pname = "mcp-hub";
-          version = inputs.mcp-hub.rev;
-          src = cleanSource inputs.mcp-hub;
-          npmDepsHash = "sha256-nyenuxsKRAL0PU/UPSJsz8ftHIF+LBTGdygTqxti38g=";
-        };
       };
 
       vscode-extensions = prev.vscode-extensions // {
@@ -160,6 +156,7 @@ inputs: with inputs; [
         in
         prev.vimPlugins
         // {
+          # TODO: → `v2.vimPlugins`
           v2 =
             # DEPRECATED: use npins
             (listToAttrs (
@@ -177,6 +174,7 @@ inputs: with inputs; [
             // import ./v2/overlays.nix { inherit inputs; } final prev;
           tests = buildPlugins (import ./tests/npins);
         };
+      # TODO: move to `/v2`
       v2 = {
         # https://github.com/JetBrains/homebrew-utils/blob/master/Formula/kotlin-lsp.rb
         kotlin-lsp = mkDerivation rec {
@@ -206,6 +204,9 @@ inputs: with inputs; [
           '';
         };
 
+        nodePackages = {
+          inherit (inputs'.v2-mcp-hub.packages) mcp-hub;
+        };
       };
 
       skk-dict = mkDerivation {

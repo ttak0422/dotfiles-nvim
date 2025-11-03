@@ -38,9 +38,9 @@
     };
 
     # nodePackages
-    mcp-hub = {
+    v2-mcp-hub = {
       url = "github:ravitemer/mcp-hub";
-      flake = false;
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # plugins
@@ -548,7 +548,7 @@
         {
           _module.args.pkgs = import inputs.nixpkgs {
             inherit system;
-            overlays = import ./overlays.nix inputs;
+            overlays = import ./overlays.nix {inherit inputs inputs';};
             config.allowUnfreePredicate =
               pkg:
               builtins.elem (lib.getName pkg) [
