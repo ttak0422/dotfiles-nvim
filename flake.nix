@@ -80,14 +80,6 @@
       url = "github:HakonHarnes/img-clip.nvim";
       flake = false;
     };
-    indent-o-matic = {
-      url = "github:Darazaki/indent-o-matic";
-      flake = false;
-    };
-    sqlite-lua = {
-      url = "github:kkharji/sqlite.lua";
-      flake = false;
-    };
     marks-nvim = {
       url = "github:chentoast/marks.nvim";
       flake = false;
@@ -102,10 +94,6 @@
     };
     nvim-notify = {
       url = "github:rcarriga/nvim-notify";
-      flake = false;
-    };
-    numb-nvim = {
-      url = "github:nacro90/numb.nvim";
       flake = false;
     };
     nvim-window = {
@@ -150,18 +138,6 @@
     };
     trouble-nvim = {
       url = "github:folke/trouble.nvim";
-      flake = false;
-    };
-    tshjkl-nvim = {
-      url = "github:gsuuon/tshjkl.nvim";
-      flake = false;
-    };
-    indent-blankline-nvim = {
-      url = "github:lukas-reineke/indent-blankline.nvim";
-      flake = false;
-    };
-    undotree = {
-      url = "github:mbbill/undotree";
       flake = false;
     };
     vim-nix = {

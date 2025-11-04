@@ -929,38 +929,6 @@
         "type": "github"
       }
     },
-    "indent-blankline-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1719545832,
-        "narHash": "sha256-PSsXBB2KOFPJJ1O8fpTvsVe2A0/wU6Ae9dN/UemraZM=",
-        "owner": "lukas-reineke",
-        "repo": "indent-blankline.nvim",
-        "rev": "65e20ab94a26d0e14acac5049b8641336819dfc7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lukas-reineke",
-        "repo": "indent-blankline.nvim",
-        "type": "github"
-      }
-    },
-    "indent-o-matic": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1685816927,
-        "narHash": "sha256-scdMOPZZcAxaSf2KN/cOzKFrbv7tm1bwbtV0KgfuUOg=",
-        "owner": "Darazaki",
-        "repo": "indent-o-matic",
-        "rev": "4d11e98f523d3c4500b1dc33f0d1a248a4f69719",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Darazaki",
-        "repo": "indent-o-matic",
-        "type": "github"
-      }
-    },
     "jol": {
       "flake": false,
       "locked": {
@@ -1862,22 +1830,6 @@
         "type": "github"
       }
     },
-    "numb-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1692950047,
-        "narHash": "sha256-ViNGuHce7tIdt4nW6dTK6uj9P0c4fEJ+PX4XhEe4isA=",
-        "owner": "nacro90",
-        "repo": "numb.nvim",
-        "rev": "3f7d4a74bd456e747a1278ea1672b26116e0824d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nacro90",
-        "repo": "numb.nvim",
-        "type": "github"
-      }
-    },
     "nvim-dap": {
       "flake": false,
       "locked": {
@@ -2222,8 +2174,6 @@
         "helpview-nvim": "helpview-nvim",
         "highlight-undo-nvim": "highlight-undo-nvim",
         "img-clip-nvim": "img-clip-nvim",
-        "indent-blankline-nvim": "indent-blankline-nvim",
-        "indent-o-matic": "indent-o-matic",
         "jol": "jol",
         "junit-console": "junit-console",
         "logrotate-nvim": "logrotate-nvim",
@@ -2264,7 +2214,6 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "norg": "norg_2",
         "norg-meta": "norg-meta_2",
-        "numb-nvim": "numb-nvim",
         "nvim-dap": "nvim-dap",
         "nvim-dap-go": "nvim-dap-go",
         "nvim-dap-ui": "nvim-dap-ui",
@@ -2289,13 +2238,10 @@
         "sorairo": "sorairo",
         "spring-boot-nvim": "spring-boot-nvim",
         "springboot-nvim": "springboot-nvim",
-        "sqlite-lua": "sqlite-lua",
         "stickybuf-nvim": "stickybuf-nvim",
         "switch-vim": "switch-vim",
         "systems": "systems_3",
         "trouble-nvim": "trouble-nvim",
-        "tshjkl-nvim": "tshjkl-nvim",
-        "undotree": "undotree",
         "v2-fff-nvim": "v2-fff-nvim",
         "v2-mcp-hub": "v2-mcp-hub",
         "vim-nix": "vim-nix",
@@ -2442,22 +2388,6 @@
         "type": "github"
       }
     },
-    "sqlite-lua": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1713684746,
-        "narHash": "sha256-nbvc2hoOscOYoPPFUPnYdnXDwAPh5kiC2vI3lDP2QNo=",
-        "owner": "kkharji",
-        "repo": "sqlite.lua",
-        "rev": "d0ffd703b56d090d213b497ed4eb840495f14a11",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kkharji",
-        "repo": "sqlite.lua",
-        "type": "github"
-      }
-    },
     "stickybuf-nvim": {
       "flake": false,
       "locked": {
@@ -2563,38 +2493,6 @@
       "original": {
         "owner": "folke",
         "repo": "trouble.nvim",
-        "type": "github"
-      }
-    },
-    "tshjkl-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1716415597,
-        "narHash": "sha256-8W6iYQk0x6RSJi+cY9F6YUD4Z5rwMOjgq5YmmXgf6mk=",
-        "owner": "gsuuon",
-        "repo": "tshjkl.nvim",
-        "rev": "3fe81ab2c15f014a78b752062238d6c110a08fc8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "gsuuon",
-        "repo": "tshjkl.nvim",
-        "type": "github"
-      }
-    },
-    "undotree": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1713305700,
-        "narHash": "sha256-UIroW89ALMRdxSkNGU2VPeuXJxR+25wJ+AakRcjwx/s=",
-        "owner": "mbbill",
-        "repo": "undotree",
-        "rev": "56c684a805fe948936cda0d1b19505b84ad7e065",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mbbill",
-        "repo": "undotree",
         "type": "github"
       }
     },
