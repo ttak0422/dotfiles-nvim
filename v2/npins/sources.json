@@ -52,6 +52,19 @@
       "url": null,
       "hash": "0m9qgjfdzq2yr3qs41xv9zmifq3wzgl8s86j87i6izd8np49z610"
     },
+    "NeoZoom.lua": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nyngwang",
+        "repo": "NeoZoom.lua"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "c97a0197548c1e9b559e4fa41ab3f7782c93e613",
+      "url": "https://github.com/nyngwang/NeoZoom.lua/archive/c97a0197548c1e9b559e4fa41ab3f7782c93e613.tar.gz",
+      "hash": "1ijakizr6jj9hwgqfklmi7rnzm2q756wq3id523bqq9dznfjz6iv"
+    },
     "NotebookNavigator.nvim": {
       "type": "Git",
       "repository": {
@@ -502,6 +515,19 @@
       "revision": "bf86d8b79dce808e65fdb6e9269d0b4ed6d2eefc",
       "url": "https://github.com/DNLHC/glance.nvim/archive/bf86d8b79dce808e65fdb6e9269d0b4ed6d2eefc.tar.gz",
       "hash": "1c1gdbk3z1i04mi6l4zcgr57y9n6wk3qxz91v0rpjyi5yxmsnyrp"
+    },
+    "goto-preview": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "rmagatti",
+        "repo": "goto-preview"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "cf561d10b4b104db20375c48b86cf36af9f96e00",
+      "url": "https://github.com/rmagatti/goto-preview/archive/cf561d10b4b104db20375c48b86cf36af9f96e00.tar.gz",
+      "hash": "0zqgnl3l2nzqcl0h49aaq26mi5y97nvz5gqh3yrvph1bn245grbc"
     },
     "goyo.vim": {
       "type": "Git",
@@ -1213,6 +1239,19 @@
       "url": "https://github.com/nvim-neotest/nvim-nio/archive/21f5324bfac14e22ba26553caf69ec76ae8a7662.tar.gz",
       "hash": "1bz5msxwk232zkkhfxcmr7a665la8pgkdx70q99ihl4x04jg6dkq"
     },
+    "nvim-notify": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "rcarriga",
+        "repo": "nvim-notify"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "8701bece920b38ea289b457f902e2ad184131a5d",
+      "url": "https://github.com/rcarriga/nvim-notify/archive/8701bece920b38ea289b457f902e2ad184131a5d.tar.gz",
+      "hash": "1qsxv5w8pb4pv0963lwhsy21cgi75mw2a0s20vm1821y6qr97d47"
+    },
     "nvim-scrollbar": {
       "type": "Git",
       "repository": {
@@ -1280,6 +1319,19 @@
       "revision": "5b9067899ee6a2538891573500e8fd6ff008440f",
       "url": "https://api.github.com/repos/nvim-tree/nvim-web-devicons/tarball/v0.100",
       "hash": "0d7gzk06f6z9wq496frbaavx90mcxvdhrswqd3pcayj2872i698d"
+    },
+    "nvim-window": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "yorickpeterse",
+        "repo": "nvim-window"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "a8d965f158cff222713a3b3ab341445d331e6e3a",
+      "url": "https://github.com/yorickpeterse/nvim-window/archive/a8d965f158cff222713a3b3ab341445d331e6e3a.tar.gz",
+      "hash": "0lvyjs673hcg7q1ymwgv38hqiwbd89ahjw3jhyjnkzjyb11kna8x"
     },
     "nvim_context_vt": {
       "type": "Git",

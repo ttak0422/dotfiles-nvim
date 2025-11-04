@@ -68,10 +68,6 @@
       url = "github:olexsmir/gopher.nvim";
       flake = false;
     };
-    goto-preview = {
-      url = "github:rmagatti/goto-preview";
-      flake = false;
-    };
     haskell-tools-nvim = {
       url = "github:MrcJkb/haskell-tools.nvim";
       flake = false;
@@ -86,18 +82,6 @@
     };
     mkdnflow-nvim = {
       url = "github:/jakewvincent/mkdnflow.nvim";
-      flake = false;
-    };
-    NeoZoom-lua = {
-      url = "github:nyngwang/NeoZoom.lua";
-      flake = false;
-    };
-    nvim-notify = {
-      url = "github:rcarriga/nvim-notify";
-      flake = false;
-    };
-    nvim-window = {
-      url = "github:yorickpeterse/nvim-window";
       flake = false;
     };
     octo-nvim = {
