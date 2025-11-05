@@ -1990,22 +1990,6 @@
         "type": "github"
       }
     },
-    "other-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1733008756,
-        "narHash": "sha256-mHN1anRlOBN0Wvl2T8zBHV7BfMLH7C8dmTIqBTzr414=",
-        "owner": "rgroli",
-        "repo": "other.nvim",
-        "rev": "933aa489ad02f8f973269a565bfea16cc784cbbf",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rgroli",
-        "repo": "other.nvim",
-        "type": "github"
-      }
-    },
     "overseer-nvim": {
       "flake": false,
       "locked": {
@@ -2160,7 +2144,6 @@
         "nvim-yati": "nvim-yati",
         "octo-nvim": "octo-nvim",
         "open-nvim": "open-nvim",
-        "other-nvim": "other-nvim",
         "overseer-nvim": "overseer-nvim",
         "pum-vim": "pum-vim",
         "qf-nvim": "qf-nvim",

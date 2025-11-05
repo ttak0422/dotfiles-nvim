@@ -1385,6 +1385,19 @@
       "url": "https://github.com/stevearc/oil.nvim/archive/7e1cd7703ff2924d7038476dcbc04b950203b902.tar.gz",
       "hash": "0jgilnn89lscf2rhcl7x51hrhj5xg53rmvm29csl5w8lqnimmd3r"
     },
+    "other.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "rgroli",
+        "repo": "other.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "1d48e090f6d1d53dda9fb5094af3f2006ebbb858",
+      "url": "https://github.com/rgroli/other.nvim/archive/1d48e090f6d1d53dda9fb5094af3f2006ebbb858.tar.gz",
+      "hash": "0vhp986wajk7cdjfam4x9zifqwgz28i88v9vc45rb8qvk05ak6ir"
+    },
     "otter.nvim": {
       "type": "Git",
       "repository": {

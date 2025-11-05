@@ -1108,6 +1108,11 @@ in
     commandPlugins = {
       depends = [
         {
+          package = other-nvim;
+          postConfig = read "./fnl/other.fnl";
+          hooks.commands = [ "Other" ];
+        }
+        {
           package = actually-doom-nvim;
           hooks.commands = [ "Doom" ];
         }

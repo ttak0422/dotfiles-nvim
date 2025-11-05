@@ -24,7 +24,7 @@ end
 local function _7_()
   return require("foldnav").goto_end()
 end
-for _, k in ipairs({{"<Leader>m", _2_, desc("\239\136\132 join/split")}, {"<Leader>M", _3_, desc("\239\136\132 join/split (recursive)")}, {"<C-h>", _4_}, {"<C-j>", _5_}, {"<C-k>", _6_}, {"<C-l>", _7_}}) do
+for _, k in ipairs({{"<Leader>m", _2_, desc("\239\136\132 join/split")}, {"<Leader>M", _3_, desc("\239\136\132 join/split (recursive)")}, {"<Leader>O", "<Cmd>Other<CR>"}, {"<C-h>", _4_}, {"<C-j>", _5_}, {"<C-k>", _6_}, {"<C-l>", _7_}}) do
   vim.keymap.set("n", k[1], k[2], (k[3] or opts))
 end
 for _, k in ipairs({{"<Leader>T", ":Translate JA<CR>"}}) do

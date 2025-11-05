@@ -320,10 +320,6 @@
       url = "github:theHamsta/nvim-dap-virtual-text";
       flake = false;
     };
-    other-nvim = {
-      url = "github:rgroli/other.nvim";
-      flake = false;
-    };
     nvim-dap-go = {
       url = "github:leoluz/nvim-dap-go";
       flake = false;

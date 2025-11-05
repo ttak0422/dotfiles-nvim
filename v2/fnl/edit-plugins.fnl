@@ -1,3 +1,6 @@
+(macro cmd [c]
+  `,(.. :<Cmd> c :<CR>))
+
 (vim.cmd "
 au FileType * setlocal formatoptions-=ro
 au WinEnter * checktime
@@ -14,6 +17,7 @@ noremap gy \"+y
                       [:<Leader>M
                        #((. (require :treesj) :toggle) {:split {:recursive true}})
                        (desc " join/split (recursive)")]
+                      [:<Leader>O (cmd :Other)]
                       [:<C-h> #((. (require :foldnav) :goto_start))]
                       [:<C-j> #((. (require :foldnav) :goto_next))]
                       [:<C-k> #((. (require :foldnav) :goto_prev_start))]
