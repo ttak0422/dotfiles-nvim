@@ -178,10 +178,12 @@
                            (desc " Git (branch)")]
                           ; [:<C-c> (cmd :AvanteFocus) (desc "Avante Chat")]
                           ;  Obsidian
-                          [(leader :O) (cmd :Obsidian) (desc " enter")]
                           [(leader :ot)
                            (cmd "Obsidian today")
                            (desc " journal today")]
+                          [(leader :oy)
+                           (cmd "Obsidian yesterday")
+                           (desc " journal yesterday")]
                           [(leader :oo)
                            (cmd :ObsidianScratch)
                            (desc " new note")]
