@@ -1120,7 +1120,12 @@ in
           package = gin-vim;
           depends = [ denops ];
           useDenops = true;
-          hooks.commands = [ "Gin" ];
+          hooks.commands = [
+            "Gin"
+            "GinBranch"
+            "GinBrowse"
+            "GinBuffer"
+          ];
         }
         {
           package = blame-nvim;
