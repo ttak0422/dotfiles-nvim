@@ -1024,9 +1024,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "5099348591f7d3ba9e547b1e631c694c65bbe0b9",
-      "url": "https://github.com/folke/noice.nvim/archive/5099348591f7d3ba9e547b1e631c694c65bbe0b9.tar.gz",
-      "hash": "12c28is03zyz8ba3qa33mmf9g0r6nb7iavxfqidbd2l0bmyqg79x"
+      "revision": "7bfd942445fb63089b59f97ca487d605e715f155",
+      "url": "https://github.com/folke/noice.nvim/archive/7bfd942445fb63089b59f97ca487d605e715f155.tar.gz",
+      "hash": "02mc75dqn7h4ylgynpd9vsjx3y51rcys95l9ax1wiilgb4ay3b0l"
     },
     "none-ls-extras.nvim": {
       "type": "Git",
