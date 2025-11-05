@@ -18,6 +18,8 @@
     (vim.api.nvim_win_close terminal.win false)))
 
 (fn clear []
+  (when (and terminal (terminal:buf_valid))
+    (vim.api.nvim_buf_delete terminal.buf {:force true}))
   (set terminal nil))
 
 (fn open []
