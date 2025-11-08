@@ -22,6 +22,7 @@
                   :auto_set_highlight_group true
                   :auto_set_keymaps true
                   :auto_apply_diff_after_generation false
+                  :jump_result_buffer_on_finish false
                   :support_paste_from_clipboard true
                   :minimize_diff true
                   :enable_token_counting true
@@ -30,7 +31,10 @@
                   :auto_approve_tool_permissions true
                   :auto_check_diagnostics true
                   :enable_fastapply false
-                  :include_generated_by_commit_line false})
+                  :include_generated_by_commit_line false
+                  :auto_add_current_file false
+                  :confirmation_ui_style :inline_buttons
+                  :acp_follow_agent_locations true})
 
 (local mappings
        (let [diff {:ours :co
@@ -40,7 +44,7 @@
                    :cursor :cc
                    :next "]x"
                    :prev "[x"}
-             suggestion {:accept :<C-x><C-a>
+             suggestion {:accept :<M-l>
                          :next "<M-]>"
                          :prev "<M-[>"
                          :dismiss :<M-e>}
