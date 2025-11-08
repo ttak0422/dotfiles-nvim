@@ -78,7 +78,7 @@ rec {
     vimUtils.buildVimPlugin {
       pname = "vim-sonictemplate";
       version = root.revision;
-      src = prev.nix-filter {
+      src = final.nix-filter {
         inherit root;
         exclude = [
           "template/java"
@@ -96,13 +96,13 @@ rec {
     pname = "gin.vim";
     src = getSrc "gin.vim";
     version = src.revision;
-    # dontPatchShebangs = true;
-    # postInstall = ''
-    #   substituteInPlace \
-    #   $out/denops/gin/proxy/editor.ts \
-    #   $out/denops/gin/proxy/askpass.ts \
-    #   --replace "/usr/bin/env -S deno" "${prev.deno}/bin/deno"
-    # '';
+    dontPatchShebangs = true;
+    postInstall = ''
+      substituteInPlace \
+      $out/denops/gin/proxy/editor.ts \
+      $out/denops/gin/proxy/askpass.ts \
+      --replace "/usr/bin/env -S deno" "${final.deno}/bin/deno"
+    '';
   };
   actually-doom-nvim =
     let
