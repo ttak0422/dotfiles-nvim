@@ -383,10 +383,12 @@ in
     avante = {
       package = avante-nvim;
       depends = [
-        render-markdown
         copilot
+        devicons
         dressing
+        img-clip
         mcphub
+        render-markdown
       ];
       # TODO: fix priority
       extraPackages = with pkgs; [ curl ];
@@ -846,11 +848,14 @@ in
         ghq
       ];
       postConfig = read "./fnl/telescope.fnl";
-      hooks.commands = [
-        "Telescope"
-        "TelescopeBuffer"
-        "TelescopeBufferName"
-      ];
+      hooks = {
+        modules = [ "telescope" ];
+        commands = [
+          "Telescope"
+          "TelescopeBuffer"
+          "TelescopeBufferName"
+        ];
+      };
     };
 
     trouble = {
@@ -888,6 +893,12 @@ in
       extraPackages = with pkgs; [ imagemagick ];
       postConfig = read "./fnl/image.fnl";
       hooks.fileTypes = [ "markdown" ];
+    };
+
+    img-clip = {
+      package = img-clip-nvim;
+      postConfig = read "./fnl/img-clip.fnl";
+      hooks.commands = [ "PasteImage" ];
     };
 
     # see https://github.com/ttak0422/molten-setup
@@ -1182,11 +1193,6 @@ in
             "VBoxD"
             "VBoxH"
           ];
-        }
-        {
-          package = img-clip-nvim;
-          postConfig = read "./fnl/img-clip.fnl";
-          hooks.commands = [ "PasteImage" ];
         }
         {
           package = claudecode-nvim;
