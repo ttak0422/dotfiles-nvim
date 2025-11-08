@@ -3,7 +3,10 @@
                    :neovide_padding_right 5
                    :neovide_padding_left 5
                    :neovide_confirm_quit false
-                   :neovide_floating_shadow false})]
+                   :neovide_floating_shadow false
+                   :neovide_cursor_animation_length 0.1
+                   :neovide_cursor_antialiasing false
+                   :neovide_cursor_animate_in_insert_mode true})]
   (tset vim.g k v))
 
 (let [map vim.keymap.set
