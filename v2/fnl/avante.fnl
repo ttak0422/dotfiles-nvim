@@ -135,12 +135,7 @@
 
 ; ACP
 (local acp_providers
-       {; :gemini-cli
-        ; {:command :gemini
-        ;  :args [:--experimental-acp]
-        ;  :env {:NODE_NO_WARNINGS :1
-        ;        :GEMINI_API_KEY (os.getenv :GEMINI_API_KEY)}}
-        ; npm install -g @zed-industries/claude-code-acp
+       {; npm install -g @zed-industries/claude-code-acp
         :claude-code {:command :claude-code-acp
                       :args []
                       :env {:NODE_NO_WARNINGS :1
@@ -176,13 +171,7 @@
 
 (local input {:provider :snacks :provider_opts {}})
 
-(local slash_commands
-       [{:name :commit_staged
-         :description "Commit the staged changes only"
-         :details "Commit the staged changes. Unstaged changes are not included"
-         :callback (fn [_ _ cb]
-                     (if cb
-                         (cb "Please commit the staged changes only, based on the current Git status.")))}])
+(local slash_commands [])
 
 (avante.setup {:provider :claude-code
                :mode :agentic
