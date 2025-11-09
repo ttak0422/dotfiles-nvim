@@ -879,6 +879,19 @@
       "url": "https://github.com/rktjmp/lush.nvim/archive/1be16d9002f8b2e8973a19ceac199ad394dea76a.tar.gz",
       "hash": "074wlbr208y0859s9symvkgqfm6hh8szziygq4d1qdgd3n17a8xa"
     },
+    "marks.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "chentoast",
+        "repo": "marks.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "f353e8c08c50f39e99a9ed474172df7eddd89b72",
+      "url": "https://github.com/chentoast/marks.nvim/archive/f353e8c08c50f39e99a9ed474172df7eddd89b72.tar.gz",
+      "hash": "1dxbqla5mjp8r1bar49zk0bsbr0lwfy5nbs4cgm69y3197crp3c6"
+    },
     "mcphub.nvim": {
       "type": "Git",
       "repository": {

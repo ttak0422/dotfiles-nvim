@@ -76,10 +76,6 @@
       url = "github:HakonHarnes/img-clip.nvim";
       flake = false;
     };
-    marks-nvim = {
-      url = "github:chentoast/marks.nvim";
-      flake = false;
-    };
     mkdnflow-nvim = {
       url = "github:/jakewvincent/mkdnflow.nvim";
       flake = false;
