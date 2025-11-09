@@ -1872,6 +1872,19 @@
       "url": "https://github.com/nvzone/timerly/archive/1c78999480af0e4f8201fe6bfa1e5e0b70a59acf.tar.gz",
       "hash": "0jbncbq03vp1v9fyd1s6mjymbgxp81qjklfal6s02xw9x41azxjw"
     },
+    "tiny-glimmer.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "rachartier",
+        "repo": "tiny-glimmer.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "73b17b8a41ac7a61bfdcbe1cd3743c29d28d376e",
+      "url": "https://github.com/rachartier/tiny-glimmer.nvim/archive/73b17b8a41ac7a61bfdcbe1cd3743c29d28d376e.tar.gz",
+      "hash": "0yli2ffppi01r85nhm23f8iddqmanipg4xaq555bx46271iy90xx"
+    },
     "tiny-inline-diagnostic.nvim": {
       "type": "Git",
       "repository": {

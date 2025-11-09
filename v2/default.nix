@@ -683,6 +683,10 @@ in
     editPlugins = {
       depends = [
         {
+          package = tiny-glimmer-nvim;
+          postConfig = read "./fnl/tiny-glimmer.fnl";
+        }
+        {
           package = which-key-nvim;
           postConfig = read "./fnl/which-key.fnl";
           depends = [ devicons ];
