@@ -24,26 +24,14 @@ noremap gy \"+y
                       [:<C-j> #((. (require :foldnav) :goto_next))]
                       [:<C-k> #((. (require :foldnav) :goto_prev_start))]
                       [:<C-l> #((. (require :foldnav) :goto_end))]
-                      [:<C-a>
-                       #((. (require :dial.map) :manipulate) :increment :normal)]
-                      [:<C-x>
-                       #((. (require :dial.map) :manipulate) :decrement :normal)]
-                      [:g<C-a>
-                       #((. (require :dial.map) :manipulate) :increment
-                                                             :gnormal)]
-                      [:g<C-x>
-                       #((. (require :dial.map) :manipulate) :decrement
-                                                             :gnormal)]])]
+                      [:<C-a> (dial :increment :normal)]
+                      [:<C-x> (dial :decrement :normal)]
+                      [:g<C-a> (dial :increment :gnormal)]
+                      [:g<C-x> (dial :decrement :gnormal)]])]
     (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts)))
   (each [_ k (ipairs [[:<Leader>T ":Translate JA<CR>"]
-                      [:<C-a>
-                       #((. (require :dial.map) :manipulate) :increment :visual)]
-                      [:<C-x>
-                       #((. (require :dial.map) :manipulate) :decrement :visual)]
-                      [:g<C-a>
-                       #((. (require :dial.map) :manipulate) :increment
-                                                             :gvisual)]
-                      [:g<C-x>
-                       #((. (require :dial.map) :manipulate) :decrement
-                                                             :gvisual)]])]
+                      [:<C-a> (dial :increment :visual)]
+                      [:<C-x> (dial :decrement :visual)]
+                      [:g<C-a> (dial :increment :gvisual)]
+                      [:g<C-x> (dial :decrement :gvisual)]])]
     (vim.keymap.set :x (. k 1) (. k 2) (or (. k 3) opts))))
