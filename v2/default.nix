@@ -1026,6 +1026,11 @@ in
     modulePlugins = {
       depends = [
         {
+          package = dial-nvim;
+          postConfig = read "./fnl/dial.fnl";
+          hooks.modules = [ "dial.map" ];
+        }
+        {
           package = smear-cursor-nvim;
           postConfig = read "./fnl/smear-cursor.fnl";
           hooks.modules = [ "smear_cursor" ];

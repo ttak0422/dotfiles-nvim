@@ -357,6 +357,19 @@
       "url": "https://github.com/vim-denops/denops.vim/archive/5cfca39988a36e42d81b925264fc846077a727e3.tar.gz",
       "hash": "1mwan663n7hhfg7hzlw0fmvbpspsfm0q3f3dbni0mf3sg1kh4070"
     },
+    "dial.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "monaqa",
+        "repo": "dial.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "f0404ec1f83a03f2c3457e60087c6331d1cbb83f",
+      "url": "https://github.com/monaqa/dial.nvim/archive/f0404ec1f83a03f2c3457e60087c6331d1cbb83f.tar.gz",
+      "hash": "1vjfzfgbq80sj4z9h7wk1qg04wp1f4lpd6d90wr6yq80ncag0qka"
+    },
     "direnv.nvim": {
       "type": "Git",
       "repository": {
