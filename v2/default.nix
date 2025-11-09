@@ -565,7 +565,13 @@ in
         }
         {
           package = nap-nvim;
-          depends = [ vim-bufsurf ];
+          depends = [
+            vim-bufsurf
+            {
+              package = marks-nvim;
+              postConfig = read "./fnl/marks.fnl";
+            }
+          ];
           postConfig = read "./fnl/nap.fnl";
         }
         {
@@ -766,10 +772,6 @@ in
           package = lasterisk-nvim;
           depends = [ hlslens ];
           postConfig = read "./fnl/lasterisk.fnl";
-        }
-        {
-          package = marks-nvim;
-          postConfig = read "./fnl/marks.fnl";
         }
       ];
       postConfig = # lua

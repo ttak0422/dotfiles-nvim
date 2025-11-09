@@ -60,7 +60,10 @@
                   :<M-q> (def "qf (list)"
                            safe_qf_colder
                            safe_qf_cnewer)
-                  :g (nap.gitsigns)})
+                  :g (nap.gitsigns)
+                  :m (def :marks "<Plug>(Marks-prev)" "<Plug>(Marks-next)")
+                  :M (def :bookmarks "<Plug>(Marks-prev-bookmark)"
+                       "<Plug>(Marks-next-bookmark)")})
 
 (nap.setup {:next_prefix "]"
             :prev_prefix "["
