@@ -589,6 +589,11 @@ in
               require('fix-auto-scroll').setup()
             '';
         }
+        {
+          package = nvim-ufo;
+          depends = [ promise-async ];
+          postConfig = read "./fnl/ufo.fnl";
+        }
         vim-gf-improved
       ];
       postConfig = read "./fnl/buffer-plugins.fnl";
@@ -607,11 +612,6 @@ in
         {
           package = statuscol-nvim;
           postConfig = read "./fnl/statuscol.fnl";
-        }
-        {
-          package = nvim-ufo;
-          depends = [ promise-async ];
-          postConfig = read "./fnl/ufo.fnl";
         }
       ];
       preConfig = read "./fnl/pre-buffer-plugins-pre.fnl";

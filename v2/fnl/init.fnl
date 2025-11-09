@@ -20,7 +20,7 @@
                              :wrap false
                              :splitkeep :screen
                              ;; fold
-                             :foldcolumn "auto:1"
+                             :foldcolumn :1
                              :foldlevel 99
                              :foldlevelstart 99
                              :foldenable true
