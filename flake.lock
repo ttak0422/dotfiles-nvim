@@ -937,22 +937,6 @@
         "type": "github"
       }
     },
-    "marks-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1747179163,
-        "narHash": "sha256-ho2b2Ulh+GTqY0QvW7zjFOSlF5g/kaxWyOjKWhTFq7c=",
-        "owner": "chentoast",
-        "repo": "marks.nvim",
-        "rev": "f353e8c08c50f39e99a9ed474172df7eddd89b72",
-        "type": "github"
-      },
-      "original": {
-        "owner": "chentoast",
-        "repo": "marks.nvim",
-        "type": "github"
-      }
-    },
     "markview-nvim": {
       "flake": false,
       "locked": {
@@ -2095,7 +2079,6 @@
         "jol": "jol",
         "junit-console": "junit-console",
         "logrotate-nvim": "logrotate-nvim",
-        "marks-nvim": "marks-nvim",
         "markview-nvim": "markview-nvim",
         "mkdnflow-nvim": "mkdnflow-nvim",
         "neco-vim": "neco-vim",
