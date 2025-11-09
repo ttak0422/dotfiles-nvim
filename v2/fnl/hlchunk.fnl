@@ -10,7 +10,8 @@
                       :left_bottom "└"
                       :right_arrow "─"}
               :style (. vim.g :terminal_color_8)
-              :delay 0
+              :duration 200
+              :delay 500
               :use_treesitter true
               :exclude_filetypes {:copilot-chat true}})
 
