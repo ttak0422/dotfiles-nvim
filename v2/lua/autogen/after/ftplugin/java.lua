@@ -65,39 +65,43 @@ local function setup()
   local init_options = {bundles = bundles, extendedClientCapabilities = extendedClientCapabilities}
   local on_attach
   local function _6_(client, bufnr)
-    local build_timeout = 10000
-    local desc
-    local function _7_(desc0)
-      return {silent = true, buffer = bufnr, desc = desc0}
-    end
-    desc = _7_
-    local with_compile
-    local function _8_(f)
-      local function _9_()
-        if vim.bo.modified then
-          vim.cmd("w")
-        else
-        end
-        client.request_sync("java/buildWorkspace", false, build_timeout, bufnr)
-        return f()
+    if vim.api.nvim_buf_is_valid(bufnr) then
+      local build_timeout = 10000
+      local desc
+      local function _7_(desc0)
+        return {silent = true, buffer = bufnr, desc = desc0}
       end
-      return _9_
+      desc = _7_
+      local with_compile
+      local function _8_(f)
+        local function _9_()
+          if vim.bo.modified then
+            vim.cmd("w")
+          else
+          end
+          client.request_sync("java/buildWorkspace", false, build_timeout, bufnr)
+          return f()
+        end
+        return _9_
+      end
+      with_compile = _8_
+      dofile(attach_path)({buf = bufnr, client = client})
+      jdtls_dap.setup_dap({hotcodereplace = "auto"})
+      jdtls_dap.setup_dap_main_class_configs()
+      for _, k in ipairs({{"<LocalLeader>Tt", with_compile(jdtls.test_nearest_method), desc("\238\153\173 test nearest")}, {"<LocalLeader>TT", with_compile(jdtls.test_class), desc("\238\153\173 test class")}}) do
+        vim.keymap.set("n", k[1], k[2], k[3])
+      end
+      return nil
+    else
+      return nil
     end
-    with_compile = _8_
-    dofile(attach_path)({buf = bufnr, client = client})
-    jdtls_dap.setup_dap({hotcodereplace = "auto"})
-    jdtls_dap.setup_dap_main_class_configs()
-    for _, k in ipairs({{"<LocalLeader>Tt", with_compile(jdtls.test_nearest_method), desc("\238\153\173 test nearest")}, {"<LocalLeader>TT", with_compile(jdtls.test_class), desc("\238\153\173 test class")}}) do
-      vim.keymap.set("n", k[1], k[2], k[3])
-    end
-    return nil
   end
   on_attach = _6_
   local flags = {allow_incremental_sync = true, debounce_text_changes = 300}
   local handlers
-  local function _11_()
+  local function _12_()
   end
-  handlers = {["language/status"] = _11_}
+  handlers = {["language/status"] = _12_}
   if not dir_3f(workspace_dir) then
     vim.uv.fs_mkdir(workspace_dir, 493)
   else

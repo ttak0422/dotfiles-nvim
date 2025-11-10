@@ -124,30 +124,31 @@
                                                          :progressReportProvider false})
         init_options {: bundles : extendedClientCapabilities}
         on_attach (fn [client bufnr]
-                    (let [build_timeout 10000
-                          desc (fn [desc] {:silent true :buffer bufnr : desc})
-                          with_compile (fn [f]
-                                         (fn []
-                                           (if vim.bo.modified
-                                               (vim.cmd :w))
-                                           (client.request_sync :java/buildWorkspace
-                                                                false
-                                                                build_timeout
-                                                                bufnr)
-                                           (f)))]
-                      ((dofile attach_path) {:buf bufnr : client})
-                      (jdtls_dap.setup_dap {:hotcodereplace :auto})
-                      (jdtls_dap.setup_dap_main_class_configs)
-                      (each [_ k (ipairs [; [:<LocalLeader>o
-                                          ;  jdtls.organize_imports
-                                          ;  (opts " organize imports")]
-                                          [:<LocalLeader>Tt
-                                           (with_compile jdtls.test_nearest_method)
-                                           (desc " test nearest")]
-                                          [:<LocalLeader>TT
-                                           (with_compile jdtls.test_class)
-                                           (desc " test class")]])]
-                        (vim.keymap.set :n (. k 1) (. k 2) (. k 3)))))
+                    (when (vim.api.nvim_buf_is_valid bufnr)
+                      (let [build_timeout 10000
+                            desc (fn [desc] {:silent true :buffer bufnr : desc})
+                            with_compile (fn [f]
+                                           (fn []
+                                             (if vim.bo.modified
+                                                 (vim.cmd :w))
+                                             (client.request_sync :java/buildWorkspace
+                                                                  false
+                                                                  build_timeout
+                                                                  bufnr)
+                                             (f)))]
+                        ((dofile attach_path) {:buf bufnr : client})
+                        (jdtls_dap.setup_dap {:hotcodereplace :auto})
+                        (jdtls_dap.setup_dap_main_class_configs)
+                        (each [_ k (ipairs [; [:<LocalLeader>o
+                                            ;  jdtls.organize_imports
+                                            ;  (opts " organize imports")]
+                                            [:<LocalLeader>Tt
+                                             (with_compile jdtls.test_nearest_method)
+                                             (desc " test nearest")]
+                                            [:<LocalLeader>TT
+                                             (with_compile jdtls.test_class)
+                                             (desc " test class")]])]
+                          (vim.keymap.set :n (. k 1) (. k 2) (. k 3))))))
         flags {:allow_incremental_sync true :debounce_text_changes 300}
         handlers {:language/status (fn [])}]
     (if (not (dir? workspace_dir))
