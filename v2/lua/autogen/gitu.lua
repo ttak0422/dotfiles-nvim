@@ -19,14 +19,6 @@ local function close()
     return nil
   end
 end
-local function clear()
-  if (terminal and terminal:buf_valid()) then
-    vim.api.nvim_buf_delete(terminal.buf, {force = true})
-  else
-  end
-  terminal = nil
-  return nil
-end
 local function open()
   if (terminal and terminal:buf_valid()) then
     if not win_valid_3f(terminal.win) then
@@ -35,10 +27,10 @@ local function open()
     end
     terminal:focus()
     if (win_valid_3f(terminal.win) and buf_term_3f(terminal.buf)) then
-      local function _4_()
+      local function _3_()
         return vim.cmd.startinsert()
       end
-      return vim.api.nvim_win_call(terminal.win, _4_)
+      return vim.api.nvim_win_call(terminal.win, _3_)
     else
       return nil
     end
@@ -46,27 +38,27 @@ local function open()
     local term_instance = Snacks.terminal.open(cmd, opts)
     if (term_instance and term_instance:buf_valid()) then
       do
-        local function _6_()
+        local function _5_()
           terminal = nil
-          local function _7_()
+          local function _6_()
             if term_instance then
               return term_instance:close({buf = true})
             else
               return nil
             end
           end
-          return vim.schedule(_7_)
+          return vim.schedule(_6_)
         end
-        term_instance:on("TermClose", _6_, {buf = true})
-        local function _9_()
+        term_instance:on("TermClose", _5_, {buf = true})
+        local function _8_()
           terminal = nil
           return nil
         end
-        term_instance:on("BufWipeout", _9_, {buf = true})
-        local function _10_()
+        term_instance:on("BufWipeout", _8_, {buf = true})
+        local function _9_()
           return vim.defer_fn(close, 20)
         end
-        term_instance:on("BufLeave", _10_, {buf = true})
+        term_instance:on("BufLeave", _9_, {buf = true})
       end
       terminal = term_instance
       return nil
@@ -100,5 +92,4 @@ local function toggle()
     return open()
   end
 end
-vim.api.nvim_create_user_command("Gitu", toggle, {})
-return vim.api.nvim_create_user_command("GituClear", clear, {})
+return vim.api.nvim_create_user_command("Gitu", toggle, {})
