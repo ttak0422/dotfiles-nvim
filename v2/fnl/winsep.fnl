@@ -1,14 +1,7 @@
 (local winsep (require :colorful-winsep))
 
-(winsep.setup {:smooth false
-               :exponential_smoothing false
-               :no_exec_files [:undotree
-                               :gitsigns-blame
-                               :Avante
-                               :AvanteSelectedCode
-                               :AvanteSelectedFiles
-                               :AvanteInput]
-               :animate {:enabled false}
+(winsep.setup {:animate {:enabled false}
+               :excluded_ft [:TelescopePrompt]
                :indicator_for_2wins {:position :center
                                      :symbols {:start_left ""
                                                :end_left ""
