@@ -1431,6 +1431,7 @@ in
 
     conjure = {
       package = pkgs.vimPlugins.v2.conjure;
+      preConfig = read "./fnl/conjure-pre.fnl";
     };
 
     filetypePlugins = {

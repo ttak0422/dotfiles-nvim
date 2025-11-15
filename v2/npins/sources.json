@@ -327,9 +327,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "dab027e0cb710beb070424a117b9065279f6083d",
-      "url": "https://github.com/Olical/conjure/archive/dab027e0cb710beb070424a117b9065279f6083d.tar.gz",
-      "hash": "0ra30mszsp4w128066isqxc4glc587gyd5sz76v0p0yh21l1kg9c"
+      "revision": "230de4232577ef52e2044ea4ab5f65cd926a11e2",
+      "url": "https://github.com/Olical/conjure/archive/230de4232577ef52e2044ea4ab5f65cd926a11e2.tar.gz",
+      "hash": "1m749wvcirff3kljm145yzjdkj68p2rwpql99pn7wfchdr50jnkd"
     },
     "csvview.nvim": {
       "type": "Git",
