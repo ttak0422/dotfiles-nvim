@@ -304,10 +304,6 @@
       url = "github:Saecki/crates.nvim";
       flake = false;
     };
-    sorairo = {
-      url = "github:ttak0422/sorairo/v2";
-      flake = false;
-    };
     skk-dict = {
       url = "github:skk-dev/dict";
       flake = false;

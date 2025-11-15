@@ -1381,9 +1381,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "1a1a475846a4cfa3cfedde1c59141d99b6212951",
-      "url": "https://github.com/obsidian-nvim/obsidian.nvim/archive/1a1a475846a4cfa3cfedde1c59141d99b6212951.tar.gz",
-      "hash": "1ianli3dqpgwiyfhbfxs866bxsqn4m0c09nd4s3048sj6ay6g6pj"
+      "revision": "450fa41a1e4c2bed481697cc66186898658ab1bc",
+      "url": "https://github.com/obsidian-nvim/obsidian.nvim/archive/450fa41a1e4c2bed481697cc66186898658ab1bc.tar.gz",
+      "hash": "0ar40gk8f9mlgs99xs0ff9bzw48p0sr04yprpy6ymmp7mla2b7mm"
     },
     "oil-vcs-status": {
       "type": "Git",
@@ -1637,6 +1637,19 @@
       "revision": "5946285744ffef26b792839d9130135365bfa8ea",
       "url": "https://github.com/trixnz/sops.nvim/archive/5946285744ffef26b792839d9130135365bfa8ea.tar.gz",
       "hash": "0sll86jn01cpbllg5q7i52f73zbnwlwix9q7yasivbih4ijn04g8"
+    },
+    "sorairo": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ttak0422",
+        "repo": "sorairo"
+      },
+      "branch": "v2",
+      "submodules": false,
+      "revision": "8dec14f3de1b20ab20b8d216f2f347edc4a8d1f6",
+      "url": "https://github.com/ttak0422/sorairo/archive/8dec14f3de1b20ab20b8d216f2f347edc4a8d1f6.tar.gz",
+      "hash": "0jd229k60qkas1dr44347pbrlx9d79sc0w62a0cdsd30llh0gdng"
     },
     "statuscol.nvim": {
       "type": "Git",

@@ -2133,7 +2133,6 @@
         "rustaceanvim": "rustaceanvim",
         "skk-dict": "skk-dict",
         "smart-splits-nvim": "smart-splits-nvim",
-        "sorairo": "sorairo",
         "spring-boot-nvim": "spring-boot-nvim",
         "springboot-nvim": "springboot-nvim",
         "stickybuf-nvim": "stickybuf-nvim",
@@ -2234,23 +2233,6 @@
       "original": {
         "owner": "mrjones2014",
         "repo": "smart-splits.nvim",
-        "type": "github"
-      }
-    },
-    "sorairo": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1759242219,
-        "narHash": "sha256-Jgo3PVFiYqGp/A9fAwHnZv1MI1t/DNfYymD3xOQmOzs=",
-        "owner": "ttak0422",
-        "repo": "sorairo",
-        "rev": "8f2b4d14aa03b09ed2ef5ece97bd10aeb855c4fb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ttak0422",
-        "ref": "v2",
-        "repo": "sorairo",
         "type": "github"
       }
     },
