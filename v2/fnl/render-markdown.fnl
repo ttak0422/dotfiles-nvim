@@ -2,11 +2,11 @@
 
 (local anti_conceal {:enabled true :disabled_modes [:n :c :t]})
 
-(local heading
-       {:sign false
-        :render_modes true
-        :position :inline
-        :icons ["󰼏 " "󰎨 " "󰼑 " "󰎲 " "󰼓 " "󰎴 "]})
+(local heading {:sign false
+                :render_modes true
+                :position :inline
+                :icons ["󰼏 " "󰎨 " "󰼑 " "󰎲 " "󰼓 " "󰎴 "]
+                :backgrounds []})
 
 (local code {:conceal_delimiters false :border :thin})
 

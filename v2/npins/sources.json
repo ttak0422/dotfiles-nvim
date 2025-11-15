@@ -1526,10 +1526,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v8.7.0",
-      "revision": "86da825416d24a0539a5e768c5be685a44b939f9",
-      "url": "https://api.github.com/repos/MeanderingProgrammer/render-markdown.nvim/tarball/v8.7.0",
-      "hash": "161d99nnqmlsrzqx96p7bz2v0lbp0nh4kqfkq9k9cam8jr2b4p6d"
+      "version": "v8.10.0",
+      "revision": "e8678b53fd3009dba46d70598564c2c3fd3ebd79",
+      "url": "https://api.github.com/repos/MeanderingProgrammer/render-markdown.nvim/tarball/v8.10.0",
+      "hash": "0lr5v2q1k3gmh187swaxx9c1w6z3v7qh3vdnlzlvqglr8dm41ny0"
     },
     "replua.nvim": {
       "type": "Git",
