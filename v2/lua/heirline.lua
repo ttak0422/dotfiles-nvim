@@ -39,9 +39,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 -- components
 local align = { provider = "%=" }
 local space = { provider = " " }
-local bar = { provider = "  " }
-
-local symbol = { provider = "" }
 
 local git
 do
@@ -145,39 +142,6 @@ do
   }
 end
 
-local ruler = {
-  provider = "%7(%l,%c%)",
-}
-
-local file_properties
-do
-  local encoding = {
-    condition = function(self)
-      self.encoding = ((vim.bo.fileencoding ~= "") and vim.bo.fileencoding) or vim.o.encoding or ""
-      return self.encoding
-    end,
-    provider = function(self)
-      return string.upper(self.encoding)
-    end,
-  }
-  local format = {
-    condition = function(self)
-      self.format = vim.bo.fileformat
-      return self.format
-    end,
-    provider = function(self)
-      return (self.format_label[self.format] or self.format)
-    end,
-    static = { format_label = { dos = "CRLF", mac = "CR", unix = "LF" } },
-  }
-  file_properties = {
-    update = { "WinNew", "WinClosed", "BufEnter" },
-    encoding,
-    space,
-    format,
-  }
-end
-
 local working_dir
 do
   local branch = {
@@ -205,7 +169,6 @@ do
     dir_name,
     space,
     branch,
-    space,
   }
 end
 
@@ -222,38 +185,12 @@ local page = {
   },
 }
 
-local filename
-do
-  local name = {
-    provider = function(self)
-      local n = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
-      return n ~= "" and n or "[No Name]"
-    end,
-    update = { "BufEnter" },
-    hl = { bold = true },
-  }
-  local cond = {
-    -- condition = function()
-    -- 	return vim.bo.modified
-    -- end,
-    --
-    provider = function()
-      return vim.bo.modified and "" or " "
-    end,
-    update = { "TextChanged", "InsertLeave", "BufWritePost" },
-  }
-  filename = {
-    name,
-    cond,
-  }
-end
-
 -- statuslines
 local s_special = {
   condition = function()
     return conditions.buffer_matches({
-      buftype = { "nofile", "prompt", "help", "quickfix" },
-      filetype = { "^git.*" },
+      buftype = { "nofile", "prompt", "help" },
+      filetype = {},
     })
   end,
   -- left
@@ -297,20 +234,14 @@ local s_terminal = {
 
 local s_default = {
   -- left
-  -- symbol,
   space,
   page,
-  filename,
+  working_dir,
   git,
   diagnostics,
   space,
   align,
   -- right
-  ruler,
-  bar,
-  -- file_properties,
-  -- bar,
-  working_dir,
 }
 
 -- setup
