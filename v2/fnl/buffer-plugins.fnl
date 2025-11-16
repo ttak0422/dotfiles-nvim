@@ -48,3 +48,41 @@
                        (desc " run last")]
                       [:<LocalLeader>dd (toggle :dapui) (desc " run last")]])]
     (vim.keymap.set :n (. k 1) (. k 2) (or (. k 3) opts))))
+
+;; winbar
+(macro cond [...]
+  (let [clauses [...]]
+    (assert (> (length clauses) 0) "cond: need at least one clause")
+    (assert (= 0 (% (length clauses) 2))
+            "cond: need even number of forms (test expr …)")
+    (var i (length clauses))
+    (var acc nil)
+    (while (> i 0)
+      (let [expr (. clauses i)
+            test (. clauses (- i 1))]
+        (if (= test :else)
+            (set acc expr)
+            (set acc `(if ,test ,expr ,acc))))
+      (set i (- i 2)))
+    acc))
+
+(set _G._winbar #(let [buf (vim.api.nvim_get_current_buf)
+                       name (vim.api.nvim_buf_get_name buf)
+                       root (vim.fs.root buf [:.git :gradlew :package.json])
+                       name (if root
+                                (vim.fn.fnamemodify name (.. ":." root))
+                                name)
+                       base (vim.fn.fnamemodify name ":t")
+                       dir (vim.fn.fnamemodify name ":h")
+                       prefix (.. "%#Normal#%*" ; to avoid trim whitespaces
+                                  (if vim.bo.modified " " "  "))]
+                   (.. prefix
+                       (cond ;
+                             ;; no name ;;
+                             (= name "") "[No Name]" ;
+                             ;; root ;;
+                             (= dir ".") base ;
+                             ;; relative path ;;
+                             true (.. base " - " dir)))))
+
+(set vim.o.winbar "%r%{%v:lua._winbar()%}")

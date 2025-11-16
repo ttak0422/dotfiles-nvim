@@ -559,10 +559,10 @@ in
           package = stickybuf-nvim;
           postConfig = read "./fnl/stickybuf.fnl";
         }
-        {
-          package = dropbar-nvim;
-          postConfig = read "./fnl/dropbar.fnl";
-        }
+        # {
+        #   package = dropbar-nvim;
+        #   postConfig = read "./fnl/dropbar.fnl";
+        # }
         {
           package = nap-nvim;
           depends = [
