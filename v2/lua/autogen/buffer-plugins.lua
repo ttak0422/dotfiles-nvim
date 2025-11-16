@@ -53,19 +53,23 @@ local function _8_()
   else
     _10_ = "  "
   end
-  prefix = ("%#Normal#%*" .. _10_)
+  prefix = ("%#Normal#" .. _10_ .. "%*")
   local _12_
   if (name0 == "") then
     _12_ = "[No Name]"
   else
     if (dir == ".") then
-      _12_ = base
+      _12_ = ("%#Title#" .. base .. "%*")
     else
-      _12_ = (base .. " - " .. dir)
+      _12_ = ("%#Title#" .. base .. "%* - " .. dir)
     end
   end
   return (prefix .. _12_)
 end
-_G._winbar = _8_
-vim.o.winbar = "%r%{%v:lua._winbar()%}"
+_G._winbar1 = _8_
+local function _15_()
+  return (tostring(vim.fn.line(".")) .. "," .. tostring(vim.fn.col(".")))
+end
+_G._winbar2 = _15_
+vim.o.winbar = "%r%{%v:lua._winbar1()%}%=%{%v:lua._winbar2()%}"
 return nil

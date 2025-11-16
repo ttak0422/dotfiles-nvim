@@ -66,23 +66,27 @@
       (set i (- i 2)))
     acc))
 
-(set _G._winbar #(let [buf (vim.api.nvim_get_current_buf)
-                       name (vim.api.nvim_buf_get_name buf)
-                       root (vim.fs.root buf [:.git :gradlew :package.json])
-                       name (if root
-                                (vim.fn.fnamemodify name (.. ":." root))
-                                name)
-                       base (vim.fn.fnamemodify name ":t")
-                       dir (vim.fn.fnamemodify name ":h")
-                       prefix (.. "%#Normal#%*" ; to avoid trim whitespaces
-                                  (if vim.bo.modified " " "  "))]
-                   (.. prefix
-                       (cond ;
-                             ;; no name ;;
-                             (= name "") "[No Name]" ;
-                             ;; root ;;
-                             (= dir ".") base ;
-                             ;; relative path ;;
-                             true (.. base " - " dir)))))
+(set _G._winbar1
+     #(let [buf (vim.api.nvim_get_current_buf)
+            name (vim.api.nvim_buf_get_name buf)
+            root (vim.fs.root buf [:.git :gradlew :package.json])
+            name (if root
+                     (vim.fn.fnamemodify name (.. ":." root))
+                     name)
+            base (vim.fn.fnamemodify name ":t")
+            dir (vim.fn.fnamemodify name ":h")
+            prefix (.. "%#Normal#" ; to avoid trim whitespaces
+                       (if vim.bo.modified " " "  ") "%*")]
+        (.. prefix
+            (cond ;
+                  ;; no name ;;
+                  (= name "") "[No Name]" ;
+                  ;; root ;;
+                  (= dir ".") (.. "%#Title#" base "%*") ;
+                  ;; relative path ;;
+                  true (.. "%#Title#" base "%* - " dir)))))
 
-(set vim.o.winbar "%r%{%v:lua._winbar()%}")
+(set _G._winbar2 #(.. (tostring (vim.fn.line ".")) ","
+                      (tostring (vim.fn.col "."))))
+
+(set vim.o.winbar "%r%{%v:lua._winbar1()%}%=%{%v:lua._winbar2()%}")
