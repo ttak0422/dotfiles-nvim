@@ -66,28 +66,39 @@
       (set i (- i 2)))
     acc))
 
-(set _G._winbar #(let [buf (vim.api.nvim_get_current_buf) ;
-                       ; TODO
-                       ; buftype (. vim.bo buf :buftype)
-                       name (vim.api.nvim_buf_get_name buf)
-                       root (vim.fs.root buf [:.git :gradlew :package.json])
-                       name (if root
-                                (vim.fn.fnamemodify name (.. ":." root))
-                                name)
-                       base (vim.fn.fnamemodify name ":t")
-                       dir (vim.fn.fnamemodify name ":h")
-                       prefix (.. "%#Normal#" ; to avoid trim whitespaces
-                                  (if vim.bo.modified " " "  ") "%*")
-                       align "%="]
-                   (.. prefix
-                       (cond ;
-                             ;; no name ;;
-                             (= name "") "[No Name]" ;
-                             ;; root ;;
-                             (= dir ".") (.. "%#Title#" base "%*") ;
-                             ;; relative path ;;
-                             true (.. "%#Title#" base "%* - " dir))
-                       align (tostring (vim.fn.line ".")) ","
-                       (tostring (vim.fn.col ".")) " ")))
-
-(set vim.o.winbar "%{%v:lua._winbar()%}")
+(let [maven {:java [:src/main/java/ :src/test/java/]
+             :kotlin [:src/main/kotlin/ :src/test/kotlin/]
+             :scala [:src/main/scala/ :src/test/scala/]}]
+  (set _G._winbar #(let [buf (vim.api.nvim_get_current_buf) ;
+                         ft (. (. vim.bo buf) :filetype) ;
+                         ; TODO
+                         ; buftype (. vim.bo buf :buftype)
+                         name (vim.api.nvim_buf_get_name buf)
+                         root (vim.fs.root buf [:.git :gradlew :package.json])
+                         name (if root
+                                  (vim.fn.fnamemodify name (.. ":." root))
+                                  name)
+                         base (vim.fn.fnamemodify name ":t")
+                         dir (vim.fn.fnamemodify name ":h")
+                         prefix (.. "%#Normal#" ; to avoid trim whitespaces
+                                    (if vim.bo.modified " " "  ") "%*")
+                         filename base
+                         path ((fn []
+                                 (var p nil)
+                                 (each [_ pattern (ipairs (or (. maven ft) []))]
+                                   (when (vim.startswith dir pattern)
+                                     (set p (dir:sub (+ (length pattern) 1)))
+                                     (lua :break)))
+                                 (or p dir)))
+                         align "%="]
+                     (.. prefix
+                         (cond ;
+                               ;; no name ;;
+                               (= name "") "[No Name]" ;
+                               ;; root ;;
+                               (= dir ".") (.. "%#Title#" filename "%*") ;
+                               ;; relative path ;;
+                               true (.. "%#Title#" filename "%* - " path))
+                         align (tostring (vim.fn.line ".")) ","
+                         (tostring (vim.fn.col ".")) " ")))
+  (set vim.o.winbar "%{%v:lua._winbar()%}"))

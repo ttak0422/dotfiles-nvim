@@ -34,8 +34,10 @@ do
     vim.keymap.set("n", k[1], k[2], (k[3] or opts))
   end
 end
+local maven = {java = {"src/main/java/", "src/test/java/"}, kotlin = {"src/main/kotlin/", "src/test/kotlin/"}, scala = {"src/main/scala/", "src/test/scala/"}}
 local function _8_()
   local buf = vim.api.nvim_get_current_buf()
+  local ft = vim.bo[buf].filetype
   local name = vim.api.nvim_buf_get_name(buf)
   local root = vim.fs.root(buf, {".git", "gradlew", "package.json"})
   local name0
@@ -54,18 +56,32 @@ local function _8_()
     _10_ = "  "
   end
   prefix = ("%#Normal#" .. _10_ .. "%*")
+  local filename = base
+  local path
+  local function _12_()
+    local p = nil
+    for _, pattern in ipairs((maven[ft] or {})) do
+      if vim.startswith(dir, pattern) then
+        p = dir:sub((#pattern + 1))
+        break
+      else
+      end
+    end
+    return (p or dir)
+  end
+  path = _12_()
   local align = "%="
-  local _12_
+  local _14_
   if (name0 == "") then
-    _12_ = "[No Name]"
+    _14_ = "[No Name]"
   else
     if (dir == ".") then
-      _12_ = ("%#Title#" .. base .. "%*")
+      _14_ = ("%#Title#" .. filename .. "%*")
     else
-      _12_ = ("%#Title#" .. base .. "%* - " .. dir)
+      _14_ = ("%#Title#" .. filename .. "%* - " .. path)
     end
   end
-  return (prefix .. _12_ .. align .. tostring(vim.fn.line(".")) .. "," .. tostring(vim.fn.col(".")) .. " ")
+  return (prefix .. _14_ .. align .. tostring(vim.fn.line(".")) .. "," .. tostring(vim.fn.col(".")) .. " ")
 end
 _G._winbar = _8_
 vim.o.winbar = "%{%v:lua._winbar()%}"
