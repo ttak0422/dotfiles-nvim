@@ -185,54 +185,8 @@ local page = {
   },
 }
 
--- statuslines
-local s_special = {
-  condition = function()
-    return conditions.buffer_matches({
-      buftype = { "nofile", "prompt", "help" },
-      filetype = {},
-    })
-  end,
-  -- left
-  align,
-  -- center
-  {
-    -- show help name if available
-    condition = function()
-      return vim.bo.buftype == "help"
-    end,
-    provider = function()
-      return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t:r")
-    end,
-  },
-  align,
-  -- right
-  {
-    provider = function()
-      return "  " .. string.upper(vim.bo.filetype) .. " "
-    end,
-    update = { "WinNew", "WinClosed", "BufEnter" },
-  },
-}
-
-local s_terminal = {
-  condition = function()
-    return conditions.buffer_matches({
-      buftype = { "terminal" },
-    })
-  end,
-  align,
-  {
-    provider = "  terminal ",
-    update = {
-      "WinNew",
-      "WinClosed",
-      "BufEnter",
-    },
-  },
-}
-
-local s_default = {
+local statusline = {
+  hl = { fg = "fg", bg = "bg" },
   -- left
   space,
   page,
@@ -249,11 +203,5 @@ heirline.setup({
   opts = {
     colors = get_colors(),
   },
-  statusline = {
-    fallthrough = false,
-    hl = { fg = "fg", bg = "bg" },
-    s_special,
-    s_terminal,
-    s_default,
-  },
+  statusline = statusline,
 })
