@@ -326,6 +326,7 @@ in
   lazy = with pkgs.vimPlugins.v2; rec {
     # colorschemes
     sorairo.package = pkgs.vimPlugins.v2.sorairo;
+    nvim-grey.package = pkgs.vimPlugins.v2.nvim-grey;
 
     # utils
     nio.package = nvim-nio;

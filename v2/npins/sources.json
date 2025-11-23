@@ -1197,6 +1197,19 @@
       "url": "https://github.com/kevinhwang91/nvim-fundo/archive/ac9c9372c4bf677721e24f144ef29d3a05c2b589.tar.gz",
       "hash": "0s8xny94dcqfhy0cjnp7lky8qmi7jjx2xcqhhiwhmi1alr5qp0zr"
     },
+    "nvim-grey": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "yorickpeterse",
+        "repo": "nvim-grey"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "62d268a3e582b846f5c20a895a07bd7d563e9db9",
+      "url": "https://github.com/yorickpeterse/nvim-grey/archive/62d268a3e582b846f5c20a895a07bd7d563e9db9.tar.gz",
+      "hash": "02ynn88rmjy7321nsvzh1rrm0ivf28w4k238dpxdz6k3n55aw6c4"
+    },
     "nvim-hlslens": {
       "type": "Git",
       "repository": {
