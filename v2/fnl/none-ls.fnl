@@ -124,7 +124,7 @@
                 ;;; hover ;;;
                 ])
 
-(null_ls.setup {:border :none
+(null_ls.setup {:border :single
                 :cmd [:nvim]
                 :debounce 300
                 :debug false

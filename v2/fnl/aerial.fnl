@@ -10,7 +10,7 @@
                     :Method
                     :Struct])
 
-(local float {:border :none
+(local float {:border :single
               ; -- Determines location of floating window
               ; --   cursor - Opens float on top of the cursor
               ; --   editor - Opens float centered in the editor

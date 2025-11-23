@@ -1,7 +1,7 @@
 -- [nfnl] v2/fnl/aerial.fnl
 local aerial = require("aerial")
 local filter_kind = {"Class", "Constructor", "Enum", "Function", "Method", "Interface", "Module", "Method", "Struct"}
-local float = {border = "none", relative = "cursor", max_height = 0.9, min_height = {8, 0.1}}
+local float = {border = "single", relative = "cursor", max_height = 0.9, min_height = {8, 0.1}}
 local guides = {mid_item = "\226\148\156\226\148\128", last_item = "\226\148\148\226\148\128", nested_top = "\226\148\130 ", whitespace = "  "}
 local icons = {Text = "\243\176\137\191", Method = "\243\176\138\149", Function = "\243\176\138\149", Constructor = "\243\176\146\147", Field = "\243\176\156\162", Variable = "\243\176\128\171", Class = "\243\176\160\177", Interface = "\239\131\168", Module = "\239\146\135", Property = "\243\176\156\162", Unit = "\238\170\150", Value = "\243\176\142\160", Enum = "\239\133\157", Keyword = "\243\176\140\139", Snippet = "\239\145\143", Color = "\243\176\143\152", File = "\243\176\136\148", Reference = "\243\176\136\135", Folder = "\243\176\137\139", EnumMember = "\239\133\157", Constant = "\243\176\143\191", Struct = "\243\176\153\133", Event = "\243\177\144\139", Operator = "\243\176\134\149", TypeParameter = "\243\176\151\180"}
 local ignore = {diff_windows = true, filetypes = {}, buftypes = "special", wintypes = "special", unlisted_buffers = false}
