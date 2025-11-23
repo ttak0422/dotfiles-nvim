@@ -198,10 +198,76 @@ local statusline = {
   -- right
 }
 
+local indicator
+do
+  local mod = {
+    fallthrough = false,
+    {
+      condition = function(self)
+        return vim.api.nvim_get_option_value("modified", { buf = self.bufnr })
+      end,
+      provider = " ",
+      update = { "BufModifiedSet" },
+    },
+    { provider = "  " },
+  }
+  indicator = {
+    mod,
+  }
+end
+
+local file = {
+  init = function(self)
+    local name = vim.api.nvim_buf_get_name(0)
+    local root = vim.fs.root(".", { ".git" })
+    local buf_name = root and vim.fn.fnamemodify(name, ":." .. root) or name
+    self.filename = vim.fn.fnamemodify(buf_name, ":t")
+    self.path = vim.fn.fnamemodify(buf_name, ":h")
+  end,
+  {
+    provider = function(self)
+      return self.filename
+    end,
+    hl = utils.get_highlight("Title"),
+  },
+  { provider = " " },
+  {
+    provider = function(self)
+      return self.path
+    end,
+    hl = utils.get_highlight("WinBar"),
+  },
+  update = { "WinNew", "BufEnter" },
+}
+
+local ruler = {
+  provider = "%l,%c",
+  hl = utils.get_highlight("WinBar"),
+  update = "CursorMoved",
+}
+
+local winbar = {
+  -- left
+  indicator,
+  file,
+  space,
+  align,
+  -- right
+  ruler,
+  space,
+}
+
 -- setup
 heirline.setup({
+  statusline = statusline,
+  winbar = winbar,
   opts = {
     colors = get_colors(),
+    disable_winbar_cb = function(args)
+      return conditions.buffer_matches({
+        buftype = { "nofile", "prompt", "help", "quickfix" },
+        filetype = { "^git.*", "Trouble" },
+      }, args.buf)
+    end,
   },
-  statusline = statusline,
 })
