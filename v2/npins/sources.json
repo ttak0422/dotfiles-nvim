@@ -1618,9 +1618,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "abfa5835920b1d76c0e24e1465a618ad914be90a",
-      "url": "https://github.com/sphamba/smear-cursor.nvim/archive/abfa5835920b1d76c0e24e1465a618ad914be90a.tar.gz",
-      "hash": "19g14k43rsm8i8wvra111nnv7i6nqxscbvrxhb4svcg1jh9aqvsz"
+      "revision": "ab3741e2ca22fe0cae3948d4d65b52e376c83c6a",
+      "url": "https://github.com/sphamba/smear-cursor.nvim/archive/ab3741e2ca22fe0cae3948d4d65b52e376c83c6a.tar.gz",
+      "hash": "06dr0f4hpwndmd731f4xdarniscj869jmalaq7qw0gw0yyklb5w4"
     },
     "snacks.nvim": {
       "type": "GitRelease",
