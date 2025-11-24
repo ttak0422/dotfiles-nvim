@@ -223,12 +223,7 @@ local file = {
 
 		self.filetype = vim.bo.filetype
 		self.filename = vim.fn.fnamemodify(name, ":t")
-
-		if git_root then
-			self.path = name:sub(#git_root + 2)
-		else
-			self.path = vim.fn.fnamemodify(vim.fn.fnamemodify(name, ":."), ":h")
-		end
+		self.path = vim.fn.fnamemodify(git_root and name:sub(#git_root + 2) or vim.fn.fnamemodify(name, ":."), ":h")
 	end,
 	static = {
 		maven = {
