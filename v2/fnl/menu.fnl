@@ -4,6 +4,9 @@
 
 (local default
        [{:hl :Normal :name " Toggle NoNeckPain" :cmd :NoNeckPain}
+        {:hl :Normal
+         :name " Toggle List"
+         :cmd #(set vim.o.list (not vim.o.list))}
         {:hl :Normal :name " Toggle colorize" :cmd :ColorizerToggle}
         {:hl :Normal :name " Edit local config" :cmd :ConfigLocalEdit}
         {:hl :Normal :name "󰞷 Open scratch buffer" :cmd :RepluaOpen}
