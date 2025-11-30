@@ -86,13 +86,11 @@
                               ":" cmd_src
                               "@" cmd_src)}))
 
-(local sources {:default [:avante
-                          :lsp
+(local sources {:default [:lsp
                           ; :path
                           :snippets
                           :buffer]
-                :per_filetype {:AvanteInput [:avante :buffer]
-                               ; :markdown [:lsp
+                :per_filetype {; :markdown [:lsp
                                ;            :path
                                ;            :buffer
                                ;            :obsidian
@@ -110,9 +108,6 @@
                                                            (not= item.kind
                                                                  types.CompletionItemKind.Keyword))
                                                          (vim.tbl_filter items)))}
-                            :avante {:module :blink-cmp-avante
-                                     :name :Avante
-                                     :opts {}}
                             :snippets {:should_show_items (fn [ctx]
                                                             (not= ctx.trigger.initial_kind
                                                                   :trigger_character))}}

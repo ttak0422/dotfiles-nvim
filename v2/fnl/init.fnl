@@ -177,6 +177,8 @@
                            (cmd :NeorgGitBranch)
                            (desc " Git (branch)")]
                           ; [:<C-c> (cmd :AvanteFocus) (desc "Avante Chat")]
+                          [(leader :aa) (cmd :AvanteAsk)]
+                          [(leader :at) (cmd :AvanteToggle)]
                           ;  Obsidian
                           [(leader :ot)
                            (cmd "Obsidian today")

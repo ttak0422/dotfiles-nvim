@@ -211,3 +211,8 @@
                : input
                : repo_map
                : slash_commands})
+
+(let [blink (require :blink.cmp)]
+  (blink.add_source_provider :avante
+                             {:module :blink-cmp-avante :name :Avante :opts {}})
+  (blink.add_filetype_source :AvanteInput :avante))

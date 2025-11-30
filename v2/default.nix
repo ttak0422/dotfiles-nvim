@@ -395,8 +395,10 @@ in
       extraPackages = with pkgs; [ curl ];
       postConfig = read "./fnl/avante.fnl";
       hooks = {
-        commands = [ "AvanteFocus" ];
-        events = [ "BufReadPost" ];
+        commands = [
+          "AvanteAsk"
+          "AvanteToggle"
+        ];
         modules = [ "avante.api" ];
       };
     };
@@ -419,11 +421,7 @@ in
         blink-cmp-avante
         blink-compat
       ];
-      depends = [
-        luasnip
-        avante
-        # obsidian
-      ];
+      depends = [ luasnip ];
       postConfig = read "./fnl/blink.fnl";
       hooks.modules = [ "blink.cmp" ];
     };
