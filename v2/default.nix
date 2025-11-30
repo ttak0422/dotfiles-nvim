@@ -1440,6 +1440,12 @@ in
 
     filetypePlugins = {
       depends = [
+
+        {
+          package = ts-error-translator-nvim;
+          postConfig = read "./fnl/ts-error-translator.fnl";
+          hooks.fileTypes = [ "typescript" ];
+        }
         {
           package = uv-nvim;
           postConfig = read "./fnl/uv.fnl";

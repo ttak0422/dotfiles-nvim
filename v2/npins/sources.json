@@ -2054,6 +2054,19 @@
       "url": "https://github.com/cappyzawa/trim.nvim/archive/d0760a840ca2fe4958353dee567a90c2994e70a7.tar.gz",
       "hash": "0xy21z4yxpdi1g9yl744582fkmz8q1pap9czknzp8w4ws5mhi709"
     },
+    "ts-error-translator.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "dmmulroy",
+        "repo": "ts-error-translator.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "c1e6a5529009e855eb102a668549679548757a05",
+      "url": "https://github.com/dmmulroy/ts-error-translator.nvim/archive/c1e6a5529009e855eb102a668549679548757a05.tar.gz",
+      "hash": "0azvhr0ap0x620iwap1rf2747yjfq14pc4w26bg0k965919dpqpx"
+    },
     "unnest.nvim": {
       "type": "Git",
       "repository": {
