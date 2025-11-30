@@ -219,10 +219,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v1.7.0",
-      "revision": "0d4a2130ffdf43040b77ff2839f107fad751e29c",
-      "url": "https://api.github.com/repos/Saghen/blink.cmp/tarball/v1.7.0",
-      "hash": "02527v0lnk5r5dpyb3avh4da081wgkd3sdam351fgdc2dn60xibq"
+      "version": "v1.8.0",
+      "revision": "0aa180e6eb3415f90a4f1b86801db9cab0c0ca7b",
+      "url": "https://api.github.com/repos/Saghen/blink.cmp/tarball/v1.8.0",
+      "hash": "0nh0ajmxam9anbk62r71aar48cgakf5n1h90snprzx7g7qz5qf96"
     },
     "blink.compat": {
       "type": "Git",

@@ -23,7 +23,7 @@ rec {
         blink-fuzzy-lib = rustPlatform.buildRustPackage {
           inherit (blink-cmp) src version;
           pname = "blink-fuzzy-lib";
-          cargoHash = "sha256-zWZHT+Y8ENN/nFEtJnkEUHXRuU6FUQ/ITHo+V4zJ6f8=";
+          cargoHash = "sha256-Qdt8O7IGj2HySb1jxsv3m33ZxJg96Ckw26oTEEyQjfs=";
           nativeBuildInputs = with final; [ gitMinimal ];
           env.RUSTC_BOOTSTRAP = true;
         };
