@@ -125,7 +125,6 @@ in
     };
   };
   eager = with pkgs.vimPlugins.v2; {
-    morimo.package = morimo;
     plenary.package = plenary-nvim;
     bg.package = bg-nvim;
     nui.package = nui-nvim;
@@ -326,6 +325,11 @@ in
   lazy = with pkgs.vimPlugins.v2; rec {
     # colorschemes
     sorairo.package = pkgs.vimPlugins.v2.sorairo;
+    morimo = {
+      package = pkgs.vimPlugins.v2.morimo;
+      postConfig = read "./fnl/morimo.fnl";
+      hooks.modules = [ "morimo" ];
+    };
     kanagawa.package = kanagawa-nvim;
     nvim-grey.package = pkgs.vimPlugins.v2.nvim-grey;
 

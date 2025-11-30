@@ -210,16 +210,6 @@
   (for [i 0 9]
     (vim.keymap.set [:n :t :i] (.. :<C- i ">") (toggle (.. :term i)) opts)))
 
-; startup plugin configs
-; (vim.cmd "colorscheme morimo")
-; (each [_ p (ipairs [:nvim-notify
-;                     :treesitter
-;                     :gitsigns
-;                     :lir
-;                     :dap
-;                     :git-conflict
-;                     :lir])]
-;   ((. (require :morimo) :load) p))
 (vim.cmd "colorscheme sorairo")
 
 ((. (require :config-local) :setup) {:silent true})
