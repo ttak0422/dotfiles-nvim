@@ -717,6 +717,19 @@
       "url": "https://github.com/GCBallesteros/jupytext.nvim/archive/c8baf3ad344c59b3abd461ecc17fc16ec44d0f7b.tar.gz",
       "hash": "1lz8ajcy9gm02bwgq5rr5ppx4g1irzvgx074mqmbv7xawij5241c"
     },
+    "kanagawa.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "rebelot",
+        "repo": "kanagawa.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "aef7f5cec0a40dbe7f3304214850c472e2264b10",
+      "url": "https://github.com/rebelot/kanagawa.nvim/archive/aef7f5cec0a40dbe7f3304214850c472e2264b10.tar.gz",
+      "hash": "048k6w6qf5hccii3drk4qdj5q5ar0hgbx7xgdfjqdizq6mci0xww"
+    },
     "keep-split-ratio.nvim": {
       "type": "Git",
       "repository": {
