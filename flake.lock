@@ -881,22 +881,6 @@
         "type": "github"
       }
     },
-    "img-clip-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1743530520,
-        "narHash": "sha256-6STviireN52R7engW3c0R2Po8hHSP/apqhXvectH0So=",
-        "owner": "HakonHarnes",
-        "repo": "img-clip.nvim",
-        "rev": "08a02e14c8c0d42fa7a92c30a98fd04d6993b35d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "HakonHarnes",
-        "repo": "img-clip.nvim",
-        "type": "github"
-      }
-    },
     "jol": {
       "flake": false,
       "locked": {
@@ -2075,7 +2059,6 @@
         "haskell-tools-nvim": "haskell-tools-nvim",
         "helpview-nvim": "helpview-nvim",
         "highlight-undo-nvim": "highlight-undo-nvim",
-        "img-clip-nvim": "img-clip-nvim",
         "jol": "jol",
         "junit-console": "junit-console",
         "logrotate-nvim": "logrotate-nvim",

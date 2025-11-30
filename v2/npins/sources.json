@@ -678,6 +678,19 @@
       "url": "https://api.github.com/repos/3rd/image.nvim/tarball/v1.4.0",
       "hash": "18hgp9qkm596rl0k1n4rrri8y6k84fkacphf9x3mrqwgqrixx80i"
     },
+    "img-clip.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hakonharnes",
+        "repo": "img-clip.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "e7e29f0d07110405adecd576b602306a7edd507a",
+      "url": "https://github.com/hakonharnes/img-clip.nvim/archive/e7e29f0d07110405adecd576b602306a7edd507a.tar.gz",
+      "hash": "0jfbshjmzqjpnfdzsd5zd2si1c7gax2g2x5lwg8rsj5cacp0zbnb"
+    },
     "inc-rename.nvim": {
       "type": "Git",
       "repository": {

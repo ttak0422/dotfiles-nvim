@@ -71,10 +71,6 @@
       url = "github:MrcJkb/haskell-tools.nvim";
       flake = false;
     };
-    img-clip-nvim = {
-      url = "github:HakonHarnes/img-clip.nvim";
-      flake = false;
-    };
     mkdnflow-nvim = {
       url = "github:/jakewvincent/mkdnflow.nvim";
       flake = false;
