@@ -1076,9 +1076,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "d29ccbdf83b5baa402ee959cede13a8bf0230f57",
-      "url": "https://github.com/nvimtools/none-ls-extras.nvim/archive/d29ccbdf83b5baa402ee959cede13a8bf0230f57.tar.gz",
-      "hash": "0b79y4xi3wyal13xsxxy4cv54a4fnzrjvn2p1cg4q93g7y9fahfv"
+      "revision": "70659cc3d38151424298ab46b0f67f2251cef231",
+      "url": "https://github.com/nvimtools/none-ls-extras.nvim/archive/70659cc3d38151424298ab46b0f67f2251cef231.tar.gz",
+      "hash": "1qcm1dgwaaq31k6s8k48dff0djylgf4h7gwxi9ry0rrhiqjc2v9j"
     },
     "none-ls.nvim": {
       "type": "Git",
@@ -1089,9 +1089,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "88e2508bd1754e2643e54e9f181e64bbda118ab9",
-      "url": "https://github.com/nvimtools/none-ls.nvim/archive/88e2508bd1754e2643e54e9f181e64bbda118ab9.tar.gz",
-      "hash": "1gqcgabni94m7r4c473y0x4sydj18dbx8q335a35x89lhvzhdwsg"
+      "revision": "1917c86818b5e058f53c2ea0ad38fc57534d62fc",
+      "url": "https://github.com/nvimtools/none-ls.nvim/archive/1917c86818b5e058f53c2ea0ad38fc57534d62fc.tar.gz",
+      "hash": "0mi27v0gwsjb1nvyrbszijvi8cbm8rlwpqadyhdkg4vxwg6i5ili"
     },
     "nui.nvim": {
       "type": "Git",
