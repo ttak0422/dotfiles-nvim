@@ -818,7 +818,7 @@ in
         telescope-fzf-native-nvim
         telescope-ghq-nvim
         telescope-live-grep-args-nvim
-        telescope-mr
+        telescope-mr-local
         telescope-nvim
         telescope-sonictemplate-nvim
       ];
