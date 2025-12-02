@@ -8,11 +8,7 @@
 (lib.load)
 
 (local providers
-       {:sonet4 {:__inherited_from :claude :model :claude-sonnet-4-0}
-        :opus4 {:__inherited_from :claude
-                :model :claude-opus-4-0
-                :extra_request_body {:max_tokens 32000}}
-        :ollama {:model "gpt-oss:20b" :is_env_set ollama.check_endpoint_alive}})
+       {:ollama {:model "gpt-oss:20b" :is_env_set ollama.check_endpoint_alive}})
 
 (local dual_boost {:enabled false})
 
