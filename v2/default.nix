@@ -100,7 +100,6 @@ in
       make = read "./fnl/after/ftplugin/make.fnl";
       markdown = read "./fnl/after/ftplugin/markdown.fnl";
       nix = read "./fnl/after/ftplugin/nix.fnl";
-      norg = read "./fnl/after/ftplugin/norg.fnl";
       qf = read "./fnl/after/ftplugin/qf.fnl";
       qfreplace = read "./fnl/after/ftplugin/qfreplace.fnl";
       json = read "./fnl/after/ftplugin/json.fnl";
@@ -150,12 +149,6 @@ in
       startupConfig =
         let
           inherit (pkgs.tree-sitter) buildGrammar version;
-          inherit (inputs'.norg.packages)
-            tree-sitter-norg
-            ;
-          inherit (inputs'.norg-meta.packages)
-            tree-sitter-norg-meta
-            ;
 
           dap-repl = buildGrammar {
             inherit version;
@@ -172,9 +165,6 @@ in
               | xargs -I {} find {} -not -type d -name '*.so' \
               | xargs -I {} ln -sf {} $out/parser
               ln -s ${dap-repl}/parser $out/parser/dap_repl.so
-              # overwrite norg parser
-              ln -sf ${tree-sitter-norg}/parser $out/parser/norg.so
-              ln -s ${tree-sitter-norg-meta}/parser $out/parser/norg-meta.so
             '';
           };
         in
@@ -1220,11 +1210,6 @@ in
           hooks.commands = [ "ClaudeCode" ];
         }
         {
-          package = claude-code-nvim;
-          postConfig = read "./fnl/claude-code.fnl";
-          # hooks.commands = [ "ClaudeCode" ];
-        }
-        {
           packages = [ ];
           depends = [
             # MEMO: 先に読み込まないと初回実行が安定しない
@@ -1281,36 +1266,6 @@ in
           depends = [ trouble ];
           postConfig = read "./fnl/glance.fnl";
           hooks.commands = [ "Glance" ];
-        }
-        {
-          packages = [
-            (pkgs.vimPlugins.neorg.overrideAttrs {
-              dependencies = [ ];
-              doCheck = false;
-            })
-            neorg-interim-ls
-            neorg-conceal-wrap
-            (pkgs.vimPlugins.neorg-telescope.overrideAttrs {
-              dependencies = [ ];
-              doCheck = false;
-            })
-          ];
-          depends = [
-            pkgs.vimPlugins.lua-utils-nvim
-            pkgs.vimPlugins.pathlib-nvim
-            nio
-            telescope
-            dressing
-          ];
-          postConfig = read "./fnl/neorg.fnl";
-          hooks.commands = [
-            "Neorg"
-            "NeorgFindFile"
-            "NeorgFuzzySearch"
-            "NeorgScratch"
-            "NeorgGit"
-            "NeorgGitBranch"
-          ];
         }
         {
           package = diffview-nvim;

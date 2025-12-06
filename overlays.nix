@@ -3,8 +3,6 @@ with inputs;
 [
   nix-filter.overlays.default
   nix-vscode-extensions.overlays.default
-  nixpkgs-neorg-overlay.overlays.default
-  # neovim-nightly-overlay.overlays.default
   (
     final: prev:
     let
@@ -157,21 +155,7 @@ with inputs;
         prev.vimPlugins
         // {
           # TODO: → `v2.vimPlugins`
-          v2 =
-            # DEPRECATED: use npins
-            (listToAttrs (
-              map (name: {
-                inherit name;
-                value = buildVimPlugin {
-                  version = (getAttr name inputs).rev or "latest";
-                  pname = name;
-                  src = getAttr name inputs;
-                  doCheck = false;
-                };
-              }) plugins
-            ))
-            // (buildPlugins (import ./v2/npins))
-            // import ./v2/overlays.nix { inherit inputs'; } final prev;
+          v2 = (buildPlugins (import ./v2/npins)) // import ./v2/overlays.nix { inherit inputs'; } final prev;
           tests = buildPlugins (import ./tests/npins);
         };
       # TODO: move to `/v2`
