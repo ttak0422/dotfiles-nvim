@@ -20,7 +20,7 @@
       # url = "path:/Users/tak/ghq/github.com/ttak0422/bundler";
       # url = "path:/home/ttak0422/ghq/github.com/ttak0422/bundler";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-stable";
       };
     };
 

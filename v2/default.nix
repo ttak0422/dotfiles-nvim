@@ -82,7 +82,6 @@ in
             jdk11_path = "${pkgs.jdk11}";
             jdk17_path = "${pkgs.jdk17}";
             jdk21_path = "${pkgs.jdk}";
-            jdk23_path = "${pkgs.jdk23}";
             java_path = "${pkgs.jdk}/bin/java";
             jdtls_jar_pattern = "${jdtls}/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*.jar";
             jdtls_config_path = "${jdtls}/share/java/jdtls/${
@@ -221,7 +220,7 @@ in
         rubyPackages.solargraph
         ruff
         rust-analyzer
-        taplo-cli
+        taplo
         terraform-ls
         typos-lsp
         v2.kotlin-lsp
@@ -405,7 +404,7 @@ in
       extraPackages = with pkgs; [
         nodejs
         v2.nodePackages.mcp-hub
-        uv
+        pkgs-stable.uv
       ];
       postConfig = read "./fnl/mcphub.fnl";
     };

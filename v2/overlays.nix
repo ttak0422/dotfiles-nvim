@@ -7,7 +7,6 @@ let
     stdenv
     lib
     vimUtils
-    rustPlatform
     ;
   ext = stdenv.hostPlatform.extensions.sharedLibrary;
   getSrc = name: getAttr name (import ./npins);
@@ -20,7 +19,7 @@ rec {
     src = getSrc pname;
     preInstall =
       let
-        avante-nvim-lib = rustPlatform.buildRustPackage {
+        avante-nvim-lib = final.pkgs-stable.rustPlatform.buildRustPackage {
           inherit (avante-nvim) src version;
           pname = "avante-nvim-lib";
           cargoHash = "sha256-pTWCT2s820mjnfTscFnoSKC37RE7DAPKxP71QuM+JXQ=";

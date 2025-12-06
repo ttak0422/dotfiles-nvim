@@ -3,7 +3,6 @@ local jdk8_path = args.jdk8_path
 local jdk11_path = args.jdk11_path
 local jdk17_path = args.jdk17_path
 local jdk21_path = args.jdk21_path
-local jdk23_path = args.jdk23_path
 local java_path = args.java_path
 local jdtls_jar_pattern = args.jdtls_jar_pattern
 local jdtls_config_path = args.jdtls_config_path
@@ -43,7 +42,7 @@ local function setup()
     local completion = {favoriteStaticMembers = favoriteStaticMembers, filteredTypes = filteredTypes}
     local edit = {smartSemicolonDetection = enabled, validateAllOpenBuffersOnChanges = false}
     local sources = {organizeImports = {starThreshold = 9999, staticStarThreshold = 9999}}
-    local configuration = {runtimes = {{name = "JavaSE-1.8", path = jdk8_path}, {name = "JavaSE-11", path = jdk11_path}, {name = "JavaSE-17", path = jdk17_path}, {name = "JavaSE-21", path = jdk21_path}, {name = "JavaSE-23", path = jdk23_path}}}
+    local configuration = {runtimes = {{name = "JavaSE-1.8", path = jdk8_path}, {name = "JavaSE-11", path = jdk11_path}, {name = "JavaSE-17", path = jdk17_path}, {name = "JavaSE-21", path = jdk21_path}}}
     local java = {autobuild = disabled, maxConcurrentBuilds = 8, signatureHelp = enabled, format = disabled, configuration = configuration, completion = completion, edit = edit, sources = sources}
     settings = {java = java}
   end
