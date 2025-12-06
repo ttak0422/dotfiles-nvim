@@ -36,17 +36,14 @@
       flake = false;
     };
 
-    # nodePackages
+    # v2
     v2-mcp-hub = {
       url = "github:ravitemer/mcp-hub";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    v2-fff-nvim.url = "github:dmtrKovalenko/fff.nvim";
+    v2-blink-cmp.url = "github:Saghen/blink.cmp";
 
-    # plugins
-    v2-fff-nvim = {
-      url = "github:dmtrKovalenko/fff.nvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     detour-nvim = {
       url = "github:carbon-steel/detour.nvim";
       flake = false;

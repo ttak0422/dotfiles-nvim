@@ -209,20 +209,17 @@
       "hash": "06gx892hhgcg79gng4dblyv74iw5kqqrmfknfw2k4xzl0cxdg35n"
     },
     "blink.cmp": {
-      "type": "GitRelease",
+      "type": "Git",
       "repository": {
         "type": "GitHub",
-        "owner": "Saghen",
+        "owner": "saghen",
         "repo": "blink.cmp"
       },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
+      "branch": "main",
       "submodules": false,
-      "version": "v1.8.0",
-      "revision": "0aa180e6eb3415f90a4f1b86801db9cab0c0ca7b",
-      "url": "https://api.github.com/repos/Saghen/blink.cmp/tarball/v1.8.0",
-      "hash": "0nh0ajmxam9anbk62r71aar48cgakf5n1h90snprzx7g7qz5qf96"
+      "revision": "57d900e6982f63c7cde689aa06d8af76c8da083e",
+      "url": "https://github.com/saghen/blink.cmp/archive/57d900e6982f63c7cde689aa06d8af76c8da083e.tar.gz",
+      "hash": "0hnpphpi39g4996c998iyfxyfslbfiddyjx11zb9q44x0a025994"
     },
     "blink.compat": {
       "type": "Git",

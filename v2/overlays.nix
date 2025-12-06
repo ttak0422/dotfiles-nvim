@@ -1,5 +1,5 @@
-{ inputs }:
-final: prev:
+{ inputs' }:
+final: _:
 let
 
   inherit (builtins) getAttr;
@@ -14,27 +14,6 @@ let
 in
 rec {
   inherit (final.vimPlugins) nvim-treesitter nvim-treesitter-textobjects;
-  blink-cmp = vimUtils.buildVimPlugin rec {
-    pname = "blink.cmp";
-    version = src.revision;
-    src = getSrc pname;
-    preInstall =
-      let
-        blink-fuzzy-lib = rustPlatform.buildRustPackage {
-          inherit (blink-cmp) src version;
-          pname = "blink-fuzzy-lib";
-          cargoHash = "sha256-Qdt8O7IGj2HySb1jxsv3m33ZxJg96Ckw26oTEEyQjfs=";
-          nativeBuildInputs = with final; [ gitMinimal ];
-          env.RUSTC_BOOTSTRAP = true;
-        };
-      in
-      # bash
-      ''
-        mkdir -p $out/target/release
-        ln -s ${blink-fuzzy-lib}/lib/libblink_cmp_fuzzy${ext} $out/target/release/libblink_cmp_fuzzy${ext}
-      '';
-    doCheck = false;
-  };
   avante-nvim = vimUtils.buildVimPlugin rec {
     pname = "avante.nvim";
     version = src.revision;
@@ -125,5 +104,6 @@ rec {
         ln -s  ${doom} $out/doom/build
       '';
     };
-  inherit (inputs.v2-fff-nvim.packages.${stdenv.system}) fff-nvim;
+  inherit (inputs'.v2-fff-nvim.packages) fff-nvim;
+  inherit (inputs'.v2-blink-cmp.packages) blink-cmp;
 }
