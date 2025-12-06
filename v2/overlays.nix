@@ -1,9 +1,9 @@
 { inputs' }:
-final: _:
+final: prev:
 let
 
   inherit (builtins) getAttr;
-  inherit (final)
+  inherit (prev)
     stdenv
     lib
     vimUtils

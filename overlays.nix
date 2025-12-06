@@ -7,8 +7,6 @@ with inputs;
     final: prev:
     let
       inherit (builtins)
-        filter
-        elem
         attrNames
         listToAttrs
         getAttr
@@ -19,20 +17,6 @@ with inputs;
       inherit (prev.stdenv) system mkDerivation;
       inherit (prev.vimUtils) buildVimPlugin;
       inherit (prev) writeShellApplication writeText fetchzip;
-      excludeInputs = [
-        "self"
-        "nixpkgs"
-        "nixpkgs-stable"
-        "systems"
-        "flake-parts"
-        "nix-filter"
-        "bundler"
-        "junit-console"
-        "jol"
-        "skk-dict"
-        "ctags-lsp"
-      ];
-      plugins = filter (name: !(elem name excludeInputs)) (attrNames inputs);
     in
     {
       pkgs-stable = import nixpkgs-stable { inherit system; };
