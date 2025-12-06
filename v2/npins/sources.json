@@ -1946,9 +1946,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "73b17b8a41ac7a61bfdcbe1cd3743c29d28d376e",
-      "url": "https://github.com/rachartier/tiny-glimmer.nvim/archive/73b17b8a41ac7a61bfdcbe1cd3743c29d28d376e.tar.gz",
-      "hash": "0yli2ffppi01r85nhm23f8iddqmanipg4xaq555bx46271iy90xx"
+      "revision": "e83bab26665c2dd4153b8a24e172e674e7c6dee7",
+      "url": "https://github.com/rachartier/tiny-glimmer.nvim/archive/e83bab26665c2dd4153b8a24e172e674e7c6dee7.tar.gz",
+      "hash": "02m8d4pjih039y9bash3s932pyfb71p8czkn0gfcwircdbi87m71"
     },
     "tiny-inline-diagnostic.nvim": {
       "type": "Git",
