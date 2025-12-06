@@ -1959,9 +1959,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "6e37efc9d16186c21a1cf0e8385b10f673ec582e",
-      "url": "https://github.com/rachartier/tiny-inline-diagnostic.nvim/archive/6e37efc9d16186c21a1cf0e8385b10f673ec582e.tar.gz",
-      "hash": "13hr2lbxcfk8jd5g5d32xvzh4jx35i2faj13cjn929j1zr5hy81r"
+      "revision": "38b06435305c30966b7ceb0a43e460dc43acaada",
+      "url": "https://github.com/rachartier/tiny-inline-diagnostic.nvim/archive/38b06435305c30966b7ceb0a43e460dc43acaada.tar.gz",
+      "hash": "1ypccw9fxrdq0c4hv0i6zy4zsj3zwdfznb1hmfz7dpa8hagiwsg4"
     },
     "todo-comments.nvim": {
       "type": "Git",
