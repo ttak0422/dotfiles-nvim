@@ -2223,6 +2223,19 @@
       "url": "https://github.com/hrsh7th/vim-vsnip/archive/a8039976c7ca4393f30076b9fe5a4ade4c20514b.tar.gz",
       "hash": "04wzq8gsffini16867vlkah7fqhnizc5hbialfcf4yy266pb91w0"
     },
+    "visual-whitespace.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mcauley-penney",
+        "repo": "visual-whitespace.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "2c2de32bb97620bcf4b3b78879c185315ee971dc",
+      "url": "https://github.com/mcauley-penney/visual-whitespace.nvim/archive/2c2de32bb97620bcf4b3b78879c185315ee971dc.tar.gz",
+      "hash": "0c2vhvqdsb66crxjzcixzl0dn7g1bl6rpbqkhnx8v0sk2hvydy0v"
+    },
     "volt": {
       "type": "Git",
       "repository": {

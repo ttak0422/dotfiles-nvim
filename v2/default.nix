@@ -693,6 +693,10 @@ in
     editPlugins = {
       depends = [
         {
+          package = visual-whitespace-nvim;
+          postConfig = read "./fnl/visual-whitespace.fnl";
+        }
+        {
           package = tiny-glimmer-nvim;
           postConfig = read "./fnl/tiny-glimmer.fnl";
         }
