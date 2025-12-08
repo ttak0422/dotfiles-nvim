@@ -13,7 +13,6 @@
                              :number false
                              ;; signcolumnを起動時に表示
                              :signcolumn :yes
-                             :showtabline 0
                              ; statuslineを起動時に非表示
                              :laststatus 0
                              :showtabline 0
