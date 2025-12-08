@@ -1515,9 +1515,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "943e2398aba6b7e976603708450c6c93c600e830",
-      "url": "https://github.com/mfussenegger/nvim-jdtls/archive/943e2398aba6b7e976603708450c6c93c600e830.tar.gz",
-      "hash": "00kcrl9fnvpf26i6agvmgfpdcn39a6c3xkkb26x6k8z964a329ag"
+      "revision": "f73731b543f5971e0da9665eb1d7ceffe1fde71f",
+      "url": "https://github.com/mfussenegger/nvim-jdtls/archive/f73731b543f5971e0da9665eb1d7ceffe1fde71f.tar.gz",
+      "hash": "17al7y7ff4bw4zfajrybmk0626ng6vv3mwgbcd9lrvz0ap0an6gp"
     },
     "nvim-kotlin-lsp": {
       "type": "Git",
