@@ -317,6 +317,7 @@ in
           rust-analyzer-unwrapped
         ];
       };
+      startupConfig = read "./fnl/rustaceanvim.fnl";
     };
 
     morimo = {
