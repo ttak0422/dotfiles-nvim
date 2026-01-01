@@ -8,5 +8,8 @@
                :move_down [:<Down> :<C-n>]
                :preview_scroll_up :<C-u>
                :preview_scroll_down :<C-d>
-               :toggle_debug :<F2>}]
+               :toggle_debug :<F2>
+               :cycle_previous_query :<Up>
+               :toggle_select :<Tab>
+               :send_to_quickfix :<C-q>}]
   (fff.setup {: keymaps}))
