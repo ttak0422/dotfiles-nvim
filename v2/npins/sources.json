@@ -1892,6 +1892,22 @@
       "url": "https://github.com/mghaight/replua.nvim/archive/a41c80f2ec86fc1b17652906b70ce812dd2be657.tar.gz",
       "hash": "sha256-tc7OEBWixB7GX0a9/ezWE7rE3LvZvM2QDr/eJECEoAY="
     },
+    "rustaceanvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mrcjkb",
+        "repo": "rustaceanvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v7.0.8",
+      "revision": "f8bf440870c138bf45bc82c42f55d280569964b8",
+      "url": "https://api.github.com/repos/mrcjkb/rustaceanvim/tarball/refs/tags/v7.0.8",
+      "hash": "sha256-7aguAonl3QH5Ye2r/CwmN30JC2mH8GpoiG9EjLYPnio="
+    },
     "scope.nvim": {
       "type": "Git",
       "repository": {

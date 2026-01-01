@@ -108,6 +108,7 @@ in
       translate = read "./fnl/after/ftplugin/translate.fnl";
       python = read "./fnl/after/ftplugin/python.fnl";
       fsharp = read "./fnl/after/ftplugin/fsharp.fnl";
+      rust = read "./fnl/after/ftplugin/rust.fnl";
     };
     lsp = {
       denols = read "./fnl/after/lsp/denols.fnl";
@@ -309,6 +310,14 @@ in
     #   startupConfig = read "./fnl/alpha.fnl";
     # };
     # unnest.package = unnest-nvim;
+
+    rustaceanvim = {
+      package = pkgs.vimPlugins.rustaceanvim.overrideAttrs {
+        runtimeDeps = with pkgs; [
+          rust-analyzer-unwrapped
+        ];
+      };
+    };
   };
 
   lazy = with pkgs.vimPlugins.v2; rec {
@@ -518,9 +527,9 @@ in
     # TODO:
     # haskell-tools = { package = haskell-tools-nvim; };
 
-    # TODO:
-    # rustaceanvim = { package = rustaceanvim; };
-    # crates = { package = crates-nvim; };
+    crates = {
+      package = crates-nvim;
+    };
 
     # TODO:
     # vtsls = { package = vtsls-nvim; };
