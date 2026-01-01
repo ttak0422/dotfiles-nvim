@@ -1038,6 +1038,13 @@ in
     modulePlugins = {
       depends = [
         {
+          package = tiny-code-action-nvim.overrideAttrs {
+            runtimeDeps = with pkgs; [ delta ];
+          };
+          postConfig = read "./fnl/tiny-code-action.fnl";
+          hooks.modules = [ "tiny-code-action" ];
+        }
+        {
           package = dial-nvim;
           postConfig = read "./fnl/dial.fnl";
           hooks.modules = [ "dial.map" ];

@@ -24,10 +24,10 @@
                               [:<Leader>D
                                vim.lsp.buf.type_definition
                                "show type"]
-                              [:<Leader>ca
-                               vim.lsp.buf.code_action
-                               "code action"]
                               ; plugin
+                              [:<Leader>ca
+                               #((. (require :tiny-code-action) :code_action))
+                               "code action"]
                               [:K
                                #(let [(ok noice_lsp) (pcall require :noice.lsp)]
                                   (if ok
