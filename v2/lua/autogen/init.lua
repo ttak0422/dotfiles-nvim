@@ -60,5 +60,5 @@ do
     vim.keymap.set({"n", "t", "i"}, ("<C-" .. i .. ">"), toggle(("term" .. i)), opts)
   end
 end
-vim.cmd("colorscheme sorairo")
+vim.cmd("colorscheme morimo")
 return require("config-local").setup({silent = true})

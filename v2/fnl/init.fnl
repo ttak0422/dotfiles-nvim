@@ -209,6 +209,6 @@
   (for [i 0 9]
     (vim.keymap.set [:n :t :i] (.. :<C- i ">") (toggle (.. :term i)) opts)))
 
-(vim.cmd "colorscheme sorairo")
+(vim.cmd "colorscheme morimo")
 
 ((. (require :config-local) :setup) {:silent true})
