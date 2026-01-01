@@ -103,7 +103,7 @@
                           ;  (cmd "Telescope find_files")
                           ;  (desc " files")]
                           [(leader :fp)
-                           (lua_ :fff :find_files)
+                           (cmd "Telescope find_files")
                            (desc " files")]
                           [(leader :Ff)
                            (cmd "Telescope live_grep_args cwd=~/ghq")
@@ -112,7 +112,7 @@
                           ;  (cmd "Telescope find_files cwd=~/ghq")
                           ;  (desc " files (ghq)")]
                           [(leader :Fp)
-                           (lua_ :fff :find_files_in_dir "~/ghq")
+                           (cmd "Telescope find_files cwd=~/ghq")
                            (desc " files (ghq)")]
                           [(leader :fP)
                            (cmd "Telescope ghq")

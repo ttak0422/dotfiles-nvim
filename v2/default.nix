@@ -809,11 +809,11 @@ in
       hooks.modules = [ "toggleterm.terminal" ];
     };
 
-    fff = {
-      package = fff-nvim;
-      postConfig = read "./fnl/fff.fnl";
-      hooks.modules = [ "fff" ];
-    };
+    # fff = {
+    #   package = fff-nvim;
+    #   postConfig = read "./fnl/fff.fnl";
+    #   hooks.modules = [ "fff" ];
+    # };
 
     telescope = {
       packages = [
