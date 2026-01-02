@@ -44,6 +44,7 @@
     };
     v2-fff-nvim.url = "github:dmtrKovalenko/fff.nvim";
     v2-blink-cmp.url = "github:Saghen/blink.cmp";
+    v2-rustowl.url = "github:nix-community/rustowl-flake";
   };
 
   outputs =

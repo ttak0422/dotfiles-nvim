@@ -105,4 +105,5 @@ rec {
     };
   inherit (inputs'.v2-fff-nvim.packages) fff-nvim;
   inherit (inputs'.v2-blink-cmp.packages) blink-cmp;
+  inherit (inputs'.v2-rustowl.packages) rustowl-nvim;
 }

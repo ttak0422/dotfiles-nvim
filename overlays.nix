@@ -175,6 +175,8 @@ with inputs;
         nodePackages = {
           inherit (inputs'.v2-mcp-hub.packages) mcp-hub;
         };
+
+        inherit (inputs'.v2-rustowl.packages) rustowl;
       };
 
       skk-dict = mkDerivation {

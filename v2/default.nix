@@ -320,6 +320,13 @@ in
       startupConfig = read "./fnl/rustaceanvim.fnl";
     };
 
+    rustowl = {
+      package = rustowl-nvim.overrideAttrs {
+        runtimeDeps = with pkgs.v2; [ rustowl ];
+      };
+      startupConfig = read "./fnl/rustowl.fnl";
+    };
+
     morimo = {
       package = pkgs.vimPlugins.v2.morimo;
       startupConfig = read "./fnl/morimo.fnl";
@@ -1415,7 +1422,6 @@ in
 
     filetypePlugins = {
       depends = [
-
         {
           package = ts-error-translator-nvim;
           postConfig = read "./fnl/ts-error-translator.fnl";
