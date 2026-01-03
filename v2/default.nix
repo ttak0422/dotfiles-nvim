@@ -321,8 +321,9 @@ in
     };
 
     rustowl = {
-      package = rustowl-nvim.overrideAttrs {
-        runtimeDeps = with pkgs.v2; [ rustowl ];
+      package = pkgs.vimPlugins.v2.rustowl.overrideAttrs {
+        # WIP: use `cargo binstall rustowl`
+        # runtimeDeps = with pkgs.v2; [ rustowl ];
       };
       startupConfig = read "./fnl/rustowl.fnl";
     };

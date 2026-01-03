@@ -1908,6 +1908,19 @@
       "url": "https://api.github.com/repos/mrcjkb/rustaceanvim/tarball/refs/tags/v7.0.8",
       "hash": "sha256-7aguAonl3QH5Ye2r/CwmN30JC2mH8GpoiG9EjLYPnio="
     },
+    "rustowl": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "cordx56",
+        "repo": "rustowl"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "dc9f189788dbb0985eb6f1f8c29da5b05e22785c",
+      "url": "https://github.com/cordx56/rustowl/archive/dc9f189788dbb0985eb6f1f8c29da5b05e22785c.tar.gz",
+      "hash": "sha256-B4NFl40H+ywgF/HCqb6ZTRgfNK4d9rbDWPu0eX075Gk="
+    },
     "scope.nvim": {
       "type": "Git",
       "repository": {
