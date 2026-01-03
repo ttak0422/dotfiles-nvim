@@ -3,7 +3,7 @@
                   (vim.keymap.set :n :<LocalLeader>to #(rustowl.toggle buffer)
                                   {: buffer :desc "Toggle RustOwl"}))]
   (rustowl.setup {:auto_attach true
-                  :auto_enable true
+                  :auto_enable false
                   :idle_time 1000
                   :highlight_style :underline
                   :client {: on_attach}}))
