@@ -6,7 +6,9 @@
                    :neovide_floating_shadow false
                    :neovide_cursor_animation_length 0.1
                    :neovide_cursor_antialiasing false
-                   :neovide_cursor_animate_in_insert_mode true})]
+                   :neovide_cursor_animate_in_insert_mode true
+                   :neovide_opacity 0.85
+                   :neovide_window_blurred true})]
   (tset vim.g k v))
 
 (let [map vim.keymap.set
@@ -15,6 +17,8 @@
                      (set vim.g.neovide_scale_factor
                           (* vim.g.neovide_scale_factor delta)))
       toggle_zoom #(set vim.g.neovide_fullscreen (not vim.g.neovide_fullscreen))
+      toggle_blur #(set vim.g.neovide_window_blurred
+                        (not vim.g.neovide_window_blurred))
       paste-from-clipboard-insert #(let [lines (vim.fn.getreg "+" 1 true)]
                                      (if (= (length lines) 1)
                                          (vim.api.nvim_paste (. lines 1) true
@@ -26,8 +30,10 @@
   (map :n :<C-+> #(change_scale scale))
   (map :n :<C--> #(change_scale (/ 1 scale)))
   (map :n :<A-Enter> toggle_zoom)
+  (map :n :<A-x> toggle_blur)
   (map :i :<D-v> paste-from-clipboard-insert)
   (map :c :<D-v> :<C-r>+)
   ;; to avoid <C-r> mapping conflict in zsh
   (map :t :<D-v> "<C-\\><C-n>\"+pi")
-  (vim.api.nvim_create_user_command :ToggleNeovideFullScreen toggle_zoom {}))
+  (vim.api.nvim_create_user_command :ToggleNeovideFullScreen toggle_zoom {})
+  (vim.api.nvim_create_user_command :ToggleNeovideBlur toggle_blur {}))
