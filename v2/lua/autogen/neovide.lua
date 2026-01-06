@@ -42,7 +42,7 @@ local function _7_()
 end
 map("n", "<C-->", _7_)
 map("n", "<A-Enter>", toggle_zoom)
-map("n", "<A-x>", toggle_blur)
+map("n", "<A-t>", toggle_blur)
 map("i", "<D-v>", paste_from_clipboard_insert)
 map("c", "<D-v>", "<C-r>+")
 map("t", "<D-v>", "<C-\\><C-n>\"+pi")
