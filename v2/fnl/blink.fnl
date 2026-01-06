@@ -4,7 +4,7 @@
                        :<C-S-Space> :<C-p>
                        :<C-a> :<Home>
                        :<C-e> :<End>})]
-  (vim.keymap.set :i lhs rhs {:noremap true :noremap true}))
+  (vim.keymap.set :i lhs rhs {:noremap true}))
 
 (local cmp (require :blink.cmp))
 (local types (require :blink.cmp.types))
@@ -38,7 +38,7 @@
                                                                         :timeout_ms 400}}
                             :resolve_timeout_ms 150}
                    :documentation {:auto_show true
-                                   :auto_show_delay_ms 750
+                                   :auto_show_delay_ms 500
                                    :update_delay_ms 100
                                    :treesitter_highlighting true}
                    :keyword {:range :prefix}
@@ -85,6 +85,8 @@
                               "?" search_src
                               ":" cmd_src
                               "@" cmd_src)}))
+
+(local term {:enabled false})
 
 (local sources {:default [:lsp
                           ; :path
@@ -136,7 +138,8 @@
             : keymap
             : sources
             : snippets
-            : cmdline})
+            : cmdline
+            : term})
 
 (vim.lsp.config "*" {:capabilities (cmp.get_lsp_capabilities)})
 
