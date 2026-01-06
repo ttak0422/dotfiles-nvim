@@ -2375,9 +2375,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "38b06435305c30966b7ceb0a43e460dc43acaada",
-      "url": "https://github.com/rachartier/tiny-inline-diagnostic.nvim/archive/38b06435305c30966b7ceb0a43e460dc43acaada.tar.gz",
-      "hash": "sha256-5Gken4JI3Xa+qzAs+13jf0j9if8mgg0JA7jl7hJn7Po="
+      "revision": "f06ffded0b6069a257d6aa8ae7113104b7313fc1",
+      "url": "https://github.com/rachartier/tiny-inline-diagnostic.nvim/archive/f06ffded0b6069a257d6aa8ae7113104b7313fc1.tar.gz",
+      "hash": "sha256-xBwmd/LwVLQnS5SPtI+LhJWwgMcRdkqyvFjfarLoDf8="
     },
     "todo-comments.nvim": {
       "type": "Git",

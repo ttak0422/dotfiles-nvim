@@ -1,3 +1,5 @@
 (local diag (require :tiny-inline-diagnostic))
 
-(diag.setup {:preset :nonerdfont :virt_texts {:priority 2048}})
+(diag.setup {:preset :classic
+             :transparent_bg true
+             :virt_texts {:priority 2048}})
