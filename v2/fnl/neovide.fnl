@@ -30,7 +30,7 @@
   (map :n :<C-+> #(change_scale scale))
   (map :n :<C--> #(change_scale (/ 1 scale)))
   (map :n :<A-Enter> toggle_zoom)
-  (map :n :<A-t> toggle_blur)
+  (map :n :<A-Tab> toggle_blur)
   (map :i :<D-v> paste-from-clipboard-insert)
   (map :c :<D-v> :<C-r>+)
   ;; to avoid <C-r> mapping conflict in zsh
