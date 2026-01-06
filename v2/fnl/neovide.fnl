@@ -1,15 +1,18 @@
-(each [k v (pairs {:neovide_padding_top 5
-                   :neovide_padding_bottom 5
-                   :neovide_padding_right 5
-                   :neovide_padding_left 5
-                   :neovide_confirm_quit false
-                   :neovide_floating_shadow false
+(each [k v (pairs {:neovide_confirm_quit false
+                   :neovide_cursor_animate_in_insert_mode false
                    :neovide_cursor_animation_length 0.1
                    :neovide_cursor_antialiasing false
-                   :neovide_cursor_animate_in_insert_mode true
+                   :neovide_floating_corner_radius 0.25
+                   :neovide_floating_shadow false
+                   :neovide_hide_mouse_when_typing true
+                   :neovide_input_ime true
+                   :neovide_macos_simple_fullscreen true
                    :neovide_opacity 0.85
+                   :neovide_padding_bottom 5
+                   :neovide_padding_left 5
+                   :neovide_padding_right 5
                    :neovide_window_blurred true
-                   :neovide_macos_simple_fullscreen true})]
+                   :neovide_padding_top 5})]
   (tset vim.g k v))
 
 (let [map vim.keymap.set
