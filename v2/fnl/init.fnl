@@ -25,7 +25,8 @@
                              :foldenable true
                              :switchbuf ""
                              :splitbelow true
-                             :splitright true}
+                             :splitright true
+                             :winborder :single}
                        ; :o {}
                        :env {:EDITOR "nvr -cc b# --remote"
                              :GIT_EDITOR "nvr -cc b# --remote-wait"}
