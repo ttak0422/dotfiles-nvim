@@ -8,7 +8,8 @@
                    :neovide_cursor_antialiasing false
                    :neovide_cursor_animate_in_insert_mode true
                    :neovide_opacity 0.85
-                   :neovide_window_blurred true})]
+                   :neovide_window_blurred true
+                   :neovide_macos_simple_fullscreen true})]
   (tset vim.g k v))
 
 (let [map vim.keymap.set
