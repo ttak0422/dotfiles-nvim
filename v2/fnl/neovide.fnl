@@ -12,7 +12,7 @@
                    :neovide_padding_left 5
                    :neovide_padding_right 5
                    :neovide_window_blurred true
-                   :neovide_padding_top 5})]
+                   :neovide_padding_top 10})]
   (tset vim.g k v))
 
 (let [map vim.keymap.set

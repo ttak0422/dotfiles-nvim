@@ -1,5 +1,5 @@
 -- [nfnl] v2/fnl/neovide.fnl
-for k, v in pairs({neovide_cursor_animation_length = 0.1, neovide_floating_corner_radius = 0.25, neovide_hide_mouse_when_typing = true, neovide_input_ime = true, neovide_macos_simple_fullscreen = true, neovide_opacity = 0.85, neovide_padding_bottom = 5, neovide_padding_left = 5, neovide_padding_right = 5, neovide_window_blurred = true, neovide_padding_top = 5, neovide_confirm_quit = false, neovide_cursor_animate_in_insert_mode = false, neovide_cursor_antialiasing = false, neovide_floating_shadow = false}) do
+for k, v in pairs({neovide_cursor_animation_length = 0.1, neovide_floating_corner_radius = 0.25, neovide_hide_mouse_when_typing = true, neovide_input_ime = true, neovide_macos_simple_fullscreen = true, neovide_opacity = 0.85, neovide_padding_bottom = 5, neovide_padding_left = 5, neovide_padding_right = 5, neovide_window_blurred = true, neovide_padding_top = 10, neovide_confirm_quit = false, neovide_cursor_animate_in_insert_mode = false, neovide_cursor_antialiasing = false, neovide_floating_shadow = false}) do
   vim.g[k] = v
 end
 local map = vim.keymap.set
