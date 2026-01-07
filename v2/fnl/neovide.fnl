@@ -7,7 +7,7 @@
                    :neovide_hide_mouse_when_typing true
                    :neovide_input_ime true
                    :neovide_macos_simple_fullscreen true
-                   :neovide_opacity 0.85
+                   :neovide_opacity 0.90
                    :neovide_padding_bottom 5
                    :neovide_padding_left 5
                    :neovide_padding_right 5
