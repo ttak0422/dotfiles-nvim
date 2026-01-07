@@ -5,7 +5,7 @@
                    :neovide_floating_corner_radius 0.25
                    :neovide_floating_shadow false
                    :neovide_hide_mouse_when_typing true
-                   :neovide_input_ime true
+                   :neovide_input_ime false
                    :neovide_macos_simple_fullscreen true
                    :neovide_opacity 0.90
                    :neovide_padding_bottom 5
