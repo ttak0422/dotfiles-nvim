@@ -19,7 +19,7 @@ rec {
     src = getSrc pname;
     preInstall =
       let
-        avante-nvim-lib = final.pkgs-stable.rustPlatform.buildRustPackage {
+        avante-nvim-lib = prev.rustPlatform.buildRustPackage {
           inherit (avante-nvim) src version;
           pname = "avante-nvim-lib";
           cargoHash = "sha256-pTWCT2s820mjnfTscFnoSKC37RE7DAPKxP71QuM+JXQ=";
