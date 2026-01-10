@@ -6,6 +6,7 @@ let
   import' = p: import p { inherit inputs' pkgs; };
 in
 {
-  videre = import' ./videre.nix;
   kotlin-nvim = import' ./kotlin-nvim.nix;
+  treesitter = import' ./treesitter.nix;
+  videre = import' ./videre.nix;
 }
