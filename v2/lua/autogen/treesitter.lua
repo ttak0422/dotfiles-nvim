@@ -1,14 +1,18 @@
 -- [nfnl] v2/fnl/treesitter.fnl
-local parser_install_dir = args.parser
-vim.opt.runtimepath:prepend(parser_install_dir)
-local config = require("nvim-treesitter.configs")
-local parser = require("nvim-treesitter.parsers")
-local highlight
-local function _1_(_lang, buf)
-  local max_filesize = (100 * 1024)
-  local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-  return (ok and stats and (stats.size > max_filesize))
+require("nvim-treesitter").setup({install_dir = args.install_dir})
+do
+  local M = require("nvim-treesitter-textobjects")
+  M.setup({select = {lookahead = true}, move = {set_jumps = true}})
 end
-highlight = {enable = true, disable = _1_, additional_vim_regex_highlighting = false}
-local indent = {enable = true}
-return config.setup({ignore_install = {}, parser_install_dir = parser_install_dir, highlight = highlight, indent = indent, auto_install = false, sync_install = false})
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+local function _1_()
+  pcall(vim.treesitter.start)
+  if (vim.bo.indentexpr == "") then
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    return nil
+  else
+    return nil
+  end
+end
+return vim.api.nvim_create_autocmd("FileType", {callback = _1_})

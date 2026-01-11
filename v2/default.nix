@@ -159,19 +159,39 @@ in
           parserDrv = pkgs.stdenv.mkDerivation {
             name = "treesitter-custom-grammars";
             buildCommand = ''
+              deps="${pkgs.lib.strings.concatStringsSep " " nvim-treesitter.withAllGrammars.dependencies}"
               mkdir -p $out/parser
-              echo "${pkgs.lib.strings.concatStringsSep "," pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies}" \
-              | tr ',' '\n' \
-              | xargs -I {} find {} -not -type d -name '*.so' \
-              | xargs -I {} ln -sf {} $out/parser
-              ln -s ${dap-repl}/parser $out/parser/dap_repl.so
+              mkdir -p $out/queries
+
+              for d in $deps; do
+                # parser/<lang>.so
+                if [ -d "$d/parser" ]; then
+                  find "$d/parser" -maxdepth 1 -name '*.so' -print0 \
+                    | while IFS= read -r -d $'\0' f; do
+                        ln -sf "$f" "$out/parser/$(basename "$f")"
+                      done
+                fi
+                # queries/<lang>/*.scm
+                if [ -d "$d/queries" ]; then
+                  find -L "$d/queries" -type f -name '*.scm' -print0 \
+                    | while IFS= read -r -d $'\0' f; do
+                        rel="''${f#"$d/queries/"}"
+                        mkdir -p "$out/queries/$(dirname "$rel")"
+                        ln -sf "$f" "$out/queries/$rel"
+                      done
+                fi
+              done
+
+              # WIP: custom grammars
+              mkdir -p $out/queries/dap_repl
+              ln -sf ${dap-repl}/parser $out/parser/dap_repl.so
+              ln -sf ${dap-repl}/queries/dap_repl/highlights.scm $out/queries/dap_repl/highlights.scm
             '';
           };
         in
         {
-          # TODO: add support for custom grammars
           code = read "./fnl/treesitter.fnl";
-          args.parser = toString parserDrv;
+          args.install_dir = toString parserDrv;
         };
     };
     scope = {
