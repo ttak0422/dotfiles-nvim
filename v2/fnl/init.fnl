@@ -33,7 +33,8 @@
                        :g {:mapleader " "
                            :maplocalleader ","
                            :loaded_netrw 1
-                           :loaded_netrwPlugin 1}})]
+                           :loaded_netrwPlugin 1
+                           :no_plugin_maps true}})]
   (each [k v (pairs kvp)]
     (tset (. vim opt) k v)))
 
