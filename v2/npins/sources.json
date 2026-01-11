@@ -441,9 +441,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "f0404ec1f83a03f2c3457e60087c6331d1cbb83f",
-      "url": "https://github.com/monaqa/dial.nvim/archive/f0404ec1f83a03f2c3457e60087c6331d1cbb83f.tar.gz",
-      "hash": "sha256-amLwFLMAYW8yB6mZdilx4XICHg6TH5g+kRogvJ77Tu4="
+      "revision": "f2634758455cfa52a8acea6f142dcd6271a1bf57",
+      "url": "https://github.com/monaqa/dial.nvim/archive/f2634758455cfa52a8acea6f142dcd6271a1bf57.tar.gz",
+      "hash": "sha256-J2HU746yz8iHos7od5kIdEUd4/bgAPGwC38fLZ4gK+E="
     },
     "diffview.nvim": {
       "type": "Git",
@@ -548,9 +548,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "7fbf60207cc170be75db3f42e6f6db0d4d887e5d",
-      "url": "https://github.com/ggandor/flit.nvim/archive/7fbf60207cc170be75db3f42e6f6db0d4d887e5d.tar.gz",
-      "hash": "sha256-zI4mPTyz/A+H0DtAiso8Mn5P4nK1GFYKpC0gXTlHqvY="
+      "revision": "ef18183b22377741e154cffb5b914516381d3870",
+      "url": "https://github.com/ggandor/flit.nvim/archive/ef18183b22377741e154cffb5b914516381d3870.tar.gz",
+      "hash": "sha256-T+lArIMFTk/EFdLA7Io/U6R8X/TFeHaWfcMNAaRpmq8="
     },
     "foldnav.nvim": {
       "type": "Git",
@@ -821,9 +821,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "937135185f99a30cb1413fff76a5c971f250b1a7",
-      "url": "https://github.com/shellRaining/hlchunk.nvim/archive/937135185f99a30cb1413fff76a5c971f250b1a7.tar.gz",
-      "hash": "sha256-HqW0A/P1FqoEeecFsEAeNiQK/8mzxd47V+wtxpypGX8="
+      "revision": "3bc2bd7aef28fbed6643534a0fdd0f19966544bc",
+      "url": "https://github.com/shellRaining/hlchunk.nvim/archive/3bc2bd7aef28fbed6643534a0fdd0f19966544bc.tar.gz",
+      "hash": "sha256-3B9j0O6sUXeOXxYmDlJb/nywHq6Q2kmbG3LkfLEaQt8="
     },
     "hmts.nvim": {
       "type": "Git",
@@ -1006,15 +1006,16 @@
     "leap.nvim": {
       "type": "Git",
       "repository": {
-        "type": "GitHub",
-        "owner": "ggandor",
+        "type": "Forgejo",
+        "server": "https://codeberg.org/",
+        "owner": "andyg",
         "repo": "leap.nvim"
       },
       "branch": "main",
       "submodules": false,
-      "revision": "ebaf38f7fd7193cc918c10eb955afed63301cd76",
-      "url": "https://github.com/ggandor/leap.nvim/archive/ebaf38f7fd7193cc918c10eb955afed63301cd76.tar.gz",
-      "hash": "sha256-ZIvukO7yhuM1Ag8JthqWdCNt4o/D8fPP1+HqyYOM0YQ="
+      "revision": "eb817c10dac4df9a42ed057a2db0d2be865e1530",
+      "url": "https://codeberg.org/andyg/leap.nvim/archive/eb817c10dac4df9a42ed057a2db0d2be865e1530.tar.gz",
+      "hash": "sha256-7vgkvWEbaz7NvEccH1maWt2EUXhxIDZhun9lrLI2dHw="
     },
     "lensline.nvim": {
       "type": "GitRelease",
@@ -1359,9 +1360,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "23320e75953ac82e559c610bec5a90d9c6dfa743",
-      "url": "https://github.com/windwp/nvim-autopairs/archive/23320e75953ac82e559c610bec5a90d9c6dfa743.tar.gz",
-      "hash": "sha256-5WfSmA8tFMLzfE4adWuRzo+lxGROrvduxmHaaKifk4o="
+      "revision": "c2a0dd0d931d0fb07665e1fedb1ea688da3b80b4",
+      "url": "https://github.com/windwp/nvim-autopairs/archive/c2a0dd0d931d0fb07665e1fedb1ea688da3b80b4.tar.gz",
+      "hash": "sha256-8k/vGYktoFBX3kjOyn+VR49xmhFhNZbkaI8UmbPSYF4="
     },
     "nvim-bqf": {
       "type": "Git",
@@ -1609,9 +1610,22 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "fcfa7e02323d57bfacc3a141f8a74498e1522064",
-      "url": "https://github.com/kylechui/nvim-surround/archive/fcfa7e02323d57bfacc3a141f8a74498e1522064.tar.gz",
-      "hash": "sha256-EfANqB0BLbhfnM45MwzHV76/JtGyZtLvMC+06KPu2Uo="
+      "revision": "1098d7b3c34adcfa7feb3289ee434529abd4afd1",
+      "url": "https://github.com/kylechui/nvim-surround/archive/1098d7b3c34adcfa7feb3289ee434529abd4afd1.tar.gz",
+      "hash": "sha256-IzJ9PWUeEw52Gs5nCH3zAUBbar3Wq6PCN+Rt6HKC1pc="
+    },
+    "nvim-treesitter-textobjects": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvim-treesitter",
+        "repo": "nvim-treesitter-textobjects"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "28a3494c075ef0f353314f627546537e43c09592",
+      "url": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects/archive/28a3494c075ef0f353314f627546537e43c09592.tar.gz",
+      "hash": "sha256-5VeIAW09my+4fqXbzVG7RnLXrjpXAk/g2vd7RbhNws8="
     },
     "nvim-ts-autotag": {
       "type": "Git",

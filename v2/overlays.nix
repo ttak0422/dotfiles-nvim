@@ -12,7 +12,9 @@ let
   getSrc = name: getAttr name (import ./npins);
 in
 rec {
-  inherit (final.vimPlugins) nvim-treesitter nvim-treesitter-textobjects;
+  nvim-treesitter = prev.vimPlugins.nvim-treesitter.overrideAttrs {
+    runtimeDeps = with prev; [ tree-sitter ];
+  };
   avante-nvim = vimUtils.buildVimPlugin rec {
     pname = "avante.nvim";
     version = src.revision;
