@@ -13,7 +13,7 @@ let
   ext = pkgs.stdenv.hostPlatform.extensions.sharedLibrary;
 in
 {
-  package = pkgs.pkgs-stable.neovim-unwrapped;
+  package = pkgs.neovim-unwrapped;
 
   withPython3 = true;
 
@@ -251,7 +251,7 @@ in
           ktlint # Kotlin
           mypy
           selene # Lua
-          pkgs.pkgs-stable.semgrep
+          semgrep
           sqruff
           statix # Nix
           stylelint # CSS, SCSS, LESS, SASS
@@ -422,7 +422,7 @@ in
       extraPackages = with pkgs; [
         nodejs
         v2.nodePackages.mcp-hub
-        pkgs-stable.uv
+        uv
       ];
       postConfig = read "./fnl/mcphub.fnl";
     };
