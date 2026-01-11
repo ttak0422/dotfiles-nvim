@@ -2575,6 +2575,19 @@
       "url": "https://github.com/rbtnn/vim-ambiwidth/archive/4fd05792acac85d29bb0dc08f720a49093abefad.tar.gz",
       "hash": "sha256-SnOA/i1WGNmo7pExgTXGmhKZ3GHcJ+BhV6eTIiO60gk="
     },
+    "vim-asterisk": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "haya14busa",
+        "repo": "vim-asterisk"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "77e97061d6691637a034258cc415d98670698459",
+      "url": "https://github.com/haya14busa/vim-asterisk/archive/77e97061d6691637a034258cc415d98670698459.tar.gz",
+      "hash": "sha256-MkuY+hIgLiIeJMzF2W6WuwlDQMTHlASs+29NvYlMqa4="
+    },
     "vim-bufsurf": {
       "type": "Git",
       "repository": {

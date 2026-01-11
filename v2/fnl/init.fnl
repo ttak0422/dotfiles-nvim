@@ -61,6 +61,11 @@
                           [:k :gk]
                           ["¥" "\\"]
                           [:<esc><esc> (cmd :nohl)]
+                          ; asterisk
+                          ["*" "<Plug>(asterisk-z*)" {:silent true}]
+                          ["#" "<Plug>(asterisk-z#)" {:silent true}]
+                          ["g*" "<Plug>(asterisk-gz*)" {:silent true}]
+                          ["g#" "<Plug>(asterisk-gz#)" {:silent true}]
                           ; menu
                           [:<C-Space> (cmd :OpenMenu)]
                           ; close

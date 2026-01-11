@@ -127,6 +127,7 @@ in
     plenary.package = plenary-nvim;
     bg.package = bg-nvim;
     nui.package = nui-nvim;
+    asterisk.package = vim-asterisk;
     config-local.package = nvim-config-local;
     snacks = {
       package = snacks-nvim;
@@ -799,11 +800,6 @@ in
           package = flit-nvim;
           depends = [ vim-repeat ];
           postConfig = read "./fnl/flit.fnl";
-        }
-        {
-          package = lasterisk-nvim;
-          depends = [ hlslens ];
-          postConfig = read "./fnl/lasterisk.fnl";
         }
       ];
       postConfig = # lua
