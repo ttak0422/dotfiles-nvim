@@ -791,10 +791,7 @@ in
         #   postConfig = read "./fnl/wf.fnl";
         # }
         {
-          packages = [
-            leap-nvim
-            leap-spooky-nvim
-          ];
+          packages = [ leap-nvim ];
           depends = [ vim-repeat ];
           postConfig = read "./fnl/leap.fnl";
         }
