@@ -215,7 +215,9 @@ in
       };
     };
     lsp = {
-      package = nvim-lspconfig;
+      package = nvim-lspconfig.overrideAttrs {
+        dependencies = [ copilot-lsp ];
+      };
       startupConfig = {
         code = read "./fnl/lsp.fnl";
         args.attach_path = ./lua/autogen/lsp-attach.lua;
@@ -410,7 +412,10 @@ in
 
     copilot = {
       package = copilot-lua;
-      extraPackages = with pkgs; [ nodejs ];
+      extraPackages = with pkgs; [
+        nodejs
+        copilot-language-server
+      ];
       postConfig = read "./fnl/copilot.fnl";
     };
 

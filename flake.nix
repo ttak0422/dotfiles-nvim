@@ -69,6 +69,7 @@
               pkg:
               builtins.elem (lib.getName pkg) [
                 "terraform"
+                "copilot-language-server"
               ];
           };
           bundler-nvim = {

@@ -26,9 +26,11 @@
                               :callback (fn [ctx]
                                           ((dofile args.attach_path) {:buf ctx.buf
                                                                       :client (vim.lsp.get_client_by_id ctx.data.client_id)}))})
+((. (require :copilot-lsp) :setup))
 
 ;; setup
 (vim.lsp.enable [:bashls
+                 :copilot_ls
                  ; :csharp_ls
                  :cssls
                  :dartls

@@ -367,6 +367,19 @@
       "url": "https://github.com/Olical/conjure/archive/230de4232577ef52e2044ea4ab5f65cd926a11e2.tar.gz",
       "hash": "sha256-bVoJSm6QOX7sTYniy7O4yMjZ5PeFhCrpHM7lyDZP5NQ="
     },
+    "copilot-lsp": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "copilotlsp-nvim",
+        "repo": "copilot-lsp"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "1b6d8273594643f51bb4c0c1d819bdb21b42159d",
+      "url": "https://github.com/copilotlsp-nvim/copilot-lsp/archive/1b6d8273594643f51bb4c0c1d819bdb21b42159d.tar.gz",
+      "hash": "sha256-wb6WpIMUggHjUKEI++pRgg53vyiuwEZQmYWEN7sev3M="
+    },
     "copilot.lua": {
       "type": "Git",
       "repository": {
@@ -376,9 +389,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "881f99b827d65b41f522eecc21b112cf518028ac",
-      "url": "https://github.com/zbirenbaum/copilot.lua/archive/881f99b827d65b41f522eecc21b112cf518028ac.tar.gz",
-      "hash": "sha256-wQ6SfAunVMd5tNeM7RMvrfPC2ELRibyEQboVQlU/fBs="
+      "revision": "0ab400d547814b04b39a069208ff7b40ab22dfb5",
+      "url": "https://github.com/zbirenbaum/copilot.lua/archive/0ab400d547814b04b39a069208ff7b40ab22dfb5.tar.gz",
+      "hash": "sha256-MsRC4M0GduXJ9JdGsgWxJGi7BHQMA3xOp1PV0Vd2ZUo="
     },
     "crates.nvim": {
       "type": "Git",
