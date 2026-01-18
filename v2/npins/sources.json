@@ -1983,9 +1983,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "71178b6debd9f1b3bb00abfd865ca642e82e24c7",
-      "url": "https://github.com/vim-skk/skkeleton/archive/71178b6debd9f1b3bb00abfd865ca642e82e24c7.tar.gz",
-      "hash": "sha256-833WpBi0X6MhblLda1cp6dFU2zu+TYBgimlsBX+3rQo="
+      "revision": "158ae753bc5099ab12537c23152926c42b1f7c3a",
+      "url": "https://github.com/vim-skk/skkeleton/archive/158ae753bc5099ab12537c23152926c42b1f7c3a.tar.gz",
+      "hash": "sha256-Ee55oGlNCoKwvDxaJyRCjqY89+DU2bP+7t8o/kkh8lU="
     },
     "skkeleton-henkan-highlight": {
       "type": "Git",
@@ -1996,9 +1996,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "b952385ff9ace7597c9d83b5c93d393c6d73a1e6",
-      "url": "https://github.com/NI57721/skkeleton-henkan-highlight/archive/b952385ff9ace7597c9d83b5c93d393c6d73a1e6.tar.gz",
-      "hash": "sha256-5EffAx/+Bb4sc0WE5tDeWdGUvf8mz10V0WFL7XReslI="
+      "revision": "361ca90537e9cf7cd404899a4ed0bbef03124fd8",
+      "url": "https://github.com/NI57721/skkeleton-henkan-highlight/archive/361ca90537e9cf7cd404899a4ed0bbef03124fd8.tar.gz",
+      "hash": "sha256-haDXPCyOkK4F0LMNR8yU+nL87hijwON1QpjmsJtv7gE="
     },
     "smart-splits.nvim": {
       "type": "Git",
