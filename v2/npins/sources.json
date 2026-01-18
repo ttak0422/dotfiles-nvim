@@ -2376,9 +2376,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "897de9af9e3aa6e59bcb9fec760a7eb02d00e264",
-      "url": "https://github.com/rachartier/tiny-code-action.nvim/archive/897de9af9e3aa6e59bcb9fec760a7eb02d00e264.tar.gz",
-      "hash": "sha256-tiV+drfWAryw8cexSCgmZCXfHxi4oi6qX6oNmhHrhAk="
+      "revision": "f4a154569146d29fd4661ae289d83c4378135736",
+      "url": "https://github.com/rachartier/tiny-code-action.nvim/archive/f4a154569146d29fd4661ae289d83c4378135736.tar.gz",
+      "hash": "sha256-f3U4hvp7PNKrgJHfmCEnHWJC9tbkzrKvuHo5WejYpys="
     },
     "tiny-glimmer.nvim": {
       "type": "Git",
@@ -2389,9 +2389,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "e83bab26665c2dd4153b8a24e172e674e7c6dee7",
-      "url": "https://github.com/rachartier/tiny-glimmer.nvim/archive/e83bab26665c2dd4153b8a24e172e674e7c6dee7.tar.gz",
-      "hash": "sha256-4dSD4mosR87cA3Z+hm44y/krRtIDarWSTwPAKC9pqAo="
+      "revision": "51dc3d1be4af31798e3b04d74d1e884c1de7ab04",
+      "url": "https://github.com/rachartier/tiny-glimmer.nvim/archive/51dc3d1be4af31798e3b04d74d1e884c1de7ab04.tar.gz",
+      "hash": "sha256-t+B64rq8oSNZMZSEBa7h+cwuUURmcmp+tr8mw+aMhcA="
     },
     "tiny-inline-diagnostic.nvim": {
       "type": "Git",
@@ -2402,9 +2402,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "f06ffded0b6069a257d6aa8ae7113104b7313fc1",
-      "url": "https://github.com/rachartier/tiny-inline-diagnostic.nvim/archive/f06ffded0b6069a257d6aa8ae7113104b7313fc1.tar.gz",
-      "hash": "sha256-xBwmd/LwVLQnS5SPtI+LhJWwgMcRdkqyvFjfarLoDf8="
+      "revision": "ecce93ff7db4461e942c03e0fcc64bd785df4057",
+      "url": "https://github.com/rachartier/tiny-inline-diagnostic.nvim/archive/ecce93ff7db4461e942c03e0fcc64bd785df4057.tar.gz",
+      "hash": "sha256-KWUyn6fJDQ+jSBdO9gwN9mmufgIALwjm5GboK6y5ksM="
     },
     "todo-comments.nvim": {
       "type": "Git",
