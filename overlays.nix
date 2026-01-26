@@ -121,7 +121,7 @@ with inputs;
         # https://github.com/JetBrains/homebrew-utils/blob/master/Formula/kotlin-lsp.rb
         kotlin-lsp = mkDerivation rec {
           pname = "kotlin-lsp";
-          version = "0.253.10629";
+          version = "261.13587.0";
           src = fetchzip {
             url = "https://download-cdn.jetbrains.com/kotlin-lsp/${version}/kotlin-${version}.zip";
             hash = "sha256-LCLGo3Q8/4TYI7z50UdXAbtPNgzFYtmUY/kzo2JCln0=";
