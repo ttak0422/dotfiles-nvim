@@ -6,11 +6,20 @@
                        :<C-e> :<End>})]
   (vim.keymap.set :i lhs rhs {:noremap true}))
 
+(vim.cmd "
+cnoremap <expr> <C-a> '<Home>'
+cnoremap <expr><C-e> '<End>'
+cnoremap <expr> <C-b> '<Left>'
+cnoremap <expr> <C-f> '<Right>'
+         ")
+
 (local cmp (require :blink.cmp))
 (local types (require :blink.cmp.types))
 (local keymap
        {:preset :none
-        :<C-e> [(fn [cmp]
+        :<C-e> [:cancel
+                :fallback_to_mappings
+                (fn [cmp]
                   (if (cmp.is_visible)
                       (cmp.hide) true))
                 :fallback_to_mappings]
@@ -79,7 +88,21 @@
 (local cmdline (let [search_src [:buffer]
                      cmd_src [:cmdline :buffer]]
                  {:enabled true
-                  :keymap {:preset :cmdline}
+                  :keymap {:preset :none
+                           :<Tab> [:show_and_insert_or_accept_single
+                                   :select_next]
+                           :<S-Tab> [(fn [cmp]
+                                       cmp.show_and_insert_or_accept_single
+                                       {:initial_selected_item_idx -1})
+                                     :select_prev]
+                           :<C-space> [:show :fallback]
+                           :<C-n> [:select_next :fallback]
+                           :<C-p> [:select_prev :fallback]
+                           :<Right> [:select_next :fallback]
+                           :<Left> [:select_prev :fallback]
+                           :<C-y> [:select_and_accept :fallback]
+                           :<C-e> [:cancel :fallback_to_mappings]
+                           :<End> [:hide :fallback]}
                   :sources #(case (vim.fn.getcmdtype)
                               "/" search_src
                               "?" search_src

@@ -3,6 +3,7 @@ vim.opt.completeopt = {}
 for lhs, rhs in pairs({["<C-Space>"] = "<C-n>", ["<C-S-Space>"] = "<C-p>", ["<C-a>"] = "<Home>", ["<C-e>"] = "<End>"}) do
   vim.keymap.set("i", lhs, rhs, {noremap = true})
 end
+vim.cmd("\ncnoremap <expr> <C-a> '<Home>'\ncnoremap <expr><C-e> '<End>'\ncnoremap <expr> <C-b> '<Left>'\ncnoremap <expr> <C-f> '<Right>'\n         ")
 local cmp = require("blink.cmp")
 local types = require("blink.cmp.types")
 local keymap
@@ -13,7 +14,7 @@ local function _1_(cmp0)
     return true
   end
 end
-keymap = {preset = "none", ["<C-e>"] = {_1_, "fallback_to_mappings"}, ["<C-y>"] = {"select_and_accept"}, ["<C-p>"] = {"select_prev", "fallback_to_mappings"}, ["<C-n>"] = {"select_next", "fallback_to_mappings"}, ["<C-b>"] = {"scroll_documentation_up", "fallback"}, ["<C-f>"] = {"scroll_documentation_down", "fallback"}, ["<Tab>"] = {"snippet_forward", "fallback"}, ["<S-Tab>"] = {"snippet_backward", "fallback"}, ["<C-k>"] = {"show_signature", "hide_signature", "fallback"}}
+keymap = {preset = "none", ["<C-e>"] = {"cancel", "fallback_to_mappings", _1_, "fallback_to_mappings"}, ["<C-y>"] = {"select_and_accept"}, ["<C-p>"] = {"select_prev", "fallback_to_mappings"}, ["<C-n>"] = {"select_next", "fallback_to_mappings"}, ["<C-b>"] = {"scroll_documentation_up", "fallback"}, ["<C-f>"] = {"scroll_documentation_down", "fallback"}, ["<Tab>"] = {"snippet_forward", "fallback"}, ["<S-Tab>"] = {"snippet_backward", "fallback"}, ["<C-k>"] = {"show_signature", "hide_signature", "fallback"}}
 local signature = {enabled = true}
 local completion = {accept = {auto_brackets = {enabled = true, force_allow_filetypes = {}, blocked_filetypes = {}, kind_resolution = {enabled = true, blocked_filetypes = {"typescriptreact", "javascriptreact", "vue", "kotlin"}}, semantic_token_resolution = {enabled = true, blocked_filetypes = {"java"}, timeout_ms = 400}}, resolve_timeout_ms = 150}, documentation = {auto_show = true, auto_show_delay_ms = 500, update_delay_ms = 100, treesitter_highlighting = true}, keyword = {range = "prefix"}, menu = {draw = {columns = {{"kind_icon"}, {"label", "label_description"}}}}}
 local appearance = {nerd_font_variant = "mono", kind_icons = {Text = "\243\176\137\191", Method = "\243\176\138\149", Function = "\243\176\138\149", Constructor = "\243\176\146\147", Field = "\243\176\156\162", Variable = "\243\176\128\171", Property = "\243\176\156\162", Class = "\243\176\160\177", Interface = "\239\131\168", Struct = "\243\176\153\133", Module = "\239\146\135", Unit = "\238\170\150", Value = "\243\176\142\160", Enum = "\239\133\157", EnumMember = "\239\133\157", Keyword = "\243\176\140\139", Constant = "\243\176\143\191", Snippet = "\239\145\143", Color = "\243\176\143\152", File = "\243\176\136\148", Reference = "\243\176\136\135", Folder = "\243\176\137\139", Event = "\243\177\144\139", Operator = "\243\176\134\149", TypeParameter = "\243\176\151\180"}}
@@ -21,63 +22,67 @@ local cmdline
 do
   local search_src = {"buffer"}
   local cmd_src = {"cmdline", "buffer"}
-  local function _3_()
-    local case_4_ = vim.fn.getcmdtype()
-    if (case_4_ == "/") then
+  local function _3_(cmp0)
+    do local _ = cmp0.show_and_insert_or_accept_single end
+    return {initial_selected_item_idx = -1}
+  end
+  local function _4_()
+    local case_5_ = vim.fn.getcmdtype()
+    if (case_5_ == "/") then
       return search_src
-    elseif (case_4_ == "?") then
+    elseif (case_5_ == "?") then
       return search_src
-    elseif (case_4_ == ":") then
+    elseif (case_5_ == ":") then
       return cmd_src
-    elseif (case_4_ == "@") then
+    elseif (case_5_ == "@") then
       return cmd_src
     else
       return nil
     end
   end
-  cmdline = {enabled = true, keymap = {preset = "cmdline"}, sources = _3_}
+  cmdline = {enabled = true, keymap = {preset = "none", ["<Tab>"] = {"show_and_insert_or_accept_single", "select_next"}, ["<S-Tab>"] = {_3_, "select_prev"}, ["<C-space>"] = {"show", "fallback"}, ["<C-n>"] = {"select_next", "fallback"}, ["<C-p>"] = {"select_prev", "fallback"}, ["<Right>"] = {"select_next", "fallback"}, ["<Left>"] = {"select_prev", "fallback"}, ["<C-y>"] = {"select_and_accept", "fallback"}, ["<C-e>"] = {"cancel", "fallback_to_mappings"}, ["<End>"] = {"hide", "fallback"}}, sources = _4_}
 end
 local term = {enabled = false}
 local sources
-local function _6_(ctx)
-  local case_7_ = ctx.trigger.initial_kind
-  if (case_7_ == "trigger_character") then
+local function _7_(ctx)
+  local case_8_ = ctx.trigger.initial_kind
+  if (case_8_ == "trigger_character") then
     return 0
-  elseif (case_7_ == "manual") then
+  elseif (case_8_ == "manual") then
     return 0
   else
-    local _ = case_7_
+    local _ = case_8_
     return 100
   end
 end
-local function _9_(_, items)
-  local function _10_(item)
+local function _10_(_, items)
+  local function _11_(item)
     return (item.kind ~= types.CompletionItemKind.Keyword)
   end
-  return vim.tbl_filter(_10_, items)
+  return vim.tbl_filter(_11_, items)
 end
-local function _11_(ctx)
+local function _12_(ctx)
   return (ctx.trigger.initial_kind ~= "trigger_character")
 end
-local function _12_(_ctx)
+local function _13_(_ctx)
   return 2
 end
-sources = {default = {"lsp", "snippets", "buffer"}, per_filetype = {}, providers = {lsp = {fallbacks = {}, min_keyword_length = _6_, transform_items = _9_}, snippets = {should_show_items = _11_}}, min_keyword_length = _12_}
+sources = {default = {"lsp", "snippets", "buffer"}, per_filetype = {}, providers = {lsp = {fallbacks = {}, min_keyword_length = _7_, transform_items = _10_}, snippets = {should_show_items = _12_}}, min_keyword_length = _13_}
 local snippets = {preset = "luasnip"}
 local fuzzy = {implementation = "rust", frecency = {enabled = true, path = (vim.fn.stdpath("state") .. "/blink/cmp/frecency.dat"), unsafe_no_lock = false}, use_proximity = true, sorts = {"score", "sort_text"}, prebuilt_binaries = {force_version = nil, force_system_triple = nil, extra_curl_args = {}, proxy = {from_env = true, url = nil}, download = false, ignore_version_mismatch = false}}
 cmp.setup({completion = completion, signature = signature, appearance = appearance, fuzzy = fuzzy, keymap = keymap, sources = sources, snippets = snippets, cmdline = cmdline, term = term})
 vim.lsp.config("*", {capabilities = cmp.get_lsp_capabilities()})
 local opts = {noremap = true, silent = true}
 local lsp_provider
-local function _13_()
+local function _14_()
   return cmp.show({providers = {"lsp"}})
 end
-lsp_provider = _13_
+lsp_provider = _14_
 local path_provider
-local function _14_()
+local function _15_()
   return cmp.show({providers = {"path"}})
 end
-path_provider = _14_
+path_provider = _15_
 for _, k in ipairs({{"<C-x>l", lsp_provider}, {"<C-x><C-l>", lsp_provider}, {"<C-x>f", path_provider}, {"<C-x><C-f>", path_provider}}) do
   vim.keymap.set("i", k[1], k[2], (k[3] or opts))
 end
