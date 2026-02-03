@@ -717,9 +717,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "cf561d10b4b104db20375c48b86cf36af9f96e00",
-      "url": "https://github.com/rmagatti/goto-preview/archive/cf561d10b4b104db20375c48b86cf36af9f96e00.tar.gz",
-      "hash": "sha256-bOVXiLArwLuzHxC/8rc9yZdYjcBKJQIBZfhbQQe1D38="
+      "revision": "d2d6923c9b9e0e43f0b9b566f261a8b1ae016540",
+      "url": "https://github.com/rmagatti/goto-preview/archive/d2d6923c9b9e0e43f0b9b566f261a8b1ae016540.tar.gz",
+      "hash": "sha256-pvAKu5JtkZa+CnIozDvFWClycI+WBSIKGVM7XkphQqo="
     },
     "goyo.vim": {
       "type": "Git",
