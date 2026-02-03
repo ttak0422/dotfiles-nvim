@@ -2376,9 +2376,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "f4a154569146d29fd4661ae289d83c4378135736",
-      "url": "https://github.com/rachartier/tiny-code-action.nvim/archive/f4a154569146d29fd4661ae289d83c4378135736.tar.gz",
-      "hash": "sha256-f3U4hvp7PNKrgJHfmCEnHWJC9tbkzrKvuHo5WejYpys="
+      "revision": "6ded5f7cf53e8d804ab4fdc1d728f47ab772007e",
+      "url": "https://github.com/rachartier/tiny-code-action.nvim/archive/6ded5f7cf53e8d804ab4fdc1d728f47ab772007e.tar.gz",
+      "hash": "sha256-LSQfmoo7Hw043QdajFikbs7X5YeIWI5dbsRKFRG4U7c="
     },
     "tiny-glimmer.nvim": {
       "type": "Git",
