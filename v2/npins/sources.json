@@ -2834,6 +2834,19 @@
       "revision": "37468ed6f385dfb50402368669766504c0e15583",
       "url": "https://github.com/sindrets/winshift.nvim/archive/37468ed6f385dfb50402368669766504c0e15583.tar.gz",
       "hash": "sha256-mW3kaducHWRlDx18WcwcbWDlNnAyHgELS3XjpeFFCgs="
+    },
+    "zen.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nendix",
+        "repo": "zen.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "9a60e3fbef521f754cb54a78106647873a50a8ae",
+      "url": "https://github.com/nendix/zen.nvim/archive/9a60e3fbef521f754cb54a78106647873a50a8ae.tar.gz",
+      "hash": "sha256-MaJQ2zZn2M3Oc5QViY7nfSJqf3Ipy0oqno4bSttN20U="
     }
   },
   "version": 7

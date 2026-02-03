@@ -362,6 +362,11 @@ in
     sorairo.package = pkgs.vimPlugins.v2.sorairo;
     kanagawa.package = kanagawa-nvim;
     nvim-grey.package = pkgs.vimPlugins.v2.nvim-grey;
+    zen = {
+      package = zen-nvim;
+      postConfig = read "./fnl/zen.fnl";
+      hooks.modules = [ "zen" ];
+    };
 
     # utils
     nio.package = nvim-nio;
