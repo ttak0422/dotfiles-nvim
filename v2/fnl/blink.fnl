@@ -130,8 +130,7 @@ cnoremap <expr> <C-f> '<Right>'
                                  :<Tab> [:show_and_insert_or_accept_single
                                          :select_next]
                                  :<S-Tab> [(fn [cmp]
-                                             cmp.show_and_insert_or_accept_single
-                                             {:initial_selected_item_idx -1})
+                                             (cmp.show_and_insert_or_accept_single {:initial_selected_item_idx -1}))
                                            :select_prev]
                                  :<C-space> [:show :fallback]
                                  :<C-n> [:select_next :fallback]

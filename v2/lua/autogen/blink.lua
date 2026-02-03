@@ -41,8 +41,7 @@ do
   local search_src = {"buffer"}
   local cmd_src = {"cmdline", "buffer"}
   local function _11_(cmp0)
-    do local _ = cmp0.show_and_insert_or_accept_single end
-    return {initial_selected_item_idx = -1}
+    return cmp0.show_and_insert_or_accept_single({initial_selected_item_idx = -1})
   end
   local function _12_()
     local case_13_ = vim.fn.getcmdtype()
