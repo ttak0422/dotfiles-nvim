@@ -8,7 +8,7 @@
                 :icons ["󰼏 " "󰎨 " "󰼑 " "󰎲 " "󰼓 " "󰎴 "]
                 :backgrounds []})
 
-(local code {:conceal_delimiters false :border :thin})
+(local code {:conceal_delimiters false :border :thin :above "" :below ""})
 
 ;; MEMO: use checkmate
 (local checkbox {:enabled false})
