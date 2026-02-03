@@ -2389,9 +2389,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "51dc3d1be4af31798e3b04d74d1e884c1de7ab04",
-      "url": "https://github.com/rachartier/tiny-glimmer.nvim/archive/51dc3d1be4af31798e3b04d74d1e884c1de7ab04.tar.gz",
-      "hash": "sha256-t+B64rq8oSNZMZSEBa7h+cwuUURmcmp+tr8mw+aMhcA="
+      "revision": "932e6c2cc4a43ce578f007db1f8f61ad6798f938",
+      "url": "https://github.com/rachartier/tiny-glimmer.nvim/archive/932e6c2cc4a43ce578f007db1f8f61ad6798f938.tar.gz",
+      "hash": "sha256-Lgdeu3xRXKf7YcuPKPnVvECzQR+RzC0bM+AiilHLLVg="
     },
     "tiny-inline-diagnostic.nvim": {
       "type": "Git",
