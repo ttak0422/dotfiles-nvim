@@ -246,7 +246,7 @@ in
         rust-analyzer
         taplo
         terraform-ls
-        typos-lsp
+        harper
         v2.kotlin-lsp
         vscode-langservers-extracted
         vtsls

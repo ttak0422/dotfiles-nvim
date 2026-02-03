@@ -38,6 +38,7 @@
                  :dhall_lsp_server
                  :fennel_ls
                  :gopls
+                 :harper_ls
                  :html
                  :jsonls
                  :lua_ls
@@ -49,6 +50,5 @@
                  :solargraph
                  :taplo
                  :terraformls
-                 :typos_lsp
                  :vtsls
                  :yamlls])
