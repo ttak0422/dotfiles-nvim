@@ -360,7 +360,10 @@ in
   lazy = with pkgs.vimPlugins.v2; rec {
     # colorschemes
     sorairo.package = pkgs.vimPlugins.v2.sorairo;
-    kanagawa.package = kanagawa-nvim;
+    kanagawa = {
+      package = kanagawa-nvim;
+      hooks.modules = [ "kanagawa" ];
+    };
     nvim-grey.package = pkgs.vimPlugins.v2.nvim-grey;
     zen = {
       package = zen-nvim;
