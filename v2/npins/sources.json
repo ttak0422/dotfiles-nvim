@@ -178,9 +178,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "44b594863c1abf72690ae82651fb70c0b9adeeaa",
-      "url": "https://github.com/yetone/avante.nvim/archive/44b594863c1abf72690ae82651fb70c0b9adeeaa.tar.gz",
-      "hash": "sha256-i8B1JsoEUXUHSTCc1Bu6HdhMp3k5RKDuyJHFkjFUze0="
+      "revision": "d80b7966c0505809e83e408353bbe8cb3394936d",
+      "url": "https://github.com/yetone/avante.nvim/archive/d80b7966c0505809e83e408353bbe8cb3394936d.tar.gz",
+      "hash": "sha256-+IfICc7uBaMV27VJcHlUOxZ2TFQoIHFJPMtoIjjgnZ8="
     },
     "better-escape.nvim": {
       "type": "Git",

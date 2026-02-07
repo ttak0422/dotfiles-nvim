@@ -199,7 +199,6 @@
                : history
                : highlights
                : img_paste
-               : mappings
                : windows
                : diff
                : hints
@@ -210,5 +209,8 @@
 
 (let [blink (require :blink.cmp)]
   (blink.add_source_provider :avante
-                             {:module :blink-cmp-avante :name :Avante :opts {}})
-  (blink.add_filetype_source :AvanteInput :avante))
+                             {:module :blink-cmp-avante
+                              :name :Avante
+                              :opts {}
+                              :enabled #(vim.tbl_contains [:AvanteInput]
+                                                          vim.bo.filetype)}))

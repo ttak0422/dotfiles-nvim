@@ -53,5 +53,7 @@ local input = {provider = "snacks", provider_opts = {}}
 local slash_commands = {}
 avante.setup({provider = "claude-code", mode = "agentic", auto_suggestions_provider = "ollama", providers = providers, dual_boost = dual_boost, behaviour = behaviour, mappings = mappings, rag_service = rag_service, tokenizer = "tiktoken", disabled_tools = {"web_search", "list_files", "search_files", "read_file", "create_file", "rename_file", "delete_file", "create_dir", "rename_dir", "delete_dir", "bash"}, system_prompt = system_prompt, custom_tools = custom_tools, acp_providers = acp_providers, history = history, highlights = highlights, img_paste = img_paste, windows = windows, diff = diff, hints = hints, selector = selector, input = input, repo_map = repo_map, slash_commands = slash_commands})
 local blink = require("blink.cmp")
-blink.add_source_provider("avante", {module = "blink-cmp-avante", name = "Avante", opts = {}})
-return blink.add_filetype_source("AvanteInput", "avante")
+local function _5_()
+  return vim.tbl_contains({"AvanteInput"}, vim.bo.filetype)
+end
+return blink.add_source_provider("avante", {module = "blink-cmp-avante", name = "Avante", opts = {}, enabled = _5_})
