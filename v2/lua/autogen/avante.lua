@@ -56,4 +56,5 @@ local blink = require("blink.cmp")
 local function _5_()
   return vim.tbl_contains({"AvanteInput"}, vim.bo.filetype)
 end
-return blink.add_source_provider("avante", {module = "blink-cmp-avante", name = "Avante", opts = {}, enabled = _5_})
+blink.add_source_provider("avante", {module = "blink-cmp-avante", name = "Avante", opts = {}, enabled = _5_})
+return blink.add_filetype_source("AvanteInput", "avante")

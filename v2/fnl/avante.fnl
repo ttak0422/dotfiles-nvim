@@ -216,4 +216,5 @@
                               :name :Avante
                               :opts {}
                               :enabled #(vim.tbl_contains [:AvanteInput]
-                                                          vim.bo.filetype)}))
+                                                          vim.bo.filetype)})
+  (blink.add_filetype_source :AvanteInput :avante))

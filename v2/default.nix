@@ -430,6 +430,7 @@ in
     avante = {
       package = avante-nvim;
       depends = [
+        blink
         copilot
         devicons
         dressing
