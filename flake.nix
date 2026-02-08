@@ -68,8 +68,9 @@
             config.allowUnfreePredicate =
               pkg:
               builtins.elem (lib.getName pkg) [
-                "terraform"
                 "copilot-language-server"
+                "idea"
+                "terraform"
               ];
           };
           bundler-nvim = {

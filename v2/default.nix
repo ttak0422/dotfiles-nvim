@@ -293,7 +293,7 @@ in
             google-java-format # Java
             html-tidy # HTML
             ktlint # Kotlin
-            nixfmt-rfc-style # Nix
+            nixfmt # Nix
             nodePackages.prettier # JS, TS, ...
             shfmt # shell
             sqruff
@@ -307,7 +307,7 @@ in
         code = read "./fnl/none-ls.fnl";
         args = {
           # TODO: support Linux
-          idea = "${pkgs.jetbrains.idea-community}/Applications/IntelliJ\ IDEA\ CE.app/Contents/MacOS/idea";
+          idea = "${pkgs.jetbrains.idea}/Applications/IntelliJ\ IDEA\ CE.app/Contents/MacOS/idea";
         };
       };
     };
@@ -1266,7 +1266,7 @@ in
             # MEMO: 先に読み込まないと初回実行が安定しない
             inputPlugins
           ];
-          extraPackages = with pkgs; [ gitu ];
+          extraPackages = with pkgs; [ pkgs-stable.gitu ];
           postConfig = read "./fnl/gitu.fnl";
           hooks.commands = [
             "Gitu"
