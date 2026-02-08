@@ -139,7 +139,10 @@
         :claude-code {:command :claude-code-acp
                       :args []
                       :env {:NODE_NO_WARNINGS :1
-                            :ANTHROPIC_API_KEY (os.getenv :ANTHROPIC_API_KEY)}}})
+                            ;; use api
+                            ; :ANTHROPIC_API_KEY (os.getenv :ANTHROPIC_API_KEY)
+                            ;; use claude cli to setup token e.g. `claude setup-token`
+                            :CLAUDE_CODE_OAUTH_TOKEN (os.getenv :CLAUDE_CODE_OAUTH_TOKEN)}}})
 
 ; RAG
 (local rag_service {:enabled true
