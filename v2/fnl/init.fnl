@@ -64,7 +64,7 @@
                           ; asterisk
                           ["*" "<Plug>(asterisk-z*)" {:silent true}]
                           ["#" "<Plug>(asterisk-z#)" {:silent true}]
-                          ["g*" "<Plug>(asterisk-gz*)" {:silent true}]
+                          [:g* "<Plug>(asterisk-gz*)" {:silent true}]
                           ["g#" "<Plug>(asterisk-gz#)" {:silent true}]
                           ; menu
                           [:<C-Space> (cmd :OpenMenu)]
@@ -110,7 +110,7 @@
                           ;  (cmd "Telescope find_files")
                           ;  (desc " files")]
                           [(leader :fp)
-                           (cmd "Telescope find_files")
+                           (cmd "Telescope find_files find_command=rg,--files,--hidden,-g,!.git")
                            (desc " files")]
                           [(leader :Ff)
                            (cmd "Telescope live_grep_args cwd=~/ghq")
