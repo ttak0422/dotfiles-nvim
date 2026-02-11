@@ -1,0 +1,2 @@
+-- [nfnl] v2/fnl/after/lsp/harper_ls.fnl
+return {settings = {["harper-ls"] = {userDictPath = (vim.fn.stdpath("state") .. "/harper/dictionary.txt"), linters = {SpellCheck = true, AnA = true, UnclosedQuotes = true, LongSentences = true, RepeatedWords = true, Spaces = true, Matcher = true, CorrectNumberSuffix = true, SentenceCapitalization = false, SpelledNumbers = false, WrongQuotes = false}, markdown = {IgnoreLinkTitle = true}}}}
