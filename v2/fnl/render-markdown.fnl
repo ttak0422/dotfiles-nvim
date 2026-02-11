@@ -3,7 +3,6 @@
 (local anti_conceal {:enabled true :disabled_modes [:n :c :t]})
 
 (local heading {:sign false
-                :render_modes true
                 :position :inline
                 :icons ["󰼏 " "󰎨 " "󰼑 " "󰎲 " "󰼓 " "󰎴 "]
                 :backgrounds []})
@@ -33,7 +32,7 @@
 
 (rm.setup {:preset :obsidian
            :file_types [:markdown :Avante]
-           :render_modes [:n :c :t]
+           :render_modes true
            : anti_conceal
            : win_options
            : heading
