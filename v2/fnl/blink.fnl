@@ -8,7 +8,7 @@
 
 (vim.cmd "
 cnoremap <expr> <C-a> '<Home>'
-cnoremap <expr><C-e> '<End>'
+cnoremap <expr> <C-e> '<End>'
 cnoremap <expr> <C-b> '<Left>'
 cnoremap <expr> <C-f> '<Right>'
          ")

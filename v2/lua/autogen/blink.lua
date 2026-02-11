@@ -3,7 +3,7 @@ vim.opt.completeopt = {}
 for lhs, rhs in pairs({["<C-Space>"] = "<C-n>", ["<C-S-Space>"] = "<C-p>", ["<C-a>"] = "<Home>", ["<C-e>"] = "<End>"}) do
   vim.keymap.set("i", lhs, rhs, {noremap = true})
 end
-vim.cmd("\ncnoremap <expr> <C-a> '<Home>'\ncnoremap <expr><C-e> '<End>'\ncnoremap <expr> <C-b> '<Left>'\ncnoremap <expr> <C-f> '<Right>'\n         ")
+vim.cmd("\ncnoremap <expr> <C-a> '<Home>'\ncnoremap <expr> <C-e> '<End>'\ncnoremap <expr> <C-b> '<Left>'\ncnoremap <expr> <C-f> '<Right>'\n         ")
 local cmp = require("blink.cmp")
 local types = require("blink.cmp.types")
 local function _1_(cmp0)
