@@ -853,10 +853,8 @@ in
 
     togglePlugins = {
       package = toggler-nvim;
-      extraPackages = with pkgs; [ v2-tmux ];
       postConfig = {
         code = read "./fnl/toggle-plugins.fnl";
-        args.tmux_path = "${pkgs.v2-tmux}/bin/tmux";
       };
       hooks.modules = [ "toggler" ];
     };
@@ -1201,6 +1199,16 @@ in
 
     commandPlugins = {
       depends = [
+        {
+          package = pterm;
+          postConfig = read "./fnl/pterm.fnl";
+          hooks.commands = [
+            "Pterm"
+            "PtermList"
+            "PtermKill"
+          ];
+          extraPackages = with pkgs; [ pterm-daemon ];
+        }
         {
           package = other-nvim;
           postConfig = read "./fnl/other.fnl";
