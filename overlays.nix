@@ -16,43 +16,10 @@ with inputs;
         ;
       inherit (prev.stdenv) system mkDerivation;
       inherit (prev.vimUtils) buildVimPlugin;
-      inherit (prev) writeShellApplication writeText fetchzip;
+      inherit (prev) fetchzip;
     in
     {
       pkgs-stable = import nixpkgs-stable { inherit system; };
-
-      v2-tmux = writeShellApplication {
-        name = "tmux";
-        runtimeInputs = [ ];
-        text = ''${prev.tmux}/bin/tmux -f ${writeText "tmux.conf" ''
-          set -g status off
-          set -g update-environment "NVIM"
-
-          # options
-          set-option -g update-environment "PATH"
-          set-option -g default-terminal "xterm-256color"
-          set-option -ga terminal-overrides ",xterm-256color:RGB"
-          set-window-option -g mode-keys vi
-
-          # keymaps
-          bind r source-file ${placeholder "out"} \; display-message "Reload!"
-          bind | split-window -h
-          bind - split-window -v
-          bind z resize-pane -Z
-          bind -r H resize-pane -L 5
-          bind -r J resize-pane -D 5
-          bind -r K resize-pane -U 5
-          bind -r L resize-pane -R 5
-          bind -r h select-pane -L
-          bind -r j select-pane -D
-          bind -r k select-pane -U
-          bind -r l select-pane -R
-
-          # plugins
-          run-shell ${prev.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
-          run-shell ${prev.tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux
-        ''} "$@"'';
-      };
 
       norg-fmt = prev.rustPlatform.buildRustPackage {
         pname = "neorg-fmt";
