@@ -2,17 +2,18 @@
                                           :/harper/dictionary.txt)
                         ; :workspaceDictPath ""
                         ; :fileDictPath ""
-                        :linters {:SpellCheck true
-                                  :SpelledNumbers false
-                                  :AnA true
+                        :linters {:AnA true
+                                  :CorrectNumberSuffix true
+                                  :LongSentences false
+                                  :Matcher true
+                                  :OrthographicConsistency false
+                                  :RepeatedWords true
                                   :SentenceCapitalization false
+                                  :Spaces true
+                                  :SpelledNumbers false
                                   :UnclosedQuotes true
                                   :WrongQuotes false
-                                  :LongSentences true
-                                  :RepeatedWords true
-                                  :Spaces true
-                                  :Matcher true
-                                  :CorrectNumberSuffix true}
+                                  :SpellCheck true}
                         ; :codeActions {:ForceStable false}
                         :markdown {:IgnoreLinkTitle true}
                         ; :diagnosticSeverity :hint
