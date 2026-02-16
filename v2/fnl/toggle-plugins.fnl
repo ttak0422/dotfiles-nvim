@@ -70,60 +70,14 @@
                      :is_open (mk_is_open :ws)}))
 
 ;;; terminal ;;;
-; NOTE: `toggleterm-nvim` and `tmux` required
-(local tmux args.tmux_path)
-(fn tmux_attach_or_create [session window]
-  (if (-> (vim.system [tmux :has-session :-t session])
-          (: :wait)
-          (. :code)
-          (not= 0))
-      (: (vim.system [tmux :new-session :-d :-s session :-n window]) :wait)))
-
 (local toggleterm {})
 (let [open_idx (fn [idx]
                  (let [terminal (require :toggleterm.terminal)
-                       session (.. :vim_ idx)
-                       window :default
-                       copy_with (fn [cmd]
-                                   (each [_ cs (ipairs [[tmux
-                                                         :copy-mode
-                                                         :-t
-                                                         session]
-                                                        [tmux
-                                                         :send
-                                                         :-X
-                                                         :-t
-                                                         session
-                                                         cmd]])]
-                                     (: (vim.system cs) :wait)))
-                       copy_with_send (fn [key]
-                                        (each [_ cs (ipairs [[tmux
-                                                              :copy-mode
-                                                              :-t
-                                                              session]
-                                                             [tmux
-                                                              :send
-                                                              :-t
-                                                              session
-                                                              key]])]
-                                          (: (vim.system cs) :wait)))
-                       on_open (fn [term]
-                                 (each [k v (pairs {:<C-f> #(copy_with :page-down)
-                                                    :<C-b> #(copy_with :page-up)
-                                                    :<C-d> #(copy_with :halfpage-down)
-                                                    :<C-u> #(copy_with :halfpage-up)
-                                                    :gg #(copy_with_send :g)
-                                                    :G #(copy_with_send :G)})]
-                                   (vim.keymap.set :n k v
-                                                   {:buffer term.bufnr
-                                                    :noremap true
-                                                    :silent true})))]
-                   (tmux_attach_or_create session window)
+                       session (.. :vim/ idx)]
                    (-> (or (. toggleterm idx)
-                           (let [t (terminal.Terminal:new {:cmd (.. tmux
-                                                                    " attach-session -t "
+                           (let [t (terminal.Terminal:new {:cmd (.. "pterm open "
                                                                     session)
-                                                           : on_open})]
+                                                           :close_on_exit false})]
                              (tset toggleterm idx t)
                              t))
                        (: :open))))
