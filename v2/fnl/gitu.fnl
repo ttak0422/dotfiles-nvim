@@ -13,10 +13,6 @@
 (local cmd :gitu)
 (local opts {:win {:position :float :width 0.75}})
 
-(fn close []
-  (when (and terminal (terminal:buf_valid))
-    (vim.api.nvim_win_close terminal.win false)))
-
 (fn open []
   (if (and terminal (terminal:buf_valid))
       ;; terminal exists
@@ -32,12 +28,17 @@
               (doto term_instance
                 (: :on :TermClose
                    (fn []
-                     (set terminal nil)
-                     (vim.schedule #(if term_instance
-                                        (term_instance:close {:buf true}))))
+                     ;; only clear if this instance is still the current terminal
+                     (when (= terminal term_instance)
+                       (set terminal nil))
+                     (vim.schedule #(when (and term_instance (term_instance:buf_valid))
+                                      (term_instance:close {:buf true}))))
                    {:buf true})
-                (: :on :BufWipeout #(set terminal nil) {:buf true})
-                (: :on :BufLeave #(vim.defer_fn close 20) {:buf true}))
+                (: :on :BufWipeout
+                   (fn []
+                     (when (= terminal term_instance)
+                       (set terminal nil)))
+                   {:buf true}))
               (set terminal term_instance))
             (do
               (vim.notify "Failed to open gitu" vim.log.levels.ERROR)
@@ -48,21 +49,21 @@
       ;; terminal exists
       (if (terminal:win_valid)
           ;; visible
-          (do
-            (vim.notfiy "terminal visible")
-            (let [current_win_id (vim.api.nvim_get_current_win)
-                  target_win_id terminal.win]
-              (if (= target_win_id current_win_id)
-                  ;; currently focused
-                  (terminal:toggle)
-                  ;; currently not focused
-                  (do
-                    (vim.api.nvim_set_current_win target_win_id)
-                    (if (and (buf_valid? terminal.buf) (buf_term? terminal.buf))
-                        (vim.cmd.startinsert))))))
+          (let [current_win_id (vim.api.nvim_get_current_win)
+                target_win_id terminal.win]
+            (if (= target_win_id current_win_id)
+                ;; currently focused
+                (terminal:toggle)
+                ;; currently not focused
+                (do
+                  (vim.api.nvim_set_current_win target_win_id)
+                  (when (and (buf_valid? terminal.buf) (buf_term? terminal.buf))
+                    (vim.cmd.startinsert)))))
           ;; not visible
           (terminal:toggle))
-      ;; terminal not exists
-      (open)))
+      ;; terminal not exists (clear stale reference if any)
+      (do
+        (set terminal nil)
+        (open))))
 
 (vim.api.nvim_create_user_command :Gitu toggle {})

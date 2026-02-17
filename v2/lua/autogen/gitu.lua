@@ -12,13 +12,6 @@ local function buf_term_3f(buf)
 end
 local cmd = "gitu"
 local opts = {win = {position = "float", width = 0.75}}
-local function close()
-  if (terminal and terminal:buf_valid()) then
-    return vim.api.nvim_win_close(terminal.win, false)
-  else
-    return nil
-  end
-end
 local function open()
   if (terminal and terminal:buf_valid()) then
     if not win_valid_3f(terminal.win) then
@@ -27,10 +20,10 @@ local function open()
     end
     terminal:focus()
     if (win_valid_3f(terminal.win) and buf_term_3f(terminal.buf)) then
-      local function _3_()
+      local function _2_()
         return vim.cmd.startinsert()
       end
-      return vim.api.nvim_win_call(terminal.win, _3_)
+      return vim.api.nvim_win_call(terminal.win, _2_)
     else
       return nil
     end
@@ -38,27 +31,27 @@ local function open()
     local term_instance = Snacks.terminal.open(cmd, opts)
     if (term_instance and term_instance:buf_valid()) then
       do
-        local function _5_()
-          terminal = nil
-          local function _6_()
-            if term_instance then
+        local function _4_()
+          if (terminal == term_instance) then
+            terminal = nil
+          end
+          local function _5_()
+            if (term_instance and term_instance:buf_valid()) then
               return term_instance:close({buf = true})
             else
               return nil
             end
           end
-          return vim.schedule(_6_)
+          return vim.schedule(_5_)
         end
-        term_instance:on("TermClose", _5_, {buf = true})
-        local function _8_()
-          terminal = nil
+        term_instance:on("TermClose", _4_, {buf = true})
+        local function _7_()
+          if (terminal == term_instance) then
+            terminal = nil
+          end
           return nil
         end
-        term_instance:on("BufWipeout", _8_, {buf = true})
-        local function _9_()
-          return vim.defer_fn(close, 20)
-        end
-        term_instance:on("BufLeave", _9_, {buf = true})
+        term_instance:on("BufWipeout", _7_, {buf = true})
       end
       terminal = term_instance
       return nil
@@ -72,7 +65,6 @@ end
 local function toggle()
   if (terminal and terminal:buf_valid()) then
     if terminal:win_valid() then
-      vim.notfiy("terminal visible")
       local current_win_id = vim.api.nvim_get_current_win()
       local target_win_id = terminal.win
       if (target_win_id == current_win_id) then
@@ -89,6 +81,7 @@ local function toggle()
       return terminal:toggle()
     end
   else
+    terminal = nil
     return open()
   end
 end
