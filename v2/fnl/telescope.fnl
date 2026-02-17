@@ -19,7 +19,8 @@
 (local extensions
        {:live_grep_args {:auto_quoting true
                          :mappings {:i {:<C-t> (lga_actions.quote_prompt {:postfix " -t "})
-                                        :<C-i> (lga_actions.quote_prompt {:postfix " --iglob "})}}}})
+                                        :<C-i> (lga_actions.quote_prompt {:postfix " --iglob "})}}
+                         :additional_args #[:--hidden :--glob :!.git/**]}})
 
 (telescope.setup {: defaults : extensions})
 (telescope.load_extension :live_grep_args)
@@ -30,6 +31,7 @@
 (vim.api.nvim_create_user_command :TelescopeBuffer
                                   #(builtin.live_grep {:grep_open_files true})
                                   {})
+
 (vim.api.nvim_create_user_command :TelescopeBufferName
                                   #(builtin.buffers {:sort_mru true
                                                      :ignore_current_buffer false})
