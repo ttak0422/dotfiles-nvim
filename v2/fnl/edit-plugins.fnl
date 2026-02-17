@@ -7,6 +7,7 @@ au WinEnter * checktime
 vnoremap ; :
 nnoremap ; :
 noremap gy \"+y
+inoremap <C-l> <Nop>
 ")
 
 (let [opts {:noremap true :silent true}

@@ -1,5 +1,5 @@
 -- [nfnl] v2/fnl/edit-plugins.fnl
-vim.cmd("\nau FileType * setlocal formatoptions-=ro\nau WinEnter * checktime\nvnoremap ; :\nnnoremap ; :\nnoremap gy \"+y\n")
+vim.cmd("\nau FileType * setlocal formatoptions-=ro\nau WinEnter * checktime\nvnoremap ; :\nnnoremap ; :\nnoremap gy \"+y\ninoremap <C-l> <Nop>\n")
 local opts = {noremap = true, silent = true}
 local desc
 local function _1_(d)
