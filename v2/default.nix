@@ -1297,7 +1297,10 @@ in
             # MEMO: 先に読み込まないと初回実行が安定しない
             inputPlugins
           ];
-          extraPackages = with pkgs; [ pkgs-stable.gitu ];
+          extraPackages = with pkgs; [
+            pkgs-stable.gitu
+            neovim-remote
+          ];
           postConfig = read "./fnl/gitu.fnl";
           hooks.commands = [
             "Gitu"
