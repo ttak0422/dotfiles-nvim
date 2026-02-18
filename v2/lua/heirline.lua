@@ -284,6 +284,7 @@ local file = {
 }
 
 local ruler = {
+	condition = conditions.is_active,
 	provider = "%l,%c",
 	hl = utils.get_highlight("WinBar"),
 	update = "CursorMoved",
