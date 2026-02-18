@@ -11,7 +11,7 @@
   (and buf (= (vim.api.nvim_buf_get_option buf :buftype) :terminal)))
 
 (local cmd :gitu)
-(local opts {:win {:position :float :width 0.75}})
+(local opts {:win {:position :float :width 0.75 :fixbuf false}})
 
 (fn open []
   (if (and terminal (terminal:buf_valid))
@@ -30,15 +30,20 @@
                    (fn []
                      ;; only clear if this instance is still the current terminal
                      (when (= terminal term_instance)
-                       (set terminal nil))
-                     (vim.schedule #(when (and term_instance (term_instance:buf_valid))
-                                      (term_instance:close {:buf true}))))
+                       (set terminal nil))) {:buf true})
+                (: :on :BufLeave
+                   (fn []
+                     (vim.schedule (fn []
+                                     (when (and (= terminal term_instance)
+                                                (term_instance:win_valid)
+                                                (not (= (vim.api.nvim_get_current_buf)
+                                                        term_instance.buf)))
+                                       (term_instance:hide)))))
                    {:buf true})
                 (: :on :BufWipeout
                    (fn []
                      (when (= terminal term_instance)
-                       (set terminal nil)))
-                   {:buf true}))
+                       (set terminal nil))) {:buf true}))
               (set terminal term_instance))
             (do
               (vim.notify "Failed to open gitu" vim.log.levels.ERROR)

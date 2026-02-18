@@ -11,7 +11,7 @@ local function buf_term_3f(buf)
   return (buf and (vim.api.nvim_buf_get_option(buf, "buftype") == "terminal"))
 end
 local cmd = "gitu"
-local opts = {win = {position = "float", width = 0.75}}
+local opts = {win = {position = "float", width = 0.75, fixbuf = false}}
 local function open()
   if (terminal and terminal:buf_valid()) then
     if not win_valid_3f(terminal.win) then
@@ -34,24 +34,32 @@ local function open()
         local function _4_()
           if (terminal == term_instance) then
             terminal = nil
+            return nil
+          else
+            return nil
           end
-          local function _5_()
-            if (term_instance and term_instance:buf_valid()) then
-              return term_instance:close({buf = true})
+        end
+        term_instance:on("TermClose", _4_, {buf = true})
+        local function _6_()
+          local function _7_()
+            if ((terminal == term_instance) and term_instance:win_valid() and not (vim.api.nvim_get_current_buf() == term_instance.buf)) then
+              return term_instance:hide()
             else
               return nil
             end
           end
-          return vim.schedule(_5_)
+          return vim.schedule(_7_)
         end
-        term_instance:on("TermClose", _4_, {buf = true})
-        local function _7_()
+        term_instance:on("BufLeave", _6_, {buf = true})
+        local function _9_()
           if (terminal == term_instance) then
             terminal = nil
+            return nil
+          else
+            return nil
           end
-          return nil
         end
-        term_instance:on("BufWipeout", _7_, {buf = true})
+        term_instance:on("BufWipeout", _9_, {buf = true})
       end
       terminal = term_instance
       return nil

@@ -29,7 +29,7 @@
                              :winborder :single}
                        ; :o {}
                        :env {:EDITOR "nvr -cc b# --remote"
-                             :GIT_EDITOR "nvr -cc b# --remote-wait"}
+                             :GIT_EDITOR "nvr --remote-wait-silent"}
                        :g {:mapleader " "
                            :maplocalleader ","
                            :loaded_netrw 1
