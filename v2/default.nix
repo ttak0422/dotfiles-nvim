@@ -377,9 +377,9 @@ in
       startupConfig = read "./fnl/morimo.fnl";
     };
 
-    flatten = {
-      package = flatten-nvim;
-      startupConfig = read "./fnl/flatten.fnl";
+    waitevent = {
+      package = waitevent-nvim;
+      startupConfig = read "./fnl/waitevent.fnl";
     };
   };
 
