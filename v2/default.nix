@@ -17,9 +17,7 @@ in
 
   withPython3 = true;
 
-  extraPackages = with pkgs; [
-    neovim-remote
-  ];
+  extraPackages = [];
 
   extraPython3Packages =
     ps: with ps; [
