@@ -376,6 +376,11 @@ in
       package = pkgs.vimPlugins.v2.morimo;
       startupConfig = read "./fnl/morimo.fnl";
     };
+
+    unnest = {
+      package = unnest-nvim;
+      startupConfig = read "./fnl/unnest.fnl";
+    };
   };
 
   lazy = with pkgs.vimPlugins.v2; rec {

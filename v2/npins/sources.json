@@ -2532,9 +2532,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "62790c8e20f4fce68115e42c7c2770bfad9cfdea",
-      "url": "https://github.com/brianhuster/unnest.nvim/archive/62790c8e20f4fce68115e42c7c2770bfad9cfdea.tar.gz",
-      "hash": "sha256-4Rfp6uKzRMi6V5tjDgY3I+N32p0Fc4t+oeiwPmuTeY4="
+      "revision": "a862fbd6a0c415ad7741f84089492f31dbb7963c",
+      "url": "https://github.com/brianhuster/unnest.nvim/archive/a862fbd6a0c415ad7741f84089492f31dbb7963c.tar.gz",
+      "hash": "sha256-h1Ce6HzDoMs5n1+FSexMiZJQZcw1V3HvRURz+UYBank="
     },
     "uv.nvim": {
       "type": "Git",
