@@ -2770,6 +2770,19 @@
       "url": "https://github.com/nvzone/volt/archive/7b8c5e790120d9f08c8487dcb80692db6d2087a1.tar.gz",
       "hash": "sha256-szq/QBI2Y6DKeqBuJ8qA4LlGYnarLT6D/fvwepIgSVc="
     },
+    "waitevent.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "notomo",
+        "repo": "waitevent.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "af47b0b9154e7cd770b8efd07e55e263d68b793a",
+      "url": "https://github.com/notomo/waitevent.nvim/archive/af47b0b9154e7cd770b8efd07e55e263d68b793a.tar.gz",
+      "hash": "sha256-Jw1ARae6jryltPNDiJGVg5Rr1Ol1BIEDQo5nhFA8tvM="
+    },
     "wezterm.nvim": {
       "type": "Git",
       "repository": {
