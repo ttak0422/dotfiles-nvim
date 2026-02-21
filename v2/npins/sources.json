@@ -552,6 +552,19 @@
       "url": "https://github.com/BranimirE/fix-auto-scroll.nvim/archive/c211a42f4030c9ed03a1456919917cdf1a193bd9.tar.gz",
       "hash": "sha256-nJdkGwP9L/9Q547PuD0ZZmKvEAxr/59wMXlh8UgTomI="
     },
+    "flatten.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "willothy",
+        "repo": "flatten.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "72527798e75b5e34757491947c2cb853ce21dc0e",
+      "url": "https://github.com/willothy/flatten.nvim/archive/72527798e75b5e34757491947c2cb853ce21dc0e.tar.gz",
+      "hash": "sha256-NaOgzTVqOpQnEIOIMlHCupZUDYnLUic9zITKFxcOg3A="
+    },
     "flit.nvim": {
       "type": "Git",
       "repository": {

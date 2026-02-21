@@ -377,9 +377,9 @@ in
       startupConfig = read "./fnl/morimo.fnl";
     };
 
-    unnest = {
-      package = unnest-nvim;
-      startupConfig = read "./fnl/unnest.fnl";
+    flatten = {
+      package = flatten-nvim;
+      startupConfig = read "./fnl/flatten.fnl";
     };
   };
 
