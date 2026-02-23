@@ -44,6 +44,10 @@ let
     unset NVIM
     exec "${pkgs.neovim-unwrapped}/bin/nvim" "''${local_args[@]}"
   '';
+  # --wait 固定のエディタラッパー (GIT_EDITOR 用)
+  editorWrapperWait = pkgs.writeShellScript "nvim-editor-open-wait" ''
+    exec "${editorWrapper}" --wait "$@"
+  '';
 in
 {
   package = pkgs.neovim-unwrapped;
@@ -82,6 +86,7 @@ in
       vim.loader.enable()
       if vim.g.neovide then dofile("${./lua/autogen/neovide.lua}") end
       vim.g._editor_open_cmd = "${editorWrapper}"
+      vim.g._editor_open_cmd_wait = "${editorWrapperWait}"
       ${read "./fnl/init.fnl"}
     '';
 
