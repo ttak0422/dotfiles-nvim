@@ -41,7 +41,7 @@ let
     if "${pkgs.neovim-unwrapped}/bin/nvim" --headless --clean -l "${./lua/editor-open.lua}" "''${remote_args[@]}"; then
       exit 0
     fi
-    unset NVIM
+    unset NVIM NVIM_EDITOR_ADDR
     exec "${pkgs.neovim-unwrapped}/bin/nvim" "''${local_args[@]}"
   '';
   # --wait 固定のエディタラッパー (GIT_EDITOR 用)
