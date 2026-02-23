@@ -1,18 +1,24 @@
 -- [nfnl] v2/fnl/init.fnl
 vim.loader.enable()
 if ((vim.env.NVIM_AUTO_REMOTE == "1") and vim.env.NVIM and (#vim.fn.argv() > 0)) then
+  local sent = false
   do
     local ok, chan = pcall(vim.fn.sockconnect, "pipe", vim.env.NVIM, {rpc = true})
     if (ok and (chan > 0)) then
       for _, f in ipairs(vim.fn.argv()) do
-        pcall(vim.rpcrequest, chan, "nvim_cmd", {cmd = "edit", args = {vim.fn.fnamemodify(f, ":p")}}, {})
+        local rok, _ = pcall(vim.rpcrequest, chan, "nvim_cmd", {cmd = "edit", args = {vim.fn.fnamemodify(f, ":p")}}, {})
+        if rok then
+          sent = true
+        end
       end
       vim.fn.chanclose(chan)
     else
     end
   end
-  vim.cmd("qa!")
-  return
+  if sent then
+    vim.cmd("qa!")
+    return
+  end
 else
 end
 if (vim.v.servername and (vim.v.servername ~= "")) then

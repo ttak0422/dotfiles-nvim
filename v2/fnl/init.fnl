@@ -3,16 +3,20 @@
 
 ;; ネストNeovim防止
 ;; NVIM_AUTO_REMOTE=1 のときだけ、$NVIM 先へ引数ファイルを転送して即終了
+;; 接続・転送に失敗した場合は通常起動にフォールバック
 (when (and (= vim.env.NVIM_AUTO_REMOTE :1) vim.env.NVIM
            (> (length (vim.fn.argv)) 0))
+  (var sent false)
   (let [(ok chan) (pcall vim.fn.sockconnect :pipe vim.env.NVIM {:rpc true})]
     (when (and ok (> chan 0))
       (each [_ f (ipairs (vim.fn.argv))]
-        (pcall vim.rpcrequest chan :nvim_cmd
-               {:cmd :edit :args [(vim.fn.fnamemodify f ":p")]} {}))
+        (let [(rok _) (pcall vim.rpcrequest chan :nvim_cmd
+                             {:cmd :edit :args [(vim.fn.fnamemodify f ":p")]} {})]
+          (when rok (set sent true))))
       (vim.fn.chanclose chan)))
-  (vim.cmd :qa!)
-  (lua :return))
+  (when sent
+    (vim.cmd :qa!)
+    (lua :return)))
 
 ;; terminal子プロセス向けにEDITORを設定（軽量シェルラッパー）
 (when (and vim.v.servername (not= vim.v.servername ""))
