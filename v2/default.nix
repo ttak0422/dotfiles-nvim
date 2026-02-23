@@ -1337,7 +1337,6 @@ in
           ];
           extraPackages = with pkgs; [
             pkgs-stable.gitu
-            neovim-remote
           ];
           postConfig = read "./fnl/gitu.fnl";
           hooks.commands = [
