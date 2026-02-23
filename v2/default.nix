@@ -11,6 +11,39 @@ let
       ./. + (replaceStrings [ "./fnl/" "./lua/" ".fnl" ] [ "/lua/autogen/" "/lua/" ".lua" ] path)
     );
   ext = pkgs.stdenv.hostPlatform.extensions.sharedLibrary;
+  # 軽量エディタラッパー: +N や file:N を --line=N に変換して nvim -l に渡す
+  editorWrapper = pkgs.writeShellScript "nvim-editor-open" ''
+    remote_args=()
+    local_args=()
+    for a in "$@"; do
+      case "$a" in
+        --wait)
+          remote_args+=("--wait")
+          ;;
+        +[0-9]*)
+          remote_args+=("--line=''${a#+}")
+          local_args+=("$a")
+          ;;
+        *)
+          if [[ "$a" =~ ^(.+):([0-9]+)$ ]]; then
+            remote_args+=("--line=''${BASH_REMATCH[2]}" "''${BASH_REMATCH[1]}")
+            local_args+=("+''${BASH_REMATCH[2]}" "''${BASH_REMATCH[1]}")
+          else
+            remote_args+=("$a")
+            local_args+=("$a")
+          fi
+          ;;
+      esac
+    done
+    if [[ -z "''${NVIM_EDITOR_ADDR:-''${NVIM:-}}" ]]; then
+      exec "${pkgs.neovim-unwrapped}/bin/nvim" "''${local_args[@]}"
+    fi
+    if "${pkgs.neovim-unwrapped}/bin/nvim" --headless --clean -l "${./lua/editor-open.lua}" "''${remote_args[@]}"; then
+      exit 0
+    fi
+    unset NVIM
+    exec "${pkgs.neovim-unwrapped}/bin/nvim" "''${local_args[@]}"
+  '';
 in
 {
   package = pkgs.neovim-unwrapped;
@@ -48,6 +81,7 @@ in
     ''
       vim.loader.enable()
       if vim.g.neovide then dofile("${./lua/autogen/neovide.lua}") end
+      vim.g._editor_open_cmd = "${editorWrapper}"
       ${read "./fnl/init.fnl"}
     '';
 
@@ -377,10 +411,6 @@ in
       startupConfig = read "./fnl/morimo.fnl";
     };
 
-    waitevent = {
-      package = waitevent-nvim;
-      startupConfig = read "./fnl/waitevent.fnl";
-    };
   };
 
   lazy = with pkgs.vimPlugins.v2; rec {

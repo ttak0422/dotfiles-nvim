@@ -1,5 +1,29 @@
 ; vim configs
 (vim.loader.enable)
+
+;; ネストNeovim防止
+;; NVIM_AUTO_REMOTE=1 のときだけ、$NVIM 先へ引数ファイルを転送して即終了
+(when (and (= vim.env.NVIM_AUTO_REMOTE "1")
+           vim.env.NVIM
+           (> (length (vim.fn.argv)) 0))
+  (let [(ok chan) (pcall vim.fn.sockconnect :pipe vim.env.NVIM {:rpc true})]
+    (when (and ok (> chan 0))
+      (each [_ f (ipairs (vim.fn.argv))]
+        (pcall vim.rpcrequest chan :nvim_cmd
+               {:cmd :edit :args [(vim.fn.fnamemodify f ":p")]} {}))
+      (vim.fn.chanclose chan)))
+  (vim.cmd :qa!)
+  (lua :return))
+
+;; terminal子プロセス向けにEDITORを設定（軽量シェルラッパー）
+(when (and vim.v.servername (not= vim.v.servername ""))
+  (set vim.env.NVIM_EDITOR_ADDR vim.v.servername))
+
+(when vim.g._editor_open_cmd
+  (set vim.env.EDITOR vim.g._editor_open_cmd)
+  (set vim.env.GIT_EDITOR (.. vim.g._editor_open_cmd " --wait"))
+  (set vim.env.VISUAL vim.g._editor_open_cmd))
+
 (vim.cmd "language messages en_US.UTF-8")
 
 ;; WIP
