@@ -469,10 +469,7 @@ in
         image
       ];
       postConfig = read "./fnl/render-markdown.fnl";
-      hooks.fileTypes = [
-        "markdown"
-        "Avante"
-      ];
+      hooks.fileTypes = [ "markdown" ];
     };
 
     checkmate = {
