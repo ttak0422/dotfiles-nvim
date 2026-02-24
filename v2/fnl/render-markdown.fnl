@@ -31,7 +31,7 @@
 (local win_options {:concealcursor {:rendered :nc}})
 
 (rm.setup {:preset :obsidian
-           :file_types [:markdown :Avante]
+           :file_types [:markdown]
            :render_modes true
            : anti_conceal
            : win_options
