@@ -905,9 +905,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "e7e29f0d07110405adecd576b602306a7edd507a",
-      "url": "https://github.com/hakonharnes/img-clip.nvim/archive/e7e29f0d07110405adecd576b602306a7edd507a.tar.gz",
-      "hash": "sha256-y64PLlOsSJ3R47R08URX77AQtWi/NP2bs1fiXyXUy0k="
+      "revision": "b6ddfb97b5600d99afe3452d707444afda658aca",
+      "url": "https://github.com/hakonharnes/img-clip.nvim/archive/b6ddfb97b5600d99afe3452d707444afda658aca.tar.gz",
+      "hash": "sha256-LDh5xzIqNrxeGY6+cnB923uSuo8/uEms4NUdFhSDmlg="
     },
     "inc-rename.nvim": {
       "type": "Git",
