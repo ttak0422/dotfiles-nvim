@@ -36,12 +36,13 @@ let
       esac
     done
     if [[ -z "''${NVIM_EDITOR_ADDR:-''${NVIM:-}}" ]]; then
+      unset VIMINIT
       exec "${pkgs.neovim-unwrapped}/bin/nvim" "''${local_args[@]}"
     fi
     if "${pkgs.neovim-unwrapped}/bin/nvim" --headless --clean -l "${./lua/editor-open.lua}" "''${remote_args[@]}"; then
       exit 0
     fi
-    unset NVIM NVIM_EDITOR_ADDR
+    unset NVIM NVIM_EDITOR_ADDR VIMINIT
     exec "${pkgs.neovim-unwrapped}/bin/nvim" "''${local_args[@]}"
   '';
   # --wait 固定のエディタラッパー (GIT_EDITOR 用)

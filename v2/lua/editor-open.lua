@@ -39,12 +39,15 @@ end
 local any_ok = false
 local target = nil
 for _, entry in ipairs(entries) do
-  local args = {}
+  local rok, _
   if entry.line then
-    table.insert(args, entry.line)
+    -- nvim_cmd の edit は nargs=? のため +N を別引数にできない。
+    -- nvim_exec2 で ":edit +N file" をそのまま実行する。
+    local cmd_str = "edit " .. entry.line .. " " .. vim.fn.fnameescape(entry.file)
+    rok, _ = pcall(vim.rpcrequest, chan, "nvim_exec2", cmd_str, {})
+  else
+    rok, _ = pcall(vim.rpcrequest, chan, "nvim_cmd", { cmd = "edit", args = { entry.file } }, {})
   end
-  table.insert(args, entry.file)
-  local rok, _ = pcall(vim.rpcrequest, chan, "nvim_cmd", { cmd = "edit", args = args }, {})
   if rok then
     any_ok = true
     target = entry.file
