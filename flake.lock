@@ -801,11 +801,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1770340296,
-        "narHash": "sha256-8G0ylz2AbOK8gOv0ZxjS3MUfxDggwNB0/OwjJa5HXPA=",
+        "lastModified": 1771866714,
+        "narHash": "sha256-BAOap+1I+TKM+VTY3nVwvGMHy7lDV9nWPSiWoWPor4Y=",
         "owner": "Saghen",
         "repo": "blink.cmp",
-        "rev": "f9e855c4d96e1264f7c818844f5a0166ad48c212",
+        "rev": "b650e976a927be6b46487a0a610b75af111376c5",
         "type": "github"
       },
       "original": {
