@@ -1,5 +1,5 @@
 -- [nfnl] v2/fnl/after/ftplugin/Avante.fnl
-vim.opt_local.conceallevel = 2
+vim.opt_local.conceallevel = 0
 do
   local opts = {buffer = true, silent = true}
   for _, key in ipairs({"i", "a", "o", "A", "I", "O", "s", "S", "c", "C"}) do

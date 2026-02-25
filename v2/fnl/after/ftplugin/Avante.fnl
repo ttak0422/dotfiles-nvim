@@ -1,4 +1,4 @@
-(set vim.opt_local.conceallevel 2)
+(set vim.opt_local.conceallevel 0)
 
 (let [opts {:buffer true :silent true}]
   (each [_ key (ipairs [:i :a :o :A :I :O :s :S :c :C])]
