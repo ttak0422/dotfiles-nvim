@@ -2766,9 +2766,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "2c2de32bb97620bcf4b3b78879c185315ee971dc",
-      "url": "https://github.com/mcauley-penney/visual-whitespace.nvim/archive/2c2de32bb97620bcf4b3b78879c185315ee971dc.tar.gz",
-      "hash": "sha256-G/jmNxRTg426hROvmw1d4R3bAP09si97ZsYs3fCGWzA="
+      "revision": "49ff2b1c572ed7033a584381fa23aad2bf3bb258",
+      "url": "https://github.com/mcauley-penney/visual-whitespace.nvim/archive/49ff2b1c572ed7033a584381fa23aad2bf3bb258.tar.gz",
+      "hash": "sha256-svKfA9p6WC6k3kbxG4TJxe2r0xpRPdbNTVk2PZcPAiY="
     },
     "volt": {
       "type": "Git",
