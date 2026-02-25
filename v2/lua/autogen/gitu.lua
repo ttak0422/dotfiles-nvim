@@ -14,33 +14,40 @@ local function gitu()
   else
   end
   vim.cmd("terminal gitu")
-  do
-    local buf = vim.api.nvim_get_current_buf()
-    local win = vim.api.nvim_get_current_win()
-    local function _3_()
-      local function _4_()
-        if vim.api.nvim_buf_is_valid(buf) then
-          if did_split then
-            if vim.api.nvim_win_is_valid(win) then
-              return vim.api.nvim_win_close(win, true)
-            else
-              return nil
-            end
+  local buf = vim.api.nvim_get_current_buf()
+  local win = vim.api.nvim_get_current_win()
+  local function _3_()
+    local function _4_()
+      if vim.api.nvim_buf_is_valid(buf) then
+        if did_split then
+          if vim.api.nvim_win_is_valid(win) then
+            return vim.api.nvim_win_close(win, true)
           else
-            return require("snacks").bufdelete({buf = buf, force = true})
+            return nil
           end
         else
-          return nil
+          return require("snacks").bufdelete({buf = buf, force = true})
         end
+      else
+        return nil
       end
-      return vim.schedule(_4_)
     end
-    vim.api.nvim_create_autocmd("TermClose", {buffer = buf, callback = _3_})
+    return vim.schedule(_4_)
   end
+  vim.api.nvim_create_autocmd("TermClose", {buffer = buf, callback = _3_})
+  vim.bo[buf]["buflisted"] = false
+  vim.bo[buf]["bufhidden"] = "wipe"
+  local function _8_()
+    local function _9_()
+      return vim.cmd("startinsert")
+    end
+    return vim.schedule(_9_)
+  end
+  vim.api.nvim_create_autocmd("BufEnter", {buffer = buf, callback = _8_})
   return vim.cmd("startinsert")
 end
 vim.api.nvim_create_user_command("Gitu", gitu, {})
-local function _8_()
+local function _10_()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     local name = vim.api.nvim_buf_get_name(buf)
     if name:match("term://.*gitu$") then
@@ -50,4 +57,4 @@ local function _8_()
   end
   return nil
 end
-return vim.api.nvim_create_user_command("GituClear", _8_, {})
+return vim.api.nvim_create_user_command("GituClear", _10_, {})

@@ -13,25 +13,27 @@
           win (vim.api.nvim_get_current_win)]
       (vim.api.nvim_create_autocmd :TermClose
                                    {:buffer buf
-                                    :callback (fn []
-                                                (vim.schedule (fn []
-                                                                (when (vim.api.nvim_buf_is_valid buf)
-                                                                  (if did-split
-                                                                      (when (vim.api.nvim_win_is_valid win)
-                                                                        (vim.api.nvim_win_close win
-                                                                                                true))
-                                                                      ((. (require :snacks)
-                                                                          :bufdelete) {: buf
-                                                                                       :force true}))))))}))
-    (vim.cmd :startinsert)))
+                                    :callback #(vim.schedule #(when (vim.api.nvim_buf_is_valid buf)
+                                                                (if did-split
+                                                                    (when (vim.api.nvim_win_is_valid win)
+                                                                      (vim.api.nvim_win_close win
+                                                                                              true))
+                                                                    ((. (require :snacks)
+                                                                        :bufdelete) {: buf
+                                                                                     :force true}))))})
+      (tset vim.bo buf :buflisted false)
+      (tset vim.bo buf :bufhidden :wipe)
+      (vim.api.nvim_create_autocmd :BufEnter
+                                   {:buffer buf
+                                    :callback #(vim.schedule #(vim.cmd :startinsert))})
+      (vim.cmd :startinsert))))
 
 (vim.api.nvim_create_user_command :Gitu gitu {})
 
 (vim.api.nvim_create_user_command :GituClear
-                                  (fn []
-                                    (each [_ buf (ipairs (vim.api.nvim_list_bufs))]
-                                      (let [name (vim.api.nvim_buf_get_name buf)]
-                                        (when (name:match "term://.*gitu$")
-                                          ((. (require :snacks) :bufdelete) {: buf
-                                                                             :force true})))))
+                                  #(each [_ buf (ipairs (vim.api.nvim_list_bufs))]
+                                     (let [name (vim.api.nvim_buf_get_name buf)]
+                                       (when (name:match "term://.*gitu$")
+                                         ((. (require :snacks) :bufdelete) {: buf
+                                                                            :force true}))))
                                   {})
