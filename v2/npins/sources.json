@@ -389,9 +389,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "9b8d77c6c847c83c784c05f5f86b4821ed90d3a1",
-      "url": "https://github.com/zbirenbaum/copilot.lua/archive/9b8d77c6c847c83c784c05f5f86b4821ed90d3a1.tar.gz",
-      "hash": "sha256-nvGt/u4K5iYi7AZegV/tpOjFNlye7+LYPMejuuIwJ0M="
+      "revision": "00446a63cba4cc59bb24fc1e210a555a3e4acdfb",
+      "url": "https://github.com/zbirenbaum/copilot.lua/archive/00446a63cba4cc59bb24fc1e210a555a3e4acdfb.tar.gz",
+      "hash": "sha256-FL6OSeOtTTpswVBkMIun8tyoXchBQIOgofUBonlSVzQ="
     },
     "crates.nvim": {
       "type": "Git",

@@ -22,4 +22,5 @@
                       :auto_trigger false
                       :keymap {:accept_and_goto :<Tab>
                                :accept false
-                               :dismiss :<Esc>}}})
+                               :dismiss :<Esc>}}
+                :disable_limit_reached_message true})
