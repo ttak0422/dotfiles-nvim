@@ -277,7 +277,7 @@ in
     };
     lsp = {
       package = nvim-lspconfig.overrideAttrs {
-        dependencies = [ copilot-lsp ];
+        dependencies = [];
       };
       startupConfig = {
         code = read "./fnl/lsp.fnl";
@@ -477,20 +477,10 @@ in
       postConfig = read "./fnl/checkmate.fnl";
     };
 
-    copilot = {
-      package = copilot-lua;
-      extraPackages = with pkgs; [
-        nodejs
-        copilot-language-server
-      ];
-      postConfig = read "./fnl/copilot.fnl";
-    };
-
     avante = {
       package = avante-nvim;
       depends = [
         blink
-        copilot
         devicons
         dressing
         img-clip
@@ -731,7 +721,6 @@ in
 
     inputPlugins = {
       depends = [
-        copilot
         blink
         {
           package = Comment-nvim;
