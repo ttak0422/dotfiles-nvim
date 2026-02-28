@@ -57,9 +57,9 @@ in
 
   extraPackages = [ ];
 
-  extraPython3Packages = [ ];
+  extraPython3Packages = _: [ ];
 
-  extraLuaPackages = [ ];
+  extraLuaPackages = _: [ ];
 
   extraConfig = # lua
     ''
