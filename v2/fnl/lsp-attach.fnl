@@ -29,11 +29,7 @@
                                #((. (require :tiny-code-action) :code_action))
                                "code action"]
                               [:K
-                               #(let [(ok noice_lsp) (pcall require :noice.lsp)]
-                                  (if ok
-                                      (noice_lsp.hover) ; https://github.com/neovim/nvim-lspconfig/issues/3036
-                                      (vim.lsp.buf.hover) ; fallback
-                                      ))
+                               #((. (require :noice.lsp) :hover))
                                "show doc"]
                               [:gpd
                                (cmd "lua require('goto-preview').goto_preview_definition()")

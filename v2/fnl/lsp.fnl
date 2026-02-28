@@ -6,8 +6,6 @@
 (local diagnostic-min-severity {:kotlin_ls vim.diagnostic.severity.INFO})
 
 (doto vim.lsp.handlers
-  (tset :textDocument/hover (vim.lsp.with vim.lsp.handlers.hover
-                              {:border :single}))
   (tset :textDocument/publishDiagnostics
         (let [handler (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
                         {:update_in_insert false})]

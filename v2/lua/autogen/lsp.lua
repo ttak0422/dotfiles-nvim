@@ -3,7 +3,6 @@ vim.lsp.set_log_level(vim.log.levels.ERROR)
 local diagnostic_min_severity = {kotlin_ls = vim.diagnostic.severity.INFO}
 do
   local tmp_9_ = vim.lsp.handlers
-  tmp_9_["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = "single"})
   local _1_
   do
     local handler = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {update_in_insert = false})
