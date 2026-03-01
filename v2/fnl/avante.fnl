@@ -136,8 +136,9 @@
 
 ; ACP
 (local acp_providers
-       {; npm install -g @zed-industries/claude-code-acp
-        :claude-code {:command :claude-code-acp
+       {; npm install -g @zed-industries/claude-code-acp ← deprecated
+        ; npm install -g @zed-industries/claude-agent-acp
+        :claude-code {:command :claude-agent-acp
                       :args []
                       :env {:NODE_NO_WARNINGS :1
                             ;; use api

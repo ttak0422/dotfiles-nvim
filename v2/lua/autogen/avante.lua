@@ -40,7 +40,7 @@ local function _4_()
   return {hub_ext.mcp_tool()}
 end
 custom_tools = _4_
-local acp_providers = {["claude-code"] = {command = "claude-code-acp", args = {}, env = {NODE_NO_WARNINGS = "1", CLAUDE_CODE_OAUTH_TOKEN = os.getenv("CLAUDE_CODE_OAUTH_TOKEN")}}}
+local acp_providers = {["claude-code"] = {command = "claude-agent-acp", args = {}, env = {NODE_NO_WARNINGS = "1", CLAUDE_CODE_OAUTH_TOKEN = os.getenv("CLAUDE_CODE_OAUTH_TOKEN")}}}
 local rag_service = {host_mount = os.getenv("HOME"), runner = "nix", llm = {provider = "ollama", endpoint = "http://localhost:11434", api_key = "", model = "gpt-oss:20b", extra = nil}, embed = {provider = "ollama", endpoint = "https://api.openai.com/v1", api_key = "", model = "gpt-oss:20b", extra = nil}, docker_extra_args = "", enabled = false}
 local history = {max_tokens = 8192, carried_entry_count = nil, storage_path = (vim.fn.stdpath("state") .. "/avante"), paste = {extension = "png", filename = "pasted-%Y%m%d%H%M%S"}}
 local highlights = {diff = {current = "DiffText", incoming = "DiffAdd"}}
