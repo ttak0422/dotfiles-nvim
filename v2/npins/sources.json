@@ -297,10 +297,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v0.11.2",
-      "revision": "4cc5de61f2527e8fef6884f366b3d3f29b32e0a1",
-      "url": "https://api.github.com/repos/bngarren/checkmate.nvim/tarball/v0.11.2",
-      "hash": "sha256-CcWfJT3+HS55eeGvkch/gFtYC3zQ+FTC0csoZ7qsP10="
+      "version": "v0.12.0",
+      "revision": "fc8edd6ecf8e4095ef878780e4bed83cc5c56c14",
+      "url": "https://api.github.com/repos/bngarren/checkmate.nvim/tarball/refs/tags/v0.12.0",
+      "hash": "sha256-stV0WtkTj+7S1aPAbu1unP755xO275Q1D7k/pl+NbHM="
     },
     "claudecode.nvim": {
       "type": "Git",
@@ -891,10 +891,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v1.4.0",
-      "revision": "446a8a5cc7a3eae3185ee0c697732c32a5547a0b",
-      "url": "https://api.github.com/repos/3rd/image.nvim/tarball/v1.4.0",
-      "hash": "sha256-EaDeY8aP41xHTw5epqYjaBqPYs6Z2DABzSaVOnG6D6I="
+      "version": "v1.5.1",
+      "revision": "da2be65c153ba15a14a342b05591652a6df70d58",
+      "url": "https://api.github.com/repos/3rd/image.nvim/tarball/refs/tags/v1.5.1",
+      "hash": "sha256-brDtVYD3O+7N2RdQPIx2+6P+faXafoJDUITy0z0cIuA="
     },
     "img-clip.nvim": {
       "type": "Git",
@@ -1743,9 +1743,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "2c61b532b5cfda1985897b43120f4004697f7b92",
-      "url": "https://github.com/obsidian-nvim/obsidian.nvim/archive/2c61b532b5cfda1985897b43120f4004697f7b92.tar.gz",
-      "hash": "sha256-qdNzNgPIzKvP9OrMwGzC2kME6WlSd2LABi9bICFNFm0="
+      "revision": "20432a5ca03d99a9d5ad51d362e19d9b832e46f0",
+      "url": "https://github.com/obsidian-nvim/obsidian.nvim/archive/20432a5ca03d99a9d5ad51d362e19d9b832e46f0.tar.gz",
+      "hash": "sha256-zS6pX05kGFEsKlHef6xkfqIBCtNPbgbNKvzqj8ld5KM="
     },
     "oil-vcs-status": {
       "type": "Git",
