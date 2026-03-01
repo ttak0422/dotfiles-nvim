@@ -2050,10 +2050,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2.27.0",
-      "revision": "4b3bb54d8b8bc114ceab203fa23973789a79be24",
-      "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.27.0",
-      "hash": "sha256-QkcOKPgiJeA5LmQvC7DZ6ddjaoW8AE5I08Gm8jlEkT8="
+      "version": "v2.30.0",
+      "revision": "a4e46becca45eb65c73a388634b1ce8aad629ae0",
+      "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/refs/tags/v2.30.0",
+      "hash": "sha256-5m65Gvc6DTE9v7noOfm0+iQjDrqnrXYYV9QPnmr1JGY="
     },
     "sops.nvim": {
       "type": "Git",
