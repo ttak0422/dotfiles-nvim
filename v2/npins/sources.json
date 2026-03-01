@@ -1529,9 +1529,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "6d42444785ea0d41555d033485910c5e78916f3b",
-      "url": "https://github.com/kevinhwang91/nvim-hlslens/archive/6d42444785ea0d41555d033485910c5e78916f3b.tar.gz",
-      "hash": "sha256-8jXI3xhKt5Xtn++67FB8FjbxHjpFpbO4gZ2/rYV3psE="
+      "revision": "be2d7b2be01860b5445a007ff2bc72b29896db6b",
+      "url": "https://github.com/kevinhwang91/nvim-hlslens/archive/be2d7b2be01860b5445a007ff2bc72b29896db6b.tar.gz",
+      "hash": "sha256-W+R/GY6a6easPnpndGAb8TuE+jqaYZlqT9ZQUdQnUwQ="
     },
     "nvim-jdtls": {
       "type": "Git",
