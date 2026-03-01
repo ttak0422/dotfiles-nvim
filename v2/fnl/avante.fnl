@@ -146,7 +146,7 @@
                             :CLAUDE_CODE_OAUTH_TOKEN (os.getenv :CLAUDE_CODE_OAUTH_TOKEN)}}})
 
 ; RAG
-(local rag_service {:enabled true
+(local rag_service {:enabled false
                     :host_mount (os.getenv :HOME)
                     :runner :nix
                     :llm {:provider :ollama
