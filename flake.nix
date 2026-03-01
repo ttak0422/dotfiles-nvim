@@ -44,7 +44,7 @@
     };
     v2-fff-nvim.url = "github:dmtrKovalenko/fff.nvim";
     v2-blink-cmp.url = "github:Saghen/blink.cmp";
-    v2-pterm.url = "github:ttak0422/pterm";
+    v2-pterm.url = "github:ttak0422/pterm/feature/support-redraw";
     # WIP
     # v2-rustowl.url = "github:nix-community/rustowl-flake";
   };
