@@ -3,14 +3,8 @@
 
 (local avante (require :avante))
 (local lib (require :avante_lib))
-(local ollama (require :avante.providers.ollama))
 
 (lib.load)
-
-(local providers
-       {:ollama {:model "gpt-oss:20b" :is_env_set ollama.check_endpoint_alive}})
-
-(local dual_boost {:enabled false})
 
 (local behaviour {:auto_focus_sidebar false
                   :auto_suggestions false
@@ -30,7 +24,7 @@
                   :include_generated_by_commit_line false
                   :auto_add_current_file false
                   :confirmation_ui_style :inline_buttons
-                  :acp_follow_agent_locations true})
+                  :acp_follow_agent_locations false})
 
 (local mappings
        (let [diff {:ours :co
@@ -101,8 +95,15 @@
                                     "⣻"
                                     "⢿"
                                     "⣿"]
-                          :generating ["·" "✢" "✳" "∗" "✻" "✽"]
-                          :thinking ["🤯" "🙄"]}
+                          :generating [["▖" "▘" "▝" "▗"]]
+                          :thinking ["▁"
+                                     "▂"
+                                     "▃"
+                                     "▄"
+                                     "▅"
+                                     "▆"
+                                     "▇"
+                                     "█"]}
                 :input {:prefix " " :height 8}
                 :edit {:border :single :start_insert true}
                 :ask {:floating true
@@ -179,8 +180,6 @@
 (avante.setup {:provider :claude-code
                :mode :agentic
                :auto_suggestions_provider :ollama
-               : providers
-               : dual_boost
                : behaviour
                : mappings
                : rag_service
