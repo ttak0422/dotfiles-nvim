@@ -864,16 +864,15 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1772298366,
-        "narHash": "sha256-l/Xd5v1CG9N1GJS/u/qNm3Xte3wJQGzldA0Iva/2qVw=",
+        "lastModified": 1772379734,
+        "narHash": "sha256-+qzrz8JjyxnKE5B7YctQxk3ybKYFK2UI2LzzlvXdQMw=",
         "owner": "ttak0422",
         "repo": "pterm",
-        "rev": "aeaccee21038cd278c16a78cf7b357f00b0b3b97",
+        "rev": "4d2b7eba6191826ad78c1b7477d347d85fa95875",
         "type": "github"
       },
       "original": {
         "owner": "ttak0422",
-        "ref": "feature/support-redraw",
         "repo": "pterm",
         "type": "github"
       }
