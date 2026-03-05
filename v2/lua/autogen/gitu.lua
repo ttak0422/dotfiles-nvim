@@ -39,7 +39,11 @@ local function gitu()
   vim.bo[buf]["bufhidden"] = "wipe"
   local function _8_()
     local function _9_()
-      return vim.cmd("startinsert")
+      if (vim.api.nvim_buf_is_valid(buf) and (vim.api.nvim_get_current_buf() == buf)) then
+        return vim.cmd("startinsert")
+      else
+        return nil
+      end
     end
     return vim.schedule(_9_)
   end
@@ -47,7 +51,7 @@ local function gitu()
   return vim.cmd("startinsert")
 end
 vim.api.nvim_create_user_command("Gitu", gitu, {})
-local function _10_()
+local function _11_()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     local name = vim.api.nvim_buf_get_name(buf)
     if name:match("term://.*gitu$") then
@@ -57,4 +61,4 @@ local function _10_()
   end
   return nil
 end
-return vim.api.nvim_create_user_command("GituClear", _10_, {})
+return vim.api.nvim_create_user_command("GituClear", _11_, {})

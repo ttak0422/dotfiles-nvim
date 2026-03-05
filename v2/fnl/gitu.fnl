@@ -25,7 +25,10 @@
       (tset vim.bo buf :bufhidden :wipe)
       (vim.api.nvim_create_autocmd :BufEnter
                                    {:buffer buf
-                                    :callback #(vim.schedule #(vim.cmd :startinsert))})
+                                    :callback #(vim.schedule #(when (and (vim.api.nvim_buf_is_valid buf)
+                                                                         (= (vim.api.nvim_get_current_buf)
+                                                                            buf))
+                                                                (vim.cmd :startinsert)))})
       (vim.cmd :startinsert))))
 
 (vim.api.nvim_create_user_command :Gitu gitu {})
