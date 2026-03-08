@@ -124,7 +124,7 @@ do
     local session = ("vim/" .. idx)
     local or_25_ = toggleterm[idx]
     if not or_25_ then
-      local t = terminal.Terminal:new({cmd = ("pterm open " .. session), close_on_exit = false})
+      local t = terminal.Terminal:new({cmd = (args.pterm .. " open " .. session), close_on_exit = false})
       toggleterm[idx] = t
       or_25_ = t
     end

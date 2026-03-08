@@ -859,6 +859,9 @@ in
       package = toggler-nvim;
       postConfig = {
         code = read "./fnl/toggle-plugins.fnl";
+        args = {
+          pterm = "${pterm-daemon}/bin/pterm";
+        };
       };
       hooks.modules = [ "toggler" ];
     };

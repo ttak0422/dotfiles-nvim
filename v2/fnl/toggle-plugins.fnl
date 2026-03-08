@@ -75,7 +75,8 @@
                  (let [terminal (require :toggleterm.terminal)
                        session (.. :vim/ idx)]
                    (-> (or (. toggleterm idx)
-                           (let [t (terminal.Terminal:new {:cmd (.. "pterm open "
+                           (let [t (terminal.Terminal:new {:cmd (.. args.pterm
+                                                                    " open "
                                                                     session)
                                                            :close_on_exit false})]
                              (tset toggleterm idx t)
