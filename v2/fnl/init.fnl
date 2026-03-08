@@ -161,7 +161,7 @@
                            (cmd :TelescopeBufferName)
                            (desc " buffer")]
                           [(leader :ft)
-                           (cmd "Telescope pterm")
+                           (cmd "Telescope pterm theme=cursor")
                            (desc " terminal")]
                           [(leader :fT)
                            (cmd "Telescope sonictemplate templates")
