@@ -863,6 +863,7 @@ in
           pterm = "${pterm-daemon}/bin/pterm";
         };
       };
+      depends = [ telescope ];
       hooks.modules = [ "toggler" ];
     };
 
@@ -896,6 +897,7 @@ in
           useDenops = true;
         }
         project
+        pterm
         {
           package = vim-sonictemplate;
           preConfig =
@@ -1111,11 +1113,14 @@ in
         {
           package = pterm;
           postConfig = read "./fnl/pterm.fnl";
-          hooks.commands = [
-            "Pterm"
-            "PtermList"
-            "PtermKill"
-          ];
+          hooks = {
+            modules = [ "pterm" ];
+            commands = [
+              "Pterm"
+              "PtermList"
+              "PtermKill"
+            ];
+          };
           extraPackages = with pkgs; [ pterm-daemon ];
         }
         {
