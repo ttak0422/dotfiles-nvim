@@ -93,6 +93,11 @@
                           ["g#" "<Plug>(asterisk-gz#)" {:silent true}]
                           ; menu
                           [:<C-Space> (cmd :OpenMenu)]
+                          ; create
+                          [(leader :ct)
+                           #(vim.ui.input {:prompt "Terminal: "}
+                                          #(vim.cmd (.. "Pterm " $1)))
+                           (desc "create terminal")]
                           ; close
                           [(leader :q)
                            S.bufdelete.delete
@@ -156,6 +161,9 @@
                            (cmd :TelescopeBufferName)
                            (desc " buffer")]
                           [(leader :ft)
+                           (cmd "Telescope pterm")
+                           (desc " terminal")]
+                          [(leader :fT)
                            (cmd "Telescope sonictemplate templates")
                            (desc " template")]
                           [(leader :fru)
