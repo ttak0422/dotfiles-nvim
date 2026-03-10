@@ -104,7 +104,8 @@
                           ; create
                           [(leader :ct)
                            #(vim.ui.input {:prompt "Terminal: "}
-                                          #(vim.cmd (.. "Pterm " $1)))
+                                          #(when (and $1 (not= $1 ""))
+                                             (vim.cmd (.. "Pterm " $1))))
                            (desc "create terminal")]
                           ; close
                           [(leader :q)
