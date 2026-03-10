@@ -27,6 +27,12 @@ if (vim.v.servername and (vim.v.servername ~= "")) then
   vim.env.NVIM_EDITOR_ADDR = vim.v.servername
 else
 end
+local function update_editor_origin_window()
+  vim.env.NVIM_EDITOR_WIN = tostring(vim.api.nvim_get_current_win())
+  return nil
+end
+update_editor_origin_window()
+vim.api.nvim_create_autocmd({"WinEnter", "TabEnter"}, {callback = update_editor_origin_window})
 if vim.g._editor_open_cmd then
   vim.env.EDITOR = vim.g._editor_open_cmd
 else

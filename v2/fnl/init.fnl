@@ -22,6 +22,14 @@
 (when (and vim.v.servername (not= vim.v.servername ""))
   (set vim.env.NVIM_EDITOR_ADDR vim.v.servername))
 
+(fn update-editor-origin-window []
+  (set vim.env.NVIM_EDITOR_WIN (tostring (vim.api.nvim_get_current_win))))
+
+(update-editor-origin-window)
+
+(vim.api.nvim_create_autocmd [:WinEnter :TabEnter]
+                             {:callback update-editor-origin-window})
+
 (when vim.g._editor_open_cmd
   (set vim.env.EDITOR vim.g._editor_open_cmd))
 

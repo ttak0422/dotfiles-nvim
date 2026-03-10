@@ -4,6 +4,7 @@
 -- Note: +N は nvim -l に消費されるため、シェルラッパーが --line=N に変換する
 
 local addr = os.getenv("NVIM_EDITOR_ADDR") or os.getenv("NVIM")
+local origin_win = tonumber(os.getenv("NVIM_EDITOR_WIN") or "")
 if not addr then
   os.exit(1)
 end
@@ -33,6 +34,10 @@ end
 local ok, chan = pcall(vim.fn.sockconnect, "pipe", addr, { rpc = true })
 if not ok or chan == 0 then
   os.exit(1)
+end
+
+if origin_win then
+  pcall(vim.rpcrequest, chan, "nvim_call_function", "win_gotoid", { origin_win })
 end
 
 -- 親Neovimでファイルを開く
