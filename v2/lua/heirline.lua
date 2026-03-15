@@ -144,15 +144,38 @@ end
 
 local working_dir
 do
+	local branch_cache = {}
+	local function update_branch_cache()
+		local git_status = vim.b.gitsigns_status_dict
+		local head = git_status and git_status.head
+		if not head or head == "" then
+			return
+		end
+		branch_cache[vim.fn.getcwd()] = head
+	end
+
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "GitSignsUpdate",
+		callback = update_branch_cache,
+	})
+
+	local function resolve_branch(cwd)
+		return branch_cache[cwd]
+	end
+
 	local branch = {
-		condition = conditions.is_git_repo,
+		condition = function(self)
+			self.cwd = vim.fn.getcwd()
+			self.head = resolve_branch(self.cwd)
+			return self.head ~= nil and self.head ~= ""
+		end,
 		provider = function(self)
-			return "(" .. self.git_status.head .. ")"
+			if not self.head then
+				return ""
+			end
+			return "(" .. self.head .. ")"
 		end,
-		init = function(self)
-			self.git_status = vim.b.gitsigns_status_dict
-		end,
-		update = { "User", pattern = "GitSignsUpdate" },
+		update = { "DirChanged", "BufEnter" },
 	}
 	local dir_name = {
 		init = function(self)
