@@ -13,18 +13,18 @@
 (local dashboard
        {:width 60
         :pane_gap 1
-        :preset {:keys [{:icon " "
-                         :key :f
-                         :desc "Find File"
-                         :action ":lua Snacks.dashboard.pick('files')"}
-                        {:icon " "
-                         :key :n
+        :preset {:keys [{:icon " "
+                         :key :e
                          :desc "New File"
                          :action ":ene | startinsert"}
                         {:icon " "
-                         :key :g
+                         :key :f
                          :desc "Find Text"
                          :action ":lua Snacks.dashboard.pick('live_grep')"}
+                        {:icon " "
+                         :key :p
+                         :desc "Find File"
+                         :action ":lua Snacks.dashboard.pick('files')"}
                         {:icon " "
                          :key :r
                          :desc "Recent Files"
