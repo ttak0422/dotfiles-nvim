@@ -16,7 +16,6 @@ with inputs;
         ;
       inherit (prev.stdenv) system mkDerivation;
       inherit (prev.vimUtils) buildVimPlugin;
-      inherit (prev) fetchzip;
     in
     {
       pkgs-stable = import nixpkgs-stable { inherit system; };
@@ -86,14 +85,9 @@ with inputs;
       # TODO: move to `/v2`
       v2 = {
         # https://github.com/JetBrains/homebrew-utils/blob/master/Formula/kotlin-lsp.rb
-        kotlin-lsp = mkDerivation rec {
-          pname = "kotlin-lsp";
-          version = "261.13587.0";
-          src = fetchzip {
-            url = "https://download-cdn.jetbrains.com/kotlin-lsp/${version}/kotlin-${version}.zip";
-            hash = "sha256-LCLGo3Q8/4TYI7z50UdXAbtPNgzFYtmUY/kzo2JCln0=";
-            stripRoot = false;
-          };
+        kotlin-lsp = mkDerivation {
+          name = "kotlin-lsp";
+          src = inputs.v2-kotlin-lsp-src-aarch64-darwin;
           dontBuild = true;
           nativeBuildInputs = with final; [ makeWrapper ];
           buildInputs = with final; [
