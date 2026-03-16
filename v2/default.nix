@@ -1147,6 +1147,12 @@ in
             "GinBrowse"
             "GinBuffer"
           ];
+          preConfig = {
+            language = "vim";
+            code = ''
+              g:gin_proxy_disable_editor = 1
+            '';
+          };
         }
         {
           package = blame-nvim;

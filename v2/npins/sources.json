@@ -626,9 +626,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "e447c29b9eb86152cd5d293b9a1f0293e9a1311b",
-      "url": "https://github.com/lambdalisue/gin.vim/archive/e447c29b9eb86152cd5d293b9a1f0293e9a1311b.tar.gz",
-      "hash": "sha256-GVIYod8uuGNO7qDGLTaJ4DReaK4lmaYttuF+xq3gliA="
+      "revision": "726a2eede0f03e97507ec99ea20cba83f8eb086e",
+      "url": "https://github.com/lambdalisue/gin.vim/archive/726a2eede0f03e97507ec99ea20cba83f8eb086e.tar.gz",
+      "hash": "sha256-8Dhpup9MUKCcsi6im+sOxv9lUHvlLgpd9YISmkjjIHs="
     },
     "git-conflict.nvim": {
       "type": "Git",
