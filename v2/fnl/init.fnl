@@ -143,7 +143,7 @@
                            (desc "󰢷 register item")]
                           ;  Telescope
                           [(leader :ff)
-                           (cmd "Telescope live_grep_args")
+                           (cmd "Telescope live_grep_args theme=ivy preview=true")
                            (desc " livegrep")]
                           ; [(leader :fp)
                           ;  (cmd "Telescope find_files")
@@ -152,7 +152,7 @@
                            (cmd "Telescope find_files find_command=rg,--files,--hidden,-g,!.git")
                            (desc " files")]
                           [(leader :Ff)
-                           (cmd "Telescope live_grep_args cwd=~/ghq")
+                           (cmd "Telescope live_grep_args cwd=~/ghq theme=ivy preview=true")
                            (desc " livegrep (ghq)")]
                           ; [(leader :Fp)
                           ;  (cmd "Telescope find_files cwd=~/ghq")
@@ -161,7 +161,7 @@
                            (cmd "Telescope find_files cwd=~/ghq")
                            (desc " files (ghq)")]
                           [(leader :fP)
-                           (cmd "Telescope ghq")
+                           (cmd "Telescope ghq previewer=false")
                            (desc " project files")]
                           [(leader :fb)
                            (cmd :TelescopeBuffer)
@@ -170,7 +170,7 @@
                            (cmd :TelescopeBufferName)
                            (desc " buffer")]
                           [(leader :ft)
-                           (cmd "Telescope pterm theme=cursor")
+                           (cmd "Telescope pterm")
                            (desc " terminal")]
                           [(leader :fT)
                            (cmd "Telescope sonictemplate templates")

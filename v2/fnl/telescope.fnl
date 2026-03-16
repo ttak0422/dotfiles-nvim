@@ -5,16 +5,17 @@
 (local lga_actions (require :telescope-live-grep-args.actions))
 
 (local defaults
-       (themes.get_ivy {:path_display [:truncate]
-                        :prompt_prefix " "
-                        :selection_caret " "
-                        ;; skkeleton is loaded on InsertEnter
-                        :mappings {:i {:<C-j> {1 "<Plug>(skkeleton-enable)"
-                                               :type :command}
-                                       :<Down> actions.cycle_history_next
-                                       :<Up> actions.cycle_history_prev}
-                                   :n {:<Down> actions.cycle_history_next
-                                       :<Up> actions.cycle_history_prev}}}))
+       (themes.get_cursor {:path_display [:truncate]
+                           :prompt_prefix " "
+                           :selection_caret " "
+                           ;; skkeleton is loaded on InsertEnter
+                           :preview false
+                           :mappings {:i {:<C-j> {1 "<Plug>(skkeleton-enable)"
+                                                  :type :command}
+                                          :<Down> actions.cycle_history_next
+                                          :<Up> actions.cycle_history_prev}
+                                      :n {:<Down> actions.cycle_history_next
+                                          :<Up> actions.cycle_history_prev}}}))
 
 (local extensions
        {:live_grep_args {:auto_quoting true
@@ -23,6 +24,7 @@
                          :additional_args #[:--hidden :--glob :!.git/**]}})
 
 (telescope.setup {: defaults : extensions})
+
 (telescope.load_extension :live_grep_args)
 (telescope.load_extension :sonictemplate)
 (telescope.load_extension :projects)

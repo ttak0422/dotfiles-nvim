@@ -4,7 +4,7 @@ local builtin = require("telescope.builtin")
 local themes = require("telescope.themes")
 local actions = require("telescope.actions")
 local lga_actions = require("telescope-live-grep-args.actions")
-local defaults = themes.get_ivy({path_display = {"truncate"}, prompt_prefix = "\239\128\130 ", selection_caret = "\239\129\161 ", mappings = {i = {["<C-j>"] = {"<Plug>(skkeleton-enable)", type = "command"}, ["<Down>"] = actions.cycle_history_next, ["<Up>"] = actions.cycle_history_prev}, n = {["<Down>"] = actions.cycle_history_next, ["<Up>"] = actions.cycle_history_prev}}})
+local defaults = themes.get_cursor({path_display = {"truncate"}, prompt_prefix = "\239\128\130 ", selection_caret = "\239\129\161 ", mappings = {i = {["<C-j>"] = {"<Plug>(skkeleton-enable)", type = "command"}, ["<Down>"] = actions.cycle_history_next, ["<Up>"] = actions.cycle_history_prev}, n = {["<Down>"] = actions.cycle_history_next, ["<Up>"] = actions.cycle_history_prev}}, preview = false})
 local extensions
 local function _1_()
   return {"--hidden", "--glob", "!.git/**"}
