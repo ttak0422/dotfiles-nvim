@@ -10,6 +10,22 @@
                            :selection_caret " "
                            ;; skkeleton is loaded on InsertEnter
                            :preview false
+                           :layout_config {:width (fn [self _ _]
+                                                    (let [winid self.original_win_id
+                                                          win_width (vim.api.nvim_win_get_width winid)
+                                                          cursor (vim.api.nvim_win_get_cursor winid)
+                                                          col (. cursor 2)]
+                                                      (math.max 80
+                                                                (- win_width
+                                                                   col 2))))
+                                           :height (fn [self _ _]
+                                                     (let [winid self.original_win_id
+                                                           win_height (vim.api.nvim_win_get_height winid)
+                                                           cursor (vim.api.nvim_win_get_cursor winid)
+                                                           row (. cursor 1)]
+                                                       (math.max 10
+                                                                 (- win_height
+                                                                    row 2))))}
                            :mappings {:i {:<C-j> {1 "<Plug>(skkeleton-enable)"
                                                   :type :command}
                                           :<Down> actions.cycle_history_next
