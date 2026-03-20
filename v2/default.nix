@@ -155,6 +155,20 @@ in
       package = nvim-notify;
       startupConfig = read "./fnl/notify.fnl";
     };
+
+    blink = {
+      packages = [
+        blink-cmp
+        blink-compat
+      ];
+      startupConfig = read "./fnl/blink.fnl";
+    };
+
+    luasnip = {
+      package = LuaSnip;
+      startupConfig = read "./fnl/luasnip.fnl";
+    };
+
     noice = {
       package = noice-nvim;
       startupConfig = read "./fnl/noice.fnl";
@@ -459,12 +473,12 @@ in
     avante = {
       package = avante-nvim;
       depends = [
-        blink
         devicons
         dressing
         img-clip
         mcphub
         render-markdown
+        blink-cmp-avante
       ];
       # TODO: fix priority
       extraPackages = with pkgs; [ curl ];
@@ -488,22 +502,6 @@ in
         uv
       ];
       postConfig = read "./fnl/mcphub.fnl";
-    };
-
-    blink = {
-      packages = [
-        blink-cmp
-        blink-cmp-avante
-        blink-compat
-      ];
-      depends = [ luasnip ];
-      postConfig = read "./fnl/blink.fnl";
-      hooks.modules = [ "blink.cmp" ];
-    };
-
-    luasnip = {
-      package = LuaSnip;
-      postConfig = read "./fnl/luasnip.fnl";
     };
 
     # TODO: refactor
@@ -537,7 +535,6 @@ in
         }
         {
           package = neogen;
-          depends = [ luasnip ];
           postConfig = read "./fnl/neogen.fnl";
         }
       ];
@@ -700,7 +697,6 @@ in
 
     inputPlugins = {
       depends = [
-        blink
         {
           package = Comment-nvim;
           postConfig = read "./fnl/comment.fnl";
@@ -949,7 +945,6 @@ in
       package = obsidian-nvim;
       depends = [
         telescope
-        blink
         image
         checkmate
       ];
@@ -1425,7 +1420,6 @@ in
         {
           package = lazydev-nvim;
           postConfig = read "./fnl/lazydev.fnl";
-          depends = [ blink ];
           hooks.fileTypes = [ "lua" ];
         }
         {
