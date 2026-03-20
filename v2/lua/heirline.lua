@@ -214,8 +214,6 @@ local statusline = {
 	space,
 	page,
 	working_dir,
-	git,
-	diagnostics,
 	space,
 	align,
 	-- right
@@ -320,8 +318,14 @@ local winbar = {
 	space,
 	align,
 	-- right
-	ruler,
-	space,
+	{
+		condition = conditions.is_active,
+		git,
+		diagnostics,
+		space,
+		ruler,
+		space,
+	},
 }
 
 -- setup
