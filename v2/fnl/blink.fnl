@@ -127,13 +127,19 @@ cnoremap <expr> <C-f> '<Right>'
                            cmd_src [:cmdline :buffer]]
                        {:enabled true
                         :completion {:list {:selection {:preselect false
-                                                        :auto_insert false}}}
+                                                        :auto_insert true}}}
                         :keymap {:preset :none
-                                 :<Tab> [:show :select_next :fallback]
-                                 :<S-Tab> [:show :select_prev :fallback]
+                                 :<Tab> [:show_and_insert :select_next :fallback]
+                                 :<S-Tab> [(fn [cmp]
+                                             (cmp.show_and_insert {:initial_selected_item_idx -1}))
+                                           :select_prev
+                                           :fallback]
                                  :<C-space> [:show :fallback]
-                                 :<C-n> [:show :select_next :fallback]
-                                 :<C-p> [:show :select_prev :fallback]
+                                 :<C-n> [:show_and_insert :select_next :fallback]
+                                 :<C-p> [(fn [cmp]
+                                           (cmp.show_and_insert {:initial_selected_item_idx -1}))
+                                         :select_prev
+                                         :fallback]
                                  :<Right> [:select_next :fallback]
                                  :<Left> [:select_prev :fallback]
                                  :<C-y> [:select_and_accept :fallback]
