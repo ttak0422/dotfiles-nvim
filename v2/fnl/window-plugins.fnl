@@ -4,7 +4,7 @@
                       [:<C-w>J "<Cmd>WinShift down<CR>"]
                       [:<C-w>K "<Cmd>WinShift up<CR>"]
                       [:<C-w>L "<Cmd>WinShift right<CR>"]
-                      [:<C-w>P "<Cmd>WinShift swap<CR>"]
+                      [:<C-w><C-w> "<Cmd>WinShift swap<CR>"]
                       [:<C-w>p
                        #((. (require :nvim-window) :pick))
                        (desc "pick window")]])]
