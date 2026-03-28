@@ -1,6 +1,6 @@
 -- vim configurations
 local cmdheight = 0
-vim.o.laststatus = 3
+vim.o.laststatus = 0
 vim.o.cmdheight = cmdheight
 
 vim.api.nvim_create_autocmd("VimResized", {
@@ -142,59 +142,6 @@ do
 	}
 end
 
-local working_dir
-do
-	local branch_cache = {}
-	local function update_branch_cache()
-		local git_status = vim.b.gitsigns_status_dict
-		local head = git_status and git_status.head
-		if not head or head == "" then
-			return
-		end
-		branch_cache[vim.fn.getcwd()] = head
-	end
-
-	vim.api.nvim_create_autocmd("User", {
-		pattern = "GitSignsUpdate",
-		callback = update_branch_cache,
-	})
-
-	local function resolve_branch(cwd)
-		return branch_cache[cwd]
-	end
-
-	local branch = {
-		condition = function(self)
-			self.cwd = vim.fn.getcwd()
-			self.head = resolve_branch(self.cwd)
-			return self.head ~= nil and self.head ~= ""
-		end,
-		provider = function(self)
-			if not self.head then
-				return ""
-			end
-			return "(" .. self.head .. ")"
-		end,
-		update = { "DirChanged", "BufEnter" },
-	}
-	local dir_name = {
-		init = function(self)
-			local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-			self.root = self.alias[cwd] or cwd
-		end,
-		provider = function(self)
-			return self.root
-		end,
-		update = { "DirChanged" },
-		static = { alias = { [""] = "ROOT" } },
-	}
-	working_dir = {
-		dir_name,
-		space,
-		branch,
-	}
-end
-
 local page = {
 	fallthrough = false,
 	update = { "TabEnter" },
@@ -211,10 +158,6 @@ local page = {
 local statusline = {
 	hl = { fg = "fg", bg = "bg" },
 	-- left
-	space,
-	page,
-	working_dir,
-	space,
 	align,
 	-- right
 }
@@ -311,22 +254,56 @@ local ruler = {
 	update = "CursorMoved",
 }
 
-local winbar = {
-	-- left
-	indicator,
-	file,
-	space,
-	align,
-	-- right
-	{
-		condition = conditions.is_active,
-		git,
-		diagnostics,
+local winbar
+do
+	local branch = {
+		condition = conditions.is_git_repo,
+		init = function(self)
+			local gs = vim.b.gitsigns_status_dict or {}
+			self.head = gs.head or ""
+			self.dirty = ((gs.added or 0) + (gs.changed or 0) + (gs.removed or 0)) > 0
+		end,
+		provider = function(self)
+			if self.head == "" then
+				return ""
+			end
+			return "(" .. self.head .. (self.dirty and "*" or "") .. ")"
+		end,
+		update = { "User", pattern = "GitSignsUpdate" },
+	}
+
+	local dir_name = {
+		init = function(self)
+			local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+			self.root = self.alias[cwd] or cwd
+		end,
+		provider = function(self)
+			return self.root
+		end,
+		update = { "DirChanged" },
+		static = { alias = { [""] = "ROOT" } },
+	}
+	winbar = {
+		-- left
+		indicator,
+		file,
 		space,
-		ruler,
-		space,
-	},
-}
+		align,
+		-- right
+		{
+			condition = conditions.is_active,
+			page,
+			dir_name,
+			space,
+			branch,
+			git,
+			diagnostics,
+			space,
+			ruler,
+			space,
+		},
+	}
+end
 
 -- setup
 heirline.setup({
