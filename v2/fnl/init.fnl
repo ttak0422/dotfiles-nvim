@@ -101,12 +101,6 @@
                           ["g#" "<Plug>(asterisk-gz#)" {:silent true}]
                           ; menu
                           [:<C-Space> (cmd :OpenMenu)]
-                          ; create
-                          [(leader :ct)
-                           #(vim.ui.input {:prompt "Terminal: "}
-                                          #(when (and $1 (not= $1 ""))
-                                             (vim.cmd (.. "Pterm " $1))))
-                           (desc "create terminal")]
                           ; close
                           [(leader :q)
                            S.bufdelete.delete
