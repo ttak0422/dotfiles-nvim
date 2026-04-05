@@ -2640,6 +2640,19 @@
       "url": "https://github.com/lambdalisue/vim-gf-improved/archive/893709185d2f55a1f8a0183e0557690ca34e4bdd.tar.gz",
       "hash": "sha256-Q6ZeL2zftsqH35piH9/1eIsl8Fdmp7hhyt51igpbqhE="
     },
+    "vim-jsonl": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "kyoh86",
+        "repo": "vim-jsonl"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "647ade2455a0340be8b8807675f1c43242ffc838",
+      "url": "https://github.com/kyoh86/vim-jsonl/archive/647ade2455a0340be8b8807675f1c43242ffc838.tar.gz",
+      "hash": "sha256-EHcpWoG+7ciTdrcmTYGl5lWEfd4zs1hrFQWf38WwB/8="
+    },
     "vim-lastplace": {
       "type": "Git",
       "repository": {

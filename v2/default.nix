@@ -410,6 +410,7 @@ in
       startupConfig = read "./fnl/morimo.fnl";
     };
 
+    jsonl.package = vim-jsonl;
   };
 
   lazy = with pkgs.vimPlugins.v2; rec {
