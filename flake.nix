@@ -42,7 +42,6 @@
       url = "github:ravitemer/mcp-hub";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    v2-fff-nvim.url = "github:dmtrKovalenko/fff.nvim";
     v2-blink-cmp.url = "github:Saghen/blink.cmp/v1";
     v2-pterm.url = "github:ttak0422/pterm/v1";
     v2-kotlin-lsp-src-aarch64-darwin = {
