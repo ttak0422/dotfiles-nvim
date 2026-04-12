@@ -13,14 +13,19 @@
           win (vim.api.nvim_get_current_win)]
       (vim.api.nvim_create_autocmd :TermClose
                                    {:buffer buf
-                                    :callback #(vim.schedule #(when (vim.api.nvim_buf_is_valid buf)
-                                                                (if did-split
-                                                                    (when (vim.api.nvim_win_is_valid win)
-                                                                      (vim.api.nvim_win_close win
-                                                                                              true))
-                                                                    ((. (require :snacks)
-                                                                        :bufdelete) {: buf
-                                                                                     :force true}))))})
+                                    :callback #(let [status vim.v.event.status]
+                                                 (if (= status 0)
+                                                     (vim.schedule #(when (vim.api.nvim_buf_is_valid buf)
+                                                                      (if did-split
+                                                                          (when (vim.api.nvim_win_is_valid win)
+                                                                            (vim.api.nvim_win_close win
+                                                                                                    true))
+                                                                          ((. (require :snacks)
+                                                                              :bufdelete) {: buf
+                                                                                           :force true}))))
+                                                     (vim.notify (.. "gitu exited with code "
+                                                                     status)
+                                                                 vim.log.levels.WARN)))})
       (tset vim.bo buf :buflisted false)
       (tset vim.bo buf :bufhidden :wipe)
       (vim.api.nvim_create_autocmd :BufEnter

@@ -17,41 +17,46 @@ local function gitu()
   local buf = vim.api.nvim_get_current_buf()
   local win = vim.api.nvim_get_current_win()
   local function _3_()
-    local function _4_()
-      if vim.api.nvim_buf_is_valid(buf) then
-        if did_split then
-          if vim.api.nvim_win_is_valid(win) then
-            return vim.api.nvim_win_close(win, true)
+    local status = vim.v.event.status
+    if (status == 0) then
+      local function _4_()
+        if vim.api.nvim_buf_is_valid(buf) then
+          if did_split then
+            if vim.api.nvim_win_is_valid(win) then
+              return vim.api.nvim_win_close(win, true)
+            else
+              return nil
+            end
           else
-            return nil
+            return require("snacks").bufdelete({buf = buf, force = true})
           end
         else
-          return require("snacks").bufdelete({buf = buf, force = true})
+          return nil
         end
-      else
-        return nil
       end
+      return vim.schedule(_4_)
+    else
+      return vim.notify(("gitu exited with code " .. status), vim.log.levels.WARN)
     end
-    return vim.schedule(_4_)
   end
   vim.api.nvim_create_autocmd("TermClose", {buffer = buf, callback = _3_})
   vim.bo[buf]["buflisted"] = false
   vim.bo[buf]["bufhidden"] = "wipe"
-  local function _8_()
-    local function _9_()
+  local function _9_()
+    local function _10_()
       if (vim.api.nvim_buf_is_valid(buf) and (vim.api.nvim_get_current_buf() == buf)) then
         return vim.cmd("startinsert")
       else
         return nil
       end
     end
-    return vim.schedule(_9_)
+    return vim.schedule(_10_)
   end
-  vim.api.nvim_create_autocmd("BufEnter", {buffer = buf, callback = _8_})
+  vim.api.nvim_create_autocmd("BufEnter", {buffer = buf, callback = _9_})
   return vim.cmd("startinsert")
 end
 vim.api.nvim_create_user_command("Gitu", gitu, {})
-local function _11_()
+local function _12_()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     local name = vim.api.nvim_buf_get_name(buf)
     if name:match("term://.*gitu$") then
@@ -61,4 +66,4 @@ local function _11_()
   end
   return nil
 end
-return vim.api.nvim_create_user_command("GituClear", _11_, {})
+return vim.api.nvim_create_user_command("GituClear", _12_, {})
