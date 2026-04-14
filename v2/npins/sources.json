@@ -462,14 +462,14 @@
       "type": "Git",
       "repository": {
         "type": "GitHub",
-        "owner": "sindrets",
+        "owner": "dlyongemallo",
         "repo": "diffview.nvim"
       },
       "branch": "main",
       "submodules": false,
-      "revision": "4516612fe98ff56ae0415a259ff6361a89419b0a",
-      "url": "https://github.com/sindrets/diffview.nvim/archive/4516612fe98ff56ae0415a259ff6361a89419b0a.tar.gz",
-      "hash": "sha256-SX+ybIzL/w6uyCy4iZKnWnzTFwqB1oXSgyYVAdpdKi8="
+      "revision": "f08b8a03f2387803ada5e9b2ab39e22211453c3b",
+      "url": "https://github.com/dlyongemallo/diffview.nvim/archive/f08b8a03f2387803ada5e9b2ab39e22211453c3b.tar.gz",
+      "hash": "sha256-dDJfDgRqnHrFFOLVX3AeGIkz29MOHtsAvNLspHbBOF0="
     },
     "direnv.nvim": {
       "type": "Git",
