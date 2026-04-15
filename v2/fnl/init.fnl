@@ -112,11 +112,6 @@
                           ;  Toggle
                           [(leader :tq) (toggle :qf) (desc " quickfix")]
                           [(leader :tb)
-                           #(if (= vim.bo.buftype "")
-                                ((. (require :lir.float) :toggle))
-                                (vim.notify "Not a file buffer" :warn))
-                           (desc " explorer")]
-                          [(leader :tB)
                            (lua_ :oil :open)
                            (desc " explorer")]
                           [(leader :td)

@@ -1283,17 +1283,6 @@ in
           hooks.commands = [ "TracePR" ];
         }
         {
-          packages = [
-            lir-nvim
-            lir-git-status-nvim
-          ];
-          depends = [
-            devicons
-          ];
-          postConfig = read "./fnl/lir.fnl";
-          hooks.modules = [ "lir.float" ];
-        }
-        {
           package = oil-nvim;
           depends = [ devicons ];
           postConfig = read "./fnl/oil.fnl";
