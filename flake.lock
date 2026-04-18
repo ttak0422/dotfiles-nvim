@@ -772,11 +772,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1776525426,
-        "narHash": "sha256-8pZ1wsmyFG9S3SYj63iYrIbrfzrazkaYC0/cI4lAyZk=",
+        "lastModified": 1776529253,
+        "narHash": "sha256-1HHXbhv1HOE4XMHIx6rTrqMiWcHQVtPNBfLcRRY4AK4=",
         "owner": "ttak0422",
         "repo": "pterm",
-        "rev": "121418458af28cbae41fdd42d669fed19e44cd04",
+        "rev": "5f6ca1262870dde59c517925923802a6f6fe1d14",
         "type": "github"
       },
       "original": {
