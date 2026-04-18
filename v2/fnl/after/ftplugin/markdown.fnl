@@ -1,6 +1,5 @@
 (each [key value (pairs {; :conceallevel 2
                          :number false
-                         :signcolumn :no
                          :foldcolumn :0
                          :listchars "tab:> "
                          :virtualedit :all})]
