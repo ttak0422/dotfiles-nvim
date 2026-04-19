@@ -16,6 +16,7 @@
                            :fold " "
                            :foldopen "▾"
                            :foldsep " "
-                           :foldclose "▸"})
+                           :foldclose "▸"
+                           :foldinner " "})
 
 (vim.opt.nrformats:append :unsigned)
