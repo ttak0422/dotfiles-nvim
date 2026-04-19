@@ -1,3 +1,2 @@
-(local ionide (require :ionide))
-
-(ionide.setup {})
+(vim.lsp.config :ionide {})
+(vim.lsp.enable :ionide)
