@@ -2,4 +2,5 @@
 
 (ll.setup {:debounce_ms 1000
            :focused_debounce_ms 200
-           :style {:placement :inline :prefix "" :render :focused}})
+           :profiles [{:name :default
+                       :style {:placement :inline :prefix "" :render :focused}}]})
