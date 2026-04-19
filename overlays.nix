@@ -80,7 +80,8 @@ with inputs;
         // {
           # TODO: → `v2.vimPlugins`
           v2 = (buildPlugins (import ./v2/npins)) // import ./v2/overlays.nix { inherit inputs'; } final prev;
-          tests = buildPlugins (import ./tests/npins) // import ./tests/overlays.nix { inherit inputs'; } final prev;
+          tests =
+            buildPlugins (import ./tests/npins) // import ./tests/overlays.nix { inherit inputs'; } final prev;
         };
       # TODO: move to `/v2`
       v2 = {
@@ -107,10 +108,7 @@ with inputs;
           '';
         };
 
-        nodePackages = {
-          inherit (inputs'.v2-mcp-hub.packages) mcp-hub;
-        };
-
+        inherit (inputs'.v2-mcp-hub.packages) mcp-hub;
         inherit (inputs'.v2-rustowl.packages) rustowl;
       };
 

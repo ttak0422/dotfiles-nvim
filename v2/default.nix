@@ -277,7 +277,7 @@ in
         args.attach_path = ./lua/autogen/lsp-attach.lua;
       };
       extraPackages = with pkgs; [
-        # kotlin-language-server
+        bash-language-server
         dart
         deno
         dhall-lsp-server
@@ -287,23 +287,22 @@ in
         go-tools
         google-java-format
         gopls
+        harper
         lua-language-server
         marksman
         nil
         nixd
-        nodePackages.bash-language-server
-        nodePackages.typescript
-        nodePackages.yaml-language-server
         pyright
         rubyPackages.solargraph
         ruff
         rust-analyzer
         taplo
         terraform-ls
-        harper
+        typescript
         v2.kotlin-lsp
         vscode-langservers-extracted
         vtsls
+        yaml-language-server
       ];
     };
     none-ls = {
@@ -348,7 +347,7 @@ in
             html-tidy # HTML
             ktlint # Kotlin
             nixfmt # Nix
-            nodePackages.prettier # JS, TS, ...
+            prettier # JS, TS, ...
             shfmt # shell
             sqruff
             stylelint # CSS, SCSS, LESS, SASS
@@ -499,7 +498,7 @@ in
       ];
       extraPackages = with pkgs; [
         nodejs
-        v2.nodePackages.mcp-hub
+        v2.mcp-hub
         uv
       ];
       postConfig = read "./fnl/mcphub.fnl";
@@ -686,10 +685,6 @@ in
         {
           package = diffview-nvim;
           postConfig = read "./fnl/diffview.fnl";
-        }
-        {
-          package = statuscol-nvim;
-          postConfig = read "./fnl/statuscol.fnl";
         }
       ];
       preConfig = read "./fnl/pre-buffer-plugins-pre.fnl";
@@ -1445,7 +1440,6 @@ in
         {
           packages = [
             vim-nix
-            hmts-nvim
           ];
           hooks = {
             fileTypes = [ "nix" ];
