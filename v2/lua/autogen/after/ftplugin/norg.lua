@@ -5,7 +5,7 @@ end
 vim.opt_local.iskeyword:append({"$", "/"})
 local opts = {noremap = true, silent = true}
 local function desc(d)
-  return {silent = true, buffer = true, desc = d, noremap = false}
+  return {silent = true, buf = 0, desc = d, noremap = false}
 end
 local function skip_next_update()
   return require("neorg.core.modules").get_module("core.esupports.metagen").skip_next_update()

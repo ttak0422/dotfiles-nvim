@@ -39,8 +39,8 @@ local function _4_(note0)
       end
     end
   end
-  vim.keymap.set("n", "<CR>", _5_, {expr = note0.bufnr, buffer = true, desc = "Obsidian Smart Action"})
-  return vim.keymap.set("x", "<LocalLeader>l", "<Cmd>Obsidian link<CR>", {buffer = note0.bufnr, desc = "Obsidian Link"})
+  vim.keymap.set("n", "<CR>", _5_, {expr = true, buf = note0.bufnr, desc = "Obsidian Smart Action"})
+  return vim.keymap.set("x", "<LocalLeader>l", "<Cmd>Obsidian link<CR>", {buf = note0.bufnr, desc = "Obsidian Link"})
 end
 callbacks = {enter_note = _4_}
 obsidian.setup({workspaces = workspaces, daily_notes = daily_notes, completion = completion, ui = ui, checkbox = checkbox, callbacks = callbacks, statusline = {enabled = false}, footer = {enabled = false}, log_level = vim.log.levels.WARN, legacy_commands = false})

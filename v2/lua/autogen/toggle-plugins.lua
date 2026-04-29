@@ -14,7 +14,7 @@ local function with_keep_window(f)
 end
 local function filetype_exists(ft)
   for _, win in ipairs(vim.api.nvim_list_wins()) do
-    if (vim.api.nvim_win_is_valid(win) and (vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "filetype") == ft)) then
+    if (vim.api.nvim_win_is_valid(win) and (vim.api.nvim_get_option_value("filetype", {buf = vim.api.nvim_win_get_buf(win)}) == ft)) then
       return true
     else
     end

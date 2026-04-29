@@ -4,7 +4,7 @@ local prompt
 local function _1_(bufnr, _info)
   for mode, maps in pairs({[{"n", "i"}] = {["<C-n>"] = "<Plug>(aibo-send)<C-n>", ["<C-p>"] = "<Plug>(aibo-send)<C-p>", ["<Down>"] = "<Plug>(aibo-send)<Down>", ["<Up>"] = "<Plug>(aibo-send)<Up>", ["<C-c>"] = "<Plug>(aibo-send)<Esc>"}, [{"n"}] = {["<CR>"] = "<Plug>(aibo-submit)"}, [{"i"}] = {["<C-s>"] = "<Plug>(aibo-submit)"}}) do
     for k, v in pairs(maps) do
-      vim.keymap.set(mode, k, v, {buffer = bufnr, nowait = true, silent = true})
+      vim.keymap.set(mode, k, v, {buf = bufnr, nowait = true, silent = true})
     end
   end
   return nil

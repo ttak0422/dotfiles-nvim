@@ -1,11 +1,11 @@
 -- [nfnl] v2/fnl/lsp.fnl
-vim.lsp.set_log_level(vim.log.levels.ERROR)
+vim.lsp.log.set_level(vim.log.levels.ERROR)
 local diagnostic_min_severity = {kotlin_ls = vim.diagnostic.severity.INFO}
 do
   local tmp_9_ = vim.lsp.handlers
   local _1_
   do
-    local handler = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {update_in_insert = false})
+    local handler = vim.lsp.handlers["textDocument/publishDiagnostics"]
     local function _2_(err, result, ctx, config)
       local client = vim.lsp.get_client_by_id(ctx.client_id)
       local min_sev

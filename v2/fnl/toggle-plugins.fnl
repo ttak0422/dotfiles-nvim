@@ -12,8 +12,9 @@
 (fn filetype_exists [ft]
   (each [_ win (ipairs (vim.api.nvim_list_wins))]
     (when (and (vim.api.nvim_win_is_valid win)
-               (= (vim.api.nvim_buf_get_option (vim.api.nvim_win_get_buf win)
-                                               :filetype) ft))
+               (= (vim.api.nvim_get_option_value :filetype
+                                                 {:buf (vim.api.nvim_win_get_buf win)})
+                  ft))
       (lua "return true")))
   false)
 

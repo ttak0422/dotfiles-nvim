@@ -22,4 +22,4 @@
                                   :<localleader>md ":MoltenDelete<CR>"}
                               :v {:<localleader>r runner.run_range}})]
         (each [k v (pairs kvp)]
-          (vim.keymap.set mode k v {:buffer true :silent true}))))))
+          (vim.keymap.set mode k v {:buf 0 :silent true}))))))

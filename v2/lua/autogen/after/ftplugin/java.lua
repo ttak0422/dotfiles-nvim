@@ -68,7 +68,7 @@ local function setup()
       local build_timeout = 10000
       local desc
       local function _7_(desc0)
-        return {silent = true, buffer = bufnr, desc = desc0}
+        return {silent = true, buf = bufnr, desc = desc0}
       end
       desc = _7_
       local with_compile
@@ -78,7 +78,7 @@ local function setup()
             vim.cmd("w")
           else
           end
-          client.request_sync("java/buildWorkspace", false, build_timeout, bufnr)
+          client:request_sync("java/buildWorkspace", false, build_timeout, bufnr)
           return f()
         end
         return _9_

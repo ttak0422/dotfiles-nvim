@@ -24,7 +24,7 @@
 
 ;; keymaps
 (local opts {:noremap true :silent true})
-(fn desc [d] {:noremap false :silent true :buffer true :desc d})
+(fn desc [d] {:noremap false :silent true :buf 0 :desc d})
 (fn skip_next_update []
   ((. ((. (require :neorg.core.modules) :get_module) :core.esupports.metagen)
       :skip_next_update)))

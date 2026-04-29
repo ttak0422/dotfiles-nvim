@@ -1,5 +1,5 @@
 -- [nfnl] v2/fnl/after/ftplugin/rust.fnl
-local opt = {silent = true, buffer = true}
+local opt = {silent = true, buf = 0}
 local function _1_()
   return vim.cmd.RustLsp({"hover", "actions"})
 end

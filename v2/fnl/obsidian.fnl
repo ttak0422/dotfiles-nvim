@@ -37,13 +37,12 @@
                                            (vim.cmd "Obsidian follow_link")
                                            (if (api.cursor_tag)
                                                (vim.cmd "Obsidian tags")))
-                                      {:expr note.bufnr
-                                       :buffer true
+                                      {:expr true
+                                       :buf note.bufnr
                                        :desc "Obsidian Smart Action"})
                       (vim.keymap.set :x :<LocalLeader>l
                                       "<Cmd>Obsidian link<CR>"
-                                      {:buffer note.bufnr
-                                       :desc "Obsidian Link"}))})
+                                      {:buf note.bufnr :desc "Obsidian Link"}))})
 
 (obsidian.setup {: workspaces
                  : daily_notes

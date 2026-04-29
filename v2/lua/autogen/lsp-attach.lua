@@ -5,7 +5,7 @@ local function _1_(ctx)
     local bufnr = ctx.buf
     local desc
     local function _2_(d)
-      return {noremap = true, silent = true, buffer = bufnr, desc = d}
+      return {noremap = true, silent = true, buf = bufnr, desc = d}
     end
     desc = _2_
     local function _3_()
@@ -20,7 +20,7 @@ local function _1_(ctx)
     local function _5_()
       return (":IncRename " .. vim.fn.expand("<cword>"))
     end
-    vim.keymap.set("n", "<leader>rN", _5_, {noremap = true, silent = true, expr = true, buffer = bufnr, desc = "rename"})
+    vim.keymap.set("n", "<leader>rN", _5_, {noremap = true, silent = true, expr = true, buf = bufnr, desc = "rename"})
     vim.keymap.set("n", "<leader>cF", vim.lsp.buf.format, desc("\238\171\132 format"))
     local function _6_()
       return vim.lsp.buf.format({timeout_ms = 10000})

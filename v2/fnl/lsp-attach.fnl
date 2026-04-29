@@ -8,7 +8,7 @@
         (set vim.b.lsp_attached true)
         (let [bufnr ctx.buf
               desc (fn [d]
-                     {:noremap true :silent true :buffer bufnr :desc d})]
+                     {:noremap true :silent true :buf bufnr :desc d})]
           (each [_ k (ipairs [; builtin
                               [:gd
                                vim.lsp.buf.definition
@@ -62,7 +62,7 @@
                           {:noremap true
                            :silent true
                            :expr true
-                           :buffer bufnr
+                           :buf bufnr
                            :desc :rename})
           (vim.keymap.set :n :<leader>cF vim.lsp.buf.format (desc " format"))
           (vim.keymap.set [:n :v] :<C-CR>

@@ -1,5 +1,5 @@
 ;; global configs
-(vim.lsp.set_log_level vim.log.levels.ERROR)
+(vim.lsp.log.set_level vim.log.levels.ERROR)
 
 ;; per-client diagnostic severity filter (severity value: ERROR=1 WARN=2 INFO=3 HINT=4)
 ;; lower value = higher severity; diagnostics with severity > threshold are filtered out
@@ -7,8 +7,7 @@
 
 (doto vim.lsp.handlers
   (tset :textDocument/publishDiagnostics
-        (let [handler (vim.lsp.with vim.lsp.diagnostic.on_publish_diagnostics
-                        {:update_in_insert false})]
+        (let [handler (. vim.lsp.handlers :textDocument/publishDiagnostics)]
           (fn [err result ctx config]
             (let [client (vim.lsp.get_client_by_id ctx.client_id)
                   min-sev (when client

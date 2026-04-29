@@ -1,6 +1,6 @@
 -- [nfnl] v2/fnl/noice.fnl
 local noice = require("noice")
-local lsp = {progress = {enabled = true}, signature = {enabled = false}, hover = {silent = true}, override = {["vim.lsp.util.convert_input_to_markdown_lines"] = true, ["vim.lsp.util.stylize_markdown"] = true}}
+local lsp = {progress = {enabled = true}, signature = {enabled = false}, hover = {silent = true}, override = {["vim.lsp.util.convert_input_to_markdown_lines"] = true}}
 local routes
 local function _1_(message)
   local case_2_ = vim.tbl_get(message.opts, "progress", "client")

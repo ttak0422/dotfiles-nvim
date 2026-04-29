@@ -8,7 +8,7 @@ if (vim.fn.expand("%:e") == "ipynb") then
   local runner = require("quarto.runner")
   for mode, kvp in pairs({n = {["<LocalLeader>e"] = ":MoltenEvaluateOperator<CR>", ["<localleader>rr"] = runner.run_cell, ["<localleader>ra"] = runner.run_above, ["<localleader>rA"] = runner.run_all, ["<localleader>rl"] = runner.run_line, ["<localleader>mi"] = ":MoltenInit<CR>", ["<localleader>md"] = ":MoltenDelete<CR>"}, v = {["<localleader>r"] = runner.run_range}}) do
     for k, v in pairs(kvp) do
-      vim.keymap.set(mode, k, v, {buffer = true, silent = true})
+      vim.keymap.set(mode, k, v, {buf = 0, silent = true})
     end
   end
   return nil

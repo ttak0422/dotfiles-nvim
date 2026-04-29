@@ -10,11 +10,9 @@
     `{:next {:opts {:desc ,next_desc} :rhs ,next-cmd}
       :prev {:opts {:desc ,prev_desc} :rhs ,prev-cmd}}))
 
-(local diagnostic_wrn_options {:severity {:min vim.diagnostic.severity.WARN}
-                               :float false})
+(local diagnostic_wrn_options {:severity {:min vim.diagnostic.severity.WARN}})
 
-(local diagnostic_err_options {:severity {:min vim.diagnostic.severity.ERROR}
-                               :float false})
+(local diagnostic_err_options {:severity {:min vim.diagnostic.severity.ERROR}})
 
 (fn get_qflist_nr [nr]
   (. (vim.fn.getqflist {: nr}) :nr))
@@ -39,11 +37,19 @@
                        (cmd :BufSurfBack)
                        (cmd :BufSurfForward))
                   :d (def :warning
-                       #(vim.diagnostic.goto_prev diagnostic_wrn_options)
-                       #(vim.diagnostic.goto_next diagnostic_wrn_options))
+                       #(vim.diagnostic.jump (vim.tbl_extend :force
+                                                             diagnostic_wrn_options
+                                                             {:count -1}))
+                       #(vim.diagnostic.jump (vim.tbl_extend :force
+                                                             diagnostic_wrn_options
+                                                             {:count 1})))
                   :D (def :error
-                       #(vim.diagnostic.goto_prev diagnostic_err_options)
-                       #(vim.diagnostic.goto_next diagnostic_err_options))
+                       #(vim.diagnostic.jump (vim.tbl_extend :force
+                                                             diagnostic_err_options
+                                                             {:count -1}))
+                       #(vim.diagnostic.jump (vim.tbl_extend :force
+                                                             diagnostic_err_options
+                                                             {:count 1})))
                   :e (def :edit "g," "g;")
                   :j (def :jump :<C-o> :<C-i>)
                   :h (def :harpoon

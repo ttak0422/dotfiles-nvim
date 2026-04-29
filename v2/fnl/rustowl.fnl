@@ -1,7 +1,7 @@
 (let [rustowl (require :rustowl)
       on_attach (fn [_ buffer]
                   (vim.keymap.set :n :<LocalLeader>to #(rustowl.toggle buffer)
-                                  {: buffer :desc "Toggle RustOwl"}))]
+                                  {:buf buffer :desc "Toggle RustOwl"}))]
   (rustowl.setup {:auto_attach true
                   :auto_enable false
                   :idle_time 1000

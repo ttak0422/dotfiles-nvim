@@ -11,7 +11,7 @@
                                                     [:i] {:<C-s> "<Plug>(aibo-submit)"}})]
                              (each [k v (pairs maps)]
                                (vim.keymap.set mode k v
-                                               {:buffer bufnr
+                                               {:buf bufnr
                                                 :nowait true
                                                 :silent true}))))}
       console {:no_default_mappings false :on_attach (fn [_bufnr _info])}

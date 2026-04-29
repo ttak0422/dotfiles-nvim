@@ -123,12 +123,12 @@
         on_attach (fn [client bufnr]
                     (when (vim.api.nvim_buf_is_valid bufnr)
                       (let [build_timeout 10000
-                            desc (fn [desc] {:silent true :buffer bufnr : desc})
+                            desc (fn [desc] {:silent true :buf bufnr : desc})
                             with_compile (fn [f]
                                            (fn []
                                              (if vim.bo.modified
                                                  (vim.cmd :w))
-                                             (client.request_sync :java/buildWorkspace
+                                             (client:request_sync :java/buildWorkspace
                                                                   false
                                                                   build_timeout
                                                                   bufnr)

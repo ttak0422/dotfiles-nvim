@@ -1,6 +1,6 @@
 (set vim.opt_local.conceallevel 0)
 
-(let [opts {:buffer true :silent true}]
+(let [opts {:buf 0 :silent true}]
   (each [_ key (ipairs [:i :a :o :A :I :O :s :S :c :C])]
     (vim.keymap.set :n key :<Nop> opts)))
 

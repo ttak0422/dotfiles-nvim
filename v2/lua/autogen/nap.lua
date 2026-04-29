@@ -1,7 +1,7 @@
 -- [nfnl] v2/fnl/nap.fnl
 local nap = require("nap")
-local diagnostic_wrn_options = {severity = {min = vim.diagnostic.severity.WARN}, float = false}
-local diagnostic_err_options = {severity = {min = vim.diagnostic.severity.ERROR}, float = false}
+local diagnostic_wrn_options = {severity = {min = vim.diagnostic.severity.WARN}}
+local diagnostic_err_options = {severity = {min = vim.diagnostic.severity.ERROR}}
 local function get_qflist_nr(nr)
   return vim.fn.getqflist({nr = nr}).nr
 end
@@ -24,16 +24,16 @@ local function safe_qf_cnewer()
 end
 local operators
 local function _3_()
-  return vim.diagnostic.goto_next(diagnostic_wrn_options)
+  return vim.diagnostic.jump(vim.tbl_extend("force", diagnostic_wrn_options, {count = 1}))
 end
 local function _4_()
-  return vim.diagnostic.goto_prev(diagnostic_wrn_options)
+  return vim.diagnostic.jump(vim.tbl_extend("force", diagnostic_wrn_options, {count = -1}))
 end
 local function _5_()
-  return vim.diagnostic.goto_next(diagnostic_err_options)
+  return vim.diagnostic.jump(vim.tbl_extend("force", diagnostic_err_options, {count = 1}))
 end
 local function _6_()
-  return vim.diagnostic.goto_prev(diagnostic_err_options)
+  return vim.diagnostic.jump(vim.tbl_extend("force", diagnostic_err_options, {count = -1}))
 end
 local function _7_()
   return require("harpoon"):list():next()
