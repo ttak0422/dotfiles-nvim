@@ -5,6 +5,7 @@
 
 local addr = os.getenv("NVIM_EDITOR_ADDR") or os.getenv("NVIM")
 local origin_win = tonumber(os.getenv("NVIM_EDITOR_WIN") or "")
+local origin_buf = tonumber(os.getenv("NVIM_EDITOR_BUF") or "")
 if not addr then
   os.exit(1)
 end
@@ -36,8 +37,25 @@ if not ok or chan == 0 then
   os.exit(1)
 end
 
-if origin_win then
-  pcall(vim.rpcrequest, chan, "nvim_call_function", "win_gotoid", { origin_win })
+local moved = false
+if origin_buf then
+  local ok, result = pcall(vim.rpcrequest, chan, "nvim_exec_lua", [[
+    local bufnr = ...
+    if not vim.api.nvim_buf_is_valid(bufnr) then
+      return false
+    end
+    local wins = vim.fn.win_findbuf(bufnr)
+    if #wins == 0 then
+      return false
+    end
+    return vim.api.nvim_set_current_win(wins[1]) == nil
+  ]], { origin_buf })
+  moved = ok and result
+end
+
+if not moved and origin_win then
+  local ok, result = pcall(vim.rpcrequest, chan, "nvim_call_function", "win_gotoid", { origin_win })
+  moved = ok and result == 1
 end
 
 -- 親Neovimでファイルを開く
