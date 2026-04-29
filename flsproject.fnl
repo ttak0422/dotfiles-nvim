@@ -3,11 +3,10 @@
          :unknown-module-field true
          :unnecessary-method true
          :unnecessary-tset true
-         :unnecessary-do true
+         :empty-do true
          :redundant-do true
          :match-should-case true
          :bad-unpack true
          :var-never-set true
          :op-with-no-arguments true
-         :multival-in-middle-of-call true
          :no-decreasing-comparison false}}
