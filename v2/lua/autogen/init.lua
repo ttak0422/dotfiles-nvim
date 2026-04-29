@@ -1,5 +1,6 @@
 -- [nfnl] v2/fnl/init.fnl
 vim.loader.enable()
+require("vim._core.ui2").enable()
 if ((vim.env.NVIM_AUTO_REMOTE == "1") and vim.env.NVIM and (#vim.fn.argv() > 0)) then
   local sent = false
   do

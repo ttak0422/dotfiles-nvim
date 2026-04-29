@@ -2380,6 +2380,19 @@
       "url": "https://github.com/nvzone/timerly/archive/1c78999480af0e4f8201fe6bfa1e5e0b70a59acf.tar.gz",
       "hash": "sha256-XPavAumJdwG0ocrRKXFAt79VvaxGh+Zd2uHuAfBidkk="
     },
+    "tiny-cmdline.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "rachartier",
+        "repo": "tiny-cmdline.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "ad58747b955d0743ccfd56e97da1a4c1fac89f58",
+      "url": "https://github.com/rachartier/tiny-cmdline.nvim/archive/ad58747b955d0743ccfd56e97da1a4c1fac89f58.tar.gz",
+      "hash": "sha256-tD1DrY4mpPf5Qo9jZEBqSxOOqzk2Ssl1srH4mu+cN5g="
+    },
     "tiny-code-action.nvim": {
       "type": "Git",
       "repository": {

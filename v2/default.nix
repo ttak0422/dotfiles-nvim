@@ -151,10 +151,6 @@ in
       package = snacks-nvim;
       startupConfig = read "./fnl/snacks.fnl";
     };
-    notify = {
-      package = nvim-notify;
-      startupConfig = read "./fnl/notify.fnl";
-    };
 
     blink = {
       packages = [
@@ -169,10 +165,6 @@ in
       startupConfig = read "./fnl/luasnip.fnl";
     };
 
-    noice = {
-      package = noice-nvim;
-      startupConfig = read "./fnl/noice.fnl";
-    };
     treesitter = {
       packages = [
         nvim-treesitter
@@ -410,6 +402,11 @@ in
     };
 
     jsonl.package = vim-jsonl;
+
+    cmdline = {
+      package = tiny-cmdline-nvim;
+      startupConfig = read "./fnl/tiny-cmdline.fnl";
+    };
   };
 
   lazy = with pkgs.vimPlugins.v2; rec {
@@ -833,6 +830,10 @@ in
           package = flit-nvim;
           depends = [ vim-repeat ];
           postConfig = read "./fnl/flit.fnl";
+        }
+        {
+          package = nvim-notify;
+          postConfig = read "./fnl/notify.fnl";
         }
       ];
       postConfig = # lua

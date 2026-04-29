@@ -1,5 +1,6 @@
 ; vim configs
 (vim.loader.enable)
+((. (require :vim._core.ui2) :enable))
 
 ;; ネストNeovim防止
 ;; NVIM_AUTO_REMOTE=1 のときだけ、$NVIM 先へ引数ファイルを転送して即終了

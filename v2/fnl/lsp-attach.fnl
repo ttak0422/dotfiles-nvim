@@ -28,9 +28,6 @@
                               [:<Leader>ca
                                #((. (require :tiny-code-action) :code_action))
                                "code action"]
-                              [:K
-                               #((. (require :noice.lsp) :hover))
-                               "show doc"]
                               [:gpd
                                (cmd "lua require('goto-preview').goto_preview_definition()")
                                "preview definition"]
