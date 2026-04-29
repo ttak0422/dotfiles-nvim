@@ -1,10 +1,8 @@
 ;; dap
 (local dap (require :dap))
-(local vscode (require :dap.ext.vscode))
 
-(tset dap.listeners.before.event_terminated :dapui_config (fn []))
-(tset dap.listeners.before.event_exited :dapui_config (fn []))
-(vscode.load_launchjs)
+(set dap.listeners.before.event_terminated.dapui_config (fn []))
+(set dap.listeners.before.event_exited.dapui_config (fn []))
 
 ;; virtual text
 (local virtual-text (require :nvim-dap-virtual-text))
