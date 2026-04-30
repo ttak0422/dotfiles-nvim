@@ -16,7 +16,6 @@
                    :conceallevel 3
                    :concealcursor :n
                    :number false
-                   :signcolumn :no
                    :foldcolumn :0})]
   (tset vim.opt_local k v))
 
