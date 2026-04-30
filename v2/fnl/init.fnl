@@ -23,6 +23,8 @@
 (when (and vim.v.servername (not= vim.v.servername ""))
   (set vim.env.NVIM_EDITOR_ADDR vim.v.servername))
 
+(set vim.env.NVIM_AUTO_REMOTE :1)
+
 (fn update-editor-origin-window []
   (set vim.env.NVIM_EDITOR_WIN (tostring (vim.api.nvim_get_current_win))))
 
@@ -35,6 +37,7 @@
   (set vim.env.EDITOR vim.g._editor_open_cmd))
 
 (when vim.g._editor_open_cmd_wait
+  (set vim.env.VISUAL vim.g._editor_open_cmd_wait)
   (set vim.env.GIT_EDITOR vim.g._editor_open_cmd_wait))
 
 (vim.cmd "language messages en_US.UTF-8")

@@ -28,6 +28,7 @@ if (vim.v.servername and (vim.v.servername ~= "")) then
   vim.env.NVIM_EDITOR_ADDR = vim.v.servername
 else
 end
+vim.env.NVIM_AUTO_REMOTE = "1"
 local function update_editor_origin_window()
   vim.env.NVIM_EDITOR_WIN = tostring(vim.api.nvim_get_current_win())
   return nil
@@ -39,6 +40,7 @@ if vim.g._editor_open_cmd then
 else
 end
 if vim.g._editor_open_cmd_wait then
+  vim.env.VISUAL = vim.g._editor_open_cmd_wait
   vim.env.GIT_EDITOR = vim.g._editor_open_cmd_wait
 else
 end
