@@ -58,6 +58,17 @@ if not moved and origin_win then
   moved = ok and result == 1
 end
 
+if moved then
+  -- Do not replace the terminal buffer that spawned the editor. Hiding a
+  -- terminal with bufhidden=wipe kills the job, and then :wq's "b#" fallback
+  -- in gitcommit buffers has no valid buffer to return to.
+  pcall(vim.rpcrequest, chan, "nvim_exec_lua", [[
+    if vim.bo.buftype == "terminal" then
+      vim.cmd("split")
+    end
+  ]], {})
+end
+
 -- 親Neovimでファイルを開く
 local any_ok = false
 local target = nil
