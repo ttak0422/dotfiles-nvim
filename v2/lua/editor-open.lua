@@ -10,23 +10,112 @@ if not addr then
   os.exit(1)
 end
 
--- 引数解析: --line=N は直後のファイルとペアにする
-local wait = false
-local pending_line = nil
-local entries = {} -- { {file=..., line=...}, ... }
-for i = 1, #arg do
-  if arg[i] == "--wait" then
-    wait = true
-  elseif arg[i]:match("^--line=(%d+)$") then
-    pending_line = "+" .. arg[i]:match("^--line=(%d+)$")
-  else
-    table.insert(entries, {
-      file = vim.fn.fnamemodify(arg[i], ":p"),
-      line = pending_line,
+local function parse_args(args)
+  local wait = false
+  local pending_line = nil
+  local entries = {}
+
+  for i = 1, #args do
+    if args[i] == "--wait" then
+      wait = true
+    elseif args[i]:match("^--line=(%d+)$") then
+      pending_line = "+" .. args[i]:match("^--line=(%d+)$")
+    else
+      table.insert(entries, {
+        file = vim.fn.fnamemodify(args[i], ":p"),
+        line = pending_line,
+      })
+      pending_line = nil
+    end
+  end
+
+  return wait, entries
+end
+
+local function focus_origin(chan)
+  if origin_buf then
+    local ok, result = pcall(vim.rpcrequest, chan, "nvim_exec_lua", [[
+      local bufnr = ...
+      if not vim.api.nvim_buf_is_valid(bufnr) then
+        return false
+      end
+      local wins = vim.fn.win_findbuf(bufnr)
+      if #wins == 0 then
+        return false
+      end
+      return vim.api.nvim_set_current_win(wins[1]) == nil
+    ]], { origin_buf })
+    if ok and result then
+      return true
+    end
+  end
+
+  if origin_win then
+    local ok, result = pcall(vim.rpcrequest, chan, "nvim_call_function", "win_gotoid", { origin_win })
+    return ok and result == 1
+  end
+
+  return false
+end
+
+local function split_if_origin_is_terminal(chan)
+  pcall(vim.rpcrequest, chan, "nvim_exec_lua", [[
+    if vim.bo.buftype == "terminal" then
+      vim.cmd("split")
+    end
+  ]], {})
+end
+
+local function open_entry(chan, entry)
+  if entry.line then
+    -- nvim_cmd の edit は nargs=? のため +N を別引数にできない。
+    -- nvim_exec2 で ":edit +N file" をそのまま実行する。
+    local cmd_str = "edit " .. entry.line .. " " .. vim.fn.fnameescape(entry.file)
+    return pcall(vim.rpcrequest, chan, "nvim_exec2", cmd_str, {})
+  end
+
+  return pcall(vim.rpcrequest, chan, "nvim_cmd", { cmd = "edit", args = { entry.file } }, {})
+end
+
+local function wait_for_buffer(chan, target)
+  local buf_ok, bufnr = pcall(vim.rpcrequest, chan, "nvim_call_function", "bufnr", { target })
+  if not buf_ok or type(bufnr) ~= "number" or bufnr <= 0 then
+    return
+  end
+
+  local lock = vim.fn.tempname()
+  vim.fn.writefile({}, lock)
+
+  local acmd_ok, _ = pcall(vim.rpcrequest, chan, "nvim_exec_lua", [[
+    local bufnr, lockfile = ...
+    vim.api.nvim_create_autocmd({'BufDelete', 'BufWipeout', 'BufHidden', 'BufUnload'}, {
+      buffer = bufnr,
+      once = true,
+      callback = function() os.remove(lockfile) end,
     })
-    pending_line = nil
+  ]], { bufnr, lock })
+
+  if not acmd_ok then
+    os.remove(lock)
+    return
+  end
+
+  local still_exists, exists = pcall(vim.rpcrequest, chan, "nvim_call_function", "bufexists", { bufnr })
+  if still_exists and exists == 0 then
+    os.remove(lock)
+  end
+
+  while vim.fn.filereadable(lock) == 1 do
+    local alive = pcall(vim.rpcrequest, chan, "nvim_get_mode")
+    if not alive then
+      os.remove(lock)
+      break
+    end
+    vim.uv.sleep(100)
   end
 end
+
+local wait, entries = parse_args(arg)
 
 if #entries == 0 then
   os.exit(0)
@@ -37,51 +126,18 @@ if not ok or chan == 0 then
   os.exit(1)
 end
 
-local moved = false
-if origin_buf then
-  local ok, result = pcall(vim.rpcrequest, chan, "nvim_exec_lua", [[
-    local bufnr = ...
-    if not vim.api.nvim_buf_is_valid(bufnr) then
-      return false
-    end
-    local wins = vim.fn.win_findbuf(bufnr)
-    if #wins == 0 then
-      return false
-    end
-    return vim.api.nvim_set_current_win(wins[1]) == nil
-  ]], { origin_buf })
-  moved = ok and result
-end
-
-if not moved and origin_win then
-  local ok, result = pcall(vim.rpcrequest, chan, "nvim_call_function", "win_gotoid", { origin_win })
-  moved = ok and result == 1
-end
-
-if moved then
+if focus_origin(chan) then
   -- Do not replace the terminal buffer that spawned the editor. Hiding a
   -- terminal with bufhidden=wipe kills the job, and then :wq's "b#" fallback
   -- in gitcommit buffers has no valid buffer to return to.
-  pcall(vim.rpcrequest, chan, "nvim_exec_lua", [[
-    if vim.bo.buftype == "terminal" then
-      vim.cmd("split")
-    end
-  ]], {})
+  split_if_origin_is_terminal(chan)
 end
 
 -- 親Neovimでファイルを開く
 local any_ok = false
 local target = nil
 for _, entry in ipairs(entries) do
-  local rok, _
-  if entry.line then
-    -- nvim_cmd の edit は nargs=? のため +N を別引数にできない。
-    -- nvim_exec2 で ":edit +N file" をそのまま実行する。
-    local cmd_str = "edit " .. entry.line .. " " .. vim.fn.fnameescape(entry.file)
-    rok, _ = pcall(vim.rpcrequest, chan, "nvim_exec2", cmd_str, {})
-  else
-    rok, _ = pcall(vim.rpcrequest, chan, "nvim_cmd", { cmd = "edit", args = { entry.file } }, {})
-  end
+  local rok, _ = open_entry(chan, entry)
   if rok then
     any_ok = true
     target = entry.file
@@ -94,38 +150,7 @@ if not any_ok then
 end
 
 if wait and target then
-  local buf_ok, bufnr = pcall(vim.rpcrequest, chan, "nvim_call_function", "bufnr", { target })
-  if buf_ok and type(bufnr) == "number" and bufnr > 0 then
-    local lock = vim.fn.tempname()
-    vim.fn.writefile({}, lock)
-    -- 親でバッファが閉じられたらロックファイルを消す
-    local acmd_ok, _ = pcall(vim.rpcrequest, chan, "nvim_exec_lua", [[
-      local bufnr, lockfile = ...
-      vim.api.nvim_create_autocmd({'BufDelete', 'BufWipeout', 'BufHidden', 'BufUnload'}, {
-        buffer = bufnr,
-        once = true,
-        callback = function() os.remove(lockfile) end,
-      })
-    ]], { bufnr, lock })
-    -- autocmd設定失敗、またはバッファが既に消えている場合はロック解除
-    if not acmd_ok then
-      os.remove(lock)
-    else
-      local still_exists, exists = pcall(vim.rpcrequest, chan, "nvim_call_function", "bufexists", { bufnr })
-      if still_exists and exists == 0 then
-        os.remove(lock)
-      end
-    end
-    -- ロックファイルが消えるまでブロック
-    while vim.fn.filereadable(lock) == 1 do
-      local alive = pcall(vim.rpcrequest, chan, "nvim_get_mode")
-      if not alive then
-        os.remove(lock)
-        break
-      end
-      vim.uv.sleep(100)
-    end
-  end
+  wait_for_buffer(chan, target)
 end
 
 vim.fn.chanclose(chan)

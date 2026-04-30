@@ -29,6 +29,18 @@
                             (= (vim.api.nvim_get_current_buf) buf))
                    (vim.cmd :startinsert))))
 
+(fn with-editor-origin [win buf f]
+  (let [prev-editor-win vim.env.NVIM_EDITOR_WIN
+        prev-editor-buf vim.env.NVIM_EDITOR_BUF]
+    (set vim.env.NVIM_EDITOR_WIN (tostring win))
+    (set vim.env.NVIM_EDITOR_BUF (tostring buf))
+    (let [(ok? result) (pcall f)]
+      (set vim.env.NVIM_EDITOR_WIN prev-editor-win)
+      (set vim.env.NVIM_EDITOR_BUF prev-editor-buf)
+      (if ok?
+          result
+          (error result)))))
+
 (fn focus-gitu-buffer [buf]
   (let [wins (vim.fn.win_findbuf buf)]
     (if (> (length wins) 0)
@@ -70,28 +82,22 @@
                                          {:group augroup
                                           :buffer buf
                                           :callback #(startinsert-if-current buf)})
-            (let [prev-editor-win vim.env.NVIM_EDITOR_WIN
-                  prev-editor-buf vim.env.NVIM_EDITOR_BUF
-                  job (do
-                        (set vim.env.NVIM_EDITOR_WIN (tostring win))
-                        (set vim.env.NVIM_EDITOR_BUF (tostring buf))
-                        (let [job (vim.fn.jobstart [:gitu]
-                                                   {:term true
-                                                    :on_exit (fn [_ status _]
-                                                               (when (vim.api.nvim_buf_is_valid buf)
-                                                                 (vim.api.nvim_buf_set_var buf
-                                                                                           :gitu_running
-                                                                                           false))
-                                                               (if (= status 0)
-                                                                   (vim.schedule #(close-gitu-buffer buf
-                                                                                                     win
-                                                                                                     did-split))
-                                                                   (vim.schedule #(vim.notify (.. "gitu exited with code "
-                                                                                                  status)
-                                                                                              vim.log.levels.WARN))))})]
-                          (set vim.env.NVIM_EDITOR_WIN prev-editor-win)
-                          (set vim.env.NVIM_EDITOR_BUF prev-editor-buf)
-                          job))]
+            (let [job (with-editor-origin win
+                        buf
+                        #(vim.fn.jobstart [:gitu]
+                                          {:term true
+                                           :on_exit (fn [_ status _]
+                                                      (when (vim.api.nvim_buf_is_valid buf)
+                                                        (vim.api.nvim_buf_set_var buf
+                                                                                  :gitu_running
+                                                                                  false))
+                                                      (if (= status 0)
+                                                          (vim.schedule #(close-gitu-buffer buf
+                                                                                            win
+                                                                                            did-split))
+                                                          (vim.schedule #(vim.notify (.. "gitu exited with code "
+                                                                                         status)
+                                                                                     vim.log.levels.WARN))))}))]
               (if (<= job 0)
                   (do
                     (vim.notify "failed to start gitu" vim.log.levels.ERROR)

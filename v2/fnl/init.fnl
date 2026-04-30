@@ -2,28 +2,10 @@
 (vim.loader.enable)
 ((. (require :vim._core.ui2) :enable))
 
-;; ネストNeovim防止
-;; NVIM_AUTO_REMOTE=1 のときだけ、$NVIM 先へ引数ファイルを転送して即終了
-;; 接続・転送に失敗した場合は通常起動にフォールバック
-(when (and (= vim.env.NVIM_AUTO_REMOTE :1) vim.env.NVIM
-           (> (length (vim.fn.argv)) 0))
-  (var sent false)
-  (let [(ok chan) (pcall vim.fn.sockconnect :pipe vim.env.NVIM {:rpc true})]
-    (when (and ok (> chan 0))
-      (each [_ f (ipairs (vim.fn.argv))]
-        (let [(rok _) (pcall vim.rpcrequest chan :nvim_cmd
-                             {:cmd :edit :args [(vim.fn.fnamemodify f ":p")]} {})]
-          (when rok (set sent true))))
-      (vim.fn.chanclose chan)))
-  (when sent
-    (vim.cmd :qa!)
-    (lua :return)))
-
 ;; terminal子プロセス向けにEDITORを設定（軽量シェルラッパー）
+;; 実際の親Neovimへの転送と --wait は v2/lua/editor-open.lua に集約する
 (when (and vim.v.servername (not= vim.v.servername ""))
   (set vim.env.NVIM_EDITOR_ADDR vim.v.servername))
-
-(set vim.env.NVIM_AUTO_REMOTE :1)
 
 (fn update-editor-origin-window []
   (set vim.env.NVIM_EDITOR_WIN (tostring (vim.api.nvim_get_current_win))))
@@ -33,10 +15,8 @@
 (vim.api.nvim_create_autocmd [:WinEnter :TabEnter]
                              {:callback update-editor-origin-window})
 
-(when vim.g._editor_open_cmd
-  (set vim.env.EDITOR vim.g._editor_open_cmd))
-
 (when vim.g._editor_open_cmd_wait
+  (set vim.env.EDITOR vim.g._editor_open_cmd_wait)
   (set vim.env.VISUAL vim.g._editor_open_cmd_wait)
   (set vim.env.GIT_EDITOR vim.g._editor_open_cmd_wait))
 

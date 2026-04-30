@@ -45,6 +45,20 @@ local function startinsert_if_current(buf)
   end
   return vim.schedule(_6_)
 end
+local function with_editor_origin(win, buf, f)
+  local prev_editor_win = vim.env.NVIM_EDITOR_WIN
+  local prev_editor_buf = vim.env.NVIM_EDITOR_BUF
+  vim.env.NVIM_EDITOR_WIN = tostring(win)
+  vim.env.NVIM_EDITOR_BUF = tostring(buf)
+  local ok_3f, result = pcall(f)
+  vim.env.NVIM_EDITOR_WIN = prev_editor_win
+  vim.env.NVIM_EDITOR_BUF = prev_editor_buf
+  if ok_3f then
+    return result
+  else
+    return error(result)
+  end
+end
 local function focus_gitu_buffer(buf)
   do
     local wins = vim.fn.win_findbuf(buf)
@@ -61,10 +75,10 @@ local function focus_gitu_buffer(buf)
   return startinsert_if_current(buf)
 end
 local function delete_gitu_buffer(buf)
-  local function _10_()
+  local function _11_()
     return require("snacks").bufdelete({buf = buf, force = true})
   end
-  return pcall(_10_)
+  return pcall(_11_)
 end
 local function close_gitu_buffer(buf, win, did_split)
   if vim.api.nvim_buf_is_valid(buf) then
@@ -99,39 +113,32 @@ local function gitu()
     vim.api.nvim_buf_set_var(buf, "gitu_running", true)
     vim.api.nvim_set_option_value("buflisted", false, {buf = buf})
     vim.api.nvim_set_option_value("bufhidden", "wipe", {buf = buf})
-    local function _15_()
+    local function _16_()
       return startinsert_if_current(buf)
     end
-    vim.api.nvim_create_autocmd("BufEnter", {group = augroup, buffer = buf, callback = _15_})
-    local prev_editor_win = vim.env.NVIM_EDITOR_WIN
-    local prev_editor_buf = vim.env.NVIM_EDITOR_BUF
+    vim.api.nvim_create_autocmd("BufEnter", {group = augroup, buffer = buf, callback = _16_})
     local job
-    do
-      vim.env.NVIM_EDITOR_WIN = tostring(win)
-      vim.env.NVIM_EDITOR_BUF = tostring(buf)
-      local job0
-      local function _16_(_, status, _0)
+    local function _17_()
+      local function _18_(_, status, _0)
         if vim.api.nvim_buf_is_valid(buf) then
           vim.api.nvim_buf_set_var(buf, "gitu_running", false)
         else
         end
         if (status == 0) then
-          local function _18_()
+          local function _20_()
             return close_gitu_buffer(buf, win, did_split)
           end
-          return vim.schedule(_18_)
+          return vim.schedule(_20_)
         else
-          local function _19_()
+          local function _21_()
             return vim.notify(("gitu exited with code " .. status), vim.log.levels.WARN)
           end
-          return vim.schedule(_19_)
+          return vim.schedule(_21_)
         end
       end
-      job0 = vim.fn.jobstart({"gitu"}, {term = true, on_exit = _16_})
-      vim.env.NVIM_EDITOR_WIN = prev_editor_win
-      vim.env.NVIM_EDITOR_BUF = prev_editor_buf
-      job = job0
+      return vim.fn.jobstart({"gitu"}, {term = true, on_exit = _18_})
     end
+    job = with_editor_origin(win, buf, _17_)
     if (job <= 0) then
       vim.notify("failed to start gitu", vim.log.levels.ERROR)
       return delete_gitu_buffer(buf)
@@ -141,7 +148,7 @@ local function gitu()
   end
 end
 vim.api.nvim_create_user_command("Gitu", gitu, {})
-local function _23_()
+local function _25_()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     if gitu_buffer_3f(buf) then
       delete_gitu_buffer(buf)
@@ -150,4 +157,4 @@ local function _23_()
   end
   return nil
 end
-return vim.api.nvim_create_user_command("GituClear", _23_, {})
+return vim.api.nvim_create_user_command("GituClear", _25_, {})
