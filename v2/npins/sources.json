@@ -243,9 +243,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "c573a15a62bd0bfd4006ee0849b24f5404395500",
-      "url": "https://github.com/saghen/blink.cmp/archive/c573a15a62bd0bfd4006ee0849b24f5404395500.tar.gz",
-      "hash": "sha256-9NVRDpv2aalLAsINMQcBaMuhunf3M4E9PG1q8YKqWo0="
+      "revision": "1617522ae80ca2436813da8afe2fc4b1280e975d",
+      "url": "https://github.com/saghen/blink.cmp/archive/1617522ae80ca2436813da8afe2fc4b1280e975d.tar.gz",
+      "hash": "sha256-s3Gy61gCdYubnz94D74WCphYToM6Sn9+MgQmXSjbwxU="
     },
     "blink.compat": {
       "type": "Git",
