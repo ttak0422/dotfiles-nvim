@@ -22,8 +22,10 @@ local function parse_args(args)
   for i = 1, #args do
     if args[i] == "--wait" then
       wait = true
+    elseif args[i] == "--" then
+      pending_line = nil
     elseif args[i]:match("^--line=(%d+)$") then
-      pending_line = "+" .. args[i]:match("^--line=(%d+)$")
+      pending_line = tonumber(args[i]:match("^--line=(%d+)$"))
     else
       table.insert(entries, {
         file = vim.fn.fnamemodify(args[i], ":p"),
@@ -63,14 +65,26 @@ local function focus_origin(chan)
 end
 
 local function open_entry(chan, entry)
-  if entry.line then
-    -- nvim_cmd の edit は nargs=? のため +N を別引数にできない。
-    -- nvim_exec2 で ":edit +N file" をそのまま実行する。
-    local cmd_str = "edit " .. entry.line .. " " .. vim.fn.fnameescape(entry.file)
-    return request(chan, "nvim_exec2", cmd_str, {})
-  end
+  return request(chan, "nvim_exec_lua", [[
+    local file, line = ...
+    local target = vim.fn.fnamemodify(file, ":p")
+    local resolved_target = vim.fn.resolve(target)
 
-  return request(chan, "nvim_cmd", { cmd = "edit", args = { entry.file } }, {})
+    pcall(vim.cmd, "edit " .. vim.fn.fnameescape(target))
+
+    local current = vim.fn.resolve(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p"))
+    if current ~= resolved_target then
+      return false
+    end
+
+    if line then
+      local last = vim.api.nvim_buf_line_count(0)
+      local lnum = math.max(1, math.min(line, last))
+      pcall(vim.api.nvim_win_set_cursor, 0, { lnum, 0 })
+    end
+
+    return true
+  ]], { entry.file, entry.line })
 end
 
 local function wait_for_buffer(chan, target)
@@ -118,8 +132,8 @@ local function open_entries(chan, entries)
   local last_opened = nil
 
   for _, entry in ipairs(entries) do
-    local ok, _ = open_entry(chan, entry)
-    if ok then
+    local ok, opened = open_entry(chan, entry)
+    if ok and opened then
       any_ok = true
       last_opened = entry.file
     end

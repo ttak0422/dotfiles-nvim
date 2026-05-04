@@ -22,6 +22,10 @@ let
         --wait)
           remote_args+=("--wait")
           ;;
+        --)
+          remote_args+=("--")
+          local_args+=("--")
+          ;;
         +[0-9]*)
           remote_args+=("--line=''${a#+}")
           local_args+=("$a")
