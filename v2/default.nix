@@ -39,11 +39,7 @@ let
       unset VIMINIT
       exec "${pkgs.neovim-unwrapped}/bin/nvim" "''${local_args[@]}"
     fi
-    if "${pkgs.neovim-unwrapped}/bin/nvim" --headless --clean -l "${./lua/editor-open.lua}" "''${remote_args[@]}"; then
-      exit 0
-    fi
-    unset NVIM NVIM_EDITOR_ADDR VIMINIT
-    exec "${pkgs.neovim-unwrapped}/bin/nvim" "''${local_args[@]}"
+    exec "${pkgs.neovim-unwrapped}/bin/nvim" --headless --clean -l "${./lua/editor-open.lua}" "''${remote_args[@]}"
   '';
   # --wait 固定のエディタラッパー (GIT_EDITOR 用)
   editorWrapperWait = pkgs.writeShellScript "nvim-editor-open-wait" ''
@@ -65,6 +61,7 @@ in
     ''
       vim.loader.enable()
       if vim.g.neovide then dofile("${./lua/autogen/neovide.lua}") end
+      vim.g._editor_open_cmd = "${editorWrapper}"
       vim.g._editor_open_cmd_wait = "${editorWrapperWait}"
       ${read "./fnl/init.fnl"}
     '';

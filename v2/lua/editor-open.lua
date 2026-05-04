@@ -58,19 +58,6 @@ local function focus_origin(chan)
   return false
 end
 
-local function split_if_origin_is_terminal(chan)
-  local ok, win = pcall(vim.rpcrequest, chan, "nvim_exec_lua", [[
-    if vim.bo.buftype == "terminal" then
-      vim.cmd("split")
-      return vim.api.nvim_get_current_win()
-    end
-    return nil
-  ]], {})
-  if ok and type(win) == "number" and win > 0 then
-    return win
-  end
-end
-
 local function open_entry(chan, entry)
   if entry.line then
     -- nvim_cmd の edit は nargs=? のため +N を別引数にできない。
@@ -82,7 +69,7 @@ local function open_entry(chan, entry)
   return pcall(vim.rpcrequest, chan, "nvim_cmd", { cmd = "edit", args = { entry.file } }, {})
 end
 
-local function wait_for_buffer(chan, target, cleanup_win)
+local function wait_for_buffer(chan, target)
   local buf_ok, bufnr = pcall(vim.rpcrequest, chan, "nvim_call_function", "bufnr", { target })
   if not buf_ok or type(bufnr) ~= "number" or bufnr <= 0 then
     return
@@ -92,18 +79,15 @@ local function wait_for_buffer(chan, target, cleanup_win)
   vim.fn.writefile({}, lock)
 
   local acmd_ok, _ = pcall(vim.rpcrequest, chan, "nvim_exec_lua", [[
-    local bufnr, lockfile, cleanup_win = ...
+    local bufnr, lockfile = ...
     vim.api.nvim_create_autocmd({'BufDelete', 'BufWipeout', 'BufHidden', 'BufUnload'}, {
       buffer = bufnr,
       once = true,
       callback = function()
         os.remove(lockfile)
-        if cleanup_win and vim.api.nvim_win_is_valid(cleanup_win) then
-          pcall(vim.api.nvim_win_close, cleanup_win, true)
-        end
       end,
     })
-  ]], { bufnr, lock, cleanup_win })
+  ]], { bufnr, lock })
 
   if not acmd_ok then
     os.remove(lock)
@@ -136,13 +120,7 @@ if not ok or chan == 0 then
   os.exit(1)
 end
 
-local cleanup_win
-if focus_origin(chan) then
-  -- Do not replace the terminal buffer that spawned the editor. Hiding a
-  -- terminal with bufhidden=wipe kills the job, and then :wq's "b#" fallback
-  -- in gitcommit buffers has no valid buffer to return to.
-  cleanup_win = split_if_origin_is_terminal(chan)
-end
+focus_origin(chan)
 
 -- 親Neovimでファイルを開く
 local any_ok = false
@@ -161,7 +139,7 @@ if not any_ok then
 end
 
 if wait and target then
-  wait_for_buffer(chan, target, cleanup_win)
+  wait_for_buffer(chan, target)
 end
 
 vim.fn.chanclose(chan)
