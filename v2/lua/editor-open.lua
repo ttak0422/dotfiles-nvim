@@ -10,6 +10,10 @@ if not addr then
   os.exit(1)
 end
 
+local function request(chan, method, ...)
+  return pcall(vim.rpcrequest, chan, method, ...)
+end
+
 local function parse_args(args)
   local wait = false
   local pending_line = nil
@@ -34,7 +38,7 @@ end
 
 local function focus_origin(chan)
   if origin_buf then
-    local ok, result = pcall(vim.rpcrequest, chan, "nvim_exec_lua", [[
+    local ok, result = request(chan, "nvim_exec_lua", [[
       local bufnr = ...
       if not vim.api.nvim_buf_is_valid(bufnr) then
         return false
@@ -51,7 +55,7 @@ local function focus_origin(chan)
   end
 
   if origin_win then
-    local ok, result = pcall(vim.rpcrequest, chan, "nvim_call_function", "win_gotoid", { origin_win })
+    local ok, result = request(chan, "nvim_call_function", "win_gotoid", { origin_win })
     return ok and result == 1
   end
 
@@ -63,14 +67,14 @@ local function open_entry(chan, entry)
     -- nvim_cmd の edit は nargs=? のため +N を別引数にできない。
     -- nvim_exec2 で ":edit +N file" をそのまま実行する。
     local cmd_str = "edit " .. entry.line .. " " .. vim.fn.fnameescape(entry.file)
-    return pcall(vim.rpcrequest, chan, "nvim_exec2", cmd_str, {})
+    return request(chan, "nvim_exec2", cmd_str, {})
   end
 
-  return pcall(vim.rpcrequest, chan, "nvim_cmd", { cmd = "edit", args = { entry.file } }, {})
+  return request(chan, "nvim_cmd", { cmd = "edit", args = { entry.file } }, {})
 end
 
 local function wait_for_buffer(chan, target)
-  local buf_ok, bufnr = pcall(vim.rpcrequest, chan, "nvim_call_function", "bufnr", { target })
+  local buf_ok, bufnr = request(chan, "nvim_call_function", "bufnr", { target })
   if not buf_ok or type(bufnr) ~= "number" or bufnr <= 0 then
     return
   end
@@ -78,7 +82,7 @@ local function wait_for_buffer(chan, target)
   local lock = vim.fn.tempname()
   vim.fn.writefile({}, lock)
 
-  local acmd_ok, _ = pcall(vim.rpcrequest, chan, "nvim_exec_lua", [[
+  local acmd_ok, _ = request(chan, "nvim_exec_lua", [[
     local bufnr, lockfile = ...
     vim.api.nvim_create_autocmd({'BufDelete', 'BufWipeout', 'BufHidden', 'BufUnload'}, {
       buffer = bufnr,
@@ -94,19 +98,34 @@ local function wait_for_buffer(chan, target)
     return
   end
 
-  local still_exists, exists = pcall(vim.rpcrequest, chan, "nvim_call_function", "bufexists", { bufnr })
+  local still_exists, exists = request(chan, "nvim_call_function", "bufexists", { bufnr })
   if still_exists and exists == 0 then
     os.remove(lock)
   end
 
   while vim.fn.filereadable(lock) == 1 do
-    local alive = pcall(vim.rpcrequest, chan, "nvim_get_mode")
+    local alive = request(chan, "nvim_get_mode")
     if not alive then
       os.remove(lock)
       break
     end
     vim.uv.sleep(100)
   end
+end
+
+local function open_entries(chan, entries)
+  local any_ok = false
+  local last_opened = nil
+
+  for _, entry in ipairs(entries) do
+    local ok, _ = open_entry(chan, entry)
+    if ok then
+      any_ok = true
+      last_opened = entry.file
+    end
+  end
+
+  return any_ok, last_opened
 end
 
 local wait, entries = parse_args(arg)
@@ -123,15 +142,7 @@ end
 focus_origin(chan)
 
 -- 親Neovimでファイルを開く
-local any_ok = false
-local target = nil
-for _, entry in ipairs(entries) do
-  local rok, _ = open_entry(chan, entry)
-  if rok then
-    any_ok = true
-    target = entry.file
-  end
-end
+local any_ok, target = open_entries(chan, entries)
 
 if not any_ok then
   vim.fn.chanclose(chan)

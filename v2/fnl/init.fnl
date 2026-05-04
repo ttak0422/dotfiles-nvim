@@ -10,17 +10,20 @@
 (fn update-editor-origin-window []
   (set vim.env.NVIM_EDITOR_WIN (tostring (vim.api.nvim_get_current_win))))
 
+(fn configure-editor-env []
+  (when vim.g._editor_open_cmd
+    (set vim.env.EDITOR vim.g._editor_open_cmd)
+    (set vim.env.VISUAL vim.g._editor_open_cmd))
+
+  (when vim.g._editor_open_cmd_wait
+    (set vim.env.GIT_EDITOR vim.g._editor_open_cmd_wait)))
+
 (update-editor-origin-window)
 
 (vim.api.nvim_create_autocmd [:WinEnter :TabEnter]
                              {:callback update-editor-origin-window})
 
-(when vim.g._editor_open_cmd
-  (set vim.env.EDITOR vim.g._editor_open_cmd)
-  (set vim.env.VISUAL vim.g._editor_open_cmd))
-
-(when vim.g._editor_open_cmd_wait
-  (set vim.env.GIT_EDITOR vim.g._editor_open_cmd_wait))
+(configure-editor-env)
 
 (vim.cmd "language messages en_US.UTF-8")
 

@@ -9,17 +9,22 @@ local function update_editor_origin_window()
   vim.env.NVIM_EDITOR_WIN = tostring(vim.api.nvim_get_current_win())
   return nil
 end
+local function configure_editor_env()
+  if vim.g._editor_open_cmd then
+    vim.env.EDITOR = vim.g._editor_open_cmd
+    vim.env.VISUAL = vim.g._editor_open_cmd
+  else
+  end
+  if vim.g._editor_open_cmd_wait then
+    vim.env.GIT_EDITOR = vim.g._editor_open_cmd_wait
+    return nil
+  else
+    return nil
+  end
+end
 update_editor_origin_window()
 vim.api.nvim_create_autocmd({"WinEnter", "TabEnter"}, {callback = update_editor_origin_window})
-if vim.g._editor_open_cmd then
-  vim.env.EDITOR = vim.g._editor_open_cmd
-  vim.env.VISUAL = vim.g._editor_open_cmd
-else
-end
-if vim.g._editor_open_cmd_wait then
-  vim.env.GIT_EDITOR = vim.g._editor_open_cmd_wait
-else
-end
+configure_editor_env()
 vim.cmd("language messages en_US.UTF-8")
 pcall(dofile, vim.fn.expand("$HOME/config.lua"))
 for opt, kvp in pairs({opt = {langmenu = "none", timeoutlen = 1000, shortmess = (vim.o.shortmess .. "sWcS"), cmdheight = 0, signcolumn = "yes", laststatus = 0, showtabline = 0, splitkeep = "screen", foldcolumn = "1", foldlevel = 99, foldlevelstart = 99, foldenable = true, switchbuf = "", splitbelow = true, splitright = true, winborder = "single", number = false, showmode = false, wrap = false}, g = {mapleader = " ", maplocalleader = ",", loaded_netrw = 1, loaded_netrwPlugin = 1, no_plugin_maps = true}}) do
