@@ -13,6 +13,7 @@ local function configure_editor_env()
   if vim.g._editor_open_cmd then
     vim.env.EDITOR = vim.g._editor_open_cmd
     vim.env.VISUAL = vim.g._editor_open_cmd
+    vim.env.TIG_EDITOR = vim.g._editor_open_cmd
   else
   end
   if vim.g._editor_open_cmd_wait then
