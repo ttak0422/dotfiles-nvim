@@ -539,6 +539,19 @@
       "url": "https://github.com/creativenull/efmls-configs-nvim/archive/5dc52088c231f2721f545570fcb541b04802ce6b.tar.gz",
       "hash": "sha256-QO4R/+qAMXV+NN3gsMcKz7Z2BHZbwbwNBoD1AxfA/aY="
     },
+    "fidget.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "j-hui",
+        "repo": "fidget.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "889e2e96edef4e144965571d46f7a77bcc4d0ddf",
+      "url": "https://github.com/j-hui/fidget.nvim/archive/889e2e96edef4e144965571d46f7a77bcc4d0ddf.tar.gz",
+      "hash": "sha256-LQIqkEf6mH7LViyHKTFXm6y28/tLjxMGDP1oIHq8LkI="
+    },
     "fix-auto-scroll.nvim": {
       "type": "Git",
       "repository": {

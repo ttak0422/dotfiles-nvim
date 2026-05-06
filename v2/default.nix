@@ -830,6 +830,10 @@ in
           postConfig = read "./fnl/flit.fnl";
         }
         {
+          package = fidget-nvim;
+          postConfig = read "./fnl/fidget.fnl";
+        }
+        {
           package = nvim-notify;
           postConfig = read "./fnl/notify.fnl";
         }
