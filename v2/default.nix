@@ -701,10 +701,6 @@ in
           postConfig = read "./fnl/tabout.fnl";
         }
         {
-          package = autoclose-nvim;
-          postConfig = read "./fnl/autoclose.fnl";
-        }
-        {
           package = auto-save-nvim;
           postConfig = read "./fnl/auto-save.fnl";
         }
