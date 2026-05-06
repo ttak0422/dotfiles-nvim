@@ -394,10 +394,10 @@ in
       startupConfig = read "./fnl/rustowl.fnl";
     };
 
-    morimo = {
-      package = pkgs.vimPlugins.v2.morimo;
-      startupConfig = read "./fnl/morimo.fnl";
-    };
+    # morimo = {
+    #   package = pkgs.vimPlugins.v2.morimo;
+    #   startupConfig = read "./fnl/morimo.fnl";
+    # };
 
     jsonl.package = vim-jsonl;
 
