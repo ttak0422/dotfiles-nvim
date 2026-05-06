@@ -57,7 +57,8 @@ do
     elseif (case_14_ == "@") then
       return cmd_src
     else
-      return nil
+      local _ = case_14_
+      return {}
     end
   end
   _10_ = {enabled = true, completion = {list = {selection = {auto_insert = true, preselect = false}}}, keymap = {preset = "none", ["<Tab>"] = {"show_and_insert", "select_next", "fallback"}, ["<S-Tab>"] = {_11_, "select_prev", "fallback"}, ["<C-space>"] = {"show", "fallback"}, ["<C-n>"] = {"show_and_insert", "select_next", "fallback"}, ["<C-p>"] = {_12_, "select_prev", "fallback"}, ["<Right>"] = {"select_next", "fallback"}, ["<Left>"] = {"select_prev", "fallback"}, ["<C-y>"] = {"select_and_accept", "fallback"}, ["<C-e>"] = {"cancel", "fallback_to_mappings"}, ["<End>"] = {"hide", "fallback"}}, sources = _13_}

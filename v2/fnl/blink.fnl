@@ -153,7 +153,8 @@ cnoremap <expr> <C-f> '<Right>'
                                     "/" search_src
                                     "?" search_src
                                     ":" cmd_src
-                                    "@" cmd_src)})
+                                    "@" cmd_src
+                                    _ [])})
             :term {:enabled false}})
 
 (vim.lsp.config "*" {:capabilities (cmp.get_lsp_capabilities)})
