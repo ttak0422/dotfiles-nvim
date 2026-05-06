@@ -15,7 +15,6 @@
     (set vim.env.EDITOR vim.g._editor_open_cmd)
     (set vim.env.VISUAL vim.g._editor_open_cmd)
     (set vim.env.TIG_EDITOR vim.g._editor_open_cmd))
-
   (when vim.g._editor_open_cmd_wait
     (set vim.env.GIT_EDITOR vim.g._editor_open_cmd_wait)))
 
@@ -52,7 +51,8 @@
                              :switchbuf ""
                              :splitbelow true
                              :splitright true
-                             :winborder :single}
+                             :winborder :single
+                             :background :light}
                        :g {:mapleader " "
                            :maplocalleader ","
                            :loaded_netrw 1
@@ -237,6 +237,6 @@
   (for [i 0 9]
     (vim.keymap.set [:n :t :i] (.. :<C- i ">") (toggle (.. :term i)) opts)))
 
-(vim.cmd "colorscheme morimo")
+(vim.cmd "colorscheme sorairo")
 
 ((. (require :config-local) :setup) {:silent true})

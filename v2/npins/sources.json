@@ -2090,9 +2090,9 @@
       },
       "branch": "v2",
       "submodules": false,
-      "revision": "8dec14f3de1b20ab20b8d216f2f347edc4a8d1f6",
-      "url": "https://github.com/ttak0422/sorairo/archive/8dec14f3de1b20ab20b8d216f2f347edc4a8d1f6.tar.gz",
-      "hash": "sha256-z7YHIKVgNN0YUMJwwHQ6LXWa1z1kEJJb0GpiYGYSokk="
+      "revision": "96b6173874368eceadfa2f9a76c5e455ea25824f",
+      "url": "https://github.com/ttak0422/sorairo/archive/96b6173874368eceadfa2f9a76c5e455ea25824f.tar.gz",
+      "hash": "sha256-n3QwriAg7imdRxJS3vCsGvOV2BAIHcad2Frts9GBihQ="
     },
     "spring-boot.nvim": {
       "type": "Git",
