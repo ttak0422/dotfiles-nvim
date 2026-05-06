@@ -371,10 +371,6 @@ in
     #   package = bufresize-nvim;
     #   startupConfig = read "./fnl/bufresize.fnl";
     # };
-    # direnv = {
-    #   package = direnv-vim;
-    #   startupConfig = read "./fnl/direnv.fnl";
-    # };
     # alpha = {
     #   package = alpha-nvim;
     #   startupConfig = read "./fnl/alpha.fnl";
