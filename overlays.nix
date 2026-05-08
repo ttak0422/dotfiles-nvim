@@ -85,26 +85,29 @@ with inputs;
         };
       # TODO: move to `/v2`
       v2 = {
-        # https://github.com/JetBrains/homebrew-utils/blob/master/Formula/kotlin-lsp.rb
-        kotlin-lsp = mkDerivation {
-          name = "kotlin-lsp";
-          src = inputs.v2-kotlin-lsp-src-aarch64-darwin;
+        kotlin-lsp = mkDerivation rec {
+          pname = "kotlin-lsp";
+          version = "262.4739.0";
+          src = final.fetchzip {
+            url = "https://download-cdn.jetbrains.com/kotlin-lsp/${version}/kotlin-server-${version}-aarch64.sit";
+            hash = "sha256-/Wzvp0vbw8UQfCsHcT5SPLFYxo5clMy86Iy3uGDPOYQ=";
+            extension = "zip";
+          };
           dontBuild = true;
           nativeBuildInputs = with final; [ makeWrapper ];
-          buildInputs = with final; [
-            openjdk
-            gradle
-          ];
+          buildInputs = with final; [ openjdk ];
           installPhase = ''
-            mkdir -p $out/libexec/kotlin-lsp $out/bin
-            cp kotlin-lsp.sh $out/libexec/kotlin-lsp/
-            cp -r lib native $out/libexec/kotlin-lsp/
+            runHook preInstall
+
+            mkdir -p $out/libexec/kotlin-lsp
+            for x in $src/*; do
+              ln -s "$x" "$out/libexec/kotlin-lsp/$(basename "$x")"
+            done
+
+            runHook postInstall
           '';
           postFixup = ''
-            makeWrapper ${final.bash}/bin/bash $out/bin/kotlin-lsp \
-              --chdir $out/libexec/kotlin-lsp \
-              --add-flags ./kotlin-lsp.sh \
-              --set-default JAVA_HOME ${final.openjdk}
+            wrapProgram $out/libexec/kotlin-lsp/kotlin-lsp.sh --set-default JAVA_HOME ${final.openjdk}
           '';
         };
 

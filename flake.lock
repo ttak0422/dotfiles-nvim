@@ -607,7 +607,6 @@
         "skk-dict": "skk-dict",
         "systems": "systems_2",
         "v2-blink-cmp": "v2-blink-cmp",
-        "v2-kotlin-lsp-src-aarch64-darwin": "v2-kotlin-lsp-src-aarch64-darwin",
         "v2-mcp-hub": "v2-mcp-hub",
         "v2-pterm": "v2-pterm"
       }
@@ -728,19 +727,6 @@
         "ref": "v1",
         "repo": "blink.cmp",
         "type": "github"
-      }
-    },
-    "v2-kotlin-lsp-src-aarch64-darwin": {
-      "flake": false,
-      "locked": {
-        "lastModified": 312735600,
-        "narHash": "sha256-zwlzVt3KYN0OXKr6sI9XSijXSbTImomSTGRGa+3zCK8=",
-        "type": "tarball",
-        "url": "https://download-cdn.jetbrains.com/kotlin-lsp/261.13587.0/kotlin-lsp-261.13587.0-mac-aarch64.zip"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://download-cdn.jetbrains.com/kotlin-lsp/261.13587.0/kotlin-lsp-261.13587.0-mac-aarch64.zip"
       }
     },
     "v2-mcp-hub": {

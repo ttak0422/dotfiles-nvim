@@ -44,10 +44,6 @@
     };
     v2-blink-cmp.url = "github:Saghen/blink.cmp/v1";
     v2-pterm.url = "github:ttak0422/pterm";
-    v2-kotlin-lsp-src-aarch64-darwin = {
-      url = "https://download-cdn.jetbrains.com/kotlin-lsp/261.13587.0/kotlin-lsp-261.13587.0-mac-aarch64.zip";
-      flake = false;
-    };
     # WIP
     # v2-rustowl.url = "github:nix-community/rustowl-flake";
   };
