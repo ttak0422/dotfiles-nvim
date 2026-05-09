@@ -806,11 +806,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1778294539,
-        "narHash": "sha256-MtHUZ7mDQvWMjVOXDH60sIby4Ho8UqIgNWRDwSWytsY=",
+        "lastModified": 1778332995,
+        "narHash": "sha256-UBLTpcTAQ0fw/jb+7y2WAMzPZRzyfJ9TEjqJgD+oqGw=",
         "owner": "ttak0422",
         "repo": "meian.nvim",
-        "rev": "6695d10bec641035c5d762e4983c14d6db905616",
+        "rev": "000a25009be81247c191e2b0ac5ce93ff67560fe",
         "type": "github"
       },
       "original": {

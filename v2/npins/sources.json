@@ -337,9 +337,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "84432d9966fafaa08dd9040c98b0011045d8e964",
-      "url": "https://github.com/nvim-zh/colorful-winsep.nvim/archive/84432d9966fafaa08dd9040c98b0011045d8e964.tar.gz",
-      "hash": "sha256-xZKDP/9iG2+tt8nqNpirvCe5olNj/jLYrVV9D6o+UXk="
+      "revision": "6134b5cd4a38990c7b720adc90973ed32f726179",
+      "url": "https://github.com/nvim-zh/colorful-winsep.nvim/archive/6134b5cd4a38990c7b720adc90973ed32f726179.tar.gz",
+      "hash": "sha256-11F/cax2qRDQtxbmM8TfHlmko5gxX5VrW8lPcPFfIzU="
     },
     "conform.nvim": {
       "type": "Git",
