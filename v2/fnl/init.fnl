@@ -51,8 +51,7 @@
                              :switchbuf ""
                              :splitbelow true
                              :splitright true
-                             :winborder :single
-                             :background :light}
+                             :winborder :single}
                        :g {:mapleader " "
                            :maplocalleader ","
                            :loaded_netrw 1

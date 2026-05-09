@@ -146,6 +146,10 @@ in
   eager = with pkgs.vimPlugins.v2; {
     plenary.package = plenary-nvim;
     bg.package = bg-nvim;
+    meian = {
+      package = pkgs.vimPlugins.v2.meian;
+      startupConfig = read "./fnl/meian.fnl";
+    };
     nui.package = nui-nvim;
     asterisk.package = vim-asterisk;
     config-local.package = nvim-config-local;
@@ -405,6 +409,7 @@ in
       package = tiny-cmdline-nvim;
       startupConfig = read "./fnl/tiny-cmdline.fnl";
     };
+
   };
 
   lazy = with pkgs.vimPlugins.v2; rec {
