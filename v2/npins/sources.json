@@ -2009,9 +2009,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "b530eac5a859ce2f8fa4d99fa5cd83b9d3199086",
-      "url": "https://github.com/vim-skk/skkeleton/archive/b530eac5a859ce2f8fa4d99fa5cd83b9d3199086.tar.gz",
-      "hash": "sha256-OhHlG3ngNbvUSNqS/MFJpYI/cfbkxSxTPo8EiSwW/MU="
+      "revision": "770b265dd115dba96ea5314642e35764654ef08f",
+      "url": "https://github.com/vim-skk/skkeleton/archive/770b265dd115dba96ea5314642e35764654ef08f.tar.gz",
+      "hash": "sha256-Gsl/LqUY8szRqYLnDVyDOIDCw+cisoKsS5Fl1zQ+unM="
     },
     "skkeleton-henkan-highlight": {
       "type": "Git",
