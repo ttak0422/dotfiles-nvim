@@ -1309,7 +1309,17 @@ in
         {
           package = komado-nvim;
           postConfig = read "./lua/komado.lua";
-          hooks.commands = [ "KomadoToggle" ];
+          hooks.commands = [
+            "KomadoToggle"
+            "PomodoroStart"
+            "PomodoroStop"
+            "PomodoroPause"
+            "PomodoroResume"
+            "PomodoroToggle"
+            "PomodoroSkip"
+            "PomodoroReset"
+            "PomodoroStatus"
+          ];
         }
       ];
     };

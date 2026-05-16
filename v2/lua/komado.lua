@@ -32,7 +32,7 @@ do
     },
   }
 
-  Header = { Line({ Name, utils.horizontal_align(), Clock }), Separator }
+  Header = { Line({ Name, utils.horizontal_align(), Clock }) }
 end
 
 local GitStatus
@@ -178,8 +178,8 @@ do
 
       if item.kind == "section" then
         return Line({
-          { provider = "  ", hl = "Comment" },
-          { provider = item.label, hl = "Identifier" },
+          { provider = "  ",                 hl = "Comment" },
+          { provider = item.label,           hl = "Identifier" },
           { provider = " " },
           { provider = tostring(item.count), hl = "Number" },
         })
@@ -208,6 +208,415 @@ do
   }
 end
 
+local Pomodoro
+local pomodoro
+do
+  local config = {
+    work_ms = 25 * 60 * 1000,
+    short_break_ms = 5 * 60 * 1000,
+    long_break_ms = 15 * 60 * 1000,
+    long_break_every = 4,
+    tick_ms = 1000,
+    auto_start_next = true,
+    icons = {
+      idle = "󰔛",
+      work = "󰈸",
+      short_break = "",
+      long_break = "󰒲",
+    },
+  }
+
+  local state = {
+    phase = "idle",
+    remaining_ms = 0,
+    running = false,
+    completed_work = 0,
+  }
+
+  local timer = vim.uv.new_timer()
+
+  local function emit_tick()
+    pcall(vim.api.nvim_exec_autocmds, "User", {
+      pattern = "PomodoroTick",
+      modeline = false,
+    })
+  end
+
+  local function format_remaining()
+    if state.phase == "idle" then
+      return "--:--"
+    end
+    local total_s = math.max(0, math.floor(state.remaining_ms / 1000))
+    return string.format("%02d:%02d", math.floor(total_s / 60), total_s % 60)
+  end
+
+  local function display()
+    local icon = config.icons[state.phase] or config.icons.idle
+    return string.format("%s %s", icon, format_remaining())
+  end
+
+  local function duration_for(phase)
+    if phase == "work" then
+      return config.work_ms
+    elseif phase == "short_break" then
+      return config.short_break_ms
+    elseif phase == "long_break" then
+      return config.long_break_ms
+    end
+    return 0
+  end
+
+  local function compute_next_phase()
+    if state.phase == "work" then
+      if state.completed_work % config.long_break_every == 0 then
+        return "long_break"
+      end
+      return "short_break"
+    end
+    return "work"
+  end
+
+  local function notify_transition(to)
+    local minutes = math.floor(duration_for(to) / 60000)
+    local msg, level
+    if to == "work" then
+      msg = string.format("Pomodoro: back to work (%dm)", minutes)
+      level = vim.log.levels.INFO
+    elseif to == "short_break" then
+      msg = string.format("Pomodoro: work finished — short break (%dm)", minutes)
+      level = vim.log.levels.WARN
+    elseif to == "long_break" then
+      msg = string.format("Pomodoro: work finished — long break (%dm)", minutes)
+      level = vim.log.levels.WARN
+    end
+    if msg then
+      vim.notify(msg, level)
+    end
+  end
+
+  local function stop_timer()
+    if timer and timer:is_active() then
+      timer:stop()
+    end
+  end
+
+  local function start_timer()
+    if not timer then
+      return
+    end
+    if timer:is_active() then
+      timer:stop()
+    end
+    timer:start(
+      config.tick_ms,
+      config.tick_ms,
+      vim.schedule_wrap(function()
+        if not state.running then
+          return
+        end
+        state.remaining_ms = state.remaining_ms - config.tick_ms
+        if state.remaining_ms <= 0 then
+          if state.phase == "work" then
+            state.completed_work = state.completed_work + 1
+          end
+          local nxt = compute_next_phase()
+          notify_transition(nxt)
+          state.phase = nxt
+          state.remaining_ms = duration_for(nxt)
+          if not config.auto_start_next then
+            state.running = false
+            stop_timer()
+          end
+        end
+        emit_tick()
+      end)
+    )
+  end
+
+  local function start()
+    if state.phase == "idle" then
+      state.phase = "work"
+      state.remaining_ms = config.work_ms
+      state.completed_work = 0
+    end
+    state.running = true
+    start_timer()
+    emit_tick()
+  end
+
+  local function stop()
+    state.running = false
+    state.phase = "idle"
+    state.remaining_ms = 0
+    state.completed_work = 0
+    stop_timer()
+    emit_tick()
+  end
+
+  local function pause()
+    if not state.running then
+      return
+    end
+    state.running = false
+    stop_timer()
+    emit_tick()
+  end
+
+  local function resume()
+    if state.phase == "idle" then
+      return start()
+    end
+    state.running = true
+    start_timer()
+    emit_tick()
+  end
+
+  local function toggle()
+    if state.running then
+      pause()
+    else
+      resume()
+    end
+  end
+
+  local function skip()
+    if state.phase == "idle" then
+      return
+    end
+    if state.phase == "work" then
+      state.completed_work = state.completed_work + 1
+    end
+    local nxt = compute_next_phase()
+    notify_transition(nxt)
+    state.phase = nxt
+    state.remaining_ms = duration_for(nxt)
+    if state.running then
+      start_timer()
+    end
+    emit_tick()
+  end
+
+  local function status()
+    vim.notify(
+      string.format(
+        "Pomodoro: phase=%s running=%s remaining=%s completed_work=%d",
+        state.phase,
+        tostring(state.running),
+        format_remaining(),
+        state.completed_work
+      ),
+      vim.log.levels.INFO
+    )
+  end
+
+  pomodoro = {
+    state = state,
+    config = config,
+    start = start,
+    stop = stop,
+    pause = pause,
+    resume = resume,
+    toggle = toggle,
+    skip = skip,
+    reset = stop,
+    status = status,
+    display = display,
+  }
+
+  local ASCII = {
+    ["0"] = {
+      "██████",
+      "██  ██",
+      "██  ██",
+      "██  ██",
+      "██████",
+    },
+    ["1"] = {
+      "████  ",
+      "  ██  ",
+      "  ██  ",
+      "  ██  ",
+      "██████",
+    },
+    ["2"] = {
+      "██████",
+      "    ██",
+      "██████",
+      "██    ",
+      "██████",
+    },
+    ["3"] = {
+      "██████",
+      "    ██",
+      "██████",
+      "    ██",
+      "██████",
+    },
+    ["4"] = {
+      "██  ██",
+      "██  ██",
+      "██████",
+      "    ██",
+      "    ██",
+    },
+    ["5"] = {
+      "██████",
+      "██    ",
+      "██████",
+      "    ██",
+      "██████",
+    },
+    ["6"] = {
+      "██████",
+      "██    ",
+      "██████",
+      "██  ██",
+      "██████",
+    },
+    ["7"] = {
+      "██████",
+      "    ██",
+      "    ██",
+      "    ██",
+      "    ██",
+    },
+    ["8"] = {
+      "██████",
+      "██  ██",
+      "██████",
+      "██  ██",
+      "██████",
+    },
+    ["9"] = {
+      "██████",
+      "██  ██",
+      "██████",
+      "    ██",
+      "██████",
+    },
+    [":"] = {
+      "  ",
+      "██",
+      "  ",
+      "██",
+      "  ",
+    },
+    ["-"] = {
+      "      ",
+      "      ",
+      "██████",
+      "      ",
+      "      ",
+    },
+  }
+
+  local function ascii_rows(text)
+    local rows = { "", "", "", "", "" }
+    for i = 1, #text do
+      local glyph = ASCII[text:sub(i, i)]
+      if glyph then
+        local sep = (i > 1) and " " or ""
+        for r = 1, 5 do
+          rows[r] = rows[r] .. sep .. glyph[r]
+        end
+      end
+    end
+    return rows
+  end
+
+  local function phase_label()
+    local paused = state.phase ~= "idle" and not state.running
+    local prefix
+    if paused then
+      prefix = "PAUSED"
+    elseif state.phase == "work" then
+      prefix = "WORK"
+    elseif state.phase == "short_break" then
+      prefix = "SHORT BREAK"
+    elseif state.phase == "long_break" then
+      prefix = "LONG BREAK"
+    else
+      prefix = "IDLE"
+    end
+    if state.phase == "work" and not paused then
+      local total = config.long_break_every
+      local current = (state.completed_work % total) + 1
+      local segments = {}
+      for i = 1, total do
+        segments[i] = (i <= current) and "█████" or "|||||"
+      end
+      return prefix .. " " .. table.concat(segments, " ")
+    end
+    return prefix
+  end
+
+  local icon_start = "󰐊"
+  local icon_pause = "󰏤"
+  local icon_reset = "󰜉"
+  local button_indent = "      "
+  local button_gap = "        "
+  local btn_w = #icon_start + 1 + 5
+  local left_btn_start = #button_indent
+  local left_btn_end = left_btn_start + btn_w
+  local right_btn_start = left_btn_end + #button_gap
+  local right_btn_end = right_btn_start + btn_w
+
+  local function dispatch_button(col)
+    if col >= left_btn_start and col < left_btn_end then
+      toggle()
+    elseif col >= right_btn_start and col < right_btn_end then
+      stop()
+    end
+  end
+
+  local ModeLine = Line({
+    provider = function()
+      local icon = config.icons[state.phase] or config.icons.idle
+      return "  " .. icon .. " " .. phase_label()
+    end,
+  })
+
+  local AsciiTimer = utils.mapped_list(function(_)
+    return ascii_rows(format_remaining())
+  end, function(item)
+    return Line({ { provider = "  " .. item } })
+  end)
+
+  local ButtonRow = Line({
+    mappings = {
+      ["<CR>"] = function()
+        dispatch_button(vim.api.nvim_win_get_cursor(0)[2])
+      end,
+      ["<LeftMouse>"] = function()
+        local mp = vim.fn.getmousepos()
+        if mp then
+          dispatch_button(mp.column - 1)
+        end
+      end,
+    },
+    { provider = button_indent },
+    {
+      provider = function()
+        if state.running then
+          return icon_pause .. " Pause"
+        end
+        return icon_start .. " Start"
+      end,
+    },
+    { provider = button_gap },
+    { provider = icon_reset .. " Reset" },
+  })
+
+  Pomodoro = {
+    update = { "User", pattern = "PomodoroTick" },
+    ModeLine,
+    Spacer,
+    AsciiTimer,
+    Spacer,
+    ButtonRow,
+  }
+end
+
 komado.setup({
   window = { position = "left", size = { ratio = 0.2, min = 20, max = 35 } },
   mappings = {
@@ -218,9 +627,18 @@ komado.setup({
       komado.redraw()
     end,
   },
-  root = { Header, Spacer, GitStatus },
+  root = { Header, Separator, Pomodoro, Separator, GitStatus },
 })
 
 vim.api.nvim_create_user_command("KomadoToggle", function()
   komado.toggle()
 end, {})
+
+vim.api.nvim_create_user_command("PomodoroStart", pomodoro.start, {})
+vim.api.nvim_create_user_command("PomodoroStop", pomodoro.stop, {})
+vim.api.nvim_create_user_command("PomodoroPause", pomodoro.pause, {})
+vim.api.nvim_create_user_command("PomodoroResume", pomodoro.resume, {})
+vim.api.nvim_create_user_command("PomodoroToggle", pomodoro.toggle, {})
+vim.api.nvim_create_user_command("PomodoroSkip", pomodoro.skip, {})
+vim.api.nvim_create_user_command("PomodoroReset", pomodoro.reset, {})
+vim.api.nvim_create_user_command("PomodoroStatus", pomodoro.status, {})
