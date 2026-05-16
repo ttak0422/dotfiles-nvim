@@ -996,9 +996,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "d5f5ae4b216a5e17da6e3b0cec606652d8078321",
-      "url": "https://github.com/ttak0422/komado.nvim/archive/d5f5ae4b216a5e17da6e3b0cec606652d8078321.tar.gz",
-      "hash": "sha256-YQSjuC7Ks7hy6ZJiYIvF1yQtmPYrhqUf4lsNNb/8J2k="
+      "revision": "be0eaa8c875ae29880e49ae88a486c316c6325eb",
+      "url": "https://github.com/ttak0422/komado.nvim/archive/be0eaa8c875ae29880e49ae88a486c316c6325eb.tar.gz",
+      "hash": "sha256-T3M8ZHqEEnaJrekayVn75zfeLgBYW/EclhqFI2fgtUw="
     },
     "kotlin.nvim": {
       "type": "Git",
