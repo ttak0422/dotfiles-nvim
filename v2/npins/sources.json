@@ -363,9 +363,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "f66b3e7f45d325bd556cd785502761e583971920",
-      "url": "https://github.com/Olical/conjure/archive/f66b3e7f45d325bd556cd785502761e583971920.tar.gz",
-      "hash": "sha256-Z7c4VFmh/bRHGXOtHlXYaQ2Iyp4PcfWbkcV4LopVz24="
+      "revision": "f7a375995a19fbf085707ea0fdb1f9c167e27e27",
+      "url": "https://github.com/Olical/conjure/archive/f7a375995a19fbf085707ea0fdb1f9c167e27e27.tar.gz",
+      "hash": "sha256-8ifTj/3n+3Ru4ivGbW2QKh1giOIZ3BCdDIiFX1Xuzt8="
     },
     "copilot-lsp": {
       "type": "Git",
