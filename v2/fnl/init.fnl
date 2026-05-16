@@ -90,6 +90,8 @@
                           ["g#" "<Plug>(asterisk-gz#)" {:silent true}]
                           ; menu
                           [:<C-Space> (cmd :OpenMenu)]
+                          ; Sidebar
+                          [:<C-o> (cmd :KomadoToggle)]
                           ; close
                           [(leader :q)
                            S.bufdelete.delete

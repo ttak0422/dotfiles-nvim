@@ -1306,6 +1306,11 @@ in
           postConfig = read "./fnl/winshift.fnl";
           hooks.commands = [ "WinShift" ];
         }
+        {
+          package = komado-nvim;
+          postConfig = read "./fnl/komado.fnl";
+          hooks.commands = [ "KomadoToggle" ];
+        }
       ];
     };
 

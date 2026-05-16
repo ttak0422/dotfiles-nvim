@@ -987,6 +987,19 @@
       "url": "https://github.com/adlrwbr/keep-split-ratio.nvim/archive/906aa5196e194dca12c7729069760d42e77ddcff.tar.gz",
       "hash": "sha256-zrCiYlGOMmAM91VY6g2iWPmgnggfo3YvVOqkjm2l35Q="
     },
+    "komado.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ttak0422",
+        "repo": "komado.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "d5f5ae4b216a5e17da6e3b0cec606652d8078321",
+      "url": "https://github.com/ttak0422/komado.nvim/archive/d5f5ae4b216a5e17da6e3b0cec606652d8078321.tar.gz",
+      "hash": "sha256-YQSjuC7Ks7hy6ZJiYIvF1yQtmPYrhqUf4lsNNb/8J2k="
+    },
     "kotlin.nvim": {
       "type": "Git",
       "repository": {
