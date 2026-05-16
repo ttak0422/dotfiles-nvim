@@ -1308,7 +1308,7 @@ in
         }
         {
           package = komado-nvim;
-          postConfig = read "./fnl/komado.fnl";
+          postConfig = read "./lua/komado.lua";
           hooks.commands = [ "KomadoToggle" ];
         }
       ];
