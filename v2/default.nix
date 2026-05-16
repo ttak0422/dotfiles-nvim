@@ -1456,7 +1456,10 @@ in
             sd
             fd
           ];
-          hooks.fileTypes = [ "fennel" ];
+          hooks = {
+            fileTypes = [ "fennel" ];
+            commands = [ "NfnlCompileAllFiles" ];
+          };
         }
         {
           package = nginx-vim.overrideAttrs (_: {
