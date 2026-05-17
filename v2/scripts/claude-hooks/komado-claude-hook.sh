@@ -32,7 +32,7 @@ SessionStart)
   EXTRA='{}'
   ;;
 UserPromptSubmit)
-  PROMPT="$(printf '%s' "$INPUT" | jq -r '.prompt // ""' | head -c 80)"
+  PROMPT="$(printf '%s' "$INPUT" | jq -r '.prompt // ""' | tr '\n\r\t' '   ' | head -c 80)"
   STATUS=running
   EXTRA="$(jq -n --arg p "$PROMPT" '{prompt_summary:$p}')"
   ;;
