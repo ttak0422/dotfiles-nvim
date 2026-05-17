@@ -8,7 +8,10 @@ local Separator = utils.separator("─", "Comment")
 local Header
 do
 	local Name = { provider = " Neovim " }
-	Header = { Line({ Name }) }
+	local v = vim.version()
+	local Version = { provider = string.format("v%d.%d.%d", v.major, v.minor, v.patch) }
+	Header = { Line({ Name,
+		utils.horizontal_align(), Version }) }
 end
 
 local Footer
@@ -125,8 +128,8 @@ do
 		end
 
 		local sections = {
-			{ label = "Staged", items = status.staged },
-			{ label = "Unstaged", items = status.unstaged },
+			{ label = "Staged",    items = status.staged },
+			{ label = "Unstaged",  items = status.unstaged },
 			{ label = "Untracked", items = status.untracked },
 		}
 
@@ -182,8 +185,8 @@ do
 
 			if item.kind == "section" then
 				return Line({
-					{ provider = "  ", hl = "Comment" },
-					{ provider = item.label, hl = "Identifier" },
+					{ provider = "  ",                 hl = "Comment" },
+					{ provider = item.label,           hl = "Identifier" },
 					{ provider = " " },
 					{ provider = tostring(item.count), hl = "Number" },
 				})
