@@ -84,8 +84,6 @@ in
       };
     };
     ftplugin = {
-      Avante = read "./fnl/after/ftplugin/Avante.fnl";
-      AvanteInput = read "./fnl/after/ftplugin/AvanteInput.fnl";
       fennel = read "./fnl/after/ftplugin/fennel.fnl";
       gitcommit = read "./fnl/after/ftplugin/gitcommit.fnl";
       java = {
@@ -468,28 +466,6 @@ in
     checkmate = {
       package = checkmate-nvim;
       postConfig = read "./fnl/checkmate.fnl";
-    };
-
-    avante = {
-      package = avante-nvim;
-      depends = [
-        devicons
-        dressing
-        img-clip
-        mcphub
-        render-markdown
-        blink-cmp-avante
-      ];
-      # TODO: fix priority
-      extraPackages = with pkgs; [ curl ];
-      postConfig = read "./fnl/avante.fnl";
-      hooks = {
-        commands = [
-          "AvanteAsk"
-          "AvanteToggle"
-        ];
-        modules = [ "avante.api" ];
-      };
     };
 
     mcphub = {

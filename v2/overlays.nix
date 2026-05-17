@@ -15,30 +15,6 @@ rec {
   nvim-treesitter = prev.vimPlugins.nvim-treesitter.overrideAttrs {
     runtimeDeps = with prev; [ tree-sitter ];
   };
-  avante-nvim = vimUtils.buildVimPlugin rec {
-    pname = "avante.nvim";
-    version = src.revision;
-    src = getSrc pname;
-    preInstall =
-      let
-        avante-nvim-lib = prev.rustPlatform.buildRustPackage {
-          inherit (avante-nvim) src version;
-          pname = "avante-nvim-lib";
-          cargoHash = "sha256-pTWCT2s820mjnfTscFnoSKC37RE7DAPKxP71QuM+JXQ=";
-          buildFeatures = [ "luajit" ];
-          doCheck = false;
-        };
-      in
-      # bash
-      ''
-        mkdir -p $out/build
-        ln -s ${avante-nvim-lib}/lib/libavante_html2md${ext}    $out/build/avante_html2md${ext}
-        ln -s ${avante-nvim-lib}/lib/libavante_repo_map${ext}   $out/build/avante_repo_map${ext}
-        ln -s ${avante-nvim-lib}/lib/libavante_templates${ext}  $out/build/avante_templates${ext}
-        ln -s ${avante-nvim-lib}/lib/libavante_tokenizers${ext} $out/build/avante_tokenizers${ext}
-      '';
-    doCheck = false;
-  };
   LuaSnip = vimUtils.buildVimPlugin rec {
     pname = "LuaSnip";
     version = src.revision;
