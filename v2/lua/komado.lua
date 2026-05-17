@@ -13,6 +13,165 @@ do
 	Header = { Line({ Name, utils.horizontal_align(), Version }) }
 end
 
+local LoadAvg
+do
+	local WIDTH = 30
+	local HEIGHT = 4
+	local PIXEL_W = WIDTH * 2
+	local PIXEL_H = HEIGHT * 4
+
+	local SERIES_HL = {
+		{ fg = "#61afef" }, -- 1min
+		{ fg = "#e5c07b" }, -- 5min
+		{ fg = "#98c379" }, -- 15min
+	}
+	local LABEL = "─ LOAD "
+	local TAIL = " " .. string.rep("─", WIDTH - 22)
+
+	-- Braille bit per (sub_col, sub_row) within a 2x4 cell.
+	local BIT = {
+		[0] = { [0] = 0x01, [1] = 0x02, [2] = 0x04, [3] = 0x40 },
+		[1] = { [0] = 0x08, [1] = 0x10, [2] = 0x20, [3] = 0x80 },
+	}
+	local bor = bit.bor
+
+	local hist = { {}, {}, {} }
+
+	local function sample()
+		local l1, l5, l15 = vim.uv.loadavg()
+		local cur = { l1, l5, l15 }
+		for i = 1, 3 do
+			hist[i][#hist[i] + 1] = cur[i]
+			if #hist[i] > PIXEL_W then
+				table.remove(hist[i], 1)
+			end
+		end
+	end
+
+	local function y_range()
+		local mn, mx = math.huge, -math.huge
+		for i = 1, 3 do
+			for _, v in ipairs(hist[i]) do
+				if v < mn then
+					mn = v
+				end
+				if v > mx then
+					mx = v
+				end
+			end
+		end
+		if mn == math.huge then
+			return 0, 1
+		end
+		if mx - mn < 1e-6 then
+			mx = mn + 1e-6
+		end
+		return mn, mx
+	end
+
+	local function build_grid()
+		local mn, mx = y_range()
+		local span = mx - mn
+		local bits, owner = {}, {}
+		for r = 0, HEIGHT - 1 do
+			bits[r] = {}
+			owner[r] = {}
+			for c = 0, WIDTH - 1 do
+				bits[r][c] = 0
+			end
+		end
+		-- Lower priority first so higher overwrites owner.
+		for _, idx in ipairs({ 3, 2, 1 }) do
+			local s = hist[idx]
+			local n = #s
+			for i, v in ipairs(s) do
+				local x = (i - 1) + (PIXEL_W - n) -- right-align latest sample
+				local cc = math.floor(x / 2)
+				local sc = x % 2
+				local yp = math.floor((1 - (v - mn) / span) * (PIXEL_H - 1))
+				if yp < 0 then
+					yp = 0
+				end
+				if yp > PIXEL_H - 1 then
+					yp = PIXEL_H - 1
+				end
+				local cr = math.floor(yp / 4)
+				local sr = yp % 4
+				bits[cr][cc] = bor(bits[cr][cc], BIT[sc][sr])
+				owner[cr][cc] = idx
+			end
+		end
+		return bits, owner
+	end
+
+	local function row_segments(bits, owner, r)
+		local segs, cur_hl, cur_text = {}, nil, ""
+		for c = 0, WIDTH - 1 do
+			local b = bits[r][c]
+			local ch = (b == 0) and " " or vim.fn.nr2char(0x2800 + b)
+			local hl = owner[r][c] and SERIES_HL[owner[r][c]] or nil
+			if hl ~= cur_hl then
+				if cur_text ~= "" then
+					segs[#segs + 1] = { provider = cur_text, hl = cur_hl }
+				end
+				cur_hl = hl
+				cur_text = ch
+			else
+				cur_text = cur_text .. ch
+			end
+		end
+		if cur_text ~= "" then
+			segs[#segs + 1] = { provider = cur_text, hl = cur_hl }
+		end
+		return segs
+	end
+
+	local sample_timer = vim.uv.new_timer()
+	if sample_timer then
+		sample_timer:start(
+			0,
+			60000,
+			vim.schedule_wrap(function()
+				sample()
+				pcall(vim.api.nvim_exec_autocmds, "User", {
+					pattern = "KomadoLoadAvgTick",
+					modeline = false,
+				})
+			end)
+		)
+	end
+
+	local function fmt(idx)
+		return function()
+			local v = { vim.uv.loadavg() }
+			return string.format("%.2f", v[idx])
+		end
+	end
+
+	LoadAvg = {
+		update = { "User", pattern = "KomadoLoadAvgTick" },
+		Line({
+			{ provider = LABEL,  hl = "Comment" },
+			{ provider = fmt(1), hl = SERIES_HL[1] },
+			{ provider = " " },
+			{ provider = fmt(2), hl = SERIES_HL[2] },
+			{ provider = " " },
+			{ provider = fmt(3), hl = SERIES_HL[3] },
+			{ provider = TAIL,   hl = "Comment" },
+		}),
+		utils.mapped_list(function()
+			local bits, owner = build_grid()
+			local rows = {}
+			for r = 0, HEIGHT - 1 do
+				rows[r + 1] = row_segments(bits, owner, r)
+			end
+			return rows
+		end, function(segs)
+			return Line(segs)
+		end),
+	}
+end
+
 local Footer
 do
 	local clock_timer = vim.uv.new_timer()
@@ -523,17 +682,17 @@ do
 		return prefix
 	end
 
-	local ModeLine = utils.center(Line({
+	local ModeLine = Line({
 		provider = function()
 			local icon = config.icons[state.phase] or config.icons.idle
 			return icon .. " " .. phase_label()
 		end,
-	}))
+	})
 
 	local AsciiTimer = utils.mapped_list(function(_)
 		return ascii_rows(format_remaining())
 	end, function(item)
-		return utils.center(Line({ { provider = item } }))
+		return Line({ { provider = item } })
 	end)
 
 	Pomodoro = {
@@ -697,14 +856,17 @@ do
 				local last_tool = item.session.last_tool and ("  " .. item.session.last_tool) or ""
 				return Line({
 					{ provider = icons[s] or "?" },
-					{ provider = "  " },
+					{ provider = " " },
 					{ provider = name },
 					{ provider = last_tool,      hl = "Comment" },
 				})
 			end
 			local summary = item.session.prompt_summary
-			local text = (summary and summary ~= "") and summary or "----"
-			return Line({ provider = text, hl = "Comment" })
+			local text = (summary and summary ~= "") and summary:gsub("[%c]", " ") or "----"
+			return Line({
+				{ provider = "  " },
+				{ provider = text, hl = "Comment" },
+			})
 		end),
 	}
 
@@ -729,7 +891,7 @@ do
 end
 
 komado.setup({
-	window = { position = "left", size = { ratio = 0.2, min = 20, max = 35 }, padding = 1 },
+	window = { position = "left", size = { ratio = 0.2, min = 32, max = 40 }, padding = 1 },
 	mappings = {
 		q = function()
 			komado.close()
@@ -740,12 +902,14 @@ komado.setup({
 	},
 	root = {
 		Header,
-		Separator,
+		Spacer,
 		ClaudeStatus,
 		Separator,
 		GitStatus,
 		utils.vertical_align(),
 		Pomodoro,
+		Spacer,
+		LoadAvg,
 		Separator,
 		Footer,
 	},
