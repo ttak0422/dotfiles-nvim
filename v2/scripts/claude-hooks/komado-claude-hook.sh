@@ -16,6 +16,7 @@ SID="$(printf '%s' "$INPUT" | jq -r '.session_id // empty')"
 [ -n "$SID" ] || exit 0
 
 CWD="$(printf '%s' "$INPUT" | jq -r '.cwd // empty')"
+NAME="${KOMADO_CLAUDE_SESSION_NAME:-${CWD##*/}}"
 TS="$(date -u +%s)"
 FILE="$STATE_DIR/$SID.json"
 TMP="$FILE.tmp.$$"
@@ -32,16 +33,16 @@ SessionStart)
   ;;
 UserPromptSubmit)
   PROMPT="$(printf '%s' "$INPUT" | jq -r '.prompt // ""' | head -c 80)"
-  STATUS=thinking
+  STATUS=running
   EXTRA="$(jq -n --arg p "$PROMPT" '{prompt_summary:$p}')"
   ;;
 PreToolUse)
   TOOL="$(printf '%s' "$INPUT" | jq -r '.tool_name // ""')"
-  STATUS=running
+  STATUS=waiting
   EXTRA="$(jq -n --arg t "$TOOL" '{last_tool:$t}')"
   ;;
 PostToolUse)
-  STATUS=idle
+  STATUS=running
   EXTRA='{}'
   ;;
 Notification)
@@ -64,6 +65,7 @@ PREV='{}'
 printf '%s' "$PREV" | jq \
   --arg sid "$SID" \
   --arg cwd "$CWD" \
+  --arg name "$NAME" \
   --arg st "$STATUS" \
   --arg ev "$EVENT" \
   --argjson ts "$TS" \
@@ -71,6 +73,7 @@ printf '%s' "$PREV" | jq \
   '. + $extra + {
       session_id: $sid,
       cwd: $cwd,
+      name: $name,
       status: $st,
       last_event: $ev,
       last_event_at: $ts,

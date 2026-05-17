@@ -16,9 +16,9 @@ and transitions the status accordingly.
 | event              | status     | extra fields                |
 | ------------------ | ---------- | --------------------------- |
 | `SessionStart`     | `idle`     | `started_at`                |
-| `UserPromptSubmit` | `thinking` | `prompt_summary` (first 80) |
-| `PreToolUse`       | `running`  | `last_tool`                 |
-| `PostToolUse`      | `idle`     | -                           |
+| `UserPromptSubmit` | `running`  | `prompt_summary` (first 80) |
+| `PreToolUse`       | `waiting`  | `last_tool`                 |
+| `PostToolUse`      | `running`  | -                           |
 | `Notification`     | `waiting`  | `notification`              |
 | `Stop`             | `done`     | -                           |
 | `SessionEnd`       | -          | (file removed)              |
@@ -50,8 +50,8 @@ itself.
   "hooks": {
     "SessionStart":     [{ "hooks": [{ "type": "command", "command": "<path>/komado-claude-hook.sh SessionStart" }] }],
     "UserPromptSubmit": [{ "hooks": [{ "type": "command", "command": "<path>/komado-claude-hook.sh UserPromptSubmit" }] }],
-    "PreToolUse":       [{ "matcher": "", "hooks": [{ "type": "command", "command": "<path>/komado-claude-hook.sh PreToolUse" }] }],
-    "PostToolUse":      [{ "matcher": "", "hooks": [{ "type": "command", "command": "<path>/komado-claude-hook.sh PostToolUse" }] }],
+    "PreToolUse":       [{ "matcher": "*", "hooks": [{ "type": "command", "command": "<path>/komado-claude-hook.sh PreToolUse" }] }],
+    "PostToolUse":      [{ "matcher": "*", "hooks": [{ "type": "command", "command": "<path>/komado-claude-hook.sh PostToolUse" }] }],
     "Notification":     [{ "hooks": [{ "type": "command", "command": "<path>/komado-claude-hook.sh Notification" }] }],
     "Stop":             [{ "hooks": [{ "type": "command", "command": "<path>/komado-claude-hook.sh Stop" }] }],
     "SessionEnd":       [{ "hooks": [{ "type": "command", "command": "<path>/komado-claude-hook.sh SessionEnd" }] }]
@@ -62,7 +62,10 @@ itself.
 ### Verification
 
 1. Add the configuration above to `~/.claude/settings.json`
-2. Run `claude` in any directory
+2. Run `claude` in any directory and execute `/hooks` — every event listed
+   above must show the `komado-claude-hook.sh` entry. If an event reports
+   "No hooks configured", the JSON structure is wrong (most often the
+   top-level `"hooks"` wrapper is missing).
 3. Open Neovim in the same cwd and call `:KomadoToggle`
 4. A row appears under the `Claude (N)` section
 5. Send a prompt or `/exit` and confirm the display reacts
@@ -73,7 +76,7 @@ itself.
 {
   "session_id": "abc123",
   "cwd": "/Users/tak/proj/foo",
-  "status": "running",
+  "status": "waiting",
   "started_at": 1715900000,
   "last_event": "PreToolUse",
   "last_event_at": 1715900123,

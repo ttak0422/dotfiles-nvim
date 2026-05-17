@@ -523,10 +523,6 @@ do
 		return prefix
 	end
 
-	local icon_start = "󰐊"
-	local icon_pause = "󰏤"
-	local icon_reset = "󰜉"
-
 	local ModeLine = utils.center(Line({
 		provider = function()
 			local icon = config.icons[state.phase] or config.icons.idle
@@ -540,52 +536,11 @@ do
 		return utils.center(Line({ { provider = item } }))
 	end)
 
-	local function on_action()
-		if state.running then
-			pause()
-		else
-			start()
-		end
-	end
-
-	local action_button = {
-		provider = function()
-			if state.running then
-				return icon_pause .. " Pause"
-			end
-			return icon_start .. " Start"
-		end,
-		mappings = {
-			["<CR>"] = on_action,
-			["<LeftMouse>"] = on_action,
-		},
-	}
-
-	local reset_button = {
-		provider = icon_reset .. " Reset",
-		mappings = {
-			["<CR>"] = function()
-				stop()
-			end,
-			["<LeftMouse>"] = function()
-				stop()
-			end,
-		},
-	}
-
-	local ButtonRow = utils.center(Line({
-		action_button,
-		{ provider = "  " },
-		reset_button,
-	}))
-
 	Pomodoro = {
 		update = { "User", pattern = "PomodoroTick" },
 		ModeLine,
 		Spacer,
 		AsciiTimer,
-		Spacer,
-		ButtonRow,
 	}
 end
 
@@ -595,6 +550,13 @@ do
 	local STALE_SEC = 60 * 30
 	local DONE_GRACE_SEC = 5
 	local CLEANUP_SEC = 60 * 60 * 24
+
+	local LOGO_HL = { fg = "#D97757" }
+	local LOGO_ROWS = {
+		" ▐▛███▜▌ ",
+		"▝▜█████▛▘",
+		"  ▘▘ ▝▝  ",
+	}
 
 	local function dir_exists()
 		return vim.uv.fs_stat(state_dir) ~= nil
@@ -639,17 +601,9 @@ do
 		end
 	end
 
-	local function realpath(p)
-		if not p then
-			return nil
-		end
-		return vim.uv.fs_realpath(p) or p
-	end
-
 	local sessions = {}
 
 	local function reload()
-		local cwd = realpath(vim.fn.getcwd())
 		local rows, now = {}, os.time()
 		local h = vim.uv.fs_scandir(state_dir)
 		if h then
@@ -660,7 +614,7 @@ do
 				end
 				if name:match("%.json$") then
 					local obj = read_json(state_dir .. "/" .. name)
-					if obj and realpath(obj.cwd) == cwd then
+					if obj then
 						local age = now - (obj.last_event_at or 0)
 						obj._stale = age > STALE_SEC
 						if obj.status == "done" and age > DONE_GRACE_SEC then
@@ -707,12 +661,11 @@ do
 	end
 
 	local icons = {
-		idle = "󰚩",
-		thinking = "󰧑",
-		running = "󰜎",
-		waiting = "󱋾",
+		idle = "󰇘",
+		running = "",
+		waiting = "󰇘",
 		done = "󰄬",
-		stale = "󰅖",
+		stale = "",
 	}
 
 	ClaudeStatus = {
@@ -721,31 +674,37 @@ do
 		init = function(_)
 			reload()
 		end,
-		Separator,
-		Line({
-			{ provider = "  Claude " },
-			{
-				provider = function()
-					return "(" .. #sessions .. ")"
-				end,
-			},
-		}),
+		Line({ provider = LOGO_ROWS[1], hl = LOGO_HL }),
+		Line({ provider = LOGO_ROWS[2], hl = LOGO_HL }),
+		Line({ provider = LOGO_ROWS[3], hl = LOGO_HL }),
 		utils.mapped_list(function()
 			if #sessions == 0 then
-				return { { empty = true } }
+				return { { kind = "empty" } }
 			end
-			return sessions
+			local rows = {}
+			for _, s in ipairs(sessions) do
+				rows[#rows + 1] = { kind = "head", session = s }
+				rows[#rows + 1] = { kind = "summary", session = s }
+			end
+			return rows
 		end, function(item)
-			if item.empty then
-				return Line({ { provider = "    no sessions" } })
+			if item.kind == "empty" then
+				return Line({ provider = "no sessions", hl = "Comment" })
 			end
-			local s = item._stale and "stale" or item._display_status
-			local last_tool = item.last_tool and (" " .. item.last_tool) or ""
-			return Line({
-				{ provider = "  " .. (icons[s] or "?") .. " " },
-				{ provider = item._display_status },
-				{ provider = last_tool },
-			})
+			if item.kind == "head" then
+				local s = item.session._stale and "stale" or item.session._display_status
+				local name = (item.session.name and item.session.name ~= "") and item.session.name or "?"
+				local last_tool = item.session.last_tool and ("  " .. item.session.last_tool) or ""
+				return Line({
+					{ provider = icons[s] or "?" },
+					{ provider = "  " },
+					{ provider = name },
+					{ provider = last_tool,      hl = "Comment" },
+				})
+			end
+			local summary = item.session.prompt_summary
+			local text = (summary and summary ~= "") and summary or "----"
+			return Line({ provider = text, hl = "Comment" })
 		end),
 	}
 
@@ -782,11 +741,12 @@ komado.setup({
 	root = {
 		Header,
 		Separator,
-		Pomodoro,
+		ClaudeStatus,
 		Separator,
 		GitStatus,
-		ClaudeStatus,
 		utils.vertical_align(),
+		Pomodoro,
+		Separator,
 		Footer,
 	},
 })
