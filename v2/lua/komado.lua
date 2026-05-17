@@ -10,8 +10,7 @@ do
 	local Name = { provider = " Neovim " }
 	local v = vim.version()
 	local Version = { provider = string.format("v%d.%d.%d", v.major, v.minor, v.patch) }
-	Header = { Line({ Name,
-		utils.horizontal_align(), Version }) }
+	Header = { Line({ Name, utils.horizontal_align(), Version }) }
 end
 
 local Footer
@@ -590,6 +589,186 @@ do
 	}
 end
 
+local ClaudeStatus
+do
+	local state_dir = (vim.env.XDG_STATE_HOME or (vim.env.HOME .. "/.local/state")) .. "/komado/claude"
+	local STALE_SEC = 60 * 30
+	local DONE_GRACE_SEC = 5
+	local CLEANUP_SEC = 60 * 60 * 24
+
+	local function dir_exists()
+		return vim.uv.fs_stat(state_dir) ~= nil
+	end
+
+	local function read_json(path)
+		local fd = vim.uv.fs_open(path, "r", 438)
+		if not fd then
+			return nil
+		end
+		local stat = vim.uv.fs_fstat(fd)
+		if not stat then
+			vim.uv.fs_close(fd)
+			return nil
+		end
+		local data = vim.uv.fs_read(fd, stat.size, 0)
+		vim.uv.fs_close(fd)
+		if not data then
+			return nil
+		end
+		local ok, obj = pcall(vim.json.decode, data)
+		return ok and obj or nil
+	end
+
+	if dir_exists() then
+		local now = os.time()
+		local h = vim.uv.fs_scandir(state_dir)
+		if h then
+			while true do
+				local name = vim.uv.fs_scandir_next(h)
+				if not name then
+					break
+				end
+				if name:match("%.json$") then
+					local path = state_dir .. "/" .. name
+					local st = vim.uv.fs_stat(path)
+					if st and (now - st.mtime.sec) > CLEANUP_SEC then
+						vim.uv.fs_unlink(path)
+					end
+				end
+			end
+		end
+	end
+
+	local function realpath(p)
+		if not p then
+			return nil
+		end
+		return vim.uv.fs_realpath(p) or p
+	end
+
+	local sessions = {}
+
+	local function reload()
+		local cwd = realpath(vim.fn.getcwd())
+		local rows, now = {}, os.time()
+		local h = vim.uv.fs_scandir(state_dir)
+		if h then
+			while true do
+				local name = vim.uv.fs_scandir_next(h)
+				if not name then
+					break
+				end
+				if name:match("%.json$") then
+					local obj = read_json(state_dir .. "/" .. name)
+					if obj and realpath(obj.cwd) == cwd then
+						local age = now - (obj.last_event_at or 0)
+						obj._stale = age > STALE_SEC
+						if obj.status == "done" and age > DONE_GRACE_SEC then
+							obj._display_status = "idle"
+						else
+							obj._display_status = obj.status
+						end
+						rows[#rows + 1] = obj
+					end
+				end
+			end
+		end
+		table.sort(rows, function(a, b)
+			return (a.started_at or 0) < (b.started_at or 0)
+		end)
+		sessions = rows
+	end
+
+	local function emit()
+		pcall(vim.api.nvim_exec_autocmds, "User", {
+			pattern = "KomadoClaudeTick",
+			modeline = false,
+		})
+	end
+
+	local fs_evt = vim.uv.new_fs_event()
+	local debounce = vim.uv.new_timer()
+	if fs_evt and debounce and dir_exists() then
+		fs_evt:start(
+			state_dir,
+			{},
+			vim.schedule_wrap(function()
+				debounce:stop()
+				debounce:start(150, 0, vim.schedule_wrap(emit))
+			end)
+		)
+	end
+
+	vim.api.nvim_create_autocmd({ "DirChanged", "FocusGained" }, { callback = emit })
+
+	local stale_timer = vim.uv.new_timer()
+	if stale_timer then
+		stale_timer:start(60000, 60000, vim.schedule_wrap(emit))
+	end
+
+	local icons = {
+		idle = "󰚩",
+		thinking = "󰧑",
+		running = "󰜎",
+		waiting = "󱋾",
+		done = "󰄬",
+		stale = "󰅖",
+	}
+
+	ClaudeStatus = {
+		condition = dir_exists,
+		update = { "User", pattern = "KomadoClaudeTick" },
+		init = function(_)
+			reload()
+		end,
+		Separator,
+		Line({
+			{ provider = "  Claude " },
+			{
+				provider = function()
+					return "(" .. #sessions .. ")"
+				end,
+			},
+		}),
+		utils.mapped_list(function()
+			if #sessions == 0 then
+				return { { empty = true } }
+			end
+			return sessions
+		end, function(item)
+			if item.empty then
+				return Line({ { provider = "    no sessions" } })
+			end
+			local s = item._stale and "stale" or item._display_status
+			local last_tool = item.last_tool and (" " .. item.last_tool) or ""
+			return Line({
+				{ provider = "  " .. (icons[s] or "?") .. " " },
+				{ provider = item._display_status },
+				{ provider = last_tool },
+			})
+		end),
+	}
+
+	vim.api.nvim_create_user_command("KomadoClaudeClean", function()
+		local h = vim.uv.fs_scandir(state_dir)
+		local n = 0
+		if h then
+			while true do
+				local name = vim.uv.fs_scandir_next(h)
+				if not name then
+					break
+				end
+				if name:match("%.json$") then
+					vim.uv.fs_unlink(state_dir .. "/" .. name)
+					n = n + 1
+				end
+			end
+		end
+		vim.notify(string.format("KomadoClaudeClean: removed %d file(s)", n))
+		emit()
+	end, {})
+end
+
 komado.setup({
 	window = { position = "left", size = { ratio = 0.2, min = 20, max = 35 }, padding = 1 },
 	mappings = {
@@ -606,6 +785,7 @@ komado.setup({
 		Pomodoro,
 		Separator,
 		GitStatus,
+		ClaudeStatus,
 		utils.vertical_align(),
 		Footer,
 	},

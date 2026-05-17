@@ -57,7 +57,7 @@ in
 
   withPython3 = true;
 
-  extraPackages = [ ];
+  extraPackages = with pkgs; [ jq ];
 
   extraPython3Packages = _: [ ];
 
@@ -1287,6 +1287,7 @@ in
           postConfig = read "./lua/komado.lua";
           hooks.commands = [
             "KomadoToggle"
+            "KomadoClaudeClean"
             "PomodoroStart"
             "PomodoroStop"
             "PomodoroPause"
