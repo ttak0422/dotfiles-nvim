@@ -1314,11 +1314,8 @@ in
             "PomodoroStart"
             "PomodoroStop"
             "PomodoroPause"
-            "PomodoroResume"
-            "PomodoroToggle"
             "PomodoroSkip"
             "PomodoroReset"
-            "PomodoroStatus"
           ];
         }
       ];
