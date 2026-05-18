@@ -33,7 +33,6 @@ lspkind.setup({
 })
 
 cmp.setup({
-	cmp.setup({
 		snippet = {
 			expand = function(args)
 				require("luasnip").lsp_expand(args.body)
@@ -109,8 +108,7 @@ cmp.setup({
 				ellipsis_char = "...",
 			}),
 		},
-	}),
-})
+	})
 
 cmp.setup.cmdline({ "/", "?" }, {
 	mapping = cmp.mapping.preset.cmdline(),
