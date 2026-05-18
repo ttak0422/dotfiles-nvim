@@ -708,7 +708,6 @@ do
 	local state_dir = (vim.env.XDG_STATE_HOME or (vim.env.HOME .. "/.local/state")) .. "/komado/claude"
 	local STALE_SEC = 60 * 30
 	local DONE_GRACE_SEC = 5
-	local CLEANUP_SEC = 60 * 60 * 24
 
 	local LOGO_HL = { fg = "#D97757" }
 	local LOGO_ROWS = {
@@ -738,26 +737,6 @@ do
 		end
 		local ok, obj = pcall(vim.json.decode, data)
 		return ok and obj or nil
-	end
-
-	if dir_exists() then
-		local now = os.time()
-		local h = vim.uv.fs_scandir(state_dir)
-		if h then
-			while true do
-				local name = vim.uv.fs_scandir_next(h)
-				if not name then
-					break
-				end
-				if name:match("%.json$") then
-					local path = state_dir .. "/" .. name
-					local st = vim.uv.fs_stat(path)
-					if st and (now - st.mtime.sec) > CLEANUP_SEC then
-						vim.uv.fs_unlink(path)
-					end
-				end
-			end
-		end
 	end
 
 	local sessions = {}
