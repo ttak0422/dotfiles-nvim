@@ -79,5 +79,8 @@ do
     vim.keymap.set({"n", "t", "i"}, ("<C-" .. i .. ">"), toggle(("term" .. i)), opts)
   end
 end
+for lhs, rhs in pairs({["<C-Space>"] = "<C-n>", ["<C-S-Space>"] = "<C-p>", ["<C-a>"] = "<Home>", ["<C-e>"] = "<End>"}) do
+  vim.keymap.set("i", lhs, rhs, {noremap = true})
+end
 vim.cmd("colorscheme sorairo")
 return require("config-local").setup({silent = true})
