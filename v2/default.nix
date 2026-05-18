@@ -156,12 +156,23 @@ in
       startupConfig = read "./fnl/snacks.fnl";
     };
 
-    blink = {
+    # blink = {
+    #   packages = [
+    #     blink-cmp
+    #     blink-compat
+    #   ];
+    #   startupConfig = read "./fnl/blink.fnl";
+    # };
+    cmp = {
       packages = [
-        blink-cmp
-        blink-compat
+        cmp-buffer
+        cmp-cmdline
+        cmp-nvim-lsp
+        cmp-path
+        lspkind-nvim
+        nvim-cmp
       ];
-      startupConfig = read "./fnl/blink.fnl";
+      startupConfig = read "./lua/cmp.lua";
     };
 
     luasnip = {
@@ -1395,11 +1406,11 @@ in
           };
           hooks.fileTypes = [ "kotlin" ];
         }
-        {
-          package = lazydev-nvim;
-          postConfig = read "./fnl/lazydev.fnl";
-          hooks.fileTypes = [ "lua" ];
-        }
+        # {
+        #   package = lazydev-nvim;
+        #   postConfig = read "./fnl/lazydev.fnl";
+        #   hooks.fileTypes = [ "lua" ];
+        # }
         {
           package = csvview-nvim;
           postConfig = read "./fnl/csvview.fnl";

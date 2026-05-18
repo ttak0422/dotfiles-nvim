@@ -1,10 +1,5 @@
 ; builtinのpopupとの干渉を回避する
 (set vim.opt.completeopt [])
-(each [lhs rhs (pairs {:<C-Space> :<C-n>
-                       :<C-S-Space> :<C-p>
-                       :<C-a> :<Home>
-                       :<C-e> :<End>})]
-  (vim.keymap.set :i lhs rhs {:noremap true}))
 
 (vim.cmd "
 cnoremap <expr> <C-a> '<Home>'

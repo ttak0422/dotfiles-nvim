@@ -315,6 +315,58 @@
       "url": "https://github.com/coder/claudecode.nvim/archive/432121f0f5b9bda041030d1e9e83b7ba3a93dd8f.tar.gz",
       "hash": "sha256-r8hAUpSsr8zNm+av8Mu5oILaTfEsXEnJmkzRmvi9pF8="
     },
+    "cmp-buffer": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hrsh7th",
+        "repo": "cmp-buffer"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "b74fab3656eea9de20a9b8116afa3cfc4ec09657",
+      "url": "https://github.com/hrsh7th/cmp-buffer/archive/b74fab3656eea9de20a9b8116afa3cfc4ec09657.tar.gz",
+      "hash": "sha256-dG4U7MtnXThoa/PD+qFtCt76MQ14V1wX8GMYcvxEnbM="
+    },
+    "cmp-cmdline": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hrsh7th",
+        "repo": "cmp-cmdline"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "d126061b624e0af6c3a556428712dd4d4194ec6d",
+      "url": "https://github.com/hrsh7th/cmp-cmdline/archive/d126061b624e0af6c3a556428712dd4d4194ec6d.tar.gz",
+      "hash": "sha256-w1HwR13rXRyLgWabHwJYABXO++gPEOMr46poUzOChzg="
+    },
+    "cmp-nvim-lsp": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hrsh7th",
+        "repo": "cmp-nvim-lsp"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "cbc7b02bb99fae35cb42f514762b89b5126651ef",
+      "url": "https://github.com/hrsh7th/cmp-nvim-lsp/archive/cbc7b02bb99fae35cb42f514762b89b5126651ef.tar.gz",
+      "hash": "sha256-CYZdfAsJYQyW413fRvNbsS5uayuc6fKDvDLZ2Y7j3ZQ="
+    },
+    "cmp-path": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hrsh7th",
+        "repo": "cmp-path"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "c642487086dbd9a93160e1679a1327be111cbc25",
+      "url": "https://github.com/hrsh7th/cmp-path/archive/c642487086dbd9a93160e1679a1327be111cbc25.tar.gz",
+      "hash": "sha256-e4Rd2y1Wekp7aobpTGaUeoSBnlfIASDaBR8js5dh2Vw="
+    },
     "codewindow.nvim": {
       "type": "Git",
       "repository": {
@@ -1150,6 +1202,19 @@
       "url": "https://github.com/linrongbin16/lsp-progress.nvim/archive/f6d5af10563b895ff846346f57cbd4451439f4c1.tar.gz",
       "hash": "sha256-6qSh2tOoopTURzqNUBk2VDbSiz4ZlYRtO8hkg8OkPUs="
     },
+    "lspkind.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "onsails",
+        "repo": "lspkind.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "c7274c48137396526b59d86232eabcdc7fed8a32",
+      "url": "https://github.com/onsails/lspkind.nvim/archive/c7274c48137396526b59d86232eabcdc7fed8a32.tar.gz",
+      "hash": "sha256-aIopYLm/x1CgCKpcsu9pxpqL0SXXhHDPTM8DKUwGeRw="
+    },
     "lush.nvim": {
       "type": "Git",
       "repository": {
@@ -1428,6 +1493,19 @@
       "revision": "c282a62bec6c0621a1ef5132aa3f4c9fc4dcc2c7",
       "url": "https://github.com/kevinhwang91/nvim-bqf/archive/c282a62bec6c0621a1ef5132aa3f4c9fc4dcc2c7.tar.gz",
       "hash": "sha256-jm6xyNel7rmyQHijP9JBBk1ZiUY7+CvCEZVO4W5R21c="
+    },
+    "nvim-cmp": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hrsh7th",
+        "repo": "nvim-cmp"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "a1d504892f2bc56c2e79b65c6faded2fd21f3eca",
+      "url": "https://github.com/hrsh7th/nvim-cmp/archive/a1d504892f2bc56c2e79b65c6faded2fd21f3eca.tar.gz",
+      "hash": "sha256-uzfM8DLRKshESsYmUAbSfXtos9COWpe/fVkxNJPIUFw="
     },
     "nvim-colorizer.lua": {
       "type": "Git",
