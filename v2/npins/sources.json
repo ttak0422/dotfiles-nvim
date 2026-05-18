@@ -191,9 +191,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "19a38aab94961016430905ebec30d272a01e9742",
-      "url": "https://github.com/max397574/better-escape.nvim/archive/19a38aab94961016430905ebec30d272a01e9742.tar.gz",
-      "hash": "sha256-OmCZQN9qMSSEBmZaRR5QoJ+RRm13pnu+0uAUoz6X7oA="
+      "revision": "3f4bc0b326606264ff75967f59091b5ddada0554",
+      "url": "https://github.com/max397574/better-escape.nvim/archive/3f4bc0b326606264ff75967f59091b5ddada0554.tar.gz",
+      "hash": "sha256-h7Xa8McjnCOOP8WbqbmmJn9jjBMvk89Tvh0Qt1stEVU="
     },
     "bg.nvim": {
       "type": "Git",
