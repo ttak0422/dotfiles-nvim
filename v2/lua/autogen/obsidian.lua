@@ -23,7 +23,7 @@ local path = require("obsidian.path")
 local note = require("obsidian.note")
 local workspaces = {{name = "default", path = default_vault}}
 local daily_notes = {folder = "journal", date_format = "%Y-%m-%d", default_tags = {"journal"}, template = nil}
-local completion = {blink = true, min_chars = 1, create_new = true, nvim_cmp = false}
+local completion = {nvim_cmp = true, min_chars = 1, create_new = true, blink = false}
 local ui = {enable = false}
 local checkbox = {enabled = false}
 local callbacks

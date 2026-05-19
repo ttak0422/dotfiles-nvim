@@ -22,7 +22,7 @@
                     :default_tags [:journal]
                     :template nil})
 
-(local completion {:nvim_cmp false :blink true :min_chars 1 :create_new true})
+(local completion {:nvim_cmp true :blink false :min_chars 1 :create_new true})
 
 ;; MEMO: use render-markdown
 (local ui {:enable false})
