@@ -5,6 +5,107 @@ local Line = require("komado.dsl").Line
 local Spacer = Line({ provider = "" })
 local Separator = utils.separator("─", "Comment")
 
+local ASCII = {
+	["0"] = {
+		"██████",
+		"██  ██",
+		"██  ██",
+		"██  ██",
+		"██████",
+	},
+	["1"] = {
+		"████  ",
+		"  ██  ",
+		"  ██  ",
+		"  ██  ",
+		"██████",
+	},
+	["2"] = {
+		"██████",
+		"    ██",
+		"██████",
+		"██    ",
+		"██████",
+	},
+	["3"] = {
+		"██████",
+		"    ██",
+		"██████",
+		"    ██",
+		"██████",
+	},
+	["4"] = {
+		"██  ██",
+		"██  ██",
+		"██████",
+		"    ██",
+		"    ██",
+	},
+	["5"] = {
+		"██████",
+		"██    ",
+		"██████",
+		"    ██",
+		"██████",
+	},
+	["6"] = {
+		"██████",
+		"██    ",
+		"██████",
+		"██  ██",
+		"██████",
+	},
+	["7"] = {
+		"██████",
+		"    ██",
+		"    ██",
+		"    ██",
+		"    ██",
+	},
+	["8"] = {
+		"██████",
+		"██  ██",
+		"██████",
+		"██  ██",
+		"██████",
+	},
+	["9"] = {
+		"██████",
+		"██  ██",
+		"██████",
+		"    ██",
+		"██████",
+	},
+	[":"] = {
+		"  ",
+		"██",
+		"  ",
+		"██",
+		"  ",
+	},
+	["-"] = {
+		"      ",
+		"      ",
+		"██████",
+		"      ",
+		"      ",
+	},
+}
+
+local function ascii_rows(text)
+	local rows = { "", "", "", "", "" }
+	for i = 1, #text do
+		local glyph = ASCII[text:sub(i, i)]
+		if glyph then
+			local sep = (i > 1) and " " or ""
+			for r = 1, 5 do
+				rows[r] = rows[r] .. sep .. glyph[r]
+			end
+		end
+	end
+	return rows
+end
+
 local Header
 do
 	local Name = { provider = " Neovim " }
@@ -16,14 +117,14 @@ end
 local LoadAvg
 do
 	local WIDTH = 30
-	local HEIGHT = 4
+	local HEIGHT = 5
 	local PIXEL_W = WIDTH * 2
 	local PIXEL_H = HEIGHT * 4
 
 	local SERIES_HL = {
 		{ fg = "#61afef" }, -- 1min
-		{ fg = "#e5c07b" }, -- 5min
-		{ fg = "#98c379" }, -- 15min
+		{ fg = "#98c379" }, -- 5min
+		{ fg = "#e06c75" }, -- 15min
 	}
 	local LABEL = "─ LOAD "
 	local TAIL = " " .. string.rep("─", WIDTH - 22)
@@ -80,7 +181,8 @@ do
 				bits[r][c] = 0
 			end
 		end
-		-- Lower priority first so higher overwrites owner.
+		-- Draw 15min → 5min → 1min so the most recent series sits in front
+		-- of overlapping regions (its color wins, its fill OR-merges).
 		for _, idx in ipairs({ 3, 2, 1 }) do
 			local s = hist[idx]
 			local n = #s
@@ -88,17 +190,19 @@ do
 				local x = (i - 1) + (PIXEL_W - n) -- right-align latest sample
 				local cc = math.floor(x / 2)
 				local sc = x % 2
-				local yp = math.floor((1 - (v - mn) / span) * (PIXEL_H - 1))
-				if yp < 0 then
-					yp = 0
+				local yp_top = math.floor((1 - (v - mn) / span) * (PIXEL_H - 1))
+				if yp_top < 0 then
+					yp_top = 0
 				end
-				if yp > PIXEL_H - 1 then
-					yp = PIXEL_H - 1
+				if yp_top > PIXEL_H - 1 then
+					yp_top = PIXEL_H - 1
 				end
-				local cr = math.floor(yp / 4)
-				local sr = yp % 4
-				bits[cr][cc] = bor(bits[cr][cc], BIT[sc][sr])
-				owner[cr][cc] = idx
+				for yp = yp_top, PIXEL_H - 1 do
+					local cr = math.floor(yp / 4)
+					local sr = yp % 4
+					bits[cr][cc] = bor(bits[cr][cc], BIT[sc][sr])
+					owner[cr][cc] = idx
+				end
 			end
 		end
 		return bits, owner
@@ -151,13 +255,13 @@ do
 	LoadAvg = {
 		update = { "User", pattern = "KomadoLoadAvgTick" },
 		Line({
-			{ provider = LABEL,  hl = "Comment" },
+			{ provider = LABEL, hl = "Comment" },
 			{ provider = fmt(1), hl = SERIES_HL[1] },
 			{ provider = " " },
 			{ provider = fmt(2), hl = SERIES_HL[2] },
 			{ provider = " " },
 			{ provider = fmt(3), hl = SERIES_HL[3] },
-			{ provider = TAIL,   hl = "Comment" },
+			{ provider = TAIL, hl = "Comment" },
 		}),
 		utils.mapped_list(function()
 			local bits, owner = build_grid()
@@ -189,15 +293,14 @@ do
 	end
 	local Clock = {
 		update = { "User", pattern = "KomadoTick" },
-		{
-			provider = function()
-				return os.date("%Y-%m-%d %H:%M ")
-			end,
-			hl = "Comment",
-		},
+		utils.mapped_list(function(_)
+			return ascii_rows(os.date("%H:%M"))
+		end, function(item)
+			return utils.center(Line({ { provider = item, hl = "Comment" } }))
+		end),
 	}
 
-	Footer = { utils.center(Line({ Clock })) }
+	Footer = { Spacer, Clock, Spacer }
 end
 
 local GitStatus
@@ -286,8 +389,8 @@ do
 		end
 
 		local sections = {
-			{ label = "Staged",    items = status.staged },
-			{ label = "Unstaged",  items = status.unstaged },
+			{ label = "Staged", items = status.staged },
+			{ label = "Unstaged", items = status.unstaged },
 			{ label = "Untracked", items = status.untracked },
 		}
 
@@ -343,8 +446,8 @@ do
 
 			if item.kind == "section" then
 				return Line({
-					{ provider = "  ",                 hl = "Comment" },
-					{ provider = item.label,           hl = "Identifier" },
+					{ provider = "  ", hl = "Comment" },
+					{ provider = item.label, hl = "Identifier" },
 					{ provider = " " },
 					{ provider = tostring(item.count), hl = "Number" },
 				})
@@ -555,107 +658,6 @@ do
 		display = display,
 	}
 
-	local ASCII = {
-		["0"] = {
-			"██████",
-			"██  ██",
-			"██  ██",
-			"██  ██",
-			"██████",
-		},
-		["1"] = {
-			"████  ",
-			"  ██  ",
-			"  ██  ",
-			"  ██  ",
-			"██████",
-		},
-		["2"] = {
-			"██████",
-			"    ██",
-			"██████",
-			"██    ",
-			"██████",
-		},
-		["3"] = {
-			"██████",
-			"    ██",
-			"██████",
-			"    ██",
-			"██████",
-		},
-		["4"] = {
-			"██  ██",
-			"██  ██",
-			"██████",
-			"    ██",
-			"    ██",
-		},
-		["5"] = {
-			"██████",
-			"██    ",
-			"██████",
-			"    ██",
-			"██████",
-		},
-		["6"] = {
-			"██████",
-			"██    ",
-			"██████",
-			"██  ██",
-			"██████",
-		},
-		["7"] = {
-			"██████",
-			"    ██",
-			"    ██",
-			"    ██",
-			"    ██",
-		},
-		["8"] = {
-			"██████",
-			"██  ██",
-			"██████",
-			"██  ██",
-			"██████",
-		},
-		["9"] = {
-			"██████",
-			"██  ██",
-			"██████",
-			"    ██",
-			"██████",
-		},
-		[":"] = {
-			"  ",
-			"██",
-			"  ",
-			"██",
-			"  ",
-		},
-		["-"] = {
-			"      ",
-			"      ",
-			"██████",
-			"      ",
-			"      ",
-		},
-	}
-
-	local function ascii_rows(text)
-		local rows = { "", "", "", "", "" }
-		for i = 1, #text do
-			local glyph = ASCII[text:sub(i, i)]
-			if glyph then
-				local sep = (i > 1) and " " or ""
-				for r = 1, 5 do
-					rows[r] = rows[r] .. sep .. glyph[r]
-				end
-			end
-		end
-		return rows
-	end
-
 	local function phase_label()
 		local paused = state.phase ~= "idle" and not state.running
 		local prefix
@@ -685,12 +687,50 @@ do
 	local ModeLine = Line({
 		provider = function()
 			local icon = config.icons[state.phase] or config.icons.idle
-			return icon .. " " .. phase_label()
+			return " " .. icon .. " " .. phase_label()
 		end,
 	})
 
-	local AsciiTimer = utils.mapped_list(function(_)
-		return ascii_rows(format_remaining())
+	local BLOCKS = { " ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█" }
+	local BAR_WIDTH = 30
+	local BAR_ROWS = 3
+	local TOP_BORDER = "┌" .. string.rep("─", BAR_WIDTH) .. "┐"
+	local BOTTOM_BORDER = "└" .. string.rep("─", BAR_WIDTH) .. "┘"
+
+	local function progress_row()
+		local value
+		if state.phase == "idle" then
+			value = 0
+		else
+			local total_ms = duration_for(state.phase)
+			if total_ms <= 0 then
+				value = 0
+			else
+				value = math.max(0, math.min(1, state.remaining_ms / total_ms))
+			end
+		end
+		local total = math.floor(value * BAR_WIDTH * 8)
+		local full = math.floor(total / 8)
+		local partial = total % 8
+		local s = string.rep("█", full)
+		if partial > 0 and full < BAR_WIDTH then
+			s = s .. BLOCKS[partial + 1]
+			full = full + 1
+		end
+		if full < BAR_WIDTH then
+			s = s .. string.rep(" ", BAR_WIDTH - full)
+		end
+		return "│" .. s .. "│"
+	end
+
+	local ProgressIndicator = utils.mapped_list(function(_)
+		local row = progress_row()
+		local rows = { TOP_BORDER }
+		for _ = 1, BAR_ROWS do
+			rows[#rows + 1] = row
+		end
+		rows[#rows + 1] = BOTTOM_BORDER
+		return rows
 	end, function(item)
 		return Line({ { provider = item } })
 	end)
@@ -698,8 +738,7 @@ do
 	Pomodoro = {
 		update = { "User", pattern = "PomodoroTick" },
 		ModeLine,
-		Spacer,
-		AsciiTimer,
+		ProgressIndicator,
 	}
 end
 
@@ -799,9 +838,9 @@ do
 	end
 
 	local icons = {
-		idle = "󰇘",
+		idle = "",
 		running = "",
-		waiting = "󰇘",
+		waiting = "",
 		done = "󰄬",
 		stale = "",
 	}
@@ -837,7 +876,7 @@ do
 					{ provider = icons[s] or "?" },
 					{ provider = " " },
 					{ provider = name },
-					{ provider = last_tool,      hl = "Comment" },
+					{ provider = last_tool, hl = "Comment" },
 				})
 			end
 			local summary = item.session.prompt_summary
