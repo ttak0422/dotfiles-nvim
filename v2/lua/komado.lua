@@ -116,127 +116,14 @@ end
 
 local LoadAvg
 do
-	local WIDTH = 30
-	local HEIGHT = 5
-	local PIXEL_W = WIDTH * 2
-	local PIXEL_H = HEIGHT * 4
+	local LABEL = " LOAD "
 
-	local SERIES_HL = {
-		{ fg = "#61afef" }, -- 1min
-		{ fg = "#98c379" }, -- 5min
-		{ fg = "#e06c75" }, -- 15min
-	}
-	local LABEL = "─ LOAD "
-	local TAIL = " " .. string.rep("─", WIDTH - 22)
-
-	-- Braille bit per (sub_col, sub_row) within a 2x4 cell.
-	local BIT = {
-		[0] = { [0] = 0x01, [1] = 0x02, [2] = 0x04, [3] = 0x40 },
-		[1] = { [0] = 0x08, [1] = 0x10, [2] = 0x20, [3] = 0x80 },
-	}
-	local bor = bit.bor
-
-	local hist = { {}, {}, {} }
-
-	local function sample()
-		local l1, l5, l15 = vim.uv.loadavg()
-		local cur = { l1, l5, l15 }
-		for i = 1, 3 do
-			hist[i][#hist[i] + 1] = cur[i]
-			if #hist[i] > PIXEL_W then
-				table.remove(hist[i], 1)
-			end
-		end
-	end
-
-	local function y_range()
-		local mn, mx = math.huge, -math.huge
-		for i = 1, 3 do
-			for _, v in ipairs(hist[i]) do
-				if v < mn then
-					mn = v
-				end
-				if v > mx then
-					mx = v
-				end
-			end
-		end
-		if mn == math.huge then
-			return 0, 1
-		end
-		if mx - mn < 1e-6 then
-			mx = mn + 1e-6
-		end
-		return mn, mx
-	end
-
-	local function build_grid()
-		local mn, mx = y_range()
-		local span = mx - mn
-		local bits, owner = {}, {}
-		for r = 0, HEIGHT - 1 do
-			bits[r] = {}
-			owner[r] = {}
-			for c = 0, WIDTH - 1 do
-				bits[r][c] = 0
-			end
-		end
-		-- Draw 15min → 5min → 1min so the most recent series sits in front
-		-- of overlapping regions (its color wins, its fill OR-merges).
-		for _, idx in ipairs({ 3, 2, 1 }) do
-			local s = hist[idx]
-			local n = #s
-			for i, v in ipairs(s) do
-				local x = (i - 1) + (PIXEL_W - n) -- right-align latest sample
-				local cc = math.floor(x / 2)
-				local sc = x % 2
-				local yp_top = math.floor((1 - (v - mn) / span) * (PIXEL_H - 1))
-				if yp_top < 0 then
-					yp_top = 0
-				end
-				if yp_top > PIXEL_H - 1 then
-					yp_top = PIXEL_H - 1
-				end
-				for yp = yp_top, PIXEL_H - 1 do
-					local cr = math.floor(yp / 4)
-					local sr = yp % 4
-					bits[cr][cc] = bor(bits[cr][cc], BIT[sc][sr])
-					owner[cr][cc] = idx
-				end
-			end
-		end
-		return bits, owner
-	end
-
-	local function row_segments(bits, owner, r)
-		local segs, cur_hl, cur_text = {}, nil, ""
-		for c = 0, WIDTH - 1 do
-			local b = bits[r][c]
-			local ch = (b == 0) and " " or vim.fn.nr2char(0x2800 + b)
-			local hl = owner[r][c] and SERIES_HL[owner[r][c]] or nil
-			if hl ~= cur_hl then
-				if cur_text ~= "" then
-					segs[#segs + 1] = { provider = cur_text, hl = cur_hl }
-				end
-				cur_hl = hl
-				cur_text = ch
-			else
-				cur_text = cur_text .. ch
-			end
-		end
-		if cur_text ~= "" then
-			segs[#segs + 1] = { provider = cur_text, hl = cur_hl }
-		end
-		return segs
-	end
-
-	local sample_timer = vim.uv.new_timer()
-	if sample_timer then
-		sample_timer:start(
+	local update_timer = vim.uv.new_timer()
+	if update_timer then
+		update_timer:start(
 			0,
 			60000,
 			vim.schedule_wrap(function()
-				sample()
 				pcall(vim.api.nvim_exec_autocmds, "User", {
 					pattern = "KomadoLoadAvgTick",
 					modeline = false,
@@ -256,23 +143,12 @@ do
 		update = { "User", pattern = "KomadoLoadAvgTick" },
 		Line({
 			{ provider = LABEL, hl = "Comment" },
-			{ provider = fmt(1), hl = SERIES_HL[1] },
+			{ provider = fmt(1) },
 			{ provider = " " },
-			{ provider = fmt(2), hl = SERIES_HL[2] },
+			{ provider = fmt(2) },
 			{ provider = " " },
-			{ provider = fmt(3), hl = SERIES_HL[3] },
-			{ provider = TAIL, hl = "Comment" },
+			{ provider = fmt(3) },
 		}),
-		utils.mapped_list(function()
-			local bits, owner = build_grid()
-			local rows = {}
-			for r = 0, HEIGHT - 1 do
-				rows[r + 1] = row_segments(bits, owner, r)
-			end
-			return rows
-		end, function(segs)
-			return Line(segs)
-		end),
 	}
 end
 
@@ -300,7 +176,7 @@ do
 		end),
 	}
 
-	Footer = { Spacer, Clock, Spacer }
+	Footer = { Clock }
 end
 
 local GitStatus
@@ -389,8 +265,8 @@ do
 		end
 
 		local sections = {
-			{ label = "Staged", items = status.staged },
-			{ label = "Unstaged", items = status.unstaged },
+			{ label = "Staged",    items = status.staged },
+			{ label = "Unstaged",  items = status.unstaged },
 			{ label = "Untracked", items = status.untracked },
 		}
 
@@ -446,8 +322,8 @@ do
 
 			if item.kind == "section" then
 				return Line({
-					{ provider = "  ", hl = "Comment" },
-					{ provider = item.label, hl = "Identifier" },
+					{ provider = "  ",                 hl = "Comment" },
+					{ provider = item.label,           hl = "Identifier" },
 					{ provider = " " },
 					{ provider = tostring(item.count), hl = "Number" },
 				})
@@ -675,11 +551,7 @@ do
 		if state.phase == "work" and not paused then
 			local total = config.long_break_every
 			local current = (state.completed_work % total) + 1
-			local segments = {}
-			for i = 1, total do
-				segments[i] = (i <= current) and "█████" or "|||||"
-			end
-			return prefix .. " " .. table.concat(segments, " ")
+			return string.format("%s (%d/%d)", prefix, current, total)
 		end
 		return prefix
 	end
@@ -692,48 +564,44 @@ do
 	})
 
 	local BLOCKS = { " ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█" }
-	local BAR_WIDTH = 30
 	local BAR_ROWS = 3
-	local TOP_BORDER = "┌" .. string.rep("─", BAR_WIDTH) .. "┐"
-	local BOTTOM_BORDER = "└" .. string.rep("─", BAR_WIDTH) .. "┘"
 
-	local function progress_row()
-		local value
+	local function sidebar_width(self)
+		local sb = self._sidebar
+		local st = sb and sb._state
+		return st and st._content_width or 0
+	end
+
+	local function progress_value()
 		if state.phase == "idle" then
-			value = 0
-		else
-			local total_ms = duration_for(state.phase)
-			if total_ms <= 0 then
-				value = 0
-			else
-				value = math.max(0, math.min(1, state.remaining_ms / total_ms))
-			end
+			return 1
 		end
-		local total = math.floor(value * BAR_WIDTH * 8)
+		local total_ms = duration_for(state.phase)
+		if total_ms <= 0 then
+			return 1
+		end
+		return math.max(0, math.min(1, state.remaining_ms / total_ms))
+	end
+
+	local function progress_row(self)
+		local width = sidebar_width(self)
+		if width <= 0 then
+			return ""
+		end
+		local total = math.floor(progress_value() * width * 8)
 		local full = math.floor(total / 8)
 		local partial = total % 8
 		local s = string.rep("█", full)
-		if partial > 0 and full < BAR_WIDTH then
+		if partial > 0 and full < width then
 			s = s .. BLOCKS[partial + 1]
-			full = full + 1
 		end
-		if full < BAR_WIDTH then
-			s = s .. string.rep(" ", BAR_WIDTH - full)
-		end
-		return "│" .. s .. "│"
+		return s
 	end
 
-	local ProgressIndicator = utils.mapped_list(function(_)
-		local row = progress_row()
-		local rows = { TOP_BORDER }
-		for _ = 1, BAR_ROWS do
-			rows[#rows + 1] = row
-		end
-		rows[#rows + 1] = BOTTOM_BORDER
-		return rows
-	end, function(item)
-		return Line({ { provider = item } })
-	end)
+	local ProgressIndicator = {}
+	for _ = 1, BAR_ROWS do
+		ProgressIndicator[#ProgressIndicator + 1] = Line({ provider = progress_row })
+	end
 
 	Pomodoro = {
 		update = { "User", pattern = "PomodoroTick" },
@@ -876,7 +744,7 @@ do
 					{ provider = icons[s] or "?" },
 					{ provider = " " },
 					{ provider = name },
-					{ provider = last_tool, hl = "Comment" },
+					{ provider = last_tool,      hl = "Comment" },
 				})
 			end
 			local summary = item.session.prompt_summary
@@ -920,16 +788,16 @@ komado.setup({
 	},
 	root = {
 		Header,
+		LoadAvg,
 		Spacer,
 		ClaudeStatus,
 		Separator,
 		GitStatus,
 		utils.vertical_align(),
 		Pomodoro,
-		Spacer,
-		LoadAvg,
 		Separator,
 		Footer,
+		Spacer,
 	},
 })
 
