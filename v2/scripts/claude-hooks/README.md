@@ -11,17 +11,25 @@ file, which the komado `ClaudeStatus` section reads and renders.
 ### Behavior
 
 The first argument is the event name. The script parses the JSON from stdin
-and transitions the status accordingly.
+and transitions the status accordingly. Once a session becomes `stopped` it
+stays `stopped` until the next `UserPromptSubmit`.
 
-| event              | status     | extra fields                |
-| ------------------ | ---------- | --------------------------- |
-| `SessionStart`     | `idle`     | `started_at`                |
-| `UserPromptSubmit` | `running`  | `prompt_summary` (first 80) |
-| `PreToolUse`       | `waiting`  | `last_tool`                 |
-| `PostToolUse`      | `running`  | -                           |
-| `Notification`     | `waiting`  | `notification`              |
-| `Stop`             | `done`     | -                           |
-| `SessionEnd`       | -          | (file removed)              |
+| event              | status                                                 | extra fields                |
+| ------------------ | ------------------------------------------------------ | --------------------------- |
+| `SessionStart`     | `idle`                                                 | `started_at`                |
+| `UserPromptSubmit` | `running` (resumes from `stopped`)                     | `prompt_summary` (first 80) |
+| `PreToolUse`       | `running` (kept `stopped` if already so)               | `last_tool`                 |
+| `PostToolUse`      | `running` (kept `stopped` if already so)               | -                           |
+| `Notification`     | `waiting_input` for permission prompts, else `running` | `notification`              |
+| `Stop`             | `stopped`                                              | -                           |
+| `SessionEnd`       | -                                                      | (file removed)              |
+
+> `idle` is set only on `SessionStart`; the active states are
+> `running` / `waiting_input` / `stopped`.
+>
+> Permission prompts are detected via the `notification_type` field
+> (`permission_prompt`). When Claude Code does not send that field, an empty
+> value falls back to `waiting_input` so prompts are not missed.
 
 Output path: `${XDG_STATE_HOME:-$HOME/.local/state}/komado/claude/<session_id>.json`
 
@@ -76,7 +84,7 @@ itself.
 {
   "session_id": "abc123",
   "cwd": "/Users/tak/proj/foo",
-  "status": "waiting",
+  "status": "waiting_input",
   "started_at": 1715900000,
   "last_event": "PreToolUse",
   "last_event_at": 1715900123,

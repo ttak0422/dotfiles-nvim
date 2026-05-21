@@ -265,8 +265,8 @@ do
 		end
 
 		local sections = {
-			{ label = "Staged", items = status.staged },
-			{ label = "Unstaged", items = status.unstaged },
+			{ label = "Staged",    items = status.staged },
+			{ label = "Unstaged",  items = status.unstaged },
 			{ label = "Untracked", items = status.untracked },
 		}
 
@@ -322,8 +322,8 @@ do
 
 			if item.kind == "section" then
 				return Line({
-					{ provider = "  ", hl = "Comment" },
-					{ provider = item.label, hl = "Identifier" },
+					{ provider = "  ",                 hl = "Comment" },
+					{ provider = item.label,           hl = "Identifier" },
 					{ provider = " " },
 					{ provider = tostring(item.count), hl = "Number" },
 				})
@@ -656,7 +656,6 @@ local ClaudeStatus
 do
 	local state_dir = (vim.env.XDG_STATE_HOME or (vim.env.HOME .. "/.local/state")) .. "/komado/claude"
 	local STALE_SEC = 60 * 30
-	local DONE_GRACE_SEC = 5
 
 	local LOGO_HL = { fg = "#D97757" }
 	local EYE_HL = { fg = "#D97757", bg = "#000000" }
@@ -705,11 +704,7 @@ do
 					if obj then
 						local age = now - (obj.last_event_at or 0)
 						obj._stale = age > STALE_SEC
-						if obj.status == "done" and age > DONE_GRACE_SEC then
-							obj._display_status = "idle"
-						else
-							obj._display_status = obj.status
-						end
+						obj._display_status = obj.status
 						rows[#rows + 1] = obj
 					end
 				end
@@ -751,8 +746,8 @@ do
 	local icons = {
 		idle = "",
 		running = "",
-		waiting = "",
-		done = "󰄬",
+		waiting_input = "",
+		stopped = "󰄬",
 		stale = "",
 	}
 
@@ -793,7 +788,7 @@ do
 					{ provider = icons[s] or "?" },
 					{ provider = " " },
 					{ provider = name },
-					{ provider = last_tool, hl = "Comment" },
+					{ provider = last_tool,      hl = "Comment" },
 				})
 			end
 			local summary = item.session.prompt_summary

@@ -26,41 +26,50 @@ if [ "$EVENT" = "SessionEnd" ]; then
   exit 0
 fi
 
+PREV='{}'
+[ -f "$FILE" ] && PREV="$(cat "$FILE")"
+CUR="$(printf '%s' "$PREV" | jq -r '.status // empty')"
+
+EXTRA='{}'
 case "$EVENT" in
 SessionStart)
   STATUS=idle
-  EXTRA='{}'
   ;;
 UserPromptSubmit)
+  # 新しい操作の開始。stopped でも running に戻す。
   PROMPT="$(printf '%s' "$INPUT" | jq -r '.prompt // ""' | tr '\n\r\t' '   ' | head -c 80)"
   STATUS=running
   EXTRA="$(jq -n --arg p "$PROMPT" '{prompt_summary:$p}')"
   ;;
+Stop)
+  STATUS=stopped
+  ;;
 PreToolUse)
   TOOL="$(printf '%s' "$INPUT" | jq -r '.tool_name // ""')"
-  STATUS=waiting
   EXTRA="$(jq -n --arg t "$TOOL" '{last_tool:$t}')"
+  if [ "$CUR" = "stopped" ]; then STATUS=stopped; else STATUS=running; fi
   ;;
 PostToolUse)
-  STATUS=running
-  EXTRA='{}'
+  if [ "$CUR" = "stopped" ]; then STATUS=stopped; else STATUS=running; fi
   ;;
 Notification)
   MSG="$(printf '%s' "$INPUT" | jq -r '.message // ""')"
-  STATUS=waiting
+  NTYPE="$(printf '%s' "$INPUT" | jq -r '.notification_type // ""')"
   EXTRA="$(jq -n --arg m "$MSG" '{notification:$m}')"
-  ;;
-Stop)
-  STATUS=done
-  EXTRA='{}'
+  # permission_prompt は入力待ち。notification_type を送らない Claude Code
+  # 環境では取りこぼさないよう空文字もフォールバックで waiting_input にする。
+  if [ "$NTYPE" = "permission_prompt" ] || [ -z "$NTYPE" ]; then
+    STATUS=waiting_input
+  elif [ "$CUR" = "stopped" ]; then
+    STATUS=stopped
+  else
+    STATUS=running
+  fi
   ;;
 *)
   exit 0
   ;;
 esac
-
-PREV='{}'
-[ -f "$FILE" ] && PREV="$(cat "$FILE")"
 
 printf '%s' "$PREV" | jq \
   --arg sid "$SID" \
