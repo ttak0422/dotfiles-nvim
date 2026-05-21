@@ -265,8 +265,8 @@ do
 		end
 
 		local sections = {
-			{ label = "Staged",    items = status.staged },
-			{ label = "Unstaged",  items = status.unstaged },
+			{ label = "Staged", items = status.staged },
+			{ label = "Unstaged", items = status.unstaged },
 			{ label = "Untracked", items = status.untracked },
 		}
 
@@ -322,8 +322,8 @@ do
 
 			if item.kind == "section" then
 				return Line({
-					{ provider = "  ",                 hl = "Comment" },
-					{ provider = item.label,           hl = "Identifier" },
+					{ provider = "  ", hl = "Comment" },
+					{ provider = item.label, hl = "Identifier" },
 					{ provider = " " },
 					{ provider = tostring(item.count), hl = "Number" },
 				})
@@ -559,12 +559,37 @@ do
 	local ModeLine = Line({
 		provider = function()
 			local icon = config.icons[state.phase] or config.icons.idle
-			return " " .. icon .. " " .. phase_label()
+			return icon .. " " .. phase_label()
 		end,
 	})
 
 	local BLOCKS = { " ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█" }
 	local BAR_ROWS = 3
+
+	local function hl_fg(group)
+		local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+		return hl and hl.fg or nil
+	end
+	-- colorscheme 変更時だけ取り直してキャッシュする（描画ごとの nvim_get_hl を避ける）
+	local normal_fg, comment_fg
+	local function refresh_colors()
+		normal_fg = hl_fg("Normal")
+		comment_fg = hl_fg("Comment")
+	end
+	refresh_colors()
+	vim.api.nvim_create_autocmd("ColorScheme", {
+		group = vim.api.nvim_create_augroup("KomadoPomodoroColors", { clear = true }),
+		callback = refresh_colors,
+	})
+	local function fill_hl()
+		return { fg = normal_fg }
+	end
+	local function edge_hl()
+		return { fg = normal_fg, bg = comment_fg }
+	end
+	local function track_hl()
+		return { bg = comment_fg }
+	end
 
 	local function sidebar_width(self)
 		local sb = self._sidebar
@@ -583,30 +608,47 @@ do
 		return math.max(0, math.min(1, state.remaining_ms / total_ms))
 	end
 
-	local function progress_row(self)
+	-- fill(残り) / edge(境界の部分ブロック) / track(消費分) のセル数を返す
+	local function bar_parts(self)
 		local width = sidebar_width(self)
 		if width <= 0 then
-			return ""
+			return 0, 0, 0
 		end
 		local total = math.floor(progress_value() * width * 8)
 		local full = math.floor(total / 8)
 		local partial = total % 8
-		local s = string.rep("█", full)
-		if partial > 0 and full < width then
-			s = s .. BLOCKS[partial + 1]
-		end
-		return s
+		local has_edge = (partial > 0 and full < width)
+		local track = width - full - (has_edge and 1 or 0)
+		return full, (has_edge and partial or 0), math.max(0, track)
+	end
+
+	local function fill_provider(self)
+		return string.rep("█", (bar_parts(self)))
+	end
+
+	local function edge_provider(self)
+		local _, partial = bar_parts(self)
+		return partial > 0 and BLOCKS[partial + 1] or ""
+	end
+
+	local function track_provider(self)
+		local _, _, track = bar_parts(self)
+		return string.rep(" ", track)
 	end
 
 	local ProgressIndicator = {}
 	for _ = 1, BAR_ROWS do
-		ProgressIndicator[#ProgressIndicator + 1] = Line({ provider = progress_row })
+		ProgressIndicator[#ProgressIndicator + 1] = Line({
+			{ provider = fill_provider,  hl = fill_hl },
+			{ provider = edge_provider,  hl = edge_hl },
+			{ provider = track_provider, hl = track_hl },
+		})
 	end
 
 	Pomodoro = {
 		update = { "User", pattern = "PomodoroTick" },
-		ModeLine,
 		ProgressIndicator,
+		ModeLine,
 	}
 end
 
@@ -617,6 +659,7 @@ do
 	local DONE_GRACE_SEC = 5
 
 	local LOGO_HL = { fg = "#D97757" }
+	local EYE_HL = { fg = "#D97757", bg = "#000000" }
 	local LOGO_ROWS = {
 		" ▐▛███▜▌ ",
 		"▝▜█████▛▘",
@@ -719,7 +762,13 @@ do
 		init = function(_)
 			reload()
 		end,
-		Line({ provider = LOGO_ROWS[1], hl = LOGO_HL }),
+		Line({
+			{ provider = vim.fn.strcharpart(LOGO_ROWS[1], 0, 2), hl = LOGO_HL },
+			{ provider = vim.fn.strcharpart(LOGO_ROWS[1], 2, 1), hl = EYE_HL },
+			{ provider = vim.fn.strcharpart(LOGO_ROWS[1], 3, 3), hl = LOGO_HL },
+			{ provider = vim.fn.strcharpart(LOGO_ROWS[1], 6, 1), hl = EYE_HL },
+			{ provider = vim.fn.strcharpart(LOGO_ROWS[1], 7, 2), hl = LOGO_HL },
+		}),
 		Line({ provider = LOGO_ROWS[2], hl = LOGO_HL }),
 		Line({ provider = LOGO_ROWS[3], hl = LOGO_HL }),
 		utils.mapped_list(function()
@@ -744,7 +793,7 @@ do
 					{ provider = icons[s] or "?" },
 					{ provider = " " },
 					{ provider = name },
-					{ provider = last_tool,      hl = "Comment" },
+					{ provider = last_tool, hl = "Comment" },
 				})
 			end
 			local summary = item.session.prompt_summary
@@ -788,13 +837,13 @@ komado.setup({
 	},
 	root = {
 		Header,
-		LoadAvg,
+		Pomodoro,
 		Spacer,
 		ClaudeStatus,
 		Separator,
 		GitStatus,
 		utils.vertical_align(),
-		Pomodoro,
+		LoadAvg,
 		Separator,
 		Footer,
 		Spacer,
