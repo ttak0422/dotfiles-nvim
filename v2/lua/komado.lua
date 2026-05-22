@@ -566,15 +566,33 @@ do
 	local BLOCKS = { " ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█" }
 	local BAR_ROWS = 3
 
-	local function hl_fg(group)
+	local TRACK_DELTA = 24
+	local function hl_attr(group, attr)
 		local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
-		return hl and hl.fg or nil
+		return hl and hl[attr] or nil
+	end
+	-- 各チャンネルを delta だけ寄せる（dark は明るく / light は暗く する用途）
+	local function shade(rgb, delta)
+		local function clamp(x)
+			return math.max(0, math.min(255, x))
+		end
+		local r = clamp(math.floor(rgb / 0x10000) % 0x100 + delta)
+		local g = clamp(math.floor(rgb / 0x100) % 0x100 + delta)
+		local b = clamp(rgb % 0x100 + delta)
+		return r * 0x10000 + g * 0x100 + b
 	end
 	-- colorscheme 変更時だけ取り直してキャッシュする（描画ごとの nvim_get_hl を避ける）
-	local normal_fg, comment_fg
+	local fill_fg, track_bg
 	local function refresh_colors()
-		normal_fg = hl_fg("Normal")
-		comment_fg = hl_fg("Comment")
+		fill_fg = hl_attr("Comment", "fg")
+		local normal_bg = hl_attr("Normal", "bg")
+		if normal_bg then
+			-- track は Normal.bg を基準に、light は少し暗く / dark は少し明るく
+			local delta = (vim.o.background == "light") and -TRACK_DELTA or TRACK_DELTA
+			track_bg = shade(normal_bg, delta)
+		else
+			track_bg = nil
+		end
 	end
 	refresh_colors()
 	vim.api.nvim_create_autocmd("ColorScheme", {
@@ -582,13 +600,13 @@ do
 		callback = refresh_colors,
 	})
 	local function fill_hl()
-		return { fg = normal_fg }
+		return { fg = fill_fg }
 	end
 	local function edge_hl()
-		return { fg = normal_fg, bg = comment_fg }
+		return { fg = fill_fg, bg = track_bg }
 	end
 	local function track_hl()
-		return { bg = comment_fg }
+		return { bg = track_bg }
 	end
 
 	local function sidebar_width(self)
@@ -840,6 +858,7 @@ komado.setup({
 		utils.vertical_align(),
 		LoadAvg,
 		Separator,
+		Spacer,
 		Footer,
 		Spacer,
 	},
