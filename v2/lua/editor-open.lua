@@ -4,8 +4,9 @@
 -- Note: +N は nvim -l に消費されるため、シェルラッパーが --line=N に変換する
 
 local addr = os.getenv("NVIM_EDITOR_ADDR") or os.getenv("NVIM")
-local origin_win = tonumber(os.getenv("NVIM_EDITOR_WIN") or "")
-local origin_buf = tonumber(os.getenv("NVIM_EDITOR_BUF") or "")
+local use_origin = os.getenv("NVIM_EDITOR_USE_ORIGIN") == "1"
+local origin_win = use_origin and tonumber(os.getenv("NVIM_EDITOR_WIN") or "") or nil
+local origin_buf = use_origin and tonumber(os.getenv("NVIM_EDITOR_BUF") or "") or nil
 if not addr then
   os.exit(1)
 end
@@ -39,26 +40,41 @@ local function parse_args(args)
 end
 
 local function focus_origin(chan)
-  if origin_buf then
-    local ok, result = request(chan, "nvim_exec_lua", [[
-      local bufnr = ...
-      if not vim.api.nvim_buf_is_valid(bufnr) then
-        return false
-      end
-      local wins = vim.fn.win_findbuf(bufnr)
-      if #wins == 0 then
-        return false
-      end
-      return vim.api.nvim_set_current_win(wins[1]) == nil
-    ]], { origin_buf })
-    if ok and result then
-      return true
-    end
-  end
+  local ok, result = request(chan, "nvim_exec_lua", [[
+      local origin_win, bufnr = ...
 
-  if origin_win then
-    local ok, result = request(chan, "nvim_call_function", "win_gotoid", { origin_win })
-    return ok and result == 1
+      local function current_tab_wins()
+        local wins = {}
+        for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+          wins[win] = true
+        end
+        return wins
+      end
+
+      local wins_in_tab = current_tab_wins()
+
+      if type(origin_win) == "number"
+          and wins_in_tab[origin_win]
+          and vim.api.nvim_win_is_valid(origin_win) then
+        vim.api.nvim_set_current_win(origin_win)
+        return true
+      end
+
+      if type(bufnr) ~= "number" or not vim.api.nvim_buf_is_valid(bufnr) then
+        return false
+      end
+
+      local wins = vim.fn.win_findbuf(bufnr)
+      for _, win in ipairs(wins) do
+        if wins_in_tab[win] and vim.api.nvim_win_is_valid(win) then
+          vim.api.nvim_set_current_win(win)
+          return true
+        end
+      end
+      return false
+    ]], { origin_win, origin_buf })
+  if ok and result then
+    return true
   end
 
   return false
@@ -66,10 +82,95 @@ end
 
 local function open_entry(chan, entry)
   return request(chan, "nvim_exec_lua", [[
-    local file, line = ...
+    local file, line, origin_win = ...
     local target = vim.fn.fnamemodify(file, ":p")
     local resolved_target = vim.fn.resolve(target)
 
+    local function win_in_current_tab(win)
+      for _, current_tab_win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        if current_tab_win == win then
+          return true
+        end
+      end
+      return false
+    end
+
+    local function is_normal_win(win)
+      return type(win) == "number"
+        and vim.api.nvim_win_is_valid(win)
+        and win_in_current_tab(win)
+        and vim.api.nvim_win_get_config(win).relative == ""
+    end
+
+    local function is_pinned(win)
+      local ok, value = pcall(vim.api.nvim_win_get_var, win, "sticky_original_bufnr")
+      return ok and value ~= nil
+    end
+
+    local function is_candidate(win)
+      if not is_normal_win(win) or is_pinned(win) then
+        return false
+      end
+
+      local buf = vim.api.nvim_win_get_buf(win)
+      local buftype = vim.bo[buf].buftype
+      if buftype == "terminal" or buftype == "prompt" or buftype == "quickfix" or buftype == "nofile" then
+        return false
+      end
+
+      return true
+    end
+
+    local function normal_wins()
+      local wins = {}
+      for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        if is_normal_win(win) then
+          table.insert(wins, win)
+        end
+      end
+      return wins
+    end
+
+    local function split_from(win)
+      if is_normal_win(win) then
+        vim.api.nvim_set_current_win(win)
+      else
+        local wins = normal_wins()
+        if #wins > 0 then
+          vim.api.nvim_set_current_win(wins[1])
+        end
+      end
+
+      if vim.o.columns / vim.o.lines > 2.5 then
+        vim.cmd("vsplit")
+      else
+        vim.cmd("split")
+      end
+    end
+
+    local function select_window()
+      local wins = normal_wins()
+      if #wins == 1 then
+        split_from(wins[1])
+        return
+      end
+
+      if is_candidate(origin_win) then
+        vim.api.nvim_set_current_win(origin_win)
+        return
+      end
+
+      for _, win in ipairs(wins) do
+        if win ~= origin_win and is_candidate(win) then
+          vim.api.nvim_set_current_win(win)
+          return
+        end
+      end
+
+      split_from(wins[1] or origin_win)
+    end
+
+    select_window()
     pcall(vim.cmd, "edit " .. vim.fn.fnameescape(target))
 
     local current = vim.fn.resolve(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p"))
@@ -84,7 +185,7 @@ local function open_entry(chan, entry)
     end
 
     return true
-  ]], { entry.file, entry.line })
+  ]], { entry.file, entry.line, origin_win })
 end
 
 local function wait_for_buffer(chan, target)
@@ -98,7 +199,7 @@ local function wait_for_buffer(chan, target)
 
   local acmd_ok, _ = request(chan, "nvim_exec_lua", [[
     local bufnr, lockfile = ...
-    vim.api.nvim_create_autocmd({'BufDelete', 'BufWipeout', 'BufHidden', 'BufUnload'}, {
+    vim.api.nvim_create_autocmd({'BufDelete', 'BufWipeout', 'BufUnload'}, {
       buffer = bufnr,
       once = true,
       callback = function()

@@ -48,9 +48,12 @@ end
 local function with_editor_origin(win, buf, f)
   local prev_editor_win = vim.env.NVIM_EDITOR_WIN
   local prev_editor_buf = vim.env.NVIM_EDITOR_BUF
+  local prev_editor_use_origin = vim.env.NVIM_EDITOR_USE_ORIGIN
+  vim.env.NVIM_EDITOR_USE_ORIGIN = "1"
   vim.env.NVIM_EDITOR_WIN = tostring(win)
   vim.env.NVIM_EDITOR_BUF = tostring(buf)
   local ok_3f, result = pcall(f)
+  vim.env.NVIM_EDITOR_USE_ORIGIN = prev_editor_use_origin
   vim.env.NVIM_EDITOR_WIN = prev_editor_win
   vim.env.NVIM_EDITOR_BUF = prev_editor_buf
   if ok_3f then

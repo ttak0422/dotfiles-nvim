@@ -31,10 +31,13 @@
 
 (fn with-editor-origin [win buf f]
   (let [prev-editor-win vim.env.NVIM_EDITOR_WIN
-        prev-editor-buf vim.env.NVIM_EDITOR_BUF]
+        prev-editor-buf vim.env.NVIM_EDITOR_BUF
+        prev-editor-use-origin vim.env.NVIM_EDITOR_USE_ORIGIN]
+    (set vim.env.NVIM_EDITOR_USE_ORIGIN :1)
     (set vim.env.NVIM_EDITOR_WIN (tostring win))
     (set vim.env.NVIM_EDITOR_BUF (tostring buf))
     (let [(ok? result) (pcall f)]
+      (set vim.env.NVIM_EDITOR_USE_ORIGIN prev-editor-use-origin)
       (set vim.env.NVIM_EDITOR_WIN prev-editor-win)
       (set vim.env.NVIM_EDITOR_BUF prev-editor-buf)
       (if ok?
