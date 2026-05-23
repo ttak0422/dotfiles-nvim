@@ -5,6 +5,22 @@ local Line = require("komado.dsl").Line
 local Spacer = Line({ provider = "" })
 local Separator = utils.separator("─", "Comment")
 
+local function emitter(pattern)
+	return function()
+		pcall(vim.api.nvim_exec_autocmds, "User", {
+			pattern = pattern,
+			modeline = false,
+		})
+	end
+end
+
+local function periodic_tick(pattern)
+	local timer = vim.uv.new_timer()
+	if timer then
+		timer:start((60 - tonumber(os.date("%S"))) * 1000, 60000, vim.schedule_wrap(emitter(pattern)))
+	end
+end
+
 local ASCII = {
 	["0"] = {
 		"██████",
@@ -118,19 +134,7 @@ local LoadAvg
 do
 	local LABEL = " LOAD "
 
-	local update_timer = vim.uv.new_timer()
-	if update_timer then
-		update_timer:start(
-			0,
-			60000,
-			vim.schedule_wrap(function()
-				pcall(vim.api.nvim_exec_autocmds, "User", {
-					pattern = "KomadoLoadAvgTick",
-					modeline = false,
-				})
-			end)
-		)
-	end
+	periodic_tick("KomadoLoadAvgTick")
 
 	local function fmt(idx)
 		return function()
@@ -154,19 +158,7 @@ end
 
 local Footer
 do
-	local clock_timer = vim.uv.new_timer()
-	if clock_timer then
-		clock_timer:start(
-			(60 - tonumber(os.date("%S"))) * 1000,
-			60000,
-			vim.schedule_wrap(function()
-				pcall(vim.api.nvim_exec_autocmds, "User", {
-					pattern = "KomadoTick",
-					modeline = false,
-				})
-			end)
-		)
-	end
+	periodic_tick("KomadoTick")
 	local Clock = {
 		update = { "User", pattern = "KomadoTick" },
 		utils.mapped_list(function(_)
@@ -265,8 +257,8 @@ do
 		end
 
 		local sections = {
-			{ label = "Staged",    items = status.staged },
-			{ label = "Unstaged",  items = status.unstaged },
+			{ label = "Staged", items = status.staged },
+			{ label = "Unstaged", items = status.unstaged },
 			{ label = "Untracked", items = status.untracked },
 		}
 
@@ -322,8 +314,8 @@ do
 
 			if item.kind == "section" then
 				return Line({
-					{ provider = "  ",                 hl = "Comment" },
-					{ provider = item.label,           hl = "Identifier" },
+					{ provider = "  ", hl = "Comment" },
+					{ provider = item.label, hl = "Identifier" },
 					{ provider = " " },
 					{ provider = tostring(item.count), hl = "Number" },
 				})
@@ -379,12 +371,7 @@ do
 
 	local timer = vim.uv.new_timer()
 
-	local function emit_tick()
-		pcall(vim.api.nvim_exec_autocmds, "User", {
-			pattern = "PomodoroTick",
-			modeline = false,
-		})
-	end
+	local emit_tick = emitter("PomodoroTick")
 
 	local function format_remaining()
 		if state.phase == "idle" then
@@ -438,6 +425,16 @@ do
 		end
 	end
 
+	local function advance_phase()
+		if state.phase == "work" then
+			state.completed_work = state.completed_work + 1
+		end
+		local nxt = compute_next_phase()
+		notify_transition(nxt)
+		state.phase = nxt
+		state.remaining_ms = duration_for(nxt)
+	end
+
 	local function stop_timer()
 		if timer and timer:is_active() then
 			timer:stop()
@@ -460,13 +457,7 @@ do
 				end
 				state.remaining_ms = state.remaining_ms - config.tick_ms
 				if state.remaining_ms <= 0 then
-					if state.phase == "work" then
-						state.completed_work = state.completed_work + 1
-					end
-					local nxt = compute_next_phase()
-					notify_transition(nxt)
-					state.phase = nxt
-					state.remaining_ms = duration_for(nxt)
+					advance_phase()
 					if not config.auto_start_next then
 						state.running = false
 						stop_timer()
@@ -510,13 +501,7 @@ do
 		if state.phase == "idle" then
 			return
 		end
-		if state.phase == "work" then
-			state.completed_work = state.completed_work + 1
-		end
-		local nxt = compute_next_phase()
-		notify_transition(nxt)
-		state.phase = nxt
-		state.remaining_ms = duration_for(nxt)
+		advance_phase()
 		if state.running then
 			start_timer()
 		end
@@ -657,8 +642,8 @@ do
 	local ProgressIndicator = {}
 	for _ = 1, BAR_ROWS do
 		ProgressIndicator[#ProgressIndicator + 1] = Line({
-			{ provider = fill_provider,  hl = fill_hl },
-			{ provider = edge_provider,  hl = edge_hl },
+			{ provider = fill_provider, hl = fill_hl },
+			{ provider = edge_provider, hl = edge_hl },
 			{ provider = track_provider, hl = track_hl },
 		})
 	end
@@ -673,7 +658,6 @@ end
 local ClaudeStatus
 do
 	local state_dir = (vim.env.XDG_STATE_HOME or (vim.env.HOME .. "/.local/state")) .. "/komado/claude"
-	local STALE_SEC = 60 * 30
 
 	local LOGO_HL = { fg = "#D97757" }
 	local EYE_HL = { fg = "#D97757", bg = "#000000" }
@@ -708,38 +692,39 @@ do
 
 	local sessions = {}
 
-	local function reload()
-		local rows, now = {}, os.time()
+	-- state_dir 内の *.json を1つずつ cb(name) に渡す
+	local function each_json(cb)
 		local h = vim.uv.fs_scandir(state_dir)
-		if h then
-			while true do
-				local name = vim.uv.fs_scandir_next(h)
-				if not name then
-					break
-				end
-				if name:match("%.json$") then
-					local obj = read_json(state_dir .. "/" .. name)
-					if obj then
-						local age = now - (obj.last_event_at or 0)
-						obj._stale = age > STALE_SEC
-						obj._display_status = obj.status
-						rows[#rows + 1] = obj
-					end
-				end
+		if not h then
+			return
+		end
+		while true do
+			local name = vim.uv.fs_scandir_next(h)
+			if not name then
+				break
+			end
+			if name:match("%.json$") then
+				cb(name)
 			end
 		end
+	end
+
+	local function reload()
+		local rows = {}
+		each_json(function(name)
+			local obj = read_json(state_dir .. "/" .. name)
+			if obj then
+				obj._display_status = obj.status
+				rows[#rows + 1] = obj
+			end
+		end)
 		table.sort(rows, function(a, b)
 			return (a.started_at or 0) < (b.started_at or 0)
 		end)
 		sessions = rows
 	end
 
-	local function emit()
-		pcall(vim.api.nvim_exec_autocmds, "User", {
-			pattern = "KomadoClaudeTick",
-			modeline = false,
-		})
-	end
+	local emit = emitter("KomadoClaudeTick")
 
 	local fs_evt = vim.uv.new_fs_event()
 	local debounce = vim.uv.new_timer()
@@ -756,17 +741,15 @@ do
 
 	vim.api.nvim_create_autocmd({ "DirChanged", "FocusGained" }, { callback = emit })
 
-	local stale_timer = vim.uv.new_timer()
-	if stale_timer then
-		stale_timer:start(60000, 60000, vim.schedule_wrap(emit))
-	end
-
-	local icons = {
-		idle = "",
-		running = "",
-		waiting_input = "",
-		stopped = "󰄬",
-		stale = "",
+	local STATUS_LABELS = {
+		running = "running",
+		waiting_input = "waiting",
+		stopped = "stopped",
+	}
+	local STATUS_HL = {
+		running = { fg = "#0d1117", bg = "#3fb950" },
+		waiting_input = { fg = "#0d1117", bg = "#d29922" },
+		stopped = { fg = "#0d1117", bg = "#8b949e" },
 	}
 
 	ClaudeStatus = {
@@ -799,40 +782,32 @@ do
 				return Line({ provider = "no sessions", hl = "Comment" })
 			end
 			if item.kind == "head" then
-				local s = item.session._stale and "stale" or item.session._display_status
+				local s = item.session._display_status
 				local name = (item.session.name and item.session.name ~= "") and item.session.name or "?"
+				local label = STATUS_LABELS[s] or s or "?"
 				local last_tool = item.session.last_tool and ("  " .. item.session.last_tool) or ""
 				return Line({
-					{ provider = icons[s] or "?" },
-					{ provider = " " },
 					{ provider = name },
-					{ provider = last_tool,      hl = "Comment" },
+					{ provider = " " },
+					{ provider = " " .. label .. " ", hl = STATUS_HL[s] or "Comment" },
+					{ provider = last_tool, hl = "Comment" },
 				})
 			end
-			local summary = item.session.prompt_summary
+			local msg = item.session.last_message
+			local summary = (msg and msg ~= "") and msg or item.session.prompt_summary
 			local text = (summary and summary ~= "") and summary:gsub("[%c]", " ") or "----"
 			return Line({
-				{ provider = "  " },
 				{ provider = text, hl = "Comment" },
 			})
 		end),
 	}
 
 	vim.api.nvim_create_user_command("KomadoClaudeClean", function()
-		local h = vim.uv.fs_scandir(state_dir)
 		local n = 0
-		if h then
-			while true do
-				local name = vim.uv.fs_scandir_next(h)
-				if not name then
-					break
-				end
-				if name:match("%.json$") then
-					vim.uv.fs_unlink(state_dir .. "/" .. name)
-					n = n + 1
-				end
-			end
-		end
+		each_json(function(name)
+			vim.uv.fs_unlink(state_dir .. "/" .. name)
+			n = n + 1
+		end)
 		vim.notify(string.format("KomadoClaudeClean: removed %d file(s)", n))
 		emit()
 	end, {})

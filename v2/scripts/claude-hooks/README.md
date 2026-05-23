@@ -16,20 +16,31 @@ stays `stopped` until the next `UserPromptSubmit`.
 
 | event              | status                                                 | extra fields                |
 | ------------------ | ------------------------------------------------------ | --------------------------- |
-| `SessionStart`     | `idle`                                                 | `started_at`                |
+| `SessionStart`     | `waiting_input`                                        | `started_at`                |
 | `UserPromptSubmit` | `running` (resumes from `stopped`)                     | `prompt_summary` (first 80) |
 | `PreToolUse`       | `running` (kept `stopped` if already so)               | `last_tool`                 |
 | `PostToolUse`      | `running` (kept `stopped` if already so)               | -                           |
-| `Notification`     | `waiting_input` for permission prompts, else `running` | `notification`              |
+| `Notification`     | `waiting_input` for input-waiting types, else `running`| `notification`              |
 | `Stop`             | `stopped`                                              | -                           |
 | `SessionEnd`       | -                                                      | (file removed)              |
 
-> `idle` is set only on `SessionStart`; the active states are
-> `running` / `waiting_input` / `stopped`.
+> The status set is `running` / `waiting_input` / `stopped` (modeled on
+> claude-code-monitor). A freshly started session is `waiting_input` until the
+> first prompt arrives.
 >
-> Permission prompts are detected via the `notification_type` field
-> (`permission_prompt`). When Claude Code does not send that field, an empty
-> value falls back to `waiting_input` so prompts are not missed.
+> Whenever `transcript_path` is available the script extracts the latest
+> assistant text message from the transcript and stores it as `last_message`
+> (first 120 chars). komado shows this as the per-session summary line, falling
+> back to `prompt_summary` when no assistant message exists yet. An empty
+> extraction keeps the previous `last_message` rather than blanking it.
+>
+> Input-waiting states are detected via the `notification_type` field. Both
+> `permission_prompt` (tool approval) and `elicitation_dialog` (MCP tool asking
+> for input) map to `waiting_input`. `idle_prompt` (idle after completion) and
+> `auth_success` (informational) do not — they fall through to
+> `running_unless_stopped`, so a finished session stays `stopped`. When Claude
+> Code does not send the field, an empty value also falls back to
+> `waiting_input` so prompts are not missed.
 
 Output path: `${XDG_STATE_HOME:-$HOME/.local/state}/komado/claude/<session_id>.json`
 
@@ -89,7 +100,8 @@ itself.
   "last_event": "PreToolUse",
   "last_event_at": 1715900123,
   "last_tool": "Bash",
-  "prompt_summary": "..."
+  "prompt_summary": "...",
+  "last_message": "..."
 }
 ```
 
@@ -104,7 +116,7 @@ itself.
 ### Notes
 
 - If a Claude Code process dies abnormally `SessionEnd` is never fired and the
-  state file lingers. Neovim marks any session whose last event is older than
-  30 minutes as stale, and removes files older than 24 hours at startup.
+  state file lingers. There is no automatic staleness handling; run
+  `:KomadoClaudeClean` in Neovim to wipe leftover state files.
 - Sessions whose `cwd` does not match are not shown in komado (filtering
   happens on the Neovim side).
