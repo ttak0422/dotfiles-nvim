@@ -80,9 +80,9 @@ local function focus_origin(chan)
   return false
 end
 
-local function open_entry(chan, entry)
+local function open_entry(chan, entry, wait)
   return request(chan, "nvim_exec_lua", [[
-    local file, line, origin_win = ...
+    local file, line, origin_win, wait = ...
     local target = vim.fn.fnamemodify(file, ":p")
     local resolved_target = vim.fn.resolve(target)
 
@@ -149,6 +149,13 @@ local function open_entry(chan, entry)
     end
 
     local function select_window()
+      if not wait and type(origin_win) == "number"
+          and vim.api.nvim_win_is_valid(origin_win)
+          and win_in_current_tab(origin_win) then
+        vim.api.nvim_set_current_win(origin_win)
+        return
+      end
+
       local wins = normal_wins()
       if #wins == 1 then
         split_from(wins[1])
@@ -185,7 +192,7 @@ local function open_entry(chan, entry)
     end
 
     return true
-  ]], { entry.file, entry.line, origin_win })
+  ]], { entry.file, entry.line, origin_win, wait })
 end
 
 local function wait_for_buffer(chan, target)
@@ -228,12 +235,12 @@ local function wait_for_buffer(chan, target)
   end
 end
 
-local function open_entries(chan, entries)
+local function open_entries(chan, entries, wait)
   local any_ok = false
   local last_opened = nil
 
   for _, entry in ipairs(entries) do
-    local ok, opened = open_entry(chan, entry)
+    local ok, opened = open_entry(chan, entry, wait)
     if ok and opened then
       any_ok = true
       last_opened = entry.file
@@ -257,7 +264,7 @@ end
 focus_origin(chan)
 
 -- 親Neovimでファイルを開く
-local any_ok, target = open_entries(chan, entries)
+local any_ok, target = open_entries(chan, entries, wait)
 
 if not any_ok then
   vim.fn.chanclose(chan)
