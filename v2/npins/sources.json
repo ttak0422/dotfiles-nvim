@@ -630,19 +630,6 @@
       "url": "https://github.com/willothy/flatten.nvim/archive/72527798e75b5e34757491947c2cb853ce21dc0e.tar.gz",
       "hash": "sha256-NaOgzTVqOpQnEIOIMlHCupZUDYnLUic9zITKFxcOg3A="
     },
-    "flit.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "ggandor",
-        "repo": "flit.nvim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "ef18183b22377741e154cffb5b914516381d3870",
-      "url": "https://github.com/ggandor/flit.nvim/archive/ef18183b22377741e154cffb5b914516381d3870.tar.gz",
-      "hash": "sha256-T+lArIMFTk/EFdLA7Io/U6R8X/TFeHaWfcMNAaRpmq8="
-    },
     "foldnav.nvim": {
       "type": "Git",
       "repository": {
@@ -1117,9 +1104,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "b960d5038c5c505c52e56a54490f9bbb1f0e6ef6",
-      "url": "https://codeberg.org/andyg/leap.nvim/archive/b960d5038c5c505c52e56a54490f9bbb1f0e6ef6.tar.gz",
-      "hash": "sha256-3xL4cwZdrRX0pCu/oqk0hz8zOeg/VRwn5cB9I9cG4DI="
+      "revision": "940bc5e716a8cde63bd47e1b13f30fd9075ec0c8",
+      "url": "https://codeberg.org/andyg/leap.nvim/archive/940bc5e716a8cde63bd47e1b13f30fd9075ec0c8.tar.gz",
+      "hash": "sha256-bwyZzOq0OGYMqJks3ijEWD3wgdbTNhUwNT96tWUNXK4="
     },
     "lensline.nvim": {
       "type": "GitRelease",

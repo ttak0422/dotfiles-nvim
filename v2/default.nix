@@ -813,11 +813,6 @@ in
           postConfig = read "./fnl/leap.fnl";
         }
         {
-          package = flit-nvim;
-          depends = [ vim-repeat ];
-          postConfig = read "./fnl/flit.fnl";
-        }
-        {
           package = fidget-nvim;
           postConfig = read "./fnl/fidget.fnl";
         }
