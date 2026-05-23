@@ -14,100 +14,28 @@ local function emitter(pattern)
 	end
 end
 
-local function periodic_tick(pattern)
+-- 分境界に揃えて 60 秒ごとに KomadoTick を発火する。Clock / LoadAvg が共有する。
+local function periodic_tick()
 	local timer = vim.uv.new_timer()
 	if timer then
-		timer:start((60 - tonumber(os.date("%S"))) * 1000, 60000, vim.schedule_wrap(emitter(pattern)))
+		timer:start((60 - tonumber(os.date("%S"))) * 1000, 60000, vim.schedule_wrap(emitter("KomadoTick")))
 	end
 end
 
 local ASCII = {
-	["0"] = {
-		"██████",
-		"██  ██",
-		"██  ██",
-		"██  ██",
-		"██████",
-	},
-	["1"] = {
-		"████  ",
-		"  ██  ",
-		"  ██  ",
-		"  ██  ",
-		"██████",
-	},
-	["2"] = {
-		"██████",
-		"    ██",
-		"██████",
-		"██    ",
-		"██████",
-	},
-	["3"] = {
-		"██████",
-		"    ██",
-		"██████",
-		"    ██",
-		"██████",
-	},
-	["4"] = {
-		"██  ██",
-		"██  ██",
-		"██████",
-		"    ██",
-		"    ██",
-	},
-	["5"] = {
-		"██████",
-		"██    ",
-		"██████",
-		"    ██",
-		"██████",
-	},
-	["6"] = {
-		"██████",
-		"██    ",
-		"██████",
-		"██  ██",
-		"██████",
-	},
-	["7"] = {
-		"██████",
-		"    ██",
-		"    ██",
-		"    ██",
-		"    ██",
-	},
-	["8"] = {
-		"██████",
-		"██  ██",
-		"██████",
-		"██  ██",
-		"██████",
-	},
-	["9"] = {
-		"██████",
-		"██  ██",
-		"██████",
-		"    ██",
-		"██████",
-	},
-	[":"] = {
-		"  ",
-		"██",
-		"  ",
-		"██",
-		"  ",
-	},
-	["-"] = {
-		"      ",
-		"      ",
-		"██████",
-		"      ",
-		"      ",
-	},
+	["0"] = { "██████", "██  ██", "██  ██", "██  ██", "██████" },
+	["1"] = { "████  ", "  ██  ", "  ██  ", "  ██  ", "██████" },
+	["2"] = { "██████", "    ██", "██████", "██    ", "██████" },
+	["3"] = { "██████", "    ██", "██████", "    ██", "██████" },
+	["4"] = { "██  ██", "██  ██", "██████", "    ██", "    ██" },
+	["5"] = { "██████", "██    ", "██████", "    ██", "██████" },
+	["6"] = { "██████", "██    ", "██████", "██  ██", "██████" },
+	["7"] = { "██████", "    ██", "    ██", "    ██", "    ██" },
+	["8"] = { "██████", "██  ██", "██████", "██  ██", "██████" },
+	["9"] = { "██████", "██  ██", "██████", "    ██", "██████" },
+	[":"] = { "  ", "██", "  ", "██", "  " },
+	["-"] = { "      ", "      ", "██████", "      ", "      " },
 }
-
 local function ascii_rows(text)
 	local rows = { "", "", "", "", "" }
 	for i = 1, #text do
@@ -122,44 +50,10 @@ local function ascii_rows(text)
 	return rows
 end
 
-local Header
+local Clock
 do
-	local Name = { provider = " Neovim " }
-	local v = vim.version()
-	local Version = { provider = string.format("v%d.%d.%d", v.major, v.minor, v.patch) }
-	Header = { Line({ Name, utils.horizontal_align(), Version }) }
-end
-
-local LoadAvg
-do
-	local LABEL = " LOAD "
-
-	periodic_tick("KomadoLoadAvgTick")
-
-	local function fmt(idx)
-		return function()
-			local v = { vim.uv.loadavg() }
-			return string.format("%.2f", v[idx])
-		end
-	end
-
-	LoadAvg = {
-		update = { "User", pattern = "KomadoLoadAvgTick" },
-		Line({
-			{ provider = LABEL, hl = "Comment" },
-			{ provider = fmt(1) },
-			{ provider = " " },
-			{ provider = fmt(2) },
-			{ provider = " " },
-			{ provider = fmt(3) },
-		}),
-	}
-end
-
-local Footer
-do
-	periodic_tick("KomadoTick")
-	local Clock = {
+	periodic_tick()
+	Clock = {
 		update = { "User", pattern = "KomadoTick" },
 		utils.mapped_list(function(_)
 			return ascii_rows(os.date("%H:%M"))
@@ -167,8 +61,24 @@ do
 			return utils.center(Line({ { provider = item, hl = "Comment" } }))
 		end),
 	}
+end
 
-	Footer = { Clock }
+local Footer
+do
+	local v = vim.version()
+	local Version = { provider = string.format(" %d.%d.%d", v.major, v.minor, v.patch) }
+
+	local LoadAvg = {
+		update = { "User", pattern = "KomadoTick" },
+		{
+			provider = function()
+				local one, five, fifteen = vim.uv.loadavg()
+				return string.format("%.2f %.2f %.2f", one, five, fifteen)
+			end,
+		},
+	}
+
+	Footer = { Version, utils.horizontal_align(), LoadAvg }
 end
 
 local GitStatus
@@ -257,8 +167,8 @@ do
 		end
 
 		local sections = {
-			{ label = "Staged", items = status.staged },
-			{ label = "Unstaged", items = status.unstaged },
+			{ label = "Staged",    items = status.staged },
+			{ label = "Unstaged",  items = status.unstaged },
 			{ label = "Untracked", items = status.untracked },
 		}
 
@@ -314,8 +224,8 @@ do
 
 			if item.kind == "section" then
 				return Line({
-					{ provider = "  ", hl = "Comment" },
-					{ provider = item.label, hl = "Identifier" },
+					{ provider = "  ",                 hl = "Comment" },
+					{ provider = item.label,           hl = "Identifier" },
 					{ provider = " " },
 					{ provider = tostring(item.count), hl = "Number" },
 				})
@@ -642,16 +552,16 @@ do
 	local ProgressIndicator = {}
 	for _ = 1, BAR_ROWS do
 		ProgressIndicator[#ProgressIndicator + 1] = Line({
-			{ provider = fill_provider, hl = fill_hl },
-			{ provider = edge_provider, hl = edge_hl },
+			{ provider = fill_provider,  hl = fill_hl },
+			{ provider = edge_provider,  hl = edge_hl },
 			{ provider = track_provider, hl = track_hl },
 		})
 	end
 
 	Pomodoro = {
 		update = { "User", pattern = "PomodoroTick" },
-		ProgressIndicator,
 		ModeLine,
+		ProgressIndicator,
 	}
 end
 
@@ -790,7 +700,7 @@ do
 					{ provider = name },
 					{ provider = " " },
 					{ provider = " " .. label .. " ", hl = STATUS_HL[s] or "Comment" },
-					{ provider = last_tool, hl = "Comment" },
+					{ provider = last_tool,           hl = "Comment" },
 				})
 			end
 			local msg = item.session.last_message
@@ -824,18 +734,17 @@ komado.setup({
 		end,
 	},
 	root = {
-		Header,
 		Pomodoro,
 		Spacer,
 		ClaudeStatus,
 		Separator,
 		GitStatus,
 		utils.vertical_align(),
-		LoadAvg,
 		Separator,
 		Spacer,
-		Footer,
+		Clock,
 		Spacer,
+		Footer,
 	},
 })
 
