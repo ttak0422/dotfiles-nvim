@@ -131,61 +131,81 @@ local function open_entry(chan, entry, wait)
       return wins
     end
 
-    local function split_from(win)
-      if is_normal_win(win) then
-        vim.api.nvim_set_current_win(win)
-      else
-        local wins = normal_wins()
-        if #wins > 0 then
-          vim.api.nvim_set_current_win(wins[1])
-        end
+    local function restore_bufhidden(state)
+      if state and vim.api.nvim_buf_is_valid(state.buf) then
+        vim.bo[state.buf].bufhidden = state.bufhidden
+      end
+    end
+
+    local function protect_replaced_buffer()
+      if not wait then
+        return nil
       end
 
-      if vim.o.columns / vim.o.lines > 2.5 then
-        vim.cmd("vsplit")
-      else
-        vim.cmd("split")
+      local buf = vim.api.nvim_get_current_buf()
+      if not vim.api.nvim_buf_is_valid(buf) then
+        return nil
+      end
+
+      local bufhidden = vim.bo[buf].bufhidden
+      if vim.bo[buf].buftype == "terminal"
+          or bufhidden == "wipe"
+          or bufhidden == "delete"
+          or bufhidden == "unload" then
+        vim.bo[buf].bufhidden = "hide"
+        return { buf = buf, bufhidden = bufhidden }
       end
     end
 
     local function select_window()
-      if not wait and type(origin_win) == "number"
+      if type(origin_win) == "number"
           and vim.api.nvim_win_is_valid(origin_win)
           and win_in_current_tab(origin_win) then
         vim.api.nvim_set_current_win(origin_win)
         return
       end
 
+      local current = vim.api.nvim_get_current_win()
+      if win_in_current_tab(current) then
+        return
+      end
+
       local wins = normal_wins()
-      if #wins == 1 then
-        split_from(wins[1])
-        return
-      end
-
-      if is_candidate(origin_win) then
-        vim.api.nvim_set_current_win(origin_win)
-        return
-      end
-
       for _, win in ipairs(wins) do
-        if win ~= origin_win and is_candidate(win) then
+        if is_candidate(win) then
           vim.api.nvim_set_current_win(win)
           return
         end
       end
-
-      split_from(wins[1] or origin_win)
     end
 
     select_window()
-    pcall(vim.cmd, "edit " .. vim.fn.fnameescape(target))
-
-    local current = vim.fn.resolve(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p"))
-    if current ~= resolved_target then
+    local protected = protect_replaced_buffer()
+    local edit_ok = pcall(vim.cmd, "edit " .. vim.fn.fnameescape(target))
+    if not edit_ok then
+      restore_bufhidden(protected)
       return false
     end
 
-    if line then
+    local current = vim.fn.resolve(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p"))
+    if current ~= resolved_target then
+      restore_bufhidden(protected)
+      return false
+    end
+
+    if protected then
+      vim.api.nvim_create_autocmd({'BufDelete', 'BufWipeout', 'BufUnload'}, {
+        buffer = vim.api.nvim_get_current_buf(),
+        once = true,
+        callback = function()
+          restore_bufhidden(protected)
+        end,
+      })
+    end
+
+    -- nil の line は RPC 境界で vim.NIL(userdata)になり truthy なので、
+    -- math.min に渡すと例外になる。number のときだけ処理する。
+    if type(line) == "number" then
       local last = vim.api.nvim_buf_line_count(0)
       local lnum = math.max(1, math.min(line, last))
       pcall(vim.api.nvim_win_set_cursor, 0, { lnum, 0 })
