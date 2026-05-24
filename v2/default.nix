@@ -1289,6 +1289,7 @@ in
           hooks.commands = [
             "KomadoToggle"
             "KomadoClaudeClean"
+            "KomadoCodexClean"
             "PomodoroStart"
             "PomodoroStop"
             "PomodoroPause"

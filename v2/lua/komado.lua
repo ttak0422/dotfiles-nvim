@@ -565,21 +565,20 @@ do
 	}
 end
 
-local ClaudeStatus
+local make_session_status
 do
-	local state_dir = (vim.env.XDG_STATE_HOME or (vim.env.HOME .. "/.local/state")) .. "/komado/claude"
+	local state_root = (vim.env.XDG_STATE_HOME or (vim.env.HOME .. "/.local/state")) .. "/komado"
 
-	local LOGO_HL = { fg = "#D97757" }
-	local EYE_HL = { fg = "#D97757", bg = "#000000" }
-	local LOGO_ROWS = {
-		" ▐▛███▜▌ ",
-		"▝▜█████▛▘",
-		"  ▘▘ ▝▝  ",
+	local STATUS_LABELS = {
+		running = "running",
+		waiting_input = "waiting",
+		stopped = "stopped",
 	}
-
-	local function dir_exists()
-		return vim.uv.fs_stat(state_dir) ~= nil
-	end
+	local STATUS_HL = {
+		running = { fg = "#3fb950", bold = true },
+		waiting_input = { fg = "#d29922", bold = true },
+		stopped = { fg = "#8b949e", bold = true },
+	}
 
 	local function read_json(path)
 		local fd = vim.uv.fs_open(path, "r", 438)
@@ -600,84 +599,71 @@ do
 		return ok and obj or nil
 	end
 
-	local sessions = {}
+	make_session_status = function(opts)
+		local state_dir = state_root .. "/" .. opts.state_name
+		local sessions = {}
+		local emit = emitter(opts.tick)
 
-	-- state_dir 内の *.json を1つずつ cb(name) に渡す
-	local function each_json(cb)
-		local h = vim.uv.fs_scandir(state_dir)
-		if not h then
-			return
+		local function dir_exists()
+			return vim.uv.fs_stat(state_dir) ~= nil
 		end
-		while true do
-			local name = vim.uv.fs_scandir_next(h)
-			if not name then
-				break
+
+		local function each_json(cb)
+			local h = vim.uv.fs_scandir(state_dir)
+			if not h then
+				return
 			end
-			if name:match("%.json$") then
-				cb(name)
+			while true do
+				local name = vim.uv.fs_scandir_next(h)
+				if not name then
+					break
+				end
+				if name:match("%.json$") then
+					cb(name)
+				end
 			end
 		end
-	end
 
-	local function reload()
-		local rows = {}
-		each_json(function(name)
-			local obj = read_json(state_dir .. "/" .. name)
-			if obj then
-				obj._display_status = obj.status
-				rows[#rows + 1] = obj
-			end
-		end)
-		table.sort(rows, function(a, b)
-			return (a.started_at or 0) < (b.started_at or 0)
-		end)
-		sessions = rows
-	end
-
-	local emit = emitter("KomadoClaudeTick")
-
-	local fs_evt = vim.uv.new_fs_event()
-	local debounce = vim.uv.new_timer()
-	if fs_evt and debounce and dir_exists() then
-		fs_evt:start(
-			state_dir,
-			{},
-			vim.schedule_wrap(function()
-				debounce:stop()
-				debounce:start(150, 0, vim.schedule_wrap(emit))
+		local function reload()
+			local rows = {}
+			each_json(function(name)
+				local obj = read_json(state_dir .. "/" .. name)
+				if obj then
+					obj._display_status = obj.status
+					rows[#rows + 1] = obj
+				end
 			end)
-		)
-	end
+			table.sort(rows, function(a, b)
+				return (a.started_at or 0) < (b.started_at or 0)
+			end)
+			sessions = rows
+		end
 
-	vim.api.nvim_create_autocmd({ "DirChanged", "FocusGained" }, { callback = emit })
+		local fs_evt = vim.uv.new_fs_event()
+		local debounce = vim.uv.new_timer()
+		if fs_evt and debounce and dir_exists() then
+			fs_evt:start(
+				state_dir,
+				{},
+				vim.schedule_wrap(function()
+					debounce:stop()
+					debounce:start(150, 0, vim.schedule_wrap(emit))
+				end)
+			)
+		end
 
-	local STATUS_LABELS = {
-		running = "running",
-		waiting_input = "waiting",
-		stopped = "stopped",
-	}
-	local STATUS_HL = {
-		running = { fg = "#0d1117", bg = "#3fb950" },
-		waiting_input = { fg = "#0d1117", bg = "#d29922" },
-		stopped = { fg = "#0d1117", bg = "#8b949e" },
-	}
+		vim.api.nvim_create_autocmd({ "DirChanged", "FocusGained" }, { callback = emit })
 
-	ClaudeStatus = {
-		condition = dir_exists,
-		update = { "User", pattern = "KomadoClaudeTick" },
-		init = function(_)
-			reload()
-		end,
-		Line({
-			{ provider = vim.fn.strcharpart(LOGO_ROWS[1], 0, 2), hl = LOGO_HL },
-			{ provider = vim.fn.strcharpart(LOGO_ROWS[1], 2, 1), hl = EYE_HL },
-			{ provider = vim.fn.strcharpart(LOGO_ROWS[1], 3, 3), hl = LOGO_HL },
-			{ provider = vim.fn.strcharpart(LOGO_ROWS[1], 6, 1), hl = EYE_HL },
-			{ provider = vim.fn.strcharpart(LOGO_ROWS[1], 7, 2), hl = LOGO_HL },
-		}),
-		Line({ provider = LOGO_ROWS[2], hl = LOGO_HL }),
-		Line({ provider = LOGO_ROWS[3], hl = LOGO_HL }),
-		utils.mapped_list(function()
+		local component = {
+			condition = dir_exists,
+			update = { "User", pattern = opts.tick },
+			init = function(_)
+				reload()
+			end,
+		}
+
+		vim.list_extend(component, opts.logo)
+		component[#component + 1] = utils.mapped_list(function()
 			if #sessions == 0 then
 				return { { kind = "empty" } }
 			end
@@ -695,13 +681,17 @@ do
 				local s = item.session._display_status
 				local name = (item.session.name and item.session.name ~= "") and item.session.name or "?"
 				local label = STATUS_LABELS[s] or s or "?"
-				local last_tool = item.session.last_tool and ("  " .. item.session.last_tool) or ""
-				return Line({
+				local parts = {
 					{ provider = name },
 					{ provider = " " },
-					{ provider = " " .. label .. " ", hl = STATUS_HL[s] or "Comment" },
-					{ provider = last_tool,           hl = "Comment" },
-				})
+					{ provider = label, hl = STATUS_HL[s] or "Comment" },
+				}
+				if opts.extra_head_parts then
+					vim.list_extend(parts, opts.extra_head_parts(item.session))
+				end
+				local last_tool = item.session.last_tool and ("  " .. item.session.last_tool) or ""
+				parts[#parts + 1] = { provider = last_tool, hl = "Comment" }
+				return Line(parts)
 			end
 			local msg = item.session.last_message
 			local summary = (msg and msg ~= "") and msg or item.session.prompt_summary
@@ -709,19 +699,47 @@ do
 			return Line({
 				{ provider = text, hl = "Comment" },
 			})
-		end),
-	}
-
-	vim.api.nvim_create_user_command("KomadoClaudeClean", function()
-		local n = 0
-		each_json(function(name)
-			vim.uv.fs_unlink(state_dir .. "/" .. name)
-			n = n + 1
 		end)
-		vim.notify(string.format("KomadoClaudeClean: removed %d file(s)", n))
-		emit()
-	end, {})
+
+		vim.api.nvim_create_user_command(opts.clean_command, function()
+			local n = 0
+			each_json(function(name)
+				vim.uv.fs_unlink(state_dir .. "/" .. name)
+				n = n + 1
+			end)
+			vim.notify(string.format("%s: removed %d file(s)", opts.clean_command, n))
+			emit()
+		end, {})
+
+		return component
+	end
 end
+
+local function agent_logo(name, hl)
+	return {
+		Line({ provider = string.format("  %s  ", name), hl = hl }),
+	}
+end
+
+local ClaudeStatus = make_session_status({
+	state_name = "claude",
+	tick = "KomadoClaudeTick",
+	clean_command = "KomadoClaudeClean",
+	logo = agent_logo("Claude", { fg = "#000000", bg = "#D97757", bold = true }),
+})
+
+local CodexStatus = make_session_status({
+	state_name = "codex",
+	tick = "KomadoCodexTick",
+	clean_command = "KomadoCodexClean",
+	logo = agent_logo("Codex", { fg = "#FFFFFF", bg = "#000000", bold = true }),
+	extra_head_parts = function(session)
+		local model = session.model and session.model ~= "" and ("  " .. session.model) or ""
+		return {
+			{ provider = model, hl = "Identifier" },
+		}
+	end,
+})
 
 komado.setup({
 	window = { position = "left", size = { ratio = 0.2, min = 32, max = 40 }, padding = 1 },
@@ -737,6 +755,8 @@ komado.setup({
 		Pomodoro,
 		Spacer,
 		ClaudeStatus,
+		Separator,
+		CodexStatus,
 		Separator,
 		GitStatus,
 		utils.vertical_align(),
