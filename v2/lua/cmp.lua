@@ -48,14 +48,14 @@ cmp.setup({
 		["<C-p>"] = cmp.mapping.select_prev_item(),
 		["<C-n>"] = cmp.mapping.select_next_item(),
 		["<C-e>"] = cmp.mapping.abort(),
-		["<C-y>"] = cmp.mapping.confirm({ select = false }),
+		["<C-y>"] = cmp.mapping.confirm({ select = true }),
 		["<CR>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
+			if cmp.visible() and cmp.get_active_entry() then
 				if luasnip.expandable() then
 					luasnip.expand()
 				else
 					cmp.confirm({
-						select = true,
+						select = false,
 					})
 				end
 			else
@@ -110,15 +110,36 @@ cmp.setup({
 	},
 })
 
+local cmdline_mapping = cmp.mapping.preset.cmdline({
+	["<Tab>"] = {
+		c = function()
+			if cmp.visible() then
+				cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+			else
+				cmp.complete()
+			end
+		end,
+	},
+	["<S-Tab>"] = {
+		c = function()
+			if cmp.visible() then
+				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+			else
+				cmp.complete()
+			end
+		end,
+	},
+})
+
 cmp.setup.cmdline({ "/", "?" }, {
-	mapping = cmp.mapping.preset.cmdline(),
+	mapping = cmdline_mapping,
 	sources = {
 		{ name = "buffer" },
 	},
 })
 
 cmp.setup.cmdline(":", {
-	mapping = cmp.mapping.preset.cmdline(),
+	mapping = cmdline_mapping,
 	sources = cmp.config.sources({
 		{ name = "path" },
 	}, {
