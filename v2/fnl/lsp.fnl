@@ -57,6 +57,7 @@
                  :ruff
                  :solargraph
                  :taplo
+                 :teal_ls
                  :terraformls
                  :vtsls
                  :yamlls])

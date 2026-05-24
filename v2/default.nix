@@ -85,6 +85,7 @@ in
     };
     ftplugin = {
       fennel = read "./fnl/after/ftplugin/fennel.fnl";
+      fsharp = read "./fnl/after/ftplugin/fsharp.fnl";
       gitcommit = read "./fnl/after/ftplugin/gitcommit.fnl";
       java = {
         # WIP
@@ -113,19 +114,19 @@ in
           };
       };
       jproperties = read "./fnl/after/ftplugin/jproperties.fnl";
+      json = read "./fnl/after/ftplugin/json.fnl";
+      lua = read "./fnl/after/ftplugin/lua.fnl";
       make = read "./fnl/after/ftplugin/make.fnl";
       markdown = read "./fnl/after/ftplugin/markdown.fnl";
       nix = read "./fnl/after/ftplugin/nix.fnl";
+      python = read "./fnl/after/ftplugin/python.fnl";
       qf = read "./fnl/after/ftplugin/qf.fnl";
       qfreplace = read "./fnl/after/ftplugin/qfreplace.fnl";
-      json = read "./fnl/after/ftplugin/json.fnl";
-      yaml = read "./fnl/after/ftplugin/yaml.fnl";
-      toml = read "./fnl/after/ftplugin/toml.fnl";
-      lua = read "./fnl/after/ftplugin/lua.fnl";
-      translate = read "./fnl/after/ftplugin/translate.fnl";
-      python = read "./fnl/after/ftplugin/python.fnl";
-      fsharp = read "./fnl/after/ftplugin/fsharp.fnl";
       rust = read "./fnl/after/ftplugin/rust.fnl";
+      teal = read "./fnl/after/ftplugin/teal.fnl";
+      toml = read "./fnl/after/ftplugin/toml.fnl";
+      translate = read "./fnl/after/ftplugin/translate.fnl";
+      yaml = read "./fnl/after/ftplugin/yaml.fnl";
     };
     lsp = {
       denols = read "./fnl/after/lsp/denols.fnl";
@@ -296,6 +297,7 @@ in
         gopls
         harper
         lua-language-server
+        luajitPackages.teal-language-server
         marksman
         nil
         nixd
