@@ -811,12 +811,6 @@ local CodexStatus = make_session_status({
 	logo = agent_logo("Codex", { fg = "#FFFFFF", bg = "#000000", bold = true }),
 	watch_files = { codex_session_index },
 	prepare_sessions = apply_codex_thread_names,
-	extra_head_parts = function(session)
-		local model = session.model and session.model ~= "" and ("  " .. session.model) or ""
-		return {
-			{ provider = model, hl = "Identifier" },
-		}
-	end,
 })
 
 komado.setup({
