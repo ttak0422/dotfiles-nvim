@@ -167,8 +167,8 @@ do
 		end
 
 		local sections = {
-			{ label = "Staged",    items = status.staged },
-			{ label = "Unstaged",  items = status.unstaged },
+			{ label = "Staged", items = status.staged },
+			{ label = "Unstaged", items = status.unstaged },
 			{ label = "Untracked", items = status.untracked },
 		}
 
@@ -224,8 +224,8 @@ do
 
 			if item.kind == "section" then
 				return Line({
-					{ provider = "  ",                 hl = "Comment" },
-					{ provider = item.label,           hl = "Identifier" },
+					{ provider = "  ", hl = "Comment" },
+					{ provider = item.label, hl = "Identifier" },
 					{ provider = " " },
 					{ provider = tostring(item.count), hl = "Number" },
 				})
@@ -552,8 +552,8 @@ do
 	local ProgressIndicator = {}
 	for _ = 1, BAR_ROWS do
 		ProgressIndicator[#ProgressIndicator + 1] = Line({
-			{ provider = fill_provider,  hl = fill_hl },
-			{ provider = edge_provider,  hl = edge_hl },
+			{ provider = fill_provider, hl = fill_hl },
+			{ provider = edge_provider, hl = edge_hl },
 			{ provider = track_provider, hl = track_hl },
 		})
 	end
@@ -718,6 +718,7 @@ end
 local function agent_logo(name, hl)
 	return {
 		Line({ provider = string.format("  %s  ", name), hl = hl }),
+		Separator,
 	}
 end
 
@@ -755,9 +756,7 @@ komado.setup({
 		Pomodoro,
 		Spacer,
 		ClaudeStatus,
-		Separator,
 		CodexStatus,
-		Separator,
 		GitStatus,
 		utils.vertical_align(),
 		Separator,
