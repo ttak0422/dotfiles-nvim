@@ -20,6 +20,15 @@ one_line_field() {
   printf '%s' "$(input_field "$1")" | tr '\n\r\t' '   ' | head -c "$2"
 }
 
+codex_session_name() {
+  index="${CODEX_HOME:-$HOME/.codex}/session_index.jsonl"
+  [ -f "$index" ] || return 0
+  session_name="$(jq -r --arg sid "$SID" 'select(.id == $sid) | .thread_name // empty' "$index" 2>/dev/null | tail -n 1)" ||
+    return 0
+  [ -n "$session_name" ] || return 0
+  printf '%s' "$session_name" | tr '\n\r\t' '   ' | head -c 120
+}
+
 running_unless_stopped() {
   if [ "$CUR" = "stopped" ]; then printf stopped; else printf running; fi
 }
@@ -38,7 +47,8 @@ if [ -n "${KOMADO_CODEX_DEBUG:-}" ]; then
 fi
 
 CWD="$(input_field '.cwd // empty')"
-NAME="${KOMADO_CODEX_SESSION_NAME:-${CWD##*/}}"
+SESSION_NAME="$(codex_session_name)"
+NAME="${KOMADO_CODEX_SESSION_NAME:-${SESSION_NAME:-${CWD##*/}}}"
 MODEL="$(input_field '.model // empty')"
 PERMISSION_MODE="$(input_field '.permission_mode // empty')"
 TURN_ID="$(input_field '.turn_id // empty')"

@@ -14,6 +14,15 @@ The script parses the JSON hook payload from stdin and transitions the status
 accordingly. Once a session becomes `stopped` it stays `stopped` until the next
 `UserPromptSubmit`.
 
+Session names are resolved in this order:
+
+1. `KOMADO_CODEX_SESSION_NAME`
+2. `${CODEX_HOME:-$HOME/.codex}/session_index.jsonl` `thread_name`
+3. `cwd` basename
+
+Codex `/rename` updates `session_index.jsonl`, so the next hook event refreshes
+the name shown in komado.
+
 | event              | status                              | extra fields                |
 | ------------------ | ----------------------------------- | --------------------------- |
 | `SessionStart`     | `waiting_input`                     | `source`, `started_at`      |

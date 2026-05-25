@@ -565,9 +565,10 @@ do
 	}
 end
 
-local make_session_status
+local make_session_status, codex_session_index, apply_codex_thread_names
 do
 	local state_root = (vim.env.XDG_STATE_HOME or (vim.env.HOME .. "/.local/state")) .. "/komado"
+	codex_session_index = (vim.env.CODEX_HOME or (vim.env.HOME .. "/.codex")) .. "/session_index.jsonl"
 
 	local STATUS_LABELS = {
 		running = "running",
@@ -580,7 +581,7 @@ do
 		stopped = { fg = "#8b949e", bold = true },
 	}
 
-	local function read_json(path)
+	local function read_text(path)
 		local fd = vim.uv.fs_open(path, "r", 438)
 		if not fd then
 			return nil
@@ -592,11 +593,41 @@ do
 		end
 		local data = vim.uv.fs_read(fd, stat.size, 0)
 		vim.uv.fs_close(fd)
+		return data
+	end
+
+	local function read_json(path)
+		local data = read_text(path)
 		if not data then
 			return nil
 		end
 		local ok, obj = pcall(vim.json.decode, data)
 		return ok and obj or nil
+	end
+
+	local function read_codex_thread_names()
+		local data = read_text(codex_session_index)
+		local names = {}
+		if not data then
+			return names
+		end
+		for line in data:gmatch("[^\r\n]+") do
+			local ok, obj = pcall(vim.json.decode, line)
+			if ok and type(obj) == "table" and type(obj.id) == "string" and type(obj.thread_name) == "string" then
+				names[obj.id] = obj.thread_name:gsub("[%c]", " "):sub(1, 120)
+			end
+		end
+		return names
+	end
+
+	apply_codex_thread_names = function(sessions)
+		local names = read_codex_thread_names()
+		for _, session in ipairs(sessions) do
+			local name = names[session.session_id]
+			if name and name ~= "" then
+				session.name = name
+			end
+		end
 	end
 
 	make_session_status = function(opts)
@@ -633,23 +664,34 @@ do
 					rows[#rows + 1] = obj
 				end
 			end)
+			if opts.prepare_sessions then
+				opts.prepare_sessions(rows)
+			end
 			table.sort(rows, function(a, b)
 				return (a.started_at or 0) < (b.started_at or 0)
 			end)
 			sessions = rows
 		end
 
+		local fs_events = {}
 		local fs_evt = vim.uv.new_fs_event()
 		local debounce = vim.uv.new_timer()
+		local function debounced_emit()
+			debounce:stop()
+			debounce:start(150, 0, vim.schedule_wrap(emit))
+		end
 		if fs_evt and debounce and dir_exists() then
-			fs_evt:start(
-				state_dir,
-				{},
-				vim.schedule_wrap(function()
-					debounce:stop()
-					debounce:start(150, 0, vim.schedule_wrap(emit))
-				end)
-			)
+			fs_evt:start(state_dir, {}, vim.schedule_wrap(debounced_emit))
+			fs_events[#fs_events + 1] = fs_evt
+		end
+		if debounce and opts.watch_files then
+			for _, path in ipairs(opts.watch_files) do
+				local extra_fs_evt = vim.uv.new_fs_event()
+				if extra_fs_evt and vim.uv.fs_stat(path) then
+					extra_fs_evt:start(path, {}, vim.schedule_wrap(debounced_emit))
+					fs_events[#fs_events + 1] = extra_fs_evt
+				end
+			end
 		end
 
 		vim.api.nvim_create_autocmd({ "DirChanged", "FocusGained" }, { callback = emit })
@@ -661,6 +703,8 @@ do
 				reload()
 			end,
 		}
+		-- Keep libuv handles reachable for the lifetime of the component.
+		component._komado_fs_events = fs_events
 
 		vim.list_extend(component, opts.logo)
 		component[#component + 1] = utils.mapped_list(function()
@@ -735,6 +779,8 @@ local CodexStatus = make_session_status({
 	tick = "KomadoCodexTick",
 	clean_command = "KomadoCodexClean",
 	logo = agent_logo("Codex", { fg = "#FFFFFF", bg = "#000000", bold = true }),
+	watch_files = { codex_session_index },
+	prepare_sessions = apply_codex_thread_names,
 	extra_head_parts = function(session)
 		local model = session.model and session.model ~= "" and ("  " .. session.model) or ""
 		return {
