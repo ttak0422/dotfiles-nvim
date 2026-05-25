@@ -711,6 +711,8 @@ do
 			emit()
 		end, {})
 
+		component[#component + 1] = Separator
+
 		return component
 	end
 end
@@ -718,7 +720,6 @@ end
 local function agent_logo(name, hl)
 	return {
 		Line({ provider = string.format("  %s  ", name), hl = hl }),
-		Separator,
 	}
 end
 
