@@ -167,8 +167,8 @@ do
 		end
 
 		local sections = {
-			{ label = "Staged", items = status.staged },
-			{ label = "Unstaged", items = status.unstaged },
+			{ label = "Staged",    items = status.staged },
+			{ label = "Unstaged",  items = status.unstaged },
 			{ label = "Untracked", items = status.untracked },
 		}
 
@@ -224,8 +224,8 @@ do
 
 			if item.kind == "section" then
 				return Line({
-					{ provider = "  ", hl = "Comment" },
-					{ provider = item.label, hl = "Identifier" },
+					{ provider = "  ",                 hl = "Comment" },
+					{ provider = item.label,           hl = "Identifier" },
 					{ provider = " " },
 					{ provider = tostring(item.count), hl = "Number" },
 				})
@@ -552,8 +552,8 @@ do
 	local ProgressIndicator = {}
 	for _ = 1, BAR_ROWS do
 		ProgressIndicator[#ProgressIndicator + 1] = Line({
-			{ provider = fill_provider, hl = fill_hl },
-			{ provider = edge_provider, hl = edge_hl },
+			{ provider = fill_provider,  hl = fill_hl },
+			{ provider = edge_provider,  hl = edge_hl },
 			{ provider = track_provider, hl = track_hl },
 		})
 	end
@@ -655,6 +655,15 @@ do
 			end
 		end
 
+		local function session_cwd_key(session)
+			return (type(session.cwd) == "string" and session.cwd ~= "") and session.cwd or "?"
+		end
+
+		local function session_cwd_label(session)
+			local cwd = session_cwd_key(session):gsub("/+$", "")
+			return cwd:match("[^/]+$") or cwd
+		end
+
 		local function reload()
 			local rows = {}
 			each_json(function(name)
@@ -668,6 +677,16 @@ do
 				opts.prepare_sessions(rows)
 			end
 			table.sort(rows, function(a, b)
+				local a_key = session_cwd_key(a)
+				local b_key = session_cwd_key(b)
+				if a_key ~= b_key then
+					local a_label = session_cwd_label(a)
+					local b_label = session_cwd_label(b)
+					if a_label ~= b_label then
+						return a_label < b_label
+					end
+					return a_key < b_key
+				end
 				return (a.started_at or 0) < (b.started_at or 0)
 			end)
 			sessions = rows
@@ -712,7 +731,13 @@ do
 				return { { kind = "empty" } }
 			end
 			local rows = {}
+			local current_cwd
 			for _, s in ipairs(sessions) do
+				local cwd = session_cwd_key(s)
+				if cwd ~= current_cwd then
+					current_cwd = cwd
+					rows[#rows + 1] = { kind = "group", label = session_cwd_label(s) }
+				end
 				rows[#rows + 1] = { kind = "head", session = s }
 				rows[#rows + 1] = { kind = "summary", session = s }
 			end
@@ -720,6 +745,11 @@ do
 		end, function(item)
 			if item.kind == "empty" then
 				return Line({ provider = "no sessions", hl = "Comment" })
+			end
+			if item.kind == "group" then
+				return Line({
+					{ provider = string.format("─── %s ───", item.label), hl = "Comment" },
+				})
 			end
 			if item.kind == "head" then
 				local s = item.session._display_status
