@@ -32,7 +32,7 @@ end
 local function _9_()
   return require("foldnav").goto_end()
 end
-for _, k in ipairs({{"<Leader>m", _4_, desc("\239\136\132 join/split")}, {"<Leader>M", _5_, desc("\239\136\132 join/split (recursive)")}, {"<Leader>O", "<Cmd>Other<CR>"}, {"<C-h>", _6_}, {"<C-j>", _7_}, {"<C-k>", _8_}, {"<C-l>", _9_}, {"<C-a>", dial("increment", "normal")}, {"<C-x>", dial("decrement", "normal")}, {"g<C-a>", dial("increment", "gnormal")}, {"g<C-x>", dial("decrement", "gnormal")}}) do
+for _, k in ipairs({{"<Leader>m", _4_, desc("\239\136\132 join/split")}, {"<Leader>M", _5_, desc("\239\136\132 join/split (recursive)")}, {"<Leader>O", "<Cmd>Other<CR>"}, {"<Left>", _6_}, {"<Down>", _7_}, {"<Up>", _8_}, {"<Right>", _9_}, {"<C-a>", dial("increment", "normal")}, {"<C-x>", dial("decrement", "normal")}, {"g<C-a>", dial("increment", "gnormal")}, {"g<C-x>", dial("decrement", "gnormal")}}) do
   vim.keymap.set("n", k[1], k[2], (k[3] or opts))
 end
 for _, k in ipairs({{"<Leader>T", ":Translate JA<CR>"}, {"<C-a>", dial("increment", "visual")}, {"<C-x>", dial("decrement", "visual")}, {"g<C-a>", dial("increment", "gvisual")}, {"g<C-x>", dial("decrement", "gvisual")}}) do
