@@ -824,12 +824,12 @@ komado.setup({
 		end,
 	},
 	root = {
-		Pomodoro,
 		Spacer,
 		ClaudeStatus,
 		CodexStatus,
 		GitStatus,
 		utils.vertical_align(),
+		Pomodoro,
 		Separator,
 		Spacer,
 		Clock,
