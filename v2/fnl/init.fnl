@@ -74,7 +74,7 @@
   (each [m ks (pairs {:n [[:j :gj]
                           [:k :gk]
                           ["¥" "\\"]
-                          [:<C-l> "<Cmd>nohl<CR><C-l>"]
+                          [:<C-l> :<Cmd>nohl<CR><C-l>]
                           ; asterisk
                           ["*" "<Plug>(asterisk-z*)" {:silent true}]
                           ["#" "<Plug>(asterisk-z#)" {:silent true}]
