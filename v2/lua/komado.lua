@@ -81,6 +81,39 @@ do
 	Footer = { Version, utils.horizontal_align(), LoadAvg }
 end
 
+local CurrentTab
+do
+	local worktab = require("worktab")
+	local emit = emitter("KomadoTabChanged")
+	vim.api.nvim_create_autocmd({ "TabEnter", "TabNewEntered", "TabClosed" }, { callback = emit })
+	local function rename()
+		vim.ui.input({ prompt = "tab name: ", default = worktab.get_name() or "" }, function(input)
+			if input == nil then
+				return
+			end
+			worktab.set_name(input)
+			emit()
+		end)
+	end
+	CurrentTab = {
+		update = { "User", pattern = "KomadoTabChanged" },
+		Line({
+			mappings = { i = rename },
+			{
+				provider = function()
+					return string.format(" [%d] ", vim.fn.tabpagenr())
+				end,
+			},
+			{
+				provider = function()
+					return worktab.get_name() or "----"
+				end,
+				hl = { bold = true },
+			},
+		}),
+	}
+end
+
 local GitStatus
 do
 	local function git_start_dir()
@@ -824,6 +857,7 @@ komado.setup({
 		end,
 	},
 	root = {
+		CurrentTab,
 		Spacer,
 		ClaudeStatus,
 		CodexStatus,

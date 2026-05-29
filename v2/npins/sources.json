@@ -2978,6 +2978,19 @@
       "url": "https://github.com/sindrets/winshift.nvim/archive/37468ed6f385dfb50402368669766504c0e15583.tar.gz",
       "hash": "sha256-mW3kaducHWRlDx18WcwcbWDlNnAyHgELS3XjpeFFCgs="
     },
+    "worktab.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ttak0422",
+        "repo": "worktab.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "d93fa750adf01b16ff26bbbd94a10528d4b77a47",
+      "url": "https://github.com/ttak0422/worktab.nvim/archive/d93fa750adf01b16ff26bbbd94a10528d4b77a47.tar.gz",
+      "hash": "sha256-w++hgii2Do/fMj0sgrQFhnAjltFwdS95ZM9pIuL/Hok="
+    },
     "zen.nvim": {
       "type": "Git",
       "repository": {

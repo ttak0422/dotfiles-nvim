@@ -439,6 +439,7 @@ in
 
     # utils
     nio.package = nvim-nio;
+    worktab.package = worktab-nvim;
     devicons = {
       package = nvim-web-devicons;
       postConfig = read "./fnl/devicons.fnl";
@@ -1287,6 +1288,7 @@ in
         }
         {
           package = komado-nvim;
+          depends = [ worktab ];
           postConfig = read "./lua/komado.lua";
           hooks.commands = [
             "KomadoToggle"
