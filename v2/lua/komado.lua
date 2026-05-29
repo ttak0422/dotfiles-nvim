@@ -858,7 +858,7 @@ komado.setup({
 	},
 	root = {
 		CurrentTab,
-		Spacer,
+		Separator,
 		ClaudeStatus,
 		CodexStatus,
 		GitStatus,
