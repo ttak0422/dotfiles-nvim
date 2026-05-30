@@ -15,4 +15,7 @@ local function _1_()
     return nil
   end
 end
-return vim.api.nvim_create_autocmd("FileType", {callback = _1_})
+vim.api.nvim_create_autocmd("FileType", {callback = _1_})
+vim.g.matchup_matchparen_offscreen = {method = "popup"}
+vim.g.matchup_treesitter_stopline = 500
+return nil

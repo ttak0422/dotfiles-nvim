@@ -12,3 +12,6 @@
                                           (when (= vim.bo.indentexpr "")
                                             (set vim.bo.indentexpr
                                                  "v:lua.require'nvim-treesitter'.indentexpr()")))})
+
+(set vim.g.matchup_matchparen_offscreen {:method :popup})
+(set vim.g.matchup_treesitter_stopline 500)

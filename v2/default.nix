@@ -186,6 +186,7 @@ in
         nvim-treesitter
         nvim-treesitter-textobjects
         nvim-ts-context-commentstring
+        pkgs.vimPlugins.vim-matchup
       ];
       startupConfig =
         let
