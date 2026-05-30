@@ -8,10 +8,9 @@ let
     lib
     vimUtils
     ;
-  ext = stdenv.hostPlatform.extensions.sharedLibrary;
   getSrc = name: getAttr name (import ./npins);
 in
-rec {
+{
   nvim-treesitter = prev.vimPlugins.nvim-treesitter.overrideAttrs {
     runtimeDeps = with prev; [ tree-sitter ];
   };
@@ -85,5 +84,4 @@ rec {
   inherit (inputs'.v2-blink-cmp.packages) blink-cmp;
   inherit (inputs'.v2-pterm.packages) pterm pterm-daemon;
   inherit (inputs'.v2-meian.packages) meian;
-  # inherit (inputs'.v2-rustowl.packages) rustowl-nvim;
 }
