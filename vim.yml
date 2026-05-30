@@ -2,4 +2,4 @@
 base: lua51
 globals:
   vim:
-  any: true
+    any: true
