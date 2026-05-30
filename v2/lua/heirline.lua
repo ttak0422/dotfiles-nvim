@@ -314,7 +314,7 @@ heirline.setup({
 		disable_winbar_cb = function(args)
 			return conditions.buffer_matches({
 				buftype = { "nofile", "prompt", "help", "quickfix" },
-				filetype = { "^git.*", "Trouble" },
+				filetype = { "^git.*", "Trouble", "skk-terminal-input" },
 			}, args.buf)
 		end,
 	},
