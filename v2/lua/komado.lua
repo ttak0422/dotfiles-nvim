@@ -492,7 +492,7 @@ do
 	})
 
 	local BLOCKS = { " ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█" }
-	local BAR_ROWS = 3
+	local BAR_ROWS = 2
 
 	local TRACK_DELTA = 24
 	local function hl_attr(group, attr)
@@ -864,7 +864,6 @@ komado.setup({
 		GitStatus,
 		utils.vertical_align(),
 		Pomodoro,
-		Separator,
 		Spacer,
 		Clock,
 		Spacer,
