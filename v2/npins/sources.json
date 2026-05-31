@@ -297,10 +297,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v0.12.0",
-      "revision": "fc8edd6ecf8e4095ef878780e4bed83cc5c56c14",
-      "url": "https://api.github.com/repos/bngarren/checkmate.nvim/tarball/refs/tags/v0.12.0",
-      "hash": "sha256-stV0WtkTj+7S1aPAbu1unP755xO275Q1D7k/pl+NbHM="
+      "version": "v0.12.1",
+      "revision": "e39a118331388b01716f2f314c4b841721a3da3c",
+      "url": "https://api.github.com/repos/bngarren/checkmate.nvim/tarball/refs/tags/v0.12.1",
+      "hash": "sha256-HIZTf+lUTonfQ+pq5+MxuFNo7M73Bbpv77jNSlnVHj4="
     },
     "claudecode.nvim": {
       "type": "Git",
