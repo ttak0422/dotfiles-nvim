@@ -316,6 +316,14 @@ do
 
 	local emit_tick = emitter("PomodoroTick")
 
+	-- 進捗バーは update=PomodoroTick でレンダリング結果がキャッシュされ、tick が発火するまで再評価されない。
+	-- IDLE 中は tick が止まるため、サイドバー幅を変更してもバーが古い content_width のまま固定され表示幅が合わなくなる。
+	-- リサイズ時に PomodoroTick を発火させてキャッシュを無効化し、現在の幅で描き直させる（Clock は KomadoTick 周期で追従するのと同等の役割）。
+	vim.api.nvim_create_autocmd({ "VimResized", "WinResized" }, {
+		group = vim.api.nvim_create_augroup("KomadoPomodoroResize", { clear = true }),
+		callback = emit_tick,
+	})
+
 	local function format_remaining()
 		if state.phase == "idle" then
 			return "--:--"
