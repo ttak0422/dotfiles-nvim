@@ -102,15 +102,14 @@ local function start_input()
   end
 end
 local function input_float_config(term_win, width, height)
-  local cursor = vim.api.nvim_win_get_cursor(term_win)
-  local cursor_row = cursor[1]
-  local cursor_col = cursor[2]
+  local cursor_row = (vim.fn.winline() - 1)
+  local cursor_col = (vim.fn.wincol() - 1)
   local win_height = vim.api.nvim_win_get_height(term_win)
   local win_width = vim.api.nvim_win_get_width(term_win)
   local border_size = 2
   local row
-  if ((cursor_row + height + border_size) <= win_height) then
-    row = cursor_row
+  if ((cursor_row + 1 + height + border_size) <= win_height) then
+    row = (cursor_row + 1)
   else
     row = math.max(0, (cursor_row - height - border_size))
   end

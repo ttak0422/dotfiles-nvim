@@ -75,14 +75,16 @@ nnoremap <Plug>(esc)<ESC> i<ESC>
     (enable-skkeleton)))
 
 (fn input-float-config [term-win width height]
-  (let [cursor (vim.api.nvim_win_get_cursor term-win)
-        cursor-row (. cursor 1)
-        cursor-col (. cursor 2)
+  ;; `winline`/`wincol` はウィンドウ相対の画面位置を返す (1-indexed)。
+  ;; `nvim_win_get_cursor` のバッファ行はスクロールバックで巨大になり
+  ;; `relative=win` の座標として使うとカーソルから大きく外れるため使わない。
+  (let [cursor-row (- (vim.fn.winline) 1)
+        cursor-col (- (vim.fn.wincol) 1)
         win-height (vim.api.nvim_win_get_height term-win)
         win-width (vim.api.nvim_win_get_width term-win)
         border-size 2
-        row (if (<= (+ cursor-row height border-size) win-height)
-                cursor-row
+        row (if (<= (+ cursor-row 1 height border-size) win-height)
+                (+ cursor-row 1)
                 (math.max 0 (- cursor-row height border-size)))
         col (math.min cursor-col (math.max 0 (- win-width width border-size)))]
     {:relative :win
