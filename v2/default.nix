@@ -440,7 +440,10 @@ in
 
     # utils
     nio.package = nvim-nio;
-    worktab.package = worktab-nvim;
+    worktab = {
+      package = worktab-nvim;
+      postConfig = read "./fnl/worktab.fnl";
+    };
     devicons = {
       package = nvim-web-devicons;
       postConfig = read "./fnl/devicons.fnl";
@@ -902,6 +905,7 @@ in
               vim.g.sonictemplate_postfix_key = 0
             '';
         }
+        worktab
       ];
       extraPackages = with pkgs; [
         ripgrep

@@ -46,6 +46,7 @@
 (telescope.load_extension :projects)
 (telescope.load_extension :mr)
 (telescope.load_extension :ghq)
+(telescope.load_extension :worktab)
 (vim.api.nvim_create_user_command :TelescopeBuffer
                                   #(builtin.live_grep {:grep_open_files true})
                                   {})

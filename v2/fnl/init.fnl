@@ -114,6 +114,9 @@
                            (cmd "lua require('harpoon'):list():add()")
                            (desc "󰢷 register item")]
                           ;  Telescope
+                          [(leader :fa)
+                           (cmd "Telescope worktab")
+                           (desc " worktab")]
                           [(leader :ff)
                            (cmd "Telescope live_grep_args theme=ivy preview=true")
                            (desc " livegrep")]
