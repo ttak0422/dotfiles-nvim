@@ -72,21 +72,33 @@
 
 ;;; terminal ;;;
 (local toggleterm {})
-(let [open_idx (fn [idx]
+(let [current-tab #(vim.api.nvim_get_current_tabpage)
+      tab-terminals (fn [tab]
+                      (or (. toggleterm tab)
+                          (let [terms {}]
+                            (tset toggleterm tab terms)
+                            terms)))
+      get_idx (fn [idx]
+                (let [tab (current-tab)
+                      terms (tab-terminals tab)]
+                  (. terms idx)))
+      open_idx (fn [idx]
                  (let [terminal (require :toggleterm.terminal)
-                       session (.. :vim/ idx)]
-                   (-> (or (. toggleterm idx)
+                       tab (current-tab)
+                       terms (tab-terminals tab)
+                       session (.. :vim_tab tab :_idx idx)]
+                   (-> (or (. terms idx)
                            (let [t (terminal.Terminal:new {:cmd (.. args.pterm
                                                                     " open "
                                                                     session)
                                                            :close_on_exit false})]
-                             (tset toggleterm idx t)
+                             (tset terms idx t)
                              t))
                        (: :open))))
       is_open_idx (fn [idx]
-                    (let [t (. toggleterm idx)] (and t (t:is_open))))
+                    (let [t (get_idx idx)] (and t (t:is_open))))
       close_idx (fn [idx]
-                  (let [t (. toggleterm idx)]
+                  (let [t (get_idx idx)]
                     (if (and t (t:is_open))
                         (t:close))))]
   (for [i 0 9]

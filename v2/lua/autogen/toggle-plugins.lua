@@ -118,70 +118,95 @@ do
 end
 local toggleterm = {}
 do
-  local open_idx
-  local function _24_(idx)
-    local terminal = require("toggleterm.terminal")
-    local session = ("vim/" .. idx)
-    local or_25_ = toggleterm[idx]
-    if not or_25_ then
-      local t = terminal.Terminal:new({cmd = (args.pterm .. " open " .. session), close_on_exit = false})
-      toggleterm[idx] = t
-      or_25_ = t
-    end
-    return (or_25_):open()
+  local current_tab
+  local function _24_()
+    return vim.api.nvim_get_current_tabpage()
   end
-  open_idx = _24_
+  current_tab = _24_
+  local tab_terminals
+  local function _25_(tab)
+    local or_26_ = toggleterm[tab]
+    if not or_26_ then
+      local terms = {}
+      toggleterm[tab] = terms
+      or_26_ = terms
+    end
+    return or_26_
+  end
+  tab_terminals = _25_
+  local get_idx
+  local function _28_(idx)
+    local tab = current_tab()
+    local terms = tab_terminals(tab)
+    return terms[idx]
+  end
+  get_idx = _28_
+  local open_idx
+  local function _29_(idx)
+    local terminal = require("toggleterm.terminal")
+    local tab = current_tab()
+    local terms = tab_terminals(tab)
+    local session = ("vim_tab" .. tab .. "_idx" .. idx)
+    local or_30_ = terms[idx]
+    if not or_30_ then
+      local t = terminal.Terminal:new({cmd = (args.pterm .. " open " .. session), close_on_exit = false})
+      terms[idx] = t
+      or_30_ = t
+    end
+    return (or_30_):open()
+  end
+  open_idx = _29_
   local is_open_idx
-  local function _27_(idx)
-    local t = toggleterm[idx]
+  local function _32_(idx)
+    local t = get_idx(idx)
     return (t and t:is_open())
   end
-  is_open_idx = _27_
+  is_open_idx = _32_
   local close_idx
-  local function _28_(idx)
-    local t = toggleterm[idx]
+  local function _33_(idx)
+    local t = get_idx(idx)
     if (t and t:is_open()) then
       return t:close()
     else
       return nil
     end
   end
-  close_idx = _28_
+  close_idx = _33_
   for i = 0, 9 do
-    local function _30_()
+    local function _35_()
       return open_idx(i)
     end
-    local function _31_()
+    local function _36_()
       return close_idx(i)
     end
-    local function _32_()
+    local function _37_()
       return is_open_idx(i)
     end
-    toggler.register(("term" .. i), {open = _30_, close = _31_, is_open = _32_})
+    toggler.register(("term" .. i), {open = _35_, close = _36_, is_open = _37_})
   end
 end
 local dapui = nil
 do
   local open
-  local function _33_()
+  local function _38_()
     if (dapui == nil) then
       dapui = require("dapui")
     else
     end
     return dapui:open({reset = true})
   end
-  open = _33_
+  open = _38_
   local close
-  local function _35_()
+  local function _40_()
     if (dapui ~= nil) then
       return dapui.close()
     else
       return nil
     end
   end
-  close = _35_
+  close = _40_
   local is_open
-  local function _37_()
+  local function _42_()
     for _, win in ipairs(require("dapui.windows").layouts) do
       if win:is_open() then
         return true
@@ -190,31 +215,31 @@ do
     end
     return false
   end
-  is_open = _37_
+  is_open = _42_
   toggler.register("dapui", {open = open, close = close, is_open = is_open})
 end
 local aerial = nil
 local open
-local function _39_()
+local function _44_()
   if (aerial == nil) then
     aerial = require("aerial")
   else
   end
   return aerial.open()
 end
-open = _39_
+open = _44_
 local close
-local function _41_()
+local function _46_()
   if (aerial ~= nil) then
     return aerial.close()
   else
     return nil
   end
 end
-close = _41_
+close = _46_
 local is_open
-local function _43_()
+local function _48_()
   return filetype_exists("aerial")
 end
-is_open = _43_
+is_open = _48_
 return toggler.register("aerial", {open = open, close = close, is_open = is_open})
