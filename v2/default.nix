@@ -951,6 +951,13 @@ in
       ];
     };
 
+    track = {
+      package = pkgs.vimPlugins.v2.track;
+      postConfig = read "./fnl/track.fnl";
+      depends = [ telescope ];
+      hooks.commands = ["Track"];
+    };
+
     image = {
       package = image-nvim;
       extraPackages = with pkgs; [ imagemagick ];

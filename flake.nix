@@ -45,6 +45,10 @@
     v2-blink-cmp.url = "github:Saghen/blink.cmp/v1";
     v2-pterm.url = "github:ttak0422/pterm";
     v2-meian.url = "github:ttak0422/meian.nvim";
+    v2-track = {
+      url = "github:ttak0422/track";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # WIP
     # v2-rustowl.url = "github:nix-community/rustowl-flake";
   };
