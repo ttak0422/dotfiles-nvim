@@ -84,7 +84,6 @@ local function enable_skkeleton()
 end
 local function set_input_keymaps(buf)
   local keymap_opts = {buffer = buf, noremap = true, nowait = true, silent = true}
-  vim.keymap.set("n", "<Esc>", cancel_input, keymap_opts)
   vim.keymap.set("i", "<C-c>", cancel_input, keymap_opts)
   vim.keymap.set("n", "<C-c>", cancel_input, keymap_opts)
   vim.keymap.set("n", "<leader>q", cancel_input, keymap_opts)

@@ -60,7 +60,8 @@ nnoremap <Plug>(esc)<ESC> i<ESC>
 
 (fn set-input-keymaps [buf]
   (let [keymap-opts {:buffer buf :noremap true :nowait true :silent true}]
-    (vim.keymap.set :n :<Esc> cancel-input keymap-opts)
+    ;; <Esc> は SKK のモード操作に使うため popup を閉じない。
+    ;; 取消は <C-c>/<leader>q、確定は <C-s>。
     (vim.keymap.set :i :<C-c> cancel-input keymap-opts)
     (vim.keymap.set :n :<C-c> cancel-input keymap-opts)
     (vim.keymap.set :n :<leader>q cancel-input keymap-opts)
