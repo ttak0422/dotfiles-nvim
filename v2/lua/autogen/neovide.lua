@@ -36,11 +36,15 @@ vim.o.guifont = "PlemolJP Console NF:h15"
 local function _6_()
   return change_scale(scale)
 end
-map("n", "<C-+>", _6_)
+map("n", "<C-=>", _6_)
 local function _7_()
+  return change_scale(scale)
+end
+map("n", "<C-+>", _7_)
+local function _8_()
   return change_scale((1 / scale))
 end
-map("n", "<C-->", _7_)
+map("n", "<C-->", _8_)
 map("n", "<A-Enter>", toggle_zoom)
 map("n", "<A-Tab>", toggle_blur)
 map("i", "<D-v>", paste_from_clipboard_insert)

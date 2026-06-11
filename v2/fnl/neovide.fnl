@@ -7,7 +7,7 @@
                    :neovide_hide_mouse_when_typing true
                    :neovide_input_ime false
                    :neovide_macos_simple_fullscreen false
-                   :neovide_opacity 0.90
+                   :neovide_opacity 0.9
                    :neovide_padding_bottom 5
                    :neovide_padding_left 5
                    :neovide_padding_right 5
@@ -31,6 +31,9 @@
                                                            (vim.fn.getregtype "+")
                                                            true true)))]
   (set vim.o.guifont "PlemolJP Console NF:h15")
+  ;; `+` は Shift+= なので `<C-+>` は Ctrl+Shift+= として届きマッチしない。
+  ;; Shift 不要の `<C-=>` を主に、取りこぼし防止に `<C-+>` も併記する。
+  (map :n :<C-=> #(change_scale scale))
   (map :n :<C-+> #(change_scale scale))
   (map :n :<C--> #(change_scale (/ 1 scale)))
   (map :n :<A-Enter> toggle_zoom)
