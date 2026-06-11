@@ -45,4 +45,10 @@
                     : keys
                     : todo_states
                     : show_todo_count
-                    : todo_count_formatter}))
+                    : todo_count_formatter})
+  ;; 遅延ロード前に開かれた markdown バッファには変換が適用されないため、
+  ;; ロード直後にリロードして checkmate を再アタッチさせる。
+  (each [_ buf (ipairs (vim.api.nvim_list_bufs))]
+    (when (and (vim.api.nvim_buf_is_loaded buf)
+               (= (vim.api.nvim_get_option_value :filetype {:buf buf}) :markdown))
+      (vim.api.nvim_buf_call buf #(pcall vim.cmd.edit)))))

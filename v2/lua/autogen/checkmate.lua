@@ -16,4 +16,14 @@ local function _1_(completed, total)
   end
 end
 todo_count_formatter = _1_
-return checkmate.setup({files = files, keys = keys, todo_states = todo_states, show_todo_count = show_todo_count, todo_count_formatter = todo_count_formatter})
+checkmate.setup({files = files, keys = keys, todo_states = todo_states, show_todo_count = show_todo_count, todo_count_formatter = todo_count_formatter})
+for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+  if (vim.api.nvim_buf_is_loaded(buf) and (vim.api.nvim_get_option_value("filetype", {buf = buf}) == "markdown")) then
+    local function _3_()
+      return pcall(vim.cmd.edit)
+    end
+    vim.api.nvim_buf_call(buf, _3_)
+  else
+  end
+end
+return nil
