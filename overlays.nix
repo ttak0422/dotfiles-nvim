@@ -87,10 +87,10 @@ with inputs;
       v2 = {
         kotlin-lsp = mkDerivation rec {
           pname = "kotlin-lsp";
-          version = "262.4739.0";
+          version = "262.7569.0";
           src = final.fetchzip {
             url = "https://download-cdn.jetbrains.com/kotlin-lsp/${version}/kotlin-server-${version}-aarch64.sit";
-            hash = "sha256-/Wzvp0vbw8UQfCsHcT5SPLFYxo5clMy86Iy3uGDPOYQ=";
+            hash = "sha256-2joLFpUOWHx36pIv98/aHigAjqMkbjGeqXYo20GLxok=";
             extension = "zip";
           };
           dontBuild = true;
