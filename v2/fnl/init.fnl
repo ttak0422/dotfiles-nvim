@@ -225,9 +225,7 @@
                       :i [["¥" "\\"]]
                       :c [["¥" "\\"]]
                       :t [["¥" "\\"] [:<S-Space> :<Space>]]
-                      :v [["¥" "\\"]
-                          ; menu
-                          [:<C-t> (cmd :OpenMenu)]]})]
+                      :v [["¥" "\\"]]})]
     (each [_ k (ipairs ks)]
       (vim.keymap.set m (. k 1) (. k 2) (or (. k 3) opts))))
   (for [i 0 9]
