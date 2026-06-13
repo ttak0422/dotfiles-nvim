@@ -202,6 +202,19 @@
                           ; [:<C-c> (cmd :AvanteFocus) (desc "Avante Chat")]
                           [(leader :aa) (cmd :AvanteAsk)]
                           [(leader :at) (cmd :AvanteToggle)]
+                          ;  Track
+                          [(leader :tt)
+                           (cmd "Track today")
+                           (desc " journal today")]
+                          [(leader :tn)
+                           (cmd "Track open")
+                           (desc " open note")]
+                          [(leader :tn)
+                           (cmd "Track search_body")
+                           (desc " find note (body)")]
+                          [(leader :tN)
+                           (cmd "Track search_title")
+                           (desc " find note (title)")]
                           ;  Obsidian
                           [(leader :ot)
                            (cmd "Obsidian today")
