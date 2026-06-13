@@ -209,10 +209,10 @@
                           [(leader :tn)
                            (cmd "Track open")
                            (desc " open note")]
-                          [(leader :tn)
+                          [(leader :tf)
                            (cmd "Track search_body")
                            (desc " find note (body)")]
-                          [(leader :tN)
+                          [(leader :tF)
                            (cmd "Track search_title")
                            (desc " find note (title)")]
                           ;  Obsidian
