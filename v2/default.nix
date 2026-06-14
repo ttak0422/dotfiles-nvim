@@ -953,9 +953,10 @@ in
 
     track = {
       package = pkgs.vimPlugins.v2.track;
+      extraPackages = with pkgs; [ track-cli ];
       postConfig = read "./fnl/track.fnl";
       depends = [ telescope ];
-      hooks.commands = ["Track"];
+      hooks.commands = [ "Track" ];
     };
 
     image = {

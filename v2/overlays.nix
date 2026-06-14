@@ -84,5 +84,5 @@ in
   inherit (inputs'.v2-blink-cmp.packages) blink-cmp;
   inherit (inputs'.v2-pterm.packages) pterm pterm-daemon;
   inherit (inputs'.v2-meian.packages) meian;
-  inherit (inputs'.v2-track.packages) track;
+  inherit (inputs'.v2-track.packages) track track-cli;
 }
