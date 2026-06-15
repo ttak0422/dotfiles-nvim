@@ -944,11 +944,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781456667,
-        "narHash": "sha256-RS1JdAdaIUbPHqbGjSPqHQnOmcWMrWnKHJWeYmun68k=",
+        "lastModified": 1781543573,
+        "narHash": "sha256-raUUxgNaXZc5niThm7ajds/Gd4nMqiwYetipdKPQVbA=",
         "owner": "ttak0422",
         "repo": "track",
-        "rev": "b0f08cab881784c71ad70295e7c0fb20a81d4fb9",
+        "rev": "0216f6e509938cf81c4b1eef57cd6a8bc07c3687",
         "type": "github"
       },
       "original": {
