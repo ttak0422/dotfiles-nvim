@@ -378,9 +378,13 @@ in
       package = gitsigns-nvim;
       startupConfig = read "./fnl/gitsigns.fnl";
     };
-    heirline = {
-      package = heirline-nvim;
-      startupConfig = read "./lua/heirline.lua";
+    # heirline = {
+    #   package = heirline-nvim;
+    #   startupConfig = read "./lua/heirline.lua";
+    # };
+    incline = {
+      package = incline-nvim;
+      startupConfig = read "./fnl/incline.fnl";
     };
     # 動作しない？
     # bufresize = {
