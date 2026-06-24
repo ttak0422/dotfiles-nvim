@@ -113,14 +113,14 @@ cmp.setup({
 -- Cycle through candidates while applying each one. The first <Tab> opens the
 -- menu and immediately selects/inserts the first candidate (cmdline sources are
 -- synchronous, so entries are available right after cmp.complete()).
-local function cmdline_select(select)
+local function cmdline_select(select_item)
 	return {
 		c = function()
 			if not cmp.visible() then
 				cmp.complete()
 			end
 			if cmp.visible() then
-				select({ behavior = cmp.SelectBehavior.Insert })
+				select_item({ behavior = cmp.SelectBehavior.Insert })
 			end
 		end,
 	}
