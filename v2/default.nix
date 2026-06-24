@@ -965,7 +965,10 @@ in
 
     image = {
       package = image-nvim;
-      extraPackages = with pkgs; [ imagemagick ];
+      extraPackages = with pkgs; [
+        imagemagick
+        ghostscript
+      ];
       postConfig = read "./fnl/image.fnl";
       hooks.fileTypes = [ "markdown" ];
     };
