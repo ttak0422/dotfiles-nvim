@@ -60,8 +60,6 @@
 (fn append-window-context [result props]
   (when props.focused
     (table.insert result "  ")
-    (when (> (length (vim.api.nvim_list_tabpages)) 1)
-      (table.insert result (.. (vim.fn.tabpagenr) "  ")))
     (let [cwd (vim.fn.fnamemodify (vim.fn.getcwd) ":t")]
       (table.insert result (if (= cwd "") :ROOT cwd)))
     (let [status (?. vim.b props.buf :gitsigns_status_dict)]
@@ -71,7 +69,6 @@
                           (or status.removed 0)) 0)]
           (when (not= head "")
             (table.insert result (.. " (" head (if dirty "*" "") ")"))))))
-    (append-diagnostics result props.buf)
     (let [[line column] (vim.api.nvim_win_get_cursor props.win)]
       (table.insert result (highlighted (.. "  "
                                             (string.format "%4d,%-3d" line
@@ -86,6 +83,8 @@
       (let [{: filename : path} (file-context props.buf props.win)
             result [" "]]
         (append-git result props.buf)
+        (append-diagnostics result props.buf)
+        (table.insert result " ")
         (when (. vim.bo props.buf :modified)
           (table.insert result (highlighted " " :DiagnosticWarn)))
         (table.insert result (highlighted filename :Title))
