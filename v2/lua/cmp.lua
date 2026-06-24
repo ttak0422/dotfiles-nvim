@@ -110,25 +110,25 @@ cmp.setup({
 	},
 })
 
+-- Cycle through candidates while applying each one. The first <Tab> opens the
+-- menu and immediately selects/inserts the first candidate (cmdline sources are
+-- synchronous, so entries are available right after cmp.complete()).
+local function cmdline_select(select_item)
+	return {
+		c = function()
+			if not cmp.visible() then
+				cmp.complete()
+			end
+			if cmp.visible() then
+				select_item({ behavior = cmp.SelectBehavior.Insert })
+			end
+		end,
+	}
+end
+
 local cmdline_mapping = cmp.mapping.preset.cmdline({
-	["<Tab>"] = {
-		c = function()
-			if cmp.visible() then
-				cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-			else
-				cmp.complete()
-			end
-		end,
-	},
-	["<S-Tab>"] = {
-		c = function()
-			if cmp.visible() then
-				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-			else
-				cmp.complete()
-			end
-		end,
-	},
+	["<Tab>"] = cmdline_select(cmp.select_next_item),
+	["<S-Tab>"] = cmdline_select(cmp.select_prev_item),
 })
 
 cmp.setup.cmdline({ "/", "?" }, {
