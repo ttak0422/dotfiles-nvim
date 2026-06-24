@@ -97,6 +97,7 @@
 
 (incline.setup {:window {:padding 0
                          :margin {:horizontal 0 :vertical 0}
+                         :zindex 30
                          :placement {:horizontal :right :vertical :top}}
                 :hide {:cursorline :smart :focused_win false :only_win false}
                 :ignore {:unlisted_buffers false
