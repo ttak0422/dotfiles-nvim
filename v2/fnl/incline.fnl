@@ -75,7 +75,7 @@
 
 (fn append-window-context [result props]
   (when props.focused
-    (table.insert result "  ")
+    (table.insert result " ")
     (let [cwd (vim.fn.fnamemodify (vim.fn.getcwd) ":t")]
       (table.insert result (if (= cwd "") :ROOT cwd)))
     (let [status (?. vim.b props.buf :gitsigns_status_dict)]
@@ -86,7 +86,7 @@
           (when (not= head "")
             (table.insert result (.. " (" head (if dirty "*" "") ")"))))))
     (let [[line column] (vim.api.nvim_win_get_cursor props.win)]
-      (table.insert result (highlighted (.. "  "
+      (table.insert result (highlighted (.. " "
                                             (string.format "%4d,%-3d" line
                                                            (+ column 1))
                                             " ")
