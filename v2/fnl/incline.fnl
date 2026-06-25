@@ -2,6 +2,22 @@
 
 (local ignored-buftypes {:nofile true :prompt true :help true :quickfix true})
 
+;; `vim.fs.root` walks up the directory tree on every call, but a buffer's git
+;; root is stable for a given path. `render` runs on every cursor move, so cache
+;; the lookup per path to avoid a filesystem walk on each render. `false` records
+;; "looked up, no root" so we don't repeat the walk for non-git files.
+(local git-root-cache {})
+
+(fn buf-git-root [name]
+  (if (= name "")
+      nil
+      (let [cached (. git-root-cache name)]
+        (if (= cached nil)
+            (let [root (or (vim.fs.root name [:.git]) false)]
+              (tset git-root-cache name root)
+              (if (= root false) nil root))
+            (if (= cached false) nil cached)))))
+
 (local maven-prefixes
        {:java [:src/main/java/ :src/test/java/]
         :kotlin [:src/main/kotlin/ :src/test/kotlin/]
@@ -22,7 +38,7 @@
 
 (fn file-context [buf win]
   (let [name (vim.api.nvim_buf_get_name buf)
-        git-root (and (not= name "") (vim.fs.root name [:.git]))
+        git-root (buf-git-root name)
         filename (vim.fn.fnamemodify name ":t")
         relative (if git-root
                      (string.sub name (+ (length git-root) 2))
