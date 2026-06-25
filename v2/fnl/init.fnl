@@ -225,6 +225,11 @@
                           [(leader :tf)
                            (cmd "Track search_body")
                            (desc " find note (body)")]
+                          [(leader :tg)
+                           #(vim.cmd (.. "Track open "
+                                         (vim.fn.fnamemodify (vim.fn.getcwd)
+                                                             ":t")))
+                           (desc " open workdir note")]
                           [(leader :tF)
                            (cmd "Track search_title")
                            (desc " find note (title)")]
