@@ -89,55 +89,50 @@ end
 local function append_window_context(result, props)
   if props.focused then
     table.insert(result, "  ")
-    if (#vim.api.nvim_list_tabpages() > 1) then
-      table.insert(result, (vim.fn.tabpagenr() .. " \238\152\161 "))
-    else
-    end
     do
       local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-      local function _13_()
+      local function _12_()
         if (cwd == "") then
           return "ROOT"
         else
           return cwd
         end
       end
-      table.insert(result, _13_())
+      table.insert(result, _12_())
     end
     do
       local status
       do
-        local t_14_ = vim.b
-        if (nil ~= t_14_) then
-          t_14_ = t_14_[props.buf]
+        local t_13_ = vim.b
+        if (nil ~= t_13_) then
+          t_13_ = t_13_[props.buf]
         else
         end
-        if (nil ~= t_14_) then
-          t_14_ = t_14_.gitsigns_status_dict
+        if (nil ~= t_13_) then
+          t_13_ = t_13_.gitsigns_status_dict
         else
         end
-        status = t_14_
+        status = t_13_
       end
       if status then
         local head = (status.head or "")
         local dirty = (((status.added or 0) + (status.changed or 0) + (status.removed or 0)) > 0)
         if (head ~= "") then
-          local _17_
+          local _16_
           if dirty then
-            _17_ = "*"
+            _16_ = "*"
           else
-            _17_ = ""
+            _16_ = ""
           end
-          table.insert(result, (" (" .. head .. _17_ .. ")"))
+          table.insert(result, (" (" .. head .. _16_ .. ")"))
         else
         end
       else
       end
     end
-    append_diagnostics(result, props.buf)
-    local _let_21_ = vim.api.nvim_win_get_cursor(props.win)
-    local line = _let_21_[1]
-    local column = _let_21_[2]
+    local _let_20_ = vim.api.nvim_win_get_cursor(props.win)
+    local line = _let_20_[1]
+    local column = _let_20_[2]
     return table.insert(result, highlighted(("  " .. string.format("%4d,%-3d", line, (column + 1)) .. " "), "WinBar"))
   else
     return nil
@@ -146,11 +141,13 @@ end
 local function render(props)
   local filetype = vim.bo[props.buf].filetype
   if not (vim.startswith(filetype, "git") or (filetype == "Trouble") or (filetype == "skk-terminal-input")) then
-    local _let_23_ = file_context(props.buf, props.win)
-    local filename = _let_23_.filename
-    local path = _let_23_.path
+    local _let_22_ = file_context(props.buf, props.win)
+    local filename = _let_22_.filename
+    local path = _let_22_.path
     local result = {" "}
     append_git(result, props.buf)
+    append_diagnostics(result, props.buf)
+    table.insert(result, " ")
     if vim.bo[props.buf].modified then
       table.insert(result, highlighted("\239\145\132 ", "DiagnosticWarn"))
     else
@@ -167,15 +164,15 @@ local function render(props)
     return nil
   end
 end
-local function _27_(_, buftype)
+local function _26_(_, buftype)
   return (ignored_buftypes[buftype] ~= nil)
 end
-incline.setup({window = {padding = 0, margin = {horizontal = 0, vertical = 0}, placement = {horizontal = "right", vertical = "top"}}, hide = {cursorline = "smart", focused_win = false, only_win = false}, ignore = {floating_wins = true, buftypes = _27_, filetypes = {"Trouble", "skk-terminal-input"}, unlisted_buffers = false}, highlight = {groups = {InclineNormal = {group = "WinBar", default = false}, InclineNormalNC = {group = "WinBarNC", default = false}}}, render = render})
+incline.setup({window = {padding = 0, margin = {horizontal = 0, vertical = 0}, zindex = 30, placement = {horizontal = "right", vertical = "top"}}, hide = {cursorline = "smart", focused_win = false, only_win = false}, ignore = {floating_wins = true, buftypes = _26_, filetypes = {"Trouble", "skk-terminal-input"}, unlisted_buffers = false}, highlight = {groups = {InclineNormal = {group = "WinBar", default = false}, InclineNormalNC = {group = "WinBarNC", default = false}}}, render = render})
 local group = vim.api.nvim_create_augroup("incline-user-refresh", {clear = true})
 local refresh
-local function _28_()
+local function _27_()
   return vim.schedule(incline.refresh)
 end
-refresh = _28_
+refresh = _27_
 vim.api.nvim_create_autocmd({"BufModifiedSet", "DiagnosticChanged", "DirChanged"}, {group = group, callback = refresh})
 return vim.api.nvim_create_autocmd("User", {group = group, pattern = "GitSignsUpdate", callback = refresh})

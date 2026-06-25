@@ -32,6 +32,9 @@
                              :signcolumn :yes
                              ; statuslineを起動時に非表示
                              :laststatus 0
+                             ;; 水平分割時に現れるstatuslineは内容を持たせず
+                             ;; fillchars(stl/stlnc)の区切り線だけを描画する
+                             :statusline "%="
                              :showtabline 0
                              :wrap false
                              :splitkeep :screen
@@ -51,6 +54,16 @@
                            :no_plugin_maps true}})]
   (each [k v (pairs kvp)]
     (tset (. vim opt) k v)))
+
+;; 水平分割時に現れるstatuslineをWinSeparator相当の細い区切り線に見せる
+;; (ColorSchemeでハイライトがリセットされるため再適用する)
+(fn link-statusline-to-separator []
+  (vim.api.nvim_set_hl 0 :StatusLine {:link :WinSeparator})
+  (vim.api.nvim_set_hl 0 :StatusLineNC {:link :WinSeparator}))
+
+(link-statusline-to-separator)
+(vim.api.nvim_create_autocmd :ColorScheme
+                             {:callback link-statusline-to-separator})
 
 ; register keymaps
 (macro leader [...]

@@ -17,6 +17,10 @@
                            :foldopen "▾"
                            :foldsep " "
                            :foldclose "▸"
-                           :foldinner " "})
+                           :foldinner " "
+                           ;; laststatus=0でも水平分割時に現れるstatuslineを
+                           ;; WinSeparatorと同じ細い区切り線として描画する
+                           :stl "─"
+                           :stlnc "─"})
 
 (vim.opt.nrformats:append :unsigned)
