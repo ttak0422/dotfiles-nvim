@@ -98,11 +98,11 @@
                    (= filetype :skk-terminal-input)))
       (let [{: filename : path} (file-context props.buf props.win)
             result [" "]]
+        (when (. vim.bo props.buf :modified)
+          (table.insert result (highlighted " " :DiagnosticWarn)))
         (append-git result props.buf)
         (append-diagnostics result props.buf)
         (table.insert result " ")
-        (when (. vim.bo props.buf :modified)
-          (table.insert result (highlighted " " :DiagnosticWarn)))
         (table.insert result (highlighted filename :Title))
         (when (and (not= path "") (not= path "."))
           (table.insert result " ")
