@@ -1,7 +1,13 @@
 {
   nixConfig = {
-    extra-substituters = [ "https://nix-community.cachix.org" ];
-    # extra-trusted-public-keys = [];
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+      "https://ttak0422.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "ttak0422.cachix.org-1:8+SW9jr2e4ieB9eaXAiuoS2wKnTqiMf30XdOi6hTIu8="
+    ];
     extra-experimental-features = "nix-command flakes";
   };
 
