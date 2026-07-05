@@ -606,10 +606,13 @@ do
 	}
 end
 
-local make_session_status, codex_session_index, apply_codex_thread_names
+local make_session_status, codex_session_index, apply_codex_thread_names, claude_reaper
 do
 	local state_root = (vim.env.XDG_STATE_HOME or (vim.env.HOME .. "/.local/state")) .. "/komado"
 	codex_session_index = (vim.env.CODEX_HOME or (vim.env.HOME .. "/.codex")) .. "/session_index.jsonl"
+	-- Claude Code はセッション終了時に sessions/<pid>.json を削除する。ここを逆引きして
+	-- 生存セッションを判定する(komado の状態ファイルは SessionEnd が飛ばない異常終了で残るため)。
+	local claude_sessions_dir = (vim.env.CLAUDE_CONFIG_DIR or (vim.env.HOME .. "/.claude")) .. "/sessions"
 
 	local STATUS_LABELS = {
 		running = "running",
@@ -671,6 +674,37 @@ do
 		end
 	end
 
+	-- sessions ディレクトリを走査して sessionId→pid のマップを1回作り、
+	-- 「そのセッションが生きているか」を返す判定関数を返す。
+	-- session ファイルが無い(=Claude が終了時に削除)か、pid が消滅していれば dead。
+	claude_reaper = function()
+		local pids = {}
+		local h = vim.uv.fs_scandir(claude_sessions_dir)
+		if h then
+			while true do
+				local name = vim.uv.fs_scandir_next(h)
+				if not name then
+					break
+				end
+				if name:match("%.json$") then
+					local obj = read_json(claude_sessions_dir .. "/" .. name)
+					if obj and type(obj.sessionId) == "string" and type(obj.pid) == "number" then
+						pids[obj.sessionId] = obj.pid
+					end
+				end
+			end
+		end
+		return function(session)
+			local pid = pids[session.session_id]
+			if not pid then
+				return false
+			end
+			-- signal 0 は存在確認のみ。生存していれば 0 を返す。
+			local ok, r = pcall(vim.uv.kill, pid, 0)
+			return ok and r == 0
+		end
+	end
+
 	make_session_status = function(opts)
 		local state_dir = state_root .. "/" .. opts.state_name
 		local sessions = {}
@@ -707,11 +741,19 @@ do
 
 		local function reload()
 			local rows = {}
+			-- reaper がある場合は、この reload の間だけ有効な生存判定を1回作る。
+			local is_alive = opts.reaper and opts.reaper() or nil
 			each_json(function(name)
-				local obj = read_json(state_dir .. "/" .. name)
+				local path = state_dir .. "/" .. name
+				local obj = read_json(path)
 				if obj then
-					obj._display_status = obj.status
-					rows[#rows + 1] = obj
+					if is_alive and not is_alive(obj) then
+						-- 終了済みセッションの残骸を掃除する(SessionEnd が飛ばなかったケース)。
+						vim.uv.fs_unlink(path)
+					else
+						obj._display_status = obj.status
+						rows[#rows + 1] = obj
+					end
 				end
 			end)
 			if opts.prepare_sessions then
@@ -843,6 +885,7 @@ local ClaudeStatus = make_session_status({
 	tick = "KomadoClaudeTick",
 	clean_command = "KomadoClaudeClean",
 	logo = agent_logo("Claude", { fg = "#000000", bg = "#D97757", bold = true }),
+	reaper = claude_reaper,
 })
 
 local CodexStatus = make_session_status({

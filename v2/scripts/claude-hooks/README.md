@@ -115,8 +115,12 @@ itself.
 
 ### Notes
 
-- If a Claude Code process dies abnormally `SessionEnd` is never fired and the
-  state file lingers. There is no automatic staleness handling; run
-  `:KomadoClaudeClean` in Neovim to wipe leftover state files.
+- `SessionEnd` is not fired when a session ends without a clean exit (terminal
+  closed / `SIGHUP`, crash, `kill`), so the state file would otherwise linger.
+  komado reaps these on the Neovim side: on every panel reload it cross-checks
+  each state file against `${CLAUDE_CONFIG_DIR:-$HOME/.claude}/sessions/<pid>.json`
+  (which Claude Code removes on exit) and unlinks any state file whose session no
+  longer has a live process. `:KomadoClaudeClean` still wipes every state file
+  unconditionally.
 - Sessions whose `cwd` does not match are not shown in komado (filtering
   happens on the Neovim side).
