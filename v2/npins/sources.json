@@ -2078,6 +2078,19 @@
       "url": "https://github.com/tiagovla/scope.nvim/archive/228aabdb1b9cc74f0c0ccec88e79873857236e49.tar.gz",
       "hash": "sha256-HsXeGF1eSZ4wjvkzeIGmjBr0/tv3QIXT7cvbW8p+ESI="
     },
+    "sfcc.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ttak0422",
+        "repo": "sfcc.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "9b64e63d83251a31eb71d3c8fe7e688da3119108",
+      "url": "https://github.com/ttak0422/sfcc.nvim/archive/9b64e63d83251a31eb71d3c8fe7e688da3119108.tar.gz",
+      "hash": "sha256-08VUv8yT1tdILOXIaLf8aWc6NEvpPsme0wAw0E1kk1o="
+    },
     "showkeys": {
       "type": "Git",
       "repository": {

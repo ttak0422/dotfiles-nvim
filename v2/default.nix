@@ -1408,6 +1408,15 @@ in
           hooks.fileTypes = [ "typescript" ];
         }
         {
+          package = sfcc-nvim;
+          postConfig = ''
+            vim.keymap.set('n', 'gf', function()
+              require('sfcc').gf()
+            end, { buffer = true, desc = 'SFCC cartridge gf' })
+          '';
+          hooks.fileTypes = [ "javascript" ];
+        }
+        {
           package = uv-nvim;
           postConfig = read "./fnl/uv.fnl";
           extraPackages = with pkgs; [ uv ];
