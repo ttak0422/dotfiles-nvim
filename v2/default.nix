@@ -1413,7 +1413,7 @@ in
           postConfig = ''
             vim.keymap.set('n', 'gf', function()
               require('sfcc').gf()
-            end, { buffer = true, desc = 'SFCC cartridge gf' })
+            end, { desc = 'SFCC cartridge gf' })
           '';
           hooks.fileTypes = [ "javascript" ];
         }
