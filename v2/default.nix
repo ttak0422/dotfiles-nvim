@@ -877,6 +877,7 @@ in
         telescope-mr
         telescope-nvim
         telescope-sonictemplate-nvim
+        telescope-ui-select-nvim
       ];
       depends = [
         quickfixPlugins

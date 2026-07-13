@@ -16,7 +16,6 @@
 (local select
        {:enabled true
         :backend [:telescope :builtin]
-        :trim_prompt true
-        :telescope ((. (require :telescope.themes) :get_cursor))})
+        :trim_prompt true})
 
 (dressing.setup {: input : select})

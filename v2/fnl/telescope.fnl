@@ -1,37 +1,24 @@
 (local telescope (require :telescope))
 (local builtin (require :telescope.builtin))
-(local themes (require :telescope.themes))
 (local actions (require :telescope.actions))
 (local lga_actions (require :telescope-live-grep-args.actions))
 
 (local defaults
-       (themes.get_cursor {:path_display [:truncate]
-                           :prompt_prefix " "
-                           :selection_caret " "
-                           ;; skkeleton is loaded on InsertEnter
-                           :preview false
-                           :layout_config {:width (fn [self _ _]
-                                                    (let [winid self.original_win_id
-                                                          win_width (vim.api.nvim_win_get_width winid)
-                                                          cursor (vim.api.nvim_win_get_cursor winid)
-                                                          col (. cursor 2)]
-                                                      (math.max 80
-                                                                (- win_width
-                                                                   col 2))))
-                                           :height (fn [self _ _]
-                                                     (let [winid self.original_win_id
-                                                           win_height (vim.api.nvim_win_get_height winid)
-                                                           cursor (vim.api.nvim_win_get_cursor winid)
-                                                           row (. cursor 1)]
-                                                       (math.max 10
-                                                                 (- win_height
-                                                                    row 2))))}
-                           :mappings {:i {:<C-j> {1 "<Plug>(skkeleton-enable)"
-                                                  :type :command}
-                                          :<Down> actions.cycle_history_next
-                                          :<Up> actions.cycle_history_prev}
-                                      :n {:<Down> actions.cycle_history_next
-                                          :<Up> actions.cycle_history_prev}}}))
+       {:path_display [:truncate]
+        :prompt_prefix " "
+        :selection_caret " "
+        :sorting_strategy :ascending
+        :layout_config {:horizontal {:prompt_position :top
+                                     :preview_width 0.55}
+                        :width 0.87
+                        :height 0.8}
+        ;; skkeleton is loaded on InsertEnter
+        :mappings {:i {:<C-j> {1 "<Plug>(skkeleton-enable)"
+                               :type :command}
+                       :<Down> actions.cycle_history_next
+                       :<Up> actions.cycle_history_prev}
+                   :n {:<Down> actions.cycle_history_next
+                       :<Up> actions.cycle_history_prev}}})
 
 (local extensions
        {:live_grep_args {:auto_quoting true
