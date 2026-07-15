@@ -21,6 +21,11 @@ local function configure_editor_env()
 end
 configure_editor_env()
 vim.cmd("language messages en_US.UTF-8")
+local function lazy_ui_select(...)
+  require("telescope")
+  return vim.ui.select(...)
+end
+vim.ui.select = lazy_ui_select
 pcall(dofile, vim.fn.expand("$HOME/config.lua"))
 for opt, kvp in pairs({opt = {langmenu = "none", timeoutlen = 1000, shortmess = (vim.o.shortmess .. "sWcS"), cmdheight = 0, signcolumn = "yes", laststatus = 0, statusline = "%=", showtabline = 0, splitkeep = "screen", foldcolumn = "1", foldlevel = 99, foldlevelstart = 99, foldenable = true, switchbuf = "", splitbelow = true, splitright = true, winborder = "single", number = false, showmode = false, wrap = false}, g = {mapleader = " ", maplocalleader = ",", loaded_netrw = 1, loaded_netrwPlugin = 1, no_plugin_maps = true}}) do
   for k, v in pairs(kvp) do

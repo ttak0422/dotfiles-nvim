@@ -19,6 +19,14 @@
 
 (vim.cmd "language messages en_US.UTF-8")
 
+;; telescope は遅延ロードのため、初回の vim.ui.select で require して
+;; telescope-ui-select (load_extension 時に vim.ui.select を置換) に委譲する
+(fn lazy-ui-select [...]
+  (require :telescope)
+  ; (assert (not= vim.ui.select lazy-ui-select) "telescope-ui-select not installed")
+  (vim.ui.select ...))
+(set vim.ui.select lazy-ui-select)
+
 ;; WIP
 (pcall dofile (vim.fn.expand :$HOME/config.lua))
 

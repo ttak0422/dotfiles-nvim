@@ -549,19 +549,6 @@
       "url": "https://github.com/tani/dmacro.vim/archive/25ab1df31d216c4ff7554c262f92b5c0c6b743f0.tar.gz",
       "hash": "sha256-jA8KDNDV3/4lOPxSNp3f0giNEIsubAe8dxiAYohslsg="
     },
-    "dressing.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "stevearc",
-        "repo": "dressing.nvim"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "2d7c2db2507fa3c4956142ee607431ddb2828639",
-      "url": "https://github.com/stevearc/dressing.nvim/archive/2d7c2db2507fa3c4956142ee607431ddb2828639.tar.gz",
-      "hash": "sha256-dBz+/gZA6O6fJy/GSgM6ZHGAR3MTGt/W1olzzTYRlgM="
-    },
     "dropbar.nvim": {
       "type": "GitRelease",
       "repository": {

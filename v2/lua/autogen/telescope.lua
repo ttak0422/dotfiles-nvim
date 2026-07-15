@@ -10,6 +10,7 @@ local function _1_()
 end
 extensions = {live_grep_args = {auto_quoting = true, mappings = {i = {["<C-t>"] = lga_actions.quote_prompt({postfix = " -t "}), ["<C-i>"] = lga_actions.quote_prompt({postfix = " --iglob "})}}, additional_args = _1_}}
 telescope.setup({defaults = defaults, extensions = extensions})
+telescope.load_extension("ui-select")
 telescope.load_extension("live_grep_args")
 telescope.load_extension("sonictemplate")
 telescope.load_extension("projects")

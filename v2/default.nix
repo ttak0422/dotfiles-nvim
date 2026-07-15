@@ -463,12 +463,6 @@ in
           '';
       };
     };
-    dressing = {
-      package = dressing-nvim;
-      postConfig = read "./fnl/dressing.fnl";
-      depends = [ telescope ];
-    };
-
     project = {
       package = project-nvim;
       postConfig = read "./fnl/project.fnl";
