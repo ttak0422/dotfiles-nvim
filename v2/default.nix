@@ -431,6 +431,10 @@ in
   lazy = with pkgs.vimPlugins.v2; rec {
     # colorschemes
     sorairo.package = pkgs.vimPlugins.v2.sorairo;
+    morimo2 = {
+      package = pkgs.vimPlugins.v2.morimo2;
+      hooks.modules = [ "morimo2" ];
+    };
     kanagawa = {
       package = kanagawa-nvim;
       hooks.modules = [ "kanagawa" ];
