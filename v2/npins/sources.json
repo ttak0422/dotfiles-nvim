@@ -1331,9 +1331,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "1f790aa618cbc44d0976245c45691fa65a34742b",
-      "url": "https://github.com/ttak0422/morimo2/archive/1f790aa618cbc44d0976245c45691fa65a34742b.tar.gz",
-      "hash": "sha256-M26xjxQYDCSVqqNXDxOgiGf4sxcOV7TG5B/ZPcVjvfU="
+      "revision": "8e3b61e786633de7eadbfeed89de12abd826d6e9",
+      "url": "https://github.com/ttak0422/morimo2/archive/8e3b61e786633de7eadbfeed89de12abd826d6e9.tar.gz",
+      "hash": "sha256-ByRXpG2oRw5WfinG6ppEmh2/t4tSaWmDTaJrH/O5BrI="
     },
     "nap.nvim": {
       "type": "Git",
