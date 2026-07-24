@@ -483,10 +483,10 @@ in
       hooks.fileTypes = [ "markdown" ];
     };
 
-    checkmate = {
-      package = checkmate-nvim;
-      postConfig = read "./fnl/checkmate.fnl";
-    };
+    # checkmate = {
+    #   package = checkmate-nvim;
+    #   postConfig = read "./fnl/checkmate.fnl";
+    # };
 
     mcphub = {
       package = mcphub-nvim;
@@ -939,7 +939,7 @@ in
       depends = [
         telescope
         image
-        checkmate
+        # checkmate
       ];
       extraPackages = with pkgs; [
         pngpaste
