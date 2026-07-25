@@ -479,7 +479,7 @@ in
         devicons
         budoux-lua
       ];
-      hooks.fileTypes = [ "markdown" ];
+      hooks.commands = [ "MdRender" ];
     };
 
     # checkmate = {
