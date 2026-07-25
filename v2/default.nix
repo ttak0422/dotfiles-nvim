@@ -473,13 +473,11 @@ in
       hooks.commands = [ "Telescope" ];
     };
 
-    render-markdown = {
-      package = render-markdown-nvim;
+    md-render = {
+      package = md-render-nvim;
       depends = [
         devicons
-        image
       ];
-      postConfig = read "./fnl/render-markdown.fnl";
       hooks.fileTypes = [ "markdown" ];
     };
 
