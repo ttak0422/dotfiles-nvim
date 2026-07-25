@@ -260,6 +260,22 @@
       "url": "https://github.com/Saghen/blink.compat/archive/1454f14a8d855a578ceeba77c62538fa1459a67c.tar.gz",
       "hash": "sha256-EMQC+2hjgAGYcBoSKkR5LV7jUsl3Oi8rL3K7FNIHXIw="
     },
+    "budoux.lua": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "delphinus",
+        "repo": "budoux.lua"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.0.2",
+      "revision": "7f23658b127b9a74aae5b388fefcd997be30cbfc",
+      "url": "https://api.github.com/repos/delphinus/budoux.lua/tarball/refs/tags/v1.0.2",
+      "hash": "sha256-obBkZym7E4lMhFFIaGt8yWArFcVqi+jqUkSVFbbynpw="
+    },
     "bufresize.nvim": {
       "type": "Git",
       "repository": {

@@ -477,6 +477,7 @@ in
       package = md-render-nvim;
       depends = [
         devicons
+        budoux-lua
       ];
       hooks.fileTypes = [ "markdown" ];
     };
