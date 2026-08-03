@@ -496,9 +496,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "1df7a022d6e9cb3f6a3db43235e0f174ccd79e03",
-      "url": "https://github.com/vim-denops/denops.vim/archive/1df7a022d6e9cb3f6a3db43235e0f174ccd79e03.tar.gz",
-      "hash": "sha256-lj8yjZrwE9GfNPDIpH4tCI4TTJHkYRlFFCTdqMqWtZg="
+      "revision": "e82c5a94ca1154b05c9d74d6f6f58c9991b1424f",
+      "url": "https://github.com/vim-denops/denops.vim/archive/e82c5a94ca1154b05c9d74d6f6f58c9991b1424f.tar.gz",
+      "hash": "sha256-z9FadzT6Y7vFLLdpFR/Ti/FVPGwED4uEkiNZZOkSkqU="
     },
     "detour.nvim": {
       "type": "Git",
@@ -1272,6 +1272,19 @@
       "revision": "56057d92d636a45cdeac5d1857e776e10d279d69",
       "url": "https://api.github.com/repos/delphinus/md-render.nvim/tarball/refs/tags/v3.4.0",
       "hash": "sha256-q/0ZRbsvADdS7LBD03uuAABdkE330jbIHY8066t0MvI="
+    },
+    "mdpaste.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ttak0422",
+        "repo": "mdpaste.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "8e114d9c96b6492a3dbd66026f8c63ba5e1fed34",
+      "url": "https://github.com/ttak0422/mdpaste.nvim/archive/8e114d9c96b6492a3dbd66026f8c63ba5e1fed34.tar.gz",
+      "hash": "sha256-0mMUz1h2hiBBomAVz96Xxkd3h7qs5plbUBhWSMYbQes="
     },
     "menu": {
       "type": "Git",
@@ -2145,9 +2158,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "770b265dd115dba96ea5314642e35764654ef08f",
-      "url": "https://github.com/vim-skk/skkeleton/archive/770b265dd115dba96ea5314642e35764654ef08f.tar.gz",
-      "hash": "sha256-Gsl/LqUY8szRqYLnDVyDOIDCw+cisoKsS5Fl1zQ+unM="
+      "revision": "cb6e529dada798929deefd879e32e418dab1c6ac",
+      "url": "https://github.com/vim-skk/skkeleton/archive/cb6e529dada798929deefd879e32e418dab1c6ac.tar.gz",
+      "hash": "sha256-ydZdzknNz9baKPZ5FDHY264evzZ3+50ZVi1VuhwXv4M="
     },
     "skkeleton-henkan-highlight": {
       "type": "Git",

@@ -977,6 +977,11 @@ in
       hooks.commands = [ "PasteImage" ];
     };
 
+    mdpaste = {
+      package = mdpaste-nvim;
+      hooks.fileTypes = [ "markdown" ];
+    };
+
     quickfixPlugins = {
       depends = [
         {

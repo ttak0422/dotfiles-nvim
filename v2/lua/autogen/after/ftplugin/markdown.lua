@@ -2,6 +2,7 @@
 for key, value in pairs({foldcolumn = "0", listchars = "tab:> ", virtualedit = "all", number = false}) do
   vim.opt_local[key] = value
 end
+vim.keymap.set({"n", "i"}, "<D-v>", "<Plug>(mdpaste)", {buffer = true})
 if (vim.fn.expand("%:e") == "ipynb") then
   require("quarto").activate()
   require("otter").activate()

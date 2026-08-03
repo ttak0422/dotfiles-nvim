@@ -5,6 +5,8 @@
                          :virtualedit :all})]
   (tset vim.opt_local key value))
 
+(vim.keymap.set [:n :i] :<D-v> "<Plug>(mdpaste)" {:buffer true})
+
 (when (= (vim.fn.expand "%:e") :ipynb)
   ;; Add ipynb-specific keymaps here
   (do

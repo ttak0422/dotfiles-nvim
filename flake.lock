@@ -810,11 +810,11 @@
     "skk-dict": {
       "flake": false,
       "locked": {
-        "lastModified": 1724871756,
-        "narHash": "sha256-sWz85Q6Bu2WoKsckSp5SlcuPUQN2mcq+BHMqNXQ/aho=",
+        "lastModified": 1775938739,
+        "narHash": "sha256-xKMtHB54kVSwwwr+v248ewa7dwuavYVmc6KHrZwSdnM=",
         "owner": "skk-dev",
         "repo": "dict",
-        "rev": "4eb91a3bbfef70bde940668ec60f3beae291e971",
+        "rev": "0a164e6b990c5eb5b59eb7d8789f08865dc2f644",
         "type": "github"
       },
       "original": {
