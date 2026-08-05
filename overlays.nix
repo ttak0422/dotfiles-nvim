@@ -30,6 +30,15 @@ with inputs;
         };
       };
 
+      # 一時的なピン留め: nixpkgs 追従を戻すときはこのブロックごと削除する
+      lombok = prev.lombok.overrideAttrs (_: rec {
+        version = "1.18.36";
+        src = prev.fetchurl {
+          url = "https://projectlombok.org/downloads/lombok-${version}.jar";
+          hash = "sha256-c7awW2otNltwC6sI0w+U3p0zZJC8Cszlthgf70jL8Y4=";
+        };
+      });
+
       javaPackages = prev.javaPackages // {
         inherit (inputs) jol junit-console;
       };
