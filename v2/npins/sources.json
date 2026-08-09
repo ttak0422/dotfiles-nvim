@@ -1042,6 +1042,19 @@
       "url": "https://github.com/adlrwbr/keep-split-ratio.nvim/archive/906aa5196e194dca12c7729069760d42e77ddcff.tar.gz",
       "hash": "sha256-zrCiYlGOMmAM91VY6g2iWPmgnggfo3YvVOqkjm2l35Q="
     },
+    "koe.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ttak0422",
+        "repo": "koe.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "aae08f496c6920395340553abeb9773e99c2275e",
+      "url": "https://github.com/ttak0422/koe.nvim/archive/aae08f496c6920395340553abeb9773e99c2275e.tar.gz",
+      "hash": "sha256-tJOSMSaj/MrVUEiGsnfzWdI/sj75bw6YFyJE0uqUIJQ="
+    },
     "komado.nvim": {
       "type": "Git",
       "repository": {

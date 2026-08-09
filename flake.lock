@@ -750,7 +750,6 @@
         "skk-dict": "skk-dict",
         "systems": "systems_2",
         "v2-blink-cmp": "v2-blink-cmp",
-        "v2-koe": "v2-koe",
         "v2-mcp-hub": "v2-mcp-hub",
         "v2-meian": "v2-meian",
         "v2-pterm": "v2-pterm",
@@ -872,22 +871,6 @@
         "owner": "Saghen",
         "ref": "v1",
         "repo": "blink.cmp",
-        "type": "github"
-      }
-    },
-    "v2-koe": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1786253138,
-        "narHash": "sha256-tJOSMSaj/MrVUEiGsnfzWdI/sj75bw6YFyJE0uqUIJQ=",
-        "owner": "ttak0422",
-        "repo": "koe.nvim",
-        "rev": "aae08f496c6920395340553abeb9773e99c2275e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ttak0422",
-        "repo": "koe.nvim",
         "type": "github"
       }
     },

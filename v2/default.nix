@@ -2,7 +2,6 @@
   inputs',
   pkgs,
   lib,
-  koe,
 }:
 let
   read =
@@ -52,11 +51,6 @@ let
   editorWrapperWait = pkgs.writeShellScript "nvim-editor-open-wait" ''
     exec "${editorWrapper}" --wait "$@"
   '';
-  koe-nvim = pkgs.vimUtils.buildVimPlugin {
-    pname = "koe-nvim";
-    version = koe.rev or "source";
-    src = koe;
-  };
 in
 {
   package = pkgs.neovim-unwrapped;
@@ -707,7 +701,7 @@ in
           postConfig = read "./fnl/auto-save.fnl";
         }
         {
-          package = koe-nvim;
+          package = pkgs.vimPlugins.v2.koe-nvim;
           postConfig = read "./fnl/koe.fnl";
         }
         {
