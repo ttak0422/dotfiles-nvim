@@ -55,6 +55,10 @@
       url = "github:ttak0422/track";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    v2-koe = {
+      url = "github:ttak0422/koe.nvim";
+      flake = false;
+    };
     # WIP
     # v2-rustowl.url = "github:nix-community/rustowl-flake";
   };
@@ -87,6 +91,7 @@
           bundler-nvim = {
             v2 = import ./v2 {
               inherit inputs' pkgs lib;
+              koe = inputs.v2-koe;
             };
           }
           // (import ./tests {
