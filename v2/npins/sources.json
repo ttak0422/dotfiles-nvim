@@ -1051,9 +1051,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "f1666e1d9f3456cf5091dd30588b9ad0d4d101c4",
-      "url": "https://github.com/ttak0422/koe.nvim/archive/f1666e1d9f3456cf5091dd30588b9ad0d4d101c4.tar.gz",
-      "hash": "sha256-ODyGhpBXP94/zBv0YdbQkWaUwk5nWFqq8Q1/kEzRryg="
+      "revision": "1bd78d4be07530673979c05b083ab950f241e4a0",
+      "url": "https://github.com/ttak0422/koe.nvim/archive/1bd78d4be07530673979c05b083ab950f241e4a0.tar.gz",
+      "hash": "sha256-2PfpzwYsmg/nnE04uTOa5VHT2Q70gZ7jk+up4pwWakQ="
     },
     "komado.nvim": {
       "type": "Git",
