@@ -735,6 +735,8 @@ in
               vim.keymap.set("c", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
               vim.keymap.set("t", "<C-j>", "<Plug>(skkeleton-enable)", { silent = true })
 
+              vim.fn["skkeleton#register_kanatable"]("rom", { jk = "escape" })
+
               vim.cmd([[highlight SkkeletonHenkan gui=reverse term=reverse]])
             '';
           useDenops = true;
