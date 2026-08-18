@@ -922,11 +922,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1783250433,
-        "narHash": "sha256-voginUJIK48EwrbM7IVB5YEmZbr/lA9HGasi4Mcpmko=",
+        "lastModified": 1787066003,
+        "narHash": "sha256-dv5DknbSCgzEiDoXwq7n9/CPUBsgbbEXk5Ctxrglqks=",
         "owner": "ttak0422",
         "repo": "pterm",
-        "rev": "64f4d895b5d9d1ab9fe434f2554d0b683277c479",
+        "rev": "9cee2b45db1565b1b9d6e57d7e39b1c7197ff717",
         "type": "github"
       },
       "original": {
