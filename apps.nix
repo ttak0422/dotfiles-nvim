@@ -80,6 +80,31 @@ in
         nix flake metadata --json | jq -r '.locks.nodes | keys[]' | grep neotest | xargs -I {} nix flake update {}
       '';
     };
+    clean-room-workspace = mkApp {
+      name = "clean-room-workspace";
+      inputs = with pkgs; [
+        bash
+        coreutils
+        findutils
+        git
+        gnugrep
+        gnused
+      ];
+      script = ''
+        exec ${./v2/scripts/clean-room/clean-room-workspace.sh} "$@"
+      '';
+    };
+    install-clean-room-opencode = mkApp {
+      name = "install-clean-room-opencode";
+      inputs = with pkgs; [
+        bash
+        coreutils
+      ];
+      script = ''
+        export CLEAN_ROOM_SOURCE_DIR="$PWD/v2/scripts/clean-room"
+        exec ${./v2/scripts/clean-room/install-opencode.sh} "$@"
+      '';
+    };
   };
   devShells.default = pkgs.mkShell {
     packages = with pkgs; [

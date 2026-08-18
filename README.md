@@ -25,7 +25,7 @@
     ├── lua/autogen/  # Compiled Lua files
     ├── lua/          # Lua source files
     ├── npins/        # Nix package management for v2
+    ├── scripts/      # Development workflow scripts
     ├── tmpl/         # Template files
     └── vim/          # Vim script configurations
 ```
-
