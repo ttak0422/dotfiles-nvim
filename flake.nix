@@ -3,10 +3,12 @@
     extra-substituters = [
       "https://nix-community.cachix.org"
       "https://ttak0422.cachix.org"
+      "https://ttak0422-pterm.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "ttak0422.cachix.org-1:8+SW9jr2e4ieB9eaXAiuoS2wKnTqiMf30XdOi6hTIu8="
+      "ttak0422-pterm.cachix.org-1:s0zSh4J7l8NrisVESCYNxcSw7rz2vLsGa5fh+E42NDY="
     ];
     extra-experimental-features = "nix-command flakes";
   };
