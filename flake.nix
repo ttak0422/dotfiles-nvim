@@ -15,19 +15,19 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
     nix-filter.url = "github:numtide/nix-filter";
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
 
     bundler = {
       url = "github:ttak0422/bundler/v3";
       # url = "path:/Users/tak/ghq/github.com/ttak0422/bundler";
       # url = "path:/home/ttak0422/ghq/github.com/ttak0422/bundler";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-stable";
-      };
     };
 
     skk-dict = {
@@ -48,11 +48,17 @@
     # v2
     v2-mcp-hub = {
       url = "github:ravitemer/mcp-hub";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    v2-blink-cmp.url = "github:Saghen/blink.cmp/v1";
+    v2-blink-cmp = {
+      url = "github:Saghen/blink.cmp/v1";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
     v2-pterm.url = "github:ttak0422/pterm";
-    v2-meian.url = "github:ttak0422/meian.nvim";
+    v2-meian = {
+      url = "github:ttak0422/meian.nvim";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
     v2-track = {
       url = "github:ttak0422/track";
       inputs.nixpkgs.follows = "nixpkgs";

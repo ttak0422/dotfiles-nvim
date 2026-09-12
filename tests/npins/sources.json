@@ -7,17 +7,18 @@
         "owner": "ttak0422",
         "repo": "kotlin.nvim"
       },
-      "branch": "unify-notifications",
+      "branch": "main",
       "submodules": false,
-      "revision": "4f6a6bfb55093abbcd9dec3ba07e912b32252102",
-      "url": "https://github.com/ttak0422/kotlin.nvim/archive/4f6a6bfb55093abbcd9dec3ba07e912b32252102.tar.gz",
-      "hash": "1x3lf5470150iiv32288g9rbib9ih3pslyadgpfb18yf8l5b9yzn"
+      "revision": "b10c2a8896142cd534fa840edbe9fccf7b7e585e",
+      "url": "https://github.com/ttak0422/kotlin.nvim/archive/b10c2a8896142cd534fa840edbe9fccf7b7e585e.tar.gz",
+      "hash": "sha256-+U5uK6gAa2Ev09G1P464197Mt2zZywc3o1foSA42GfM="
     },
     "nixpkgs": {
       "type": "Channel",
       "name": "nixpkgs-unstable",
-      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-25.11pre863969.12bd230118a1/nixexprs.tar.xz",
-      "hash": "1fiw9y33vkawgv0rjp4v75l0sc5wdxrqxb7ya2aqf6jk84agigzj"
+      "artifact": "nixexprs.tar.xz",
+      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1071116.aff8a0b28396/nixexprs.tar.xz",
+      "hash": "sha256-vLblJRFZjrSBOyHD4jwBkGJm2iOVk8c9BJnzZTOojSc="
     },
     "none-ls.nvim": {
       "type": "Git",
@@ -28,9 +29,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "78111a97cebed3dfda8157af8141bf1915cfc327",
-      "url": "https://github.com/nvimtools/none-ls.nvim/archive/78111a97cebed3dfda8157af8141bf1915cfc327.tar.gz",
-      "hash": "0lp879af0l84qirhm3wqikblzrj45q145bb469j5qybqvfs73npj"
+      "revision": "c4b82bb63b13856ba4d6b971b7aad3bb38fc6fe2",
+      "url": "https://github.com/nvimtools/none-ls.nvim/archive/c4b82bb63b13856ba4d6b971b7aad3bb38fc6fe2.tar.gz",
+      "hash": "sha256-z+iiRl0C0aaT/vm+apyr5PL91TbzBl+FVwgXY+hJz54="
     },
     "plenary.nvim": {
       "type": "Git",
@@ -41,9 +42,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
-      "url": "https://github.com/nvim-lua/plenary.nvim/archive/b9fd5226c2f76c951fc8ed5923d85e4de065e509.tar.gz",
-      "hash": "1kg043h7dqcrqqgg8pp6hsldx7jdhlh8qwad2kkckia191xgnjgm"
+      "revision": "74b06c6c75e4eeb3108ec01852001636d85a932b",
+      "url": "https://github.com/nvim-lua/plenary.nvim/archive/74b06c6c75e4eeb3108ec01852001636d85a932b.tar.gz",
+      "hash": "sha256-nkfETDkPiE+Kd2BWYZijgUp9bP8RgFwRmvqJz2BMuq4="
     },
     "videre.nvim": {
       "type": "Git",
@@ -56,8 +57,8 @@
       "submodules": false,
       "revision": "1c75b447eb0b34884544090df5eb9be871dced5a",
       "url": "https://github.com/ttak0422/videre.nvim/archive/1c75b447eb0b34884544090df5eb9be871dced5a.tar.gz",
-      "hash": "0gy7mghbic7lcjsip2j18n9i76ajhh3a6ffz1q5ckmg1lnhfc089"
+      "hash": "sha256-CQHmoKXh1ckKDt85owaEUpkTk0VBihu1ZPSwuOCrxz8="
     }
   },
-  "version": 5
+  "version": 8
 }
