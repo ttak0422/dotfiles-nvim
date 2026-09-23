@@ -10,6 +10,11 @@
 
 ![image](./assets/v1.0.png)
 
+## Platform support
+
+The Nix flake supports Linux (`x86_64-linux`, `aarch64-linux`) and macOS on Apple Silicon (`aarch64-darwin`).
+Intel macOS (`x86_64-darwin`) is no longer supported.
+
 ## Directory Structure
 
 ```
@@ -28,4 +33,3 @@
     ├── tmpl/         # Template files
     └── vim/          # Vim script configurations
 ```
-
