@@ -70,7 +70,7 @@
   outputs =
     inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = import inputs.systems;
+      systems = builtins.filter (system: system != "x86_64-darwin") (import inputs.systems);
       imports = [ inputs.bundler.flakeModules.neovim ];
       perSystem =
         {
