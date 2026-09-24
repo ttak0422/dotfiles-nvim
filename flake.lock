@@ -808,11 +808,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1789394530,
-        "narHash": "sha256-N9WyGGhvZ5F49O9Yb3vmhuT3jFduFDeHrmbvq01mBAk=",
+        "lastModified": 1790124672,
+        "narHash": "sha256-1AX7Dk69vq6FJNy3fpwUuw7s8jPrMLdpMJ9I47Y9HCo=",
         "owner": "ttak0422",
         "repo": "pterm",
-        "rev": "4cbc17250be07fafa4bcd09591a8f721b8364d66",
+        "rev": "7f2d5e8e8078d0b5211357a6156e06ec0bf417f7",
         "type": "github"
       },
       "original": {
@@ -830,11 +830,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789402901,
-        "narHash": "sha256-uxbwj0A1z9bS5sc+XeFmkTDkvTi0jDytp3u/kdgXwkE=",
+        "lastModified": 1790214407,
+        "narHash": "sha256-11uREL3HQ4PmZwBwOCj1KIvTbNyMHaWNnT2ahwtZNX4=",
         "owner": "ttak0422",
         "repo": "track",
-        "rev": "f38fefdf82ee976d00c373fbff7c39515484705b",
+        "rev": "a1403b40ec89b885119b6c1b72adf5769c1b0707",
         "type": "github"
       },
       "original": {
