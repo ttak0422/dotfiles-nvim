@@ -96,28 +96,26 @@ with inputs;
       v2 = {
         kotlin-lsp = mkDerivation rec {
           pname = "kotlin-lsp";
-          version = "262.9593.0";
+          version = "263.4702.0";
           src = final.fetchzip {
-            url = "https://download-cdn.jetbrains.com/language-server/kotlin-server/${version}/kotlin-server-${version}-aarch64.sit";
-            hash = "sha256-qDS5nfZtxAaZUGlaxbcdP8nC1vxYYg1ynj+kwSwo37Q=";
+            url = "https://download.jetbrains.com/language-server/kotlin-server/${version}/kotlin-server-${version}-aarch64.sit";
+            hash = "sha256-tCzSMSy80GfxSWTahlsryuzECGZixSh2ufPFtP8bq/g=";
             extension = "zip";
           };
+          dontUnpack = true;
           dontBuild = true;
-          nativeBuildInputs = with final; [ makeWrapper ];
-          buildInputs = with final; [ openjdk ];
           installPhase = ''
             runHook preInstall
 
-            mkdir -p $out/libexec/kotlin-lsp
-            for x in $src/*; do
-              ln -s "$x" "$out/libexec/kotlin-lsp/$(basename "$x")"
-            done
+            # Preserve the native launcher's layout, including its bundled JBR.
+            mkdir -p "$out/libexec" "$out/bin"
+            ln -s "$src" "$out/libexec/kotlin-lsp"
+            ln -s "$out/libexec/kotlin-lsp/bin/intellij-server" "$out/bin/kotlin-lsp"
 
             runHook postInstall
           '';
-          postFixup = ''
-            wrapProgram $out/libexec/kotlin-lsp/kotlin-lsp.sh --set-default JAVA_HOME ${final.openjdk}
-          '';
+          # This overlay currently packages only the macOS Apple Silicon archive.
+          meta.platforms = [ "aarch64-darwin" ];
         };
 
         inherit (inputs'.v2-mcp-hub.packages) mcp-hub;

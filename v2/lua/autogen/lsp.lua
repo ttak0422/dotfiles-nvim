@@ -1,6 +1,6 @@
 -- [nfnl] v2/fnl/lsp.fnl
 vim.lsp.log.set_level(vim.log.levels.ERROR)
-local diagnostic_min_severity = {kotlin_ls = vim.diagnostic.severity.INFO}
+local diagnostic_min_severity = {kotlin_lsp = vim.diagnostic.severity.INFO}
 do
   local tmp_9_ = vim.lsp.handlers
   local _1_
@@ -16,7 +16,7 @@ do
       end
       if (min_sev and result and result.diagnostics) then
         local function _4_(d)
-          return (d.severity <= min_sev)
+          return (not d.severity or (d.severity <= min_sev))
         end
         result.diagnostics = vim.tbl_filter(_4_, result.diagnostics)
       else

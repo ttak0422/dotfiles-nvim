@@ -3,7 +3,7 @@
 
 ;; per-client diagnostic severity filter (severity value: ERROR=1 WARN=2 INFO=3 HINT=4)
 ;; lower value = higher severity; diagnostics with severity > threshold are filtered out
-(local diagnostic-min-severity {:kotlin_ls vim.diagnostic.severity.INFO})
+(local diagnostic-min-severity {:kotlin_lsp vim.diagnostic.severity.INFO})
 
 (doto vim.lsp.handlers
   (tset :textDocument/publishDiagnostics
@@ -14,7 +14,8 @@
                             (. diagnostic-min-severity client.name))]
               (when (and min-sev result result.diagnostics)
                 (set result.diagnostics
-                     (vim.tbl_filter (fn [d] (<= d.severity min-sev))
+                     (vim.tbl_filter (fn [d] (or (not d.severity)
+                                                (<= d.severity min-sev)))
                                      result.diagnostics)))
               (handler err result ctx config))))))
 

@@ -1077,9 +1077,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "1a25f753aba7a697ba467485e1cfe05844075b17",
-      "url": "https://github.com/AlexandrosAlexiou/kotlin.nvim/archive/1a25f753aba7a697ba467485e1cfe05844075b17.tar.gz",
-      "hash": "sha256-kRVj4Hkv3uyarQux73jsLeJ4IEgg8pwf/WgVhRXMrjc="
+      "revision": "74119c9ee1b923eb0da67efd5521c2ae58bab70d",
+      "url": "https://github.com/AlexandrosAlexiou/kotlin.nvim/archive/74119c9ee1b923eb0da67efd5521c2ae58bab70d.tar.gz",
+      "hash": "sha256-sWE5RjmKxgUWIx/ignDypeGZKV1uvk9MSn9LuePD/IA="
     },
     "lasterisk.nvim": {
       "type": "Git",
