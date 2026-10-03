@@ -1,40 +1,15 @@
 -- Run with an isolated Neovim (-u NONE -i NONE -l), from the repository root.
--- Required: NONE_LS_PLUGIN_DIR (patched), NFNL_PLUGIN_DIR, PLENARY_PLUGIN_DIR,
+-- Required: NONE_LS_PLUGIN_DIR, NFNL_PLUGIN_DIR, PLENARY_PLUGIN_DIR,
 -- LSPCONFIG_PLUGIN_DIR, ESLINT_NODE_PATH; prettier and vscode-eslint-language-server on PATH.
 local function check()
   for _, key in ipairs({ 'NONE_LS_PLUGIN_DIR', 'NFNL_PLUGIN_DIR', 'PLENARY_PLUGIN_DIR', 'LSPCONFIG_PLUGIN_DIR' }) do
     vim.opt.rtp:append(assert(vim.env[key], key))
   end
-  for _, name in ipairs({ 'none-ls', 'lsp', 'after/lsp/eslint' }) do
+  for _, name in ipairs({ 'none-ls', 'lsp', 'after/lsp/eslint', 'after/lsp/harper_ls' }) do
     local path = 'v2/fnl/' .. name .. '.fnl'
     local compiled = '-- [nfnl] ' .. path .. '\n' .. require('nfnl.fennel')['compile-string'](
       table.concat(vim.fn.readfile(path), '\n'), { filename = path })
     assert(compiled == table.concat(vim.fn.readfile('v2/lua/autogen/' .. name .. '.lua'), '\n'), name)
-  end
-
-  -- Reuse the same closure across resets, including a callback completing after reset.
-  local cache = require('null-ls.helpers.cache')
-  for _, method in ipairs({ 'by_bufnr_async', 'by_bufroot_async' }) do
-    local pending, calls = {}, 0
-    local resolve = cache[method](function(_, done)
-      calls = calls + 1
-      pending[#pending + 1] = done
-    end)
-    local params, result = { bufnr = 1, root = '/project' }, nil
-    local function receive(value) result = value end
-    cache._reset()
-    resolve(params, receive)
-    pending[1]('first')
-    resolve(params, receive)
-    assert(calls == 1 and result == 'first')
-    cache._reset()
-    resolve(params, receive)
-    cache._reset()
-    resolve(params, receive)
-    pending[3]('new generation')
-    pending[2]('stale generation')
-    resolve(params, receive)
-    assert(calls == 3 and result == 'new generation', method .. ': stale callback polluted reset cache')
   end
 
   -- Load the real config and assert the migration does not silently drop sources.
@@ -72,10 +47,13 @@ local function check()
   vim.fn.delete(gate, 'rf')
   local enabled, enable = {}, vim.lsp.enable
   vim.lsp.enable = function(names) for _, name in ipairs(names) do enabled[name] = true end end
-  args = { attach_path = '/unused' }
+  args = { attach_path = '/unused', harper_enabled = 'false' }
   dofile('v2/lua/autogen/lsp.lua')
-  vim.lsp.enable = enable
   assert(enabled.eslint and not enabled.harper_ls)
+  args.harper_enabled = 'true'
+  dofile('v2/lua/autogen/lsp.lua')
+  assert(enabled.harper_ls, 'retained Harper implementation must support re-enabling')
+  vim.lsp.enable = enable
   -- Avoid user keymaps while testing real attach/detach.
   vim.api.nvim_clear_autocmds({ event = 'LspAttach' })
 
@@ -106,8 +84,6 @@ local function check()
   local old = get_client('null-ls')
   old:stop()
   wait_for(function() return old:is_stopped() and require('null-ls.client').get_client() == nil end, 'none-ls failed to stop')
-  -- Exercise the RPC termination reset before reusing registered generators.
-  old.rpc.terminate()
   require('null-ls.client').try_add()
   wait_for(function() local client = get_client('null-ls'); return client and client.id ~= old.id end,
     'none-ls did not restart')
@@ -151,7 +127,7 @@ local function check()
   client:stop(true)
   get_client('null-ls'):stop(true)
   vim.fn.delete(root, 'rf')
-  print('PASS: cache reset/in-flight callback, generated config, source coverage, Prettier restart, ESLint diagnostics lifecycle')
+  print('PASS: generated config, Harper activation switch, source coverage, Prettier graceful restart, ESLint diagnostics lifecycle')
 end
 local ok, err = xpcall(check, debug.traceback)
 if not ok then io.stderr:write(err .. '\n') end

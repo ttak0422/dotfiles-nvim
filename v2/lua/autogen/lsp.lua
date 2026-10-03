@@ -32,4 +32,9 @@ local function _6_(ctx)
   return dofile(args.attach_path)({buf = ctx.buf, client = vim.lsp.get_client_by_id(ctx.data.client_id)})
 end
 vim.api.nvim_create_autocmd("LspAttach", {desc = "register lsp keymaps", callback = _6_})
-return vim.lsp.enable({"bashls", "cssls", "dartls", "denols", "dhall_lsp_server", "eslint", "fennel_ls", "gopls", "html", "jsonls", "lua_ls", "marksman", "nil_ls", "pyright", "rubocop", "ruff", "solargraph", "taplo", "teal_ls", "terraformls", "vtsls", "yamlls"})
+vim.lsp.enable({"bashls", "cssls", "dartls", "denols", "dhall_lsp_server", "eslint", "fennel_ls", "gopls", "html", "jsonls", "lua_ls", "marksman", "nil_ls", "pyright", "rubocop", "ruff", "solargraph", "taplo", "teal_ls", "terraformls", "vtsls", "yamlls"})
+if (args.harper_enabled == "true") then
+  return vim.lsp.enable({"harper_ls"})
+else
+  return nil
+end
