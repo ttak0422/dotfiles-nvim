@@ -5,7 +5,6 @@
 (local helpers (require :null-ls.helpers))
 (local methods (require :null-ls.methods))
 (local FORMATTING methods.internal.FORMATTING)
-(local diagnostics_eslint (require :none-ls.diagnostics.eslint))
 
 (set vim.g.idea_path args.idea)
 
@@ -45,9 +44,6 @@
                 diagnostics.terraform_validate
                 diagnostics.vint
                 diagnostics.yamllint
-                (diagnostics_eslint.with {:runtime_condition (-> #((utils.root_pattern [:.eslintrc
-                                                                                        :eslint.config.js]) $1.bufname)
-                                                                 helpers.cache.by_bufnr)})
                 ;;; completion ;;;
                 ;;; formatting ;;;
                 formatting.fantomas

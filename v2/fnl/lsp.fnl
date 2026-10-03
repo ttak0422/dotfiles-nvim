@@ -45,9 +45,9 @@
                  :dartls
                  :denols
                  :dhall_lsp_server
+                 :eslint
                  :fennel_ls
                  :gopls
-                 :harper_ls
                  :html
                  :jsonls
                  :lua_ls

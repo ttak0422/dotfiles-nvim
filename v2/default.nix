@@ -132,7 +132,10 @@ in
       denols = read "./fnl/after/lsp/denols.fnl";
       efm = read "./fnl/after/lsp/efm.fnl";
       fennel_ls = read "./fnl/after/lsp/fennel_ls.fnl";
-      harper_ls = read "./fnl/after/lsp/harper_ls.fnl";
+      eslint = {
+        code = read "./fnl/after/lsp/eslint.fnl";
+        args.node_path = "${pkgs.eslint}/lib/node_modules";
+      };
       jdtls = read "./fnl/after/lsp/jdtls.fnl";
       lua_ls = read "./fnl/after/lsp/lua_ls.fnl";
       nil_ls = read "./fnl/after/lsp/nil_ls.fnl";
@@ -296,7 +299,6 @@ in
         go-tools
         google-java-format
         gopls
-        harper
         lua-language-server
         luajitPackages.teal-language-server
         marksman
@@ -316,10 +318,10 @@ in
       ];
     };
     none-ls = {
-      packages = with pkgs.vimPlugins.v2; [
-        none-ls-nvim
-        none-ls-extras-nvim
-      ];
+      package = pkgs.vimPlugins.v2.none-ls-nvim.overrideAttrs (old: {
+        # Upstream async resolver caches survive RPC termination; their tables do not.
+        patches = (old.patches or [ ]) ++ [ ./patches/none-ls-cache-reset.patch ];
+      });
       extraPackages =
         with pkgs;
         # diagnostics
@@ -330,7 +332,6 @@ in
           deadnix # Nix
           dotenv-linter # .env
           editorconfig-checker # .editorconfig
-          eslint # Javascript
           gitlint # Git
           go-tools # Go (staticcheck)
           hadolint # Dockerfile
