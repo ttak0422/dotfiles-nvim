@@ -1,0 +1,116 @@
+## empty / sidebar 32
+ mimori · connected
+ No classified roots
+
+## connected-idle / sidebar 32
+ mimori · connected
+ review-api-change · idle · ch…
+
+## populated / sidebar 32
+ mimori · connected
+ review-api-change · idle · ch…
+ implement-provider-layout · r…
+
+## unknown-wait / sidebar 32
+ mimori · connected
+ review-api-change · idle · ch…
+ Unclassified: 1 · a: all
+
+## connecting / sidebar 32
+ mimori · loading
+
+## disconnected / sidebar 32
+ mimori · error
+ collector socket unavailable
+
+## paused / sidebar 32
+ mimori · paused (retained)
+ review-api-change · idle · ch…
+
+## wide-name / sidebar 32
+ mimori · connected
+ 日本語の長いセッション名と進…
+
+## error-retained / sidebar 32
+ mimori · error (retained)
+ CLI exit 1: cannot connect to…
+ review-api-change · idle · ch…
+ implement-provider-layout · r…
+ Unclassified: 1 · a: all
+
+## overflow / sidebar 32
+ mimori · connected
+ task-01 · idle · child 0 · wa…
+ task-02 · idle · child 0 · wa…
+ task-03 · idle · child 0 · wa…
+ task-04 · idle · child 0 · wa…
+ task-05 · idle · child 0 · wa…
+ task-06 · idle · child 0 · wa…
+ task-07 · idle · child 0 · wa…
+ task-08 · idle · child 0 · wa…
+ task-09 · idle · child 0 · wa…
+ task-10 · idle · child 0 · wa…
+ +4 hidden roots · 1 waiting/u…
+
+## other-provider / sidebar 32
+ mimori · connected
+ custom-session · unknown · ch…
+
+## empty / sidebar 40
+ mimori · connected
+ No classified roots
+
+## connected-idle / sidebar 40
+ mimori · connected
+ review-api-change · idle · child 0 · …
+
+## populated / sidebar 40
+ mimori · connected
+ review-api-change · idle · child 0 · …
+ implement-provider-layout · running ·…
+
+## unknown-wait / sidebar 40
+ mimori · connected
+ review-api-change · idle · child 0 · …
+ Unclassified: 1 · a: all
+
+## connecting / sidebar 40
+ mimori · loading
+
+## disconnected / sidebar 40
+ mimori · error
+ collector socket unavailable
+
+## paused / sidebar 40
+ mimori · paused (retained)
+ review-api-change · idle · child 0 · …
+
+## wide-name / sidebar 40
+ mimori · connected
+ 日本語の長いセッション名と進捗確認 · …
+
+## error-retained / sidebar 40
+ mimori · error (retained)
+ CLI exit 1: cannot connect to collect…
+ review-api-change · idle · child 0 · …
+ implement-provider-layout · running ·…
+ Unclassified: 1 · a: all
+
+## overflow / sidebar 40
+ mimori · connected
+ task-01 · idle · child 0 · wait 0
+ task-02 · idle · child 0 · wait 0
+ task-03 · idle · child 0 · wait 0
+ task-04 · idle · child 0 · wait 0
+ task-05 · idle · child 0 · wait 0
+ task-06 · idle · child 0 · wait 0
+ task-07 · idle · child 0 · wait 0
+ task-08 · idle · child 0 · wait 0
+ task-09 · idle · child 0 · wait 0
+ task-10 · idle · child 0 · wait 0
+ +4 hidden roots · 1 waiting/unknown ·…
+
+## other-provider / sidebar 40
+ mimori · connected
+ custom-session · unknown · child 0 · …
+

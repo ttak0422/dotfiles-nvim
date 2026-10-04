@@ -26,9 +26,11 @@ replaced; the tracked fragments do not automatically edit installed settings.
 The bridge READMEs distinguish the initial audit gaps from the applied local migration.
 
 `:KomadoToggle` subscribes only while its real window/buffer is visible in the
-current tab. `r` refreshes, `a` / `:MimoriAll` opens all roots and unclassified
-sessions, and Enter opens a root's on-demand detail. A separate detail/all view
-keeps its own subscription while visible in the current tab; hiding it pauses
+current tab. Entries are grouped under Claude / Codex, with other provider names
+kept separately. The provider heading's one-cell glyph shows transport state;
+`?` / `:MimoriStatus` opens full status and diagnostics. `r` refreshes,
+`a` / `:MimoriAll` opens all summary entries, and Enter opens an entry's detail.
+A separate status/detail/all view keeps its own subscription while visible in the current tab; hiding it pauses
 polling, and closing it releases the view; `q` closes it. Selection in
 the all view follows provider/session identity. Root details expose backend
 aggregate counters and own request IDs, not a reconstructed descendant tree.
@@ -44,7 +46,11 @@ Set `vim.g.mimori` before lazy loading Komado to override `binary`, `state_dir`
 `max_stdout`, or `max_stderr`. Defaults are 2 s between completed polls, 1 s query
 timeout, 6 s outer startup timeout, 30 s maximum retry backoff, 4 MiB stdout and
 16 KiB stderr. These are adjustable PoC limits, not provider latency guarantees.
-The default root cap is 10 (`require('mimori.komado').setup({cap=10})`).
+The default summary-row budget is 10 (`require('mimori.komado').setup({cap=10})`),
+shared between providers and including uncertain-hierarchy entries. Allocation is
+round-robin between provider groups; provider headers and overflow rows are extra.
+Each provider keeps stable session-ID ordering. See [actual sidebar previews and
+notation](mimori-sidebar.md).
 
 Generic API: `setup(opts)`, `subscribe(callback)` returning an idempotent release,
 `snapshot()` (cached read-only value), `refresh()` (one request when unobserved),
@@ -111,7 +117,7 @@ Socket/process tests require an environment that permits Unix socket binding.
 
 Verified with Neovim 0.12.5:
 
-- Generic client: 47 synthetic CLI calls; serialized process lock detects any
+- Generic client: synthetic CLI fixtures; serialized process lock detects any
   overlap. Includes uint64 preservation, revision/unchanged validation, empty,
   malformed/incomplete/duplicate/version responses, output bounds, timeout,
   missing executable, retained-cache recovery, detail coalescing/cancel,

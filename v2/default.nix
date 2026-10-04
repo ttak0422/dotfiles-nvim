@@ -1330,6 +1330,7 @@ in
             "KomadoToggle"
             "MimoriAll"
             "MimoriRefresh"
+            "MimoriStatus"
             "PomodoroStart"
             "PomodoroStop"
             "PomodoroPause"
