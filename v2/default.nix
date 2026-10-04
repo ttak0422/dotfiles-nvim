@@ -1318,11 +1318,19 @@ in
         {
           package = komado-nvim;
           depends = [ worktab ];
+          extraPackages = [ pkgs.v2.mimori ];
+          preConfig = ''
+            package.preload["mimori.client"] = function() return dofile("${./lua/mimori/client.lua}") end
+            package.preload["mimori.komado"] = function() return dofile("${./lua/mimori/komado.lua}") end
+            require("mimori.client").setup(vim.tbl_extend("force", {
+              binary = "${pkgs.v2.mimori}/bin/mimori",
+            }, vim.g.mimori or {}))
+          '';
           postConfig = read "./lua/komado.lua";
           hooks.commands = [
             "KomadoToggle"
-            "KomadoClaudeClean"
-            "KomadoCodexClean"
+            "MimoriAll"
+            "MimoriRefresh"
             "PomodoroStart"
             "PomodoroStop"
             "PomodoroPause"
