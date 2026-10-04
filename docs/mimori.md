@@ -46,11 +46,9 @@ validator. Malformed/oversized/incompatible responses retain the last good cache
 ## Source and build
 
 `v2/npins/sources.json` pins mimori separately from Lua plugins. `v2/mimori.nix`
-builds its CLI with the pinned Go dependency hash. The source URL contains no
-credentials. For authorized private repositories the evaluator needs the user's
-existing Git authentication; public CI cannot fetch a private source without
-separately authorized credentials. Do not put credentials into pins, derivations,
-or URLs, and do not upload private source to public caches.
+builds its CLI with the pinned Go dependency hash. The public GitHub archive
+is fetched by immutable commit and content hash without authentication. No
+credentials are required in pins, derivations, or CI for this dependency.
 
 For local development, use `NPINS_OVERRIDE_mimori=/absolute/mimori/checkout` with
 `--impure`. This intentionally substitutes local source and is not a reproducible
@@ -58,19 +56,12 @@ release build. Tests use temporary state and synthetic provider fixtures, never
 installed provider hooks or personal transcripts. No launchd/systemd installation
 or environment activation is performed.
 
-## Clean-room boundary
-
-Implementation used the behavior-only handoff `/tmp/mimori-integration-spec.md`,
-mimori's current CLI/schema, dotfiles integration/build files, and the public
-Komado integration API at `8123dd659efb4a9e851dce6a97aed2d6a23dc61a`.
-No reference terminal implementation, history, tests, or architecture were read.
-
 ## Validation (2026-10-04, aarch64-darwin)
 
 Use an **unwrapped** Neovim binary: the installed wrapper may inject production
 configuration even with `--clean`. Python 3 is needed for synthetic CLI fixtures.
-`MIMORI_KOMADO` must point to an isolated checkout/archive at the pinned Komado
-commit above; no full personal configuration is loaded.
+`MIMORI_KOMADO` must point to an isolated Komado checkout/archive at
+`8123dd659efb4a9e851dce6a97aed2d6a23dc61a`; no full personal configuration is loaded.
 
 ```sh
 MIMORI_TEST_NVIM=/absolute/unwrapped/nvim \
@@ -85,8 +76,7 @@ python3 tests/mimori/integration.py
 The live integration harness currently uses macOS `/usr/sbin/lsof` to identify
 and stop only the daemon owning its temporary socket. It verifies cleanup and
 removes temporary state. Linux client/runtime behavior was not tested here.
-A sandbox that forbids Unix socket binding needs an authorized native test run;
-the sandbox failure was explicitly `bind: operation not permitted`.
+Socket/process tests require an environment that permits Unix socket binding.
 
 Verified with Neovim 0.12.5:
 
@@ -107,11 +97,9 @@ Verified with Neovim 0.12.5:
   **97 bytes**, full fixture snapshot **924 bytes**. This small local fixture
   supports conservative 2 s polling/1 s query timeout defaults; it is not a
   production workload guarantee.
-- Nix exact private-source pin evaluation and CLI derivation build (including
-  backend tests) passed with existing host Git authentication, both with a local
-  source override and without it. No credentials added, cache upload, activation,
-  or service-manager installation. The resulting CLI was
-  `/nix/store/zaclzznbx7a6scbjhkq8izxbxny1c26n-mimori-0.1.0-2ebb1cc`.
+- Nix public-source pin evaluation and CLI derivation build (including backend
+  tests) are verified without source credentials. The pin follows the public
+  documentation cleanup at `c5b0d92d511c41be3344a6660778c6ddaa4ab786`.
 
 To reproduce the standalone CLI build using an available pinned nixpkgs source:
 
@@ -122,9 +110,8 @@ nix build --impure --no-link --expr '
 ```
 
 The complete `packages.aarch64-darwin.bundler-nvim-v2.drvPath` evaluation also
-passed (`/nix/store/0997ma1k7shqxl56a5vhzxbzsvvnwxhl-neovim-0.12.5v2.drv`),
-with existing deprecation warnings. The complete editor closure was not built.
+passed with existing deprecation warnings. The complete editor closure was not built.
 
 Full Neovim environment activation and live provider hook registration were not
-performed. Public CI still requires separately authorized access to private
-mimori; this branch does not alter workflows, secrets, or repository visibility.
+performed. This branch does not alter CI workflows or secrets. Existing CI runs
+on main pushes or manual dispatch, so draft PRs do not trigger it.
