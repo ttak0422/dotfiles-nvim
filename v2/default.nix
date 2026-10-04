@@ -4,8 +4,6 @@
   lib,
 }:
 let
-  # One activation switch: retain Harper settings without bundling or starting it.
-  enableHarper = false;
   read =
     path:
     with builtins;
@@ -145,8 +143,6 @@ in
       typos_lsp = read "./fnl/after/lsp/typos_lsp.fnl";
       vtsls = read "./fnl/after/lsp/vtsls.fnl";
       yamlls = read "./fnl/after/lsp/yamlls.fnl";
-    } // lib.optionalAttrs enableHarper {
-      harper_ls = read "./fnl/after/lsp/harper_ls.fnl";
     };
   };
   eager = with pkgs.vimPlugins.v2; {
@@ -290,10 +286,7 @@ in
       };
       startupConfig = {
         code = read "./fnl/lsp.fnl";
-        args = {
-          attach_path = ./lua/autogen/lsp-attach.lua;
-          harper_enabled = if enableHarper then "true" else "false";
-        };
+        args.attach_path = ./lua/autogen/lsp-attach.lua;
       };
       extraPackages = with pkgs; [
         bash-language-server
@@ -322,7 +315,7 @@ in
         vscode-langservers-extracted
         vtsls
         yaml-language-server
-      ] ++ lib.optionals enableHarper [ pkgs.harper ];
+      ];
     };
     none-ls = {
       package = pkgs.vimPlugins.v2.none-ls-nvim;

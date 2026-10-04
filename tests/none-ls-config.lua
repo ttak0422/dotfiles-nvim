@@ -5,7 +5,7 @@ local function check()
   for _, key in ipairs({ 'NONE_LS_PLUGIN_DIR', 'NFNL_PLUGIN_DIR', 'PLENARY_PLUGIN_DIR', 'LSPCONFIG_PLUGIN_DIR' }) do
     vim.opt.rtp:append(assert(vim.env[key], key))
   end
-  for _, name in ipairs({ 'none-ls', 'lsp', 'after/lsp/eslint', 'after/lsp/harper_ls' }) do
+  for _, name in ipairs({ 'none-ls', 'lsp', 'after/lsp/eslint' }) do
     local path = 'v2/fnl/' .. name .. '.fnl'
     local compiled = '-- [nfnl] ' .. path .. '\n' .. require('nfnl.fennel')['compile-string'](
       table.concat(vim.fn.readfile(path), '\n'), { filename = path })
@@ -47,12 +47,9 @@ local function check()
   vim.fn.delete(gate, 'rf')
   local enabled, enable = {}, vim.lsp.enable
   vim.lsp.enable = function(names) for _, name in ipairs(names) do enabled[name] = true end end
-  args = { attach_path = '/unused', harper_enabled = 'false' }
+  args = { attach_path = '/unused' }
   dofile('v2/lua/autogen/lsp.lua')
   assert(enabled.eslint and not enabled.harper_ls)
-  args.harper_enabled = 'true'
-  dofile('v2/lua/autogen/lsp.lua')
-  assert(enabled.harper_ls, 'retained Harper implementation must support re-enabling')
   vim.lsp.enable = enable
   -- Avoid user keymaps while testing real attach/detach.
   vim.api.nvim_clear_autocmds({ event = 'LspAttach' })
@@ -127,7 +124,7 @@ local function check()
   client:stop(true)
   get_client('null-ls'):stop(true)
   vim.fn.delete(root, 'rf')
-  print('PASS: generated config, Harper activation switch, source coverage, Prettier graceful restart, ESLint diagnostics lifecycle')
+  print('PASS: generated config, Harper inactive, source coverage, Prettier graceful restart, ESLint diagnostics lifecycle')
 end
 local ok, err = xpcall(check, debug.traceback)
 if not ok then io.stderr:write(err .. '\n') end

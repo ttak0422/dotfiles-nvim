@@ -62,7 +62,3 @@
                  :terraformls
                  :vtsls
                  :yamlls])
-
-;; Activation is controlled centrally by v2/default.nix.
-(when (= args.harper_enabled :true)
-  (vim.lsp.enable [:harper_ls]))
