@@ -1,0 +1,76 @@
+# Codex CLI 0.159.2: merge only these owned registrations into config.toml.
+# Replace both absolute-path placeholders; preserve unrelated hooks and settings.
+# Do not copy or manufacture [hooks.state] trust approvals.
+
+[[hooks.SessionStart]]
+[[hooks.SessionStart.hooks]]
+type = "command"
+command = 'MIMORI_BIN="/absolute/path/to/mimori" "/absolute/path/to/dotfiles-nvim/v2/scripts/codex-hooks/komado-codex-hook.sh"'
+timeout = 5
+
+[[hooks.UserPromptSubmit]]
+[[hooks.UserPromptSubmit.hooks]]
+type = "command"
+command = 'MIMORI_BIN="/absolute/path/to/mimori" "/absolute/path/to/dotfiles-nvim/v2/scripts/codex-hooks/komado-codex-hook.sh"'
+timeout = 5
+
+[[hooks.PreToolUse]]
+matcher = "*"
+[[hooks.PreToolUse.hooks]]
+type = "command"
+command = 'MIMORI_BIN="/absolute/path/to/mimori" "/absolute/path/to/dotfiles-nvim/v2/scripts/codex-hooks/komado-codex-hook.sh"'
+timeout = 5
+
+[[hooks.PermissionRequest]]
+matcher = "*"
+[[hooks.PermissionRequest.hooks]]
+type = "command"
+command = 'MIMORI_BIN="/absolute/path/to/mimori" "/absolute/path/to/dotfiles-nvim/v2/scripts/codex-hooks/komado-codex-hook.sh"'
+timeout = 5
+
+[[hooks.PostToolUse]]
+matcher = "*"
+[[hooks.PostToolUse.hooks]]
+type = "command"
+command = 'MIMORI_BIN="/absolute/path/to/mimori" "/absolute/path/to/dotfiles-nvim/v2/scripts/codex-hooks/komado-codex-hook.sh"'
+timeout = 5
+
+[[hooks.PreCompact]]
+matcher = "*"
+[[hooks.PreCompact.hooks]]
+type = "command"
+command = 'MIMORI_BIN="/absolute/path/to/mimori" "/absolute/path/to/dotfiles-nvim/v2/scripts/codex-hooks/komado-codex-hook.sh"'
+timeout = 5
+
+[[hooks.PostCompact]]
+matcher = "*"
+[[hooks.PostCompact.hooks]]
+type = "command"
+command = 'MIMORI_BIN="/absolute/path/to/mimori" "/absolute/path/to/dotfiles-nvim/v2/scripts/codex-hooks/komado-codex-hook.sh"'
+timeout = 5
+
+[[hooks.SubagentStart]]
+matcher = "*"
+[[hooks.SubagentStart.hooks]]
+type = "command"
+command = 'MIMORI_BIN="/absolute/path/to/mimori" "/absolute/path/to/dotfiles-nvim/v2/scripts/codex-hooks/komado-codex-hook.sh"'
+timeout = 5
+
+[[hooks.SubagentStop]]
+matcher = "*"
+[[hooks.SubagentStop.hooks]]
+type = "command"
+command = 'MIMORI_BIN="/absolute/path/to/mimori" "/absolute/path/to/dotfiles-nvim/v2/scripts/codex-hooks/komado-codex-hook.sh"'
+timeout = 5
+
+[[hooks.Stop]]
+[[hooks.Stop.hooks]]
+type = "command"
+command = 'MIMORI_BIN="/absolute/path/to/mimori" "/absolute/path/to/dotfiles-nvim/v2/scripts/codex-hooks/komado-codex-hook.sh"'
+timeout = 5
+
+[[hooks.SessionEnd]]
+[[hooks.SessionEnd.hooks]]
+type = "command"
+command = 'MIMORI_BIN="/absolute/path/to/mimori" "/absolute/path/to/dotfiles-nvim/v2/scripts/codex-hooks/komado-codex-hook.sh"'
+timeout = 5

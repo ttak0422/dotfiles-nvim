@@ -5,10 +5,25 @@ adapter in dotfiles-nvim. It requires mimori's v1 query contract and `ensure`.
 There is no separate Neovim plugin and no Komado core change.
 
 The tracked legacy hook wrappers now perform only bounded durable ingest.
-No installed provider configuration is edited, and no historical JSON/database
-is removed. Activation requires adopting these tracked files, reviewing owned
-hook registrations, making mimori available to hook processes, and restarting
-Neovim. The old JSON polling, name completion, reaper, and Clean commands are gone.
+No historical JSON/database is removed. The initial integration left installed
+provider configuration untouched. On 2026-10-04, after explicit user authorization,
+only owned Komado hooks in the local `~/.claude/settings.json` and
+`~/.codex/config.toml` were migrated to the tracked registration examples.
+Unrelated settings/hooks, Codex trust hashes and the separate `hooks.json` were
+verified unchanged by before/after comparison. All owned commands use the absolute
+pinned mimori executable; no state-directory override was added, retaining the CLI
+default (`$XDG_STATE_HOME/mimori` or `~/.local/state/mimori`) shared by the consumer.
+No real provider session was launched. Codex hook review and provider/Neovim
+restarts remain manual activation steps. The old JSON polling, name completion,
+reaper, and Clean commands are gone.
+
+Current provider registration fragments and migration gaps are documented in the
+[Claude bridge](../v2/scripts/claude-hooks/README.md#registration-claude-code-21281--mimori-c5b0d92)
+and [Codex bridge](../v2/scripts/codex-hooks/README.md#registration-codex-cli-01592--mimori-c5b0d92).
+They match the installed Claude Code 2.1.281 / Codex CLI 0.159.2 contracts and the
+locked mimori, not a local backend checkout. Only owned Komado handlers should be
+replaced; the tracked fragments do not automatically edit installed settings.
+The bridge READMEs distinguish the initial audit gaps from the applied local migration.
 
 `:KomadoToggle` subscribes only while its real window/buffer is visible in the
 current tab. `r` refreshes, `a` / `:MimoriAll` opens all roots and unclassified
@@ -65,6 +80,7 @@ service-manager installation is performed.
 
 Use an **unwrapped** Neovim binary: the installed wrapper may inject production
 configuration even with `--clean`. Python 3 is needed for synthetic CLI fixtures.
+The hook-registration suite needs Python 3.11+ (`tomllib`).
 `MIMORI_KOMADO` must point to an isolated Komado checkout/archive at
 `8123dd659efb4a9e851dce6a97aed2d6a23dc61a`; no full personal configuration is loaded.
 
@@ -76,7 +92,17 @@ python3 tests/mimori/run.py
 MIMORI_TEST_NVIM=/absolute/unwrapped/nvim \
 MIMORI_BIN=/absolute/mimori \
 python3 tests/mimori/integration.py
+
+MIMORI_BIN=/absolute/pinned/mimori python3 tests/mimori/hooks.py
 ```
+
+The hook suite parses both tracked fragments and invokes their commands with
+isolated state and a PATH without mimori. It checks every registered event,
+Notification filtering, provider routing, offline ingest, anonymous wait
+conservatism, SessionEnd, and Claude child elicitation aggregation. It owns and
+stops only a foreground test daemon; it never loads installed provider settings
+or invokes a live agent. The existing client/Komado and shared-daemon suites
+remain separate.
 
 The live integration harness currently uses macOS `/usr/sbin/lsof` to identify
 and stop only the daemon owning its temporary socket. It verifies cleanup and
@@ -120,6 +146,8 @@ nix build --impure --no-link --expr '
 The complete `packages.aarch64-darwin.bundler-nvim-v2.drvPath` evaluation also
 passed with existing deprecation warnings. The complete editor closure was not built.
 
-Full Neovim environment activation and live provider hook registration were not
-performed. This branch does not alter CI workflows or secrets. Existing CI runs
-on main pushes or manual dispatch, so draft PRs do not trigger it.
+Full Neovim environment activation was not performed. Local installed hook
+registration was migrated as described above, but live provider delivery was not
+tested and Codex command review remains pending. This branch does not alter CI
+workflows or secrets. Existing CI runs on main pushes or manual dispatch, so draft
+PRs do not trigger it.

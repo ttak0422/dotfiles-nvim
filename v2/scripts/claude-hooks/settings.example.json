@@ -1,0 +1,120 @@
+{
+  "hooks": {
+    "SessionStart": [{
+      "hooks": [{
+        "type": "command",
+        "command": "MIMORI_BIN=\"/absolute/path/to/mimori\" \"/absolute/path/to/dotfiles-nvim/v2/scripts/claude-hooks/komado-claude-hook.sh\"",
+        "timeout": 5
+      }]
+    }],
+    "UserPromptSubmit": [{
+      "hooks": [{
+        "type": "command",
+        "command": "MIMORI_BIN=\"/absolute/path/to/mimori\" \"/absolute/path/to/dotfiles-nvim/v2/scripts/claude-hooks/komado-claude-hook.sh\"",
+        "timeout": 5
+      }]
+    }],
+    "PreToolUse": [{
+      "matcher": "*",
+      "hooks": [{
+        "type": "command",
+        "command": "MIMORI_BIN=\"/absolute/path/to/mimori\" \"/absolute/path/to/dotfiles-nvim/v2/scripts/claude-hooks/komado-claude-hook.sh\"",
+        "timeout": 5
+      }]
+    }],
+    "PermissionRequest": [{
+      "matcher": "*",
+      "hooks": [{
+        "type": "command",
+        "command": "MIMORI_BIN=\"/absolute/path/to/mimori\" \"/absolute/path/to/dotfiles-nvim/v2/scripts/claude-hooks/komado-claude-hook.sh\"",
+        "timeout": 5
+      }]
+    }],
+    "PostToolUse": [{
+      "matcher": "*",
+      "hooks": [{
+        "type": "command",
+        "command": "MIMORI_BIN=\"/absolute/path/to/mimori\" \"/absolute/path/to/dotfiles-nvim/v2/scripts/claude-hooks/komado-claude-hook.sh\"",
+        "timeout": 5
+      }]
+    }],
+    "PostToolUseFailure": [{
+      "matcher": "*",
+      "hooks": [{
+        "type": "command",
+        "command": "MIMORI_BIN=\"/absolute/path/to/mimori\" \"/absolute/path/to/dotfiles-nvim/v2/scripts/claude-hooks/komado-claude-hook.sh\"",
+        "timeout": 5
+      }]
+    }],
+    "PreCompact": [{
+      "matcher": "*",
+      "hooks": [{
+        "type": "command",
+        "command": "MIMORI_BIN=\"/absolute/path/to/mimori\" \"/absolute/path/to/dotfiles-nvim/v2/scripts/claude-hooks/komado-claude-hook.sh\"",
+        "timeout": 5
+      }]
+    }],
+    "PostCompact": [{
+      "matcher": "*",
+      "hooks": [{
+        "type": "command",
+        "command": "MIMORI_BIN=\"/absolute/path/to/mimori\" \"/absolute/path/to/dotfiles-nvim/v2/scripts/claude-hooks/komado-claude-hook.sh\"",
+        "timeout": 5
+      }]
+    }],
+    "SubagentStart": [{
+      "matcher": "*",
+      "hooks": [{
+        "type": "command",
+        "command": "MIMORI_BIN=\"/absolute/path/to/mimori\" \"/absolute/path/to/dotfiles-nvim/v2/scripts/claude-hooks/komado-claude-hook.sh\"",
+        "timeout": 5
+      }]
+    }],
+    "SubagentStop": [{
+      "matcher": "*",
+      "hooks": [{
+        "type": "command",
+        "command": "MIMORI_BIN=\"/absolute/path/to/mimori\" \"/absolute/path/to/dotfiles-nvim/v2/scripts/claude-hooks/komado-claude-hook.sh\"",
+        "timeout": 5
+      }]
+    }],
+    "Elicitation": [{
+      "matcher": "*",
+      "hooks": [{
+        "type": "command",
+        "command": "MIMORI_BIN=\"/absolute/path/to/mimori\" \"/absolute/path/to/dotfiles-nvim/v2/scripts/claude-hooks/komado-claude-hook.sh\"",
+        "timeout": 5
+      }]
+    }],
+    "ElicitationResult": [{
+      "matcher": "*",
+      "hooks": [{
+        "type": "command",
+        "command": "MIMORI_BIN=\"/absolute/path/to/mimori\" \"/absolute/path/to/dotfiles-nvim/v2/scripts/claude-hooks/komado-claude-hook.sh\"",
+        "timeout": 5
+      }]
+    }],
+    "Notification": [{
+      "matcher": "permission_prompt|elicitation_dialog",
+      "hooks": [{
+        "type": "command",
+        "command": "MIMORI_BIN=\"/absolute/path/to/mimori\" \"/absolute/path/to/dotfiles-nvim/v2/scripts/claude-hooks/komado-claude-hook.sh\"",
+        "timeout": 5
+      }]
+    }],
+    "Stop": [{
+      "hooks": [{
+        "type": "command",
+        "command": "MIMORI_BIN=\"/absolute/path/to/mimori\" \"/absolute/path/to/dotfiles-nvim/v2/scripts/claude-hooks/komado-claude-hook.sh\"",
+        "timeout": 5
+      }]
+    }],
+    "SessionEnd": [{
+      "hooks": [{
+        "type": "command",
+        "command": "MIMORI_BIN=\"/absolute/path/to/mimori\" \"/absolute/path/to/dotfiles-nvim/v2/scripts/claude-hooks/komado-claude-hook.sh\"",
+        "timeout": 5
+      }]
+    }]
+  }
+}
