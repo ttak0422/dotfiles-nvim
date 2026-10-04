@@ -10,6 +10,7 @@ let
     readFile (
       ./. + (replaceStrings [ "./fnl/" "./lua/" ".fnl" ] [ "/lua/autogen/" "/lua/" ".lua" ] path)
     );
+  mimori = inputs'.v2-mimori.packages.default;
   ext = pkgs.stdenv.hostPlatform.extensions.sharedLibrary;
   nvim = "${pkgs.neovim-unwrapped}/bin/nvim";
   editorOpenScript = ./lua/editor-open.lua;
@@ -1316,11 +1317,19 @@ in
         {
           package = komado-nvim;
           depends = [ worktab ];
+          extraPackages = [ mimori ];
+          preConfig = ''
+            package.preload["mimori.client"] = function() return dofile("${./lua/mimori/client.lua}") end
+            package.preload["mimori.komado"] = function() return dofile("${./lua/mimori/komado.lua}") end
+            require("mimori.client").setup(vim.tbl_extend("force", {
+              binary = "${mimori}/bin/mimori",
+            }, vim.g.mimori or {}))
+          '';
           postConfig = read "./lua/komado.lua";
           hooks.commands = [
             "KomadoToggle"
-            "KomadoClaudeClean"
-            "KomadoCodexClean"
+            "MimoriAll"
+            "MimoriRefresh"
             "PomodoroStart"
             "PomodoroStop"
             "PomodoroPause"

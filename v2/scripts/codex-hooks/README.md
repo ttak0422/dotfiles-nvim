@@ -1,153 +1,23 @@
-# codex-hooks
+# Codex hook bridge
 
-A bridge that pipes Codex CLI session state into the Neovim komado side panel
-via the Codex lifecycle hooks mechanism.
+`komado-codex-hook.sh` now forwards stdin to `mimori hook --provider codex`.
+It performs bounded durable ingest only. It does not inspect session indexes,
+transcripts, or processes, write legacy JSON, start a daemon, or print decisions.
+Mimori has a two-second ingestion watchdog; configure an outer provider timeout.
 
-## komado-codex-hook.sh
+Install `mimori` on the hook process PATH or set `MIMORI_BIN` to its absolute
+path. Optional `MIMORI_STATE_DIR` selects the client's absolute private state
+directory. `MIMORI_GENERATION` defaults to 1 and must change for a verified new
+incarnation. Raw hooks have best-effort ordering. Anonymous waits remain visibly
+inexact; Codex sessions without proven parentage remain in the all-view's
+Unclassified section.
 
-Invoked by each Codex hook event. It writes the session state to a JSON file,
-which the komado `CodexStatus` section reads and renders.
+Registration is a separate manual activation step: replace only the old owned
+hook commands after reviewing mimori's supported events, preserve unrelated
+hooks, and use the provider's normal review flow. No installed
+`~/.codex/config.toml` is modified by this branch. Existing registrations pointing
+at the primary checkout change behavior only after this branch is adopted there.
 
-### Behavior
-
-The script parses the JSON hook payload from stdin and transitions the status
-accordingly. Once a session becomes `stopped` it stays `stopped` until the next
-`UserPromptSubmit`.
-
-Session names are resolved in this order:
-
-1. `KOMADO_CODEX_SESSION_NAME`
-2. `${CODEX_HOME:-$HOME/.codex}/session_index.jsonl` `thread_name`
-3. `cwd` basename
-
-Codex `/rename` updates `session_index.jsonl`, so the next hook event refreshes
-the name shown in komado.
-
-| event              | status                              | extra fields                |
-| ------------------ | ----------------------------------- | --------------------------- |
-| `SessionStart`     | `waiting_input`                     | `source`, `started_at`      |
-| `UserPromptSubmit` | `running` (resumes from `stopped`)  | `prompt_summary` (first 80) |
-| `PermissionRequest`| `waiting_input`                     | `last_tool`, `waiting_reason` |
-| `PreToolUse`       | `running` (kept `stopped` if so)    | `last_tool`                 |
-| `PostToolUse`      | `running` (kept `stopped` if so)    | -                           |
-| `PreCompact`       | `running` (kept `stopped` if so)    | `last_tool`, `compact_trigger` |
-| `PostCompact`      | `running` (kept `stopped` if so)    | -                           |
-| `SubagentStart`    | `running` (kept `stopped` if so)    | `last_tool`, `agent_*`      |
-| `SubagentStop`     | `running` (kept `stopped` if so)    | `last_message`              |
-| `Stop`             | `stopped`                           | `last_message`              |
-
-Output path: `${XDG_STATE_HOME:-$HOME/.local/state}/komado/codex/<session_id>.json`
-
-Writes are made atomic via tmp + `mv`, so they tolerate concurrent hook
-invocations.
-
-### Dependencies
-
-- POSIX sh
-- `jq`
-
-This repository's `v2/default.nix` includes `pkgs.jq` in `extraPackages`, so it
-is reachable from the Neovim runtime. Since Codex launches hooks as a separate
-process, `jq` must also be available on the system `PATH`.
-
-### Registering in `~/.codex/config.toml`
-
-Replace `<path>` with the absolute directory where this script lives
-(e.g. `~/ghq/github.com/<user>/dotfiles-nvim/v2/scripts/codex-hooks`).
-
-```toml
-[[hooks.SessionStart]]
-matcher = "startup|resume|clear|compact"
-[[hooks.SessionStart.hooks]]
-type = "command"
-command = "<path>/komado-codex-hook.sh"
-
-[[hooks.UserPromptSubmit]]
-[[hooks.UserPromptSubmit.hooks]]
-type = "command"
-command = "<path>/komado-codex-hook.sh"
-
-[[hooks.PermissionRequest]]
-matcher = "*"
-[[hooks.PermissionRequest.hooks]]
-type = "command"
-command = "<path>/komado-codex-hook.sh"
-
-[[hooks.PreToolUse]]
-matcher = "*"
-[[hooks.PreToolUse.hooks]]
-type = "command"
-command = "<path>/komado-codex-hook.sh"
-
-[[hooks.PostToolUse]]
-matcher = "*"
-[[hooks.PostToolUse.hooks]]
-type = "command"
-command = "<path>/komado-codex-hook.sh"
-
-[[hooks.PreCompact]]
-matcher = "manual|auto"
-[[hooks.PreCompact.hooks]]
-type = "command"
-command = "<path>/komado-codex-hook.sh"
-
-[[hooks.PostCompact]]
-matcher = "manual|auto"
-[[hooks.PostCompact.hooks]]
-type = "command"
-command = "<path>/komado-codex-hook.sh"
-
-[[hooks.SubagentStart]]
-matcher = "*"
-[[hooks.SubagentStart.hooks]]
-type = "command"
-command = "<path>/komado-codex-hook.sh"
-
-[[hooks.SubagentStop]]
-matcher = "*"
-[[hooks.SubagentStop.hooks]]
-type = "command"
-command = "<path>/komado-codex-hook.sh"
-
-[[hooks.Stop]]
-[[hooks.Stop.hooks]]
-type = "command"
-command = "<path>/komado-codex-hook.sh"
-```
-
-After editing the config, start Codex and run `/hooks` to review and trust the
-hook definitions. Codex skips non-managed command hooks until they are trusted.
-
-### Verification
-
-1. Add the configuration above to `~/.codex/config.toml`
-2. Run `codex` in any directory and execute `/hooks`
-3. Trust the `komado-codex-hook.sh` entries
-4. Open Neovim and call `:KomadoToggle`
-5. Send a prompt or let a turn stop and confirm the display reacts
-
-### State file shape
-
-```json
-{
-  "session_id": "abc123",
-  "cwd": "/Users/tak/proj/foo",
-  "name": "foo",
-  "model": "gpt-5.5",
-  "status": "running",
-  "started_at": 1715900000,
-  "last_event": "PreToolUse",
-  "last_event_at": 1715900123,
-  "last_tool": "Bash",
-  "prompt_summary": "...",
-  "last_message": "..."
-}
-```
-
-### Disabling
-
-- Remove the relevant hook entries from `~/.codex/config.toml`
-- Optionally run `:KomadoCodexClean` inside Neovim to wipe the state files
-- Removing the `${XDG_STATE_HOME:-$HOME/.local/state}/komado/codex/`
-  directory itself causes the `CodexStatus` section to vanish on the next
-  Neovim reload
+Restart Neovim and run `:KomadoToggle`. Historical `komado/codex/*.json` files
+are retained and ignored. `KomadoCodexClean` and session-name completion have
+been removed. See [integration](../../../docs/mimori.md).
