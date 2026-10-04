@@ -88,13 +88,12 @@ with inputs;
         prev.vimPlugins
         // {
           # TODO: → `v2.vimPlugins`
-          v2 = (buildPlugins (builtins.removeAttrs (import ./v2/npins) [ "mimori" ])) // import ./v2/overlays.nix { inherit inputs'; } final prev;
+          v2 = (buildPlugins (import ./v2/npins)) // import ./v2/overlays.nix { inherit inputs'; } final prev;
           tests =
             buildPlugins (import ./tests/npins) // import ./tests/overlays.nix { inherit inputs'; } final prev;
         };
       # TODO: move to `/v2`
       v2 = {
-        mimori = import ./v2/mimori.nix { pkgs = final; };
         kotlin-lsp = mkDerivation rec {
           pname = "kotlin-lsp";
           version = "263.4702.0";

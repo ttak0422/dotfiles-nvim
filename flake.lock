@@ -649,6 +649,7 @@
         "v2-blink-cmp": "v2-blink-cmp",
         "v2-mcp-hub": "v2-mcp-hub",
         "v2-meian": "v2-meian",
+        "v2-mimori": "v2-mimori",
         "v2-pterm": "v2-pterm",
         "v2-track": "v2-track"
       }
@@ -797,6 +798,26 @@
       "original": {
         "owner": "ttak0422",
         "repo": "meian.nvim",
+        "type": "github"
+      }
+    },
+    "v2-mimori": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791073120,
+        "narHash": "sha256-0NFKi3kPQOqKarO+F8PlxxZhp1xJkv9fO9OCHzpFha8=",
+        "owner": "ttak0422",
+        "repo": "mimori",
+        "rev": "c5b0d92d511c41be3344a6660778c6ddaa4ab786",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ttak0422",
+        "repo": "mimori",
         "type": "github"
       }
     },

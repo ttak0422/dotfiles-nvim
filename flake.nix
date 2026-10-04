@@ -63,6 +63,10 @@
       url = "github:ttak0422/track";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    v2-mimori = {
+      url = "github:ttak0422/mimori";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # WIP
     # v2-rustowl.url = "github:nix-community/rustowl-flake";
   };

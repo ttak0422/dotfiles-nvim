@@ -45,16 +45,21 @@ validator. Malformed/oversized/incompatible responses retain the last good cache
 
 ## Source and build
 
-`v2/npins/sources.json` pins mimori separately from Lua plugins. `v2/mimori.nix`
-builds its CLI with the pinned Go dependency hash. The public GitHub archive
-is fetched by immutable commit and content hash without authentication. No
-credentials are required in pins, derivations, or CI for this dependency.
+`flake.nix` declares the public `v2-mimori` input, pinned by `flake.lock`.
+Its `inputs.nixpkgs.follows = "nixpkgs"` shares the consumer's existing nixpkgs
+input. `v2/default.nix` consumes `inputs'.v2-mimori.packages.default` for both
+`extraPackages` and the client binary path. The package and Go dependency hash
+are defined by mimori itself; there is no duplicate consumer derivation or
+mimori entry in the Lua-plugin pins.
 
-For local development, use `NPINS_OVERRIDE_mimori=/absolute/mimori/checkout` with
-`--impure`. This intentionally substitutes local source and is not a reproducible
-release build. Tests use temporary state and synthetic provider fixtures, never
-installed provider hooks or personal transcripts. No launchd/systemd installation
-or environment activation is performed.
+Sharing the nixpkgs input avoids retaining a separate nixpkgs revision for mimori.
+It does not eliminate source archives, compiler dependencies, or output artifacts;
+local compilation is expected. No additional binary-cache service is required.
+
+For local development, pass `--override-input v2-mimori path:/absolute/checkout`
+to a flake command. This intentionally substitutes local source. Tests use
+temporary state and synthetic provider fixtures. No environment activation or
+service-manager installation is performed.
 
 ## Validation (2026-10-04, aarch64-darwin)
 
@@ -97,16 +102,19 @@ Verified with Neovim 0.12.5:
   **97 bytes**, full fixture snapshot **924 bytes**. This small local fixture
   supports conservative 2 s polling/1 s query timeout defaults; it is not a
   production workload guarantee.
-- Nix public-source pin evaluation and CLI derivation build (including backend
-  tests) are verified without source credentials. The pin follows the public
-  documentation cleanup at `c5b0d92d511c41be3344a6660778c6ddaa4ab786`.
+- The public flake input is locked to
+  `c5b0d92d511c41be3344a6660778c6ddaa4ab786`. The lock-graph check confirms that
+  only the `v2-mimori` node and root edge were added, all existing nodes stayed
+  unchanged, and `v2-mimori/nixpkgs` follows the root nixpkgs input.
+- The upstream package build (including backend tests) and matching upstream
+  package check passed using the shared nixpkgs input.
 
-To reproduce the standalone CLI build using an available pinned nixpkgs source:
+To build the exact mimori package used by this configuration from its root:
 
 ```sh
 nix build --impure --no-link --expr '
-  let pkgs = import /absolute/pinned-nixpkgs { system = builtins.currentSystem; };
-  in import /absolute/dotfiles-nvim/v2/mimori.nix { inherit pkgs; }'
+  let flake = builtins.getFlake (toString ./.);
+  in flake.inputs.v2-mimori.packages.${builtins.currentSystem}.default'
 ```
 
 The complete `packages.aarch64-darwin.bundler-nvim-v2.drvPath` evaluation also

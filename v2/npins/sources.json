@@ -1312,19 +1312,6 @@
       "url": "https://github.com/nvzone/menu/archive/7a0a4a2896b715c066cfbe320bdc048091874cc6.tar.gz",
       "hash": "sha256-4GfQ6Mo32rsoQAXKZF9Bpnm/sms2hfbrTldpLp5ySoY="
     },
-    "mimori": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "ttak0422",
-        "repo": "mimori"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "c5b0d92d511c41be3344a6660778c6ddaa4ab786",
-      "url": "https://github.com/ttak0422/mimori/archive/c5b0d92d511c41be3344a6660778c6ddaa4ab786.tar.gz",
-      "hash": "sha256-0NFKi3kPQOqKarO+F8PlxxZhp1xJkv9fO9OCHzpFha8="
-    },
     "mini.nvim": {
       "type": "Git",
       "repository": {
