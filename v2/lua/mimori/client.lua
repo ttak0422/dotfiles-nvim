@@ -242,7 +242,8 @@ function M.shutdown()
   if not s or s.closed then return end
   s.closed = true; s.subscribers = {}; close(s.timer)
   if s.job then s.job.cancel() end
-  if s.detail then s.detail.cancel() end
+  for _, entry in pairs(s.details) do entry.cancel() end
+  s.details = {}
   if s.group then pcall(vim.api.nvim_del_augroup_by_id, s.group) end
 end
 function M.setup(opts)
@@ -253,7 +254,7 @@ function M.setup(opts)
   for _, k in ipairs({ "interval", "timeout", "ensure_timeout", "max_backoff", "max_stdout", "max_stderr" }) do
     assert(integer(opts[k]) and opts[k] > 0, k .. " must be a positive integer")
   end
-  local s = { opts = opts, subscribers = {}, view = { status = "paused" }, retry_at = 0, failures = 0 }
+  local s = { opts = opts, subscribers = {}, details = {}, view = { status = "paused" }, retry_at = 0, failures = 0 }
   current = s
   s.group = vim.api.nvim_create_augroup("MimoriClient", { clear = true })
   vim.api.nvim_create_autocmd("VimLeavePre", { group = s.group, callback = M.shutdown })
@@ -283,16 +284,15 @@ function M.detail(provider, id, callback)
   assert(nonempty(provider) and nonempty(id), "provider and session ID required")
   local s = state()
   local key = provider .. "\0" .. id
-  local entry = s.detail
+  local entry = s.details[key]
   local token = {}
-  if not entry or entry.key ~= key then
-    if entry then entry.cancel() end
+  if not entry then
     entry = { key = key, callbacks = {} }
-    s.detail = entry
+    s.details[key] = entry
     local args = argv(s, "query")
     vim.list_extend(args, { "--provider", provider, "--session", id })
     local job = run(s, args, s.opts.timeout, function(err, text)
-      if s.detail == entry then s.detail = nil end
+      if s.details[key] == entry then s.details[key] = nil end
       local row
       if not err then
         local r, failure = parse(text, true)
@@ -311,7 +311,7 @@ function M.detail(provider, id, callback)
     entry.callbacks[token] = nil
     if not next(entry.callbacks) then
       entry.cancel()
-      if s.detail == entry then s.detail = nil end
+      if s.details[key] == entry then s.details[key] = nil end
     end
   end
 end

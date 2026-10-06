@@ -9,13 +9,13 @@ parser=argparse.ArgumentParser()
 parser.add_argument('--snapshots',type=Path,help='write actual before/after Komado buffers here')
 args=parser.parse_args()
 if args.snapshots: args.snapshots.mkdir(parents=True,exist_ok=True)
-for suite in ('client','adapter','presentation'):
+for suite in ('client','adapter','presentation','hover'):
     with tempfile.TemporaryDirectory(prefix='mimori-lua-',dir='/tmp') as path:
         temp=Path(path)
         for name in ('home','state/nvim','data','cache'): (temp/name).mkdir(parents=True,exist_ok=True)
         env=os.environ|{'HOME':str(temp/'home'),'XDG_STATE_HOME':str(temp/'state'),
           'XDG_DATA_HOME':str(temp/'data'),'XDG_CACHE_HOME':str(temp/'cache'),
-          'MIMORI_TEST_ROOT':str(root),'MIMORI_TEST_TMP':str(temp)}
+          'MIMORI_TEST_ROOT':str(root),'MIMORI_TEST_TMP':str(temp),'NVIM_LOG_FILE':str(temp/'nvim.log')}
         command=[nvim,'--clean','--headless','-u','NONE','-i','NONE','-l',str(root/f'tests/mimori/{suite}.lua')]
         if suite=='presentation': env['MIMORI_SNAPSHOT_OUT']=str(temp/'actual.txt')
         subprocess.run(command,env=env,check=True)
@@ -28,7 +28,7 @@ for suite in ('client','adapter','presentation'):
                 (args.snapshots/'after.txt').write_text(actual)
                 baseline=temp/'baseline.lua'
                 baseline.write_bytes(subprocess.check_output(['git','show',
-                    '90bbd9558f7495545bae40a9c1f5c84ccb748e9f:v2/lua/mimori/komado.lua'],cwd=root))
+                    '41824d5a8ad26f0d234d1aa821991f2c18eafddf:v2/lua/mimori/komado.lua'],cwd=root))
                 env['MIMORI_BASELINE']=str(baseline)
                 env['MIMORI_SNAPSHOT_OUT']=str(args.snapshots/'before.txt')
                 subprocess.run(command,env=env,check=True)

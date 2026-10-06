@@ -1,116 +1,156 @@
 ## empty / sidebar 32
- mimori · connected
- No classified roots
+ ● Claude —
+ ● Codex —
 
 ## connected-idle / sidebar 32
- mimori · connected
- review-api-change · idle · ch…
+ ● Claude
+ idle W0 R0 review-api-change
+ ● Codex —
 
 ## populated / sidebar 32
- mimori · connected
- review-api-change · idle · ch…
- implement-provider-layout · r…
+ ● Claude
+ idle W0 R0 review-api-change
+ ● Codex
+ run W0 R50 implement-provider…
 
 ## unknown-wait / sidebar 32
- mimori · connected
- review-api-change · idle · ch…
- Unclassified: 1 · a: all
+ ● Claude
+ idle W0 R0 review-api-change
+ ● Codex
+ wait W2+? R0 ~ 12345678-1234-…
 
 ## connecting / sidebar 32
- mimori · loading
+ ◌ Claude
+ ◌ Codex
 
 ## disconnected / sidebar 32
- mimori · error
- collector socket unavailable
+ ! Claude
+ ! Codex
 
 ## paused / sidebar 32
- mimori · paused (retained)
- review-api-change · idle · ch…
+ ○ Claude
+ idle W0 R0 review-api-change
+ ○ Codex —
 
 ## wide-name / sidebar 32
- mimori · connected
- 日本語の長いセッション名と進…
+ ● Claude
+ run W0 R0 日本語の長いセッシ…
+ ● Codex —
 
 ## error-retained / sidebar 32
- mimori · error (retained)
- CLI exit 1: cannot connect to…
- review-api-change · idle · ch…
- implement-provider-layout · r…
- Unclassified: 1 · a: all
+ ! Claude
+ idle W0 R0 review-api-change
+ ! Codex
+ wait W2+? R0 ~ 12345678-1234-…
+ run W0 R50 implement-provider…
 
 ## overflow / sidebar 32
- mimori · connected
- task-01 · idle · child 0 · wa…
- task-02 · idle · child 0 · wa…
- task-03 · idle · child 0 · wa…
- task-04 · idle · child 0 · wa…
- task-05 · idle · child 0 · wa…
- task-06 · idle · child 0 · wa…
- task-07 · idle · child 0 · wa…
- task-08 · idle · child 0 · wa…
- task-09 · idle · child 0 · wa…
- task-10 · idle · child 0 · wa…
- +4 hidden roots · 1 waiting/u…
+ ● Claude
+ idle W0 R0 task-01
+ idle W0 R0 task-03
+ idle W0 R0 task-05
+ idle W0 R0 task-07
+ idle W0 R0 task-09
+ +2 more · wait 1 · a
+ ● Codex
+ idle W0 R0 task-02
+ idle W0 R0 task-04
+ idle W0 R0 task-06
+ idle W0 R0 task-08
+ idle W0 R0 task-10
+ +2 more · wait 0 · a
+
+## all-states / sidebar 32
+ ● Claude
+ run W0 R0 a-running
+ wait W0 R0 b-waiting
+ idle W0 R0 c-idle
+ end W0 R0 d-ended
+ ? W0 R0 e-unknown
+ ? W0 R0 f-future
+ ● Codex —
 
 ## other-provider / sidebar 32
- mimori · connected
- custom-session · unknown · ch…
+ ● Claude —
+ ● Codex —
+ ● Other: demo
+ ? W0 R0 custom-session
 
 ## empty / sidebar 40
- mimori · connected
- No classified roots
+ ● Claude —
+ ● Codex —
 
 ## connected-idle / sidebar 40
- mimori · connected
- review-api-change · idle · child 0 · …
+ ● Claude
+ idle W0 R0 review-api-change
+ ● Codex —
 
 ## populated / sidebar 40
- mimori · connected
- review-api-change · idle · child 0 · …
- implement-provider-layout · running ·…
+ ● Claude
+ idle W0 R0 review-api-change
+ ● Codex
+ run W0 R50 implement-provider-layout
 
 ## unknown-wait / sidebar 40
- mimori · connected
- review-api-change · idle · child 0 · …
- Unclassified: 1 · a: all
+ ● Claude
+ idle W0 R0 review-api-change
+ ● Codex
+ wait W2+? R0 ~ 12345678-1234-1234-123…
 
 ## connecting / sidebar 40
- mimori · loading
+ ◌ Claude
+ ◌ Codex
 
 ## disconnected / sidebar 40
- mimori · error
- collector socket unavailable
+ ! Claude
+ ! Codex
 
 ## paused / sidebar 40
- mimori · paused (retained)
- review-api-change · idle · child 0 · …
+ ○ Claude
+ idle W0 R0 review-api-change
+ ○ Codex —
 
 ## wide-name / sidebar 40
- mimori · connected
- 日本語の長いセッション名と進捗確認 · …
+ ● Claude
+ run W0 R0 日本語の長いセッション名と…
+ ● Codex —
 
 ## error-retained / sidebar 40
- mimori · error (retained)
- CLI exit 1: cannot connect to collect…
- review-api-change · idle · child 0 · …
- implement-provider-layout · running ·…
- Unclassified: 1 · a: all
+ ! Claude
+ idle W0 R0 review-api-change
+ ! Codex
+ wait W2+? R0 ~ 12345678-1234-1234-123…
+ run W0 R50 implement-provider-layout
 
 ## overflow / sidebar 40
- mimori · connected
- task-01 · idle · child 0 · wait 0
- task-02 · idle · child 0 · wait 0
- task-03 · idle · child 0 · wait 0
- task-04 · idle · child 0 · wait 0
- task-05 · idle · child 0 · wait 0
- task-06 · idle · child 0 · wait 0
- task-07 · idle · child 0 · wait 0
- task-08 · idle · child 0 · wait 0
- task-09 · idle · child 0 · wait 0
- task-10 · idle · child 0 · wait 0
- +4 hidden roots · 1 waiting/unknown ·…
+ ● Claude
+ idle W0 R0 task-01
+ idle W0 R0 task-03
+ idle W0 R0 task-05
+ idle W0 R0 task-07
+ idle W0 R0 task-09
+ +2 more · wait 1 · a
+ ● Codex
+ idle W0 R0 task-02
+ idle W0 R0 task-04
+ idle W0 R0 task-06
+ idle W0 R0 task-08
+ idle W0 R0 task-10
+ +2 more · wait 0 · a
+
+## all-states / sidebar 40
+ ● Claude
+ run W0 R0 a-running
+ wait W0 R0 b-waiting
+ idle W0 R0 c-idle
+ end W0 R0 d-ended
+ ? W0 R0 e-unknown
+ ? W0 R0 f-future
+ ● Codex —
 
 ## other-provider / sidebar 40
- mimori · connected
- custom-session · unknown · child 0 · …
+ ● Claude —
+ ● Codex —
+ ● Other: demo
+ ? W0 R0 custom-session
 

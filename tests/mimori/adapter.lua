@@ -48,7 +48,7 @@ assert(#a.rows({status='connected',data={roots=many,unclassified={loose}}})==17)
 assert(not a.clean('\27[31mfoo\nbar\27[0m',30):find('[%c]'))
 assert(vim.fn.strdisplaywidth(a.clean('日本語日本語',7))<=7)
 local unknown=vim.deepcopy(rootrow); unknown.aggregate_state='future-state'
-assert(a.rows({status='connected',data={roots={unknown},unclassified={}}})[2].text:find('? W',1,true))
+assert(a.rows({status='connected',data={roots={unknown},unclassified={}}})[2].text:find('○ W',1,true))
 local fail_system=vim.system; vim.system=function() error('I/O from renderer') end
 a.rows(c.snapshot(),10); c.snapshot(); vim.system=fail_system
 c.shutdown(); print('adapter: passed; redraws='..redraws..'; visible/hidden visibility verified')

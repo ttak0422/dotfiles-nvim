@@ -16,17 +16,54 @@ shows full transport status, retained-snapshot labeling, diagnostics and this le
 A historical collector diagnostic remains available there independently of transport
 health; it does not falsely mark a connected collector as disconnected.
 
-Session rows retain state and counts before truncating the name:
+Session rows use herdr-inspired round markers before the counts and name, with
+color as the primary state cue. Running, waiting and ended share a filled dot;
+idle and unknown use a quieter outline. No icon font is required. Only the marker
+is colored, so names and counters keep the normal sidebar foreground. The all
+view uses the same markers and colors. K/Enter still exposes the full state text,
+including future unknown states; the marker does not replace the backend state.
 
-- `run`, `idle`, `end`, `wait`, `?`: aggregate state; unknown states stay unknown.
-- `W2+?`: two known unresolved requests, with an unknown remainder. `W0` is exact zero.
-- `R50`: fifty running descendants, not the total number of children.
+| State | Glyph / fallback | Default highlight link (typical color) |
+| --- | --- | --- |
+| Running | ● / * | `MimoriRunning` → `DiagnosticWarn` (yellow) |
+| Waiting | ● / * | `MimoriWaiting` → `DiagnosticError` (red/pink) |
+| Idle | ○ / o | `MimoriIdle` → `DiagnosticOk` (green) |
+| Ended | ● / * | `MimoriEnded` → `DiagnosticInfo` (cyan/blue) |
+| Unknown, including future states | ○ / o | `MimoriUnknown` → `Comment` (gray) |
+
+Colors follow the active colorscheme, not fixed RGB values. Override a `Mimori*`
+group with `nvim_set_hl` if needed; the adapter uses default links and does not
+replace user-defined groups. Changing colorscheme refreshes both sidebar and all
+view. As with transport icons, a wider-than-one-cell glyph falls back to ASCII.
+The aggregate state comes directly from mimori: this change does not hide ended
+sessions or infer that idle/unknown sessions have ended.
+
+- `W2+?`: two known unresolved requests, with an unknown remainder. `W0` is exact zero
+- `R50`: fifty running descendants, not the total number of children
 - `~` before the name: hierarchy is unresolved. It does not change backend identity
-  or treat an unclassified session as a proven root. Enter shows the original fields.
+  or treat an unclassified session as a proven root. K or Enter shows the original fields
 - `—` after a provider: no observations for it in this snapshot. A connecting/error
-  snapshot with no data does not claim the provider is empty.
+  snapshot with no data does not claim the provider is empty
 - `+2 more · wait 1 · a`: two summary entries hidden, one with waiting/unknown
-  attention. This count is entries, not requests. `a` opens the full grouped list.
+  attention. This count is entries, not requests. `a` opens the full grouped list
+
+## Detail keys
+
+- `K` on an agent row: open its existing detail fields in a rounded, wrapped hover,
+  leaving focus in the sidebar
+- `K` again on the same agent: focus the existing hover to scroll it
+- `K` while focused in the hover: return to the sidebar
+- `q` or Escape while focused in the hover: close it
+- `r` while focused in the hover: refresh
+- Enter: keep the existing separate detail split
+
+The popup is at most 80 columns × 20 rows and is clamped to the available editor
+space. It closes when the sidebar cursor moves, its selected identity changes,
+the sidebar is hidden/replaced/closed, another editor window/tab is entered, or
+the editor is resized. Pressing K after resizing opens it at the new size.
+Closing cancels pending detail work; late or superseded responses cannot reopen
+or overwrite a newer popup. K is buffer/row-local; normal LSP mappings in editing
+buffers are untouched. Provider and overflow rows do not open an agent hover.
 
 The row budget is shared across providers (10 by default); headers and overflow
 indicators are additional. Claude then Codex retain the familiar order, other
@@ -36,187 +73,39 @@ waiting-priority reordering is introduced by this presentation change.
 
 ## Actual rendered examples
 
-These are lines read from the real pinned Komado buffer (commit `8123dd6`), using
+These are lines read from the real pinned Komado buffer (`8123dd6`), using
 anonymous snapshots and padding=1. `before` uses dotfiles-nvim main
-`90bbd9558f7495545bae40a9c1f5c84ccb748e9f`; `after` uses this implementation.
-Color/highlight is omitted; text is not hand-written mock UI. Sidebar widths are
-32 and 40 columns. The complete [before](../tests/mimori/snapshots/before.txt) and
-[after](../tests/mimori/snapshots/after.txt) fixtures cover 11 cases at both widths,
-including Japanese names, paused polling and an unknown provider.
-
-### empty / sidebar 32
-
-Before:
-
-```text
- mimori · connected
- No classified roots
-```
-
-After:
-
-```text
- ● Claude —
- ● Codex —
-```
-
-### connected-idle / sidebar 32
-
-Before:
-
-```text
- mimori · connected
- review-api-change · idle · ch…
-```
-
-After:
-
-```text
- ● Claude
- idle W0 R0 review-api-change
- ● Codex —
-```
+`41824d5a8ad26f0d234d1aa821991f2c18eafddf`; `after` uses this implementation.
+Text fixtures cannot display the colors; tests also inspect real extmarks for
+each state, theme changes, and custom highlight preservation.
+The complete [before](../tests/mimori/snapshots/before.txt) and
+[after](../tests/mimori/snapshots/after.txt) fixtures cover 12 cases at both
+32 and 40 columns, including all states, Japanese names, unknown providers,
+retained error snapshots, overflow, and uncertain request counts.
 
 ### populated / sidebar 32
 
 Before:
 
 ```text
- mimori · connected
- review-api-change · idle · ch…
- implement-provider-layout · r…
-```
-
-After:
-
-```text
  ● Claude
  idle W0 R0 review-api-change
  ● Codex
  run W0 R50 implement-provider…
 ```
 
-### unknown-wait / sidebar 32
-
-Before:
-
-```text
- mimori · connected
- review-api-change · idle · ch…
- Unclassified: 1 · a: all
-```
-
 After:
 
 ```text
  ● Claude
- idle W0 R0 review-api-change
+ ○ W0 R0 review-api-change
  ● Codex
- wait W2+? R0 ~ 12345678-1234-…
-```
-
-### connecting / sidebar 32
-
-Before:
-
-```text
- mimori · loading
-```
-
-After:
-
-```text
- ◌ Claude
- ◌ Codex
-```
-
-### disconnected / sidebar 32
-
-Before:
-
-```text
- mimori · error
- collector socket unavailable
-```
-
-After:
-
-```text
- ! Claude
- ! Codex
-```
-
-### error-retained / sidebar 32
-
-Before:
-
-```text
- mimori · error (retained)
- CLI exit 1: cannot connect to…
- review-api-change · idle · ch…
- implement-provider-layout · r…
- Unclassified: 1 · a: all
-```
-
-After:
-
-```text
- ! Claude
- idle W0 R0 review-api-change
- ! Codex
- wait W2+? R0 ~ 12345678-1234-…
- run W0 R50 implement-provider…
-```
-
-### overflow / sidebar 32
-
-Before:
-
-```text
- mimori · connected
- task-01 · idle · child 0 · wa…
- task-02 · idle · child 0 · wa…
- task-03 · idle · child 0 · wa…
- task-04 · idle · child 0 · wa…
- task-05 · idle · child 0 · wa…
- task-06 · idle · child 0 · wa…
- task-07 · idle · child 0 · wa…
- task-08 · idle · child 0 · wa…
- task-09 · idle · child 0 · wa…
- task-10 · idle · child 0 · wa…
- +4 hidden roots · 1 waiting/u…
-```
-
-After:
-
-```text
- ● Claude
- idle W0 R0 task-01
- idle W0 R0 task-03
- idle W0 R0 task-05
- idle W0 R0 task-07
- idle W0 R0 task-09
- +2 more · wait 1 · a
- ● Codex
- idle W0 R0 task-02
- idle W0 R0 task-04
- idle W0 R0 task-06
- idle W0 R0 task-08
- idle W0 R0 task-10
- +2 more · wait 0 · a
+ ● W0 R50 implement-provider-l…
 ```
 
 ### unknown-wait / sidebar 40
 
 Before:
-
-```text
- mimori · connected
- review-api-change · idle · child 0 · …
- Unclassified: 1 · a: all
-```
-
-After:
 
 ```text
  ● Claude
@@ -225,22 +114,57 @@ After:
  wait W2+? R0 ~ 12345678-1234-1234-123…
 ```
 
-## Reproduce and verify
+After:
+
+```text
+ ● Claude
+ ○ W0 R0 review-api-change
+ ● Codex
+ ● W2+? R0 ~ 12345678-1234-1234-1234-1…
+```
+
+### all-states / sidebar 32
+
+Before:
+
+```text
+ ● Claude
+ run W0 R0 a-running
+ wait W0 R0 b-waiting
+ idle W0 R0 c-idle
+ end W0 R0 d-ended
+ ? W0 R0 e-unknown
+ ? W0 R0 f-future
+ ● Codex —
+```
+
+After:
+
+```text
+ ● Claude
+ ● W0 R0 a-running
+ ● W0 R0 b-waiting
+ ○ W0 R0 c-idle
+ ● W0 R0 d-ended
+ ○ W0 R0 e-unknown
+ ○ W0 R0 f-future
+ ● Codex —
+```
+
+## Reproduce
+
+Use a clean Neovim (0.11.4 verified) and the pinned Komado checkout:
 
 ```sh
-MIMORI_TEST_NVIM=/absolute/unwrapped/nvim \
+MIMORI_TEST_NVIM=/absolute/nvim \
 MIMORI_KOMADO=/absolute/pinned-komado \
 python3 tests/mimori/run.py
 
-# Regenerate both actual buffers for review:
-MIMORI_TEST_NVIM=/absolute/unwrapped/nvim \
+MIMORI_TEST_NVIM=/absolute/nvim \
 MIMORI_KOMADO=/absolute/pinned-komado \
 python3 tests/mimori/run.py --snapshots /tmp/mimori-sidebar-previews
 ```
 
-The default run checks the rendered after fixture. Tests cover provider grouping,
-shared row budgets, width bounds, visible counts/uncertainty, status glyph width,
-selection across group growth, unresolved detail fields, full transport diagnostics,
-hidden status/detail/all windows and existing client redraw/lifecycle behavior.
-Neovim's complete aarch64-darwin derivation evaluates successfully; the full editor
-closure was not rebuilt or activated for this change. No provider hooks were edited.
+Tests use synthetic data only. No provider prompt, installed hook, or running
+user daemon is touched. Headless validation covers behavior and highlight
+attributes; it does not prove physical terminal font/color appearance on macOS.

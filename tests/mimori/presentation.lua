@@ -48,6 +48,7 @@ local cases={
   {'paused',snapshot({c},{},'paused')},
   {'wide-name',snapshot({session('claude','日本語の長いセッション名と進捗確認','running')})},
   {'error-retained',failed}, {'overflow',snapshot(overflow)},
+  {'all-states',snapshot({session('claude','a-running','running'),session('claude','b-waiting','waiting'),session('claude','c-idle','idle'),session('claude','d-ended','ended'),session('claude','e-unknown','unknown'),session('claude','f-future','future-state')})},
   {'other-provider',snapshot({session('demo','custom-session','unknown')})},
 }
 local function publish(s)
@@ -78,8 +79,8 @@ for _,width in ipairs({32,40}) do
       local text=table.concat(rendered,'\n')
       assert(not text:find('mimori ·',1,true) and not text:find('classified',1,true))
       assert(text:find('Claude',1,true) and text:find('Codex',1,true))
-      if case[1]=='unknown-wait' then assert(text:find('wait W2+? R0 ~',1,true),'counts or uncertainty truncated') end
-      if case[1]=='populated' then assert(text:find('run W0 R50',1,true)) end
+      if case[1]=='unknown-wait' then assert(text:find('● W2+? R0 ~',1,true),'counts or uncertainty truncated') end
+      if case[1]=='populated' then assert(text:find('● W0 R50',1,true)) end
       if case[1]=='other-provider' then assert(text:find('Other: demo',1,true)) end
     end
   end
@@ -90,17 +91,79 @@ if not vim.env.MIMORI_BASELINE then
     for _,status in ipairs({'connected','loading','paused','error','missing_binary','incompatible'}) do
       assert(vim.fn.strdisplaywidth(a.status_icon(status))==1)
     end
+    for _,state in ipairs({'running','waiting','idle','ended','unknown','future-state'}) do
+      assert(vim.fn.strdisplaywidth(a.state_icon(state))==1)
+    end
   end
   vim.o.ambiwidth='single'
+  assert(a.state_icon('running')=='●' and a.state_icon('waiting')=='●' and a.state_icon('ended')=='●',
+    'active/attention/completed states should share a round marker')
+  assert(a.state_icon('idle')=='○' and a.state_icon('unknown')=='○' and a.state_icon('future-state')=='○',
+    'idle/unknown states should retain their quiet outline')
+  local colors={running=0xffcc66,waiting=0xff77aa,idle=0x99cc88,ended=0x66cccc,unknown=0x808080}
+  local links={running='DiagnosticWarn',waiting='DiagnosticError',idle='DiagnosticOk',ended='DiagnosticInfo',unknown='Comment'}
+  local symbols={}
+  for state,color in pairs(colors) do
+    vim.api.nvim_set_hl(0,links[state],{fg=color})
+    symbols[#symbols+1]=session('claude',state,state)
+  end
+  local function check_colors(buf,sidebar)
+    local marks=vim.api.nvim_buf_get_extmarks(buf,-1,0,-1,{details=true})
+    local text=vim.api.nvim_buf_get_lines(buf,0,-1,false)
+    for state,color in pairs(colors) do
+      local icon=a.state_icon(state)
+      local found=false
+      for _,mark in ipairs(marks) do
+        local line=text[mark[2]+1]
+        local d=mark[4]
+        if line:find(state,1,true) and d.hl_group and line:sub(mark[3]+1,(d.end_col or 0))==icon then
+          assert(vim.api.nvim_get_hl(0,{name=d.hl_group,link=false}).fg==color,'wrong '..state..' color')
+          assert(mark[3]==(sidebar and 1 or 0),'state highlight spills into name/counts')
+          found=true
+        end
+      end
+      assert(found,'missing '..state..' icon highlight')
+    end
+  end
+  publish(snapshot(symbols));vim.api.nvim_exec_autocmds('ColorScheme',{pattern='mimori-test'});k.redraw();vim.wait(30)
+  for _,width in ipairs({32,40}) do
+    vim.api.nvim_win_set_width(k.get_state().winid,width);k.redraw();vim.wait(20)
+    check_colors(k.get_state().bufnr,true)
+  end
+  a.open_all();vim.wait(30);check_colors(vim.api.nvim_get_current_buf(),false)
+  -- ColorScheme can fire before scheduled cleanup after the all-view window closes.
+  vim.api.nvim_win_close(vim.api.nvim_get_current_win(),true)
+  vim.api.nvim_exec_autocmds('ColorScheme',{pattern='mimori-closed-view'})
+  vim.wait(30)
+  -- A user-defined group survives setup and ColorScheme default linking.
+  vim.api.nvim_set_hl(0,'MimoriRunning',{fg=0xabcdef})
+  vim.api.nvim_exec_autocmds('ColorScheme',{pattern='mimori-custom'})
+  assert(vim.api.nvim_get_hl(0,{name='MimoriRunning',link=false}).fg==0xabcdef)
+  -- A manually squeezed sidebar still emits valid UTF-8, even when its one
+  -- content cell is consumed by an ASCII state/fallback glyph.
+  local sidebar=k.get_state()
+  for _,ambiwidth in ipairs({'single','double'}) do
+    vim.o.ambiwidth=ambiwidth
+    for _,width in ipairs({3,4,5}) do
+      vim.api.nvim_win_set_width(sidebar.winid,width)
+      publish(snapshot(symbols));k.redraw();vim.wait(20)
+      for _,line in ipairs(lines(sidebar.bufnr)) do
+        assert(vim.fn.strdisplaywidth(line)<=width,'narrow sidebar exceeds display width')
+        assert(not line:find('<80>',1,true),'UTF-8 ellipsis split')
+      end
+      assert(vim.fn.strdisplaywidth(a.clean('long value',1))<=1,'wide ellipsis overflow')
+    end
+  end
+  vim.o.ambiwidth='single';vim.api.nvim_win_set_width(sidebar.winid,40)
   assert(u.classification=='unresolved' and u.relation=='unknown','presentation invented hierarchy')
   -- Full view preserves provider+ID selection when groups grow or input reorders.
   publish(snapshot({c,x},{u}));a.open_all();vim.wait(30)
   local buf=vim.api.nvim_get_current_buf();local win=vim.api.nvim_get_current_win()
   local target
-  for i,line in ipairs(lines(buf)) do if line:find('wait W2+? R0 ~',1,true) then target=i end end
+  for i,line in ipairs(lines(buf)) do if line:find('● W2+? R0 ~',1,true) then target=i end end
   assert(target);vim.api.nvim_win_set_cursor(win,{target,0})
   publish(snapshot({x,session('claude','aaa-new','idle'),c},{u}));vim.wait(30)
-  assert(vim.api.nvim_get_current_line():find('wait W2+? R0 ~',1,true),'selection changed identity')
+  assert(vim.api.nvim_get_current_line():find('● W2+? R0 ~',1,true),'selection changed identity')
   a.open_detail(u);vim.wait(30)
   assert(table.concat(lines(0),'\n'):find('classification: unresolved',1,true))
   publish(failed);a.open_status();vim.wait(30)
