@@ -29,7 +29,13 @@ The bridge READMEs distinguish the initial audit gaps from the applied local mig
 current tab. Entries are grouped under Claude / Codex, with other provider names
 kept separately. The provider heading's one-cell glyph shows transport state;
 `?` / `:MimoriStatus` opens full status and diagnostics. `r` refreshes,
-`a` / `:MimoriAll` opens all summary entries, and Enter opens an entry's detail.
+`a` / `:MimoriAll` opens all summary entries, and Enter opens an entry's detail
+in a separate split. On a sidebar agent row, `K` opens the same detail in a bounded
+hover without moving focus; a second `K` focuses it for scrolling. `q` / Escape
+inside the hover closes it. Moving the sidebar cursor, leaving the sidebar/hover,
+changing tab, closing the sidebar, or resizing dismisses it and cancels stale work.
+State icons use theme-linked colors, with distinct glyphs and one-cell ASCII
+fallbacks; the normal editor's LSP `K` mapping is unchanged.
 A separate status/detail/all view keeps its own subscription while visible in the current tab; hiding it pauses
 polling, and closing it releases the view; `q` closes it. Selection in
 the all view follows provider/session identity. Root details expose backend
@@ -57,7 +63,8 @@ Generic API: `setup(opts)`, `subscribe(callback)` returning an idempotent releas
 `detail(provider, session_id, callback)` returning cancel, and `shutdown()`.
 There is one summary scope/cache per editor; setup changes invalidate it and
 cancel old callbacks. Lifecycle, summary, and detail calls share one serialized queue. Same-ID detail
-calls coalesce; summary work cannot be starved by repeated detail requests. No client
+calls coalesce per identity, while different visible detail/hover views retain their own
+cancellation tokens; summary work cannot be starved by repeated detail requests. No client
 shutdown/release stops the shared collector. A later view reconnects via ensure.
 
 The client treats revision as an opaque string and preserves large generation

@@ -55,6 +55,22 @@ c.detail('claude','root',function(row) assert(row); details=details+1 end)
 c.detail('claude','root',function(row) assert(row); details=details+1 end)
 wait(function() return details == 2 end)
 assert(count('query') == q + 1, 'detail requests not coalesced')
+-- A split detail and a different hover may both be pending. Their releases
+-- cancel only their own identity/token, while the shared CLI remains serialized.
+local concurrent, retained, removed = {}, false, false
+local cancel_shared = c.detail('claude','root',function() removed=true end)
+c.detail('claude','root',function(row) retained=row and true end)
+c.detail('claude','missing',function(_,err) concurrent.missing=err end)
+cancel_shared()
+wait(function() return retained and concurrent.missing end)
+assert(not removed and concurrent.missing=='NotFound', 'different detail views interfere')
+local cancelled_other=false
+local cancel_other=c.detail('claude','missing',function() cancelled_other=true end)
+local still_pending=false
+c.detail('claude','root',function(row) still_pending=row and true end)
+cancel_other()
+wait(function() return still_pending end)
+assert(not cancelled_other,'cancelled identity callback fired')
 local cancelled = false
 local cancel = c.detail('claude','root',function() cancelled=true end); cancel(); vim.wait(200); assert(not cancelled)
 local notfound
