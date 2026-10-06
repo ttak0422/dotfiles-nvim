@@ -34,8 +34,8 @@ in a separate split. On a sidebar agent row, `K` opens the same detail in a boun
 hover without moving focus; a second `K` focuses it for scrolling. `q` / Escape
 inside the hover closes it. Moving the sidebar cursor, leaving the sidebar/hover,
 changing tab, closing the sidebar, or resizing dismisses it and cancels stale work.
-State icons use theme-linked colors, with distinct glyphs and one-cell ASCII
-fallbacks; the normal editor's LSP `K` mapping is unchanged.
+Round state markers emphasize theme-linked colors, with quiet idle/unknown
+outlines and one-cell ASCII fallbacks; the normal editor's LSP `K` mapping is unchanged.
 A separate status/detail/all view keeps its own subscription while visible in the current tab; hiding it pauses
 polling, and closing it releases the view; `q` closes it. Selection in
 the all view follows provider/session identity. Root details expose backend

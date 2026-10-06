@@ -11,13 +11,13 @@
  ● Claude
  ○ W0 R0 review-api-change
  ● Codex
- ▶ W0 R50 implement-provider-l…
+ ● W0 R50 implement-provider-l…
 
 ## unknown-wait / sidebar 32
  ● Claude
  ○ W0 R0 review-api-change
  ● Codex
- ◆ W2+? R0 ~ 12345678-1234-123…
+ ● W2+? R0 ~ 12345678-1234-123…
 
 ## connecting / sidebar 32
  ◌ Claude
@@ -34,15 +34,15 @@
 
 ## wide-name / sidebar 32
  ● Claude
- ▶ W0 R0 日本語の長いセッショ…
+ ● W0 R0 日本語の長いセッショ…
  ● Codex —
 
 ## error-retained / sidebar 32
  ! Claude
  ○ W0 R0 review-api-change
  ! Codex
- ◆ W2+? R0 ~ 12345678-1234-123…
- ▶ W0 R50 implement-provider-l…
+ ● W2+? R0 ~ 12345678-1234-123…
+ ● W0 R50 implement-provider-l…
 
 ## overflow / sidebar 32
  ● Claude
@@ -62,19 +62,19 @@
 
 ## all-states / sidebar 32
  ● Claude
- ▶ W0 R0 a-running
- ◆ W0 R0 b-waiting
+ ● W0 R0 a-running
+ ● W0 R0 b-waiting
  ○ W0 R0 c-idle
- ■ W0 R0 d-ended
- ? W0 R0 e-unknown
- ? W0 R0 f-future
+ ● W0 R0 d-ended
+ ○ W0 R0 e-unknown
+ ○ W0 R0 f-future
  ● Codex —
 
 ## other-provider / sidebar 32
  ● Claude —
  ● Codex —
  ● Other: demo
- ? W0 R0 custom-session
+ ○ W0 R0 custom-session
 
 ## empty / sidebar 40
  ● Claude —
@@ -89,13 +89,13 @@
  ● Claude
  ○ W0 R0 review-api-change
  ● Codex
- ▶ W0 R50 implement-provider-layout
+ ● W0 R50 implement-provider-layout
 
 ## unknown-wait / sidebar 40
  ● Claude
  ○ W0 R0 review-api-change
  ● Codex
- ◆ W2+? R0 ~ 12345678-1234-1234-1234-1…
+ ● W2+? R0 ~ 12345678-1234-1234-1234-1…
 
 ## connecting / sidebar 40
  ◌ Claude
@@ -112,15 +112,15 @@
 
 ## wide-name / sidebar 40
  ● Claude
- ▶ W0 R0 日本語の長いセッション名と進…
+ ● W0 R0 日本語の長いセッション名と進…
  ● Codex —
 
 ## error-retained / sidebar 40
  ! Claude
  ○ W0 R0 review-api-change
  ! Codex
- ◆ W2+? R0 ~ 12345678-1234-1234-1234-1…
- ▶ W0 R50 implement-provider-layout
+ ● W2+? R0 ~ 12345678-1234-1234-1234-1…
+ ● W0 R50 implement-provider-layout
 
 ## overflow / sidebar 40
  ● Claude
@@ -140,17 +140,17 @@
 
 ## all-states / sidebar 40
  ● Claude
- ▶ W0 R0 a-running
- ◆ W0 R0 b-waiting
+ ● W0 R0 a-running
+ ● W0 R0 b-waiting
  ○ W0 R0 c-idle
- ■ W0 R0 d-ended
- ? W0 R0 e-unknown
- ? W0 R0 f-future
+ ● W0 R0 d-ended
+ ○ W0 R0 e-unknown
+ ○ W0 R0 f-future
  ● Codex —
 
 ## other-provider / sidebar 40
  ● Claude —
  ● Codex —
  ● Other: demo
- ? W0 R0 custom-session
+ ○ W0 R0 custom-session
 

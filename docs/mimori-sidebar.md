@@ -16,18 +16,20 @@ shows full transport status, retained-snapshot labeling, diagnostics and this le
 A historical collector diagnostic remains available there independently of transport
 health; it does not falsely mark a connected collector as disconnected.
 
-Session rows use one colored state icon before the counts and name. Both color
-and shape carry the state; no icon font is required. Only the state icon is colored,
-so names and counters keep the normal sidebar foreground. The all view uses the
-same icons and colors.
+Session rows use herdr-inspired round markers before the counts and name, with
+color as the primary state cue. Running, waiting and ended share a filled dot;
+idle and unknown use a quieter outline. No icon font is required. Only the marker
+is colored, so names and counters keep the normal sidebar foreground. The all
+view uses the same markers and colors. K/Enter still exposes the full state text,
+including future unknown states; the marker does not replace the backend state.
 
 | State | Glyph / fallback | Default highlight link (typical color) |
 | --- | --- | --- |
-| Running | ▶ / > | `MimoriRunning` → `DiagnosticOk` (green) |
-| Waiting | ◆ / ! | `MimoriWaiting` → `DiagnosticWarn` (yellow) |
-| Idle | ○ / - | `MimoriIdle` → `Comment` (gray) |
-| Ended | ■ / x | `MimoriEnded` → `NonText` (dim gray) |
-| Unknown, including future states | ? / ? | `MimoriUnknown` → `DiagnosticInfo` (blue) |
+| Running | ● / * | `MimoriRunning` → `DiagnosticWarn` (yellow) |
+| Waiting | ● / * | `MimoriWaiting` → `DiagnosticError` (red/pink) |
+| Idle | ○ / o | `MimoriIdle` → `DiagnosticOk` (green) |
+| Ended | ● / * | `MimoriEnded` → `DiagnosticInfo` (cyan/blue) |
+| Unknown, including future states | ○ / o | `MimoriUnknown` → `Comment` (gray) |
 
 Colors follow the active colorscheme, not fixed RGB values. Override a `Mimori*`
 group with `nvim_set_hl` if needed; the adapter uses default links and does not
@@ -98,7 +100,7 @@ After:
  ● Claude
  ○ W0 R0 review-api-change
  ● Codex
- ▶ W0 R50 implement-provider-l…
+ ● W0 R50 implement-provider-l…
 ```
 
 ### unknown-wait / sidebar 40
@@ -118,7 +120,7 @@ After:
  ● Claude
  ○ W0 R0 review-api-change
  ● Codex
- ◆ W2+? R0 ~ 12345678-1234-1234-1234-1…
+ ● W2+? R0 ~ 12345678-1234-1234-1234-1…
 ```
 
 ### all-states / sidebar 32
@@ -140,12 +142,12 @@ After:
 
 ```text
  ● Claude
- ▶ W0 R0 a-running
- ◆ W0 R0 b-waiting
+ ● W0 R0 a-running
+ ● W0 R0 b-waiting
  ○ W0 R0 c-idle
- ■ W0 R0 d-ended
- ? W0 R0 e-unknown
- ? W0 R0 f-future
+ ● W0 R0 d-ended
+ ○ W0 R0 e-unknown
+ ○ W0 R0 f-future
  ● Codex —
 ```
 

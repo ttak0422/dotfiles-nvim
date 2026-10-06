@@ -79,8 +79,8 @@ for _,width in ipairs({32,40}) do
       local text=table.concat(rendered,'\n')
       assert(not text:find('mimori ·',1,true) and not text:find('classified',1,true))
       assert(text:find('Claude',1,true) and text:find('Codex',1,true))
-      if case[1]=='unknown-wait' then assert(text:find('◆ W2+? R0 ~',1,true),'counts or uncertainty truncated') end
-      if case[1]=='populated' then assert(text:find('▶ W0 R50',1,true)) end
+      if case[1]=='unknown-wait' then assert(text:find('● W2+? R0 ~',1,true),'counts or uncertainty truncated') end
+      if case[1]=='populated' then assert(text:find('● W0 R50',1,true)) end
       if case[1]=='other-provider' then assert(text:find('Other: demo',1,true)) end
     end
   end
@@ -96,8 +96,12 @@ if not vim.env.MIMORI_BASELINE then
     end
   end
   vim.o.ambiwidth='single'
-  local colors={running=0x10aa20,waiting=0xffaa00,idle=0x808080,ended=0x606060,unknown=0x3388ff}
-  local links={running='DiagnosticOk',waiting='DiagnosticWarn',idle='Comment',ended='NonText',unknown='DiagnosticInfo'}
+  assert(a.state_icon('running')=='●' and a.state_icon('waiting')=='●' and a.state_icon('ended')=='●',
+    'active/attention/completed states should share a round marker')
+  assert(a.state_icon('idle')=='○' and a.state_icon('unknown')=='○' and a.state_icon('future-state')=='○',
+    'idle/unknown states should retain their quiet outline')
+  local colors={running=0xffcc66,waiting=0xff77aa,idle=0x99cc88,ended=0x66cccc,unknown=0x808080}
+  local links={running='DiagnosticWarn',waiting='DiagnosticError',idle='DiagnosticOk',ended='DiagnosticInfo',unknown='Comment'}
   local symbols={}
   for state,color in pairs(colors) do
     vim.api.nvim_set_hl(0,links[state],{fg=color})
@@ -122,7 +126,10 @@ if not vim.env.MIMORI_BASELINE then
     end
   end
   publish(snapshot(symbols));vim.api.nvim_exec_autocmds('ColorScheme',{pattern='mimori-test'});k.redraw();vim.wait(30)
-  check_colors(k.get_state().bufnr,true)
+  for _,width in ipairs({32,40}) do
+    vim.api.nvim_win_set_width(k.get_state().winid,width);k.redraw();vim.wait(20)
+    check_colors(k.get_state().bufnr,true)
+  end
   a.open_all();vim.wait(30);check_colors(vim.api.nvim_get_current_buf(),false)
   -- ColorScheme can fire before scheduled cleanup after the all-view window closes.
   vim.api.nvim_win_close(vim.api.nvim_get_current_win(),true)
@@ -153,10 +160,10 @@ if not vim.env.MIMORI_BASELINE then
   publish(snapshot({c,x},{u}));a.open_all();vim.wait(30)
   local buf=vim.api.nvim_get_current_buf();local win=vim.api.nvim_get_current_win()
   local target
-  for i,line in ipairs(lines(buf)) do if line:find('◆ W2+? R0 ~',1,true) then target=i end end
+  for i,line in ipairs(lines(buf)) do if line:find('● W2+? R0 ~',1,true) then target=i end end
   assert(target);vim.api.nvim_win_set_cursor(win,{target,0})
   publish(snapshot({x,session('claude','aaa-new','idle'),c},{u}));vim.wait(30)
-  assert(vim.api.nvim_get_current_line():find('◆ W2+? R0 ~',1,true),'selection changed identity')
+  assert(vim.api.nvim_get_current_line():find('● W2+? R0 ~',1,true),'selection changed identity')
   a.open_detail(u);vim.wait(30)
   assert(table.concat(lines(0),'\n'):find('classification: unresolved',1,true))
   publish(failed);a.open_status();vim.wait(30)

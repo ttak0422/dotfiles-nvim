@@ -41,12 +41,14 @@ local function status_icon(status)
   return vim.fn.strdisplaywidth(glyph) == 1 and glyph or fallback
 end
 M.status_icon = status_icon
+-- herdr-style round markers: color is the primary state cue. Idle/unknown
+-- use a quiet outline; exact backend state remains available in K/Enter detail.
 local states = {
-  running = { "▶", ">", "MimoriRunning", "DiagnosticOk" },
-  waiting = { "◆", "!", "MimoriWaiting", "DiagnosticWarn" },
-  idle = { "○", "-", "MimoriIdle", "Comment" },
-  ended = { "■", "x", "MimoriEnded", "NonText" },
-  unknown = { "?", "?", "MimoriUnknown", "DiagnosticInfo" },
+  running = { "●", "*", "MimoriRunning", "DiagnosticWarn" },
+  waiting = { "●", "*", "MimoriWaiting", "DiagnosticError" },
+  idle = { "○", "o", "MimoriIdle", "DiagnosticOk" },
+  ended = { "●", "*", "MimoriEnded", "DiagnosticInfo" },
+  unknown = { "○", "o", "MimoriUnknown", "Comment" },
 }
 local function setup_highlights()
   for _, s in pairs(states) do vim.api.nvim_set_hl(0, s[3], { default = true, link = s[4] }) end
@@ -225,8 +227,9 @@ function M.open_status()
       "W: unresolved requests; +? includes an unknown remainder",
       "R: running descendants (not all children)",
       "~ before a name: hierarchy is not resolved; Enter shows why",
-      "▶/> running; ◆/! waiting; ○/- idle; ■/x ended; ? unknown",
-      "State colors: DiagnosticOk / DiagnosticWarn / Comment / NonText / DiagnosticInfo",
+      "●/*: running (yellow), waiting (red/pink), ended (cyan/blue)",
+      "○/o: idle (green), unknown (gray)",
+      "Colors follow DiagnosticWarn / DiagnosticError / DiagnosticInfo / DiagnosticOk / Comment",
       "Unknown state/liveness is never inferred as idle or ended",
       "K: hover detail; K again: focus; q/Esc in hover: close; Enter: split detail",
       "— after provider: no observations in this snapshot",
