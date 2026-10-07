@@ -258,6 +258,28 @@ assert(request.provider == 'codex', 'K fetched wrong provider for shared session
 publish(snapshot({ claude }))
 closed(win, buf, request, 1); reply(request, codex); no_popup('removed row resurrected hover')
 
+-- A terminal transition can move a row behind its active sibling. The old
+-- anchor must close rather than display completed details on a different row.
+local sibling = session('claude', 'zz-sibling', 'Still active')
+reset(snapshot({ claude, sibling, codex })); win, buf, request = start()
+local ended = vim.deepcopy(claude)
+ended.state = 'ended'; ended.aggregate_state = 'ended'; ended.running_descendants = 0
+ended.unresolved_requests = 0; ended.unresolved_count_exact = true; ended.attention_unknown = false; ended.request_ids = {}
+publish(snapshot({ ended, sibling, codex }))
+closed(win, buf, request, 1); reply(request, ended); no_popup('terminal reorder resurrected stale hover')
+win, buf, request = start(ended); reply(request, ended)
+assert(text(buf):find('aggregate_state: ended', 1, true), 'reordered ended history lost K detail')
+press('K'); press('q'); closed(win, buf, request, 1)
+
+-- Ending the parent alone does not reorder or close an active subtree hover.
+reset(snapshot({ claude, sibling, codex })); win, buf, request = start()
+local active_parent = vim.deepcopy(claude); active_parent.state = 'ended'
+publish(snapshot({ active_parent, sibling, codex }))
+assert(vim.api.nvim_win_is_valid(win), 'ended parent with waiting descendants was deprioritized')
+local refreshed = requests[#requests]; reply(refreshed, active_parent)
+assert(text(buf):find('state: ended', 1, true) and text(buf):find('aggregate_state: waiting', 1, true))
+press('K'); press('q'); closed(win, buf, refreshed, 1)
+
 -- Resizes dismiss anchored content, and a fresh open remains bounded even in a
 -- small terminal. Check both pending and already-rendered popups.
 for _, size in ipairs({ { 80, 24 }, { 24, 10 }, { 16, 6 } }) do
