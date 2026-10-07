@@ -47,7 +47,23 @@ for i=1,6 do pressure[#pressure+1]=session('codex',string.format('z-working-%02d
 local same_provider={session('claude','a-ended','ended'),session('claude','b-ended','ended'),
   session('claude','z-running','running'),session('claude','y-idle','idle'),session('claude','x-unknown','unknown')}
 local ended_parent=session('codex','a-ended-parent','ended');ended_parent.aggregate_state='running';ended_parent.running_descendants=2
+local same_project={session('codex','01912345-a91f','running'),session('codex','01912345-0bc8','idle')}
+for _,row in ipairs(same_project) do row.name=nil;row.cwd='/home/example/mimori' end
+same_project[1].unresolved_requests=2;same_project[1].running_descendants=4
+local named_project={session('claude','named-one','running'),session('claude','named-two','idle')}
+named_project[1].name='認証修正';named_project[1].cwd='/home/example/mimori'
+named_project[2].name='👩‍💻 日本語の幅調整';named_project[2].cwd='/home/example/dotfiles-nvim'
+local empty_metadata=session('claude','empty-7d2c','unknown');empty_metadata.name='  ';empty_metadata.cwd=' '
+local suffixes={session('codex','01912345-11beef','idle'),session('codex','01912345-22beef','idle')}
+for _,row in ipairs(suffixes) do row.name='同名の作業';row.cwd='/home/example/mimori' end
+local clipped={session('claude','task-aa11','idle'),session('claude','task-bb22','idle')}
+clipped[1].name='日本語の長い作業名その一';clipped[2].name='日本語の長い作業名その二'
+local many_children=session('claude','parent-91ff','running');many_children.name=nil;many_children.cwd='/home/example/mimori'
+many_children.running_descendants=50;many_children.unresolved_requests=2
 local cases={
+  {'project-fallback',snapshot(same_project)}, {'named-project',snapshot(named_project)},
+  {'empty-metadata',snapshot({empty_metadata})}, {'suffix-collision',snapshot(suffixes)},
+  {'truncated-labels',snapshot(clipped)}, {'many-children-label',snapshot({many_children})},
   {'empty',snapshot()}, {'connected-idle',snapshot({c})}, {'populated',snapshot({c,x})},
   {'unknown-wait',snapshot({c},{u})}, {'connecting',{status='loading'}},
   {'disconnected',{status='error',diagnostic='collector socket unavailable'}},
@@ -70,7 +86,7 @@ local function lines(buf)
   return text
 end
 local output={}
-for _,width in ipairs({32,40}) do
+for _,width in ipairs({28,32,40}) do
   a.shutdown();k.close()
   local component=a.setup({cap=10})
   k.setup({root={component},window={position='left',size=width,padding=1}})
@@ -88,6 +104,16 @@ for _,width in ipairs({32,40}) do
       local text=table.concat(rendered,'\n')
       assert(not text:find('mimori ·',1,true) and not text:find('classified',1,true))
       assert(text:find('Claude',1,true) and text:find('Codex',1,true))
+      if case[1]=='project-fallback' then
+        assert(text:find('mimori #a91f',1,true) and text:find('mimori #0bc8',1,true),'project/suffix missing from real render')
+      end
+      if case[1]=='named-project' then
+        assert(text:find('認証修正',1,true) and text:find('mimori',1,true),'task/project lost from real render')
+      end
+      if case[1]=='empty-metadata' then assert(text:find('名前なし #7d2c',1,true)) end
+      if case[1]=='suffix-collision' then assert(text:find('#11beef',1,true) and text:find('#22beef',1,true)) end
+      if case[1]=='truncated-labels' and width==28 then assert(text:find('#aa11',1,true) and text:find('#bb22',1,true)) end
+      if case[1]=='many-children-label' then assert(text:find('● W2 R50 mimori',1,true)) end
       if case[1]=='unknown-wait' then assert(text:find('● W2+? R0 ~',1,true),'counts or uncertainty truncated') end
       if case[1]=='populated' then assert(text:find('● W0 R50',1,true)) end
       if case[1]=='other-provider' then assert(text:find('Other: demo',1,true)) end
@@ -141,7 +167,7 @@ if not vim.env.MIMORI_BASELINE then
     end
   end
   publish(snapshot(symbols));vim.api.nvim_exec_autocmds('ColorScheme',{pattern='mimori-test'});k.redraw();vim.wait(30)
-  for _,width in ipairs({32,40}) do
+  for _,width in ipairs({28,32,40}) do
     vim.api.nvim_win_set_width(k.get_state().winid,width);k.redraw();vim.wait(20)
     check_colors(k.get_state().bufnr,true)
   end
@@ -185,6 +211,27 @@ if not vim.env.MIMORI_BASELINE then
   publish(snapshot({c,x},{ended}));vim.wait(30)
   assert(vim.api.nvim_get_current_line():find('12345678-',1,true),'ending moved selection to another identity')
   assert(vim.api.nvim_get_current_line():find('● W0 R0',1,true),'all view lost ended row')
+  -- Renaming labels never changes selection identity or the PR9 ID sort order.
+  publish(snapshot(same_project));a.open_all();vim.wait(30)
+  local labels_win=vim.api.nvim_get_current_win()
+  local chosen
+  for i,line in ipairs(lines(0)) do if line:find('#a91f',1,true) then chosen=i end end
+  assert(chosen);vim.api.nvim_win_set_cursor(labels_win,{chosen,0})
+  for _,width in ipairs({28,32,40}) do
+    vim.api.nvim_win_set_width(labels_win,width)
+    vim.api.nvim_exec_autocmds('WinResized',{});vim.wait(20)
+    assert(vim.api.nvim_get_current_line():find('#a91f',1,true),'resize changed selected identity')
+    for _,line in ipairs(lines(0)) do assert(vim.fn.strdisplaywidth(line)<=width-2,'all-view width was not recomputed') end
+  end
+  local renamed=vim.deepcopy(same_project)
+  renamed[1].name='新しい作業名';renamed[2].name='別の作業名'
+  publish(snapshot({renamed[2],renamed[1]}));vim.wait(30)
+  assert(vim.api.nvim_get_current_line():find('新しい作業名',1,true),'label change moved the selected identity')
+  a.open_detail(renamed[1]);vim.wait(30)
+  local label_detail=table.concat(lines(0),'\n')
+  assert(label_detail:find('session_id: 01912345-a91f',1,true),'detail queried a display suffix')
+  assert(label_detail:find('cwd: /home/example/mimori',1,true) and label_detail:find('name: 新しい作業名',1,true))
+  assert(label_detail:find('label_source: name',1,true),'detail lost label provenance')
   -- The original snapshot/identity stays available to details despite reordering.
   publish(snapshot({c,x},{u}));vim.wait(30)
   a.open_detail(u);vim.wait(30)
@@ -205,4 +252,4 @@ else
 end
 local destination=vim.env.MIMORI_SNAPSHOT_OUT
 if destination then vim.fn.writefile(output,destination) end
-print('presentation: rendered '..#cases..' cases at 32/40 columns; '..(vim.env.MIMORI_BASELINE and 'baseline buffers captured' or 'selection, detail, status and glyph widths passed'))
+print('presentation: rendered '..#cases..' cases at 28/32/40 columns; '..(vim.env.MIMORI_BASELINE and 'baseline buffers captured' or 'selection, detail, status and glyph widths passed'))

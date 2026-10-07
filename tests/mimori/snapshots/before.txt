@@ -1,3 +1,184 @@
+## project-fallback / sidebar 28
+ ● Claude —
+ ● Codex
+ ○ W0 R0 01912345-0bc8
+ ● W2 R4 01912345-a91f
+
+## named-project / sidebar 28
+ ● Claude
+ ● W0 R0 認証修正
+ ○ W0 R0 👩‍💻 日本語の幅調整
+ ● Codex —
+
+## empty-metadata / sidebar 28
+ ● Claude
+ ○ W0 R0
+ ● Codex —
+
+## suffix-collision / sidebar 28
+ ● Claude —
+ ● Codex
+ ○ W0 R0 同名の作業
+ ○ W0 R0 同名の作業
+
+## truncated-labels / sidebar 28
+ ● Claude
+ ○ W0 R0 日本語の長い作業…
+ ○ W0 R0 日本語の長い作業…
+ ● Codex —
+
+## many-children-label / sidebar 28
+ ● Claude
+ ● W2 R50 parent-91ff
+ ● Codex —
+
+## empty / sidebar 28
+ ● Claude —
+ ● Codex —
+
+## connected-idle / sidebar 28
+ ● Claude
+ ○ W0 R0 review-api-change
+ ● Codex —
+
+## populated / sidebar 28
+ ● Claude
+ ○ W0 R0 review-api-change
+ ● Codex
+ ● W0 R50 implement-provid…
+
+## unknown-wait / sidebar 28
+ ● Claude
+ ○ W0 R0 review-api-change
+ ● Codex
+ ● W2+? R0 ~ 12345678-1234…
+
+## connecting / sidebar 28
+ ◌ Claude
+ ◌ Codex
+
+## disconnected / sidebar 28
+ ! Claude
+ ! Codex
+
+## paused / sidebar 28
+ ○ Claude
+ ○ W0 R0 review-api-change
+ ○ Codex —
+
+## wide-name / sidebar 28
+ ● Claude
+ ● W0 R0 日本語の長いセッ…
+ ● Codex —
+
+## error-retained / sidebar 28
+ ! Claude
+ ○ W0 R0 review-api-change
+ ! Codex
+ ● W2+? R0 ~ 12345678-1234…
+ ● W0 R50 implement-provid…
+
+## overflow / sidebar 28
+ ● Claude
+ ○ W0 R0 task-01
+ ○ W0 R0 task-03
+ ○ W0 R0 task-05
+ ○ W0 R0 task-07
+ ○ W0 R0 task-09
+ +2 more · wait 1 · a
+ ● Codex
+ ○ W0 R0 task-02
+ ○ W0 R0 task-04
+ ○ W0 R0 task-06
+ ○ W0 R0 task-08
+ ○ W0 R0 task-10
+ +2 more · wait 0 · a
+
+## all-states / sidebar 28
+ ● Claude
+ ● W0 R0 a-running
+ ● W0 R0 b-waiting
+ ○ W0 R0 c-idle
+ ○ W0 R0 e-unknown
+ ○ W0 R0 f-future
+ ● W0 R0 d-ended
+ ● Codex —
+
+## other-provider / sidebar 28
+ ● Claude —
+ ● Codex —
+ ● Other: demo
+ ○ W0 R0 custom-session
+
+## ended-pressure / sidebar 28
+ ● Claude
+ ● W0 R0 a-ended-01
+ ● W0 R0 a-ended-02
+ ● W0 R0 a-ended-03
+ ● W0 R0 a-ended-04
+ +8 more · wait 0 · a
+ ● Codex
+ ● W0 R0 z-working-01
+ ● W0 R0 z-working-02
+ ● W0 R0 z-working-03
+ ● W0 R0 z-working-04
+ ● W0 R0 z-working-05
+ ● W0 R0 z-working-06
+
+## ended-last / sidebar 28
+ ● Claude
+ ○ W0 R0 x-unknown
+ ○ W0 R0 y-idle
+ ● W0 R0 z-running
+ ● W0 R0 a-ended
+ ● W0 R0 b-ended
+ ● Codex —
+
+## ended-parent / sidebar 28
+ ● Claude —
+ ● Codex
+ ● W0 R2 a-ended-parent
+
+## ended-only / sidebar 28
+ ● Claude
+ ● W0 R0 finished-review
+ ● Codex
+ ● W0 R0 finished-implemen…
+
+## project-fallback / sidebar 32
+ ● Claude —
+ ● Codex
+ ○ W0 R0 01912345-0bc8
+ ● W2 R4 01912345-a91f
+
+## named-project / sidebar 32
+ ● Claude
+ ● W0 R0 認証修正
+ ○ W0 R0 👩‍💻 日本語の幅調整
+ ● Codex —
+
+## empty-metadata / sidebar 32
+ ● Claude
+ ○ W0 R0
+ ● Codex —
+
+## suffix-collision / sidebar 32
+ ● Claude —
+ ● Codex
+ ○ W0 R0 同名の作業
+ ○ W0 R0 同名の作業
+
+## truncated-labels / sidebar 32
+ ● Claude
+ ○ W0 R0 日本語の長い作業名そ…
+ ○ W0 R0 日本語の長い作業名そ…
+ ● Codex —
+
+## many-children-label / sidebar 32
+ ● Claude
+ ● W2 R50 parent-91ff
+ ● Codex —
+
 ## empty / sidebar 32
  ● Claude —
  ● Codex —
@@ -65,9 +246,9 @@
  ● W0 R0 a-running
  ● W0 R0 b-waiting
  ○ W0 R0 c-idle
- ● W0 R0 d-ended
  ○ W0 R0 e-unknown
  ○ W0 R0 f-future
+ ● W0 R0 d-ended
  ● Codex —
 
 ## other-provider / sidebar 32
@@ -82,23 +263,22 @@
  ● W0 R0 a-ended-02
  ● W0 R0 a-ended-03
  ● W0 R0 a-ended-04
- ● W0 R0 a-ended-05
- +7 more · wait 0 · a
+ +8 more · wait 0 · a
  ● Codex
  ● W0 R0 z-working-01
  ● W0 R0 z-working-02
  ● W0 R0 z-working-03
  ● W0 R0 z-working-04
  ● W0 R0 z-working-05
- +1 more · wait 0 · a
+ ● W0 R0 z-working-06
 
 ## ended-last / sidebar 32
  ● Claude
- ● W0 R0 a-ended
- ● W0 R0 b-ended
  ○ W0 R0 x-unknown
  ○ W0 R0 y-idle
  ● W0 R0 z-running
+ ● W0 R0 a-ended
+ ● W0 R0 b-ended
  ● Codex —
 
 ## ended-parent / sidebar 32
@@ -111,6 +291,40 @@
  ● W0 R0 finished-review
  ● Codex
  ● W0 R0 finished-implementati…
+
+## project-fallback / sidebar 40
+ ● Claude —
+ ● Codex
+ ○ W0 R0 01912345-0bc8
+ ● W2 R4 01912345-a91f
+
+## named-project / sidebar 40
+ ● Claude
+ ● W0 R0 認証修正
+ ○ W0 R0 👩‍💻 日本語の幅調整
+ ● Codex —
+
+## empty-metadata / sidebar 40
+ ● Claude
+ ○ W0 R0
+ ● Codex —
+
+## suffix-collision / sidebar 40
+ ● Claude —
+ ● Codex
+ ○ W0 R0 同名の作業
+ ○ W0 R0 同名の作業
+
+## truncated-labels / sidebar 40
+ ● Claude
+ ○ W0 R0 日本語の長い作業名その一
+ ○ W0 R0 日本語の長い作業名その二
+ ● Codex —
+
+## many-children-label / sidebar 40
+ ● Claude
+ ● W2 R50 parent-91ff
+ ● Codex —
 
 ## empty / sidebar 40
  ● Claude —
@@ -179,9 +393,9 @@
  ● W0 R0 a-running
  ● W0 R0 b-waiting
  ○ W0 R0 c-idle
- ● W0 R0 d-ended
  ○ W0 R0 e-unknown
  ○ W0 R0 f-future
+ ● W0 R0 d-ended
  ● Codex —
 
 ## other-provider / sidebar 40
@@ -196,23 +410,22 @@
  ● W0 R0 a-ended-02
  ● W0 R0 a-ended-03
  ● W0 R0 a-ended-04
- ● W0 R0 a-ended-05
- +7 more · wait 0 · a
+ +8 more · wait 0 · a
  ● Codex
  ● W0 R0 z-working-01
  ● W0 R0 z-working-02
  ● W0 R0 z-working-03
  ● W0 R0 z-working-04
  ● W0 R0 z-working-05
- +1 more · wait 0 · a
+ ● W0 R0 z-working-06
 
 ## ended-last / sidebar 40
  ● Claude
- ● W0 R0 a-ended
- ● W0 R0 b-ended
  ○ W0 R0 x-unknown
  ○ W0 R0 y-idle
  ● W0 R0 z-running
+ ● W0 R0 a-ended
+ ● W0 R0 b-ended
  ● Codex —
 
 ## ended-parent / sidebar 40
