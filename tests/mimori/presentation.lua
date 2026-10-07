@@ -41,6 +41,12 @@ u.unresolved_requests=2; u.unresolved_count_exact=false; u.attention_unknown=tru
 local overflow={};for i=1,14 do overflow[i]=session(i%2==0 and 'codex' or 'claude',string.format('task-%02d',i),'idle') end
 overflow[13].aggregate_state='waiting';overflow[13].unresolved_requests=1
 local failed=snapshot({c,x},{u},'error');failed.diagnostic='CLI exit 1: cannot connect to collector'
+local pressure={}
+for i=1,12 do pressure[#pressure+1]=session('claude',string.format('a-ended-%02d',i),'ended') end
+for i=1,6 do pressure[#pressure+1]=session('codex',string.format('z-working-%02d',i),'running') end
+local same_provider={session('claude','a-ended','ended'),session('claude','b-ended','ended'),
+  session('claude','z-running','running'),session('claude','y-idle','idle'),session('claude','x-unknown','unknown')}
+local ended_parent=session('codex','a-ended-parent','ended');ended_parent.aggregate_state='running';ended_parent.running_descendants=2
 local cases={
   {'empty',snapshot()}, {'connected-idle',snapshot({c})}, {'populated',snapshot({c,x})},
   {'unknown-wait',snapshot({c},{u})}, {'connecting',{status='loading'}},
@@ -50,6 +56,9 @@ local cases={
   {'error-retained',failed}, {'overflow',snapshot(overflow)},
   {'all-states',snapshot({session('claude','a-running','running'),session('claude','b-waiting','waiting'),session('claude','c-idle','idle'),session('claude','d-ended','ended'),session('claude','e-unknown','unknown'),session('claude','f-future','future-state')})},
   {'other-provider',snapshot({session('demo','custom-session','unknown')})},
+  {'ended-pressure',snapshot(pressure)}, {'ended-last',snapshot(same_provider)},
+  {'ended-parent',snapshot({ended_parent})},
+  {'ended-only',snapshot({session('claude','finished-review','ended'),session('codex','finished-implementation','ended')})},
 }
 local function publish(s)
   current=s;for _,cb in pairs(subscribers) do cb(s) end
@@ -82,6 +91,12 @@ for _,width in ipairs({32,40}) do
       if case[1]=='unknown-wait' then assert(text:find('● W2+? R0 ~',1,true),'counts or uncertainty truncated') end
       if case[1]=='populated' then assert(text:find('● W0 R50',1,true)) end
       if case[1]=='other-provider' then assert(text:find('Other: demo',1,true)) end
+      if case[1]=='ended-pressure' then
+        assert(text:find('z-working-06',1,true),'ended history stole active slots')
+        assert(text:find('+8 more · wait 0 · a',1,true),'ended overflow incorrect')
+      end
+      if case[1]=='ended-last' then assert(text:find('z-running',1,true)<text:find('a-ended',1,true)) end
+      if case[1]=='ended-parent' then assert(text:find('● W0 R2',1,true),'ended parent lost active descendants') end
     end
   end
 end
@@ -164,6 +179,14 @@ if not vim.env.MIMORI_BASELINE then
   assert(target);vim.api.nvim_win_set_cursor(win,{target,0})
   publish(snapshot({x,session('claude','aaa-new','idle'),c},{u}));vim.wait(30)
   assert(vim.api.nvim_get_current_line():find('● W2+? R0 ~',1,true),'selection changed identity')
+  -- Moving a selected identity from active to ended preserves all-view selection.
+  local ended=vim.deepcopy(u);ended.state='ended';ended.aggregate_state='ended'
+  ended.unresolved_requests=0;ended.unresolved_count_exact=true;ended.attention_unknown=false
+  publish(snapshot({c,x},{ended}));vim.wait(30)
+  assert(vim.api.nvim_get_current_line():find('12345678-',1,true),'ending moved selection to another identity')
+  assert(vim.api.nvim_get_current_line():find('● W0 R0',1,true),'all view lost ended row')
+  -- The original snapshot/identity stays available to details despite reordering.
+  publish(snapshot({c,x},{u}));vim.wait(30)
   a.open_detail(u);vim.wait(30)
   assert(table.concat(lines(0),'\n'):find('classification: unresolved',1,true))
   publish(failed);a.open_status();vim.wait(30)

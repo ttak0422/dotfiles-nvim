@@ -54,8 +54,12 @@ timeout, 6 s outer startup timeout, 30 s maximum retry backoff, 4 MiB stdout and
 16 KiB stderr. These are adjustable PoC limits, not provider latency guarantees.
 The default summary-row budget is 10 (`require('mimori.komado').setup({cap=10})`),
 shared between providers and including uncertain-hierarchy entries. Allocation is
-round-robin between provider groups; provider headers and overflow rows are extra.
-Each provider keeps stable session-ID ordering. See [actual sidebar previews and
+round-robin between provider groups, first for non-ended summaries and then for
+ended history using spare slots; provider headers and overflow rows are extra.
+Each provider keeps stable session-ID ordering within those two partitions.
+Idle/unknown entries remain prioritized, and ended parents with running/waiting/unknown
+aggregates remain prioritized. No history is deleted; the all view retains every
+summary with the same ordering. See [actual sidebar previews and
 notation](mimori-sidebar.md).
 
 Generic API: `setup(opts)`, `subscribe(callback)` returning an idempotent release,

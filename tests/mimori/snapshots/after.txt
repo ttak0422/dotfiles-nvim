@@ -65,9 +65,9 @@
  ● W0 R0 a-running
  ● W0 R0 b-waiting
  ○ W0 R0 c-idle
- ● W0 R0 d-ended
  ○ W0 R0 e-unknown
  ○ W0 R0 f-future
+ ● W0 R0 d-ended
  ● Codex —
 
 ## other-provider / sidebar 32
@@ -75,6 +75,41 @@
  ● Codex —
  ● Other: demo
  ○ W0 R0 custom-session
+
+## ended-pressure / sidebar 32
+ ● Claude
+ ● W0 R0 a-ended-01
+ ● W0 R0 a-ended-02
+ ● W0 R0 a-ended-03
+ ● W0 R0 a-ended-04
+ +8 more · wait 0 · a
+ ● Codex
+ ● W0 R0 z-working-01
+ ● W0 R0 z-working-02
+ ● W0 R0 z-working-03
+ ● W0 R0 z-working-04
+ ● W0 R0 z-working-05
+ ● W0 R0 z-working-06
+
+## ended-last / sidebar 32
+ ● Claude
+ ○ W0 R0 x-unknown
+ ○ W0 R0 y-idle
+ ● W0 R0 z-running
+ ● W0 R0 a-ended
+ ● W0 R0 b-ended
+ ● Codex —
+
+## ended-parent / sidebar 32
+ ● Claude —
+ ● Codex
+ ● W0 R2 a-ended-parent
+
+## ended-only / sidebar 32
+ ● Claude
+ ● W0 R0 finished-review
+ ● Codex
+ ● W0 R0 finished-implementati…
 
 ## empty / sidebar 40
  ● Claude —
@@ -143,9 +178,9 @@
  ● W0 R0 a-running
  ● W0 R0 b-waiting
  ○ W0 R0 c-idle
- ● W0 R0 d-ended
  ○ W0 R0 e-unknown
  ○ W0 R0 f-future
+ ● W0 R0 d-ended
  ● Codex —
 
 ## other-provider / sidebar 40
@@ -153,4 +188,39 @@
  ● Codex —
  ● Other: demo
  ○ W0 R0 custom-session
+
+## ended-pressure / sidebar 40
+ ● Claude
+ ● W0 R0 a-ended-01
+ ● W0 R0 a-ended-02
+ ● W0 R0 a-ended-03
+ ● W0 R0 a-ended-04
+ +8 more · wait 0 · a
+ ● Codex
+ ● W0 R0 z-working-01
+ ● W0 R0 z-working-02
+ ● W0 R0 z-working-03
+ ● W0 R0 z-working-04
+ ● W0 R0 z-working-05
+ ● W0 R0 z-working-06
+
+## ended-last / sidebar 40
+ ● Claude
+ ○ W0 R0 x-unknown
+ ○ W0 R0 y-idle
+ ● W0 R0 z-running
+ ● W0 R0 a-ended
+ ● W0 R0 b-ended
+ ● Codex —
+
+## ended-parent / sidebar 40
+ ● Claude —
+ ● Codex
+ ● W0 R2 a-ended-parent
+
+## ended-only / sidebar 40
+ ● Claude
+ ● W0 R0 finished-review
+ ● Codex
+ ● W0 R0 finished-implementation
 

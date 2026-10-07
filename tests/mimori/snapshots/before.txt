@@ -4,20 +4,20 @@
 
 ## connected-idle / sidebar 32
  ● Claude
- idle W0 R0 review-api-change
+ ○ W0 R0 review-api-change
  ● Codex —
 
 ## populated / sidebar 32
  ● Claude
- idle W0 R0 review-api-change
+ ○ W0 R0 review-api-change
  ● Codex
- run W0 R50 implement-provider…
+ ● W0 R50 implement-provider-l…
 
 ## unknown-wait / sidebar 32
  ● Claude
- idle W0 R0 review-api-change
+ ○ W0 R0 review-api-change
  ● Codex
- wait W2+? R0 ~ 12345678-1234-…
+ ● W2+? R0 ~ 12345678-1234-123…
 
 ## connecting / sidebar 32
  ◌ Claude
@@ -29,52 +29,88 @@
 
 ## paused / sidebar 32
  ○ Claude
- idle W0 R0 review-api-change
+ ○ W0 R0 review-api-change
  ○ Codex —
 
 ## wide-name / sidebar 32
  ● Claude
- run W0 R0 日本語の長いセッシ…
+ ● W0 R0 日本語の長いセッショ…
  ● Codex —
 
 ## error-retained / sidebar 32
  ! Claude
- idle W0 R0 review-api-change
+ ○ W0 R0 review-api-change
  ! Codex
- wait W2+? R0 ~ 12345678-1234-…
- run W0 R50 implement-provider…
+ ● W2+? R0 ~ 12345678-1234-123…
+ ● W0 R50 implement-provider-l…
 
 ## overflow / sidebar 32
  ● Claude
- idle W0 R0 task-01
- idle W0 R0 task-03
- idle W0 R0 task-05
- idle W0 R0 task-07
- idle W0 R0 task-09
+ ○ W0 R0 task-01
+ ○ W0 R0 task-03
+ ○ W0 R0 task-05
+ ○ W0 R0 task-07
+ ○ W0 R0 task-09
  +2 more · wait 1 · a
  ● Codex
- idle W0 R0 task-02
- idle W0 R0 task-04
- idle W0 R0 task-06
- idle W0 R0 task-08
- idle W0 R0 task-10
+ ○ W0 R0 task-02
+ ○ W0 R0 task-04
+ ○ W0 R0 task-06
+ ○ W0 R0 task-08
+ ○ W0 R0 task-10
  +2 more · wait 0 · a
 
 ## all-states / sidebar 32
  ● Claude
- run W0 R0 a-running
- wait W0 R0 b-waiting
- idle W0 R0 c-idle
- end W0 R0 d-ended
- ? W0 R0 e-unknown
- ? W0 R0 f-future
+ ● W0 R0 a-running
+ ● W0 R0 b-waiting
+ ○ W0 R0 c-idle
+ ● W0 R0 d-ended
+ ○ W0 R0 e-unknown
+ ○ W0 R0 f-future
  ● Codex —
 
 ## other-provider / sidebar 32
  ● Claude —
  ● Codex —
  ● Other: demo
- ? W0 R0 custom-session
+ ○ W0 R0 custom-session
+
+## ended-pressure / sidebar 32
+ ● Claude
+ ● W0 R0 a-ended-01
+ ● W0 R0 a-ended-02
+ ● W0 R0 a-ended-03
+ ● W0 R0 a-ended-04
+ ● W0 R0 a-ended-05
+ +7 more · wait 0 · a
+ ● Codex
+ ● W0 R0 z-working-01
+ ● W0 R0 z-working-02
+ ● W0 R0 z-working-03
+ ● W0 R0 z-working-04
+ ● W0 R0 z-working-05
+ +1 more · wait 0 · a
+
+## ended-last / sidebar 32
+ ● Claude
+ ● W0 R0 a-ended
+ ● W0 R0 b-ended
+ ○ W0 R0 x-unknown
+ ○ W0 R0 y-idle
+ ● W0 R0 z-running
+ ● Codex —
+
+## ended-parent / sidebar 32
+ ● Claude —
+ ● Codex
+ ● W0 R2 a-ended-parent
+
+## ended-only / sidebar 32
+ ● Claude
+ ● W0 R0 finished-review
+ ● Codex
+ ● W0 R0 finished-implementati…
 
 ## empty / sidebar 40
  ● Claude —
@@ -82,20 +118,20 @@
 
 ## connected-idle / sidebar 40
  ● Claude
- idle W0 R0 review-api-change
+ ○ W0 R0 review-api-change
  ● Codex —
 
 ## populated / sidebar 40
  ● Claude
- idle W0 R0 review-api-change
+ ○ W0 R0 review-api-change
  ● Codex
- run W0 R50 implement-provider-layout
+ ● W0 R50 implement-provider-layout
 
 ## unknown-wait / sidebar 40
  ● Claude
- idle W0 R0 review-api-change
+ ○ W0 R0 review-api-change
  ● Codex
- wait W2+? R0 ~ 12345678-1234-1234-123…
+ ● W2+? R0 ~ 12345678-1234-1234-1234-1…
 
 ## connecting / sidebar 40
  ◌ Claude
@@ -107,50 +143,86 @@
 
 ## paused / sidebar 40
  ○ Claude
- idle W0 R0 review-api-change
+ ○ W0 R0 review-api-change
  ○ Codex —
 
 ## wide-name / sidebar 40
  ● Claude
- run W0 R0 日本語の長いセッション名と…
+ ● W0 R0 日本語の長いセッション名と進…
  ● Codex —
 
 ## error-retained / sidebar 40
  ! Claude
- idle W0 R0 review-api-change
+ ○ W0 R0 review-api-change
  ! Codex
- wait W2+? R0 ~ 12345678-1234-1234-123…
- run W0 R50 implement-provider-layout
+ ● W2+? R0 ~ 12345678-1234-1234-1234-1…
+ ● W0 R50 implement-provider-layout
 
 ## overflow / sidebar 40
  ● Claude
- idle W0 R0 task-01
- idle W0 R0 task-03
- idle W0 R0 task-05
- idle W0 R0 task-07
- idle W0 R0 task-09
+ ○ W0 R0 task-01
+ ○ W0 R0 task-03
+ ○ W0 R0 task-05
+ ○ W0 R0 task-07
+ ○ W0 R0 task-09
  +2 more · wait 1 · a
  ● Codex
- idle W0 R0 task-02
- idle W0 R0 task-04
- idle W0 R0 task-06
- idle W0 R0 task-08
- idle W0 R0 task-10
+ ○ W0 R0 task-02
+ ○ W0 R0 task-04
+ ○ W0 R0 task-06
+ ○ W0 R0 task-08
+ ○ W0 R0 task-10
  +2 more · wait 0 · a
 
 ## all-states / sidebar 40
  ● Claude
- run W0 R0 a-running
- wait W0 R0 b-waiting
- idle W0 R0 c-idle
- end W0 R0 d-ended
- ? W0 R0 e-unknown
- ? W0 R0 f-future
+ ● W0 R0 a-running
+ ● W0 R0 b-waiting
+ ○ W0 R0 c-idle
+ ● W0 R0 d-ended
+ ○ W0 R0 e-unknown
+ ○ W0 R0 f-future
  ● Codex —
 
 ## other-provider / sidebar 40
  ● Claude —
  ● Codex —
  ● Other: demo
- ? W0 R0 custom-session
+ ○ W0 R0 custom-session
+
+## ended-pressure / sidebar 40
+ ● Claude
+ ● W0 R0 a-ended-01
+ ● W0 R0 a-ended-02
+ ● W0 R0 a-ended-03
+ ● W0 R0 a-ended-04
+ ● W0 R0 a-ended-05
+ +7 more · wait 0 · a
+ ● Codex
+ ● W0 R0 z-working-01
+ ● W0 R0 z-working-02
+ ● W0 R0 z-working-03
+ ● W0 R0 z-working-04
+ ● W0 R0 z-working-05
+ +1 more · wait 0 · a
+
+## ended-last / sidebar 40
+ ● Claude
+ ● W0 R0 a-ended
+ ● W0 R0 b-ended
+ ○ W0 R0 x-unknown
+ ○ W0 R0 y-idle
+ ● W0 R0 z-running
+ ● Codex —
+
+## ended-parent / sidebar 40
+ ● Claude —
+ ● Codex
+ ● W0 R2 a-ended-parent
+
+## ended-only / sidebar 40
+ ● Claude
+ ● W0 R0 finished-review
+ ● Codex
+ ● W0 R0 finished-implementation
 

@@ -26,6 +26,13 @@ end
 M.clean = clean
 local function state_label(s) return known[s] and s or ("unknown (" .. clean(s, 30) .. ")") end
 local function waiting(r) return r.unresolved_requests > 0 or r.attention_unknown or not r.unresolved_count_exact end
+-- Deprioritize only an explicitly ended summary with no remaining activity/attention.
+-- An ended parent can still aggregate running, waiting or unknown descendants.
+-- Neither idle, unknown liveness nor the age of an observation proves an end.
+local function completed(r)
+  return r.state == "ended" and r.aggregate_state == "ended"
+    and r.running_descendants == 0 and not waiting(r)
+end
 local function label(r)
   local n = tostring(r.unresolved_requests) .. (r.unresolved_count_exact and "" or "+?")
   return string.format("%s · %s · child %d · wait %s%s", r.name or r.session_id, state_label(r.aggregate_state), r.running_descendants, n,
@@ -85,20 +92,30 @@ local function rows(snapshot, limit)
     return x == y and a.key < b.key or x < y
   end)
   for _, g in ipairs(groups) do
-    table.sort(g.entries, function(a, b) return a.session_id < b.session_id end)
+    table.sort(g.entries, function(a, b)
+      local x, y = completed(a), completed(b)
+      if x ~= y then return not x end
+      return a.session_id < b.session_id
+    end)
+    g.active = 0
+    for _, row in ipairs(g.entries) do if not completed(row) then g.active = g.active + 1 end end
     g.shown = limit and 0 or #g.entries
   end
-  -- One shared row budget; round-robin allocation prevents one provider from
-  -- consuming every slot. Group order and each provider's identity order stay stable.
+  -- Spend the shared budget on non-ended summaries across ALL providers first.
+  -- Only spare slots go to ended summaries. Round-robin within each pass keeps
+  -- providers fair without letting one provider's history evict another's work.
   local remaining = limit or 0
-  while remaining > 0 do
-    local progressed = false
-    for _, g in ipairs(groups) do
-      if remaining > 0 and g.shown < #g.entries then
-        g.shown = g.shown + 1; remaining = remaining - 1; progressed = true
+  for _, phase in ipairs({ "active", "all" }) do
+    while remaining > 0 do
+      local progressed = false
+      for _, g in ipairs(groups) do
+        local available = phase == "active" and g.active or #g.entries
+        if remaining > 0 and g.shown < available then
+          g.shown = g.shown + 1; remaining = remaining - 1; progressed = true
+        end
       end
+      if not progressed then break end
     end
-    if not progressed then break end
   end
   local result = {}
   for _, g in ipairs(groups) do
@@ -232,6 +249,8 @@ function M.open_status()
       "Colors follow DiagnosticWarn / DiagnosticError / DiagnosticInfo / DiagnosticOk / Comment",
       "Unknown state/liveness is never inferred as idle or ended",
       "K: hover detail; K again: focus; q/Esc in hover: close; Enter: split detail",
+      "Non-ended summaries get sidebar slots first; ended history uses spare slots",
+      "Ended summaries sort last within each provider; a shows every summary",
       "— after provider: no observations in this snapshot",
       "a: all · r: retry/refresh · q: close" })
     write(v, lines)
