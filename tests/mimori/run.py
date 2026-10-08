@@ -9,7 +9,7 @@ parser=argparse.ArgumentParser()
 parser.add_argument('--snapshots',type=Path,help='write actual before/after Komado buffers here')
 args=parser.parse_args()
 if args.snapshots: args.snapshots.mkdir(parents=True,exist_ok=True)
-for suite in ('client','adapter','priority','presentation','hover'):
+for suite in ('packaging','client','adapter','priority','labels','presentation','hover'):
     with tempfile.TemporaryDirectory(prefix='mimori-lua-',dir='/tmp') as path:
         temp=Path(path)
         for name in ('home','state/nvim','data','cache'): (temp/name).mkdir(parents=True,exist_ok=True)
@@ -28,7 +28,7 @@ for suite in ('client','adapter','priority','presentation','hover'):
                 (args.snapshots/'after.txt').write_text(actual)
                 baseline=temp/'baseline.lua'
                 baseline.write_bytes(subprocess.check_output(['git','show',
-                    '420db159a086f6e56d5d82a5ffeb3f9375e3093d:v2/lua/mimori/komado.lua'],cwd=root))
+                    '6393d59cc9af839493c23b3de73817e4385ba72e:v2/lua/mimori/komado.lua'],cwd=root))
                 env['MIMORI_BASELINE']=str(baseline)
                 env['MIMORI_SNAPSHOT_OUT']=str(args.snapshots/'before.txt')
                 subprocess.run(command,env=env,check=True)

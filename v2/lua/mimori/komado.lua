@@ -1,5 +1,6 @@
 -- Thin adapter: visibility owns subscriptions; all render providers read cache.
 local client = require("mimori.client")
+local labels = require("mimori.labels")
 local M = {}
 local release, group, pending, komado, cap, view, detail_view, all_view, status_view
 local hover_view
@@ -8,21 +9,7 @@ local generation = 0
 local highlights = vim.api.nvim_create_namespace("mimori.states")
 local event = "MimoriViewChanged"
 local known = { running = true, idle = true, ended = true, waiting = true, unknown = true }
-local function clean(value, width)
-  local text = tostring(value or "?"):gsub("\27%[[0-?]*[ -/]*[@-~]", ""):gsub("\27%][^\7]*\7", "")
-  text = text:gsub("[%c]", " ")
-  -- Also strip Unicode line/control separators used to spoof displayed rows.
-  text = text:gsub("\194[\128-\159]", " "):gsub("\226\128[\168-\174]", " "):gsub("\226\129[\166-\169]", " ")
-  width = math.max(1, width or 120)
-  if vim.fn.strdisplaywidth(text) <= width then return text end
-  local ellipsis = vim.fn.strdisplaywidth("…") <= width and "…" or "."
-  local result = ""
-  for _, c in ipairs(vim.fn.split(text, "\\zs")) do
-    if vim.fn.strdisplaywidth(result .. c .. ellipsis) > width then break end
-    result = result .. c
-  end
-  return result .. ellipsis
-end
+local clean = labels.clean
 M.clean = clean
 local function state_label(s) return known[s] and s or ("unknown (" .. clean(s, 30) .. ")") end
 local function waiting(r) return r.unresolved_requests > 0 or r.attention_unknown or not r.unresolved_count_exact end
@@ -35,7 +22,7 @@ local function completed(r)
 end
 local function label(r)
   local n = tostring(r.unresolved_requests) .. (r.unresolved_count_exact and "" or "+?")
-  return string.format("%s · %s · child %d · wait %s%s", r.name or r.session_id, state_label(r.aggregate_state), r.running_descendants, n,
+  return string.format("%s · %s · child %d · wait %s%s", labels.describe(r).primary, state_label(r.aggregate_state), r.running_descendants, n,
     r.attention_unknown and " attention?" or "")
 end
 -- Text presentation uses one display cell per transport glyph, including when
@@ -65,13 +52,13 @@ local function state_icon(state)
   return vim.fn.strdisplaywidth(s[1]) == 1 and s[1] or s[2], s[3]
 end
 M.state_icon = state_icon
-local function summary(r)
+local function summary_prefix(r)
   local count = tostring(r.unresolved_requests) .. (r.unresolved_count_exact and "" or "+?")
-  -- Identity/name is last so truncation preserves the state and both counts.
-  return string.format("%s W%s R%d%s %s", state_icon(r.aggregate_state), count,
-    r.running_descendants, r.classification ~= "resolved" and " ~" or "", r.name or r.session_id)
+  return string.format("%s W%s R%d%s ", state_icon(r.aggregate_state), count,
+    r.running_descendants, r.classification ~= "resolved" and " ~" or "")
 end
-local function rows(snapshot, limit)
+local function rows(snapshot, limit, width)
+  width = width or 120
   local groups = { { key = "claude", title = "Claude", entries = {} }, { key = "codex", title = "Codex", entries = {} } }
   local by_provider = { claude = groups[1], codex = groups[2] }
   if snapshot.data then
@@ -97,6 +84,9 @@ local function rows(snapshot, limit)
       if x ~= y then return not x end
       return a.session_id < b.session_id
     end)
+    local widths = {}
+    for i, row in ipairs(g.entries) do widths[i] = math.max(0, width - vim.fn.strdisplaywidth(summary_prefix(row))) end
+    g.labels = labels.prepare(g.entries, widths)
     g.active = 0
     for _, row in ipairs(g.entries) do if not completed(row) then g.active = g.active + 1 end end
     g.shown = limit and 0 or #g.entries
@@ -123,7 +113,7 @@ local function rows(snapshot, limit)
       .. (snapshot.data and #g.entries == 0 and " —" or ""), kind = "provider" }
     for i = 1, g.shown do
       local icon, hl = state_icon(g.entries[i].aggregate_state)
-      result[#result + 1] = { text = summary(g.entries[i]), icon = icon, hl = hl, session = g.entries[i], kind = "session" }
+      result[#result + 1] = { text = summary_prefix(g.entries[i]) .. g.labels[i].text, icon = icon, hl = hl, session = g.entries[i], kind = "session" }
     end
     if g.shown < #g.entries then
       local waits = 0
@@ -166,7 +156,7 @@ local function render_all(v, snapshot)
     local old = v.rows[vim.api.nvim_win_get_cursor(v.win)[1]]
     selected = old and old.session and client.identity(old.session)
   end
-  v.rows = rows(snapshot)
+  v.rows = rows(snapshot, nil, vim.api.nvim_win_get_width(v.win) - 2)
   local lines, line = {}, nil
   for i, row in ipairs(v.rows) do
     lines[i] = (row.icon or "") .. row_tail(row, vim.api.nvim_win_get_width(v.win) - 2)
@@ -244,6 +234,10 @@ function M.open_status()
       "W: unresolved requests; +? includes an unknown remainder",
       "R: running descendants (not all children)",
       "~ before a name: hierarchy is not resolved; Enter shows why",
+      "Label: provider name, then reported cwd basename, then 名前なし",
+      "A supplied name is followed by cwd context when space permits",
+      "#suffix: session ID disambiguator; uncommon IDs use a display fingerprint",
+      "Names do not affect sorting, provider identity, hierarchy or the shared cap",
       "●/*: running (yellow), waiting (red/pink), ended (cyan/blue)",
       "○/o: idle (green), unknown (gray)",
       "Colors follow DiagnosticWarn / DiagnosticError / DiagnosticInfo / DiagnosticOk / Comment",
@@ -259,7 +253,9 @@ function M.open_status()
   subscribe_view(v)
 end
 local function detail_lines(row)
-  local lines = { "mimori detail", label(row) }
+  local info = labels.describe(row)
+  local lines = { "mimori detail", label(row), "label_source: " .. info.source,
+    "name: " .. (info.task or "—"), "cwd_label: " .. (info.project or "—") }
   for _, k in ipairs({ "provider", "session_id", "generation", "cwd", "state", "aggregate_state", "relation", "parent_id", "root_id", "classification", "liveness", "ordering", "last_event_at" }) do
     lines[#lines + 1] = k .. ": " .. tostring(row[k] or "—")
   end
@@ -441,6 +437,9 @@ function M.setup(opts)
     if all_view and not all_view.closed then render_all(all_view, client.snapshot()) end
     changed()
   end })
+  vim.api.nvim_create_autocmd({ "WinResized", "VimResized" }, { group = group, callback = function()
+    if all_view and not all_view.closed then render_all(all_view, client.snapshot()) end
+  end })
   vim.api.nvim_create_autocmd("VimLeavePre", { group = group, callback = M.shutdown })
   vim.api.nvim_create_user_command("MimoriAll", M.open_all, {})
   vim.api.nvim_create_user_command("MimoriRefresh", client.refresh, {})
@@ -449,7 +448,10 @@ function M.setup(opts)
   local utils, Line = require("komado.utils"), require("komado.dsl").Line
   return {
     update = { "User", pattern = event },
-    utils.mapped_list(function() return rows(view, cap) end, function(item)
+    utils.mapped_list(function()
+      local s = komado.get_state()
+      return rows(view, cap, s and s._content_width or 36)
+    end, function(item)
       return Line({
         mappings = {
           a = M.open_all,

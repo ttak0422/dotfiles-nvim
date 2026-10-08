@@ -150,6 +150,8 @@ for _, field in ipairs({ 'provider', 'session_id', 'generation', 'cwd', 'state',
   'relation', 'parent_id', 'root_id', 'classification', 'liveness', 'ordering', 'last_event_at' }) do
   assert(detail:find(field .. ':', 1, true), 'detail field lost: ' .. field)
 end
+assert(detail:find('name: Claude task', 1, true) and detail:find('label_source: name', 1, true), 'hover label metadata lost')
+assert(detail:find('session_id: shared-id', 1, true) and detail:find('cwd: /project', 1, true), 'hover full identity lost')
 assert(detail:find('request-one', 1, true), 'own unresolved request IDs lost')
 assert(detail:find('Counts are backend aggregates; liveness unknown is not idle.', 1, true), 'detail caveat lost')
 assert(not vim.bo[buf].modifiable, 'hover content is editable')

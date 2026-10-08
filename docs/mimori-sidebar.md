@@ -47,6 +47,46 @@ idle/unknown sessions are never inferred to have ended.
 - `+2 more · wait 1 · a`: two summary entries hidden, one with waiting/unknown
   attention. This count is entries, not requests. `a` opens the full grouped list
 
+## Task and directory labels
+
+The display-only label uses the first nonempty, sanitized value in this order:
+
+1. The provider's supplied `name`
+2. The basename of its reported `cwd`
+3. `名前なし` with a short session disambiguator
+
+When both name and cwd exist, the row shows `name · directory` when there is room.
+The name gets the larger width budget; directory context is omitted before both
+parts become unreadably short. A matching name/directory is shown once. The
+cwd basename is a useful project hint, not a verified Git repository root.
+Whitespace-only and control-only metadata count as missing.
+
+Rows with the same primary name within a provider gain `#suffix`. Different full
+names that collide after display-width truncation also gain a suffix. Collision
+checks include that provider's complete cached snapshot, including rows beyond
+the cap. ASCII session IDs use their last four characters, extending by two on
+collision. Unusual IDs, or common tails longer than eight characters, use an
+explicit `#~fingerprint` instead. The suffix has its own reserved width; truncating
+a long human name cannot erase it at ordinary sidebar widths. Extremely squeezed
+windows can still lack space for any usable identity; K/Enter retains the full ID.
+
+Name/path text is trimmed, stripped of ANSI/control characters, and truncated by
+Neovim display cells, preserving Japanese, combining characters and emoji clusters.
+State/count prefixes and uncertainty markers keep their existing meaning. Colors
+still apply only to the one-cell state icon.
+
+This is an adapter-only change: no Git subprocess, filesystem scan, transcript
+reader, prompt summary, title generator, upstream hook change or alias persistence
+is added. The current raw provider hooks supply cwd but do not populate name;
+those rows normally show the directory. A normalized producer may already supply
+name. The UI never invents a task title from an ID or directory.
+
+The same cached root/unclassified summaries are queried as before. This is not an
+active-only collection filter. Explicitly ended summaries use spare slots, while
+idle/unknown rows remain in the first partition. Names never change the PR9 sort,
+provider grouping, cap, tree identity, or the provider/session key used by details.
+K/Enter adds `name`, `cwd_label` and `label_source` and keeps the full ID and cwd.
+
 ## Detail keys
 
 - `K` on an agent row: open its existing detail fields in a rounded, wrapped hover,
@@ -106,89 +146,24 @@ child discovery, expiry heuristics, or a mimori patch.
 
 ## Actual rendered examples
 
-These are lines read from the real pinned Komado buffer (`8123dd6`), using
-anonymous snapshots and padding=1. `before` uses dotfiles-nvim main
-`420db159a086f6e56d5d82a5ffeb3f9375e3093d`; `after` uses this implementation.
-Text fixtures cannot display the colors; tests also inspect real extmarks for
-each state, theme changes, and custom highlight preservation.
+These are lines from the real pinned Komado buffer (`8123dd6`) with anonymous
+snapshots and padding=1. `before` uses main after PR9
+(`6393d59cc9af839493c23b3de73817e4385ba72e`); `after` uses this implementation.
 The complete [before](../tests/mimori/snapshots/before.txt) and
-[after](../tests/mimori/snapshots/after.txt) fixtures cover 16 cases at both
-32 and 40 columns, including all states, Japanese names, unknown providers,
-retained error snapshots, overflow, and uncertain request counts.
+[after](../tests/mimori/snapshots/after.txt) fixtures cover 22 cases at 28, 32 and
+40 columns. They include same-project sessions, named tasks, empty metadata,
+short-ID collisions, clipped Japanese names, emoji, 50 running descendants,
+PR9 ordering/caps, all states and uncertain/retained observations.
 
-### ended-last / sidebar 32
-
-Before:
-
-```text
- ● Claude
- ● W0 R0 a-ended
- ● W0 R0 b-ended
- ○ W0 R0 x-unknown
- ○ W0 R0 y-idle
- ● W0 R0 z-running
- ● Codex —
-```
-
-After:
-
-```text
- ● Claude
- ○ W0 R0 x-unknown
- ○ W0 R0 y-idle
- ● W0 R0 z-running
- ● W0 R0 a-ended
- ● W0 R0 b-ended
- ● Codex —
-```
-
-### ended-pressure / sidebar 32
-
-Before:
-
-```text
- ● Claude
- ● W0 R0 a-ended-01
- ● W0 R0 a-ended-02
- ● W0 R0 a-ended-03
- ● W0 R0 a-ended-04
- ● W0 R0 a-ended-05
- +7 more · wait 0 · a
- ● Codex
- ● W0 R0 z-working-01
- ● W0 R0 z-working-02
- ● W0 R0 z-working-03
- ● W0 R0 z-working-04
- ● W0 R0 z-working-05
- +1 more · wait 0 · a
-```
-
-After:
-
-```text
- ● Claude
- ● W0 R0 a-ended-01
- ● W0 R0 a-ended-02
- ● W0 R0 a-ended-03
- ● W0 R0 a-ended-04
- +8 more · wait 0 · a
- ● Codex
- ● W0 R0 z-working-01
- ● W0 R0 z-working-02
- ● W0 R0 z-working-03
- ● W0 R0 z-working-04
- ● W0 R0 z-working-05
- ● W0 R0 z-working-06
-```
-
-### ended-parent / sidebar 32
+### Same project at 28 columns
 
 Before:
 
 ```text
  ● Claude —
  ● Codex
- ● W0 R2 a-ended-parent
+ ○ W0 R0 01912345-0bc8
+ ● W2 R4 01912345-a91f
 ```
 
 After:
@@ -196,8 +171,32 @@ After:
 ```text
  ● Claude —
  ● Codex
- ● W0 R2 a-ended-parent
+ ○ W0 R0 mimori #0bc8
+ ● W2 R4 mimori #a91f
 ```
+
+### Supplied task names and directory context at 28 columns
+
+```text
+ ● Claude
+ ● W0 R0 認証修正 · mimori
+ ○ W0 R0 👩‍💻 日本語… · dotf…
+ ● Codex —
+```
+
+These name-bearing records are synthetic normalized-provider examples, not a
+claim that the current raw hooks emit task names. Text fixtures cannot show theme
+colors; the suite separately inspects actual highlight extmarks.
+
+### Missing metadata and many children
+
+```text
+ ○ W0 R0 名前なし #7d2c
+ ● W2 R50 mimori
+```
+
+R50 means 50 running descendants. No full child list or total child count is
+inferred, and the root remains one summary row.
 
 ## Reproduce
 
@@ -229,5 +228,9 @@ The model check runs the unchanged pinned reducer and query code in-process;
 it exercises ended parents with running, waiting, unknown, idle, or ended children
 and anonymous attention using synthetic events. No daemon or socket is used;
 this is a model/adapter contract check, not a live transport integration test.
+Label tests additionally cover nil/empty/whitespace/control-only fields,
+provider isolation, four/six-character suffixes, bounded fingerprint fallback,
+truncation collisions, snapshot immutability, caps and Unicode display widths.
 Hover tests cover terminal-row reordering and late replies; the all view preserves
-the selected provider/session identity when that session moves to ended history.
+the selected provider/session identity when a label changes, input reorders, or
+that session moves to ended history. K/Enter still queries the full ID.

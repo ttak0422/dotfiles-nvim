@@ -44,7 +44,12 @@ aggregate counters and own request IDs, not a reconstructed descendant tree.
 Waiting counts with `+?` are lower bounds. Unknown attention and unknown semantic
 states remain explicit; unknown liveness is not idle. A connection failure retains
 old observations and marks transport health separately. Names and paths are
-sanitized and display-width limited. Rendering never reads files or launches
+sanitized and display-width limited. Rows prefer a supplied name with cwd context,
+then the cwd basename, then 名前なし; same-name or truncation collisions receive a
+short session suffix. The currently pinned raw hooks supply cwd but not name, so
+the UI does not promise automatically generated task titles. K/Enter retains the
+full ID/cwd and shows the label source. Label changes do not affect sorting,
+collection scope or cap allocation. Rendering never reads files or launches
 processes in the mimori component.
 
 Set `vim.g.mimori` before lazy loading Komado to override `binary`, `state_dir`

@@ -1320,6 +1320,7 @@ in
           extraPackages = [ mimori ];
           preConfig = ''
             package.preload["mimori.client"] = function() return dofile("${./lua/mimori/client.lua}") end
+            package.preload["mimori.labels"] = function() return dofile("${./lua/mimori/labels.lua}") end
             package.preload["mimori.komado"] = function() return dofile("${./lua/mimori/komado.lua}") end
             require("mimori.client").setup(vim.tbl_extend("force", {
               binary = "${mimori}/bin/mimori",
