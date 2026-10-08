@@ -12,8 +12,20 @@
 
 ## Platform support
 
-The Nix flake supports Linux (`x86_64-linux`, `aarch64-linux`) and macOS on Apple Silicon (`aarch64-darwin`).
+The full `bundler-nvim-v2` package targets Apple Silicon macOS (`aarch64-darwin`):
+meian and the packaged Kotlin LSP depend on macOS. Linux (`x86_64-linux`,
+`aarch64-linux`) exposes development tools and portable checks, not the full package.
 Intel macOS (`x86_64-darwin`) is no longer supported.
+
+## CI checks
+
+On pushes to main and pull requests, Linux and Apple Silicon macOS run
+`nix flake check`: workflow lint and the seven isolated Mimori/Komado suites
+(packaging, client, adapter, priority, labels, presentation snapshots, hover).
+Tests use the pinned Komado plugin and synthetic data, without a user daemon.
+macOS additionally builds `nix build .#bundler-nvim-v2 --no-link`.
+PR runs read caches without uploading or requiring the Cachix write secret.
+These checks do not claim full Linux editor support or exercise every LSP.
 
 ## Directory Structure
 
