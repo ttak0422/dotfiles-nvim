@@ -96,15 +96,18 @@
                 "terraform"
               ];
           };
-          bundler-nvim = {
-            v2 = import ./v2 {
-              inherit inputs' pkgs lib;
-            };
-          }
-          // (import ./tests {
-            inherit inputs';
-            inherit pkgs;
-          });
+          # The full configuration includes macOS-only meian and Kotlin LSP.
+          bundler-nvim =
+            lib.optionalAttrs (system == "aarch64-darwin") {
+              v2 = import ./v2 {
+                inherit inputs' pkgs lib;
+              };
+            }
+            // (import ./tests {
+              inherit inputs';
+              inherit pkgs;
+            });
+          checks = import ./tests/checks.nix { inherit pkgs; };
         }
         // import ./apps.nix { inherit pkgs; };
     };
