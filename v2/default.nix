@@ -918,7 +918,10 @@ in
         ripgrep
         ghq
       ];
-      postConfig = read "./fnl/telescope.fnl";
+      postConfig = ''
+        dofile("${./lua/autogen/pterm-picker.lua}")
+        ${read "./fnl/telescope.fnl"}
+      '';
       hooks = {
         modules = [ "telescope" ];
         commands = [
