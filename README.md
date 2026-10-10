@@ -50,6 +50,9 @@ working directory. On exit, the terminal retains its output and exit status
 (`close_on_exit = false`); it does not start a shell. Reopening that buffer does
 not rerun the command. Deleting the completed buffer allows the slot to be
 recreated with its original command through the existing Toggleterm behavior.
+The pinned pterm backend may lose output from a command that exits immediately
+(observed with `printf`, even with exit status 0). This command does not change
+that backend behavior; its primary use is interactive, long-running programs.
 
 ## Directory Structure
 
