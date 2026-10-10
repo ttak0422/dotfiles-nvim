@@ -5,6 +5,26 @@
     touch "$out"
   '';
 
+  terminal =
+    pkgs.runCommand "terminal-command-tests"
+      {
+        nativeBuildInputs = [ pkgs.python3 ];
+        TERMINAL_TEST_NVIM = "${pkgs.neovim-unwrapped}/bin/nvim";
+        TERMINAL_TEST_PTERM = "${pkgs.vimPlugins.v2.pterm-daemon}/bin/pterm";
+        TERMINAL_TEST_PTERM_PLUGIN = pkgs.vimPlugins.v2.pterm;
+        TERMINAL_TEST_NFNL = pkgs.vimPlugins.v2.nfnl;
+        TERMINAL_TEST_TOGGLETERM = pkgs.vimPlugins.v2.toggleterm-nvim;
+        TERMINAL_TEST_TOGGLER = pkgs.vimPlugins.v2.toggler-nvim;
+      }
+      ''
+        cp -R ${../.} source
+        chmod -R u+w source
+        cd source
+        patchShebangs tests/terminal/child.py
+        python3 tests/terminal/run.py
+        touch "$out"
+      '';
+
   mimori =
     pkgs.runCommand "mimori-tests"
       {

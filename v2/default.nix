@@ -70,6 +70,7 @@ in
       if vim.g.neovide then dofile("${./lua/autogen/neovide.lua}") end
       vim.g._editor_open_cmd = "${editorWrapper}"
       vim.g._editor_open_cmd_wait = "${editorWrapperWait}"
+      dofile("${./lua/autogen/terminal-command.lua}")
       ${read "./fnl/init.fnl"}
     '';
 

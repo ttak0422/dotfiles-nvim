@@ -26,6 +26,30 @@ Tests use the pinned Komado plugin and synthetic data, without a user daemon.
 macOS additionally builds `nix build .#bundler-nvim-v2 --no-link`.
 PR runs read caches without uploading or requiring the Cachix write secret.
 These checks do not claim full Linux editor support or exercise every LSP.
+The terminal suite also checks command arguments, session reuse, and process exits
+with local fixture programs and an isolated pterm socket directory.
+
+## Terminal
+
+`:Terminal` opens terminal slot 0 in the current tab, shared with `Ctrl-0`.
+On first creation, `:Terminal claude` starts that executable directly inside pterm
+instead of the default `$SHELL`. Any executable and arguments can be used.
+Use `:1Terminal command args...` through `:9Terminal ...` for another slot;
+`Ctrl-0` through `Ctrl-9` continue to toggle the corresponding terminals.
+
+Arguments follow Neovim user-command (`<f-args>`) syntax: escape a space with `\ `,
+and a literal backslash with `\\`. Quotes are literal characters, not grouping:
+`:Terminal printf %s hello\ world` passes `hello world` as one argument.
+Shell substitutions, pipes, redirects, and glob expansion are not evaluated.
+Executable and file completion is available before the first invocation.
+
+Command arguments are accepted only for an unused slot. An already allocated slot
+or an existing pterm session rejects a new command; open it without arguments to
+reuse it, or choose another slot. The first process inherits Neovim's current
+working directory. On exit, the terminal retains its output and exit status
+(`close_on_exit = false`); it does not start a shell. Reopening that buffer does
+not rerun the command. Deleting the completed buffer allows the slot to be
+recreated with its original command through the existing Toggleterm behavior.
 
 ## Directory Structure
 
