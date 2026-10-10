@@ -1295,9 +1295,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "947a3c974045559ea1dc57eabeb647e01ab5111e",
-      "url": "https://github.com/ttak0422/mdpaste.nvim/archive/947a3c974045559ea1dc57eabeb647e01ab5111e.tar.gz",
-      "hash": "sha256-K9XHadw5X+VVhWPWvM5dh85psf/1PfarMY8VKNDqhNk="
+      "revision": "78da70ba74b39f32a98fcd602ad5cbfe2ef1e1d6",
+      "url": "https://github.com/ttak0422/mdpaste.nvim/archive/78da70ba74b39f32a98fcd602ad5cbfe2ef1e1d6.tar.gz",
+      "hash": "sha256-q8SSZAjl5sZGDWCHcWlONPczBS7PbUkYJfXiseO18Fk="
     },
     "menu": {
       "type": "Git",
