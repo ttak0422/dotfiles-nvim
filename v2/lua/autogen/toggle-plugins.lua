@@ -142,48 +142,28 @@ do
   end
   get_idx = _28_
   local open_idx
-  local function _29_(idx, argv)
+  local function _29_(idx)
     local terminal = require("toggleterm.terminal")
     local tab = current_tab()
     local terms = tab_terminals(tab)
     local session = ("vim_tab" .. tab .. "_idx" .. idx)
-    local argv0 = (argv or {})
-    if (#argv0 > 0) then
-      if (terms[idx] or vim.tbl_contains(require("pterm").list(), session)) then
-        error("Terminal already exists; use an unused :[0-9]Terminal slot")
-      else
-      end
-      if (vim.fn.executable(argv0[1]) == 0) then
-        error(("Terminal executable not found: " .. argv0[1]))
-      else
-      end
-    else
-    end
-    local or_33_ = terms[idx]
-    if not or_33_ then
-      local cmd = {args.pterm, "open", session}
-      local _
-      if (#argv0 > 0) then
-        table.insert(cmd, "--")
-        _ = vim.list_extend(cmd, argv0)
-      else
-        _ = nil
-      end
-      local t = terminal.Terminal:new({cmd = table.concat(vim.tbl_map(vim.fn.shellescape, cmd), " "), close_on_exit = false})
+    local or_30_ = terms[idx]
+    if not or_30_ then
+      local t = terminal.Terminal:new({cmd = (args.pterm .. " open " .. session), close_on_exit = false})
       terms[idx] = t
-      or_33_ = t
+      or_30_ = t
     end
-    return (or_33_):open()
+    return (or_30_):open()
   end
   open_idx = _29_
   local is_open_idx
-  local function _36_(idx)
+  local function _32_(idx)
     local t = get_idx(idx)
     return (t and t:is_open())
   end
-  is_open_idx = _36_
+  is_open_idx = _32_
   local close_idx
-  local function _37_(idx)
+  local function _33_(idx)
     local t = get_idx(idx)
     if (t and t:is_open()) then
       return t:close()
@@ -191,53 +171,42 @@ do
       return nil
     end
   end
-  close_idx = _37_
+  close_idx = _33_
   for i = 0, 9 do
-    local function _39_()
+    local function _35_()
       return open_idx(i)
     end
-    local function _40_()
+    local function _36_()
       return close_idx(i)
     end
-    local function _41_()
+    local function _37_()
       return is_open_idx(i)
     end
-    toggler.register(("term" .. i), {open = _39_, close = _40_, is_open = _41_})
+    toggler.register(("term" .. i), {open = _35_, close = _36_, is_open = _37_})
   end
-  local function _42_(opts)
-    if (opts.count > 9) then
-      error("Terminal slot must be between 0 and 9")
-    else
-    end
-    return open_idx(opts.count, opts.fargs)
-  end
-  local function _44_(_, line, pos)
-    return vim.fn.getcompletion(string.gsub(string.sub(line, 1, pos), "^.-Terminal%s*", ""), "shellcmdline")
-  end
-  vim.api.nvim_create_user_command("Terminal", _42_, {nargs = "*", count = 0, complete = _44_, desc = "Open a terminal slot; command arguments apply only on first creation"})
 end
 local dapui = nil
 do
   local open
-  local function _45_()
+  local function _38_()
     if (dapui == nil) then
       dapui = require("dapui")
     else
     end
     return dapui:open({reset = true})
   end
-  open = _45_
+  open = _38_
   local close
-  local function _47_()
+  local function _40_()
     if (dapui ~= nil) then
       return dapui.close()
     else
       return nil
     end
   end
-  close = _47_
+  close = _40_
   local is_open
-  local function _49_()
+  local function _42_()
     for _, win in ipairs(require("dapui.windows").layouts) do
       if win:is_open() then
         return true
@@ -246,31 +215,31 @@ do
     end
     return false
   end
-  is_open = _49_
+  is_open = _42_
   toggler.register("dapui", {open = open, close = close, is_open = is_open})
 end
 local aerial = nil
 local open
-local function _51_()
+local function _44_()
   if (aerial == nil) then
     aerial = require("aerial")
   else
   end
   return aerial.open()
 end
-open = _51_
+open = _44_
 local close
-local function _53_()
+local function _46_()
   if (aerial ~= nil) then
     return aerial.close()
   else
     return nil
   end
 end
-close = _53_
+close = _46_
 local is_open
-local function _55_()
+local function _48_()
   return filetype_exists("aerial")
 end
-is_open = _55_
+is_open = _48_
 return toggler.register("aerial", {open = open, close = close, is_open = is_open})

@@ -29,30 +29,40 @@ These checks do not claim full Linux editor support or exercise every LSP.
 The terminal suite also checks command arguments, session reuse, and process exits
 with local fixture programs and an isolated pterm socket directory.
 
-## Terminal
+## Terminal sessions in Telescope
 
-`:Terminal` opens terminal slot 0 in the current tab, shared with `Ctrl-0`.
-On first creation, `:Terminal claude` starts that executable directly inside pterm
-instead of the default `$SHELL`. Any executable and arguments can be used.
-Use `:1Terminal command args...` through `:9Terminal ...` for another slot;
-`Ctrl-0` through `Ctrl-9` continue to toggle the corresponding terminals.
+Open `:Telescope pterm` (or the existing `<leader>ft` mapping). Select a search
+result and press Enter to reconnect as before. Only when there is **no selected
+result**, the prompt creates a session with `name [command args...]`:
 
-Arguments follow Neovim user-command (`<f-args>`) syntax: escape a space with `\ `,
-and a literal backslash with `\\`. Quotes are literal characters, not grouping:
-`:Terminal printf %s hello\ world` passes `hello world` as one argument.
-Shell substitutions, pipes, redirects, and glob expansion are not evaluated.
-Executable and file completion is available before the first invocation.
+| Prompt, with no selected result | Result |
+| --- | --- |
+| `review` | Create `review` with the default `$SHELL` |
+| `review claude` | Create `review` and directly execute `claude` |
+| `review claude --resume` | Pass `--resume` to the executable |
+| `review claude "a prompt with spaces"` | Pass one argument containing spaces |
 
-Command arguments are accepted only for an unused slot. An already allocated slot
-or an existing pterm session rejects a new command; open it without arguments to
-reuse it, or choose another slot. The first process inherits Neovim's current
-working directory. On exit, the terminal retains its output and exit status
-(`close_on_exit = false`); it does not start a shell. Reopening that buffer does
-not rerun the command. Deleting the completed buffer allows the slot to be
-recreated with its original command through the existing Toggleterm behavior.
-The pinned pterm backend may lose output from a command that exits immediately
-(observed with `printf`, even with exit status 0). This command does not change
-that backend behavior; its primary use is interactive, long-running programs.
+Leading/trailing spaces are ignored; multiple spaces separate words. Arguments
+use the already installed Telescope live-grep-args parser with auto-quoting off:
+single/double quotes group spaces, and quoted empty arguments are supported.
+The resulting argv goes directly to pterm; shell variables, substitutions,
+pipes, redirects, and globs are not evaluated. Quote executable paths containing
+spaces too. `:Telescope pterm sessions` has the same behavior; `pterm grep` is unchanged.
+
+A selected search result always wins, even if the prompt contains spaces or is
+also another session's exact name. Enter connects to the selected session and
+never passes the prompt as a command to it. With no selection, an exact existing
+full name still reconnects (including legacy names containing spaces). Otherwise,
+if the first name already exists and a command was supplied, an error keeps the
+picker open; choose that session without a command or use a new name. Missing
+executables also keep the picker open. An empty/whitespace-only prompt with no
+selection closes without creating anything; with a selection, it reconnects.
+
+New processes inherit the current working directory. On exit, the existing pterm
+plugin removes its terminal buffer and reports the exit status; it does not start
+a replacement shell. The pinned pterm backend may lose output from immediately
+exiting commands (observed with `printf`, even with exit status 0). This change
+leaves that backend limitation unchanged and is intended for interactive programs.
 
 ## Directory Structure
 

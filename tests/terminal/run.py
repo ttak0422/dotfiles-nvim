@@ -15,6 +15,7 @@ with tempfile.TemporaryDirectory(prefix='terminal-', dir='/tmp') as directory:
     (temp / 'fixture-command').symlink_to(child)
     pterm = temp / 'pterm bridge'
     pterm.symlink_to(os.environ['TERMINAL_TEST_PTERM'])
+    (temp / 'pterm').symlink_to(pterm)
     cwd = temp / 'working directory'
     cwd.mkdir()
     env = os.environ | {
@@ -28,7 +29,7 @@ with tempfile.TemporaryDirectory(prefix='terminal-', dir='/tmp') as directory:
     }
     try:
         subprocess.run([os.environ['TERMINAL_TEST_NVIM'], '--headless', '-u', 'NONE',
-                        '-i', 'NONE', '-l', str(root / 'tests/terminal/command.lua')],
+                        '-i', 'NONE', '-l', str(root / 'tests/terminal/picker.lua')],
                        env=env, check=True, timeout=60)
     finally:
         # Removing only this test's sockets asks its daemons to stop, even on failure.

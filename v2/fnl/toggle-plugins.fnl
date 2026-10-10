@@ -82,26 +82,15 @@
                 (let [tab (current-tab)
                       terms (tab-terminals tab)]
                   (. terms idx)))
-      open_idx (fn [idx argv]
+      open_idx (fn [idx]
                  (let [terminal (require :toggleterm.terminal)
                        tab (current-tab)
                        terms (tab-terminals tab)
-                       session (.. :vim_tab tab :_idx idx)
-                       argv (or argv [])]
-                   (when (> (# argv) 0)
-                     (when (or (. terms idx)
-                               (vim.tbl_contains ((. (require :pterm) :list)) session))
-                       (error "Terminal already exists; use an unused :[0-9]Terminal slot"))
-                     (when (= (vim.fn.executable (. argv 1)) 0)
-                       (error (.. "Terminal executable not found: " (. argv 1)))))
+                       session (.. :vim_tab tab :_idx idx)]
                    (-> (or (. terms idx)
-                           (let [cmd [args.pterm :open session]
-                                 _ (when (> (# argv) 0)
-                                     (table.insert cmd :--)
-                                     (vim.list_extend cmd argv))
-                                 t (terminal.Terminal:new {:cmd (table.concat
-                                                                 (vim.tbl_map vim.fn.shellescape cmd)
-                                                                 " ")
+                           (let [t (terminal.Terminal:new {:cmd (.. args.pterm
+                                                                    " open "
+                                                                    session)
                                                            :close_on_exit false})]
                              (tset terms idx t)
                              t))
@@ -116,18 +105,7 @@
     (toggler.register (.. :term i)
                       {:open #(open_idx i)
                        :close #(close_idx i)
-                       :is_open #(is_open_idx i)}))
-  (vim.api.nvim_create_user_command :Terminal
-    (fn [opts]
-      (when (> opts.count 9) (error "Terminal slot must be between 0 and 9"))
-      (open_idx opts.count opts.fargs))
-    {:nargs :* :count 0
-     ;; A callback avoids shellcmdline's implicit %/# expansion during execution.
-     :complete (fn [_ line pos]
-                 (vim.fn.getcompletion (string.gsub (string.sub line 1 pos)
-                                                     "^.-Terminal%s*" "")
-                                       :shellcmdline))
-     :desc "Open a terminal slot; command arguments apply only on first creation"}))
+                       :is_open #(is_open_idx i)})))
 
 ;;; dap-ui ;;;
 (var dapui nil)
