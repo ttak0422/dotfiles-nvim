@@ -565,6 +565,19 @@
       "url": "https://github.com/tani/dmacro.vim/archive/25ab1df31d216c4ff7554c262f92b5c0c6b743f0.tar.gz",
       "hash": "sha256-jA8KDNDV3/4lOPxSNp3f0giNEIsubAe8dxiAYohslsg="
     },
+    "draw-line.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ttak0422",
+        "repo": "draw-line.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "104b3846e1171966de1dd58543d708417a14ab4e",
+      "url": "https://github.com/ttak0422/draw-line.nvim/archive/104b3846e1171966de1dd58543d708417a14ab4e.tar.gz",
+      "hash": "sha256-H9FCEhFko16D9j105oIxavVHt4Dgys/vAKpwyP7DJAg="
+    },
     "dropbar.nvim": {
       "type": "GitRelease",
       "repository": {

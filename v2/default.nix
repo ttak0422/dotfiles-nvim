@@ -765,7 +765,7 @@ in
         }
         {
           package = hydra-nvim;
-          postConfig = read "./fnl/hydra.fnl";
+          postConfig = read "./fnl/draw-line.fnl";
         }
         {
           package = nvim-autopairs;
@@ -1203,13 +1203,8 @@ in
           hooks.commands = [ "ColorizerToggle" ];
         }
         {
-          package = venn-nvim;
-          postConfig = read "./fnl/venn.fnl";
-          hooks.commands = [
-            "VBox"
-            "VBoxD"
-            "VBoxH"
-          ];
+          package = draw-line-nvim;
+          hooks.modules = [ "draw-line" ];
         }
         {
           package = claudecode-nvim;
