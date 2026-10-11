@@ -5,6 +5,28 @@
     touch "$out"
   '';
 
+  checkmake =
+    pkgs.runCommand "checkmake-config-tests"
+      {
+        nativeBuildInputs = [
+          pkgs.neovim-unwrapped
+          pkgs.checkmake
+        ];
+        CHECKMAKE_TEST_SHELL = pkgs.runtimeShell;
+        NONE_LS_PLUGIN_DIR = pkgs.vimPlugins.v2.none-ls-nvim;
+        NFNL_PLUGIN_DIR = pkgs.vimPlugins.v2.nfnl;
+        PLENARY_PLUGIN_DIR = pkgs.vimPlugins.v2.plenary-nvim;
+      }
+      ''
+        cp -R ${../.} source
+        chmod -R u+w source
+        cd source
+        export HOME="$TMPDIR/home"
+        mkdir -p "$HOME"
+        nvim --headless -u NONE -i NONE -l tests/checkmake.lua
+        touch "$out"
+      '';
+
   terminal =
     pkgs.runCommand "terminal-picker-tests"
       {
