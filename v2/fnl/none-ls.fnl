@@ -6,12 +6,41 @@
 (local methods (require :null-ls.methods))
 (local FORMATTING methods.internal.FORMATTING)
 
+;; checkmake 0.3 reports diagnostics on stdout and a violation count on stderr.
+;; Keep its parser and process handling; accept only a matching count summary.
+(local checkmake
+  (diagnostics.checkmake.with
+    {:factory (fn [opts]
+                (local parse-line opts.on_output)
+                (local raw-opts (vim.deepcopy opts))
+                (set raw-opts.format :raw)
+                (set raw-opts.check_exit_code [0 1])
+                (set raw-opts.on_output
+                     (fn [params done]
+                       (local count (and params.err
+                                         (string.match params.err
+                                                       "^Error: violations found %(([1-9]%d*)%)\n?$")))
+                       (when (and params.err (not count))
+                         (error params.err))
+                       (local results [])
+                       (each [_ line (ipairs (vim.split (string.gsub (or params.output "")
+                                                                    "\r\n?" "\n")
+                                                       "\n"))]
+                         (when (not= line "")
+                           (local diagnostic (parse-line line params))
+                           (when diagnostic
+                             (table.insert results diagnostic))))
+                       (when (and count (not= (tonumber count) (length results)))
+                         (error params.err))
+                       (done results)))
+                (helpers.generator_factory raw-opts))}))
+
 (set vim.g.idea_path args.idea)
 
 (local sources [;;; code actions ;;;
                 ;;; diagnostics ;;;
                 diagnostics.actionlint
-                diagnostics.checkmake
+                checkmake
                 ; TODO: idea inspect ?
                 ; <headless_idea_path>/Applications/IntelliJ\ IDEA\ CE.app/Contents/MacOS/idea \
                 ; -Didea.config.path=~/Library/Application\ Support/JetBrains/<versions>/options/ \
