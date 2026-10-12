@@ -212,6 +212,7 @@ Codex cloud task や socket を公開しない単独 embedded instance はこの
 名前の変更は activity、終了時刻、終了後5分の query 保持期限を変更しない。
 
 この更新の `v2-mimori` pin は [mimori PR #2](https://github.com/ttak0422/mimori/pull/2)
-の公開 head `d275c88131145de52a167c7e6834bcfba0e78827` に固定する。
-既存の flake input と nixpkgs follows を維持し、その PR の merge 後に main の
-採用 revision へ pin を進める。旧 mimori の応答に title がなくても従来表示を継続する。
+を main に取り込んだ merge commit `1efa9a4754cc2962c5963aa7251fe3f89d9375df` に固定する。
+既存の flake input と nixpkgs follows は維持する。PR head と merge commit の tree は
+同一のため `narHash` は変わらず、`rev` と `lastModified` が更新される。
+旧 mimori の応答に title がなくても従来表示を継続する。

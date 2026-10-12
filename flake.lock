@@ -808,11 +808,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791779695,
+        "lastModified": 1791791048,
         "narHash": "sha256-WStt1u6u96vuP7+otEliBRoXosnPSWhJ6KeivZe5urs=",
         "owner": "ttak0422",
         "repo": "mimori",
-        "rev": "d275c88131145de52a167c7e6834bcfba0e78827",
+        "rev": "1efa9a4754cc2962c5963aa7251fe3f89d9375df",
         "type": "github"
       },
       "original": {
