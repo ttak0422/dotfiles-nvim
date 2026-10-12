@@ -225,6 +225,7 @@ function M.open_status()
   v.callback = function(snapshot)
     local lines = { "mimori status", "Connection: " .. snapshot.status,
       "Observations: " .. (snapshot.data and (snapshot.status == "connected" and "connected snapshot" or "retained snapshot") or "not received") }
+    if snapshot.title_status then lines[#lines + 1] = "Codex titles: " .. clean(snapshot.title_status, 120) end
     if snapshot.diagnostic then lines[#lines + 1] = "Transport: " .. clean(snapshot.diagnostic, 16384) end
     if snapshot.collector_diagnostic then
       lines[#lines + 1] = "Historical collector error: " .. clean(snapshot.collector_diagnostic.observed_at, 120)
@@ -234,8 +235,8 @@ function M.open_status()
       "W: unresolved requests; +? includes an unknown remainder",
       "R: running descendants (not all children)",
       "~ before a name: hierarchy is not resolved; Enter shows why",
-      "Label: provider name, then reported cwd basename, then 名前なし",
-      "A supplied name is followed by cwd context when space permits",
+      "Label: renamed session title, then task name, cwd basename, 名前なし",
+      "A title/name is followed by cwd context when space permits",
       "#suffix: session ID disambiguator; uncommon IDs use a display fingerprint",
       "Names do not affect sorting, provider identity, hierarchy or the shared cap",
       "●/*: running (yellow), waiting (red/pink), ended (cyan/blue)",
@@ -256,6 +257,10 @@ local function detail_lines(row)
   local info = labels.describe(row)
   local lines = { "mimori detail", label(row), "label_source: " .. info.source,
     "name: " .. (info.task or "—"), "cwd_label: " .. (info.project or "—") }
+  if info.title then
+    lines[#lines + 1] = "title: " .. info.title
+    lines[#lines + 1] = "title_source: " .. tostring(row.title_source or "—")
+  end
   for _, k in ipairs({ "provider", "session_id", "generation", "cwd", "state", "aggregate_state", "relation", "parent_id", "root_id", "classification", "liveness", "ordering", "last_event_at" }) do
     lines[#lines + 1] = k .. ": " .. tostring(row[k] or "—")
   end

@@ -15,7 +15,7 @@ for suite in ('packaging','client','adapter','priority','labels','presentation',
         for name in ('home','state/nvim','data','cache'): (temp/name).mkdir(parents=True,exist_ok=True)
         env=os.environ|{'HOME':str(temp/'home'),'XDG_STATE_HOME':str(temp/'state'),
           'XDG_DATA_HOME':str(temp/'data'),'XDG_CACHE_HOME':str(temp/'cache'),
-          'MIMORI_TEST_ROOT':str(root),'MIMORI_TEST_TMP':str(temp),'NVIM_LOG_FILE':str(temp/'nvim.log')}
+          'MIMORI_CODEX_SOCKET':'','MIMORI_TEST_ROOT':str(root),'MIMORI_TEST_TMP':str(temp),'NVIM_LOG_FILE':str(temp/'nvim.log')}
         command=[nvim,'--clean','--headless','-u','NONE','-i','NONE','-l',str(root/f'tests/mimori/{suite}.lua')]
         if suite=='presentation': env['MIMORI_SNAPSHOT_OUT']=str(temp/'actual.txt')
         subprocess.run(command,env=env,check=True)

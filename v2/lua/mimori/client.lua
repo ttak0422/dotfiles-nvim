@@ -49,7 +49,7 @@ local function session(row)
   end
   for _, k in ipairs({ "running_descendants", "unresolved_requests" }) do assert(integer(row[k]), "invalid " .. k) end
   assert(type(row.attention_unknown) == "boolean" and type(row.unresolved_count_exact) == "boolean", "missing attention quality")
-  for _, k in ipairs({ "cwd", "name", "parent_id", "root_id" }) do
+  for _, k in ipairs({ "cwd", "name", "title", "title_source", "thread_id", "parent_id", "root_id" }) do
     assert(row[k] == nil or type(row[k]) == "string", "invalid " .. k)
   end
   assert(row.request_ids == vim.NIL or (type(row.request_ids) == "table" and vim.islist(row.request_ids)), "invalid request_ids")
@@ -126,6 +126,9 @@ local function run(s, args, timeout, done)
   function job.start()
   local ok, proc = pcall(vim.system, args, {
     timeout = timeout,
+    -- Only an explicit override changes the environment inherited by a newly
+    -- started daemon. Existing daemons keep their startup configuration.
+    env = s.opts.codex_socket ~= nil and { MIMORI_CODEX_SOCKET = s.opts.codex_socket } or nil,
     stdout = stream("output", "bytes", s.opts.max_stdout),
     stderr = stream("errors", "errbytes", s.opts.max_stderr),
   }, function(result)
@@ -194,6 +197,13 @@ local function query(s, force, retried)
     local r, parse_err = parse(text)
     if not r then finish(s, parse_err); return end
     if r.error_code or r.error then finish(s, "contract: " .. tostring(r.error_code or r.error)); return end
+    if r.title_status ~= nil and type(r.title_status) ~= "string" then
+      finish(s, "contract: invalid title status"); return
+    end
+    if s.view.title_status ~= r.title_status then
+      s.view = vim.tbl_extend("force", s.view, {})
+      s.view.title_status = r.title_status; emit(s)
+    end
     local diagnostic = r.latest_collector_diagnostic
     if diagnostic ~= nil and (type(diagnostic) ~= "table" or type(diagnostic.message) ~= "string" or type(diagnostic.observed_at) ~= "string") then
       finish(s, "contract: invalid collector diagnostic"); return
@@ -249,6 +259,8 @@ end
 function M.setup(opts)
   M.shutdown()
   opts = vim.tbl_extend("force", defaults, opts or {})
+  assert(opts.codex_socket == nil or (type(opts.codex_socket) == "string" and
+    (opts.codex_socket == "" or (opts.codex_socket:sub(1, 1) == "/" and not opts.codex_socket:find("\0", 1, true)))), "codex_socket must be empty or an absolute path")
   assert(nonempty(opts.binary), "binary must be an executable path/name")
   assert(not opts.state_dir or opts.state_dir:sub(1, 1) == "/", "state_dir must be absolute")
   for _, k in ipairs({ "interval", "timeout", "ensure_timeout", "max_backoff", "max_stdout", "max_stderr" }) do

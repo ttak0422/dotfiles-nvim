@@ -102,3 +102,21 @@ local system=vim.system;vim.system=function() error('I/O from label rendering') 
 a.rows(source,10,26);labels.describe(named)
 vim.system=system
 print('labels: passed; fallback, metadata, suffix collisions, caps, hierarchy, Unicode and purity verified')
+
+-- Rename metadata has priority without overwriting the retained task/project.
+local renamed=session('rename-id',{title='利用者の名前',name='既存作業',cwd='/repo/project'})
+local info=labels.describe(renamed)
+assert(info.primary=='利用者の名前' and info.task=='既存作業' and info.project=='project' and info.source=='title')
+local original=vim.deepcopy(renamed)
+local rr=sessions(a.rows(snapshot({renamed}),nil,60))[1]
+assert(rr.text:find('利用者の名前',1,true) and rr.text:find('project',1,true))
+local fallback=vim.deepcopy(renamed);fallback.title=''
+assert(labels.describe(fallback).primary=='既存作業')
+fallback.name=nil;assert(labels.describe(fallback).primary=='project')
+fallback.cwd=nil;assert(labels.describe(fallback).primary=='名前なし')
+local oldrow=sessions(a.rows(snapshot({fallback}),nil,60))[1]
+assert(rr.icon==oldrow.icon and rr.hl==oldrow.hl, 'rename changed state presentation')
+same(renamed,original)
+renamed.title='\27[31mNew\27[0m\nname'
+assert(labels.describe(renamed).primary=='New name')
+print('titles: passed; rename priority, retained task/project, clear fallback, sanitization and icons')

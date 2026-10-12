@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Use explicit unwrapped Neovim and mimori paths; isolated anonymous state only."""
 import json, os, signal, statistics, subprocess, tempfile, time
+from datetime import datetime, timezone
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 NVIM, MIMORI = os.environ['MIMORI_TEST_NVIM'], os.environ['MIMORI_BIN']
@@ -17,7 +18,7 @@ with tempfile.TemporaryDirectory(prefix='mimori-nvim-',dir='/tmp') as temporary:
     temp=Path(temporary); state=temp/'state'; state.mkdir(mode=0o700)
     env=os.environ.copy(); env.update(HOME=str(temp/'home'),XDG_STATE_HOME=str(temp/'xdg-state'),
       XDG_CACHE_HOME=str(temp/'cache'),XDG_DATA_HOME=str(temp/'data'),MIMORI_BIN=MIMORI,
-      MIMORI_STATE_DIR=str(state),MIMORI_TEST_ROOT=str(ROOT))
+      MIMORI_STATE_DIR=str(state),MIMORI_TEST_ROOT=str(ROOT),MIMORI_CODEX_SOCKET='')
     for path in ('home','xdg-state/nvim','cache','data'): (temp/path).mkdir(parents=True,exist_ok=True)
     children=[]
     def query(revision=None):
@@ -74,6 +75,30 @@ with tempfile.TemporaryDirectory(prefix='mimori-nvim-',dir='/tmp') as temporary:
         print(json.dumps({'result':'passed','editors':3,'root_descendants':50,'daemon_reuse':True,'restart':True,
           'polls':40,'p50_ms':round(statistics.median(durations),2),'p95_ms':round(sorted(durations)[37],2),
           'unchanged_bytes':sizes[0],'full_bytes':len(json.dumps(query(),separators=(',',':')).encode())}))
+        # Full hook -> durable collector -> query path for custom title updates.
+        # Each payload is anonymous; this fixture never reads provider storage.
+        def title_hook(kind, **extra):
+            payload={'session_id':'title-fixture','hook_event_name':kind,'cwd':'/fixture/project',**extra}
+            call(MIMORI,'hook','--provider','claude','--state-dir',str(state),input=json.dumps(payload),env=env)
+        def title_row():
+            return next((r for r in (query() or {}).get('roots',[]) if r['session_id']=='title-fixture'),None)
+        title_hook('SessionStart',session_title='First')
+        wait(lambda:(title_row() or {}).get('title')=='First')
+        title_hook('UserPromptSubmit',session_title='Renamed')
+        wait(lambda:(title_row() or {}).get('title')=='Renamed')
+        title_hook('UserPromptSubmit')
+        wait(lambda:title_row() is not None and 'title' not in title_row())
+        title_hook('SessionEnd')
+        wait(lambda:(title_row() or {}).get('state')=='ended')
+        ended=title_row()
+        metadata={'version':1,'event_id':'title-only','provider':'claude','session_id':'title-fixture',
+                  'generation':1,'kind':'title','title':'After end','observed_at':datetime.now(timezone.utc).isoformat()}
+        call(MIMORI,'ingest','--state-dir',str(state),input=json.dumps(metadata),env=env)
+        wait(lambda:(title_row() or {}).get('title')=='After end')
+        updated=title_row()
+        assert updated['ended_at']==ended['ended_at'] and updated['last_event_at']==ended['last_event_at']
+        assert updated['state']=='ended' and updated['aggregate_state']=='ended'
+        print('title integration: passed; rename, clear, and metadata-only update preserve ended timestamps')
     finally:
         for p in children:
             if p.poll() is None: p.terminate(); p.wait(timeout=5)

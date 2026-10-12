@@ -47,21 +47,22 @@ local function nonempty(value)
 end
 
 function M.describe(row)
-  local task, cwd = nonempty(row.name), nonempty(row.cwd)
+  local title, task, cwd = nonempty(row.title), nonempty(row.name), nonempty(row.cwd)
   local project = cwd and (cwd:gsub("/+$", ""):match("([^/]+)$") or "/")
-  return { task = task, cwd = cwd, project = project,
-    primary = task or project or "名前なし", source = task and "name" or (project and "cwd" or "missing") }
+  return { title = title, task = task, cwd = cwd, project = project,
+    primary = title or task or project or "名前なし", source = title and "title" or (task and "name" or (project and "cwd" or "missing")) }
 end
 
 local function parts(info, width)
-  if not info.task or not info.project or info.task == info.project then return M.clean(info.primary, width) end
+  local task = info.title or info.task
+  if not task or not info.project or task == info.project then return M.clean(info.primary, width) end
   local separator = " · "
-  local full = info.task .. separator .. info.project
+  local full = task .. separator .. info.project
   if vim.fn.strdisplaywidth(full) <= width then return full end
   local available = width - vim.fn.strdisplaywidth(separator)
-  if available < 10 then return M.clean(info.task, width) end
+  if available < 10 then return M.clean(task, width) end
   local project_width = math.min(vim.fn.strdisplaywidth(info.project), math.max(3, math.floor(available / 3)))
-  return M.clean(info.task, available - project_width) .. separator .. M.clean(info.project, project_width)
+  return M.clean(task, available - project_width) .. separator .. M.clean(info.project, project_width)
 end
 
 local function mark_collisions(infos, key)

@@ -173,3 +173,46 @@ registration was migrated as described above, but live provider delivery was not
 tested and Codex command review remains pending. This branch does not alter CI
 workflows or secrets. Existing CI runs on main pushes or manual dispatch, so draft
 PRs do not trigger it.
+
+## Provider の rename 名
+
+新しい mimori は provider の名前を `title`、従来の作業名を `name` として分けて返す。
+表示の優先順位は **rename 名 → 既存の作業名 → cwd の末尾 →「名前なし」**。
+project 名は引き続き隣に表示し、元の作業名は詳細の `name` に残る。
+名前が解除されれば次の snapshot で fallback に戻る。色・アイコン・並び順・
+アクティブ優先配置・同名の ID suffix は状態と既存の規則を使う。
+
+Claude Code は SessionStart / UserPromptSubmit の `session_title` を取り込む。
+rename 後の次の通常プロンプト送信、または resume で反映される。
+操作を止めたままの即時追随や transcript の走査は行わない。
+既存 hook script は新しい mimori binary を呼べばよく、個人設定を自動変更しない。
+
+Codex の名前取得は、既に稼働している互換 App Server の Unix socket がある
+場合の opt-in。例えば Neovim の mimori 初期化前に以下を設定する。
+
+```lua
+vim.g.mimori = {
+  codex_socket = "/absolute/path/to/existing-codex-app-server.sock",
+}
+```
+
+環境変数 `MIMORI_CODEX_SOCKET` でも指定できる。Lua option を省略すると環境を
+継承し、空文字を指定すると新規 daemon 起動時の取得を無効にする。
+実際の socket は既存 Codex の `codex app-server daemon version` の出力で確認する。
+この設定は新しく起動する mimori daemon の環境に渡される。`ensure` は既存
+mimori daemon を置き換えないため、稼働中の daemon への反映は所有者が別途行う。
+
+mimori は通常 query がある間だけ、既知・保持対象の session を30秒ごと最大16件
+照合する。2秒以内の短時間接続で、Codex の起動・停止・resume、全会話の列挙は
+行わない。子 thread は明示的な ID と返却された session ID の一致を確認する。
+取得した名前は次の通常 polling（既定2秒）で反映する。件数が多い場合は複数回に
+分かれる。socket 不在・旧契約・ID 不一致の場合は既存のラベルへ fallback する。
+Codex cloud task や socket を公開しない単独 embedded instance はこの方式の対象外。
+`MimoriStatus` の `Codex titles` で disabled / refreshing / ready / unavailable を確認できる。
+名前の変更は activity、終了時刻、終了後5分の query 保持期限を変更しない。
+
+この更新の `v2-mimori` pin は [mimori PR #2](https://github.com/ttak0422/mimori/pull/2)
+を main に取り込んだ merge commit `1efa9a4754cc2962c5963aa7251fe3f89d9375df` に固定する。
+既存の flake input と nixpkgs follows は維持する。PR head と merge commit の tree は
+同一のため `narHash` は変わらず、`rev` と `lastModified` が更新される。
+旧 mimori の応答に title がなくても従来表示を継続する。
