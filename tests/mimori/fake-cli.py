@@ -13,7 +13,7 @@ except BlockingIOError:
     (root / 'overlap').write_text('overlap')
 mode = (root / 'mode').read_text().strip() if (root / 'mode').exists() else 'full'
 with (root / 'calls').open('a') as f:
-    f.write(json.dumps({'pid': os.getpid(), 'time': time.time(), 'args': args}) + '\n')
+    f.write(json.dumps({'pid': os.getpid(), 'time': time.time(), 'args': args, 'codex_socket': os.environ.get('MIMORI_CODEX_SOCKET')}) + '\n')
 if args[0] == 'ensure':
     if mode == 'ensure-error': sys.exit(1)
     print('{"version":1,"ready":true}')
@@ -37,6 +37,10 @@ if '--session' in args:
     print(json.dumps({'version':1,'revision':revision,'complete':True,'session':r})); sys.exit(0)
 if mode == 'unchanged-bad' or (mode in ('unchanged', 'delay', 'slow') and arg('--revision') == revision):
     print(json.dumps({'version':1,'revision':revision,'unchanged':True})); sys.exit(0)
+if mode == 'title-first': r['title']='First'; r['title_source']='provider'; revision+=':first'
+if mode == 'title-renamed': r['title']='Second'; r['title_source']='provider'; revision+=':second'
+if mode == 'title-cleared': revision+=':clear'
+if mode == 'invalid-title': r['title']={'unexpected':True}
 reply = {'version':1,'revision':revision,'complete':True,'roots':[r]}
 if mode == 'empty': reply.pop('roots')
 if mode == 'duplicate': reply['roots'].append(r.copy())
