@@ -5,6 +5,29 @@
     touch "$out"
   '';
 
+  code-action =
+    pkgs.runCommand "code-action-tests"
+      {
+        nativeBuildInputs = [
+          pkgs.neovim-unwrapped
+          pkgs.delta
+        ];
+        CODE_ACTION_TEST_TINY = pkgs.vimPlugins.v2.tiny-code-action-nvim;
+        CODE_ACTION_TEST_TELESCOPE = pkgs.vimPlugins.v2.telescope-nvim;
+        CODE_ACTION_TEST_PLENARY = pkgs.vimPlugins.v2.plenary-nvim;
+        CODE_ACTION_TEST_LSPCONFIG = pkgs.vimPlugins.v2.nvim-lspconfig;
+      }
+      ''
+        cp -R ${../.} source
+        chmod -R u+w source
+        cd source
+        export HOME="$TMPDIR/home"
+        mkdir -p "$HOME"
+        nvim --headless -u NONE -i NONE -l tests/code-action.lua
+        CODE_ACTION_TEST_CASE=buffer nvim --headless -u NONE -i NONE -l tests/code-action.lua
+        touch "$out"
+      '';
+
   checkmake =
     pkgs.runCommand "checkmake-config-tests"
       {

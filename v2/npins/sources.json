@@ -1732,10 +1732,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2.11.0",
-      "revision": "b89138d9af0a96e6048e202a15765fc6b6416bd4",
-      "url": "https://api.github.com/repos/neovim/nvim-lspconfig/tarball/refs/tags/v2.11.0",
-      "hash": "sha256-d1vDEfiNSo9ccSPqTHEFqXVFCPhp/0ZozTzcyLiJrGg="
+      "version": "v2.12.0",
+      "revision": "4d363f93c3581b9212a24f7a830d7590b3f050af",
+      "url": "https://api.github.com/repos/neovim/nvim-lspconfig/tarball/refs/tags/v2.12.0",
+      "hash": "sha256-FPk6fSdp13byZBp4pAPng1WefLEGoeauNcw62s/+i2Y="
     },
     "nvim-nio": {
       "type": "Git",
@@ -2577,9 +2577,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "0d040ed81f7953118b81cd12681fcdfcac069803",
-      "url": "https://github.com/rachartier/tiny-code-action.nvim/archive/0d040ed81f7953118b81cd12681fcdfcac069803.tar.gz",
-      "hash": "sha256-UF9zeO5Uujdt2MEwy2d2Lhk6JRnEN4vrEvYslv0/zaA="
+      "revision": "91a9c32228e9a7761d241023d9ebb9d11d8fb10d",
+      "url": "https://github.com/rachartier/tiny-code-action.nvim/archive/91a9c32228e9a7761d241023d9ebb9d11d8fb10d.tar.gz",
+      "hash": "sha256-PLGomUsZt5KPabBtl1xof83sOxI7bv7DkHKjOnf8+/Q="
     },
     "tiny-glimmer.nvim": {
       "type": "Git",
