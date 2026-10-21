@@ -20,6 +20,17 @@ with inputs;
     {
       pkgs-stable = import nixpkgs-stable { inherit system; };
 
+      # Remove this patch override when pinned nixpkgs reaches Neovim 0.12.6.
+      neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (_: rec {
+        version = "0.12.6";
+        src = prev.fetchFromGitHub {
+          owner = "neovim";
+          repo = "neovim";
+          tag = "v${version}";
+          hash = "sha256-lK1gbJyESMN3C/i8cyPFzzlJDYZHzEXugGhCwPVEbNk=";
+        };
+      });
+
       norg-fmt = prev.rustPlatform.buildRustPackage {
         pname = "neorg-fmt";
         version = inputs.norg-fmt.rev;

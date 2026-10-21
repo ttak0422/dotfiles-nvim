@@ -28,6 +28,11 @@ PR runs read caches without uploading or requiring the Cachix write secret.
 These checks do not claim full Linux editor support or exercise every LSP.
 The terminal suite also checks command arguments, session reuse, and process exits
 with local fixture programs and an isolated pterm socket directory.
+The code-action suite uses a synthetic LSP transport with real Telescope and delta
+to check previews, resolution, workspace edits, and command execution. It also
+covers tiny-code-action's buffer auto-preview regression separately. These checks
+do not reproduce every language server's responses or establish that an unrecorded
+interactive code-action error is fixed.
 
 ## Terminal sessions in Telescope
 
