@@ -3,6 +3,7 @@ with inputs;
 [
   nix-filter.overlays.default
   nix-vscode-extensions.overlays.default
+  (import ./jvm-runtimes.nix)
   (
     final: prev:
     let
