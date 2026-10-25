@@ -381,9 +381,9 @@ in
     #   package = heirline-nvim;
     #   startupConfig = read "./lua/heirline.lua";
     # };
-    incline = {
-      package = incline-nvim;
-      startupConfig = read "./fnl/incline.fnl";
+    hud = {
+      package = hud-nvim;
+      startupConfig = read "./lua/hud-config.lua";
     };
     # 動作しない？
     # bufresize = {
@@ -1027,11 +1027,6 @@ in
           package = dial-nvim;
           postConfig = read "./fnl/dial.fnl";
           hooks.modules = [ "dial.map" ];
-        }
-        {
-          package = inlay-hints-nvim;
-          postConfig = read "./fnl/inlay-hints.fnl";
-          hooks.modules = [ "inlay-hints" ];
         }
         {
           package = lookup-nvim;
