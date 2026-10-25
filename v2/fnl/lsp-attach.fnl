@@ -3,6 +3,9 @@
 
 ;; { buf, client }
 (fn [ctx]
+  (when (and ctx.client
+             (ctx.client:supports_method :textDocument/inlayHint ctx.buf))
+    (vim.lsp.inlay_hint.enable true {:bufnr ctx.buf}))
   (if (not vim.b.lsp_attached)
       (do
         (set vim.b.lsp_attached true)
@@ -64,5 +67,4 @@
           (vim.keymap.set :n :<leader>cF vim.lsp.buf.format (desc " format"))
           (vim.keymap.set [:n :v] :<C-CR>
                           #(vim.lsp.buf.format {:timeout_ms 10000})
-                          (desc " format"))
-          ((. (require :inlay-hints) :on_attach) ctx.client bufnr)))))
+                          (desc " format"))))))

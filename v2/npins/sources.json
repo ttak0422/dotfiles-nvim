@@ -1003,19 +1003,6 @@
       "url": "https://github.com/smjonas/inc-rename.nvim/archive/ddff8bd3eccedf043bd73f5bf89cf90d2d6d8105.tar.gz",
       "hash": "sha256-EWSmklr8kuv/XlOemHxCh9HGjoHdNK1e2s9gkMZvHZU="
     },
-    "inlay-hints.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "MysticalDevil",
-        "repo": "inlay-hints.nvim"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "297a65ab9543eb0850c1a55df4bb89e22cfec504",
-      "url": "https://github.com/MysticalDevil/inlay-hints.nvim/archive/297a65ab9543eb0850c1a55df4bb89e22cfec504.tar.gz",
-      "hash": "sha256-Cc9W0NxOOtRjAP70W9QY4FdNLe7uFup3JRmfJiMQGCE="
-    },
     "jupytext.nvim": {
       "type": "Git",
       "repository": {

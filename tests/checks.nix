@@ -1,5 +1,21 @@
 { pkgs }:
 {
+  lsp-attach =
+    pkgs.runCommand "lsp-attach-tests"
+      {
+        nativeBuildInputs = [ pkgs.neovim-unwrapped ];
+        NFNL_PLUGIN_DIR = pkgs.vimPlugins.v2.nfnl;
+      }
+      ''
+        cp -R ${../.} source
+        chmod -R u+w source
+        cd source
+        export HOME="$TMPDIR/home"
+        mkdir -p "$HOME"
+        nvim -n --headless -u NONE -i NONE -l tests/lsp-attach.lua
+        touch "$out"
+      '';
+
   hud =
     pkgs.runCommand "hud-config-tests"
       {
