@@ -59,7 +59,7 @@ local branch = {
       return ''
     end
     local dirty = (status.added or 0) + (status.changed or 0) + (status.removed or 0) > 0
-    return (ctx.focused and dirty and ' ' or '') .. '(' .. status.head .. (dirty and '*' or '') .. ')'
+    return (ctx.focused and dirty and ' ' or '') .. ' ' .. status.head .. (dirty and '*' or '')
   end,
   priority = 0,
 }
