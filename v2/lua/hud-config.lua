@@ -118,6 +118,7 @@ api.nvim_create_autocmd({ 'BufFilePost', 'DirChanged', 'BufWipeout' }, {
   end,
 })
 hud.setup({
+  position = { col = 1 },
   hl = 'WinBar',
   inactive_hl = 'WinBarNC',
   filter = function(ctx)
