@@ -26,8 +26,6 @@ Tests use the pinned Komado plugin and synthetic data, without a user daemon.
 macOS additionally builds `nix build .#bundler-nvim-v2 --no-link`.
 PR runs read caches without uploading or requiring the Cachix write secret.
 These checks do not claim full Linux editor support or exercise every LSP.
-The HUD check uses real hud.nvim floats, Gitsigns with a local Git fixture, and
-Sorairo highlights to cover layout, focus changes, updates, resizing, and caching.
 The terminal suite also checks command arguments, session reuse, and process exits
 with local fixture programs and an isolated pterm socket directory.
 The code-action suite uses a synthetic LSP transport with real Telescope and delta
@@ -35,34 +33,6 @@ to check previews, resolution, workspace edits, and command execution. It also
 covers tiny-code-action's buffer auto-preview regression separately. These checks
 do not reproduce every language server's responses or establish that an unrecorded
 interactive code-action error is fixed.
-
-## Window HUD
-
-The borderless HUD replaces Incline. Every row is right aligned at the top right
-of its source window. Active windows show four rows; inactive windows keep two:
-
-| Row | Content | Visibility |
-| --- | --- | --- |
-| 1 | Modified indicator, filename, directory | All windows |
-| 2 | Line/byte column, Git branch (with `*` for changes) | All windows |
-| 3 | Error and warning counts | Active window |
-| 4 | Added, changed, removed counts from Gitsigns | Active window |
-
-Empty diagnostic/diff rows remain blank. Colors, icons, Git-relative paths,
-Maven source-prefix removal, and path shortening below 100 columns follow the
-previous UI. Width pressure drops the directory before the indicator/filename,
-and the branch before the ruler; the last surviving item clips by display cells.
-Resizing restores the full content. The HUD uses WinBar/WinBarNC, Title,
-DiagnosticError/Warn, and the existing terminal Git palette, including after a
-colorscheme change. There is no legacy statusline/winbar content or box outline.
-
-hud.nvim overlays buffer text in a rectangular float. Its default cursor/Visual
-avoidance hides the active HUD while editing the covered rows or selecting text;
-panes too short for the required rows hide it too. Existing special buffer and
-filetype exclusions remain, and preview/floating windows are excluded.
-
-Run `nix build .#checks.aarch64-darwin.hud --no-link` for the isolated regression.
-This does not activate the full dotfiles configuration.
 
 ## Terminal sessions in Telescope
 
