@@ -88,10 +88,10 @@ local function check()
   right_margin(source)
   local border = api.nvim_win_get_config(float.win).border
   assert(border == nil or border == 'none' or #border == 0, 'unexpected border')
-  assert(#initial == 2 and api.nvim_win_get_config(float.win).height == 2, 'empty rows did not compact')
+  assert(#initial == 3 and api.nvim_win_get_config(float.win).height == 3, 'empty rows did not compact')
   contains(initial[1], 'Example.java o/example')
   assert(not initial[1]:find('src/main/java', 1, true), 'Maven prefix retained')
-  contains(initial[2], '15,3')
+  contains(initial[3], '15,3')
   contains(initial[2], '(hud-test)')
   assert(vim.wo[float.win].winhighlight:find('Normal:WinBar', 1, true))
   assert(vim.wo.winbar == '' and vim.o.laststatus == 0 and not package.loaded.incline)
@@ -114,9 +114,10 @@ local function check()
   local updated = rows()
   contains(updated[1], ' ')
   contains(updated[2], '(hud-test*)')
-  contains(updated[3], ' 1')
-  contains(updated[3], ' 1')
-  contains(updated[4], ' 1')
+  contains(updated[2], ' 1 (hud-test*)')
+  contains(updated[3], '15,3')
+  contains(updated[4], ' 1')
+  contains(updated[4], ' 1')
   git('checkout', '-b', 'hud-next')
   require('gitsigns').refresh()
   assert(
@@ -139,9 +140,8 @@ local function check()
   api.nvim_win_set_cursor(second, { 18, 5 })
   event('CursorMoved')
   assert(#rows(second) == 4 and #rows(source) == 2, 'split focus')
-  contains(rows(second)[2], '18,6')
-  contains(rows(source)[2], '15,3')
-  contains(rows(source)[2], '(hud-test*)')
+  contains(rows(second)[3], '18,6')
+  assert(vim.trim(rows(source)[2]) == '(hud-test*)', 'inactive must show only branch')
   assert(vim.wo[select(2, rows(source)).win].winhighlight:find('Normal:WinBarNC', 1, true))
   api.nvim_set_current_win(source)
   settle()
@@ -222,33 +222,46 @@ local function check()
   vim.cmd('vsplit')
   local other = api.nvim_get_current_win()
   for _, state in ipairs({
-    { diagnostics = false, diff = true, expected = { ' 2' } },
-    { diagnostics = true, diff = false, expected = { ' 1' } },
-    { diagnostics = false, diff = false, expected = {} },
-    { diagnostics = true, severity = 3, diff = true, expected = { ' 2' } },
-    { diagnostics = true, diff = true, expected = { ' 1', ' 2' } },
-    { diagnostics = false, diff = true, expected = { ' 2' } },
-    { diagnostics = false, diff = false, expected = {} },
+    { diff = true, expected = { ' 2 (hud-test*)', 'ruler' } },
+    { diagnostics = true, expected = { '(hud-test)', 'ruler', ' 1' } },
+    { expected = { '(hud-test)', 'ruler' } },
+    { diagnostics = true, severity = 3, diff = true, expected = { ' 2 (hud-test*)', 'ruler' } },
+    { diagnostics = true, diff = true, expected = { ' 2 (hud-test*)', 'ruler', ' 1' } },
+    { head = '', diff = true, expected = { ' 2', 'ruler' } },
+    { head = '', diagnostics = true, expected = { 'ruler', ' 1' } },
+    { head = '', expected = { 'ruler' } },
+    { diff = true, expected = { ' 2 (hud-test*)', 'ruler' } },
+    { expected = { '(hud-test)', 'ruler' } },
   }) do
     vim.diagnostic.set(
       ns,
       buf,
       state.diagnostics and { { lnum = 2, col = 0, message = 'fixture', severity = state.severity or 1 } } or {}
     )
-    vim.b[buf].gitsigns_status_dict = { head = 'hud-test', changed = state.diff and 2 or 0 }
+    vim.b[buf].gitsigns_status_dict = { head = state.head or 'hud-test', changed = state.diff and 2 or 0 }
     event('User', 'GitSignsUpdate')
     for _, win in ipairs({ original, other }) do
       api.nvim_set_current_win(win)
       settle()
       local rendered, hud_float = rows(win)
-      assert(#rendered == 2 + #state.expected, 'compacted row count')
+      assert(#rendered == 1 + #state.expected, 'compacted row count')
       assert(api.nvim_win_get_config(hud_float.win).height == #rendered, 'stale HUD height')
       for index, expected in ipairs(state.expected) do
-        contains(rendered[index + 2], expected)
+        if expected == 'ruler' then
+          local cursor = api.nvim_win_get_cursor(win)
+          expected = ('%d,%d'):format(cursor[1], cursor[2] + 1)
+        end
+        assert(vim.trim(rendered[index + 1]) == expected, 'active row order or spacing: ' .. rendered[index + 1])
       end
+      right_margin(win)
       local inactive = win == original and other or original
       local inactive_rows, inactive_float = rows(inactive)
-      assert(#inactive_rows == 2 and api.nvim_win_get_config(inactive_float.win).height == 2, 'inactive extra rows')
+      local height = state.head == '' and 1 or 2
+      assert(#inactive_rows == height and api.nvim_win_get_config(inactive_float.win).height == height, 'inactive rows')
+      if height == 2 then
+        assert(vim.trim(inactive_rows[2]) == '(hud-test' .. (state.diff and '*' or '') .. ')', 'inactive branch only')
+      end
+      right_margin(inactive)
     end
   end
   api.nvim_set_current_win(original)
@@ -296,7 +309,7 @@ local function check()
   end
   local visible_buf = api.nvim_get_current_buf()
   vim.diagnostic.set(ns, visible_buf, { { lnum = 2, col = 0, message = 'visible', severity = 1 } })
-  vim.b[visible_buf].gitsigns_status_dict = { changed = 1 }
+  vim.b[visible_buf].gitsigns_status_dict = { head = 'visible', changed = 1 }
   event('User', 'GitSignsUpdate')
   local source = api.nvim_get_current_win()
   vim.cmd('vsplit')
@@ -306,6 +319,9 @@ local function check()
   local function visible(active, inactive)
     local content, float = rows(active)
     assert(#content == 4 and #rows(inactive) == 2, 'visible active/inactive rows')
+    assert(vim.trim(rows(inactive)[2]) == '(visible*)', 'inactive branch in Visual/focus transitions')
+    contains(content[2], ' 1')
+    contains(content[4], ' 1')
     assert(vim.wo[float.win].winhighlight:match('^Normal:([^,]+)') == 'WinBar')
     assert(vim.wo[select(2, rows(inactive)).win].winhighlight:match('^Normal:([^,]+)') == 'WinBarNC')
     for _, win in ipairs({ active, inactive }) do

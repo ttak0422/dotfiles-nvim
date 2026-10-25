@@ -52,14 +52,14 @@ local ruler = {
   priority = 10,
 }
 local branch = {
-  update = { 'User', 'BufEnter' },
+  update = { 'User', 'BufEnter', 'WinEnter', 'WinLeave' },
   provider = function(ctx)
     local status = vim.b[ctx.buf].gitsigns_status_dict
     if not status or not status.head or status.head == '' then
       return ''
     end
     local dirty = (status.added or 0) + (status.changed or 0) + (status.removed or 0) > 0
-    return ' (' .. status.head .. (dirty and '*' or '') .. ')'
+    return (ctx.focused and dirty and ' ' or '') .. '(' .. status.head .. (dirty and '*' or '') .. ')'
   end,
   priority = 0,
 }
@@ -95,8 +95,8 @@ local git_diff = {
     return #result > 0 and result or nil
   end,
 }
-local active = { { indicator, file }, { ruler, branch }, diagnostics, git_diff }
-local inactive = { active[1], active[2] }
+local active = { { indicator, file }, { git_diff, branch }, ruler, diagnostics }
+local inactive = { active[1], branch }
 local group = api.nvim_create_augroup('hud-config', { clear = true })
 local function highlights()
   for _, item in ipairs({ { 'Added', 10 }, { 'Changed', 12 }, { 'Removed', 9 } }) do
