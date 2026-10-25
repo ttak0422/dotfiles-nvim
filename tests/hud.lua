@@ -27,6 +27,19 @@ local function rows(source)
   local float = assert(floats()[source or api.nvim_get_current_win()], 'missing HUD')
   return api.nvim_buf_get_lines(float.buf, 0, -1, false), float
 end
+local function right_margin(source)
+  local lines, float = rows(source)
+  local info = vim.fn.getwininfo(source)[1]
+  local config = api.nvim_win_get_config(float.win)
+  assert(config.col + config.width == info.wincol - 1 + info.width - 1, 'HUD must leave one clear right cell')
+  assert(config.row == info.winrow - 1 + (info.winbar or 0), 'top placement changed')
+  assert(config.width <= info.width - info.textoff - 1, 'HUD overflow past gutters or margin')
+  assert(config.height == #lines, 'margin introduced an empty row')
+  for _, line in ipairs(lines) do
+    assert(vim.fn.strdisplaywidth(line) == config.width, 'row alignment must use display cells')
+  end
+  return info, config
+end
 local function contains(text, value)
   assert(text:find(value, 1, true), text .. ' missing ' .. value)
 end
@@ -72,6 +85,7 @@ local function check()
   end, 10))
   settle()
   local initial, float = rows()
+  right_margin(source)
   local border = api.nvim_win_get_config(float.win).border
   assert(border == nil or border == 'none' or #border == 0, 'unexpected border')
   assert(#initial == 2 and api.nvim_win_get_config(float.win).height == 2, 'empty rows did not compact')
@@ -182,30 +196,25 @@ local function check()
   api.nvim_buf_set_name(buf, long)
   event('BufFilePost')
   contains(rows()[1], 'o/e/v/l/p/日')
+  right_margin(api.nvim_get_current_win())
   vim.cmd('vsplit')
   api.nvim_win_set_cursor(0, { 15, 0 })
   event('CursorMoved')
   contains(rows()[1], 'o/e/v/l/p/日')
   api.nvim_win_set_width(0, 18)
   event('WinResized')
-  local narrow, nfloat = rows()
+  local narrow = rows()
   contains(narrow[1], 'Example.java')
   assert(not narrow[1]:find('o/e/', 1, true), 'path did not yield')
   assert(not narrow[2]:find('hud-test', 1, true), 'branch did not yield')
-  for _, row in ipairs(narrow) do
-    assert(vim.fn.strdisplaywidth(row) <= 16, 'overflow past gutters')
-  end
-  local info = vim.fn.getwininfo(api.nvim_get_current_win())[1]
-  local cfg = api.nvim_win_get_config(nfloat.win)
-  assert(cfg.col + cfg.width == info.width, 'not right aligned')
-  api.nvim_win_set_width(0, 4)
+  local info = right_margin(api.nvim_get_current_win())
+  api.nvim_win_set_width(0, info.textoff + 2)
   event('WinResized')
-  for _, row in ipairs(rows()) do
-    assert(vim.fn.strdisplaywidth(row) <= 2, 'tiny width overflow')
-  end
+  right_margin(api.nvim_get_current_win())
   vim.cmd('only')
   event('WinResized')
   contains(rows()[1], 'o/e/v/l/p/日')
+  right_margin(api.nvim_get_current_win())
 
   -- Stop the real watcher before deterministic row-state arrival/removal checks.
   require('gitsigns').detach()
@@ -300,16 +309,20 @@ local function check()
     assert(vim.wo[float.win].winhighlight:match('^Normal:([^,]+)') == 'WinBar')
     assert(vim.wo[select(2, rows(inactive)).win].winhighlight:match('^Normal:([^,]+)') == 'WinBarNC')
     for _, win in ipairs({ active, inactive }) do
-      local lines, hud_float = rows(win)
-      local info = vim.fn.getwininfo(win)[1]
-      local config = api.nvim_win_get_config(hud_float.win)
-      assert(config.col + config.width == info.wincol - 1 + info.width, 'right alignment changed')
+      local _, config = right_margin(win)
       assert(config.border == nil or config.border == 'none' or #config.border == 0, 'border appeared')
-      for _, line in ipairs(lines) do
-        assert(vim.fn.strdisplaywidth(line) <= info.width - info.textoff, 'narrow HUD overflow')
-      end
     end
   end
+  local edge = right_margin(source)
+  local text = '日本語' .. string.rep('x', edge.width - edge.textoff - vim.fn.strdisplaywidth('日本語'))
+  api.nvim_buf_set_lines(visible_buf, 0, 1, false, { text })
+  api.nvim_win_set_cursor(source, { 1, #text - 1 })
+  event('BufModifiedSet')
+  event('CursorMoved')
+  local cursor = vim.fn.screenpos(source, 1, #text)
+  local _, hud_edge = right_margin(source)
+  assert(cursor.col == edge.wincol + edge.width - 1, 'multibyte cursor fixture must reach the right edge')
+  assert(hud_edge.col + hud_edge.width == cursor.col - 1, 'HUD covers the rightmost cursor cell')
   for line = 1, 6 do
     api.nvim_win_set_cursor(source, { line, 0 })
     vim.fn.winrestview({ topline = 1, lnum = line, col = 0 })
