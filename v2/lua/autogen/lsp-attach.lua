@@ -22,11 +22,32 @@ local function _1_(ctx)
       return (":IncRename " .. vim.fn.expand("<cword>"))
     end
     vim.keymap.set("n", "<leader>rN", _5_, {noremap = true, silent = true, expr = true, buf = bufnr, desc = "rename"})
-    vim.keymap.set("n", "<leader>cF", vim.lsp.buf.format, desc("\238\171\132 format"))
-    local function _6_()
-      return vim.lsp.buf.format({timeout_ms = 10000})
+    local format
+    local function _6_(timeout)
+      local jvm = ({java = true, groovy = true, kotlin = true})[vim.bo.filetype]
+      local _7_
+      if jvm then
+        _7_ = 65000
+      else
+        _7_ = timeout
+      end
+      local _9_
+      if jvm then
+        _9_ = "null-ls"
+      else
+        _9_ = nil
+      end
+      return vim.lsp.buf.format({timeout_ms = _7_, name = _9_})
     end
-    return vim.keymap.set({"n", "v"}, "<C-CR>", _6_, desc("\238\171\132 format"))
+    format = _6_
+    local function _11_()
+      return format(1000)
+    end
+    vim.keymap.set("n", "<leader>cF", _11_, desc("\238\171\132 format"))
+    local function _12_()
+      return format(10000)
+    end
+    return vim.keymap.set({"n", "v"}, "<C-CR>", _12_, desc("\238\171\132 format"))
   else
     return nil
   end

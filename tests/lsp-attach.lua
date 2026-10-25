@@ -25,7 +25,7 @@ local function check()
       attach({ buf = event.buf, client = vim.lsp.get_client_by_id(event.data.client_id) })
     end,
   })
-  local requests = 0
+  local requests, formatting = 0, {}
   local function start(name, hints, target)
     local id = assert(vim.lsp.start({
       name = name,
@@ -36,10 +36,13 @@ local function check()
             request_id = request_id + 1
             local result
             if method == 'initialize' then
-              result = { capabilities = { inlayHintProvider = hints, positionEncoding = 'utf-16' } }
+              result = { capabilities = { inlayHintProvider = hints, documentFormattingProvider = true, positionEncoding = 'utf-16' } }
             elseif method == 'textDocument/inlayHint' then
               requests = requests + 1
               result = { { position = { line = 0, character = 11 }, label = ': number' } }
+            elseif method == 'textDocument/formatting' then
+              formatting[name] = (formatting[name] or 0) + 1
+              result = {}
             end
             vim.schedule(function()
               callback(nil, result)
@@ -83,6 +86,34 @@ local function check()
   )
   assert(vim.lsp.inlay_hint.is_enabled({ bufnr = buf }))
   assert(#api.nvim_buf_get_keymap(buf, 'n') == #maps, 'duplicate mappings')
+  start('null-ls', false, buf)
+  local format, control_enter
+  for _, map in ipairs(api.nvim_buf_get_keymap(buf, 'n')) do
+    if map.lhs == '<Space>cF' or map.lhs == ' cF' or map.lhs == '\\cF' then format = map.callback end
+    if map.lhs == '<C-CR>' then control_enter = map.callback end
+  end
+  assert(format and control_enter, 'formatting mappings missing: ' .. vim.inspect(api.nvim_buf_get_keymap(buf, 'n')))
+  local native_format = vim.lsp.buf.format
+  local options
+  vim.lsp.buf.format = function(opts)
+    options = opts
+    native_format(opts)
+  end
+  for _, filetype in ipairs({ 'java', 'groovy', 'kotlin' }) do
+    vim.bo.filetype = filetype
+    for _, invoke in ipairs({ format, control_enter }) do
+      formatting = {}
+      invoke()
+      assert(options.name == 'null-ls' and options.timeout_ms == 65000, 'IDEA deadline/client selection')
+      assert(vim.deep_equal(formatting, { ['null-ls'] = 1 }), 'competing formatter: ' .. vim.inspect(formatting))
+    end
+  end
+  vim.bo.filetype = 'lua'
+  format()
+  assert(options.name == nil and options.timeout_ms == 1000, 'non-JVM default changed')
+  control_enter()
+  assert(options.name == nil and options.timeout_ms == 10000, 'non-JVM Ctrl-Enter changed')
+  vim.lsp.buf.format = native_format
   local other = api.nvim_create_buf(true, false)
   api.nvim_set_current_buf(other)
   start('other-without-hints', false, other)

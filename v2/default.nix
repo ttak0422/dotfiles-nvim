@@ -14,6 +14,7 @@ let
   ext = pkgs.stdenv.hostPlatform.extensions.sharedLibrary;
   nvim = "${pkgs.neovim-unwrapped}/bin/nvim";
   editorOpenScript = ./lua/editor-open.lua;
+  ideaContents = "${pkgs.jetbrains.idea}/Applications/${pkgs.jetbrains.idea.desktopName}.app/Contents";
   # 軽量エディタラッパー: +N や file:N を --line=N に変換して nvim -l に渡す
   editorWrapper = pkgs.writeShellScript "nvim-editor-open" ''
     remote_args=()
@@ -368,8 +369,10 @@ in
       startupConfig = {
         code = read "./fnl/none-ls.fnl";
         args = {
-          # TODO: support Linux
-          idea = "${pkgs.jetbrains.idea}/Applications/IntelliJ\ IDEA\ CE.app/Contents/MacOS/idea";
+          # Darwin's bin/idea uses open; formatting needs the native process/status.
+          idea = "${ideaContents}/MacOS/idea";
+          idea_vm_options = "${ideaContents}/bin/idea.vmoptions";
+          idea_formatter_path = ./lua/idea-format.lua;
         };
       };
     };

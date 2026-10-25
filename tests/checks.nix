@@ -1,5 +1,27 @@
 { pkgs }:
 {
+  idea-format =
+    pkgs.runCommand "idea-format-tests"
+      {
+        nativeBuildInputs = [
+          pkgs.neovim-unwrapped
+          pkgs.google-java-format
+        ];
+        IDEA_TEST_SHELL = pkgs.runtimeShell;
+        NONE_LS_PLUGIN_DIR = pkgs.vimPlugins.v2.none-ls-nvim;
+        NFNL_PLUGIN_DIR = pkgs.vimPlugins.v2.nfnl;
+        PLENARY_PLUGIN_DIR = pkgs.vimPlugins.v2.plenary-nvim;
+      }
+      ''
+        cp -R ${../.} source
+        chmod -R u+w source
+        cd source
+        export HOME="$TMPDIR/home"
+        mkdir -p "$HOME"
+        nvim -n --headless -u NONE -i NONE -l tests/idea-format.lua
+        touch "$out"
+      '';
+
   lsp-attach =
     pkgs.runCommand "lsp-attach-tests"
       {
