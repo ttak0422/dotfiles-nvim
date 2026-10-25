@@ -42,12 +42,20 @@ with inputs;
         };
       };
 
-      # 一時的なピン留め: nixpkgs 追従を戻すときはこのブロックごと削除する
+      # Keep the agent compatible with the Eclipse internals in JDT LS.
       lombok = prev.lombok.overrideAttrs (_: rec {
-        version = "1.18.36";
+        version = "1.18.48";
         src = prev.fetchurl {
           url = "https://projectlombok.org/downloads/lombok-${version}.jar";
-          hash = "sha256-c7awW2otNltwC6sI0w+U3p0zZJC8Cszlthgf70jL8Y4=";
+          hash = "sha256-hUd6RlXrssB0qQmc+3Sb5FREn+5WTUKCYQ3xuF98UIs=";
+        };
+      });
+
+      jdt-language-server = (prev.jdt-language-server.override { jdk = final.jdk25; }).overrideAttrs (_: {
+        version = "1.63.0";
+        src = prev.fetchurl {
+          url = "https://download.eclipse.org/jdtls/milestones/1.63.0/jdt-language-server-1.63.0-202610191322.tar.gz";
+          hash = "sha256-sfKr4LPMy0Ys9k+0pVh8fQnfYM+L53SLFSy9idAYvcQ=";
         };
       });
 

@@ -82,7 +82,8 @@
                                                 {:name :JavaSE-17
                                                  :path jdk17_path}
                                                 {:name :JavaSE-21
-                                                 :path jdk21_path}]}
+                                                 :path jdk21_path
+                                                 :default true}]}
                       java {:autobuild disabled
                             :maxConcurrentBuilds 8
                             :signatureHelp enabled

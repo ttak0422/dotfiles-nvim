@@ -39,7 +39,7 @@ do
   local completion = {favoriteStaticMembers = favoriteStaticMembers, filteredTypes = filteredTypes}
   local edit = {smartSemicolonDetection = enabled, validateAllOpenBuffersOnChanges = false}
   local sources = {organizeImports = {starThreshold = 9999, staticStarThreshold = 9999}}
-  local configuration = {runtimes = {{name = "JavaSE-1.8", path = jdk8_path}, {name = "JavaSE-11", path = jdk11_path}, {name = "JavaSE-17", path = jdk17_path}, {name = "JavaSE-21", path = jdk21_path}}}
+  local configuration = {runtimes = {{name = "JavaSE-1.8", path = jdk8_path}, {name = "JavaSE-11", path = jdk11_path}, {name = "JavaSE-17", path = jdk17_path}, {name = "JavaSE-21", path = jdk21_path, default = true}}}
   local java = {autobuild = disabled, maxConcurrentBuilds = 8, signatureHelp = enabled, format = disabled, configuration = configuration, completion = completion, edit = edit, sources = sources, referencesCodeLens = {enabled = true}, implementationsCodeLens = {enabled = true}, inlayHints = {parameterNames = {enabled = "all"}}}
   settings = {java = java}
 end

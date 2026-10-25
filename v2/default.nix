@@ -101,8 +101,9 @@ in
             jdk8_path = "${pkgs.jdk8}";
             jdk11_path = "${pkgs.jdk11}";
             jdk17_path = "${pkgs.jdk17}";
-            jdk21_path = "${pkgs.jdk}";
-            java_path = "${pkgs.jdk}/bin/java";
+            jdk21_path = "${pkgs.jdk21}";
+            # JDT LS 1.63 ships Eclipse bundles requiring Java 25.
+            java_path = "${pkgs.jdk25}/bin/java";
             jdtls_jar_pattern = "${jdtls}/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*.jar";
             jdtls_config_path = "${jdtls}/share/java/jdtls/${
               if pkgs.stdenv.isDarwin then "config_mac" else "config_linux"
