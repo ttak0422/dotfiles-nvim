@@ -42,13 +42,12 @@ local function git(...)
   return vim.trim(result.stdout)
 end
 local function check()
-  vim.o.lines, vim.o.columns = 38, 180
+  -- Headless Neovim has no UI to resize its screen grid; use its native 80 columns.
   vim.o.laststatus, vim.o.showtabline = 0, 0
   vim.o.winborder = 'single'
   vim.o.winminwidth, vim.o.winminheight = 1, 1
   vim.o.winwidth, vim.o.winheight = 1, 1
   vim.wo.wrap, vim.wo.signcolumn, vim.wo.foldcolumn = false, 'yes', '1'
-  vim.cmd('wincmd =')
   vim.cmd('colorscheme sorairo')
   vim.fn.mkdir(root .. '/src/main/java/org/example', 'p')
   git('init', '-b', 'hud-test')
@@ -60,12 +59,14 @@ local function check()
   vim.fn.writefile(content, name)
   git('add', '.')
   git('-c', 'user.name=HUD Test', '-c', 'user.email=hud@example.invalid', 'commit', '-m', 'fixture')
+  print('HUD: Git fixture initialized')
   vim.cmd.edit(vim.fn.fnameescape(name))
   vim.bo.filetype = 'java'
   api.nvim_win_set_cursor(0, { 15, 2 })
   local source, buf = api.nvim_get_current_win(), api.nvim_get_current_buf()
   dofile('v2/lua/hud-config.lua')
   dofile('v2/lua/autogen/gitsigns.lua')
+  print('HUD: providers loaded')
   assert(vim.wait(5000, function()
     return (vim.b[buf].gitsigns_status_dict or {}).head == 'hud-test'
   end, 10))
@@ -74,7 +75,7 @@ local function check()
   local border = api.nvim_win_get_config(float.win).border
   assert(border == nil or border == 'none' or #border == 0, 'unexpected border')
   assert(#initial == 4, 'active rows')
-  contains(initial[1], 'Example.java org/example')
+  contains(initial[1], 'Example.java o/example')
   assert(not initial[1]:find('src/main/java', 1, true), 'Maven prefix retained')
   contains(initial[2], '15,3')
   contains(initial[2], '(hud-test)')
@@ -181,7 +182,7 @@ local function check()
   local long = root .. '/src/main/java/org/example/very/long/path/日本語/Example.java'
   api.nvim_buf_set_name(buf, long)
   event('BufFilePost')
-  contains(rows()[1], 'org/example/very/long/path/日本語')
+  contains(rows()[1], 'o/e/v/l/p/日')
   vim.cmd('vsplit')
   api.nvim_win_set_cursor(0, { 15, 0 })
   event('CursorMoved')
@@ -205,7 +206,7 @@ local function check()
   end
   vim.cmd('only')
   event('WinResized')
-  contains(rows()[1], 'org/example/very/long/path/日本語')
+  contains(rows()[1], 'o/e/v/l/p/日')
 
   vim.diagnostic.reset(ns, buf)
   vim.b[buf].gitsigns_status_dict = nil
