@@ -1,5 +1,26 @@
 { pkgs }:
 {
+  hud =
+    pkgs.runCommand "hud-config-tests"
+      {
+        nativeBuildInputs = [
+          pkgs.neovim-unwrapped
+          pkgs.git
+        ];
+        HUD_TEST_PLUGIN = pkgs.vimPlugins.v2.hud-nvim;
+        HUD_TEST_GITSIGNS = pkgs.vimPlugins.v2.gitsigns-nvim;
+        HUD_TEST_THEME = pkgs.vimPlugins.v2.sorairo;
+      }
+      ''
+        cp -R ${../.} source
+        chmod -R u+w source
+        cd source
+        export HOME="$TMPDIR/home"
+        mkdir -p "$HOME"
+        nvim -n --headless -u NONE -i NONE -l tests/hud.lua
+        touch "$out"
+      '';
+
   workflows = pkgs.runCommand "workflow-lint" { nativeBuildInputs = [ pkgs.actionlint ]; } ''
     actionlint ${../.github/workflows/flake-check.yml}
     touch "$out"

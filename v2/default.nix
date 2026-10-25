@@ -381,9 +381,9 @@ in
     #   package = heirline-nvim;
     #   startupConfig = read "./lua/heirline.lua";
     # };
-    incline = {
-      package = incline-nvim;
-      startupConfig = read "./fnl/incline.fnl";
+    hud = {
+      package = hud-nvim;
+      startupConfig = read "./lua/hud-config.lua";
     };
     # 動作しない？
     # bufresize = {
