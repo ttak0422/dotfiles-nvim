@@ -1151,7 +1151,7 @@ in
           preConfig = {
             language = "vim";
             code = ''
-              g:gin_proxy_disable_editor = 1
+              let g:gin_proxy_disable_editor = v:true
             '';
           };
         }
