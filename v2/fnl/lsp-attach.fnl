@@ -64,7 +64,14 @@
                            :expr true
                            :buf bufnr
                            :desc :rename})
-          (vim.keymap.set :n :<leader>cF vim.lsp.buf.format (desc " format"))
+          ;; none-ls owns JVM formatting, including the explicit IDEA/GJF choice.
+          ;; Allow the 60s IDEA process deadline plus response/cleanup overhead.
+          (local format (fn [timeout]
+                          (local jvm (. {:java true :groovy true :kotlin true}
+                                        vim.bo.filetype))
+                          (vim.lsp.buf.format {:timeout_ms (if jvm 65000 timeout)
+                                               :name (when jvm :null-ls)})))
+          (vim.keymap.set :n :<leader>cF #(format 1000) (desc " format"))
           (vim.keymap.set [:n :v] :<C-CR>
-                          #(vim.lsp.buf.format {:timeout_ms 10000})
+                          #(format 10000)
                           (desc " format"))))))

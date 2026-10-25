@@ -3,8 +3,7 @@
 (local formatting null_ls.builtins.formatting)
 (local utils (require :null-ls.utils))
 (local helpers (require :null-ls.helpers))
-(local methods (require :null-ls.methods))
-(local FORMATTING methods.internal.FORMATTING)
+(local idea (dofile args.idea_formatter_path))
 
 ;; checkmake 0.3 reports diagnostics on stdout and a violation count on stderr.
 ;; Keep its parser and process handling; accept only a matching count summary.
@@ -79,7 +78,7 @@
                 formatting.fnlfmt
                 formatting.gofumpt
                 formatting.goimports
-                formatting.ktlint
+                (formatting.ktlint.with {:runtime_condition #(= vim.g.idea_format nil)})
                 formatting.nixfmt
                 formatting.shfmt
                 formatting.sqruff
@@ -90,21 +89,7 @@
                 formatting.yamlfmt
                 formatting.yapf
                 ; `vim.g.idea_format`が設定されている場合ideaを利用する
-                (helpers.make_builtin {:name :idea
-                                       :method FORMATTING
-                                       :filetypes [:java :groovy :kotlin]
-                                       :runtime_condition #(not= vim.g.idea_format
-                                                                 nil)
-                                       :generator_opts {:command args.idea
-                                                        :args #[:format
-                                                                :-s
-                                                                vim.g.idea_format
-                                                                :$FILENAME]
-                                                        :timeout 20000
-                                                        :to_stdin false
-                                                        :from_temp_file true
-                                                        :to_temp_file true}
-                                       :factory helpers.formatter_factory})
+                (idea args)
                 (formatting.google_java_format.with {:runtime_condition #(= vim.g.idea_format
                                                                             nil)
                                                      :timeout 20000})

@@ -4,8 +4,7 @@ local diagnostics = null_ls.builtins.diagnostics
 local formatting = null_ls.builtins.formatting
 local utils = require("null-ls.utils")
 local helpers = require("null-ls.helpers")
-local methods = require("null-ls.methods")
-local FORMATTING = methods.internal.FORMATTING
+local idea = dofile(args.idea_formatter_path)
 local checkmake
 local function _1_(opts)
   local parse_line = opts.on_output
@@ -48,27 +47,24 @@ local function _8_(ps)
   return (ps.bufname ~= "")
 end
 local function _9_()
-  return (vim.g.idea_format ~= nil)
-end
-local function _10_()
-  return {"format", "-s", vim.g.idea_format, "$FILENAME"}
-end
-local function _11_()
   return (vim.g.idea_format == nil)
 end
-local function _12_(_241)
+local function _10_()
+  return (vim.g.idea_format == nil)
+end
+local function _11_(_241)
   return (utils.root_pattern({"tsconfig.json", "package.json", "jsconfig.json", ".node_project"})(_241.bufname) and not utils.root_pattern({"rome.json", "biome.json", "biome.jsonc"})(_241.bufname))
 end
-local function _13_(_241)
+local function _12_(_241)
   return utils.root_pattern({"rome.json", "biome.json", "biome.jsonc"})(_241.bufname)
 end
-sources = {diagnostics.actionlint, checkmake, diagnostics.checkstyle.with({runtime_condition = _7_, extra_args = {"-c", (vim.g.checkstyle or "/google_checks.xml")}}), diagnostics.deadnix, diagnostics.dotenv_linter.with({args = {"check", "--plain", "$FILENAME"}}), diagnostics.editorconfig_checker.with({runtime_condition = _8_}), diagnostics.gitlint, diagnostics.ktlint, diagnostics.mypy, diagnostics.selene, diagnostics.semgrep, diagnostics.sqruff, diagnostics.staticcheck, diagnostics.statix, diagnostics.stylelint, diagnostics.terraform_validate, diagnostics.vint, diagnostics.yamllint, formatting.fantomas, formatting.fnlfmt, formatting.gofumpt, formatting.goimports, formatting.ktlint, formatting.nixfmt, formatting.shfmt, formatting.sqruff, formatting.stylelint, formatting.stylua, formatting.terraform_fmt, formatting.tidy, formatting.yamlfmt, formatting.yapf, helpers.make_builtin({name = "idea", method = FORMATTING, filetypes = {"java", "groovy", "kotlin"}, runtime_condition = _9_, generator_opts = {command = args.idea, args = _10_, timeout = 20000, from_temp_file = true, to_temp_file = true, to_stdin = false}, factory = helpers.formatter_factory}), formatting.google_java_format.with({runtime_condition = _11_, timeout = 20000}), formatting.prettier.with({prefer_local = "node_modules/.bin", runtime_condition = helpers.cache.by_bufnr(_12_), filetypes = {"javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less", "graphql", "handlebars", "svelte", "astro", "htmlangular"}}), formatting.biome.with({runtime_condition = helpers.cache.by_bufnr(_13_), filetypes = {"javascript", "typescript", "javascriptreact", "typescriptreact", "css", "graphql"}})}
+sources = {diagnostics.actionlint, checkmake, diagnostics.checkstyle.with({runtime_condition = _7_, extra_args = {"-c", (vim.g.checkstyle or "/google_checks.xml")}}), diagnostics.deadnix, diagnostics.dotenv_linter.with({args = {"check", "--plain", "$FILENAME"}}), diagnostics.editorconfig_checker.with({runtime_condition = _8_}), diagnostics.gitlint, diagnostics.ktlint, diagnostics.mypy, diagnostics.selene, diagnostics.semgrep, diagnostics.sqruff, diagnostics.staticcheck, diagnostics.statix, diagnostics.stylelint, diagnostics.terraform_validate, diagnostics.vint, diagnostics.yamllint, formatting.fantomas, formatting.fnlfmt, formatting.gofumpt, formatting.goimports, formatting.ktlint.with({runtime_condition = _9_}), formatting.nixfmt, formatting.shfmt, formatting.sqruff, formatting.stylelint, formatting.stylua, formatting.terraform_fmt, formatting.tidy, formatting.yamlfmt, formatting.yapf, idea(args), formatting.google_java_format.with({runtime_condition = _10_, timeout = 20000}), formatting.prettier.with({prefer_local = "node_modules/.bin", runtime_condition = helpers.cache.by_bufnr(_11_), filetypes = {"javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less", "graphql", "handlebars", "svelte", "astro", "htmlangular"}}), formatting.biome.with({runtime_condition = helpers.cache.by_bufnr(_12_), filetypes = {"javascript", "typescript", "javascriptreact", "typescriptreact", "css", "graphql"}})}
 null_ls.setup({border = "single", cmd = {"nvim"}, debounce = 300, default_timeout = 10000, diagnostic_config = {}, diagnostics_format = "#{m} (#{s})", fallback_severity = vim.diagnostic.severity.ERROR, log_level = "warn", notify_format = "[null-ls] %s", on_attach = nil, on_init = nil, on_exit = nil, root_dir = utils.root_pattern({".null-ls-root", ".git"}), root_dir_async = nil, should_attach = nil, temp_dir = nil, sources = sources, debug = false, update_in_insert = false})
-local function _14_()
+local function _13_()
   return vim.cmd("NullLsInfo")
 end
-vim.api.nvim_create_user_command("NoneLsInfo", _14_, {})
-local function _15_()
+vim.api.nvim_create_user_command("NoneLsInfo", _13_, {})
+local function _14_()
   return vim.cmd("NullLsLog")
 end
-return vim.api.nvim_create_user_command("NoneLsLog", _15_, {})
+return vim.api.nvim_create_user_command("NoneLsLog", _14_, {})

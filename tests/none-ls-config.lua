@@ -16,7 +16,7 @@ local function check()
   local null_ls = require('null-ls')
   local setup, config = null_ls.setup
   null_ls.setup = function(value) config = value end
-  _G.args = { idea = '/unused' }
+  _G.args = { idea = '/unused', idea_formatter_path = 'v2/lua/idea-format.lua' }
   dofile('v2/lua/autogen/none-ls.lua')
   null_ls.setup = setup
   assert(#config.sources == 36, 'unexpected source coverage: ' .. #config.sources)
