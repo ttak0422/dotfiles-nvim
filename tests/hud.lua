@@ -74,12 +74,11 @@ local function check()
   local initial, float = rows()
   local border = api.nvim_win_get_config(float.win).border
   assert(border == nil or border == 'none' or #border == 0, 'unexpected border')
-  assert(#initial == 4, 'active rows')
+  assert(#initial == 2 and api.nvim_win_get_config(float.win).height == 2, 'empty rows did not compact')
   contains(initial[1], 'Example.java o/example')
   assert(not initial[1]:find('src/main/java', 1, true), 'Maven prefix retained')
   contains(initial[2], '15,3')
   contains(initial[2], '(hud-test)')
-  assert(vim.trim(initial[3]) == '' and vim.trim(initial[4]) == '', 'empty rows compacted')
   assert(vim.wo[float.win].winhighlight:find('Normal:WinBar', 1, true))
   assert(vim.wo.winbar == '' and vim.o.laststatus == 0 and not package.loaded.incline)
 
@@ -208,11 +207,48 @@ local function check()
   event('WinResized')
   contains(rows()[1], 'o/e/v/l/p/日')
 
+  -- Stop the real watcher before deterministic row-state arrival/removal checks.
+  require('gitsigns').detach()
+  local original = api.nvim_get_current_win()
+  vim.cmd('vsplit')
+  local other = api.nvim_get_current_win()
+  for _, state in ipairs({
+    { diagnostics = false, diff = true, expected = { ' 2' } },
+    { diagnostics = true, diff = false, expected = { ' 1' } },
+    { diagnostics = false, diff = false, expected = {} },
+    { diagnostics = true, severity = 3, diff = true, expected = { ' 2' } },
+    { diagnostics = true, diff = true, expected = { ' 1', ' 2' } },
+    { diagnostics = false, diff = true, expected = { ' 2' } },
+    { diagnostics = false, diff = false, expected = {} },
+  }) do
+    vim.diagnostic.set(
+      ns,
+      buf,
+      state.diagnostics and { { lnum = 2, col = 0, message = 'fixture', severity = state.severity or 1 } } or {}
+    )
+    vim.b[buf].gitsigns_status_dict = { head = 'hud-test', changed = state.diff and 2 or 0 }
+    event('User', 'GitSignsUpdate')
+    for _, win in ipairs({ original, other }) do
+      api.nvim_set_current_win(win)
+      settle()
+      local rendered, hud_float = rows(win)
+      assert(#rendered == 2 + #state.expected, 'compacted row count')
+      assert(api.nvim_win_get_config(hud_float.win).height == #rendered, 'stale HUD height')
+      for index, expected in ipairs(state.expected) do
+        contains(rendered[index + 2], expected)
+      end
+      local inactive = win == original and other or original
+      local inactive_rows, inactive_float = rows(inactive)
+      assert(#inactive_rows == 2 and api.nvim_win_get_config(inactive_float.win).height == 2, 'inactive extra rows')
+    end
+  end
+  api.nvim_set_current_win(original)
+  vim.cmd('only')
   vim.diagnostic.reset(ns, buf)
   vim.b[buf].gitsigns_status_dict = nil
   event('User', 'GitSignsUpdate')
   local empty = rows()
-  assert(#empty == 4 and vim.trim(empty[3]) == '' and vim.trim(empty[4]) == '')
+  assert(#empty == 2, 'empty trailing rows retained')
   assert(not empty[2]:find('hud-test', 1, true), 'stale git')
   vim.bo.modified = false
   event('BufModifiedSet')
@@ -240,7 +276,7 @@ local function check()
   assert(not floats()[api.nvim_get_current_win()])
   vim.wo.previewwindow = false
   event('OptionSet')
-  assert(#rows() == 4)
+  assert(#rows() == 2)
 
   vim.o.background = 'light'
   vim.cmd('colorscheme sorairo')
@@ -249,9 +285,66 @@ local function check()
     local hl = api.nvim_get_hl(0, { name = 'HudGit' .. item[1] })
     assert(hl.fg == tonumber(vim.g['terminal_color_' .. item[2]]:sub(2), 16) and hl.bold, 'theme refresh')
   end
-  api.nvim_win_set_cursor(0, { 1, 0 })
-  event('CursorMoved')
-  assert(not floats()[api.nvim_get_current_win()], 'cursor overlap')
+  local visible_buf = api.nvim_get_current_buf()
+  vim.diagnostic.set(ns, visible_buf, { { lnum = 2, col = 0, message = 'visible', severity = 1 } })
+  vim.b[visible_buf].gitsigns_status_dict = { changed = 1 }
+  event('User', 'GitSignsUpdate')
+  local source = api.nvim_get_current_win()
+  vim.cmd('vsplit')
+  local other = api.nvim_get_current_win()
+  api.nvim_set_current_win(source)
+  local width = api.nvim_win_get_width(source)
+  local function visible(active, inactive)
+    local content, float = rows(active)
+    assert(#content == 4 and #rows(inactive) == 2, 'visible active/inactive rows')
+    assert(vim.wo[float.win].winhighlight:match('^Normal:([^,]+)') == 'WinBar')
+    assert(vim.wo[select(2, rows(inactive)).win].winhighlight:match('^Normal:([^,]+)') == 'WinBarNC')
+    for _, win in ipairs({ active, inactive }) do
+      local lines, hud_float = rows(win)
+      local info = vim.fn.getwininfo(win)[1]
+      local config = api.nvim_win_get_config(hud_float.win)
+      assert(config.col + config.width == info.wincol - 1 + info.width, 'right alignment changed')
+      assert(config.border == nil or config.border == 'none' or #config.border == 0, 'border appeared')
+      for _, line in ipairs(lines) do
+        assert(vim.fn.strdisplaywidth(line) <= info.width - info.textoff, 'narrow HUD overflow')
+      end
+    end
+  end
+  for line = 1, 6 do
+    api.nvim_win_set_cursor(source, { line, 0 })
+    vim.fn.winrestview({ topline = 1, lnum = line, col = 0 })
+    event('CursorMoved')
+    assert(vim.fn.winline() == line, 'cursor fixture did not cross HUD rows')
+    visible(source, other)
+  end
+  for _, mode in ipairs({ 'v', 'V', '\22' }) do
+    api.nvim_win_set_cursor(source, { 1, 0 })
+    vim.cmd('normal! ' .. mode)
+    assert(api.nvim_get_mode().mode == mode, 'Visual mode fixture')
+    event('ModeChanged')
+    visible(source, other)
+    for line = 2, 5 do
+      api.nvim_win_set_cursor(source, { line, 0 })
+      event('CursorMoved')
+      assert(api.nvim_get_mode().mode == mode, 'Visual selection ended')
+      visible(source, other)
+    end
+    api.nvim_win_set_width(source, 18)
+    event('WinResized')
+    visible(source, other)
+    api.nvim_set_current_win(other)
+    settle()
+    visible(other, source)
+    api.nvim_set_current_win(source)
+    settle()
+    visible(source, other)
+    vim.cmd('normal! \27')
+    event('ModeChanged')
+    api.nvim_win_set_width(source, width)
+    event('WinResized')
+    visible(source, other)
+  end
+  vim.cmd('only')
   api.nvim_win_set_cursor(0, { 15, 0 })
   event('CursorMoved')
   assert(#rows() == 4)
@@ -259,9 +352,14 @@ local function check()
   api.nvim_win_set_height(0, 3)
   event('WinResized')
   assert(not floats()[api.nvim_get_current_win()], 'short pane overflow')
+  vim.diagnostic.reset(ns, visible_buf)
+  vim.b[visible_buf].gitsigns_status_dict = nil
+  event('User', 'GitSignsUpdate')
+  local compact, compact_float = rows()
+  assert(#compact == 2 and api.nvim_win_get_config(compact_float.win).height == 2, 'compacted short pane stayed hidden')
   assert(#warnings == 0, vim.inspect(warnings))
   print(
-    'HUD integration: layout, real git/diagnostic updates, focus, caching, widths, rename, special buffers and theme passed'
+    'HUD integration: row compaction, layout, git/diagnostics, caching, widths, theme, cursor overlap and Visual modes passed'
   )
 end
 local ok, err = xpcall(check, debug.traceback)

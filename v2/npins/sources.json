@@ -941,9 +941,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "3216660f8f47af262fc791fb53ffb7ccf75751de",
-      "url": "https://github.com/ttak0422/hud.nvim/archive/3216660f8f47af262fc791fb53ffb7ccf75751de.tar.gz",
-      "hash": "sha256-TW8fw8C2iwI2euounfpTLcJj7p8QRgJDdsbWmqj5QRU="
+      "revision": "0f89decaa791f0d6d5119a1f038e214bbc0f6204",
+      "url": "https://github.com/ttak0422/hud.nvim/archive/0f89decaa791f0d6d5119a1f038e214bbc0f6204.tar.gz",
+      "hash": "sha256-1/0jla7RZI46MHOfSgY2Y2jUaDaovMtubUqTfJiI8sk="
     },
     "hydra.nvim": {
       "type": "GitRelease",
