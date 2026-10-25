@@ -168,3 +168,21 @@
         touch "$out"
       '';
 }
+// pkgs.lib.optionalAttrs (pkgs.stdenv.hostPlatform.system == "aarch64-darwin") {
+  kotlin-config =
+    pkgs.runCommand "kotlin-config-tests"
+      {
+        nativeBuildInputs = [ pkgs.neovim-unwrapped ];
+        KOTLIN_PLUGIN_DIR = pkgs.vimPlugins.v2.kotlin-nvim;
+        KOTLIN_LSP_DIR = "${pkgs.v2.kotlin-lsp}/libexec/kotlin-lsp";
+        NFNL_PLUGIN_DIR = pkgs.vimPlugins.v2.nfnl;
+      }
+      ''
+        cp -R ${../.} source
+        chmod -R u+w source
+        cd source
+        export XDG_STATE_HOME="$TMPDIR/state" XDG_CACHE_HOME="$TMPDIR/cache" XDG_DATA_HOME="$TMPDIR/data"
+        nvim --headless -u NONE -i NONE -l tests/kotlin-config.lua
+        touch "$out"
+      '';
+}
