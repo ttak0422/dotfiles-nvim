@@ -74,7 +74,7 @@ local diagnostics = {
         result[#result + 1] = { provider = item[2] .. count, hl = item[3] }
       end
     end
-    return #result > 0 and result or ' '
+    return #result > 0 and result or nil
   end,
 }
 local git_diff = {
@@ -92,7 +92,7 @@ local git_diff = {
         result[#result + 1] = { provider = item[2] .. count, hl = item[3] }
       end
     end
-    return #result > 0 and result or ' '
+    return #result > 0 and result or nil
   end,
 }
 local active = { { indicator, file }, { ruler, branch }, diagnostics, git_diff }
