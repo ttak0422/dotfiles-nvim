@@ -69,6 +69,29 @@ a replacement shell. The pinned pterm backend may lose output from immediately
 exiting commands (observed with `printf`, even with exit status 0). This change
 leaves that backend limitation unchanged and is intended for interactive programs.
 
+## Commit ticket prefix
+
+When a new `COMMIT_EDITMSG` opens, a branch such as
+`feature/TEST-123_foobar` prefills `TEST-123 ` (including the final space).
+The entire branch must match
+`^feature/([A-Z][A-Z0-9]*-[0-9]+)_[A-Za-z0-9][A-Za-z0-9_-]*$`.
+Other branch formats, detached HEAD, and Git lookup failures leave the buffer alone.
+This applies to normal Git editor sessions and Gitu's existing remote editor path.
+
+Only blank/comment-only messages are filled; existing subjects, bodies, and ticket
+prefixes are preserved. The current comment template is kept and nothing is
+automatically saved. The repository is resolved from the message's Git directory,
+including linked worktrees, independently of the editor's current directory.
+Merge, squash, cherry-pick, revert, rebase, and sequencer state suppress insertion.
+Unknown `core.commentChar=auto` also suppresses insertion; explicit `commentChar`
+and `commentString` are supported. Verbose messages containing a raw diff are
+left alone. An entirely empty amend cannot be distinguished reliably from a new
+commit by this ftplugin; ordinary amend messages already contain text and are
+preserved. Reopening the same message buffer never adds the prefix a second time.
+
+The isolated `gitcommit` flake check exercises real Git editor invocations and
+the parent-Neovim remote editor without changing the user's Git configuration.
+
 ## Directory Structure
 
 ```

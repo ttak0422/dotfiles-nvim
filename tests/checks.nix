@@ -1,5 +1,24 @@
 { pkgs }:
 {
+  gitcommit =
+    pkgs.runCommand "gitcommit-ticket-prefix-tests"
+      {
+        nativeBuildInputs = [
+          pkgs.neovim-unwrapped
+          pkgs.git
+        ];
+        NFNL_PLUGIN_DIR = pkgs.vimPlugins.v2.nfnl;
+      }
+      ''
+        cp -R ${../.} source
+        chmod -R u+w source
+        cd source
+        export HOME="$TMPDIR/home"
+        mkdir -p "$HOME"
+        nvim -n --headless -u NONE -i NONE -l tests/gitcommit.lua
+        touch "$out"
+      '';
+
   idea-format =
     pkgs.runCommand "idea-format-tests"
       {
