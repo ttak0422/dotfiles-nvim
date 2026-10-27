@@ -60,7 +60,7 @@ local function check()
     assert(snapshot.lines[1] == expected, label .. ': ' .. vim.inspect(snapshot.lines))
     if expected:match('^[A-Z][A-Z0-9]*%-%d+ $') then
       assert(snapshot.modified and snapshot.disk[1] == '', label .. ': buffer must not auto-save')
-      assert(snapshot.lines[3] == '# comment-only template', label .. ': template changed')
+      assert(vim.deep_equal(vim.list_slice(snapshot.lines, 2), vim.list_slice(snapshot.disk, 2)), label .. ': template changed')
     else
       assert(vim.deep_equal(snapshot.lines, snapshot.disk) and not snapshot.modified, label .. ': existing message changed')
     end
@@ -141,6 +141,42 @@ local function check()
   git(worktree, 'config', '--unset', 'core.commentString')
   git(worktree, 'config', '--unset', 'core.commentChar')
 
+  -- Git reads these aliases in order, including across global/local scopes.
+  local global_config = root .. '/global-config'
+  env.GIT_CONFIG_GLOBAL, vim.env.GIT_CONFIG_GLOBAL = global_config, global_config
+  for _, case in ipairs({
+    { global = 'commentString = //', key = 'core.commentChar', value = '#', body = '// actual body' },
+    { global = 'commentChar = "#"', key = 'core.commentString', value = '//', body = '# actual body' },
+    { global = 'commentString = //', key = 'core.commentChar', value = ';', body = '// actual body' },
+  }) do
+    vim.fn.writefile({ '[core]', case.global }, global_config)
+    git(worktree, 'config', case.key, case.value)
+    local oracle = original_system({ 'git', '-C', worktree, 'stripspace', '--strip-comments' }, {
+      text = true, clear_env = true, env = env,
+      stdin = case.value .. ' comment\n' .. case.body .. '\n',
+    }):wait(5000)
+    assert(oracle.code == 0 and oracle.stdout == case.body .. '\n', 'Git alias order oracle failed: ' .. vim.inspect(oracle))
+    open({ '', case.value .. ' comment' }, 'WORK-42 ')
+    open({ '', case.body }, '')
+    vim.fn.writefile({ '', '', case.value .. ' comment-only template' }, template)
+    commit_case('global/local alias override ' .. case.key, repo, 'TEST-123 ')
+    git(worktree, 'config', '--unset', case.key)
+  end
+  env.GIT_CONFIG_GLOBAL, vim.env.GIT_CONFIG_GLOBAL = '/dev/null', '/dev/null'
+  vim.fn.writefile({ '', '', '# comment-only template', '# keep this' }, template)
+  git(worktree, 'config', 'core.commentString', '//')
+  git(worktree, 'config', 'core.commentChar', '#')
+  open({ '', '# comment' }, 'WORK-42 ')
+  open({ '', '// actual body' }, '')
+  commit_case('later commentChar preserves slash message', repo, '// actual body',
+    { 'commit', '--allow-empty', '--no-status', '--edit', '-m', '// actual body' })
+  git(worktree, 'config', '--unset', 'core.commentString')
+  git(worktree, 'config', '--add', 'core.commentString', 'auto')
+  open({ '' }, '')
+  open({ '', '# unknown auto comment' }, '')
+  git(worktree, 'config', '--unset', 'core.commentString')
+  git(worktree, 'config', '--unset', 'core.commentChar')
+
   -- Faults and edits during a bounded Git wait must fail closed.
   for _, fault in ipairs({ 'spawn', 'exit', 'timeout', 'changed', 'readonly', 'unmodifiable' }) do
     vim.system = function(argv, opts)
@@ -211,7 +247,7 @@ local function check()
   for _, key in ipairs({ 'GIT_DIR', 'GIT_WORK_TREE', 'GIT_COMMON_DIR', 'GIT_NAMESPACE', 'GIT_CONFIG_GLOBAL', 'GIT_CONFIG_NOSYSTEM' }) do
     if previous[key] == nil then vim.env[key] = nil end
   end
-  print('PASS: generated Lua; real Git new/amend/entered messages and branch formats; worktree/cwd/env; comments; operation guards; faults/races; remote editor; no auto-save')
+  print('PASS: generated Lua; real Git new/amend/entered messages and branch formats; worktree/cwd/env; ordered comment aliases; operation guards; faults/races; remote editor; no auto-save')
 end
 local ok, err = xpcall(check, debug.traceback)
 vim.system = original_system

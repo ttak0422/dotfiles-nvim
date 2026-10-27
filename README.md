@@ -83,9 +83,9 @@ prefixes are preserved. The current comment template is kept and nothing is
 automatically saved. The repository is resolved from the message's Git directory,
 including linked worktrees, independently of the editor's current directory.
 Merge, squash, cherry-pick, revert, rebase, and sequencer state suppress insertion.
-Unknown `core.commentChar=auto` also suppresses insertion; explicit `commentChar`
-and `commentString` are supported. Verbose messages containing a raw diff are
-left alone. An entirely empty amend cannot be distinguished reliably from a new
+The last configured `core.commentChar` / `core.commentString` alias wins, as in
+Git; `auto` on either alias suppresses insertion. Verbose messages containing a
+raw diff are left alone. An entirely empty amend cannot be distinguished reliably from a new
 commit by this ftplugin; ordinary amend messages already contain text and are
 preserved. Reopening the same message buffer never adds the prefix a second time.
 

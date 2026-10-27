@@ -43,27 +43,20 @@ local function prefill_ticket()
       if ticket then
         local comment_prefix = nil
         do
-          local value = git("config", "--get", "core.commentString")
-          if value then
-            if (value.code == 0) then
-              comment_prefix = value.stdout:gsub("\n$", "")
-            elseif (value.code == 1) then
-              local char = git("config", "--get", "core.commentChar")
-              if char then
-                if (char.code == 1) then
-                  comment_prefix = "#"
-                elseif ((char.code == 0) and (char.stdout ~= "auto\n")) then
-                  comment_prefix = char.stdout:gsub("\n$", "")
-                else
-                end
-              else
+          local comment_config = git("config", "--null", "--get-regexp", "^core\\.comment(char|string)$")
+          if comment_config then
+            if (comment_config.code == 1) then
+              comment_prefix = "#"
+            elseif (comment_config.code == 0) then
+              for entry in comment_config.stdout:gmatch("([^%z]*)%z") do
+                comment_prefix = entry:match("^[^\n]+\n(.*)$")
               end
             else
             end
           else
           end
         end
-        if (comment_prefix and (comment_prefix ~= "") and vim.api.nvim_buf_is_valid(buf) and (vim.api.nvim_get_current_buf() == buf) and (vim.api.nvim_buf_get_name(buf) == name) and (vim.api.nvim_buf_get_changedtick(buf) == tick) and (vim.bo.filetype == "gitcommit") and not vim.bo.modified and vim.bo.modifiable and not vim.bo.readonly and not operation_3f()) then
+        if (comment_prefix and (comment_prefix ~= "") and (comment_prefix ~= "auto") and vim.api.nvim_buf_is_valid(buf) and (vim.api.nvim_get_current_buf() == buf) and (vim.api.nvim_buf_get_name(buf) == name) and (vim.api.nvim_buf_get_changedtick(buf) == tick) and (vim.bo.filetype == "gitcommit") and not vim.bo.modified and vim.bo.modifiable and not vim.bo.readonly and not operation_3f()) then
           local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
           local prefix = (ticket .. " ")
           local empty = true
@@ -74,13 +67,13 @@ local function prefill_ticket()
             end
           end
           if empty then
-            local _9_
+            local _7_
             if string.match(lines[1], "^%s*$") then
-              _9_ = 1
+              _7_ = 1
             else
-              _9_ = 0
+              _7_ = 0
             end
-            vim.api.nvim_buf_set_lines(buf, 0, _9_, false, {prefix})
+            vim.api.nvim_buf_set_lines(buf, 0, _7_, false, {prefix})
             return vim.api.nvim_win_set_cursor(0, {1, #ticket})
           else
             return nil

@@ -35,18 +35,16 @@
                             (branch.stdout:match "^feature/([A-Z][A-Z0-9]*%-%d+)_[A-Za-z0-9][A-Za-z0-9_-]*\n$"))]
             (when ticket
               (var comment-prefix nil)
-              (let [value (git :config :--get :core.commentString)]
-                (when value
-                  (if (= value.code 0)
-                      (set comment-prefix (value.stdout:gsub "\n$" ""))
-                      (= value.code 1)
-                      (let [char (git :config :--get :core.commentChar)]
-                        (when char
-                          (if (= char.code 1)
-                              (set comment-prefix "#")
-                              (and (= char.code 0) (not= char.stdout "auto\n"))
-                              (set comment-prefix (char.stdout:gsub "\n$" ""))))))))
+              ;; These aliases share Git's configuration order: the last one wins.
+              (let [comment-config (git :config :--null :--get-regexp "^core\\.comment(char|string)$")]
+                (when comment-config
+                  (if (= comment-config.code 1)
+                      (set comment-prefix "#")
+                      (= comment-config.code 0)
+                      (each [entry (comment-config.stdout:gmatch "([^%z]*)%z")]
+                        (set comment-prefix (entry:match "^[^\n]+\n(.*)$"))))))
               (when (and comment-prefix (not= comment-prefix "")
+                         (not= comment-prefix :auto)
                          (vim.api.nvim_buf_is_valid buf)
                          (= (vim.api.nvim_get_current_buf) buf)
                          (= (vim.api.nvim_buf_get_name buf) name)
