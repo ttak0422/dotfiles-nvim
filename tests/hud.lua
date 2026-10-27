@@ -92,7 +92,7 @@ local function check()
   contains(initial[1], 'Example.java o/example')
   assert(not initial[1]:find('src/main/java', 1, true), 'Maven prefix retained')
   contains(initial[3], '15,3')
-  contains(initial[2], ' hud-test')
+  assert(vim.trim(initial[2]) == ' hud-test', 'clean branch without dirty marker')
   assert(vim.wo[float.win].winhighlight:find('Normal:WinBar', 1, true))
   assert(vim.wo.winbar == '' and vim.o.laststatus == 0 and not package.loaded.incline)
 
@@ -113,8 +113,7 @@ local function check()
   settle()
   local updated = rows()
   contains(updated[1], ' ')
-  contains(updated[2], ' hud-test*')
-  contains(updated[2], ' 1  hud-test*')
+  assert(vim.trim(updated[2]) == ' 1  hud-test', 'dirty branch keeps diff counts without asterisk')
   contains(updated[3], '15,3')
   contains(updated[4], ' 1')
   contains(updated[4], ' 1')
@@ -127,7 +126,7 @@ local function check()
     'real branch update'
   )
   settle()
-  contains(rows()[2], ' hud-next*')
+  assert(vim.trim(rows()[2]) == ' 1  hud-next', 'branch update without dirty marker')
   git('checkout', 'hud-test')
   require('gitsigns').refresh()
   assert(vim.wait(5000, function()
@@ -141,7 +140,7 @@ local function check()
   event('CursorMoved')
   assert(#rows(second) == 4 and #rows(source) == 2, 'split focus')
   contains(rows(second)[3], '18,6')
-  assert(vim.trim(rows(source)[2]) == ' hud-test*', 'inactive must show only branch')
+  assert(vim.trim(rows(source)[2]) == ' hud-test', 'inactive must show only branch')
   assert(vim.wo[select(2, rows(source)).win].winhighlight:find('Normal:WinBarNC', 1, true))
   api.nvim_set_current_win(source)
   settle()
@@ -222,11 +221,14 @@ local function check()
   vim.cmd('vsplit')
   local other = api.nvim_get_current_win()
   for _, state in ipairs({
-    { diff = true, expected = { ' 2  hud-test*', 'ruler' } },
+    { diff = true, expected = { ' 2  hud-test', 'ruler' } },
+    { added = 3, expected = { ' 3  hud-test', 'ruler' } },
+    { removed = 4, expected = { ' 4  hud-test', 'ruler' } },
+    { added = 3, diff = true, removed = 4, expected = { ' 3  2  4  hud-test', 'ruler' } },
     { diagnostics = true, expected = { ' hud-test', 'ruler', ' 1' } },
     { expected = { ' hud-test', 'ruler' } },
-    { diagnostics = true, severity = 3, diff = true, expected = { ' 2  hud-test*', 'ruler' } },
-    { diagnostics = true, diff = true, expected = { ' 2  hud-test*', 'ruler', ' 1' } },
+    { diagnostics = true, severity = 3, diff = true, expected = { ' 2  hud-test', 'ruler' } },
+    { diagnostics = true, diff = true, expected = { ' 2  hud-test', 'ruler', ' 1' } },
     { head = 'feature/日本語', expected = { ' feature/日本語', 'ruler' } },
     { head = 'release(v2)', expected = { ' release(v2)', 'ruler' } },
     { head = 'HEAD', expected = { ' HEAD', 'ruler' } },
@@ -234,7 +236,7 @@ local function check()
     { head = '', diff = true, expected = { ' 2', 'ruler' } },
     { head = '', diagnostics = true, expected = { 'ruler', ' 1' } },
     { head = '', expected = { 'ruler' } },
-    { diff = true, expected = { ' 2  hud-test*', 'ruler' } },
+    { diff = true, expected = { ' 2  hud-test', 'ruler' } },
     { expected = { ' hud-test', 'ruler' } },
   }) do
     vim.diagnostic.set(
@@ -242,7 +244,12 @@ local function check()
       buf,
       state.diagnostics and { { lnum = 2, col = 0, message = 'fixture', severity = state.severity or 1 } } or {}
     )
-    vim.b[buf].gitsigns_status_dict = { head = state.head or 'hud-test', changed = state.diff and 2 or 0 }
+    vim.b[buf].gitsigns_status_dict = {
+      head = state.head or 'hud-test',
+      added = state.added,
+      changed = state.diff and 2 or 0,
+      removed = state.removed,
+    }
     event('User', 'GitSignsUpdate')
     for _, win in ipairs({ original, other }) do
       api.nvim_set_current_win(win)
@@ -264,7 +271,7 @@ local function check()
       assert(#inactive_rows == height and api.nvim_win_get_config(inactive_float.win).height == height, 'inactive rows')
       if height == 2 then
         assert(
-          vim.trim(inactive_rows[2]) == ' ' .. (state.head or 'hud-test') .. (state.diff and '*' or ''),
+          vim.trim(inactive_rows[2]) == ' ' .. (state.head or 'hud-test'),
           'inactive branch only'
         )
       end
@@ -340,7 +347,7 @@ local function check()
   local function visible(active, inactive)
     local content, float = rows(active)
     assert(#content == 4 and #rows(inactive) == 2, 'visible active/inactive rows')
-    assert(vim.trim(rows(inactive)[2]) == ' visible*', 'inactive branch in Visual/focus transitions')
+    assert(vim.trim(rows(inactive)[2]) == ' visible', 'inactive branch in Visual/focus transitions')
     contains(content[2], ' 1')
     contains(content[4], ' 1')
     assert(vim.wo[float.win].winhighlight:match('^Normal:([^,]+)') == 'WinBar')
