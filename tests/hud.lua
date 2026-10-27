@@ -36,9 +36,26 @@ local function right_margin(source)
   assert(config.width <= info.width - info.textoff - 1, 'HUD overflow past gutters or margin')
   assert(config.height == #lines, 'margin introduced an empty row')
   for _, line in ipairs(lines) do
+    assert(line:sub(1, 1) == ' ', 'every rendered HUD row must start with a padding cell')
     assert(vim.fn.strdisplaywidth(line) == config.width, 'row alignment must use display cells')
   end
+  local ns = api.nvim_get_namespaces()['hud.nvim']
+  for _, mark in ipairs(api.nvim_buf_get_extmarks(float.buf, ns, 0, -1, { details = true })) do
+    local line, col, details = lines[mark[2] + 1], mark[3], mark[4]
+    assert(col >= 1 and details.end_col <= #line, 'highlight must stay after padding and inside the row')
+  end
   return info, config
+end
+local function highlighted(source, group, text)
+  local lines, float = rows(source)
+  local ns = api.nvim_get_namespaces()['hud.nvim']
+  for _, mark in ipairs(api.nvim_buf_get_extmarks(float.buf, ns, 0, -1, { details = true })) do
+    local details = mark[4]
+    if details.hl_group == group and lines[mark[2] + 1]:sub(mark[3] + 1, details.end_col) == text then
+      return
+    end
+  end
+  error('missing highlight: ' .. group .. ' on ' .. text)
 end
 local function contains(text, value)
   assert(text:find(value, 1, true), text .. ' missing ' .. value)
@@ -89,6 +106,9 @@ local function check()
   local border = api.nvim_win_get_config(float.win).border
   assert(border == nil or border == 'none' or #border == 0, 'unexpected border')
   assert(#initial == 3 and api.nvim_win_get_config(float.win).height == 3, 'empty rows did not compact')
+  assert(initial[1] == ' Example.java o/example', 'longest row must gain exactly one left cell')
+  highlighted(source, 'Title', 'Example.java')
+  highlighted(source, 'WinBar', ' o/example')
   contains(initial[1], 'Example.java o/example')
   assert(not initial[1]:find('src/main/java', 1, true), 'Maven prefix retained')
   contains(initial[3], '15,3')
@@ -117,6 +137,10 @@ local function check()
   contains(updated[3], '15,3')
   contains(updated[4], ' 1')
   contains(updated[4], ' 1')
+  highlighted(source, 'Title', 'Example.java')
+  highlighted(source, 'HudGitChanged', '  1')
+  highlighted(source, 'DiagnosticError', '  1')
+  highlighted(source, 'DiagnosticWarn', '  1')
   git('checkout', '-b', 'hud-next')
   require('gitsigns').refresh()
   assert(
@@ -209,7 +233,14 @@ local function check()
   local info = right_margin(api.nvim_get_current_win())
   api.nvim_win_set_width(0, info.textoff + 2)
   event('WinResized')
-  right_margin(api.nvim_get_current_win())
+  local _, tiny = right_margin(api.nvim_get_current_win())
+  assert(tiny.width == 1, 'one usable cell must remain available for padding')
+  for _, line in ipairs(rows()) do
+    assert(line == ' ', 'one-cell HUD must reserve the whole row for padding')
+  end
+  api.nvim_win_set_width(0, info.textoff + 1)
+  event('WinResized')
+  assert(not floats()[api.nvim_get_current_win()], 'HUD must hide when only the right margin fits')
   vim.cmd('only')
   event('WinResized')
   contains(rows()[1], 'o/e/v/l/p/日')
@@ -285,7 +316,7 @@ local function check()
     api.nvim_set_current_win(win)
     local width = api.nvim_win_get_width(win)
     local info = vim.fn.getwininfo(win)[1]
-    api.nvim_win_set_width(win, info.textoff + 1 + vim.fn.strdisplaywidth(' 日本'))
+    api.nvim_win_set_width(win, info.textoff + 2 + vim.fn.strdisplaywidth(' 日本'))
     event('WinResized')
     assert(vim.trim(rows(win)[2]) == ' 日本', 'branch icon, one space and multibyte clipping')
     right_margin(win)
@@ -294,6 +325,33 @@ local function check()
   end
   api.nvim_set_current_win(original)
   vim.cmd('only')
+  local filename = '日本語é' .. string.rep('長', 50) .. '.java'
+  api.nvim_buf_set_name(buf, root .. '/' .. filename)
+  event('BufFilePost')
+  for _, case in ipairs({
+    { 0, '' },
+    { 1, '' },
+    { 2, '日' },
+    { 3, '日' },
+    { 4, '日本' },
+    { 6, '日本語' },
+    { 7, '日本語é' },
+    { 8, '日本語é' },
+    { 9, '日本語é長' },
+  }) do
+    vim.cmd('vsplit')
+    local win = api.nvim_get_current_win()
+    local info = vim.fn.getwininfo(win)[1]
+    api.nvim_win_set_width(win, info.textoff + 2 + case[1])
+    event('WinResized')
+    local lines = rows(win)
+    right_margin(win)
+    assert(vim.trim(lines[1]) == case[2], 'Japanese/combining filename clipping: ' .. vim.inspect(lines[1]))
+    if case[2] ~= '' then
+      highlighted(win, 'Title', case[2])
+    end
+    vim.cmd('only')
+  end
   vim.diagnostic.reset(ns, buf)
   vim.b[buf].gitsigns_status_dict = nil
   event('User', 'GitSignsUpdate')
@@ -416,7 +474,7 @@ local function check()
   assert(#compact == 2 and api.nvim_win_get_config(compact_float.win).height == 2, 'compacted short pane stayed hidden')
   assert(#warnings == 0, vim.inspect(warnings))
   print(
-    'HUD integration: row compaction, layout, git/diagnostics, caching, widths, theme, cursor overlap and Visual modes passed'
+    'HUD integration: left padding/highlights, row compaction, git/diagnostics, caching, widths, theme, cursor overlap and Visual modes passed'
   )
 end
 local ok, err = xpcall(check, debug.traceback)

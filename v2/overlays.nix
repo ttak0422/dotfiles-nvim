@@ -11,6 +11,13 @@ let
   getSrc = name: getAttr name (import ./npins);
 in
 {
+  hud-nvim = vimUtils.buildVimPlugin rec {
+    pname = "hud-nvim";
+    src = getSrc "hud.nvim";
+    version = src.revision;
+    patches = [ ./patches/hud-left-padding.patch ];
+    doCheck = false;
+  };
   nvim-treesitter = prev.vimPlugins.nvim-treesitter.overrideAttrs {
     runtimeDeps = with prev; [ tree-sitter ];
   };
