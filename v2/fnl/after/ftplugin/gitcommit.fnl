@@ -31,8 +31,10 @@
           active)
         (when (not (operation?))
           (let [branch (git :symbolic-ref :--quiet :--short :HEAD)
-                ticket (and branch (= branch.code 0)
-                            (branch.stdout:match "^feature/([A-Z][A-Z0-9]*%-%d+)_[A-Za-z0-9][A-Za-z0-9_-]*\n$"))]
+                segment (and branch (= branch.code 0)
+                             (branch.stdout:match "([^/\n]+)\n$"))
+                ticket (and segment
+                            (segment:match "^([A-Z][A-Z0-9]*%-%d+)_[A-Za-z0-9][A-Za-z0-9_-]*$"))]
             (when ticket
               (var comment-prefix nil)
               ;; These aliases share Git's configuration order: the last one wins.

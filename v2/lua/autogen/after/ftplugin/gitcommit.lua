@@ -39,7 +39,8 @@ local function prefill_ticket()
     end
     if not operation_3f() then
       local branch = git("symbolic-ref", "--quiet", "--short", "HEAD")
-      local ticket = (branch and (branch.code == 0) and branch.stdout:match("^feature/([A-Z][A-Z0-9]*%-%d+)_[A-Za-z0-9][A-Za-z0-9_-]*\n$"))
+      local segment = (branch and (branch.code == 0) and branch.stdout:match("([^/\n]+)\n$"))
+      local ticket = (segment and segment:match("^([A-Z][A-Z0-9]*%-%d+)_[A-Za-z0-9][A-Za-z0-9_-]*$"))
       if ticket then
         local comment_prefix = nil
         do

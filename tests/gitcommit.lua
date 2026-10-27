@@ -71,8 +71,14 @@ local function check()
   commit_case('other entered message', repo, 'a different subject', { 'commit', '--allow-empty', '-m', 'a different subject', '--edit' })
   git(repo, 'switch', '-c', 'feature/A1-007_two-parts_2')
   commit_case('other valid project key and slug', repo, 'A1-007 ')
-  for _, branch in ipairs({ 'main', 'fix/TEST-123_foobar', 'feature/test-123_lowercase', 'feature/TEST-123',
-      'feature/TEST-123_', 'feature/TEST-123_foo/bar', 'feature/TEST-123_foo.bar', 'feature/TEST-x_foobar' }) do
+  for _, branch in ipairs({ 'docs/TEST-123_foobar', 'fix/TEST-123_foobar', 'fix/team/TEST-123_foobar',
+      'TEST-123_foobar', 'docs/TEST-123_foo_extra', 'WRONG-999_prior/team/TEST-123_foobar' }) do
+    git(repo, 'switch', '-c', branch)
+    commit_case('ticket from final branch segment ' .. branch, repo, 'TEST-123 ')
+  end
+  for _, branch in ipairs({ 'main', 'feature/test-123_lowercase', 'feature/TEST-123',
+      'feature/TEST-123_', 'feature/TEST-123_foo/bar', 'feature/TEST-123_foo.bar', 'feature/TEST-x_foobar',
+      'TEST-999_prior/plain', 'fix/WRONG-88_prior/test-123_lowercase' }) do
     git(repo, 'switch', '-c', branch)
     commit_case('ignored branch ' .. branch, repo, '')
   end
@@ -86,7 +92,7 @@ local function check()
   vim.cmd('filetype plugin on')
   vim.cmd.cd(vim.fn.fnameescape(source)) -- Deliberately unrelated to the fixture.
   local worktree = root .. '/other worktree'
-  git(repo, 'worktree', 'add', '-b', 'feature/WORK-42_foobar', worktree)
+  git(repo, 'worktree', 'add', '-b', 'fix/team/WORK-42_foobar', worktree)
   local gitdir = git(worktree, 'rev-parse', '--absolute-git-dir')
   local file = gitdir .. '/COMMIT_EDITMSG'
   local previous = {}
@@ -247,7 +253,7 @@ local function check()
   for _, key in ipairs({ 'GIT_DIR', 'GIT_WORK_TREE', 'GIT_COMMON_DIR', 'GIT_NAMESPACE', 'GIT_CONFIG_GLOBAL', 'GIT_CONFIG_NOSYSTEM' }) do
     if previous[key] == nil then vim.env[key] = nil end
   end
-  print('PASS: generated Lua; real Git new/amend/entered messages and branch formats; worktree/cwd/env; ordered comment aliases; operation guards; faults/races; remote editor; no auto-save')
+  print('PASS: generated Lua; real Git new/amend/entered messages and final branch segments; worktree/cwd/env; ordered comment aliases; operation guards; faults/races; remote editor; no auto-save')
 end
 local ok, err = xpcall(check, debug.traceback)
 vim.system = original_system
