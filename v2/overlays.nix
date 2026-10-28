@@ -11,6 +11,13 @@ let
   getSrc = name: getAttr name (import ./npins);
 in
 {
+  auto-save-nvim = vimUtils.buildVimPlugin rec {
+    pname = "auto-save.nvim";
+    src = getSrc "auto-save.nvim";
+    version = src.revision;
+    patches = [ ./patches/auto-save-debounce.patch ];
+  };
+
   nvim-treesitter = prev.vimPlugins.nvim-treesitter.overrideAttrs {
     runtimeDeps = with prev; [ tree-sitter ];
   };

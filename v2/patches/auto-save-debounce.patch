@@ -1,0 +1,13 @@
+diff --git a/lua/auto-save/init.lua b/lua/auto-save/init.lua
+--- a/lua/auto-save/init.lua
++++ b/lua/auto-save/init.lua
+@@ -194,6 +194,9 @@ end
+ 
+ function M.setup(custom_opts)
+     cnf:set_options(custom_opts)
++    save_func = (
++        cnf.opts.debounce_delay > 0 and debounce(M.save, cnf.opts.debounce_delay) or M.save
++    )
+ end
+ 
+ return M

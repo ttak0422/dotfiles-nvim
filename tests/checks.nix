@@ -1,5 +1,20 @@
 { pkgs }:
 {
+  auto-save =
+    pkgs.runCommand "auto-save-config-tests"
+      {
+        nativeBuildInputs = [ pkgs.neovim-unwrapped ];
+        AUTO_SAVE_PLUGIN_DIR = pkgs.vimPlugins.v2.auto-save-nvim;
+        NFNL_PLUGIN_DIR = pkgs.vimPlugins.v2.nfnl;
+      }
+      ''
+        cp -R ${../.} source
+        chmod -R u+w source
+        cd source
+        nvim -n --headless -u NONE -i NONE -l tests/auto-save.lua
+        touch "$out"
+      '';
+
   terminal-input =
     pkgs.runCommand "terminal-skk-input-tests"
       {
