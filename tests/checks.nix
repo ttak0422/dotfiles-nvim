@@ -1,5 +1,21 @@
 { pkgs }:
 {
+  terminal-input =
+    pkgs.runCommand "terminal-skk-input-tests"
+      {
+        nativeBuildInputs = [ pkgs.python3 ];
+        TERMINAL_INPUT_NVIM = "${pkgs.neovim-unwrapped}/bin/nvim";
+        TERMINAL_INPUT_NFNL = pkgs.vimPlugins.v2.nfnl;
+        TERMINAL_INPUT_NEOZOOM = pkgs.vimPlugins.v2.NeoZoom-lua;
+      }
+      ''
+        cp -R ${../.} source
+        chmod -R u+w source
+        cd source
+        python3 tests/terminal-input.py
+        touch "$out"
+      '';
+
   gitcommit =
     pkgs.runCommand "gitcommit-ticket-prefix-tests"
       {
