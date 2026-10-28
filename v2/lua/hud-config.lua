@@ -7,9 +7,19 @@ local maven_prefixes = {
   scala = { 'src/main/scala/', 'src/test/scala/' },
 }
 local git_roots = {}
+local indicator = {
+  update = { 'BufModifiedSet' },
+  provider = function(ctx)
+    return vim.bo[ctx.buf].modified and ' ' or ''
+  end,
+  hl = 'DiagnosticWarn',
+  priority = 10,
+}
 
 -- Keep Incline's path formatting, but never walk the filesystem on cursor moves.
 local file = {
+  -- Keep the row padding with the filename when lower-priority parts yield.
+  priority = 20,
   update = { 'BufEnter', 'FileType', 'WinResized', 'VimResized', 'OptionSet' },
   provider = function(ctx)
     local name = api.nvim_buf_get_name(ctx.buf)
@@ -30,25 +40,18 @@ local file = {
       path = vim.fn.pathshorten(path)
     end
     return {
-      { provider = filename ~= '' and filename or '[No Name]', hl = 'Title', priority = 20 },
+      ' ',
+      indicator,
+      { provider = filename ~= '' and filename or '[No Name]', hl = 'Title' },
       { provider = path ~= '' and path ~= '.' and (' ' .. path) or '', hl = 'WinBar', priority = 0 },
     }
   end,
 }
-local indicator = {
-  update = { 'BufModifiedSet' },
-  provider = function(ctx)
-    return vim.bo[ctx.buf].modified and ' ' or ''
-  end,
-  hl = 'DiagnosticWarn',
-  priority = 10,
-}
 local ruler = {
   update = { 'CursorMoved', 'CursorMovedI', 'TextChanged', 'TextChangedI', 'TextChangedP', 'WinEnter', 'WinLeave' },
   provider = function(ctx)
-    return ('%4d,%-3d'):format(ctx.lnum, ctx.byte_col + 1)
+    return { ' ', { provider = ('%4d,%-3d'):format(ctx.lnum, ctx.byte_col + 1), hl = 'WinBar' } }
   end,
-  hl = 'WinBar',
   priority = 10,
 }
 local branch = {
@@ -58,8 +61,7 @@ local branch = {
     if not status or not status.head or status.head == '' then
       return ''
     end
-    local dirty = (status.added or 0) + (status.changed or 0) + (status.removed or 0) > 0
-    return (ctx.focused and dirty and ' ' or '') .. ' ' .. status.head
+    return '  ' .. status.head
   end,
   priority = 0,
 }
@@ -67,21 +69,21 @@ local diagnostics = {
   update = { 'DiagnosticChanged' },
   provider = function(ctx)
     local counts = vim.diagnostic.count(ctx.buf)
-    local result = {}
+    local result = { ' ' }
     for _, item in ipairs({ { 1, '  ', 'DiagnosticError' }, { 2, '  ', 'DiagnosticWarn' } }) do
       local count = counts[item[1]] or 0
       if count > 0 then
         result[#result + 1] = { provider = item[2] .. count, hl = item[3] }
       end
     end
-    return #result > 0 and result or nil
+    return #result > 1 and result or nil
   end,
 }
 local git_diff = {
   update = { 'User', 'BufEnter' },
   provider = function(ctx)
     local status = vim.b[ctx.buf].gitsigns_status_dict or {}
-    local result = {}
+    local result = { ' ' }
     for _, item in ipairs({
       { 'added', '  ', 'HudGitAdded' },
       { 'changed', '  ', 'HudGitChanged' },
@@ -92,10 +94,10 @@ local git_diff = {
         result[#result + 1] = { provider = item[2] .. count, hl = item[3] }
       end
     end
-    return #result > 0 and result or nil
+    return #result > 1 and result or nil
   end,
 }
-local active = { { indicator, file }, { git_diff, branch }, ruler, diagnostics }
+local active = { file, { git_diff, branch }, ruler, diagnostics }
 local inactive = { active[1], branch }
 local group = api.nvim_create_augroup('hud-config', { clear = true })
 local function highlights()
