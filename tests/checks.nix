@@ -16,6 +16,23 @@
         touch "$out"
       '';
 
+  autosave-ui =
+    pkgs.runCommand "autosave-ui-tests"
+      {
+        nativeBuildInputs = [ (pkgs.python3.withPackages (ps: [ ps.msgpack ])) ];
+        AUTOSAVE_UI_NVIM = "${pkgs.neovim-unwrapped}/bin/nvim";
+        AUTOSAVE_UI_TINY = pkgs.vimPlugins.v2.tiny-cmdline-nvim;
+        AUTOSAVE_UI_AUTO_SAVE = pkgs.vimPlugins.v2.auto-save-nvim;
+        AUTOSAVE_UI_NFNL = pkgs.vimPlugins.v2.nfnl;
+      }
+      ''
+        cp -R ${../.} source
+        chmod -R u+w source
+        cd source
+        python3 tests/autosave-ui/run.py
+        touch "$out"
+      '';
+
   gitcommit =
     pkgs.runCommand "gitcommit-ticket-prefix-tests"
       {

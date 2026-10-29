@@ -2551,9 +2551,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "e247d9ee4c980734f8f8bf616d31e0ab7c27485d",
-      "url": "https://github.com/rachartier/tiny-cmdline.nvim/archive/e247d9ee4c980734f8f8bf616d31e0ab7c27485d.tar.gz",
-      "hash": "sha256-DEfoqGFoGdybgZyO+Jqxz4gYkrgoek4cQYulLEsvnU8="
+      "revision": "ac9c6557c66da6308eb523643df8778f3cbe652f",
+      "url": "https://github.com/rachartier/tiny-cmdline.nvim/archive/ac9c6557c66da6308eb523643df8778f3cbe652f.tar.gz",
+      "hash": "sha256-tqbpwW1zgGDpvNnrI0JqD1Suis/UU/tSw60sv01Q8Uc="
     },
     "tiny-code-action.nvim": {
       "type": "Git",
