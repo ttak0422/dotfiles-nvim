@@ -1,5 +1,24 @@
 { pkgs }:
 {
+  java-attach =
+    pkgs.runCommand "java-attach-tests"
+      {
+        nativeBuildInputs = [ pkgs.neovim-unwrapped pkgs.python3 ];
+        JDTLS_PLUGIN_DIR = pkgs.vimPlugins.v2.nvim-jdtls;
+        NFNL_PLUGIN_DIR = pkgs.vimPlugins.v2.nfnl;
+      }
+      ''
+        cp -R ${../.} source
+        chmod -R u+w source
+        cd source
+        patchShebangs tests/java-attach-server.py
+        export HOME="$TMPDIR/home" XDG_STATE_HOME="$TMPDIR/state"
+        export XDG_CACHE_HOME="$TMPDIR/cache" XDG_DATA_HOME="$TMPDIR/data"
+        mkdir -p "$HOME"
+        nvim --headless -u NONE -i NONE -n -l tests/java-attach.lua
+        touch "$out"
+      '';
+
   terminal-input =
     pkgs.runCommand "terminal-skk-input-tests"
       {
