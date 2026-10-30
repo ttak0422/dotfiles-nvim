@@ -9,23 +9,37 @@ local jdtls_config_path = args.jdtls_config_path
 local lombok_jar_path = args.lombok_jar_path
 local attach_path = args.attach_path
 local jdtls = require("jdtls")
-local root_dir = vim.fs.root(0, {"gradlew", "mvnw", ".git"})
+local bufnr = vim.api.nvim_get_current_buf()
+local function java_buffer_3f()
+  return (vim.api.nvim_buf_is_valid(bufnr) and vim.api.nvim_buf_is_loaded(bufnr) and (vim.bo[bufnr].buftype == "") and (vim.bo[bufnr].filetype == "java") and (vim.api.nvim_buf_get_name(bufnr) ~= "") and vim.startswith(vim.uri_from_bufnr(bufnr), "file://"))
+end
+local root_markers = {"gradlew", "mvnw", ".git"}
+local root_dir
+if java_buffer_3f() then
+  root_dir = vim.fs.root(bufnr, root_markers)
+else
+  root_dir = nil
+end
+if not root_dir then
+  return
+else
+end
 local workspace_dir = (os.getenv("HOME") .. "/.local/share/eclipse/" .. string.gsub(vim.fn.fnamemodify(root_dir, ":p:h"), "/", "_"))
-local _1_
+local _3_
 do
   local tmp_3_ = vim.uv.fs_stat(workspace_dir)
   if (nil ~= tmp_3_) then
     local tmp_3_0 = tmp_3_[type]
     if (nil ~= tmp_3_0) then
-      _1_ = (tmp_3_0 == "directory")
+      _3_ = (tmp_3_0 == "directory")
     else
-      _1_ = nil
+      _3_ = nil
     end
   else
-    _1_ = nil
+    _3_ = nil
   end
 end
-if not _1_ then
+if not _3_ then
   vim.uv.fs_mkdir(workspace_dir, 493)
 else
 end
@@ -47,16 +61,23 @@ local bundles = {}
 local extendedClientCapabilities = vim.tbl_deep_extend("force", jdtls.extendedClientCapabilities, {resolveAdditionalTextEditsSupport = true, progressReportProvider = false})
 local init_options = {bundles = bundles, extendedClientCapabilities = extendedClientCapabilities}
 local on_attach
-local function _6_(client, bufnr)
-  return dofile(attach_path)({buf = bufnr, client = client})
+local function _8_(client, bufnr0)
+  return dofile(attach_path)({buf = bufnr0, client = client})
 end
-on_attach = _6_
+on_attach = _8_
 local flags = {allow_incremental_sync = true, debounce_text_changes = 300}
 local handlers
-local function _7_()
+local function _9_()
 end
-handlers = {["language/status"] = _7_}
-local function _8_()
-  return jdtls.start_or_attach({name = "jdtls", root_dir = root_dir, cmd = cmd, settings = settings, init_options = init_options, on_attach = on_attach, flags = flags, handlers = handlers})
+handlers = {["language/status"] = _9_}
+local function _10_()
+  if (java_buffer_3f() and (root_dir == vim.fs.root(bufnr, root_markers))) then
+    local function _11_()
+      return jdtls.start_or_attach({name = "jdtls", root_dir = root_dir, cmd = cmd, settings = settings, init_options = init_options, on_attach = on_attach, flags = flags, handlers = handlers})
+    end
+    return vim.api.nvim_buf_call(bufnr, _11_)
+  else
+    return nil
+  end
 end
-return vim.defer_fn(_8_, 100)
+return vim.defer_fn(_10_, 100)
