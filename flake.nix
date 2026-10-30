@@ -54,7 +54,7 @@
       url = "github:Saghen/blink.cmp/v1";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    v2-pterm.url = "github:ttak0422/pterm/764b59468a25e044d0a576aebde6422c3d81e95c";
+    v2-pterm.url = "github:ttak0422/pterm";
     v2-meian = {
       url = "github:ttak0422/meian.nvim";
       inputs.nixpkgs.follows = "nixpkgs-stable";
