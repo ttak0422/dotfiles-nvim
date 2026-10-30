@@ -1,0 +1,25 @@
+name: managed generation POC
+on:
+  pull_request:
+    paths:
+      - "experiments/managed-generation/**"
+      - ".github/workflows/managed-generation.yml"
+  push:
+    branches: [main]
+    paths:
+      - "experiments/managed-generation/**"
+      - ".github/workflows/managed-generation.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fixture:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install distribution Neovim for limited fixture coverage
+        run: sudo apt-get update && sudo apt-get install -y neovim
+      - name: Record runtime version
+        run: nvim --version
+      - name: Run isolated managed-generation fixture
+        run: python3 experiments/managed-generation/tests/run.py
