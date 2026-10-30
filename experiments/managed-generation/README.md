@@ -103,6 +103,8 @@ The adjacent [counter tests](features/counter/tests.lua) check:
 - close removes the command/autocmds, closes the timer and blocks queued work.
 
 [The harness](tests/run.lua) also drives a real uv timer across a switch and close.
+It checks that guarded and queued callbacks preserve nil arguments, including
+trailing nil values and zero arguments.
 Asynchronous replies are controlled callback fixtures, not external processes.
 There is no measurement of actual module unloading or reclaimed memory.
 

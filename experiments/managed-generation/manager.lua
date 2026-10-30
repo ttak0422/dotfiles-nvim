@@ -59,10 +59,10 @@ function M.new(opts)
     function ctx:guard(fn)
       local epoch = self.manager.epoch
       return function(...)
-        local args = { ... }
+        local args = { n = select("#", ...), ... }
         vim.schedule(function()
           if not valid(self, epoch) then return end
-          local ok, err = pcall(fn, unpack(args))
+          local ok, err = pcall(fn, unpack(args, 1, args.n))
           if not ok then diagnostic("callback", err) end
         end)
       end
@@ -104,10 +104,10 @@ function M.new(opts)
   end
   function self:queue(method, ...)
     if not self.current or self.phase ~= "active" or self.closed then return end
-    local ctx, epoch, args = self.current, self.epoch, { ... }
+    local ctx, epoch, args = self.current, self.epoch, { n = select("#", ...), ... }
     vim.schedule(function()
       if valid(ctx, epoch) and ctx.service[method] then
-        local ok, err = pcall(ctx.service[method], unpack(args))
+        local ok, err = pcall(ctx.service[method], unpack(args, 1, args.n))
         if not ok then diagnostic("dispatch", err) end
       end
     end)

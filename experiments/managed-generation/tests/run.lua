@@ -33,6 +33,21 @@ local function run()
   end })
   cleanup:close()
   check(table.concat(order, ",") == "second,first", "resources disposed in reverse acquisition order")
+  local arguments = Manager.new()
+  arguments:swap(definition("arguments", 1))
+  for _, args in ipairs({ { n = 3, "first", nil, "third" }, { n = 3, "first", nil, nil }, { n = 0 } }) do
+    local received
+    local function capture(...) received = { n = select("#", ...), ... } end
+    arguments.current:guard(capture)(unpack(args, 1, args.n))
+    drain()
+    check(vim.deep_equal(received, args), "guard preserves nil arguments and arity")
+    received = nil
+    arguments.current.service.capture = capture
+    arguments:queue("capture", unpack(args, 1, args.n))
+    drain()
+    check(vim.deep_equal(received, args), "queue preserves nil arguments and arity")
+  end
+  arguments:close()
   print("PASS: " .. checks .. " managed generation checks on " .. tostring(vim.version()))
 end
 local ok, err = xpcall(run, debug.traceback)
