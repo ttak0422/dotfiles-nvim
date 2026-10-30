@@ -3058,9 +3058,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "aaeba29665521c5f0a61ea33bd47784792b536f2",
-      "url": "https://github.com/ttak0422/worktab.nvim/archive/aaeba29665521c5f0a61ea33bd47784792b536f2.tar.gz",
-      "hash": "sha256-ghJFKhbeAH4wj9Q0Hhzhbno8yeDepe7FaS7oqOEiAPs="
+      "revision": "32d4bf1ebc2169dca0da30cfa3d31a2d0fb8d3a7",
+      "url": "https://github.com/ttak0422/worktab.nvim/archive/32d4bf1ebc2169dca0da30cfa3d31a2d0fb8d3a7.tar.gz",
+      "hash": "sha256-TcG+6tYtpJzvWfRqunCKTn/fxX2QBxzmn9hosegwsnE="
     },
     "zen.nvim": {
       "type": "Git",
