@@ -71,36 +71,50 @@
                      :is_open (mk_is_open :ws)}))
 
 ;;; terminal ;;;
-(local toggleterm {})
+(local terminal-windows {})
 (let [current-tab #(vim.api.nvim_get_current_tabpage)
+      float-config (fn []
+                     (let [width (math.max 1 (math.floor (* vim.o.columns 0.95)))
+                           height (math.max 1 (math.floor (* (- vim.o.lines 2) 0.95)))]
+                       {:relative :editor
+                        :row (math.floor (/ (- vim.o.lines height) 2))
+                        :col (math.floor (/ (- vim.o.columns width) 2))
+                        : width : height :style :minimal :border :single}))
       tab-terminals (fn [tab]
-                      (or (. toggleterm tab)
+                      (or (. terminal-windows tab)
                           (let [terms {}]
-                            (tset toggleterm tab terms)
+                            (tset terminal-windows tab terms)
                             terms)))
       get_idx (fn [idx]
-                (let [tab (current-tab)
-                      terms (tab-terminals tab)]
-                  (. terms idx)))
+                (. (tab-terminals (current-tab)) idx))
+      is_open_idx (fn [idx]
+                    (let [term (get_idx idx)]
+                      (and term (vim.api.nvim_win_is_valid term.win)
+                           (= (vim.api.nvim_win_get_buf term.win) term.buf))))
       open_idx (fn [idx]
-                 (let [terminal (require :toggleterm.terminal)
-                       tab (current-tab)
+                 (let [tab (current-tab)
                        terms (tab-terminals tab)
                        session (.. :vim_tab tab :_idx idx)]
-                   (-> (or (. terms idx)
-                           (let [t (terminal.Terminal:new {:cmd (.. args.pterm
-                                                                    " open "
-                                                                    session)
-                                                           :close_on_exit false})]
-                             (tset terms idx t)
-                             t))
-                       (: :open))))
-      is_open_idx (fn [idx]
-                    (let [t (get_idx idx)] (and t (t:is_open))))
+                   (if (is_open_idx idx)
+                       (vim.api.nvim_set_current_win (. (. terms idx) :win))
+                       (let [buf (vim.api.nvim_create_buf false true)
+                             _ (tset vim.bo buf :bufhidden :wipe)
+                             win (vim.api.nvim_open_win buf true (float-config))]
+                         (tset terms idx {: win})))
+                   ;; The managed plugin owns size authority and history reset ACKs.
+                   ((. (require :pterm) :open) session)
+                   (tset (. terms idx) :buf (vim.api.nvim_get_current_buf))))
       close_idx (fn [idx]
-                  (let [t (get_idx idx)]
-                    (if (and t (t:is_open))
-                        (t:close))))]
+                  (when (is_open_idx idx)
+                    (vim.api.nvim_win_close (. (get_idx idx) :win) true)))]
+  (vim.api.nvim_create_autocmd :VimResized
+                               {:group (vim.api.nvim_create_augroup :pterm_terminal_floats {:clear true})
+                                :callback (fn []
+                                            (each [_ terms (pairs terminal-windows)]
+                                              (each [_ term (pairs terms)]
+                                                (when (and (vim.api.nvim_win_is_valid term.win)
+                                                           (= (vim.api.nvim_win_get_buf term.win) term.buf))
+                                                  (vim.api.nvim_win_set_config term.win (float-config))))))})
   (for [i 0 9]
     (toggler.register (.. :term i)
                       {:open #(open_idx i)

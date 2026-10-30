@@ -852,12 +852,7 @@ in
 
     togglePlugins = {
       package = toggler-nvim;
-      postConfig = {
-        code = read "./fnl/toggle-plugins.fnl";
-        args = {
-          pterm = "${pterm-daemon}/bin/pterm";
-        };
-      };
+      postConfig = read "./fnl/toggle-plugins.fnl";
       depends = [ telescope ];
       hooks.modules = [ "toggler" ];
     };

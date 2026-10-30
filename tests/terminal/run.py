@@ -31,6 +31,9 @@ with tempfile.TemporaryDirectory(prefix='terminal-', dir='/tmp') as directory:
         subprocess.run([os.environ['TERMINAL_TEST_NVIM'], '--headless', '-u', 'NONE',
                         '-i', 'NONE', '-l', str(root / 'tests/terminal/picker.lua')],
                        env=env, check=True, timeout=60)
+        subprocess.run([os.environ['TERMINAL_TEST_NVIM'], '--headless', '-u', 'NONE',
+                        '-i', 'NONE', '-l', str(root / 'tests/pterm_float.lua')],
+                       cwd=root, env=env, check=True, timeout=60)
     finally:
         # Removing only this test's sockets asks its daemons to stop, even on failure.
         shutil.rmtree(temp / 'sockets', ignore_errors=True)
