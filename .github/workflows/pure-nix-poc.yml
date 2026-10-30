@@ -1,0 +1,22 @@
+name: Pure Nix bundler experiment
+on:
+  pull_request:
+    paths:
+      - 'experiments/pure-nix-bundler/**'
+      - '.github/workflows/pure-nix-poc.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'experiments/pure-nix-bundler/**'
+      - '.github/workflows/pure-nix-poc.yml'
+  workflow_dispatch:
+jobs:
+  fixture:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v31.11.1
+      - name: Install isolated test runtime
+        run: sudo apt-get update && sudo apt-get install -y neovim
+      - name: Evaluate Nix and exercise lifecycle fixtures without builds
+        run: python3 experiments/pure-nix-bundler/tests/run.py
