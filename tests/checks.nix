@@ -44,6 +44,24 @@
         touch "$out"
       '';
 
+  vtsls-diagnostics =
+    pkgs.runCommand "vtsls-diagnostics-tests"
+      {
+        nativeBuildInputs = [ pkgs.neovim-unwrapped ];
+        NFNL_PLUGIN_DIR = pkgs.vimPlugins.v2.nfnl;
+        VTSLS_TEST_SERVER = "${pkgs.vtsls}/bin/vtsls";
+      }
+      ''
+        cp -R ${../.} source
+        chmod -R u+w source
+        cd source
+        export HOME="$TMPDIR/home"
+        export XDG_STATE_HOME="$TMPDIR/state" XDG_CACHE_HOME="$TMPDIR/cache" XDG_DATA_HOME="$TMPDIR/data"
+        mkdir -p "$HOME"
+        nvim -n --headless -u NONE -i NONE -l tests/vtsls-diagnostics.lua
+        touch "$out"
+      '';
+
   terminal-input =
     pkgs.runCommand "terminal-skk-input-tests"
       {
