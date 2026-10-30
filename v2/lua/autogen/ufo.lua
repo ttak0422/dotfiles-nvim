@@ -2,9 +2,11 @@
 local ufo = require("ufo")
 local provider_selector
 local function _1_(bufnr, ft, buftype)
-  local case_2_ = {bufnr, ft, buftype}
-  local _ = case_2_
-  return {"treesitter", "indent"}
+  if ((ft == "markdown") or (ft == "markdown_inline")) then
+    return {"indent"}
+  else
+    return {"treesitter", "indent"}
+  end
 end
 provider_selector = _1_
 ufo.setup({provider_selector = provider_selector})

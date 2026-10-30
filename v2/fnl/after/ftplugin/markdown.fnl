@@ -1,3 +1,8 @@
+;; These built-in mappings invoke vim.treesitter._headings directly.
+(each [_ key (ipairs [:gO "]]" "[["])]
+  (when (= (?. (vim.fn.maparg key :n false true) :buffer) 1)
+    (vim.keymap.del :n key {:buffer true})))
+
 (each [key value (pairs {; :conceallevel 2
                          :number false
                          :foldcolumn :0

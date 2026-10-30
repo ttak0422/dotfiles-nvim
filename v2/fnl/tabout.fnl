@@ -17,4 +17,5 @@
                :enable_backwards true
                :completion false
                :ignore_beginning false
+               :exclude [:markdown :markdown_inline]
                : tabouts})

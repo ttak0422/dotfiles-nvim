@@ -13,6 +13,6 @@
               :duration 200
               :delay 500
               :use_treesitter true
-              :exclude_filetypes {:copilot-chat true}})
+              :exclude_filetypes {:copilot-chat true :markdown true :markdown_inline true}})
 
 (hlchunk.setup {: chunk : indent : line_num : blank})

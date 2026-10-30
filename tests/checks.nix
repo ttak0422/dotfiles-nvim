@@ -1,5 +1,49 @@
 { pkgs }:
 {
+  markdown-treesitter =
+    pkgs.runCommand "markdown-treesitter-tests"
+      {
+        nativeBuildInputs = [ pkgs.neovim-unwrapped ];
+        MARKDOWN_TEST_PLUGINS = pkgs.lib.concatStringsSep ":" (
+          with pkgs.vimPlugins.v2;
+          map toString [
+            nfnl
+            nvim-treesitter
+            nvim-treesitter-textobjects
+            nvim-ts-context-commentstring
+            pkgs.vimPlugins.vim-matchup
+            nvim-ufo
+            promise-async
+            hlchunk-nvim
+            tabout-nvim
+            aerial-nvim
+            nvim-autopairs
+          ]
+        );
+        MARKDOWN_TEST_PARSERS = pkgs.symlinkJoin {
+          name = "markdown-test-parsers";
+          paths = map pkgs.neovimUtils.grammarToPlugin (
+            with pkgs.vimPlugins.nvim-treesitter.builtGrammars;
+            [
+              markdown
+              markdown_inline
+              lua
+            ]
+          );
+        };
+      }
+      ''
+        cp -R ${../.} source
+        chmod -R u+w source
+        cd source
+        export HOME="$TMPDIR/home"
+        export XDG_CACHE_HOME="$TMPDIR/cache" XDG_DATA_HOME="$TMPDIR/data" XDG_STATE_HOME="$TMPDIR/state"
+        mkdir -p "$HOME"
+        nvim -n --headless -u NONE -i NONE -l tests/markdown-treesitter.lua
+        MARKDOWN_TEST_EARLY_PLUGINS=1 nvim -n --headless -u NONE -i NONE -l tests/markdown-treesitter.lua
+        touch "$out"
+      '';
+
   terminal-input =
     pkgs.runCommand "terminal-skk-input-tests"
       {

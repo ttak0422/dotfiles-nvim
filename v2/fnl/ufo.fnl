@@ -1,8 +1,9 @@
 (local ufo (require :ufo))
 
 (local provider_selector (fn [bufnr ft buftype]
-                           (case [bufnr ft buftype]
-                             _ [:treesitter :indent])))
+                           (if (or (= ft :markdown) (= ft :markdown_inline))
+                               [:indent]
+                               [:treesitter :indent])))
 
 (ufo.setup {: provider_selector})
 
