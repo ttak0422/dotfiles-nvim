@@ -6,8 +6,8 @@
                                                             :only_render_image_at_cursor true
                                                             :only_render_image_at_cursor_mode :popup
                                                             :floating_windows false
-                                                            :filetypes [:markdown
-                                                                        :vimwiki]}}
+                                                            ;; Markdown image queries require both TS parsers.
+                                                            :filetypes [:vimwiki]}}
                                   :max_width nil
                                   :max_height 20
                                   :max_height_window_percentage math.huge

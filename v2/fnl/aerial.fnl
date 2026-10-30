@@ -98,7 +98,9 @@
             :update_delay 600})
 
 (local treesitter {:update_delay 500})
-(local backends [:treesitter :lsp])
+(local backends {:_ [:treesitter :lsp]
+                :markdown [:lsp :markdown]
+                :markdown_inline [:lsp]})
 
 (aerial.setup {: filter_kind
                : float

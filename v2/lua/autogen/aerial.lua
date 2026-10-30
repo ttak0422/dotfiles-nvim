@@ -9,5 +9,5 @@ local keymaps = {["g?"] = "actions.show_help", ["<CR>"] = "actions.jump", ["<2-L
 local layout = {max_width = 0.8, min_width = 0.15, default_direction = "float", placement = "window"}
 local lsp = {update_when_errors = true, update_delay = 600, diagnostics_trigger_update = false}
 local treesitter = {update_delay = 500}
-local backends = {"treesitter", "lsp"}
+local backends = {_ = {"treesitter", "lsp"}, markdown = {"lsp", "markdown"}, markdown_inline = {"lsp"}}
 return aerial.setup({filter_kind = filter_kind, float = float, guides = guides, icons = icons, ignore = ignore, keymaps = keymaps, layout = layout, lsp = lsp, treesitter = treesitter, backends = backends})
