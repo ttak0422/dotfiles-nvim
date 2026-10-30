@@ -129,6 +129,12 @@ function M.new(plan, root)
         return false
       end
     end
+    -- All activation paths, including requires, release the proxy before plugin
+    -- code can register the real command. close() only owns pending proxies.
+    if f.activation.kind == "command" and command_proxies[f.activation.command] then
+      api.nvim_del_user_command(f.activation.command)
+      command_proxies[f.activation.command] = nil
+    end
     local ok = hook(f, "prepare", f.session)
     if ok and f.package ~= vim.NIL and f.package ~= nil then
       ok = guarded(f.session, "load", function()
@@ -170,8 +176,6 @@ function M.new(plan, root)
       assert(api.nvim_get_commands({ builtin = false })[name] == nil, "command collision: " .. name)
       command_proxies[name] = true
       api.nvim_create_user_command(name, function(command)
-        api.nvim_del_user_command(name)
-        command_proxies[name] = nil
         if not self:ensure(f.id) then error("could not load " .. f.id) end
         assert(api.nvim_get_commands({ builtin = false })[name], "plugin did not register " .. name)
         local call = { cmd = name, args = command.fargs, bang = command.bang, mods = command.smods }

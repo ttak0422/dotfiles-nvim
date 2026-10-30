@@ -13,6 +13,7 @@
     hooks = "features/picker/hooks.lua";
     docs = "features/picker/README.md";
     tests.firstCommand = "features/picker/tests.lua";
+    tests.dependencyLoad = "features/picker/dependency-test.lua";
     evidence = "features/evidence.json";
   };
   metrics = {

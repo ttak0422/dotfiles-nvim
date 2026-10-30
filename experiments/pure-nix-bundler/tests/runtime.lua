@@ -85,6 +85,7 @@ local function run()
   check(runtime.contexts.metrics[existing] == nil and not ctx.alive, "buffer deletion disposes scope")
   check(#runtime.errors == 0, "no unexpected lifecycle errors")
   runtime:close()
+  dofile(root .. "/features/picker/dependency-test.lua")(Runtime, plan, root, check)
 
   -- Failed setup prevents dependents, cleans acquired resources, preserves independent startup.
   local bad_plan = vim.deepcopy(plan)

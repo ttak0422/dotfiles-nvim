@@ -105,6 +105,9 @@ covers dependency/phase order, first command context, first FileType and catch-u
 duplicate attachment, response reordering, changedtick changes, cancellation failure,
 scheduled callbacks after disposal, reverse cleanup, fresh generations, rename,
 filetype change, buffer deletion, two windows, and isolated dependency failure.
+The feature-local dependency regression also checks that loading a command feature
+through `requires` transfers proxy ownership before the plugin registers its real
+command, so cleanup preserves that real command.
 
 These are behavioral fixtures, not proof that all plugin or interactive UI behavior
 works. The dedicated workflow runs the same small tests; the repository's existing
