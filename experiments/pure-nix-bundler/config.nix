@@ -12,7 +12,7 @@
     requires = [ "base" ];
     hooks = "features/picker/hooks.lua";
     docs = "features/picker/README.md";
-    tests.firstCommand = "tests/runtime.lua";
+    tests.firstCommand = "features/picker/tests.lua";
     evidence = "features/evidence.json";
   };
   metrics = {
@@ -23,6 +23,7 @@
     updates = { events = [ "TextChanged" ]; initial = true; };
     docs = "features/metrics/README.md";
     tests.lifecycle = "tests/runtime.lua";
+    tests.firstFiletype = "features/metrics/tests.lua";
     evidence = "features/evidence.json";
   };
 }

@@ -21,10 +21,7 @@ local function run()
   local runtime = Runtime.new(plan, root)
   check(runtime.features.base.status == "ready", "startup fixture")
   check(runtime.features.picker.status == "registered", "command plugin must stay lazy")
-  local ctx = assert(runtime.contexts.metrics[existing])
-  check(#runtime.requests == 1, "existing buffer catch-up and initial update")
-  event("FileType", existing)
-  check(runtime.contexts.metrics[existing] == ctx and #runtime.requests == 1, "no duplicate attach")
+  local ctx = dofile(root .. "/features/metrics/tests.lua")(runtime, existing, check)
 
   local first = markdown()
   check(runtime.contexts.metrics[first] ~= nil, "first FileType must attach without replay")
@@ -34,15 +31,7 @@ local function run()
   local current = runtime.contexts.metrics[first]
   check(#current.owned == 2, "completed request leaves no resource ledger entry")
 
-  api.nvim_set_current_buf(first)
-  api.nvim_buf_set_lines(first, 0, -1, false, { "a", "b", "c" })
-  vim.cmd("silent 1,2PocPick! first second")
-  check(_G.poc_last_command.args == "first second" and _G.poc_last_command.bang, "first command args and bang")
-  check(_G.poc_last_command.line1 == 1 and _G.poc_last_command.line2 == 2, "first command range")
-  check(_G.poc_last_command.smods.silent, "first command modifiers")
-  check(table.concat(runtime.trace, ",") == "base.setup,picker.prepare,picker.setup", "dependency/prepare/setup order")
-  vim.cmd("PocPick again")
-  check(#runtime.trace == 3, "setup executes once")
+  dofile(root .. "/features/picker/tests.lua")(runtime, first, check)
 
   event("TextChanged", first)
   local old = runtime.requests[#runtime.requests]

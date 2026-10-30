@@ -98,7 +98,9 @@ resources are cleaned, while unrelated startup features continue.
 
 [tests/run.py](tests/run.py) compares repeated byte-identical Nix outputs, checks
 source/test/doc paths, and rejects representative invalid inputs. It then runs the
-generated Lua plan in a temporary editor. [tests/runtime.lua](tests/runtime.lua)
+generated Lua plan in a temporary editor. Feature-local contracts live beside
+[picker hooks](features/picker/tests.lua) and [metrics hooks](features/metrics/tests.lua).
+The shared [integration harness](tests/runtime.lua)
 covers dependency/phase order, first command context, first FileType and catch-up,
 duplicate attachment, response reordering, changedtick changes, cancellation failure,
 scheduled callbacks after disposal, reverse cleanup, fresh generations, rename,
