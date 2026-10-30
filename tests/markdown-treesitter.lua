@@ -86,7 +86,9 @@ local function check()
     assert(vim.bo.indentexpr == '', 'Markdown TS indentation')
     assert(vim.fn.eval(vim.wo.foldexpr) == 0, 'Markdown TS fold expression')
     assert(vim.bo.syntax == 'markdown', 'regex syntax lost')
-    assert(vim.fn.maparg('gO', 'n', false, true).buffer ~= 1, 'native TS outline mapping remains')
+    for _, key in ipairs({ 'gO', ']]', '[[' }) do
+      assert(vim.fn.maparg(key, 'n', false, true).buffer == 1, 'native heading mapping lost: ' .. key)
+    end
     assert(
       vim.tbl_isempty(api.nvim_get_autocmds({ event = 'CursorHold', group = 'context_commentstring_ft', buffer = buf })),
       'context query callback remains'
@@ -131,6 +133,8 @@ local function check()
     '```lua',
     'return 1',
     '```',
+    '',
+    '## Second heading',
   })
   local long = { '# Large note' }
   for _ = 1, 2000 do
@@ -157,6 +161,29 @@ local function check()
   api.nvim_exec_autocmds('CursorHold', {})
   drain()
   assert(parses == before, 'inline parsed on hold')
+
+  -- Explicit heading commands may parse on demand without re-enabling highlighting.
+  vim.cmd.buffer(small)
+  local win = api.nvim_get_current_win()
+  api.nvim_win_set_cursor(win, { 1, 0 })
+  before = parses
+  vim.cmd('normal gO')
+  assert(#vim.fn.getloclist(win) == 2 and parses > before, 'native outline command failed')
+  vim.cmd.lclose()
+  before = parses
+  vim.cmd('normal ]]')
+  local heading = api.nvim_win_get_cursor(win)[1]
+  assert(heading > 1 and parses > before, 'native next-heading command failed')
+  before = parses
+  vim.cmd('normal [[')
+  assert(api.nvim_win_get_cursor(win)[1] == 1 and parses > before, 'native previous-heading command failed')
+  before = parses
+  api.nvim_exec_autocmds('CursorHold', { buffer = small })
+  drain()
+  assert(
+    parses == before and not vim.treesitter.highlighter.active[small],
+    'manual navigation restarted automatic parsing'
+  )
   assert(#notices == 0, table.concat(notices, '\n'))
   vim.fn.delete(after, 'rf')
   print('Markdown Tree-sitter lifecycle checks passed')
