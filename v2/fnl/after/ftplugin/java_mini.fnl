@@ -10,7 +10,14 @@
 
 (local jdtls (require :jdtls))
 
-(local root_dir (vim.fs.root 0 [:gradlew :mvnw :.git]))
+(local bufnr (vim.api.nvim_get_current_buf))
+(when (not (and (= (. vim.bo bufnr :buftype) "")
+                (= (. vim.bo bufnr :filetype) :java)
+                (not= (vim.api.nvim_buf_get_name bufnr) "")
+                (vim.startswith (vim.uri_from_bufnr bufnr) "file://")))
+  (lua "return"))
+(local root_dir (or (vim.fs.root bufnr [:gradlew :mvnw :.git])
+                   (vim.fn.getcwd)))
 (local workspace_dir (.. (os.getenv :HOME) :/.local/share/eclipse/
                          (-> root_dir
                              (vim.fn.fnamemodify ":p:h")
@@ -111,12 +118,12 @@
 (local flags {:allow_incremental_sync true :debounce_text_changes 300})
 (local handlers {:language/status (fn [])})
 
-(vim.defer_fn #(jdtls.start_or_attach {:name :jdtls
-                                       : root_dir
-                                       : cmd
-                                       : settings
-                                       : init_options
-                                       : on_attach
-                                       : flags
-                                       : handlers})
-  100)
+(jdtls.start_or_attach {:name :jdtls
+                       : root_dir
+                       : cmd
+                       : settings
+                       : init_options
+                       : on_attach
+                       : flags
+                       : handlers}
+                      nil {: bufnr})
