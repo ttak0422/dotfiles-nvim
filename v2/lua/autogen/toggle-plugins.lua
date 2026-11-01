@@ -116,97 +116,118 @@ do
   toggler.register("trouble-doc", {open = mk_open({mode = "diagnostics", filter = {buf = 0}}, "doc"), close = close, is_open = mk_is_open("doc")})
   toggler.register("trouble-ws", {open = mk_open({mode = "diagnostics"}, "ws"), close = close, is_open = mk_is_open("ws")})
 end
-local toggleterm = {}
+local terminal_windows = {}
 do
   local current_tab
   local function _24_()
     return vim.api.nvim_get_current_tabpage()
   end
   current_tab = _24_
+  local float_config
+  local function _25_()
+    local width = math.max(1, math.floor((vim.o.columns * 0.95)))
+    local height = math.max(1, math.floor(((vim.o.lines - 2) * 0.95)))
+    return {relative = "editor", row = math.floor(((vim.o.lines - height) / 2)), col = math.floor(((vim.o.columns - width) / 2)), width = width, height = height, style = "minimal", border = "single"}
+  end
+  float_config = _25_
   local tab_terminals
-  local function _25_(tab)
-    local or_26_ = toggleterm[tab]
-    if not or_26_ then
+  local function _26_(tab)
+    local or_27_ = terminal_windows[tab]
+    if not or_27_ then
       local terms = {}
-      toggleterm[tab] = terms
-      or_26_ = terms
+      terminal_windows[tab] = terms
+      or_27_ = terms
     end
-    return or_26_
+    return or_27_
   end
-  tab_terminals = _25_
+  tab_terminals = _26_
   local get_idx
-  local function _28_(idx)
-    local tab = current_tab()
-    local terms = tab_terminals(tab)
-    return terms[idx]
-  end
-  get_idx = _28_
-  local open_idx
   local function _29_(idx)
-    local terminal = require("toggleterm.terminal")
+    return tab_terminals(current_tab())[idx]
+  end
+  get_idx = _29_
+  local is_open_idx
+  local function _30_(idx)
+    local term = get_idx(idx)
+    return (term and vim.api.nvim_win_is_valid(term.win) and (vim.api.nvim_win_get_buf(term.win) == term.buf))
+  end
+  is_open_idx = _30_
+  local open_idx
+  local function _31_(idx)
     local tab = current_tab()
     local terms = tab_terminals(tab)
     local session = ("vim_tab" .. tab .. "_idx" .. idx)
-    local or_30_ = terms[idx]
-    if not or_30_ then
-      local t = terminal.Terminal:new({cmd = (args.pterm .. " open " .. session), close_on_exit = false})
-      terms[idx] = t
-      or_30_ = t
+    if is_open_idx(idx) then
+      vim.api.nvim_set_current_win(terms[idx].win)
+    else
+      local buf = vim.api.nvim_create_buf(false, true)
+      local _
+      vim.bo[buf]["bufhidden"] = "wipe"
+      _ = nil
+      local win = vim.api.nvim_open_win(buf, true, float_config())
+      terms[idx] = {win = win}
     end
-    return (or_30_):open()
+    require("pterm").open(session)
+    terms[idx]["buf"] = vim.api.nvim_get_current_buf()
+    return nil
   end
-  open_idx = _29_
-  local is_open_idx
-  local function _32_(idx)
-    local t = get_idx(idx)
-    return (t and t:is_open())
-  end
-  is_open_idx = _32_
+  open_idx = _31_
   local close_idx
   local function _33_(idx)
-    local t = get_idx(idx)
-    if (t and t:is_open()) then
-      return t:close()
+    if is_open_idx(idx) then
+      return vim.api.nvim_win_close(get_idx(idx).win, true)
     else
       return nil
     end
   end
   close_idx = _33_
+  local function _35_()
+    for _, terms in pairs(terminal_windows) do
+      for _0, term in pairs(terms) do
+        if (vim.api.nvim_win_is_valid(term.win) and (vim.api.nvim_win_get_buf(term.win) == term.buf)) then
+          vim.api.nvim_win_set_config(term.win, float_config())
+        else
+        end
+      end
+    end
+    return nil
+  end
+  vim.api.nvim_create_autocmd("VimResized", {group = vim.api.nvim_create_augroup("pterm_terminal_floats", {clear = true}), callback = _35_})
   for i = 0, 9 do
-    local function _35_()
+    local function _37_()
       return open_idx(i)
     end
-    local function _36_()
+    local function _38_()
       return close_idx(i)
     end
-    local function _37_()
+    local function _39_()
       return is_open_idx(i)
     end
-    toggler.register(("term" .. i), {open = _35_, close = _36_, is_open = _37_})
+    toggler.register(("term" .. i), {open = _37_, close = _38_, is_open = _39_})
   end
 end
 local dapui = nil
 do
   local open
-  local function _38_()
+  local function _40_()
     if (dapui == nil) then
       dapui = require("dapui")
     else
     end
     return dapui:open({reset = true})
   end
-  open = _38_
+  open = _40_
   local close
-  local function _40_()
+  local function _42_()
     if (dapui ~= nil) then
       return dapui.close()
     else
       return nil
     end
   end
-  close = _40_
+  close = _42_
   local is_open
-  local function _42_()
+  local function _44_()
     for _, win in ipairs(require("dapui.windows").layouts) do
       if win:is_open() then
         return true
@@ -215,31 +236,31 @@ do
     end
     return false
   end
-  is_open = _42_
+  is_open = _44_
   toggler.register("dapui", {open = open, close = close, is_open = is_open})
 end
 local aerial = nil
 local open
-local function _44_()
+local function _46_()
   if (aerial == nil) then
     aerial = require("aerial")
   else
   end
   return aerial.open()
 end
-open = _44_
+open = _46_
 local close
-local function _46_()
+local function _48_()
   if (aerial ~= nil) then
     return aerial.close()
   else
     return nil
   end
 end
-close = _46_
+close = _48_
 local is_open
-local function _48_()
+local function _50_()
   return filetype_exists("aerial")
 end
-is_open = _48_
+is_open = _50_
 return toggler.register("aerial", {open = open, close = close, is_open = is_open})

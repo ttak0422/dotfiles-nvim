@@ -34,6 +34,24 @@ covers tiny-code-action's buffer auto-preview regression separately. These check
 do not reproduce every language server's responses or establish that an unrecorded
 interactive code-action error is fixed.
 
+## Terminal floats
+
+`Ctrl+0` through `Ctrl+9` reuse the managed pterm session for that tab and index.
+The popup and regular splits show the same managed buffer. The last active
+terminal window chooses the child PTY dimensions; other views may clip its
+contents. Closing the popup hides that view without killing the session.
+
+Managed history replay replaces stale native scrollback after a narrow-to-wide
+resize, preserving retained logical lines and Unicode. It cannot reconstruct
+text already lost by an old daemon, or infer which explicit newlines a TUI meant
+to be soft wraps. The terminal CI suite checks focus/resize arbitration, popup
+fallback, 5-to-80-column replay, genuine newlines, Unicode, and reconnect.
+
+The pterm pin includes the managed negotiation fix from pterm PR #96. Existing
+pre-protocol-2 daemons need an explicit migration; updating the binary does not
+upgrade running sessions. This configuration never restarts those daemons or
+reclaims their history automatically.
+
 ## Terminal sessions in Telescope
 
 Open `:Telescope pterm` (or the existing `<leader>ft` mapping). Select a search
