@@ -6,6 +6,9 @@ jobs:
   check-flake:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@v12
-      - uses: DeterminateSystems/update-flake-lock@v23
+      - uses: actions/checkout@v7.0.1
+      - uses: DeterminateSystems/nix-installer-action@v23
+        with:
+          # Preserve upstream Nix rather than adopting the new Determinate default.
+          determinate: false
+      - uses: DeterminateSystems/update-flake-lock@v29
