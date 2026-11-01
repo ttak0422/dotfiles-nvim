@@ -26,6 +26,7 @@
 
     bundler = {
       url = "github:ttak0422/bundler/v3";
+      inputs.nixpkgs.follows = "nixpkgs";
       # url = "path:/Users/tak/ghq/github.com/ttak0422/bundler";
       # url = "path:/home/ttak0422/ghq/github.com/ttak0422/bundler";
     };

@@ -105,3 +105,17 @@ leaves that backend limitation unchanged and is intended for interactive program
     ├── tmpl/         # Template files
     └── vim/          # Vim script configurations
 ```
+
+## Nixpkgs sharing
+
+Bundler follows this flake's `nixpkgs` input so its packaging tools cannot drift
+to a separate unstable revision. The two inputs already had the same revision
+when this was introduced: this removes a redundant lock node, not existing
+store bytes. No package source or toolchain revision is upgraded by that change.
+
+The stable package set remains intentional (including `pkgs-stable.gitu` and
+the existing blink/meian/MCP inputs). Pterm keeps its upstream nixpkgs pin so
+its Linux and Apple Silicon builds can reuse `ttak0422-pterm.cachix.org`.
+Do not force the whole editor to follow dotfiles' older stable host input.
+Nixpkgs revision sharing and overlays should preserve useful binary-cache
+identities; fewer lock nodes alone do not prove smaller installed closures.
