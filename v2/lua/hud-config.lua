@@ -50,7 +50,7 @@ local file = {
 local ruler = {
   update = { 'CursorMoved', 'CursorMovedI', 'TextChanged', 'TextChangedI', 'TextChangedP', 'WinEnter', 'WinLeave' },
   provider = function(ctx)
-    return { ' ', { provider = ('%4d,%-3d'):format(ctx.lnum, ctx.byte_col + 1), hl = 'WinBar' } }
+    return { ' ', { provider = (' %d, %d'):format(ctx.lnum, ctx.byte_col + 1), hl = 'WinBar' } }
   end,
   priority = 10,
 }
