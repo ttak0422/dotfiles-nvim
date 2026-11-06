@@ -1,0 +1,10 @@
+{
+  "kind": "synthetic-fixture",
+  "feature": "counter",
+  "definition": "definition.lua",
+  "tests": "tests.lua",
+  "upstreamRelease": null,
+  "stateSchemas": [1, 2],
+  "purpose": "Manager-owned generation dispatch, plain-state migration, and cleanup failure boundaries",
+  "executionEvidence": "Test runner output and exact-head CI; this descriptor does not assert a passing result"
+}
