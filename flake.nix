@@ -36,6 +36,15 @@
       flake = false;
     };
 
+    goda = {
+      url = "github:Shougo/goda.vim/v0.7.2";
+      flake = false;
+    };
+    goda-skk = {
+      url = "github:Shougo/goda-skk.vim/v0.3.3";
+      flake = false;
+    };
+
     # javaPackages
     junit-console = {
       url = "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.2/junit-platform-console-standalone-1.10.2.jar";
@@ -96,12 +105,23 @@
             inherit pkgs;
             configuration = import ./v3/default;
           };
+          v3Skk = inputs.divine.lib.mkBundle {
+            inherit pkgs;
+            configuration = import ./v3/skk { inherit pkgs inputs; };
+          };
+          v3SkkNeovim = pkgs.writeShellScriptBin "nvim" ''
+            export NVIM_APPNAME=nvim-v3-skk
+            exec ${pkgs.neovim-unwrapped}/bin/nvim -u ${v3Skk}/init.lua "$@"
+          '';
           v3Neovim = pkgs.writeShellScriptBin "nvim" ''
             export NVIM_APPNAME=nvim-v3-default
             exec ${pkgs.neovim-unwrapped}/bin/nvim -u ${v3Default}/init.lua "$@"
           '';
         in
         {
+          packages.v3-skk = v3SkkNeovim;
+          packages.v3-skk-bundle = v3Skk;
+          packages.v3-skk-backend = (import ./v3/skk/packages.nix { inherit pkgs inputs; }).binary;
           packages.v3-default = v3Neovim;
           packages.v3-default-bundle = v3Default;
           _module.args.pkgs = import inputs.nixpkgs {
@@ -127,6 +147,11 @@
               inherit pkgs;
             });
           checks = (import ./tests/checks.nix { inherit pkgs; }) // {
+            v3-skk = import ./tests/v3-skk.nix {
+              inherit pkgs;
+              bundle = v3Skk;
+              neovim = v3SkkNeovim;
+            };
             v3-default = import ./tests/v3-default.nix {
               inherit pkgs;
               bundle = v3Default;

@@ -130,3 +130,25 @@ leaves that backend limitation unchanged and is intended for interactive program
     ├── tmpl/         # Template files
     └── vim/          # Vim script configurations
 ```
+
+### v3: Goda SKK
+
+The independent SKK profile adds `Shougo/goda.vim` and `Shougo/goda-skk.vim`
+to the divine foundation, leaving the zero-plugin `v3-default` and v2 unchanged:
+
+```sh
+nix run .#v3-skk
+nix build .#v3-skk .#v3-skk-bundle
+nix build .#checks.aarch64-darwin.v3-skk
+```
+
+Press `<C-j>` in insert, command-line or terminal mode to enable SKK.
+`aiueo` produces あいうえお; `Kanji<Space>` converts, `<Space>` cycles candidates,
+`<C-j>` confirms, and `<Esc>` or `jk` returns from insert mode. The profile uses
+`NVIM_APPNAME=nvim-v3-skk`. Its learned UTF-8 dictionary lives at
+`stdpath('state')/goda-skk/SKK-JISYO.user`, separate from existing skkeleton data.
+
+The Go backend and existing pinned `SKK-JISYO.L` are built into the Nix closure.
+There is no runtime download, Go/Deno requirement, SKK server probe or Google
+Input request. Do not run `goda_skk#build()` here: edit the checked-in Go config
+and rebuild with Nix. See [packaging decisions and verification](docs/v3-skk.md).

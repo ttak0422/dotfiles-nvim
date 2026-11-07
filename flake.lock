@@ -440,6 +440,40 @@
         "type": "github"
       }
     },
+    "goda": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794025432,
+        "narHash": "sha256-o/mmMjAEQ14jYYj0SNc//QKh7i/MniMayClJtVtAqiI=",
+        "owner": "Shougo",
+        "repo": "goda.vim",
+        "rev": "8399891df7fd77eee0473003201f9960dfbd8ebb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "ref": "v0.7.2",
+        "repo": "goda.vim",
+        "type": "github"
+      }
+    },
+    "goda-skk": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793875810,
+        "narHash": "sha256-fAbj82ZOCbgmUjWB15e/hzabsME/8OB5Wg4DzJm9HMs=",
+        "owner": "Shougo",
+        "repo": "goda-skk.vim",
+        "rev": "b138f25d97610f8dc5cd644fc05797728ecf62f4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shougo",
+        "ref": "v0.3.3",
+        "repo": "goda-skk.vim",
+        "type": "github"
+      }
+    },
     "jol": {
       "flake": false,
       "locked": {
@@ -687,6 +721,8 @@
         "bundler": "bundler",
         "divine": "divine",
         "flake-parts": "flake-parts_2",
+        "goda": "goda",
+        "goda-skk": "goda-skk",
         "jol": "jol",
         "junit-console": "junit-console",
         "nix-filter": "nix-filter_2",
