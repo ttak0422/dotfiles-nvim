@@ -42,6 +42,30 @@
         "type": "github"
       }
     },
+    "divine": {
+      "inputs": {
+        "git-hooks": "git-hooks",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-stable": [
+          "nixpkgs-stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794070638,
+        "narHash": "sha256-o89FIj60tTOFoSZWEL/qKoG4E6BVRJXItbk8yJHuvtc=",
+        "owner": "ttak0422",
+        "repo": "divine",
+        "rev": "a53ed4e5fec62a76b027631d7189d41e39689cff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ttak0422",
+        "repo": "divine",
+        "type": "github"
+      }
+    },
     "fenix": {
       "inputs": {
         "nixpkgs": [
@@ -142,6 +166,22 @@
       }
     },
     "flake-compat_3": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767039857,
+        "narHash": "sha256-vNpUSpF5Nuw8xvDLj2KCwwksIbjua2LZCqhV1LNRDns=",
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "rev": "5edf11c44bc78a0d334f6334cdaf7d60d732daab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_4": {
       "flake": false,
       "locked": {
         "lastModified": 1767039857,
@@ -293,6 +333,28 @@
       "inputs": {
         "flake-compat": "flake-compat_2",
         "nixpkgs": [
+          "divine",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793686154,
+        "narHash": "sha256-Zb/0L3soxrkfcrywpfp0J++0WFLB3tzh0Xtx9up+VNc=",
+        "owner": "cachix",
+        "repo": "git-hooks.nix",
+        "rev": "204b6977e00caac19e2313015a598543ca7be150",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "git-hooks.nix",
+        "type": "github"
+      }
+    },
+    "git-hooks_2": {
+      "inputs": {
+        "flake-compat": "flake-compat_3",
+        "nixpkgs": [
           "v2-pterm",
           "nixpkgs"
         ]
@@ -311,9 +373,9 @@
         "type": "github"
       }
     },
-    "git-hooks_2": {
+    "git-hooks_3": {
       "inputs": {
-        "flake-compat": "flake-compat_3",
+        "flake-compat": "flake-compat_4",
         "gitignore": "gitignore_2",
         "nixpkgs": [
           "v2-track",
@@ -623,6 +685,7 @@
     "root": {
       "inputs": {
         "bundler": "bundler",
+        "divine": "divine",
         "flake-parts": "flake-parts_2",
         "jol": "jol",
         "junit-console": "junit-console",
@@ -810,7 +873,7 @@
     "v2-pterm": {
       "inputs": {
         "flake-parts": "flake-parts_6",
-        "git-hooks": "git-hooks",
+        "git-hooks": "git-hooks_2",
         "naersk": "naersk",
         "nixpkgs": "nixpkgs_2"
       },
@@ -831,7 +894,7 @@
     "v2-track": {
       "inputs": {
         "flake-parts": "flake-parts_7",
-        "git-hooks": "git-hooks_2",
+        "git-hooks": "git-hooks_3",
         "nixpkgs": [
           "nixpkgs"
         ]
