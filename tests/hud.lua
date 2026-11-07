@@ -427,6 +427,20 @@ local function check()
   local _, hud_edge = right_margin(source)
   assert(cursor.col == edge.wincol + edge.width - 1, 'multibyte cursor fixture must reach the right edge')
   assert(hud_edge.col + hud_edge.width == cursor.col - 1, 'HUD covers the rightmost cursor cell')
+  -- The right inset stays usable, but entering the rendered rectangle hides
+  -- only the active HUD and leaving it restores the same cached content.
+  local active_hud = floats()[source]
+  local active_rows = api.nvim_buf_get_lines(active_hud.buf, 0, -1, false)
+  api.nvim_win_set_cursor(source, { 1, #text - 2 })
+  vim.fn.winrestview({ topline = 1, lnum = 1, col = #text - 2, leftcol = 0, skipcol = 0 })
+  event('CursorMoved')
+  assert(not floats()[source], 'cursor overlap must hide the active HUD')
+  assert(floats()[other], 'cursor overlap must not hide the inactive HUD')
+  api.nvim_win_set_cursor(source, { 1, #text - 1 })
+  event('CursorMoved')
+  local restored_rows, restored_hud = rows(source)
+  assert(restored_hud.buf == active_hud.buf, 'cursor exit must reuse the HUD buffer')
+  assert(vim.deep_equal(restored_rows, active_rows), 'cursor exit changed cached HUD content')
   for line = 1, 6 do
     api.nvim_win_set_cursor(source, { line, 0 })
     vim.fn.winrestview({ topline = 1, lnum = line, col = 0 })
