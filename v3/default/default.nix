@@ -1,3 +1,7 @@
+{ pkgs }:
+let
+  packages = import ../packages { inherit pkgs; };
+in
 {
-  plugins = [ ];
+  plugins = [ packages.skk ];
 }

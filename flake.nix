@@ -92,13 +92,14 @@
           ...
         }:
         let
-          v3Default = inputs.divine.lib.mkBundle {
+          v3Configuration = import ./v3/default { inherit pkgs; };
+          v3Bundle = inputs.divine.lib.mkBundle {
             inherit pkgs;
-            configuration = import ./v3/default;
+            configuration = v3Configuration;
           };
           v3Neovim = pkgs.writeShellScriptBin "nvim" ''
             export NVIM_APPNAME=nvim-v3-default
-            exec ${pkgs.neovim-unwrapped}/bin/nvim -u ${v3Default}/init.lua "$@"
+            exec ${pkgs.neovim-unwrapped}/bin/nvim -u ${v3Bundle}/init.lua "$@"
           '';
         in
         {
@@ -125,13 +126,14 @@
               inherit inputs';
               inherit pkgs;
             });
-          checks = (import ./tests/checks.nix { inherit pkgs; }) // {
-            v3-default = import ./tests/v3-default.nix {
+          checks =
+            (import ./tests/checks.nix { inherit pkgs; })
+            // (inputs.divine.lib.mkChecks {
               inherit pkgs;
-              bundle = v3Default;
+              configuration = v3Configuration;
+              bundle = v3Bundle;
               neovim = v3Neovim;
-            };
-          };
+            });
         }
         // import ./apps.nix { inherit pkgs; };
     };
