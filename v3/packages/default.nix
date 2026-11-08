@@ -1,7 +1,12 @@
-{ pkgs }:
+{ pkgs, inputs' }:
 let
-  sources = import ../npins;
+  sources = import ./sources.nix { inherit pkgs inputs'; };
+  configurations = import ./configurations { inherit pkgs sources inputs'; };
+  core = import ./core {
+    inherit pkgs;
+    nginxPlugin = sources.nginx-vim;
+  };
 in
 {
-  skk = import ./skk { inherit pkgs sources; };
+  inherit core configurations sources;
 }

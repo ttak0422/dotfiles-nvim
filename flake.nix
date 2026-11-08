@@ -74,6 +74,13 @@
       url = "github:ttak0422/mimori";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # v3 dependencies update independently of the existing v2 profile.
+    v3-nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    v3-pterm.url = "github:ttak0422/pterm";
+    v3-track = {
+      url = "github:ttak0422/track";
+      inputs.nixpkgs.follows = "v3-nixpkgs";
+    };
     # WIP
     # v2-rustowl.url = "github:nix-community/rustowl-flake";
   };
@@ -92,18 +99,46 @@
           ...
         }:
         let
-          v3Configuration = import ./v3/default { inherit pkgs; };
+          regressionChecks = import ./tests/checks.nix { inherit pkgs; };
+          v3Base = import inputs.v3-nixpkgs { inherit system; };
+          v3Pkgs = import inputs.v3-nixpkgs {
+            inherit system;
+            overlays = (import ./overlays.nix { inherit inputs inputs'; }) ++ [
+              (import ./v3/dependencies.nix)
+              (_: _: {
+                # v3 uses current nixpkgs recipes, not v2's version overrides.
+                inherit (v3Base) neovim-unwrapped jdt-language-server;
+              })
+            ];
+            config.allowUnfreePredicate =
+              pkg:
+              builtins.elem (lib.getName pkg) [
+                "copilot-language-server"
+                "idea"
+                "intellij-idea"
+                "terraform"
+              ];
+          };
+          v3Configuration = import ./v3/default {
+            pkgs = v3Pkgs;
+            inherit inputs';
+          };
           v3Bundle = inputs.divine.lib.mkBundle {
-            inherit pkgs;
+            pkgs = v3Pkgs;
             configuration = v3Configuration;
           };
-          v3Neovim = pkgs.writeShellScriptBin "nvim" ''
+          v3Neovim = v3Pkgs.writeShellScriptBin "nvim" ''
+            # Meian uses macOS defaults; retain Nix tools before the OS fallback.
+            export PATH="$PATH:/usr/bin"
             export NVIM_APPNAME=nvim-v3-default
-            exec ${pkgs.neovim-unwrapped}/bin/nvim -u ${v3Bundle}/init.lua "$@"
+            export NVIM_V3_INIT=${v3Bundle}/init.lua
+            exec ${v3Pkgs.neovim-unwrapped}/bin/nvim -u ${v3Bundle}/init.lua "$@"
           '';
         in
         {
-          packages."v3/default" = v3Neovim;
+          packages = lib.optionalAttrs (system == "aarch64-darwin") {
+            "v3/default" = v3Neovim;
+          };
           _module.args.pkgs = import inputs.nixpkgs {
             inherit system;
             overlays = import ./overlays.nix { inherit inputs inputs'; };
@@ -126,14 +161,21 @@
               inherit inputs';
               inherit pkgs;
             });
+          # CI selects only these pre-existing focused checks. Keeping a separate
+          # output avoids evaluating the full v2/v3 packages or v3 inline checks.
+          legacyPackages.ci-checks = pkgs.linkFarm "dotfiles-nvim-ci-checks" (
+            lib.mapAttrsToList (name: path: { inherit name path; }) regressionChecks
+          );
           checks =
-            (import ./tests/checks.nix { inherit pkgs; })
-            // (inputs.divine.lib.mkChecks {
-              inherit pkgs;
-              configuration = v3Configuration;
-              bundle = v3Bundle;
-              neovim = v3Neovim;
-            });
+            regressionChecks
+            // (lib.optionalAttrs (system == "aarch64-darwin") (
+              inputs.divine.lib.mkChecks {
+                pkgs = v3Pkgs;
+                configuration = v3Configuration;
+                bundle = v3Bundle;
+                neovim = v3Neovim;
+              }
+            ));
           devShells.default = pkgs.mkShell {
             packages = [ pkgs.npins ];
           };
