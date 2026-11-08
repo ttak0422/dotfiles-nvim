@@ -203,8 +203,8 @@ let
     zen-nvim = load ./zen-nvim.nix;
   };
 
-  # Groups are configured once at the root. Consumers refer to real member
-  # packages, not another occurrence of the group's shared configuration.
+  # Consumers reference real member packages, never another occurrence of the
+  # group. Detailed singleton definitions below own the sole group dependency.
   memberDefinitions = {
     nvim-cmp = {
       plugin = sources.nvim-cmp;
@@ -215,7 +215,10 @@ let
     };
     telescope-nvim = {
       plugin = sources.telescope-nvim;
-      dependPlugins = [ definitions.plenary-nvim ];
+    };
+    telescope-live-grep-args-nvim = {
+      plugin = sources.telescope-live-grep-args-nvim;
+      dependPlugins = [ memberDefinitions.telescope-nvim ];
     };
   };
   # Singleton dependencies retain their configuration without registering tests
@@ -229,6 +232,15 @@ let
       ]
     ) pluginDefinitions
     // memberDefinitions;
+
+  # A bare engine dependency resolves to this singleton. Its one group
+  # dependency completes shared setup before any consumer can use the engine.
+  # The group owns physical members; membership is not a singleton dependency,
+  # so there is no cycle and divine loads each member's scripts only once.
+  groupDefinitions = lib.genAttrs [ "nvim-cmp" "telescope-nvim" ] (name: {
+    plugin = sources.${name};
+    dependPlugins = [ pluginDefinitions.${name} ];
+  });
 
   # User-owned editor features are core configuration, not synthetic plugins.
   editorDefinitions = {
@@ -250,17 +262,7 @@ let
 in
 {
   inherit definitions pluginDefinitions editorDefinitions;
-  # Initialize each shared unit before consumers that use its configured APIs.
-  plugins = [
-    pluginDefinitions.nvim-cmp
-    pluginDefinitions.telescope-nvim
-  ]
-  ++ builtins.attrValues (
-    builtins.removeAttrs pluginDefinitions [
-      "nvim-cmp"
-      "telescope-nvim"
-    ]
-  );
+  plugins = builtins.attrValues (pluginDefinitions // groupDefinitions);
   editorPreConfig = editorCode "preConfig";
   editorConfig = editorCode "config";
   extraPackages = lib.concatMap (value: value.extraPackages or [ ]) editorValues;

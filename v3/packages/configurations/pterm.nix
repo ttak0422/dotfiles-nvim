@@ -31,6 +31,7 @@ with sources;
   plugin = sources.pterm;
   dependPlugins = [
     definitions.telescope-nvim
+    definitions.telescope-live-grep-args-nvim
   ];
   config = luaConfig (
     # lua

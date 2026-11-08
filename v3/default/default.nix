@@ -51,8 +51,9 @@ in
           engine and dedicated extensions, with shared configuration, docs and
           tests. Other plugins remain individual definitions. dependPlugins
           describes real requirements, not historical loading events or command
-          groups. Each packages unit is declared once, before consumers; those
-          consumers reference its real member packages without replaying setup.
+          groups. Each packages unit is declared once as its engine package's
+          dependency; consumers reference real member packages, ensuring shared
+          setup completes first without replaying it.
           Owned editor options, mappings and terminal/Gitu helpers are separate
           configuration modules, not fake plugin packages.
 
