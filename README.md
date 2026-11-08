@@ -14,33 +14,8 @@
 
 The full `bundler-nvim-v2` package targets Apple Silicon macOS (`aarch64-darwin`):
 meian and the packaged Kotlin LSP depend on macOS. Linux (`x86_64-linux`,
-`aarch64-linux`) exposes development tools, portable checks, and the minimal v3
-configuration below, not the full v2 package.
+`aarch64-linux`) exposes development tools and portable checks, not the full package.
 Intel macOS (`x86_64-darwin`) is no longer supported.
-
-## Minimal divine configuration (v3)
-
-`v3/default/default.nix` declares an empty plugin list using divine's provisional
-`mkBundle` API. It adds no editor settings, plugin dependencies, or extra tools.
-Neovim's built-in runtime and divine's loader are still present; “zero plugins”
-means zero declared third-party plugins.
-
-```sh
-nix run .#v3/default
-nix build .#v3/default
-./result/bin/nvim
-nix build .#checks.aarch64-darwin.v3-default --print-build-logs
-```
-
-`v3/default` is the only v3 package output; its bundle remains internal.
-Use your system name in the check attribute on Linux. The launcher is available
-on `aarch64-darwin`, `aarch64-linux`, and `x86_64-linux`. The launcher uses the pinned
-Neovim with the generated `init.lua` and `NVIM_APPNAME=nvim-v3-default`, separate
-from the usual `nvim` configuration/data directories. It forwards command-line
-arguments, including `--headless`.
-The check starts the actual launcher with isolated HOME/XDG directories, verifies
-divine initialization, and checks that its plugin graph and package tree are empty.
-Existing `bundler-nvim-v2` and development outputs are unchanged.
 
 ## CI checks
 
