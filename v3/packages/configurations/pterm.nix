@@ -66,8 +66,7 @@ in
     # lua
     ''
       require("pterm").setup({})
-    ''
-  );
+    '');
   extraPackages = with pkgs; [ pterm-daemon ];
   tests.pterm-command-lazy-routing = luaCheck {
     name = "pterm-command-lazy-routing";

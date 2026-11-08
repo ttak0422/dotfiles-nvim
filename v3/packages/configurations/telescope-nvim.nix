@@ -356,4 +356,48 @@ with sources;
       assert(_G.telescope_test_setup_calls == 1, "using pickers must not repeat Telescope setup")
     '';
   };
+  tests.telescope-first-ui-select = luaCheck {
+    name = "telescope-first-ui-select";
+    script = ''
+      assert(not package.loaded.telescope, "UI selection must not require an eager Telescope")
+      local initial_handler, original_win = vim.ui.select, vim.api.nvim_get_current_win()
+      local calls = {}
+      vim.ui.select({ "first", "second" }, { prompt = "Cold selection" }, function(item, index)
+        calls[#calls + 1] = { item = item, index = index }
+      end)
+      assert(package.loaded.telescope and vim.ui.select ~= initial_handler,
+        "first UI selection did not activate and replace the lazy handler")
+      local prompt = vim.api.nvim_get_current_buf()
+      assert(vim.bo[prompt].filetype == "TelescopePrompt", "first selection did not open Telescope")
+      local state = require("telescope.actions.state")
+      local picker = state.get_current_picker(prompt)
+      assert(vim.wait(3000, function() return picker:get_selection() ~= nil end, 10),
+        "first selection did not produce entries")
+      require("telescope.actions").select_default(prompt)
+      assert(vim.wait(1000, function() return #calls == 1 end, 10), "first selection callback was lost")
+      assert(calls[1].item == "first" and calls[1].index == 1, "first selection payload changed")
+      assert(vim.api.nvim_get_current_win() == original_win, "selection did not restore the original window")
+    '';
+  };
+  tests.telescope-first-command = luaCheck {
+    name = "telescope-first-command";
+    script = ''
+      assert(not package.loaded.telescope, "Telescope must remain cold before its command")
+      local original_win = vim.api.nvim_get_current_win()
+      vim.api.nvim_buf_set_name(0, vim.env.HOME .. "/buffer with spaces.txt")
+      vim.cmd("TelescopeBufferName")
+      local prompt = vim.api.nvim_get_current_buf()
+      assert(vim.bo[prompt].filetype == "TelescopePrompt", "first alias did not open the buffer picker")
+      require("telescope.actions").close(prompt)
+      assert(vim.api.nvim_get_current_win() == original_win, "first command did not restore its window")
+      -- Use the actual upstream parser on the second call, not a loader stub.
+      vim.cmd("Telescope buffers initial_mode=normal sort_mru=true")
+      prompt = vim.api.nvim_get_current_buf()
+      assert(vim.bo[prompt].filetype == "TelescopePrompt", "repeated command did not open a picker")
+      local picker = require("telescope.actions.state").get_current_picker(prompt)
+      assert(picker.initial_mode == "normal", "command arguments did not reach the picker")
+      require("telescope.actions").close(prompt)
+      assert(vim.api.nvim_get_current_win() == original_win, "repeated command did not restore its window")
+    '';
+  };
 }

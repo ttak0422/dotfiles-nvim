@@ -93,7 +93,7 @@ with sources;
       for _, name in ipairs({ "NfnlCompileAllFiles", "NfnlCompileFile", "NfnlFile", "NfnlFindOrphans", "NfnlDeleteOrphans" }) do
         assert(commands[name], "upstream buffer-local command is missing: " .. name)
       end
-      assert(commands.NfnlCompileAllFiles.desc:find("nfnl.api/compile-all-files", 1, true),
+      assert(commands.NfnlCompileAllFiles.definition:find("nfnl.api/compile-all-files", 1, true),
         "the upstream buffer-local compile command was replaced")
       vim.api.nvim_buf_set_lines(0, 0, -1, false,
         { "(set _G.nfnl_test_answer 44)", "{:answer _G.nfnl_test_answer}" })

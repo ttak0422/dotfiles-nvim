@@ -52,8 +52,7 @@ with sources;
           end,
         },
       })
-    ''
-  );
+    '');
   tests.neozoom-command-lazy-roundtrip = luaCheck {
     name = "neozoom-command-lazy-roundtrip";
     ui = true;
