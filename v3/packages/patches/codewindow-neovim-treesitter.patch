@@ -1,0 +1,43 @@
+--- a/lua/codewindow/highlight.lua
++++ b/lua/codewindow/highlight.lua
+@@ -6 +5,0 @@
+-local ts_utils
+@@ -89,3 +88,2 @@
+-    local query = buf_highlighter:get_query(tree:lang())
+-
+-    if not query:query() then
++    local query = vim.treesitter.query.get(tree:lang(), "highlights")
++    if not query then
+@@ -95,15 +93,15 @@
+-    local iter = query:query():iter_captures(root, buf_highlighter.bufnr, 0, line_count + 1)
+-
+-    for capture, node, _ in iter do
+-      local hl = query.hl_cache[capture]
+-      if hl then
+-        local c = query._query.captures[capture]
+-        if c ~= nil then
+-          local start_row, start_col, end_row, end_col =
+-            ts_utils.get_vim_range({ vim.treesitter.get_node_range(node) }, buffer)
+-
+-          for y = start_row, end_row do
+-            for x = start_col, math.min(end_col, minimap_char_width) do
+-              local minimap_x, minimap_y = utils.buf_to_minimap(x, y)
+-              highlights[minimap_y][minimap_x][c] = (highlights[minimap_y][minimap_x][c] or 0) + 1
+-            end
++    for capture, node, metadata in query:iter_captures(root, buffer, 0, line_count) do
++      local name = query.captures[capture]
++      if name and name:sub(1, 1) ~= "_" then
++        -- Core ranges are zero-based and end-exclusive. Convert each covered
++        -- line separately: multiline captures can end at column zero and
++        -- intermediate lines must not inherit the first line's start column.
++        local range = vim.treesitter.get_range(node, buffer, metadata[capture])
++        local start_row, start_col, end_row, end_col = range[1], range[2], range[4], range[5]
++        for row = start_row, math.min(end_row, line_count - 1) do
++          local first_col = row == start_row and start_col or 0
++          local last_col = row == end_row and end_col or #lines[row + 1]
++          for col = first_col, math.min(last_col, minimap_char_width) - 1 do
++            local minimap_x, minimap_y = utils.buf_to_minimap(col + 1, row + 1)
++            local cell = highlights[minimap_y][minimap_x]
++            cell[name] = (cell[name] or 0) + 1
+@@ -127 +124,0 @@
+-  ts_utils = require("nvim-treesitter.ts_utils")

@@ -92,18 +92,21 @@
           ...
         }:
         let
-          v3Configuration = import ./v3/default { inherit pkgs; };
+          v3Configuration = import ./v3/default { inherit pkgs inputs'; };
           v3Bundle = inputs.divine.lib.mkBundle {
             inherit pkgs;
             configuration = v3Configuration;
           };
           v3Neovim = pkgs.writeShellScriptBin "nvim" ''
             export NVIM_APPNAME=nvim-v3-default
+            export NVIM_V3_INIT=${v3Bundle}/init.lua
             exec ${pkgs.neovim-unwrapped}/bin/nvim -u ${v3Bundle}/init.lua "$@"
           '';
         in
         {
-          packages."v3/default" = v3Neovim;
+          packages = lib.optionalAttrs (system == "aarch64-darwin") {
+            "v3/default" = v3Neovim;
+          };
           _module.args.pkgs = import inputs.nixpkgs {
             inherit system;
             overlays = import ./overlays.nix { inherit inputs inputs'; };
@@ -128,12 +131,14 @@
             });
           checks =
             (import ./tests/checks.nix { inherit pkgs; })
-            // (inputs.divine.lib.mkChecks {
-              inherit pkgs;
-              configuration = v3Configuration;
-              bundle = v3Bundle;
-              neovim = v3Neovim;
-            });
+            // (lib.optionalAttrs (system == "aarch64-darwin") (
+              inputs.divine.lib.mkChecks {
+                inherit pkgs;
+                configuration = v3Configuration;
+                bundle = v3Bundle;
+                neovim = v3Neovim;
+              }
+            ));
         }
         // import ./apps.nix { inherit pkgs; };
     };

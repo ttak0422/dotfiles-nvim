@@ -9,13 +9,21 @@ let
     pname = "goda-skk.vim";
     version = sources."goda-skk.vim".version;
     src = sources."goda-skk.vim";
+    # BufWipeout can follow InsertLeave, which has already restored/removed
+    # options. silent! still sets v:errmsg for missing keys; unlet! is idempotent.
+    postPatch = ''
+      substituteInPlace autoload/goda_skk/internal.vim \
+        --replace-fail 'silent! unlet s:maps[a:bufnr]' 'unlet! s:maps[a:bufnr]' \
+        --replace-fail 'silent! unlet s:options[a:bufnr]' 'unlet! s:options[a:bufnr]'
+    '';
   };
   binary = pkgs.buildGoModule {
     pname = "goda-skk";
     version = sources."goda-skk.vim".version;
     src = ./config;
     subPackages = [ "." ];
-    # Both editor scripts and compiled Go packages use exactly the same sources.
+    # Editor scripts and compiled Go use the same upstream pins; the Vim-only
+    # idempotent cleanup patch above does not change Go dependencies.
     postPatch = ''
       mkdir -p .deps
       cp -R ${sources."goda.vim"} .deps/goda
@@ -82,7 +90,8 @@ in
     vendor output is cached. Both lock layers and vendorHash are required.
 
     The inline Nix check uses Python/pynvim and real RPC input, temporary
-    HOME/XDG directories, restarts, and no Go/Deno on PATH. It covers kana,
+    HOME/XDG directories and restarts. Go/Deno may be on PATH for other
+    migrated language tools; SKK itself always uses the fixed prebuilt binary. It covers kana,
     EUC-JP conversion, candidate cycling/confirmation, learning persistence,
     jk, command-line first use, and terminal first use. These tools remain
     check-only dependencies. Linux evaluation is not Linux runtime validation.
@@ -130,9 +139,8 @@ in
             assert nvim.eval("exists('g:loaded_skkeleton')") == 0
             for mode in ["i", "c", "t"]:
                 assert "goda-skk-enable" in nvim.call("maparg", "<C-j>", mode)
-            # Offline/prebuilt operation: the integration test intentionally has no Go.
-            assert nvim.call("executable", "go") == 0
-            assert nvim.call("executable", "deno") == 0
+            # The full editor also carries Go/Deno language servers; SKK uses its fixed binary.
+            assert nvim.call("exists", "g:loaded_denops") == 0
             return nvim
 
 
