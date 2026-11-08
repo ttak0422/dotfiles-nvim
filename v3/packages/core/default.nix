@@ -857,20 +857,9 @@ in
               gf = nvim.call("maparg", "gf", "n", False, True)
               assert gf.get("desc") != "SFCC cartridge gf", gf
               assert lua('local p = vim.treesitter.get_parser(0, "lua"); local trees = p:parse(); return #trees > 0 and trees[1]:root():type() == "chunk"')
-              # Exercise the real core Tree-sitter highlighting compatibility
-              # path, including multiline captures and rendered minimap extmarks.
-              nvim.options["columns"] = 120
-              nvim.options["lines"] = 40
-              nvim.current.buffer[:] = ["local value = 42", "--[[ multi", "line comment", "ends here ]]", "return value", ""]
               lua('vim.treesitter.start(0, "lua"); vim.treesitter.get_parser(0):parse()')
               assert lua('return vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] ~= nil')
-              assert lua('local h = require("codewindow.highlight").extract_highlighting(vim.api.nvim_get_current_buf(), vim.api.nvim_buf_get_lines(0, 0, -1, false)); if not h or #h ~= 2 then return false end; for _, row in ipairs(h) do for _, cell in ipairs(row) do if #cell > 0 then return true end end end; return false')
-              # Codewindow intentionally ignores nofile buffers.
-              nvim.current.buffer.options["buftype"] = ""
-              assert lua('local n = #vim.api.nvim_list_wins(); require("codewindow").open_minimap(); return #vim.api.nvim_list_wins() == n + 1')
-              assert lua('local ns = vim.api.nvim_get_namespaces()["codewindow.highlight"]; local n = 0; for _, b in ipairs(vim.api.nvim_list_bufs()) do n = n + #vim.api.nvim_buf_get_extmarks(b, ns, 0, -1, {}) end; return n > 0')
-              assert lua('local n = #vim.api.nvim_list_wins(); require("codewindow").close_minimap(); return #vim.api.nvim_list_wins() == n - 1')
-              nvim.current.buffer.options["buftype"] = "nofile"
+              assert nvim.call("maparg", "<Leader>tm", "n") == ""
               buffer("fennel")
               assert "?" in nvim.current.buffer.options["iskeyword"]
               buffer("make")
@@ -962,7 +951,7 @@ in
                   assert lua('return #_G.core_test_errors == 0'), lua('return _G.core_test_errors')
               send("<C-\\><C-n>")
               lua('vim.notify = _G.core_test_notify; _G.core_test_notify = nil; _G.core_test_errors = nil')
-              print("Full profile: core, commands, cmp, Lua LSP, SFCC, parser, Codewindow, ftplugins and terminal popup passed")
+              print("Full profile: core, commands, cmp, Lua LSP, SFCC, parser, ftplugins and terminal popup passed")
           finally:
               try:
                   nvim.command("qa!")

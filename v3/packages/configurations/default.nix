@@ -47,7 +47,6 @@ let
     cmp-nvim-lsp = load ./cmp-nvim-lsp.nix;
     cmp-path = load ./cmp-path.nix;
     cmp_luasnip = load ./cmp_luasnip.nix;
-    codewindow-nvim = load ./codewindow-nvim.nix;
     colorful-winsep-nvim = load ./colorful-winsep-nvim.nix;
     conjure = load ./conjure.nix;
     crates-nvim = load ./crates-nvim.nix;

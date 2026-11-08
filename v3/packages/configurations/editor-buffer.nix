@@ -39,7 +39,6 @@ with sources;
 
       local mappings = {
         { "<Leader>tz", "<Cmd>NeoZoomToggle<CR>", " zoom" },
-        { "<Leader>tm", "<Cmd>lua require('codewindow').toggle_minimap()<CR>", " minimap" },
         { "<Leader>to", toggle("aerial"), " outline" },
         { "<Leader>U", "<Cmd>Atone<CR>", " undotree" },
         { "gx", function() require("open").open_cword() end, "open" },

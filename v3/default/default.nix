@@ -35,8 +35,10 @@ in
           configured branches or release streams during migration (36 updated).
           Goda SKK keeps the latest released v0.7.2/v0.3.3 pair. v3 has separate
           nixpkgs, pterm and track inputs; the existing v2 lock entries remain
-          unchanged. Shared native packages already at their latest upstream
-          revisions are reused. Configuration, templates and helper modules
+          unchanged. The shared meian, mimori and mcp-hub flake inputs already
+          match upstream HEAD and are reused. Bespoke Java/Kotlin/JDK recipes
+          retain their tested releases; v3 Neovim and JDTLS now use current
+          nixpkgs recipes without the older v2 overrides. Configuration, templates and helper modules
           are owned under v3; no v2 configuration file is loaded at runtime.
           The original Fennel configurations are manually ported to readable
           Lua rather than embedding compiler output. v2 and README are unchanged.
@@ -51,8 +53,9 @@ in
           plugin occurrences are merged by divine and configured once.
 
           Excluded: denops.vim, gin.vim, vim-mr, telescope-mr, skkeleton and
-          skkeleton-henkan-highlight, plus actually-doom.nvim at the user's
-          request. Its plugin, source pin and dedicated native build are removed.
+          skkeleton-henkan-highlight, plus actually-doom.nvim and Codewindow at the
+          user's request. Their plugins, source pins, dedicated build/patch and
+          minimap keymap are removed.
           The Gin abbreviation and MR mappings
           and extension are removed. Telescope and terminal-popup SKK now
           use Goda. Deno remains available for denols; Go remains available
@@ -60,9 +63,7 @@ in
           Git/RuboCop/curl executables are explicit dependencies, fixing
           missing v2 runtime requirements.
 
-          Startup compatibility: Codewindow's pinned source is patched to
-          use Neovim's core Treesitter query/range APIs, with a real
-          highlighted minimap regression test. Videre round_units=false
+          Startup compatibility: Videre round_units=false
           becomes box_style= "sharp"; the removed simple_statusline option
           has no upstream equivalent. Goda uses unmodified upstream scripts;
           popup checks verify actual input, send/cancel, restored state and
@@ -90,7 +91,7 @@ in
           Validation: nix build '.#v3/default'; nix flake check --print-
           build-logs. Inline tests cover source coverage, graph
           timing/Denops exclusion, startup, cmp sources, live Lua LSP
-          diagnostics, native filetypes, parsers, minimap, terminal popup
+          diagnostics, native filetypes, parsers, terminal popup
           send/cancel, and actual Goda conversion/learning across restarts.
         '';
         tests = packages.core.definition.tests // {
@@ -120,6 +121,7 @@ in
                 "telescope-mr"
                 "skkeleton"
                 "actually-doom"
+                "codewindow"
               ];
               allowed =
                 node:

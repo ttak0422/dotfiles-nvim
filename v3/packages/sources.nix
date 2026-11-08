@@ -20,14 +20,6 @@ lib.mapAttrs' buildPlugin sources
     runtimeDeps = [ pkgs.tree-sitter ];
   };
   cmp_luasnip = pkgs.vimPlugins.cmp_luasnip;
-  # The pinned minimap predates nvim-treesitter's removal of ts_utils.
-  codewindow-nvim = vimUtils.buildVimPlugin {
-    pname = "codewindow-nvim";
-    version = sources."codewindow.nvim".revision;
-    src = sources."codewindow.nvim";
-    patches = [ ./patches/codewindow-neovim-treesitter.patch ];
-    doCheck = false;
-  };
 
   LuaSnip = vimUtils.buildVimPlugin rec {
     pname = "LuaSnip";
