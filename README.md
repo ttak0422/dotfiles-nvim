@@ -14,33 +14,34 @@
 
 The full `bundler-nvim-v2` package targets Apple Silicon macOS (`aarch64-darwin`):
 meian and the packaged Kotlin LSP depend on macOS. Linux (`x86_64-linux`,
-`aarch64-linux`) exposes development tools, portable checks, and the minimal v3
+`aarch64-linux`) exposes development tools, portable checks, and the v3
 configuration below, not the full v2 package.
 Intel macOS (`x86_64-darwin`) is no longer supported.
 
-## Minimal divine configuration (v3)
+## v3: divine configuration
 
-`v3/default/default.nix` declares an empty plugin list using divine's provisional
-`mkBundle` API. It adds no editor settings, plugin dependencies, or extra tools.
-Neovim's built-in runtime and divine's loader are still present; “zero plugins”
-means zero declared third-party plugins.
+The v3 configuration is composed in `v3/default/default.nix`, using reusable
+plugin definitions from `v3/packages`. Plugin sources are pinned with npins in
+`v3/npins`; divine and the Nix environment remain in `flake.lock`.
 
 ```sh
-nix run .#v3-default
-nix build .#v3-default
-./result/bin/nvim
-nix build .#v3-default-bundle  # generated init.lua, plan.lua and empty opt tree
-nix build .#checks.aarch64-darwin.v3-default --print-build-logs
+nix run .#v3/default
+nix build .#v3/default
+nix flake check --print-build-logs
 ```
 
-Use your system name in the check attribute on Linux. These outputs are available
-on `aarch64-darwin`, `aarch64-linux`, and `x86_64-linux`. The launcher uses the pinned
-Neovim with the generated `init.lua` and `NVIM_APPNAME=nvim-v3-default`, separate
-from the usual `nvim` configuration/data directories. It forwards command-line
-arguments, including `--headless`. The bundle alone is not an executable package.
-The check starts the actual launcher with isolated HOME/XDG directories, verifies
-divine initialization, and checks that its plugin graph and package tree are empty.
-Existing `bundler-nvim-v2` and development outputs are unchanged.
+`v3/default` is the only v3 package output. It launches Neovim with the generated
+bundle and `NVIM_APPNAME=nvim-v3-default`, separate from the installed v2 setup.
+SKK's package, configuration, inline documentation and Nix/RPC test live together
+in [`v3/packages/skk/default.nix`](v3/packages/skk/default.nix). Divine collects
+included definitions' checks automatically, so adding a plugin does not require
+another flake package or manually wiring a test. Existing v2 and development
+outputs are unchanged.
+
+Press `<C-j>` in insert, command-line or terminal mode to enable SKK. `aiueo`
+produces あいうえお; `Kanji<Space>` converts, `<Space>` cycles candidates, and
+`<C-j>` confirms. `<Esc>` or `jk` returns from insert mode. The prebuilt backend
+uses the existing offline dictionary; learning is isolated from skkeleton data.
 
 ## CI checks
 
@@ -130,25 +131,3 @@ leaves that backend limitation unchanged and is intended for interactive program
     ├── tmpl/         # Template files
     └── vim/          # Vim script configurations
 ```
-
-### v3: Goda SKK
-
-The independent SKK profile adds `Shougo/goda.vim` and `Shougo/goda-skk.vim`
-to the divine foundation, leaving the zero-plugin `v3-default` and v2 unchanged:
-
-```sh
-nix run .#v3-skk
-nix build .#v3-skk .#v3-skk-bundle
-nix build .#checks.aarch64-darwin.v3-skk
-```
-
-Press `<C-j>` in insert, command-line or terminal mode to enable SKK.
-`aiueo` produces あいうえお; `Kanji<Space>` converts, `<Space>` cycles candidates,
-`<C-j>` confirms, and `<Esc>` or `jk` returns from insert mode. The profile uses
-`NVIM_APPNAME=nvim-v3-skk`. Its learned UTF-8 dictionary lives at
-`stdpath('state')/goda-skk/SKK-JISYO.user`, separate from existing skkeleton data.
-
-The Go backend and existing pinned `SKK-JISYO.L` are built into the Nix closure.
-There is no runtime download, Go/Deno requirement, SKK server probe or Google
-Input request. Do not run `goda_skk#build()` here: edit the checked-in Go config
-and rebuild with Nix. See [packaging decisions and verification](docs/v3-skk.md).
