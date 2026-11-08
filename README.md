@@ -14,34 +14,8 @@
 
 The full `bundler-nvim-v2` package targets Apple Silicon macOS (`aarch64-darwin`):
 meian and the packaged Kotlin LSP depend on macOS. Linux (`x86_64-linux`,
-`aarch64-linux`) exposes development tools, portable checks, and the v3
-configuration below, not the full v2 package.
+`aarch64-linux`) exposes development tools and portable checks, not the full package.
 Intel macOS (`x86_64-darwin`) is no longer supported.
-
-## v3: divine configuration
-
-The v3 configuration is composed in `v3/default/default.nix`, using reusable
-plugin definitions from `v3/packages`. Plugin sources are pinned with npins in
-`v3/npins`; divine and the Nix environment remain in `flake.lock`.
-
-```sh
-nix run .#v3/default
-nix build .#v3/default
-nix flake check --print-build-logs
-```
-
-`v3/default` is the only v3 package output. It launches Neovim with the generated
-bundle and `NVIM_APPNAME=nvim-v3-default`, separate from the installed v2 setup.
-SKK's package, configuration, inline documentation and Nix/RPC test live together
-in [`v3/packages/skk/default.nix`](v3/packages/skk/default.nix). Divine collects
-included definitions' checks automatically, so adding a plugin does not require
-another flake package or manually wiring a test. Existing v2 and development
-outputs are unchanged.
-
-Press `<C-j>` in insert, command-line or terminal mode to enable SKK. `aiueo`
-produces あいうえお; `Kanji<Space>` converts, `<Space>` cycles candidates, and
-`<C-j>` confirms. `<Esc>` or `jk` returns from insert mode. The prebuilt backend
-uses the existing offline dictionary; learning is isolated from skkeleton data.
 
 ## CI checks
 
