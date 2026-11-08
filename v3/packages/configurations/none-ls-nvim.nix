@@ -11,6 +11,25 @@ let
   ideaContents = "${pkgs.jetbrains.idea}/Applications/${pkgs.jetbrains.idea.desktopName}.app/Contents";
 in
 {
+  doc = ''
+    # none-ls.nvim
+
+    ## 概要
+    外部ツールや Lua の処理結果を Neovim の LSP 機能に接続する、null-ls.nvim の継続版。
+
+    ## 主な機能
+    - 診断、整形、コードアクション、hover、補完のソースを提供。
+    - 既存 API は `null-ls` の名前を継続。
+
+    ## 使い方
+    `require("null-ls").setup({ sources = { ... } })` に利用する builtins を登録する。README の追加ソース例には別途 none-ls-extras.nvim を要するものがあり、この定義で有効とは限らない。
+
+    ## 要件
+    README は最新 stable Neovim を開発・テスト対象とし、HEAD は best-effort としている。導入例は plenary.nvim を依存に指定する。外部実行ファイルは選択するソースに依存。
+
+    ## 出典
+    [固定リビジョンの README](https://github.com/nvimtools/none-ls.nvim/blob/0b281893e36fe147077b49f022bf9cd78af3ad12/README.md)
+  '';
   plugin = sources.none-ls-nvim;
   extraPackages =
     with pkgs;

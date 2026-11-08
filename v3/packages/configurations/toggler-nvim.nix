@@ -8,6 +8,25 @@
 }:
 with sources;
 {
+  doc = ''
+    # toggler-nvim
+
+    ## 概要
+    開閉状態を判断する関数を登録し、UI 要素を切り替えるための小さなライブラリ。
+
+    ## 主な機能
+    - UI ごとに open / close / is_open を登録。
+    - 名前で登録済み UI を切り替え。
+
+    ## 使い方
+    `require("toggler").register("qf", { open = ..., close = ..., is_open = ... })` のように登録し、`require("toggler").toggle("qf")` で操作する。
+
+    ## 要件
+    README 未記載。
+
+    ## 出典
+    [固定リビジョンの README](https://github.com/ttak0422/toggler-nvim/blob/5d88c18bdac51f454af9cb3343391b2051a10dad/README.md)
+  '';
   plugin = sources.toggler-nvim;
   dependPlugins = [
     definitions.telescope-nvim

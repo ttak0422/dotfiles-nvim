@@ -9,6 +9,25 @@
 with sources;
 {
   plugin = sources.trouble-nvim;
+  doc = ''
+    # Trouble
+
+    ## 概要
+    診断、LSP の参照、quickfix などを見やすいリストやツリーで表示する。
+
+    ## 主な機能
+    - 診断・シンボル・呼び出し関係などの複数表示モード。
+    - フィルター・並べ替え・表示ウィンドウの調整。
+
+    ## 使い方
+    `:Trouble diagnostics toggle` で診断一覧を開閉する。`:Trouble symbols toggle` でシンボル一覧を表示し、`filter.buf=0` などのオプションで対象を絞る。
+
+    ## 要件
+    Neovim 0.9.2 以降。0.10 未満では markdown / markdown_inline パーサーが必要。README は LSP 設定、診断ハイライト対応テーマ、既定アイコン用フォントを要求し、nvim-web-devicons は任意。
+
+    ## 出典
+    - [上流 README（固定リビジョン）](https://github.com/folke/trouble.nvim/blob/bd67efe408d4816e25e8491cc5ad4088e708a69a/README.md)
+  '';
   dependPlugins = [
     definitions.nvim-web-devicons
   ];

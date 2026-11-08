@@ -8,6 +8,26 @@
 }:
 with sources;
 {
+  doc = ''
+    # Aibo
+
+    ## 概要
+    AI アシスタントや対話型 CLI を Neovim のコンソールと入力窓で扱う。
+
+    ## 主な機能
+    - Claude、Codex、Ollama などのツール別操作を提供する。
+    - 任意の対話型 CLI、プロンプト入力、ウィンドウ切り替えに対応する。
+
+    ## 使い方
+    `:Aibo codex`、`:Aibo claude`、`:Aibo python -i` のように起動する。ノーマルモードの `<CR>` で送信する。`<C-c>` はツールへ Esc を送り、`g<C-c>` は割り込みを送る。
+
+    ## 要件
+    Neovim 0.10.0 以上と利用する対話型 CLI が必要。README はベータ版で API や機能が変わり得ると明記している。
+
+    ## 出典
+    [固定バージョンの README](https://github.com/lambdalisue/nvim-aibo/blob/0505c2ef5471d43fb48df5823ede9705b9c9e73e/README.md)
+  '';
+
   plugin = sources.nvim-aibo;
   config = luaConfig (
     # lua

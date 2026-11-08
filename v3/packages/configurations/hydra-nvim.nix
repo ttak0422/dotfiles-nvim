@@ -8,6 +8,25 @@
 }:
 with sources;
 {
+  doc = ''
+    # Hydra.nvim
+
+    ## 概要
+    共通プレフィックスに続くキー操作を繰り返せる、一時的なキー操作モードを定義する。
+
+    ## 主な機能
+    - body と heads による連続操作。
+    - ヒント表示、終了条件、開始・終了フックを設定。
+
+    ## 使い方
+    `require("hydra")({ body = ..., heads = ..., config = ... })` で操作群を作る。`invoke_on_body` は body のみで開始する設定。この定義は `<Leader>V` で描画用の操作群に入る。
+
+    ## 要件
+    最低バージョン・追加依存は README 未記載。
+
+    ## 出典
+    [固定リビジョンの README](https://github.com/nvimtools/hydra.nvim/blob/f3d4822060376cb253d4cc0d5af2c272c28de2a7/README.md)
+  '';
   plugin = sources.hydra-nvim;
   config = luaConfig (
     # lua

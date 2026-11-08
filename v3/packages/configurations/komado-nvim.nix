@@ -12,6 +12,25 @@ let
 in
 {
   plugin = sources.komado-nvim;
+  doc = ''
+    # komado.nvim
+
+    ## 概要
+    Lua のコンポーネントツリーで内容と操作を定義する Neovim のサイドバー。
+
+    ## 主な機能
+    - テキスト・ハイライト・行アクションの宣言的な組み立て。
+    - イベントによる更新とタブ間で共有するサイドバー。
+
+    ## 使い方
+    `require("komado").setup({ root = ... })` で内容を定義し、`open()`・`close()`・`toggle()`・`redraw()` で操作する。README のキーマップやコマンドは設定例であり、標準では登録されない。
+
+    ## 要件
+    追加プラグインは不要。README の上流回帰テスト対象は Neovim 0.11.4・0.12.5・0.12.6 で、それより古い版の互換性は未確認。
+
+    ## 出典
+    - [上流 README（固定リビジョン）](https://github.com/ttak0422/komado.nvim/blob/5f392f172f28b5212899b19877ce74e2a85fda7e/README.md)
+  '';
   dependPlugins = [
     definitions.worktab-nvim
   ];

@@ -8,6 +8,25 @@
 }:
 with sources;
 {
+  doc = ''
+    # NeoZoom.lua
+
+    ## 概要
+    現在のウィンドウをフローティング表示に切り替え、作業対象に集中するためのプラグイン。
+
+    ## 主な機能
+    - タブ内のウィンドウ配置を保ったズーム。
+    - filetype ごとのウィンドウ設定とコールバック。
+
+    ## 使い方
+    `require("neo-zoom").setup(...)` で表示を設定し、`:NeoZoomToggle` または `require("neo-zoom").neo_zoom()` で切り替える。
+
+    ## 要件
+    最低バージョン・追加依存は README 未記載。
+
+    ## 出典
+    [固定リビジョンの README](https://github.com/nyngwang/NeoZoom.lua/blob/c97a0197548c1e9b559e4fa41ab3f7782c93e613/README.md)
+  '';
   plugin = sources.NeoZoom-lua;
   config = luaConfig (
     # lua

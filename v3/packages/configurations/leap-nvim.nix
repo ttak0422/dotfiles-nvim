@@ -8,6 +8,25 @@
 }:
 with sources;
 {
+  doc = ''
+    # leap.nvim
+
+    ## 概要
+    画面に見える位置へ、2 文字の検索パターンとラベルで移動・選択するプラグイン。
+
+    ## 主な機能
+    - 候補ラベルのプレビューとウィンドウをまたぐ移動。
+    - 任意の visit 操作や Tree-sitter 選択用モジュール。
+
+    ## 使い方
+    この定義の `s` / `S` で移動を開始し、対象の 2 文字を入力する。複数候補は表示ラベルで選ぶ。行末は「対象文字 + Space」、空行は Space 2 回で指定できる。
+
+    ## 要件
+    Neovim 0.10.0 以上の stable または最新 nightly。変更操作のドットリピートには任意の repeat.vim を使う。
+
+    ## 出典
+    [固定リビジョンの README](https://codeberg.org/andyg/leap.nvim/src/commit/277e04fad21e3af05a55cc414757b09a704f2a92/README.md)
+  '';
   plugin = sources.leap-nvim;
   dependPlugins = [
     definitions.vim-repeat

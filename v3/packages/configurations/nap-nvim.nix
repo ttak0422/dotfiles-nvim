@@ -9,6 +9,25 @@
 with sources;
 {
   plugin = sources.nap-nvim;
+  doc = ''
+    # nap.nvim
+
+    ## 概要
+    バッファ・タブ・診断などの「次／前」移動を繰り返しやすくする。
+
+    ## 主な機能
+    - 対象別の移動キーと、一キーによる同種移動の反復。
+    - 独自 operator と他プラグインの移動操作を追加可能。
+
+    ## 使い方
+    `require("nap").setup()` で初期化する。上流既定例では `]b`・`[b` でバッファへ移動した後、`<C-n>`・`<C-p>` で同じ操作を繰り返す。
+
+    ## 要件
+    README に最低 Neovim バージョンや必須外部依存の明記なし。Aerial・Gitsigns などの連携は任意。
+
+    ## 出典
+    - [上流 README（固定リビジョン）](https://github.com/liangxianzhe/nap.nvim/blob/98037cff509a12412cf8f32d1b12a9fdcad558ad/README.md)
+  '';
   dependPlugins = [
     definitions.vim-bufsurf
     definitions.marks-nvim

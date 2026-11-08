@@ -9,6 +9,25 @@
 with sources;
 {
   plugin = sources.aerial-nvim;
+  doc = ''
+    # aerial.nvim
+
+    ## 概要
+    コードの構造を一覧表示し、シンボルへ移動するアウトラインウィンドウ。
+
+    ## 主な機能
+    - LSP や Tree-sitter によるシンボル抽出。
+    - 通常ウィンドウ・フロート表示とシンボル間移動。
+
+    ## 使い方
+    `:AerialToggle` で一覧を開閉し、`:AerialNext`・`:AerialPrev` でシンボル間を移動する。設定は `require("aerial").setup()` に渡す。
+
+    ## 要件
+    Neovim 0.11 以降。動作する LSP 設定または Tree-sitter パーサー。nvim-web-devicons などの連携は任意。
+
+    ## 出典
+    - [上流 README（固定リビジョン）](https://github.com/stevearc/aerial.nvim/blob/28fe6e822ae344544c379d60fcb13c9519a1f08a/README.md)
+  '';
   config = luaConfig (
     # lua
     ''

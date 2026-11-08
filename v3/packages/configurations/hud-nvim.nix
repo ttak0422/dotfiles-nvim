@@ -8,6 +8,26 @@
 }:
 with sources;
 {
+  doc = ''
+    # hud.nvim
+
+    ## 概要
+    複数行の情報表示を部品から組み立てる HUD。
+
+    ## 主な機能
+    - 文字列・関数・入れ子の部品で行を構成する。
+    - イベント単位の更新キャッシュ、幅不足時の優先度、カーソルとの重なり回避を扱う。
+
+    ## 使い方
+    `require("hud").setup({ lines = ... })` で設定する。`hide()` / `show()` は一時表示、`disable()` / `enable()` は更新の停止・再開、`refresh()` は再評価を行う。
+
+    ## 要件
+    Neovim 0.10 以上。
+
+    ## 出典
+    [固定バージョンの README](https://github.com/ttak0422/hud.nvim/blob/4990a3ac4c73da75d64dba58d19f37ede17e7b6a/README.md)
+  '';
+
   plugin = sources.hud-nvim;
   config = luaConfig (
     # lua

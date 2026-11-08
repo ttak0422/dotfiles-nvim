@@ -8,6 +8,26 @@
 }:
 with sources;
 {
+  doc = ''
+    # img-clip.nvim
+
+    ## 概要
+    画像をクリップボードなどからマークアップ文書へ埋め込む。
+
+    ## 主な機能
+    - 画像の貼り付け、ドラッグ＆ドロップ、URL・ファイル・Base64 に対応する。
+    - ファイルタイプ別テンプレートや画像処理コマンドを設定できる。
+
+    ## 使い方
+    `:PasteImage` または `require("img-clip").paste_image(opts, input)` を使う。`:ImgClipConfig` で設定、`:ImgClipDebug` でログ、`:checkhealth img-clip` で要件を確認する。
+
+    ## 要件
+    Linux は X11 の xclip または Wayland の wl-clipboard、macOS は pngpaste が必要。Windows に追加要件はない。画像処理コマンドを指定する場合はその実行環境も必要。
+
+    ## 出典
+    [固定バージョンの README](https://github.com/hakonharnes/img-clip.nvim/blob/99848daf801789dbebe2192b475eb887d375002c/README.md)
+  '';
+
   plugin = sources.img-clip-nvim;
   config = luaConfig (
     # lua

@@ -8,6 +8,26 @@
 }:
 with sources;
 {
+  doc = ''
+    # pterm
+
+    ## 概要
+    Neovim を再起動してもプロセスが存続する端末セッション。
+
+    ## 主な機能
+    - 常駐する PTY プロセスへ接続し、Neovim 標準端末で描画する。
+    - 名前付き・階層型セッションと、任意の Telescope 検索に対応する。
+
+    ## 使い方
+    `:Pterm new dev` で開き、`:Pterm list` で一覧、`:Pterm redraw dev` で再描画する。`:Pterm kill dev` はセッションを終了する。Telescope 連携は `:Telescope pterm sessions` / `:Telescope pterm grep`。
+
+    ## 要件
+    Neovim 0.10 以上と flakes 有効の Nix。対応環境は x86_64 / aarch64 Linux と Apple Silicon macOS。管理接続には protocol version 2 が必要。
+
+    ## 出典
+    [固定バージョンの README](https://github.com/ttak0422/pterm/blob/76663a45224c33f5b420485a6f1b92b96f2c3af7/README.md)
+  '';
+
   plugin = sources.pterm;
   dependPlugins = [
     definitions.telescope-nvim

@@ -9,6 +9,25 @@
 with sources;
 {
   plugin = sources.obsidian-nvim;
+  doc = ''
+    # obsidian.nvim
+
+    ## 概要
+    Obsidian の Markdown ノートを Neovim で編集・検索・移動する。
+
+    ## 主な機能
+    - ノートリンク・タグの補完と backlinks の参照。
+    - 日次ノート、画像貼り付け、テンプレートなどのノート操作。
+
+    ## 使い方
+    `:Obsidian` でサブコマンドを選ぶ。`:Obsidian search` で検索、`:Obsidian today` で日次ノート、`:Obsidian backlinks` で参照元を表示する。
+
+    ## 要件
+    Neovim 0.11.0 以降。補完・検索は ripgrep、画像貼り付けは macOS で pngpaste、Linux で xclip / wl-clipboard が必要。必須の追加プラグインはなく、picker などの連携は任意。
+
+    ## 出典
+    - [上流 README（固定リビジョン）](https://github.com/obsidian-nvim/obsidian.nvim/blob/15af492b64f4677959fe95008f1d5b782fe1f86a/README.md)
+  '';
   dependPlugins = [
     definitions.nvim-cmp
     definitions.plenary-nvim

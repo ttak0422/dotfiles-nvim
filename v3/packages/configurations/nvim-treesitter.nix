@@ -8,6 +8,25 @@
 }:
 with sources;
 {
+  doc = ''
+    # nvim-treesitter
+
+    ## 概要
+    Tree-sitter パーサーの管理と、Neovim の構文機能に使う query を提供するプラグイン。
+
+    ## 主な機能
+    - パーサーのインストール・更新・削除。
+    - ハイライト・fold などの言語別 query を提供。
+
+    ## 使い方
+    README は `require("nvim-treesitter").setup(...)` を案内し、ハイライトは別途 `vim.treesitter.start()` で有効にする。この定義は Nix でパーサーを用意するため、README の `:TSUpdate` を通常のパーサー更新手段としては扱わない。
+
+    ## 要件
+    固定 README は Neovim 0.12.0 以上、tar、curl、tree-sitter-cli 0.26.1 以上、C コンパイラーを挙げる。後者は README のパーサー取得・ビルド手順用。遅延読込は非対応。
+
+    ## 出典
+    [固定リビジョンの README](https://github.com/nvim-treesitter/nvim-treesitter/blob/29212d826054bb2948fa9d3a99eca9bf6a050eb2/README.md)
+  '';
   plugin = sources.nvim-treesitter;
   config = luaConfig (
     let

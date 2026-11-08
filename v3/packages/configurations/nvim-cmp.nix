@@ -4,10 +4,31 @@
   sources,
   definitions,
   luaConfig,
+  luaCheck,
   inputs',
 }:
 with sources;
 {
+  doc = ''
+    # nvim-cmp
+
+    ## 概要
+    外部ソースの候補をまとめる Lua 製の補完エンジン。
+
+    ## 主な機能
+    - LSP 補完機能と複数の補完ソースを扱う。
+    - 補完キーや候補の表示、コマンドライン補完を Lua で設定できる。
+
+    ## 使い方
+    `cmp.setup()` で `sources`、`mapping`、`snippet.expand` を設定する。`cmp.setup.cmdline()` で検索・コマンド補完を設定する。この定義は LuaSnip でスニペットを展開する。
+
+    ## 要件
+    補完ソースは別リポジトリーから導入する。README の設定例はスニペットエンジン指定を必須としている。最低 Neovim バージョンは README に未記載。
+
+    ## 出典
+    [固定バージョンの README](https://github.com/hrsh7th/nvim-cmp/blob/fe29aba4117227a6df637bc41e4b4fb4e98864a0/README.md)
+  '';
+
   plugin = sources.nvim-cmp;
   dependPlugins = [
     definitions.LuaSnip
@@ -174,4 +195,24 @@ with sources;
       ]])
     ''
   );
+  tests.cmp-luasnip-expansion = luaCheck {
+    name = "cmp-luasnip-expansion";
+    script = ''
+      vim.cmd.enew()
+      local cmp = require("cmp")
+      local config = cmp.get_config()
+      local names = vim.tbl_map(function(source) return source.name end, config.sources)
+      assert(vim.deep_equal(names, { "nvim_lsp", "luasnip", "buffer" }), vim.inspect(names))
+      config.snippet.expand({ body = 'say("''${1:hello}", ''${2:42})$0' })
+      assert(vim.api.nvim_get_current_line() == 'say("hello", 42)', "configured cmp expansion did not expand LuaSnip placeholders")
+      local luasnip = require("luasnip")
+      assert(luasnip.locally_jumpable(1), "expanded snippet has no forward placeholder jump")
+      luasnip.jump(1)
+      assert(luasnip.session.current_nodes[vim.api.nvim_get_current_buf()].pos == 2,
+        "LuaSnip did not jump to the second placeholder")
+      luasnip.jump(-1)
+      assert(luasnip.session.current_nodes[vim.api.nvim_get_current_buf()].pos == 1,
+        "LuaSnip did not jump back to the first placeholder")
+    '';
+  };
 }

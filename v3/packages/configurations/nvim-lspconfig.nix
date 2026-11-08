@@ -8,6 +8,26 @@
 }:
 with sources;
 {
+  doc = ''
+    # nvim-lspconfig
+
+    ## 概要
+    Neovim 標準 LSP クライアント向けのサーバー設定集。
+
+    ## 主な機能
+    - 言語サーバーごとの起動・ルート検出設定を提供する。
+    - `vim.lsp.config()` による設定拡張に対応する。
+
+    ## 使い方
+    `vim.lsp.enable("pyright")` のように設定を有効にする。`:LspInfo` または `:checkhealth vim.lsp` で状態を確認する。旧 `require("lspconfig").….setup()` は非推奨。
+
+    ## 要件
+    Neovim 0.11.3 以上。各言語サーバーを別途導入し、必要なルートマーカーや実行パスを設定する。
+
+    ## 出典
+    [固定バージョンの README](https://github.com/neovim/nvim-lspconfig/blob/4d363f93c3581b9212a24f7a830d7590b3f050af/README.md)
+  '';
+
   plugin = sources.nvim-lspconfig.overrideAttrs {
     dependencies = [ ];
   };

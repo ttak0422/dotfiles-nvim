@@ -9,6 +9,25 @@
 with sources;
 {
   plugin = sources.direnv-nvim;
+  doc = ''
+    # direnv.nvim
+
+    ## 概要
+    プロジェクトの `.envrc` を通じて Direnv の環境変数を Neovim に取り込む。
+
+    ## 主な機能
+    - `.envrc` の許可・拒否・再読み込み・編集。
+    - 任意の自動読み込み、状態表示、イベント連携。
+
+    ## 使い方
+    `require("direnv").setup()` 後、`:Direnv status` で状態を確認し、`:Direnv allow`・`:Direnv reload` などで操作する。
+
+    ## 要件
+    Neovim 0.8.0 以降、PATH 上の Direnv 2.33.0 以降。
+
+    ## 出典
+    - [上流 README（固定リビジョン）](https://github.com/NotAShelf/direnv.nvim/blob/9258f9f10c4c729d8296fce0e3ecb12543daad06/README.md)
+  '';
   config = luaConfig (
     # lua
     ''

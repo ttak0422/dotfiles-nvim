@@ -8,6 +8,25 @@
 }:
 with sources;
 {
+  doc = ''
+    # project.nvim
+
+    ## 概要
+    LSP またはルートを示すパターンからプロジェクトを検出し、作業ディレクトリを切り替える。
+
+    ## 主な機能
+    - 検出方法とディレクトリ変更のスコープを設定。
+    - 任意の Telescope 連携で最近のプロジェクトを表示。
+
+    ## 使い方
+    `require("project_nvim").setup(...)` で設定する。`:ProjectRoot` で手動検出できる。この定義は `.git` パターンで検出し、タブ単位でディレクトリを変更する。Telescope 連携には別途 extension 設定が必要。
+
+    ## 要件
+    Neovim 0.5.0 以上。LSP による検出に lspconfig は不要。
+
+    ## 出典
+    [固定リビジョンの README](https://github.com/ahmedkhalf/project.nvim/blob/8c6bad7d22eef1b71144b401c9f74ed01526a4fb/README.md)
+  '';
   plugin = sources.project-nvim;
   config = luaConfig (
     # lua
