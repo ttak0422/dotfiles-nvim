@@ -33,7 +33,7 @@ let
     in
     module (builtins.intersectAttrs (builtins.functionArgs module) args);
 
-  # Each definition owns one actual plugin. Edges express runtime dependencies only.
+  # Definitions own actual plugins or explicit groups with shared configuration.
   pluginDefinitions = {
     Comment-nvim = load ./Comment-nvim.nix;
     Ionide-vim = load ./Ionide-vim.nix;
@@ -48,11 +48,6 @@ let
     budoux-lua = load ./budoux-lua.nix;
     capture-vim = load ./capture-vim.nix;
     claudecode-nvim = load ./claudecode-nvim.nix;
-    cmp-buffer = load ./cmp-buffer.nix;
-    cmp-cmdline = load ./cmp-cmdline.nix;
-    cmp-nvim-lsp = load ./cmp-nvim-lsp.nix;
-    cmp-path = load ./cmp-path.nix;
-    cmp_luasnip = load ./cmp_luasnip.nix;
     colorful-winsep-nvim = load ./colorful-winsep-nvim.nix;
     conjure = load ./conjure.nix;
     crates-nvim = load ./crates-nvim.nix;
@@ -168,12 +163,7 @@ let
     stickybuf-nvim = load ./stickybuf-nvim.nix;
     switch-vim = load ./switch-vim.nix;
     tabout-nvim = load ./tabout-nvim.nix;
-    telescope-fzf-native-nvim = load ./telescope-fzf-native-nvim.nix;
-    telescope-ghq-nvim = load ./telescope-ghq-nvim.nix;
-    telescope-live-grep-args-nvim = load ./telescope-live-grep-args-nvim.nix;
     telescope-nvim = load ./telescope-nvim.nix;
-    telescope-sonictemplate-nvim = load ./telescope-sonictemplate-nvim.nix;
-    telescope-ui-select-nvim = load ./telescope-ui-select-nvim.nix;
     term-gf-nvim = load ./term-gf-nvim.nix;
     timerly = load ./timerly.nix;
     tiny-cmdline-nvim = load ./tiny-cmdline-nvim.nix;
@@ -213,15 +203,32 @@ let
     zen-nvim = load ./zen-nvim.nix;
   };
 
-  # Register each plugin's tests once at the profile root. Dependency references
-  # retain runtime configuration, but must not register the same test again.
-  definitions = lib.mapAttrs (
-    _: definition:
-    builtins.removeAttrs definition [
-      "test"
-      "tests"
-    ]
-  ) pluginDefinitions;
+  # Groups are configured once at the root. Consumers refer to real member
+  # packages, not another occurrence of the group's shared configuration.
+  memberDefinitions = {
+    nvim-cmp = {
+      plugin = sources.nvim-cmp;
+    };
+    cmp-nvim-lsp = {
+      plugin = sources.cmp-nvim-lsp;
+      dependPlugins = [ memberDefinitions.nvim-cmp ];
+    };
+    telescope-nvim = {
+      plugin = sources.telescope-nvim;
+      dependPlugins = [ definitions.plenary-nvim ];
+    };
+  };
+  # Singleton dependencies retain their configuration without registering tests
+  # again. A packages group has occurrence identity, so it must not be reused here.
+  definitions =
+    lib.mapAttrs (
+      _: definition:
+      builtins.removeAttrs definition [
+        "test"
+        "tests"
+      ]
+    ) pluginDefinitions
+    // memberDefinitions;
 
   # User-owned editor features are core configuration, not synthetic plugins.
   editorDefinitions = {
@@ -243,7 +250,17 @@ let
 in
 {
   inherit definitions pluginDefinitions editorDefinitions;
-  plugins = builtins.attrValues pluginDefinitions;
+  # Initialize each shared unit before consumers that use its configured APIs.
+  plugins = [
+    pluginDefinitions.nvim-cmp
+    pluginDefinitions.telescope-nvim
+  ]
+  ++ builtins.attrValues (
+    builtins.removeAttrs pluginDefinitions [
+      "nvim-cmp"
+      "telescope-nvim"
+    ]
+  );
   editorPreConfig = editorCode "preConfig";
   editorConfig = editorCode "config";
   extraPackages = lib.concatMap (value: value.extraPackages or [ ]) editorValues;

@@ -1,5 +1,9 @@
 # Focused assertions share the real profile, but isolate all writable state.
-{ name, script }:
+{
+  name,
+  script,
+  preInit ? "",
+}:
 {
   pkgs,
   bundle,
@@ -8,6 +12,7 @@
 let
   python = pkgs.python3.withPackages (ps: [ ps.pynvim ]);
   lua = pkgs.writeText "${name}.lua" script;
+  bootstrap = if preInit == "" then "" else toString (pkgs.writeText "${name}-pre-init.lua" preInit);
   runner = pkgs.writeText "${name}.py" ''
     import os
     import pathlib
@@ -21,7 +26,11 @@ let
 
     signal.signal(signal.SIGALRM, timeout)
     signal.alarm(90)
-    nvim = pynvim.attach("child", argv=[sys.argv[1], "--embed", "--headless", "-n", "-i", "NONE"])
+    argv = [sys.argv[1], "--embed", "--headless", "-n", "-i", "NONE"]
+    pre_init = ${builtins.toJSON bootstrap}
+    if pre_init:
+        argv.extend(["--cmd", f"lua dofile({pre_init!r})"])
+    nvim = pynvim.attach("child", argv=argv)
     try:
         assert nvim.exec_lua('return package.loaded.divine ~= nil')
         assert nvim.exec_lua('return vim.tbl_contains(vim.v.argv, vim.env.PLUGIN_TEST_BUNDLE .. "/init.lua")')

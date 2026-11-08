@@ -4,11 +4,14 @@
   sources,
   definitions,
   luaConfig,
+  luaCheck,
   inputs',
 }:
 with sources;
 {
   doc = ''
+    Telescope 本体と 5 つの拡張をまとめ、picker と選択 UI の設定を共有する。
+
     # telescope.nvim
 
     ## 概要
@@ -26,16 +29,107 @@ with sources;
 
     ## 出典
     [固定バージョンの README](https://github.com/nvim-telescope/telescope.nvim/blob/40aedd8a68c78a656a10a8d62d80c54af59420fb/README.md)
+
+    # telescope-fzf-native.nvim
+
+    ## 概要
+    fzf の照合アルゴリズムを C で実装した Telescope 用ソーター。
+
+    ## 主な機能
+    - あいまい一致、完全一致、前方・後方一致、否定、OR に対応する。
+    - 一致スコアと位置を計算し、Telescope のソートを置き換える。
+
+    ## 使い方
+    Telescope の設定後に `require("telescope").load_extension("fzf")` を呼ぶ。`extensions.fzf` で `fuzzy`、`case_mode`、既存ソーターの置換を設定する。
+
+    ## 要件
+    Telescope との連携を前提とする。ネイティブ部分のビルドには make と GCC / Clang、または CMake を使用する。Windows の CMake 構成には Microsoft C++ Build Tools が必要。
+
+    ## 出典
+    [固定バージョンの README](https://github.com/nvim-telescope/telescope-fzf-native.nvim/blob/b25b749b9db64d375d782094e2b9dce53ad53a40/README.md)
+
+    # telescope-ghq.nvim
+
+    ## 概要
+    ghq 管理下のリポジトリを選ぶ Telescope extension。
+
+    ## 主な機能
+    - `ghq list` の結果を picker に表示。
+    - 選択先で Git ファイル検索やディレクトリ変更。
+
+    ## 使い方
+    ghq extension を読み込んだ後、`:Telescope ghq` を実行する。Enter で `git_files`、`<C-x>` / `<C-v>` / `<C-t>` で全体・ウィンドウ・タブのディレクトリを変更する。
+
+    ## 要件
+    telescope.nvim と ghq を使用する。README は `ghq list` のみ対応と記載。最低バージョンは未記載。
+
+    ## 出典
+    [固定リビジョンの README](https://github.com/nvim-telescope/telescope-ghq.nvim/blob/2bd2e2d10f1a06fce9cce1e33ffe464c84ceb63b/README.md)
+
+    # Telescope live grep args
+
+    ## 概要
+    Telescope の live grep に検索コマンドの引数を入力できる拡張。
+
+    ## 主な機能
+    - 検索語とディレクトリ・glob・型指定などの同時入力。
+    - クォート補助や自動クォートの調整。
+
+    ## 使い方
+    `require("telescope").load_extension("live_grep_args")` 後、`require("telescope").extensions.live_grep_args.live_grep_args()` を呼ぶ。入力例は `"foo" --iglob **/test/**`。
+
+    ## 要件
+    telescope.nvim と使用する grep コマンド。README の検索例は ripgrep を使用し、最低バージョンは未記載。
+
+    ## 出典
+    - [上流 README（固定リビジョン）](https://github.com/nvim-telescope/telescope-live-grep-args.nvim/blob/53e9df55b3651dd7cf77e172f1e8c9a17407acca/README.md)
+
+    # telescope-sonictemplate.nvim
+
+    ## 概要
+    vim-sonictemplate のテンプレートを Telescope から選ぶための統合。
+
+    ## 主な機能
+    - Telescope picker でテンプレートを選択。
+
+    ## 使い方
+    extension の読込後、`:Telescope sonictemplate templates` または `require("telescope").extensions.sonictemplate.templates{}` を実行する。
+
+    ## 要件
+    telescope.nvim、vim-sonictemplate。最低バージョンは README 未記載。
+
+    ## 出典
+    [固定リビジョンの README](https://github.com/tamago324/telescope-sonictemplate.nvim/blob/9edeeea022d9e35287fa80a91ed5bffb950cc096/README.md)
+
+    # telescope-ui-select.nvim
+
+    ## 概要
+    Neovim の `vim.ui.select` を Telescope の picker で表示する。
+
+    ## 主な機能
+    - LSP コードアクションなどの選択 UI を統一。
+    - dropdown テーマや項目種別ごとの表示調整。
+
+    ## 使い方
+    Telescope の `extensions["ui-select"]` を設定し、setup 後に `require("telescope").load_extension("ui-select")` を呼ぶ。以後 `vim.ui.select` を使う機能に適用される。
+
+    ## 要件
+    telescope.nvim。README は Neovim 0.7 またはそれ以降の nightly を要求する。
+
+    ## 出典
+    - [上流 README（固定リビジョン）](https://github.com/nvim-telescope/telescope-ui-select.nvim/blob/6e51d7da30bd139a6950adf2a47fda6df9fa06d2/README.md)
   '';
 
-  plugin = sources.telescope-nvim;
+  packages = with sources; [
+    telescope-nvim
+    telescope-fzf-native-nvim
+    telescope-ghq-nvim
+    telescope-live-grep-args-nvim
+    telescope-sonictemplate-nvim
+    telescope-ui-select-nvim
+  ];
   dependPlugins = [
     definitions.plenary-nvim
-    definitions.telescope-fzf-native-nvim
-    definitions.telescope-ghq-nvim
-    definitions.telescope-live-grep-args-nvim
-    definitions.telescope-sonictemplate-nvim
-    definitions.telescope-ui-select-nvim
     definitions.project-nvim
     definitions.vim-sonictemplate
     definitions.worktab-nvim
@@ -100,4 +194,98 @@ with sources;
       end, {})
     ''
   );
+  tests.telescope-extensions-and-ui-select = luaCheck {
+    name = "telescope-extensions-and-ui-select";
+    preInit = ''
+      local original_require = require
+      local wrapped = false
+      _G.telescope_test_setup_calls = 0
+      _G.require = function(name)
+        local module = original_require(name)
+        if name == "telescope" and not wrapped then
+          wrapped = true
+          local setup = module.setup
+          module.setup = function(...)
+            _G.telescope_test_setup_calls = _G.telescope_test_setup_calls + 1
+            return setup(...)
+          end
+        end
+        return module
+      end
+    '';
+    script = ''
+      assert(_G.telescope_test_setup_calls == 1, "Telescope setup must run exactly once")
+      local telescope = require("telescope")
+      for extension, api in pairs({
+        live_grep_args = "live_grep_args",
+        sonictemplate = "templates",
+        projects = "projects",
+        ghq = "ghq",
+        worktab = "worktab",
+      }) do
+        assert(package.loaded["telescope._extensions." .. extension], extension .. " was not loaded by the profile")
+        assert(type(telescope.extensions[extension][api]) == "function", extension .. " picker API is missing")
+      end
+      assert(package.loaded["telescope._extensions.ui-select"], "ui-select was not loaded by the profile")
+      -- The profile ships fzf-native without changing its existing sorter choice.
+      -- Exercise its native library without loading or reconfiguring an extension.
+      local fzf = require("fzf_lib")
+      local slab, pattern = fzf.allocate_slab(), fzf.parse_pattern("tlscp")
+      local score = fzf.get_score("telescope", pattern, slab)
+      fzf.free_pattern(pattern)
+      fzf.free_slab(slab)
+      assert(score > 0, "native fzf matching failed")
+
+      vim.o.columns, vim.o.lines = 120, 40
+      vim.cmd.enew()
+      local original_win = vim.api.nvim_get_current_win()
+      local actions = require("telescope.actions")
+      local state = require("telescope.actions.state")
+      local items = { { label = "first" }, { label = "second" } }
+      local function wait(predicate, message)
+        assert(vim.wait(5000, predicate, 10), message)
+      end
+      local function open()
+        vim.cmd.stopinsert()
+        local calls = {}
+        vim.ui.select(items, {
+          prompt = "Telescope selection test:",
+          format_item = function(item) return item.label end,
+        }, function(item, index)
+          calls[#calls + 1] = { item = item, index = index, win = vim.api.nvim_get_current_win() }
+        end)
+        local picker, prompt
+        wait(function()
+          prompt = vim.api.nvim_get_current_buf()
+          if vim.bo[prompt].filetype ~= "TelescopePrompt" then return false end
+          picker = state.get_current_picker(prompt)
+          return picker and picker.manager and picker.manager:num_results() == #items
+            and picker:get_selection() ~= nil
+        end, "vim.ui.select did not open a populated Telescope picker")
+        assert(#calls == 0, "selection callback ran before a choice")
+        return picker, prompt, calls
+      end
+      local picker, prompt, calls = open()
+      for _ = 1, #items do
+        if picker:get_selection().value.idx == 2 then break end
+        actions.move_selection_next(prompt)
+      end
+      assert(picker:get_selection().value.idx == 2, "could not select the second item")
+      actions.select_default(prompt)
+      wait(function() return #calls == 1 end, "selection callback did not run")
+      assert(calls[1].item == items[2] and calls[1].index == 2, "callback lost the selected item or index")
+      assert(calls[1].win == original_win, "callback ran before restoring the original window")
+      assert(not vim.api.nvim_buf_is_valid(prompt), "selection did not close the picker")
+
+      local _, cancel_prompt, cancelled = open()
+      actions.close(cancel_prompt)
+      wait(function() return #cancelled == 1 end, "cancellation callback did not run")
+      assert(cancelled[1].item == nil and cancelled[1].index == nil, "cancel must return nil item and index")
+      assert(cancelled[1].win == original_win, "cancel callback ran before restoring the original window")
+      assert(not vim.api.nvim_buf_is_valid(cancel_prompt), "cancel did not close the picker")
+      vim.wait(50, function() return false end)
+      assert(#calls == 1 and #cancelled == 1, "selection callbacks ran more than once")
+      assert(_G.telescope_test_setup_calls == 1, "using pickers must not repeat Telescope setup")
+    '';
+  };
 }

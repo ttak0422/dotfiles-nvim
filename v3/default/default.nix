@@ -40,16 +40,21 @@ in
           nixpkgs recipes without the older v2 overrides. Configuration, templates and helper modules
           are owned under v3; no v2 configuration file is loaded at runtime.
           The original Fennel configurations are manually ported to readable
-          Lua rather than embedding compiler output. v2 and README are unchanged.
+          Lua rather than embedding compiler output. v2 configuration and pin
+          revisions/hashes, and README are unchanged. The shared npins helper
+          only uses GitHub's official archive host; package outputs are identical.
 
           Every plugin is eager. There are no lazy flags or loader triggers.
           Native filetype behavior, such as Java/Kotlin attachment and
           SFCC's JavaScript-only gf mapping, remains scoped to the matching
-          buffer. Each plugin is declared individually. dependPlugins describes
-          real plugin requirements, not historical loading events or command
-          groups. Owned editor options, mappings and terminal/Gitu helpers are
-          separate configuration modules, not fake plugin packages. Repeated
-          plugin occurrences are merged by divine and configured once.
+          buffer. Completion and Telescope each use one packages unit for their
+          engine and dedicated extensions, with shared configuration, docs and
+          tests. Other plugins remain individual definitions. dependPlugins
+          describes real requirements, not historical loading events or command
+          groups. Each packages unit is declared once, before consumers; those
+          consumers reference its real member packages without replaying setup.
+          Owned editor options, mappings and terminal/Gitu helpers are separate
+          configuration modules, not fake plugin packages.
 
           Excluded: denops.vim, gin.vim, vim-mr, telescope-mr, skkeleton and
           skkeleton-henkan-highlight, plus actually-doom.nvim and Codewindow at the
