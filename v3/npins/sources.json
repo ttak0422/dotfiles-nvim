@@ -1296,11 +1296,11 @@
         "owner": "petertriho",
         "repo": "nvim-scrollbar"
       },
-      "branch": "main",
+      "branch": "v1",
       "submodules": false,
-      "revision": "00fe857e7cd97ee5e556de643ee920b003a96b03",
-      "url": "https://github.com/petertriho/nvim-scrollbar/archive/00fe857e7cd97ee5e556de643ee920b003a96b03.tar.gz",
-      "hash": "sha256-PtEEgqXhNsv8sIOYctfdXb0tzQjAwfWNKFx/Pe1R9g8="
+      "revision": "f8e87b96cd6362ef8579be456afee3b38fd7e2a8",
+      "url": "https://github.com/petertriho/nvim-scrollbar/archive/f8e87b96cd6362ef8579be456afee3b38fd7e2a8.tar.gz",
+      "hash": "sha256-g+gJp7noNdLKfvp+QbnTFE++PI3FcJG7reDenkg15k0="
     },
     "nvim-spectre": {
       "type": "Git",
