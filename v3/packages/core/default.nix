@@ -68,7 +68,6 @@ let
       java_test_jar_pattern = "${vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server/*.jar";
       jol_jar_path = pkgs.javaPackages.jol;
       lombok_jar_path = "${pkgs.lombok}/share/java/lombok.jar";
-      vscode_spring_boot_path = "${pkgs.vscode-marketplace.vmware.vscode-spring-boot}/share/vscode/extensions/vmware.vscode-spring-boot";
       attach_path = ./lsp-attach.lua;
     };
   files = {
@@ -824,6 +823,15 @@ in
                   assert nvim.call("exists", ":" + command) == 2, command
               assert nvim.call("exists", "g:loaded_skkeleton") == 0
               assert not lua('return package.loaded["denops"] ~= nil')
+
+              # Spring-specific integration is excluded; general Java tooling stays.
+              assert nvim.call("exists", ":SpringBoot") == 0
+              for path in ["lua/spring_boot.lua", "lsp/spring-boot.lua"]:
+                  assert not lua('return vim.api.nvim_get_runtime_file(..., true)', path), path
+              assert lua('return type(require("jdtls").start_or_attach) == "function"')
+              assert lua('return type(require("jdtls").test_class) == "function"')
+              assert lua('return type(require("jdtls.dap").setup_dap) == "function"')
+              assert lua('return type(require("dap").run) == "function"')
 
               configured = lua('local t = {}; for _, s in ipairs(require("cmp").get_config().sources) do t[s.name] = true end; return t')
               for source in ["nvim_lsp", "luasnip", "buffer"]:

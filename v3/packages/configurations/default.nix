@@ -159,7 +159,6 @@ let
     smart-splits-nvim = load ./smart-splits-nvim.nix;
     snacks-nvim = load ./snacks-nvim.nix;
     sorairo = load ./sorairo.nix;
-    spring-boot-nvim = load ./spring-boot-nvim.nix;
     stickybuf-nvim = load ./stickybuf-nvim.nix;
     switch-vim = load ./switch-vim.nix;
     tabout-nvim = load ./tabout-nvim.nix;

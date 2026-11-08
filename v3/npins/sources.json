@@ -1633,19 +1633,6 @@
       "url": "https://github.com/ttak0422/sorairo/archive/674fce68dee030ad0645ca766c12a242e817b077.tar.gz",
       "hash": "sha256-FFqXogz7KMkoAd4uNgzQ1QrXAsbd2DyLN3jMMZofjAo="
     },
-    "spring-boot.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "JavaHello",
-        "repo": "spring-boot.nvim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "9880be48170a21d97444b1eba75853fd3bad33c3",
-      "url": "https://github.com/JavaHello/spring-boot.nvim/archive/9880be48170a21d97444b1eba75853fd3bad33c3.tar.gz",
-      "hash": "sha256-+zgi9Jhh5f3kPr5VC2KZ3x7OEXdTao5gQM48y5NlGo4="
-    },
     "stickybuf.nvim": {
       "type": "Git",
       "repository": {
