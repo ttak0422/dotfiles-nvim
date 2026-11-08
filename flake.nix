@@ -99,6 +99,7 @@
           ...
         }:
         let
+          regressionChecks = import ./tests/checks.nix { inherit pkgs; };
           v3Base = import inputs.v3-nixpkgs { inherit system; };
           v3Pkgs = import inputs.v3-nixpkgs {
             inherit system;
@@ -160,8 +161,13 @@
               inherit inputs';
               inherit pkgs;
             });
+          # CI selects only these pre-existing focused checks. Keeping a separate
+          # output avoids evaluating the full v2/v3 packages or v3 inline checks.
+          legacyPackages.ci-checks = pkgs.linkFarm "dotfiles-nvim-ci-checks" (
+            lib.mapAttrsToList (name: path: { inherit name path; }) regressionChecks
+          );
           checks =
-            (import ./tests/checks.nix { inherit pkgs; })
+            regressionChecks
             // (lib.optionalAttrs (system == "aarch64-darwin") (
               inputs.divine.lib.mkChecks {
                 pkgs = v3Pkgs;
