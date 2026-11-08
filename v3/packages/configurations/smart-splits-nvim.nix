@@ -4,6 +4,7 @@
   sources,
   definitions,
   luaConfig,
+  luaCheck,
   inputs',
 }:
 with sources;
@@ -34,8 +35,50 @@ with sources;
       require("smart-splits").setup({
         ignored_filetypes = { "nofile", "quickfix", "prompt" },
         ignored_buftypes = { "NvimTree" },
-        ignored_events = { "BufEnter", "WinEnter" },
+        resize = { ignored_events = { "BufEnter", "WinEnter" } },
       })
     ''
   );
+
+  tests.smart-splits-resize = luaCheck {
+    name = "smart-splits-resize";
+    ui = true;
+    script = ''
+      local api = vim.api
+      local config = require("smart-splits.config")
+      assert(#config.issues() == 0, "smart-splits configuration must use supported options")
+      assert(vim.deep_equal(config.resize.ignored_events, { "BufEnter", "WinEnter" }),
+        "resize must retain the configured ignored events")
+
+      vim.cmd.only()
+      vim.cmd.enew()
+      vim.cmd.vsplit()
+      vim.cmd.wincmd("h")
+      local left = api.nvim_get_current_win()
+      local width = api.nvim_win_get_width(left)
+      local eventignore = vim.o.eventignore
+      local observed
+      local group = api.nvim_create_augroup("SmartSplitsResizeTest", { clear = true })
+      api.nvim_create_autocmd("OptionSet", {
+        group = group,
+        pattern = "eventignore",
+        callback = function()
+          if vim.tbl_contains(vim.opt.eventignore:get(), "BufEnter")
+            and vim.tbl_contains(vim.opt.eventignore:get(), "WinEnter") then
+            observed = true
+          end
+        end,
+      })
+      vim.cmd.SmartResizeRight("4")
+      assert(api.nvim_win_get_width(left) == width + 4, "resize command must grow the split")
+      assert(api.nvim_get_current_win() == left, "resize must retain the focused window")
+      assert(observed, "resize must suppress the configured events while changing windows")
+      assert(vim.o.eventignore == eventignore, "resize must restore eventignore afterwards")
+      vim.cmd.SmartResizeLeft("4")
+      assert(api.nvim_win_get_width(left) == width, "repeated resize must restore the original width")
+      vim.cmd.SmartCursorMoveRight()
+      assert(api.nvim_get_current_win() ~= left, "cursor movement must still work")
+      api.nvim_del_augroup_by_id(group)
+    '';
+  };
 }
