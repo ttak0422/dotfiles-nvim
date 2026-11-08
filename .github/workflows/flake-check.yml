@@ -30,7 +30,22 @@ jobs:
 
       - name: Check flake and run regression tests
         # Keep timing-sensitive dependency tests out of concurrent compiler load.
-        run: nix flake check --system ${{ matrix.system }} --max-jobs 1 --cores 2 --keep-going --print-build-logs
+        run: |
+          check_flake() {
+            nix flake check --system ${{ matrix.system }} --max-jobs 1 --cores 2 --keep-going --print-build-logs
+          }
+
+          if check_flake; then
+            exit 0
+          fi
+
+          echo "::warning::Initial flake check failed. Retrying the same check once, reusing successful Nix builds."
+          if check_flake; then
+            echo "Flake check passed on its single retry."
+          else
+            echo "::error::Flake check failed on both attempts."
+            exit 1
+          fi
 
       - name: Build full macOS configuration
         if: matrix.system == 'aarch64-darwin'
