@@ -10,36 +10,50 @@ in
     vim.g.python3_host_prog = "${pkgs.python3.withPackages (ps: [ ps.pynvim ])}/bin/python3"
     ${packages.core.startupConfig}
   '';
-  runtimePaths = [ packages.core.runtime ];
   extraPackages = [
     pkgs.jq
     pkgs.git
-  ];
-  plugins = [
+  ]
+  ++ packages.configurations.extraPackages;
+  plugins = packages.configurations.plugins ++ [
+    packages.skk
     (
       packages.core.definition
       // {
-        dependPlugins = packages.configurations.plugins ++ [ packages.skk ];
+        dependPlugins = with packages.configurations.definitions; [
+          snacks-nvim
+          sorairo
+          nvim-config-local
+        ];
+        preConfig = packages.configurations.editorPreConfig;
+        config = packages.configurations.editorConfig + "\n" + packages.core.definition.config;
         doc = packages.core.definition.doc + ''
 
           Migration baseline: main at bea6cafa (v2/default). All enabled
           groups, including their recursive dependencies, are represented in
-          v3/packages/configurations. The 168 selected v2 npins entries
-          retain their exact revisions and hashes; Goda SKK keeps its
-          existing pins. Configuration, templates and helper modules are
-          owned under v3. v2 and README are unchanged. The new cartridges do
-          not read v2 configuration files; existing shared package overlays
-          and locked inputs are reused.
+          v3/packages/configurations. Plugin pins were refreshed against their
+          configured branches or release streams during migration (36 updated).
+          Goda SKK keeps the latest released v0.7.2/v0.3.3 pair. v3 has separate
+          nixpkgs, pterm and track inputs; the existing v2 lock entries remain
+          unchanged. Shared native packages already at their latest upstream
+          revisions are reused. Configuration, templates and helper modules
+          are owned under v3; no v2 configuration file is loaded at runtime.
+          The original Fennel configurations are manually ported to readable
+          Lua rather than embedding compiler output. v2 and README are unchanged.
 
           Every plugin is eager. There are no lazy flags or loader triggers.
           Native filetype behavior, such as Java/Kotlin attachment and
           SFCC's JavaScript-only gf mapping, remains scoped to the matching
-          buffer. Group cartridges keep common configuration after their
-          dependencies; repeated plugin occurrences are merged by divine and
-          configured once.
+          buffer. Each plugin is declared individually. dependPlugins describes
+          real plugin requirements, not historical loading events or command
+          groups. Owned editor options, mappings and terminal/Gitu helpers are
+          separate configuration modules, not fake plugin packages. Repeated
+          plugin occurrences are merged by divine and configured once.
 
           Excluded: denops.vim, gin.vim, vim-mr, telescope-mr, skkeleton and
-          skkeleton-henkan-highlight. The Gin abbreviation and MR mappings
+          skkeleton-henkan-highlight, plus actually-doom.nvim at the user's
+          request. Its plugin, source pin and dedicated native build are removed.
+          The Gin abbreviation and MR mappings
           and extension are removed. Telescope and terminal-popup SKK now
           use Goda. Deno remains available for denols; Go remains available
           for Go tooling. The cmp_luasnip bridge and the configured
@@ -50,9 +64,12 @@ in
           use Neovim's core Treesitter query/range APIs, with a real
           highlighted minimap regression test. Videre round_units=false
           becomes box_style= "sharp"; the removed simple_statusline option
-          has no upstream equivalent. Goda's buffer cleanup uses idempotent
-          unlet! so closing a terminal input popup cannot leave an E716
-          error after InsertLeave already restored it. Kitty image
+          has no upstream equivalent. Goda uses unmodified upstream scripts;
+          popup checks verify actual input, send/cancel, restored state and
+          visible errors rather than treating an intentionally suppressed
+          internal cleanup diagnostic as a user-visible failure. Meian's
+          macOS defaults executable is available through the wrapper's
+          /usr/bin PATH fallback, after existing Nix tools. Kitty image
           initialization waits for UIEnter if a remote UI attaches later,
           and stays disabled in Neovide. Plugin loading remains eager.
           Python3 provider support is preserved, and external editor
@@ -102,9 +119,12 @@ in
                 "vim-mr"
                 "telescope-mr"
                 "skkeleton"
+                "actually-doom"
               ];
-              noDenops =
-                node: !(pkgs.lib.any (name: pkgs.lib.hasInfix name (pkgs.lib.getName node.package)) forbidden);
+              allowed =
+                node:
+                !(pkgs.lib.any (name: pkgs.lib.hasInfix name (pkgs.lib.getName node.package)) forbidden)
+                && !(pkgs.lib.hasPrefix "v3-" (pkgs.lib.getName node.package));
               eager =
                 node:
                 !node.settings.lazy
@@ -120,7 +140,8 @@ in
             assert builtins.elem (toString packages.sources.pterm-daemon) toolPaths;
             assert builtins.elem (toString packages.sources.track-cli) toolPaths;
             assert pkgs.lib.all eager nodes;
-            assert pkgs.lib.all noDenops nodes;
+            assert pkgs.lib.all allowed nodes;
+            assert builtins.length bundle.graph.roots == builtins.length packages.configurations.plugins + 2;
             pkgs.writeText "v3-migration-graph.json" (
               builtins.toJSON (
                 map (node: {

@@ -4,11 +4,9 @@
   sources,
   definitions,
   luaConfig,
-  emptyPlugin,
   inputs',
 }:
 with sources;
-with definitions;
 {
   plugin = sources.rustowl.overrideAttrs {
     # WIP: use `cargo binstall rustowl`
@@ -18,16 +16,19 @@ with definitions;
     # lua
     ''
       local rustowl = require("rustowl")
-      local on_attach
-      local function _1_(_, buffer)
-        local function _2_()
-          return rustowl.toggle(buffer)
-        end
-        return vim.keymap.set("n", "<LocalLeader>to", _2_, {buf = buffer, desc = "Toggle RustOwl"})
-      end
-      on_attach = _1_
-      return rustowl.setup({auto_attach = true, idle_time = 1000, highlight_style = "underline", client = {on_attach = on_attach}, auto_enable = false})
+      rustowl.setup({
+        auto_attach = true,
+        auto_enable = false,
+        idle_time = 1000,
+        highlight_style = "underline",
+        client = {
+          on_attach = function(_, buffer)
+            vim.keymap.set("n", "<LocalLeader>to", function()
+              rustowl.toggle(buffer)
+            end, { buffer = buffer, desc = "Toggle RustOwl" })
+          end,
+        },
+      })
     ''
   );
-  doc = "Enabled v2/default rustowl configuration, loaded at startup. See the migration inventory in the core cartridge documentation.";
 }

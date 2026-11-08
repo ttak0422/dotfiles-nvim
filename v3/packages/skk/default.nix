@@ -9,21 +9,14 @@ let
     pname = "goda-skk.vim";
     version = sources."goda-skk.vim".version;
     src = sources."goda-skk.vim";
-    # BufWipeout can follow InsertLeave, which has already restored/removed
-    # options. silent! still sets v:errmsg for missing keys; unlet! is idempotent.
-    postPatch = ''
-      substituteInPlace autoload/goda_skk/internal.vim \
-        --replace-fail 'silent! unlet s:maps[a:bufnr]' 'unlet! s:maps[a:bufnr]' \
-        --replace-fail 'silent! unlet s:options[a:bufnr]' 'unlet! s:options[a:bufnr]'
-    '';
+
   };
   binary = pkgs.buildGoModule {
     pname = "goda-skk";
     version = sources."goda-skk.vim".version;
     src = ./config;
     subPackages = [ "." ];
-    # Editor scripts and compiled Go use the same upstream pins; the Vim-only
-    # idempotent cleanup patch above does not change Go dependencies.
+    # Editor scripts and compiled Go use the same unmodified upstream pins.
     postPatch = ''
       mkdir -p .deps
       cp -R ${sources."goda.vim"} .deps/goda

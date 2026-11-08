@@ -65,31 +65,8 @@ lib.mapAttrs' buildPlugin sources
     buildPhase = "make";
   };
 
-  actually-doom-nvim =
-    let
-      doom = stdenv.mkDerivation rec {
-        pname = "doom";
-        src = getSrc "actually-doom.nvim";
-        version = src.revision;
-        nativeBuildInputs = [ pkgs.gcc ];
-        installPhase = ''
-          cd doom
-          make OUTDIR=$out
-        '';
-      };
-    in
-    vimUtils.buildVimPlugin rec {
-      pname = "actually-doom.nvim";
-      src = getSrc pname;
-      version = src.revision;
-      postInstall = ''
-        ln -s ${doom} $out/doom/build
-      '';
-    };
-
-  # Reuse the existing flake lock entries; these names are not v3 dependencies
-  # on another configuration's package namespace.
-  inherit (inputs'.v2-pterm.packages) pterm pterm-daemon;
+  # Native packages have independent v3 inputs so updates leave v2 unchanged.
+  inherit (inputs'.v3-pterm.packages) pterm pterm-daemon;
   inherit (inputs'.v2-meian.packages) meian;
-  inherit (inputs'.v2-track.packages) track track-cli;
+  inherit (inputs'.v3-track.packages) track track-cli;
 }

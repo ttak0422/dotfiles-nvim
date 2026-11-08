@@ -74,329 +74,438 @@ let
   files = {
     "after/ftplugin/fennel.lua" = # lua
       ''
-        vim.opt_local.iskeyword:append("-")
-        return vim.opt_local.iskeyword:append("?")
+        vim.opt_local.iskeyword:append({ "-", "?" })
       '';
     "after/ftplugin/fsharp.lua" = # lua
       ''
-        local function _1_()
-          return vim.lsp.codelens.enable(true, {bufnr = 0})
-        end
-        return vim.api.nvim_create_autocmd({"BufEnter", "InsertLeave"}, {callback = _1_, buffer = 0})
+        vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
+          buffer = 0,
+          callback = function()
+            vim.lsp.codelens.enable(true, { bufnr = 0 })
+          end,
+        })
       '';
     "after/ftplugin/gitcommit.lua" = # lua
       ''
         vim.opt_local.iskeyword:append("-")
         vim.bo.bufhidden = "wipe"
+
         local function prefill_ticket()
           local buf = vim.api.nvim_get_current_buf()
           local name = vim.api.nvim_buf_get_name(buf)
           local file = vim.uv.fs_realpath(name)
-          if ((vim.bo.filetype == "gitcommit") and file and (vim.fs.basename(file) == "COMMIT_EDITMSG") and not vim.b.ticket_prefix_checked and not vim.bo.modified and vim.bo.modifiable and not vim.bo.readonly) then
-            vim.b.ticket_prefix_checked = true
-            local gitdir = vim.fs.dirname(file)
-            local tick = vim.api.nvim_buf_get_changedtick(buf)
-            local env = vim.fn.environ()
-            for _, key in ipairs({"GIT_DIR", "GIT_WORK_TREE", "GIT_COMMON_DIR", "GIT_NAMESPACE"}) do
-              env[key] = nil
-            end
-            local function git(...)
-              local argv = {"git", ("--git-dir=" .. gitdir)}
-              local _ = vim.list_extend(argv, {...})
-              local ok, result
-              local function _1_()
-                return vim.system(argv, {text = true, clear_env = true, env = env}):wait(300)
-              end
-              ok, result = pcall(_1_)
-              if ok then
-                return result
-              else
-                return nil
-              end
-            end
-            local function operation_3f()
-              local active = false
-              for _, path in ipairs({"MERGE_HEAD", "SQUASH_MSG", "CHERRY_PICK_HEAD", "REVERT_HEAD", "rebase-merge", "rebase-apply", "sequencer"}) do
-                if vim.uv.fs_stat((gitdir .. "/" .. path)) then
-                  active = true
-                else
-                end
-              end
-              return active
-            end
-            if not operation_3f() then
-              local branch = git("symbolic-ref", "--quiet", "--short", "HEAD")
-              local segment = (branch and (branch.code == 0) and branch.stdout:match("([^/\n]+)\n$"))
-              local ticket = (segment and segment:match("^([A-Z][A-Z0-9]*%-%d+)_[A-Za-z0-9][A-Za-z0-9_-]*$"))
-              if ticket then
-                local comment_prefix = nil
-                do
-                  local comment_config = git("config", "--null", "--get-regexp", "^core\\.comment(char|string)$")
-                  if comment_config then
-                    if (comment_config.code == 1) then
-                      comment_prefix = "#"
-                    elseif (comment_config.code == 0) then
-                      for entry in comment_config.stdout:gmatch("([^%z]*)%z") do
-                        comment_prefix = entry:match("^[^\n]+\n(.*)$")
-                      end
-                    else
-                    end
-                  else
-                  end
-                end
-                if (comment_prefix and (comment_prefix ~= "") and (comment_prefix ~= "auto") and vim.api.nvim_buf_is_valid(buf) and (vim.api.nvim_get_current_buf() == buf) and (vim.api.nvim_buf_get_name(buf) == name) and (vim.api.nvim_buf_get_changedtick(buf) == tick) and (vim.bo.filetype == "gitcommit") and not vim.bo.modified and vim.bo.modifiable and not vim.bo.readonly and not operation_3f()) then
-                  local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
-                  local prefix = (ticket .. " ")
-                  local empty = true
-                  for _, line in ipairs(lines) do
-                    if (not line:match("^%s*$") and (line:sub(1, #comment_prefix) ~= comment_prefix)) then
-                      empty = false
-                    else
-                    end
-                  end
-                  if empty then
-                    local _7_
-                    if string.match(lines[1], "^%s*$") then
-                      _7_ = 1
-                    else
-                      _7_ = 0
-                    end
-                    vim.api.nvim_buf_set_lines(buf, 0, _7_, false, {prefix})
-                    return vim.api.nvim_win_set_cursor(0, {1, #ticket})
-                  else
-                    return nil
-                  end
-                else
-                  return nil
-                end
-              else
-                return nil
-              end
-            else
-              return nil
-            end
-          else
-            return nil
+          local function editable()
+            return vim.bo.filetype == "gitcommit"
+              and not vim.bo.modified and vim.bo.modifiable and not vim.bo.readonly
           end
+          if not editable() or not file or vim.fs.basename(file) ~= "COMMIT_EDITMSG"
+            or vim.b.ticket_prefix_checked then
+            return
+          end
+          vim.b.ticket_prefix_checked = true
+
+          local gitdir = vim.fs.dirname(file)
+          local tick = vim.api.nvim_buf_get_changedtick(buf)
+          local env = vim.fn.environ()
+          -- A persistent editor can belong to another repository or worktree.
+          for _, key in ipairs({ "GIT_DIR", "GIT_WORK_TREE", "GIT_COMMON_DIR", "GIT_NAMESPACE" }) do
+            env[key] = nil
+          end
+          local function git(...)
+            local argv = vim.list_extend({ "git", "--git-dir=" .. gitdir }, { ... })
+            local ok, result = pcall(function()
+              return vim.system(argv, { text = true, clear_env = true, env = env }):wait(300)
+            end)
+            if ok then
+              return result
+            end
+          end
+          local function operation_in_progress()
+            for _, marker in ipairs({
+              "MERGE_HEAD", "SQUASH_MSG", "CHERRY_PICK_HEAD", "REVERT_HEAD",
+              "rebase-merge", "rebase-apply", "sequencer",
+            }) do
+              if vim.uv.fs_stat(gitdir .. "/" .. marker) then
+                return true
+              end
+            end
+            return false
+          end
+          if operation_in_progress() then
+            return
+          end
+
+          local branch = git("symbolic-ref", "--quiet", "--short", "HEAD")
+          local segment = branch and branch.code == 0 and branch.stdout:match("([^/\n]+)\n$")
+          local ticket = segment and segment:match("^([A-Z][A-Z0-9]*%-%d+)_[A-Za-z0-9][A-Za-z0-9_-]*$")
+          if not ticket then
+            return
+          end
+          -- commentChar and commentString share configuration order: last wins.
+          local comment_prefix
+          local config = git("config", "--null", "--get-regexp", "^core\\.comment(char|string)$")
+          if config and config.code == 1 then
+            comment_prefix = "#"
+          elseif config and config.code == 0 then
+            for entry in config.stdout:gmatch("([^%z]*)%z") do
+              comment_prefix = entry:match("^[^\n]+\n(.*)$")
+            end
+          end
+          if not comment_prefix or comment_prefix == "" or comment_prefix == "auto"
+            or not vim.api.nvim_buf_is_valid(buf) or vim.api.nvim_get_current_buf() ~= buf
+            or vim.api.nvim_buf_get_name(buf) ~= name
+            or vim.api.nvim_buf_get_changedtick(buf) ~= tick
+            or not editable() or operation_in_progress() then
+            return
+          end
+
+          local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+          for _, line in ipairs(lines) do
+            if not line:match("^%s*$") and line:sub(1, #comment_prefix) ~= comment_prefix then
+              return
+            end
+          end
+          -- An entirely empty amend has no reliable operation marker.
+          local replace_first = lines[1]:match("^%s*$") and 1 or 0
+          vim.api.nvim_buf_set_lines(buf, 0, replace_first, false, { ticket .. " " })
+          vim.api.nvim_win_set_cursor(0, { 1, #ticket })
         end
-        return vim.api.nvim_create_autocmd("BufWinEnter", {buffer = vim.api.nvim_get_current_buf(), once = true, callback = prefill_ticket})
+
+        -- FileType runs during the read; BufWinEnter keeps insertion modified.
+        vim.api.nvim_create_autocmd("BufWinEnter", {
+          buffer = vim.api.nvim_get_current_buf(),
+          once = true,
+          callback = prefill_ticket,
+        })
       '';
     "after/ftplugin/java.lua" = # lua
       ''
         local args = ${pkgs.lib.generators.toLua { } javaArgs}
-        local jdk8_path = args.jdk8_path
-        local jdk11_path = args.jdk11_path
-        local jdk17_path = args.jdk17_path
-        local jdk21_path = args.jdk21_path
-        local java_path = args.java_path
-        local jdtls_jar_pattern = args.jdtls_jar_pattern
-        local jdtls_config_path = args.jdtls_config_path
-        local lombok_jar_path = args.lombok_jar_path
-        local attach_path = args.attach_path
         local jdtls = require("jdtls")
         local bufnr = vim.api.nvim_get_current_buf()
-        if not ((vim.bo[bufnr].buftype == "") and (vim.bo[bufnr].filetype == "java") and (vim.api.nvim_buf_get_name(bufnr) ~= "") and vim.startswith(vim.uri_from_bufnr(bufnr), "file://")) then
+        if vim.bo[bufnr].buftype ~= "" or vim.bo[bufnr].filetype ~= "java"
+          or vim.api.nvim_buf_get_name(bufnr) == ""
+          or not vim.startswith(vim.uri_from_bufnr(bufnr), "file://") then
           return
-        else
         end
-        local root_dir = (vim.fs.root(bufnr, {"gradlew", "mvnw", ".git"}) or vim.fn.getcwd())
-        local workspace_dir = (os.getenv("HOME") .. "/.local/share/eclipse/" .. string.gsub(vim.fn.fnamemodify(root_dir, ":p:h"), "/", "_"))
-        local _2_
-        do
-          local tmp_3_ = vim.uv.fs_stat(workspace_dir)
-          if (nil ~= tmp_3_) then
-            local tmp_3_0 = tmp_3_[type]
-            if (nil ~= tmp_3_0) then
-              _2_ = (tmp_3_0 == "directory")
-            else
-              _2_ = nil
-            end
-          else
-            _2_ = nil
-          end
-        end
-        if not _2_ then
-          vim.uv.fs_mkdir(workspace_dir, 493)
-        else
-        end
-        local cmd = {java_path, "-Declipse.application=org.eclipse.jdt.ls.core.id1", "-Dosgi.bundles.defaultStartLevel=4", "-Declipse.product=org.eclipse.jdt.ls.core.product", ("-Dosgi.sharedConfiguration.area=" .. jdtls_config_path), "-Dosgi.sharedConfiguration.area.readOnly=true", "-Dosgi.checkConfiguration=true", "-Dosgi.configuration.cascaded=true", "-Dlog.protocol=true", "-Dlog.level=ERROR", "-Xlog:disable", "-XX:+AlwaysPreTouch", "-Xmx10g", ("-javaagent:" .. lombok_jar_path), "--add-modules=ALL-SYSTEM", "--add-opens", "java.base/java.util=ALL-UNNAMED", "--add-opens", "java.base/java.lang=ALL-UNNAMED", "-jar", vim.fn.glob(jdtls_jar_pattern), "-data", workspace_dir}
-        local settings
-        do
-          local enabled = {enabled = true}
-          local disabled = {enabled = false}
-          local favoriteStaticMembers = {"io.crate.testing.Asserts.assertThat", "java.util.Objects.requireNonNull", "java.util.Objects.requireNonNullElse", "org.assertj.core.api.Assertions.*", "org.assertj.core.api.Assertions.assertThat", "org.assertj.core.api.Assertions.assertThatExceptionOfType", "org.assertj.core.api.Assertions.assertThatThrownBy", "org.assertj.core.api.Assertions.catchThrowable", "org.hamcrest.CoreMatchers.*", "org.hamcrest.MatcherAssert.assertThat", "org.hamcrest.Matchers.*", "org.junit.jupiter.api.Assertions.*", "org.junit.jupiter.api.Assumptions.*", "org.junit.jupiter.api.DynamicContainer.*", "org.junit.jupiter.api.DynamicTest.*", "org.mockito.Answers.*", "org.mockito.ArgumentMatchers.*", "org.mockito.Mockito.*"}
-          local filteredTypes = {"java.awt.*", "com.sun.*", "sun.*", "jdk.*", "io.micrometer.shaded.*"}
-          local completion = {favoriteStaticMembers = favoriteStaticMembers, filteredTypes = filteredTypes}
-          local edit = {smartSemicolonDetection = enabled, validateAllOpenBuffersOnChanges = false}
-          local sources = {organizeImports = {starThreshold = 9999, staticStarThreshold = 9999}}
-          local configuration = {runtimes = {{name = "JavaSE-1.8", path = jdk8_path}, {name = "JavaSE-11", path = jdk11_path}, {name = "JavaSE-17", path = jdk17_path}, {name = "JavaSE-21", path = jdk21_path, default = true}}}
-          local java = {autobuild = disabled, maxConcurrentBuilds = 8, signatureHelp = enabled, format = disabled, configuration = configuration, completion = completion, edit = edit, sources = sources, referencesCodeLens = {enabled = true}, implementationsCodeLens = {enabled = true}, inlayHints = {parameterNames = {enabled = "all"}}}
-          settings = {java = java}
-        end
-        local bundles = {}
-        local extendedClientCapabilities = vim.tbl_deep_extend("force", jdtls.extendedClientCapabilities, {resolveAdditionalTextEditsSupport = true, progressReportProvider = false})
-        local init_options = {bundles = bundles, extendedClientCapabilities = extendedClientCapabilities}
-        local on_attach
-        local function _7_(client, bufnr0)
-          return dofile(attach_path)({buf = bufnr0, client = client})
-        end
-        on_attach = _7_
-        local flags = {allow_incremental_sync = true, debounce_text_changes = 300}
-        local handlers
-        local function _8_()
-        end
-        handlers = {["language/status"] = _8_}
-        return jdtls.start_or_attach({name = "jdtls", root_dir = root_dir, cmd = cmd, settings = settings, init_options = init_options, on_attach = on_attach, flags = flags, handlers = handlers}, nil, {bufnr = bufnr})
+
+        local root_dir = vim.fs.root(bufnr, { "gradlew", "mvnw", ".git" }) or vim.fn.getcwd()
+        local workspace_dir = os.getenv("HOME") .. "/.local/share/eclipse/"
+          .. vim.fn.fnamemodify(root_dir, ":p:h"):gsub("/", "_")
+        vim.fn.mkdir(workspace_dir, "p")
+
+        return jdtls.start_or_attach({
+          name = "jdtls",
+          root_dir = root_dir,
+          cmd = {
+            args.java_path,
+            "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+            "-Dosgi.bundles.defaultStartLevel=4",
+            "-Declipse.product=org.eclipse.jdt.ls.core.product",
+            "-Dosgi.sharedConfiguration.area=" .. args.jdtls_config_path,
+            "-Dosgi.sharedConfiguration.area.readOnly=true",
+            "-Dosgi.checkConfiguration=true",
+            "-Dosgi.configuration.cascaded=true",
+            "-Dlog.protocol=true",
+            "-Dlog.level=ERROR",
+            "-Xlog:disable",
+            "-XX:+AlwaysPreTouch",
+            "-Xmx10g",
+            "-javaagent:" .. args.lombok_jar_path,
+            "--add-modules=ALL-SYSTEM",
+            "--add-opens", "java.base/java.util=ALL-UNNAMED",
+            "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+            "-jar", vim.fn.glob(args.jdtls_jar_pattern),
+            "-data", workspace_dir,
+          },
+          settings = {
+            java = {
+              autobuild = { enabled = false },
+              maxConcurrentBuilds = 8,
+              signatureHelp = { enabled = true },
+              format = { enabled = false },
+              configuration = {
+                runtimes = {
+                  { name = "JavaSE-1.8", path = args.jdk8_path },
+                  { name = "JavaSE-11", path = args.jdk11_path },
+                  { name = "JavaSE-17", path = args.jdk17_path },
+                  { name = "JavaSE-21", path = args.jdk21_path, default = true },
+                },
+              },
+              completion = {
+                favoriteStaticMembers = {
+                  "io.crate.testing.Asserts.assertThat",
+                  "java.util.Objects.requireNonNull",
+                  "java.util.Objects.requireNonNullElse",
+                  "org.assertj.core.api.Assertions.*",
+                  "org.assertj.core.api.Assertions.assertThat",
+                  "org.assertj.core.api.Assertions.assertThatExceptionOfType",
+                  "org.assertj.core.api.Assertions.assertThatThrownBy",
+                  "org.assertj.core.api.Assertions.catchThrowable",
+                  "org.hamcrest.CoreMatchers.*",
+                  "org.hamcrest.MatcherAssert.assertThat",
+                  "org.hamcrest.Matchers.*",
+                  "org.junit.jupiter.api.Assertions.*",
+                  "org.junit.jupiter.api.Assumptions.*",
+                  "org.junit.jupiter.api.DynamicContainer.*",
+                  "org.junit.jupiter.api.DynamicTest.*",
+                  "org.mockito.Answers.*",
+                  "org.mockito.ArgumentMatchers.*",
+                  "org.mockito.Mockito.*",
+                },
+                filteredTypes = { "java.awt.*", "com.sun.*", "sun.*", "jdk.*", "io.micrometer.shaded.*" },
+              },
+              edit = {
+                smartSemicolonDetection = { enabled = true },
+                validateAllOpenBuffersOnChanges = false,
+              },
+              sources = { organizeImports = { starThreshold = 9999, staticStarThreshold = 9999 } },
+              referencesCodeLens = { enabled = true },
+              implementationsCodeLens = { enabled = true },
+              inlayHints = { parameterNames = { enabled = "all" } },
+            },
+          },
+          init_options = {
+            bundles = {},
+            extendedClientCapabilities = vim.tbl_deep_extend("force", jdtls.extendedClientCapabilities, {
+              resolveAdditionalTextEditsSupport = true,
+              progressReportProvider = false,
+            }),
+          },
+          on_attach = function(client, buf)
+            dofile(args.attach_path)({ buf = buf, client = client })
+          end,
+          flags = { allow_incremental_sync = true, debounce_text_changes = 300 },
+          handlers = { ["language/status"] = function() end },
+        }, nil, { bufnr = bufnr })
       '';
     "after/ftplugin/jproperties.lua" = # lua
       ''
-        return vim.opt_local.iskeyword:append("-")
+        vim.opt_local.iskeyword:append("-")
       '';
     "after/ftplugin/json.lua" = # lua
       ''
-        return vim.keymap.set("n", "<LocalLeader>E", "<CMD>Videre<CR>", {buf = 0, silent = true})
+        vim.keymap.set("n", "<LocalLeader>E", "<Cmd>Videre<CR>", { buffer = true, silent = true })
       '';
-    "after/ftplugin/lua.lua" = # lua
-      "";
+    "after/ftplugin/lua.lua" = "";
     "after/ftplugin/make.lua" = # lua
       ''
         vim.opt_local.expandtab = false
-        return vim.opt_local.iskeyword:append("-")
+        vim.opt_local.iskeyword:append("-")
       '';
     "after/ftplugin/markdown.lua" = # lua
       ''
-        for key, value in pairs({foldcolumn = "0", listchars = "tab:> ", virtualedit = "all", number = false}) do
-          vim.opt_local[key] = value
-        end
-        vim.keymap.set({"n", "i"}, "<D-v>", "<Plug>(mdpaste)", {buffer = true})
-        if (vim.fn.expand("%:e") == "ipynb") then
+        vim.opt_local.foldcolumn = "0"
+        vim.opt_local.listchars = "tab:> "
+        vim.opt_local.virtualedit = "all"
+        vim.opt_local.number = false
+        vim.keymap.set({ "n", "i" }, "<D-v>", "<Plug>(mdpaste)", { buffer = true })
+
+        if vim.fn.expand("%:e") == "ipynb" then
           require("quarto").activate()
           require("otter").activate()
           local runner = require("quarto.runner")
-          for mode, kvp in pairs({n = {["<LocalLeader>e"] = ":MoltenEvaluateOperator<CR>", ["<localleader>rr"] = runner.run_cell, ["<localleader>ra"] = runner.run_above, ["<localleader>rA"] = runner.run_all, ["<localleader>rl"] = runner.run_line, ["<localleader>mi"] = ":MoltenInit<CR>", ["<localleader>md"] = ":MoltenDelete<CR>"}, v = {["<localleader>r"] = runner.run_range}}) do
-            for k, v in pairs(kvp) do
-              vim.keymap.set(mode, k, v, {buf = 0, silent = true})
-            end
+          for key, action in pairs({
+            ["<LocalLeader>e"] = ":MoltenEvaluateOperator<CR>",
+            ["<LocalLeader>rr"] = runner.run_cell,
+            ["<LocalLeader>ra"] = runner.run_above,
+            ["<LocalLeader>rA"] = runner.run_all,
+            ["<LocalLeader>rl"] = runner.run_line,
+            ["<LocalLeader>mi"] = ":MoltenInit<CR>",
+            ["<LocalLeader>md"] = ":MoltenDelete<CR>",
+          }) do
+            vim.keymap.set("n", key, action, { buffer = true, silent = true })
           end
-          return nil
-        else
-          return nil
+          vim.keymap.set("v", "<LocalLeader>r", runner.run_range, { buffer = true, silent = true })
         end
       '';
     "after/ftplugin/nix.lua" = # lua
       ''
-        return vim.opt_local.iskeyword:append("-")
+        vim.opt_local.iskeyword:append("-")
       '';
     "after/ftplugin/python.lua" = # lua
       ''
-        if (vim.fn.expand("%:e") == "ipynb") then
-          for mode, kvp in pairs({n = {["<LocalLeader>e"] = ":MoltenEvaluateOperator<CR>", ["<localleader>rr"] = ":MoltenReevaluateCell<CR>", ["<localleader>os"] = ":noautocmd MoltenEnterOutput<CR>", ["<localleader>oh"] = ":MoltenHideOutput<CR>", ["<localleader>mi"] = ":MoltenInit<CR>", ["<localleader>md"] = ":MoltenDelete<CR>"}, v = {["<localleader>r"] = ":<C-u>MoltenEvaluateVisual<CR>gv"}}) do
-            for k, v in pairs(kvp) do
-              vim.keymap.set(mode, k, v, {buf = 0, silent = true})
-            end
+        if vim.fn.expand("%:e") == "ipynb" then
+          for key, action in pairs({
+            ["<LocalLeader>e"] = ":MoltenEvaluateOperator<CR>",
+            ["<LocalLeader>rr"] = ":MoltenReevaluateCell<CR>",
+            ["<LocalLeader>os"] = ":noautocmd MoltenEnterOutput<CR>",
+            ["<LocalLeader>oh"] = ":MoltenHideOutput<CR>",
+            ["<LocalLeader>mi"] = ":MoltenInit<CR>",
+            ["<LocalLeader>md"] = ":MoltenDelete<CR>",
+          }) do
+            vim.keymap.set("n", key, action, { buffer = true, silent = true })
           end
-          return nil
-        else
-          return nil
+          vim.keymap.set("v", "<LocalLeader>r", ":<C-u>MoltenEvaluateVisual<CR>gv", {
+            buffer = true,
+            silent = true,
+          })
         end
       '';
     "after/ftplugin/qf.lua" = # lua
       ''
         vim.opt_local.buflisted = false
-        return nil
       '';
     "after/ftplugin/qfreplace.lua" = # lua
       ''
-        local tmp_9_ = vim.opt_local
-        tmp_9_["buflisted"] = false
-        tmp_9_["bufhidden"] = "delete"
-        return tmp_9_
+        vim.opt_local.buflisted = false
+        vim.opt_local.bufhidden = "delete"
       '';
     "after/ftplugin/rust.lua" = # lua
       ''
-        local opt = {silent = true, buf = 0}
-        local function _1_()
-          return vim.cmd.RustLsp({"hover", "actions"})
-        end
-        for k, v in pairs({K = _1_}) do
-          vim.keymap.set("n", k, v, opt)
-        end
-        return nil
+        vim.keymap.set("n", "K", function()
+          vim.cmd.RustLsp({ "hover", "actions" })
+        end, { buffer = true, silent = true })
       '';
-    "after/ftplugin/teal.lua" = # lua
-      "";
+    "after/ftplugin/teal.lua" = "";
     "after/ftplugin/toml.lua" = # lua
       ''
-        return vim.keymap.set("n", "<LocalLeader>E", "<CMD>Videre<CR>", {buf = 0, silent = true})
+        vim.keymap.set("n", "<LocalLeader>E", "<Cmd>Videre<CR>", { buffer = true, silent = true })
       '';
     "after/ftplugin/translate.lua" = # lua
       ''
         vim.opt_local.wrap = true
-        return nil
       '';
     "after/ftplugin/yaml.lua" = # lua
       ''
         vim.opt_local.iskeyword:append("-")
-        return vim.keymap.set("n", "<LocalLeader>E", "<CMD>Videre<CR>", {buf = 0, silent = true})
+        vim.keymap.set("n", "<LocalLeader>E", "<Cmd>Videre<CR>", { buffer = true, silent = true })
       '';
     "after/lsp/denols.lua" = # lua
       ''
-        return {workspace_required = true, root_markers = {"deno.json", "deno.jsonc", ".deno_project"}, init_options = {lint = true, suggest = {completeFunctionCalls = true, names = true, paths = true, autoImports = true, imports = {autoDiscover = true, hosts = vim.empty_dict()}}, unstable = false}, settings = {deno = {enable = true}}, single_file_support = false}
+        return {
+          single_file_support = false,
+          workspace_required = true,
+          root_markers = { "deno.json", "deno.jsonc", ".deno_project" },
+          init_options = {
+            lint = true,
+            unstable = false,
+            suggest = {
+              completeFunctionCalls = true,
+              names = true,
+              paths = true,
+              autoImports = true,
+              imports = { autoDiscover = true, hosts = vim.empty_dict() },
+            },
+          },
+          settings = { deno = { enable = true } },
+        }
       '';
     "after/lsp/efm.lua" = # lua
       ''
         local languages = {}
-        local init_options = {documentFormatting = true, documentRangeFormatting = true}
-        return {single_file_support = true, filetypes = vim.tbl_keys(languages), settings = {rootMarkers = {".git/"}, languages = languages}, init_options = init_options}
+        return {
+          single_file_support = true,
+          filetypes = vim.tbl_keys(languages),
+          settings = { rootMarkers = { ".git/" }, languages = languages },
+          init_options = { documentFormatting = true, documentRangeFormatting = true },
+        }
       '';
     "after/lsp/fennel_ls.lua" = # lua
       ''
-        return {settings = {["fennel-ls"] = {["extra-globals"] = "vim"}}}
+        return { settings = { ["fennel-ls"] = { ["extra-globals"] = "vim" } } }
       '';
     "after/lsp/eslint.lua" = # lua
       ''
         local args = ${pkgs.lib.generators.toLua { } { node_path = "${pkgs.eslint}/lib/node_modules"; }}
-        return {cmd = {"vscode-eslint-language-server", "--stdio"}, cmd_env = {NODE_PATH = args.node_path}, settings = {nodePath = vim.NIL, format = false}}
+        return {
+          cmd = { "vscode-eslint-language-server", "--stdio" },
+          -- Project-local ESLint wins over this packaged fallback.
+          cmd_env = { NODE_PATH = args.node_path },
+          -- Keep formatting with Prettier/Biome, while retaining code actions.
+          settings = { nodePath = vim.NIL, format = false },
+        }
       '';
     "after/lsp/jdtls.lua" = # lua
       ''
-        return {filetypes = {}}
+        -- Java's ftplugin starts JDT LS with its per-project workspace.
+        return { filetypes = {} }
       '';
     "after/lsp/lua_ls.lua" = # lua
       ''
-        return {settings = {Lua = {runtime = {version = "LuaJIT", special = {reload = "require"}}, diagnostics = {globals = {"vim"}}}, workspace = {library = {vim.fn.expand("$VIMRUNTIME/lua"), "''${3rd}/luv/library"}}, telemetry = {enable = false}}}
+        return {
+          settings = {
+            Lua = {
+              runtime = { version = "LuaJIT", special = { reload = "require" } },
+              diagnostics = { globals = { "vim" } },
+            },
+            workspace = { library = { vim.fn.expand("$VIMRUNTIME/lua"), "''${3rd}/luv/library" } },
+            telemetry = { enable = false },
+          },
+        }
       '';
     "after/lsp/nil_ls.lua" = # lua
       ''
-        return {settings = {["nil"] = {formatting = {command = {"nixpkgs-fmt"}}, nix = {flake = {autoArchive = false}}}}}
+        return {
+          settings = {
+            ["nil"] = {
+              formatting = { command = { "nixpkgs-fmt" } },
+              nix = { flake = { autoArchive = false } },
+            },
+          },
+        }
       '';
     "after/lsp/pyright.lua" = # lua
       ''
-        return {settings = {python = {pythonPath = ".venv/bin/python", analysis = {diagnosticSeverityOverrides = {reportUnusedExpression = "none"}}}}}
+        return {
+          settings = {
+            python = {
+              pythonPath = ".venv/bin/python",
+              analysis = { diagnosticSeverityOverrides = { reportUnusedExpression = "none" } },
+            },
+          },
+        }
       '';
     "after/lsp/typos_lsp.lua" = # lua
       ''
-        return {init_options = {diagnosticSeverity = "Warning"}}
+        return { init_options = { diagnosticSeverity = "Warning" } }
       '';
     "after/lsp/vtsls.lua" = # lua
       ''
-        local function _1_(err, result, ctx, config)
-          local filtered
-          if (not err and result and result.diagnostics) then
-            local function _2_(d)
-              return ((d.code ~= 80001) and (d.code ~= "80001"))
-            end
-            filtered = vim.tbl_extend("force", {}, result, {diagnostics = vim.tbl_filter(_2_, result.diagnostics)})
-          else
-            filtered = result
+        local function publish_diagnostics(err, result, ctx, config)
+          -- Hide only the CommonJS-to-ES-module suggestion, without mutating the payload.
+          if not err and result and result.diagnostics then
+            result = vim.tbl_extend("force", {}, result, {
+              diagnostics = vim.tbl_filter(function(diagnostic)
+                return diagnostic.code ~= 80001 and diagnostic.code ~= "80001"
+              end, result.diagnostics),
+            })
           end
-          return vim.lsp.handlers["textDocument/publishDiagnostics"](err, filtered, ctx, config)
+          -- Resolve at notification time so later global wrappers still run.
+          return vim.lsp.handlers["textDocument/publishDiagnostics"](err, result, ctx, config)
         end
-        return {workspace_required = true, root_markers = {"tsconfig.json", "package.json", "jsconfig.json", ".node_project"}, handlers = {["textDocument/publishDiagnostics"] = _1_}, settings = {separate_diagnostic_server = true, publish_diagnostic_on = "insert_leave", typescript = {suggest = {completeFunctionCalls = true}, preferences = {importModuleSpecifier = "relative"}}}, flags = {debounce_text_changes = 1000}, vtsls = {experimental = {completion = {enableServerSideFuzzyMatch = true}}}, single_file_support = false}
+
+        return {
+          single_file_support = false,
+          workspace_required = true,
+          root_markers = { "tsconfig.json", "package.json", "jsconfig.json", ".node_project" },
+          handlers = { ["textDocument/publishDiagnostics"] = publish_diagnostics },
+          settings = {
+            separate_diagnostic_server = true,
+            publish_diagnostic_on = "insert_leave",
+            typescript = {
+              suggest = { completeFunctionCalls = true },
+              preferences = { importModuleSpecifier = "relative" },
+            },
+          },
+          flags = { debounce_text_changes = 1000 },
+          vtsls = { experimental = { completion = { enableServerSideFuzzyMatch = true } } },
+        }
       '';
     "after/lsp/yamlls.lua" = # lua
       ''
-        return {settings = {yaml = {customTags = {"!And", "!Base64", "!Cidr", "!Equals", "!FindInMap sequence", "!GetAZs", "!GetAtt", "!If", "!ImportValue", "!Join sequence", "!Not", "!Or", "!Ref Scalar", "!Ref", "!Select", "!Split", "!Sub", "!fn"}, keyOrdering = false}}}
+        return {
+          settings = {
+            yaml = {
+              keyOrdering = false,
+              customTags = {
+                "!And", "!Base64", "!Cidr", "!Equals", "!FindInMap sequence",
+                "!GetAZs", "!GetAtt", "!If", "!ImportValue", "!Join sequence",
+                "!Not", "!Or", "!Ref Scalar", "!Ref", "!Select", "!Split", "!Sub", "!fn",
+              },
+            },
+          },
+        }
       '';
     "after/ftdetect/nginx.vim" = ''
       source ${nginxPlugin}/ftdetect/nginx.vim
@@ -409,7 +518,6 @@ let
       path = pkgs.writeText (builtins.baseNameOf name) text;
     }) files
   );
-  marker = pkgs.runCommand "nvim-v3-core" { } "mkdir -p $out";
 in
 {
   inherit runtime;
@@ -421,161 +529,214 @@ in
   + ''
     vim.loader.enable()
     require("vim._core.ui2").enable()
-    if (vim.v.servername and (vim.v.servername ~= "")) then
+    if vim.v.servername and vim.v.servername ~= "" then
       vim.env.NVIM_EDITOR_ADDR = vim.v.servername
-    else
     end
-    local function configure_editor_env()
-      if vim.g._editor_open_cmd then
-        vim.env.EDITOR = vim.g._editor_open_cmd
-        vim.env.VISUAL = vim.g._editor_open_cmd
-        vim.env.TIG_EDITOR = vim.g._editor_open_cmd
-      else
-      end
-      if vim.g._editor_open_cmd_wait then
-        vim.env.GIT_EDITOR = vim.g._editor_open_cmd_wait
-        return nil
-      else
-        return nil
-      end
+    for _, name in ipairs({ "EDITOR", "VISUAL", "TIG_EDITOR" }) do
+      vim.env[name] = vim.g._editor_open_cmd
     end
-    configure_editor_env()
+    vim.env.GIT_EDITOR = vim.g._editor_open_cmd_wait
     vim.cmd("language messages en_US.UTF-8")
     pcall(dofile, vim.fn.expand("$HOME/config.lua"))
-    for opt, kvp in pairs({opt = {langmenu = "none", timeoutlen = 1000, shortmess = (vim.o.shortmess .. "sWcS"), cmdheight = 0, signcolumn = "yes", laststatus = 0, statusline = "%=", showtabline = 0, splitkeep = "screen", foldcolumn = "1", foldlevel = 99, foldlevelstart = 99, foldenable = true, switchbuf = "", splitbelow = true, splitright = true, winborder = "single", number = false, showmode = false, wrap = false}, g = {mapleader = " ", maplocalleader = ",", loaded_netrw = 1, loaded_netrwPlugin = 1, no_plugin_maps = true}}) do
-      for k, v in pairs(kvp) do
-        vim[opt][k] = v
-      end
+
+    for name, value in pairs({
+      langmenu = "none",
+      timeoutlen = 1000,
+      shortmess = vim.o.shortmess .. "sWcS",
+      cmdheight = 0,
+      signcolumn = "yes",
+      -- Keep horizontal splits as a separator, without statusline content.
+      laststatus = 0,
+      statusline = "%=",
+      showtabline = 0,
+      splitkeep = "screen",
+      foldcolumn = "1",
+      foldlevel = 99,
+      foldlevelstart = 99,
+      foldenable = true,
+      switchbuf = "",
+      splitbelow = true,
+      splitright = true,
+      winborder = "single",
+      number = false,
+      showmode = false,
+      wrap = false,
+    }) do
+      vim.opt[name] = value
     end
-  ''
-  + ''
+    vim.g.mapleader = " "
+    vim.g.maplocalleader = ","
+    vim.g.loaded_netrw = 1
+    vim.g.loaded_netrwPlugin = 1
+    vim.g.no_plugin_maps = true
+
     if vim.g.neovide then
-  ''
-  # lua
-  + ''
-    for k, v in pairs({neovide_cursor_animation_length = 0.1, neovide_floating_corner_radius = 0.25, neovide_hide_mouse_when_typing = true, neovide_opacity = 0.9, neovide_padding_bottom = 5, neovide_padding_left = 5, neovide_padding_right = 5, neovide_window_blurred = true, neovide_padding_top = 10, neovide_confirm_quit = false, neovide_cursor_animate_in_insert_mode = false, neovide_cursor_antialiasing = false, neovide_floating_shadow = false, neovide_input_ime = false, neovide_macos_simple_fullscreen = false}) do
-      vim.g[k] = v
-    end
-    local map = vim.keymap.set
-    local scale = 1.1
-    local change_scale
-    local function _1_(delta)
-      vim.g.neovide_scale_factor = (vim.g.neovide_scale_factor * delta)
-      return nil
-    end
-    change_scale = _1_
-    local toggle_zoom
-    local function _2_()
-      vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
-      return nil
-    end
-    toggle_zoom = _2_
-    local toggle_blur
-    local function _3_()
-      vim.g.neovide_window_blurred = not vim.g.neovide_window_blurred
-      return nil
-    end
-    toggle_blur = _3_
-    local paste_from_clipboard_insert
-    local function _4_()
-      local lines = vim.fn.getreg("+", 1, true)
-      if (#lines == 1) then
-        return vim.api.nvim_paste(lines[1], true, -1)
-      else
-        return vim.api.nvim_put(lines, vim.fn.getregtype("+"), true, true)
+      for name, value in pairs({
+        neovide_confirm_quit = false,
+        neovide_cursor_animate_in_insert_mode = false,
+        neovide_cursor_animation_length = 0.1,
+        neovide_cursor_antialiasing = false,
+        neovide_floating_corner_radius = 0.25,
+        neovide_floating_shadow = false,
+        neovide_hide_mouse_when_typing = true,
+        neovide_input_ime = false,
+        neovide_macos_simple_fullscreen = false,
+        neovide_opacity = 0.9,
+        neovide_padding_bottom = 5,
+        neovide_padding_left = 5,
+        neovide_padding_right = 5,
+        neovide_padding_top = 10,
+        neovide_window_blurred = true,
+      }) do
+        vim.g[name] = value
       end
-    end
-    paste_from_clipboard_insert = _4_
-    vim.o.guifont = "PlemolJP Console NF:h15"
-    local function _6_()
-      return change_scale(scale)
-    end
-    map("n", "<C-=>", _6_)
-    local function _7_()
-      return change_scale(scale)
-    end
-    map("n", "<C-+>", _7_)
-    local function _8_()
-      return change_scale((1 / scale))
-    end
-    map("n", "<C-->", _8_)
-    map("n", "<A-Enter>", toggle_zoom)
-    map("n", "<A-Tab>", toggle_blur)
-    map("i", "<D-v>", paste_from_clipboard_insert)
-    map("c", "<D-v>", "<C-r>+")
-    map("t", "<D-v>", "<C-\\><C-n>\"+pi")
-    vim.api.nvim_create_user_command("ToggleNeovideFullScreen", toggle_zoom, {})
-    return vim.api.nvim_create_user_command("ToggleNeovideBlur", toggle_blur, {})
-  ''
-  + ''
+      local function change_scale(factor)
+        vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * factor
+      end
+      local function toggle_fullscreen()
+        vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
+      end
+      local function toggle_blur()
+        vim.g.neovide_window_blurred = not vim.g.neovide_window_blurred
+      end
+      local function paste_from_clipboard()
+        local lines = vim.fn.getreg("+", 1, true)
+        if #lines == 1 then
+          vim.api.nvim_paste(lines[1], true, -1)
+        else
+          vim.api.nvim_put(lines, vim.fn.getregtype("+"), true, true)
+        end
+      end
+
+      vim.o.guifont = "PlemolJP Console NF:h15"
+      -- Ctrl+= needs no Shift; also accept Ctrl++ for other keyboard layouts.
+      for _, key in ipairs({ "<C-=>", "<C-+>" }) do
+        vim.keymap.set("n", key, function() change_scale(1.1) end)
+      end
+      vim.keymap.set("n", "<C-->", function() change_scale(1 / 1.1) end)
+      vim.keymap.set("n", "<A-Enter>", toggle_fullscreen)
+      vim.keymap.set("n", "<A-Tab>", toggle_blur)
+      vim.keymap.set("i", "<D-v>", paste_from_clipboard)
+      vim.keymap.set("c", "<D-v>", "<C-r>+")
+      -- Avoid the shell's Ctrl+r mapping in terminal mode.
+      vim.keymap.set("t", "<D-v>", "<C-\\><C-n>\"+pi")
+      vim.api.nvim_create_user_command("ToggleNeovideFullScreen", toggle_fullscreen, {})
+      vim.api.nvim_create_user_command("ToggleNeovideBlur", toggle_blur, {})
     end
   '';
   definition = {
-    plugin = marker;
+    plugin = runtime;
     extraPackages = [ pkgs.jq ];
-    # The default profile adds all configured plugins as explicit dependencies.
+    # The profile declares the plugins needed by these immediate setup calls.
     config = # lua
       ''
         local function link_statusline_to_separator()
-          vim.api.nvim_set_hl(0, "StatusLine", {link = "WinSeparator"})
-          return vim.api.nvim_set_hl(0, "StatusLineNC", {link = "WinSeparator"})
+          vim.api.nvim_set_hl(0, "StatusLine", { link = "WinSeparator" })
+          vim.api.nvim_set_hl(0, "StatusLineNC", { link = "WinSeparator" })
         end
         link_statusline_to_separator()
-        vim.api.nvim_create_autocmd("ColorScheme", {callback = link_statusline_to_separator})
-        do
-          local S = require("snacks")
-          local opts = {noremap = true, silent = true}
-          local desc
-          local function _4_(d)
-            return {noremap = true, silent = true, desc = d}
-          end
-          desc = _4_
-          local lua_
-          local function _5_(mod, f, opt)
-            local function _6_()
-              if (opt == nil) then
-                return require(mod)[f]()
-              else
-                return require(mod)[f](opt)
-              end
-            end
-            return _6_
-          end
-          lua_ = _5_
-          local toggle
-          local function _8_(id)
-            local function _9_()
-              return require("toggler").toggle(id)
-            end
-            return _9_
-          end
-          toggle = _8_
-          local function _13_()
-            return vim.cmd(("Track open " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")))
-          end
-          for m, ks in pairs({n = {{"j", "gj"}, {"k", "gk"}, {"\194\165", "\\"}, {"<C-l>", "<Cmd>nohl<CR><C-l>"}, {"*", "<Plug>(asterisk-z*)", {silent = true}}, {"#", "<Plug>(asterisk-z#)", {silent = true}}, {"g*", "<Plug>(asterisk-gz*)", {silent = true}}, {"g#", "<Plug>(asterisk-gz#)", {silent = true}}, {"<C-Space>", "<Cmd>OpenMenu<CR>"}, {"<C-o>", "<Cmd>KomadoToggle<CR>"}, {"<Leader>q", S.bufdelete.delete, desc("close buffer")}, {"<Leader>Q", S.bufdelete.all, desc("close all buffers")}, {"<Leader>A", "<Cmd>tabclose<CR>"}, {"<Leader>tq", toggle("qf"), desc("\239\136\132 quickfix")}, {"<Leader>tb", lua_("oil", "open"), desc("\239\136\132 explorer")}, {"<Leader>td", toggle("trouble-doc"), desc("\239\136\132 diagnostics (doc)")}, {"<Leader>tD", toggle("trouble-ws"), desc("\239\136\132 diagnostics (ws)")}, {"<Leader>tR", lua_("spectre", "toggle"), desc("\239\136\132 replace")}, {"<Leader>H", toggle("harpoon"), desc("\243\176\162\183 show items")}, {"<Leader>ha", "<Cmd>lua require('harpoon'):list():add()<CR>", desc("\243\176\162\183 register item")}, {"<Leader>fa", "<Cmd>Telescope worktab<CR>", desc("\238\169\173 worktab")}, {"<Leader>ff", "<Cmd>Telescope live_grep_args<CR>", desc("\238\169\173 livegrep")}, {"<Leader>fp", "<Cmd>Telescope find_files find_command=rg,--files,--hidden,-g,!.git<CR>", desc("\238\169\173 files")}, {"<Leader>Ff", "<Cmd>Telescope live_grep_args cwd=~/ghq<CR>", desc("\238\169\173 livegrep (ghq)")}, {"<Leader>Fp", "<Cmd>Telescope find_files cwd=~/ghq<CR>", desc("\238\169\173 files (ghq)")}, {"<Leader>fP", "<Cmd>Telescope ghq previewer=false<CR>", desc("\238\169\173 project files")}, {"<Leader>fb", "<Cmd>TelescopeBuffer<CR>", desc("\238\169\173 buffer")}, {"<Leader>fB", "<Cmd>TelescopeBufferName<CR>", desc("\238\169\173 buffer")}, {"<Leader>ft", "<Cmd>Telescope pterm<CR>", desc("\238\169\173 terminal")}, {"<Leader>fT", "<Cmd>Telescope sonictemplate templates<CR>", desc("\238\169\173 template")}, {"<Leader>fn", "<Cmd>NeorgFuzzySearch<CR>", desc("\238\152\179 fuzzy search")}, {"<Leader>fN", "<Cmd>NeorgFindFile<CR>", desc("\238\152\179 find file")}, {"<Leader>G", "<Cmd>Gitu<CR>", desc("\239\135\147 client")}, {"<Leader>go", "<Cmd>TracePR<CR>", desc("\239\135\147 open PR")}, {"<Leader>N", "<Cmd>Neorg<CR>", desc("\238\152\179 enter")}, {"<Leader>ny", "<Cmd>Neorg journal yesterday<CR>", desc("\238\152\179 yesterday")}, {"<Leader>nt", "<Cmd>Neorg journal today<CR>", desc("\238\152\179 today")}, {"<Leader>nT", "<Cmd>Neorg journal tomorrow<CR>", desc("\238\152\179 tomorrow")}, {"<Leader>nn", "<Cmd>NeorgScratch<CR>", desc("\238\152\179 scratch")}, {"<Leader>ngg", "<Cmd>NeorgGit<CR>", desc("\238\152\179 Git")}, {"<Leader>ngb", "<Cmd>NeorgGitBranch<CR>", desc("\238\152\179 Git (branch)")}, {"<Leader>aa", "<Cmd>AvanteAsk<CR>"}, {"<Leader>at", "<Cmd>AvanteToggle<CR>"}, {"<Leader>tt", "<Cmd>Track today<CR>", desc("\239\137\137 journal today")}, {"<Leader>tn", "<Cmd>Track open<CR>", desc("\239\137\137 open note")}, {"<Leader>tf", "<Cmd>Track search_body<CR>", desc("\239\137\137 find note (body)")}, {"<Leader>tg", _13_, desc("\239\137\137 open workdir note")}, {"<Leader>tF", "<Cmd>Track search_title<CR>", desc("\239\137\137 find note (title)")}, {"<Leader>ot", "<Cmd>Obsidian today<CR>", desc("\239\137\137 journal today")}, {"<Leader>oy", "<Cmd>Obsidian yesterday<CR>", desc("\239\137\137 journal yesterday")}, {"<Leader>oo", "<Cmd>ObsidianScratch<CR>", desc("\239\137\137 new note")}, {"<Leader>ogg", "<Cmd>ObsidianGit<CR>", desc("\239\137\137 Git")}, {"<Leader>ogb", "<Cmd>ObsidianGitBranch<CR>", desc("\239\137\137 Git branch")}, {"<Leader>on", "<Cmd>Obsidian new<CR>", desc("\239\137\137 new note")}, {"<Leader>fo", "<Cmd>Obsidian search<CR>", desc("\239\137\137 fuzzy search")}}, i = {{"\194\165", "\\"}}, c = {{"\194\165", "\\"}}, t = {{"\194\165", "\\"}, {"<S-Space>", "<Space>"}}, v = {{"\194\165", "\\"}}}) do
-            for _, k in ipairs(ks) do
-              vim.keymap.set(m, k[1], k[2], (k[3] or opts))
-            end
-          end
-          for i = 0, 9 do
-            vim.keymap.set({"n", "t", "i"}, ("<C-" .. i .. ">"), toggle(("term" .. i)), opts)
-          end
+        vim.api.nvim_create_autocmd("ColorScheme", { callback = link_statusline_to_separator })
+
+        local snacks = require("snacks")
+        local function call(module, method)
+          return function() require(module)[method]() end
         end
-        for lhs, rhs in pairs({["<C-Space>"] = "<C-n>", ["<C-S-Space>"] = "<C-p>", ["<C-a>"] = "<Home>", ["<C-e>"] = "<End>"}) do
-          vim.keymap.set("i", lhs, rhs, {noremap = true})
+        local function toggle(id)
+          return function() require("toggler").toggle(id) end
         end
-        vim.cmd("colorscheme sorairo")
-        return require("config-local").setup({silent = true})
+        local function open_workdir_note()
+          vim.cmd("Track open " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t"))
+        end
+        for _, mapping in ipairs({
+          { "j", "gj" },
+          { "k", "gk" },
+          { "<C-l>", "<Cmd>nohl<CR><C-l>" },
+          { "*", "<Plug>(asterisk-z*)" },
+          { "#", "<Plug>(asterisk-z#)" },
+          { "g*", "<Plug>(asterisk-gz*)" },
+          { "g#", "<Plug>(asterisk-gz#)" },
+          { "<C-Space>", "<Cmd>OpenMenu<CR>" },
+          { "<C-o>", "<Cmd>KomadoToggle<CR>" },
+          { "<Leader>q", snacks.bufdelete.delete, "close buffer" },
+          { "<Leader>Q", snacks.bufdelete.all, "close all buffers" },
+          { "<Leader>A", "<Cmd>tabclose<CR>" },
+          { "<Leader>tq", toggle("qf"), " quickfix" },
+          { "<Leader>tb", call("oil", "open"), " explorer" },
+          { "<Leader>td", toggle("trouble-doc"), " diagnostics (doc)" },
+          { "<Leader>tD", toggle("trouble-ws"), " diagnostics (ws)" },
+          { "<Leader>tR", call("spectre", "toggle"), " replace" },
+          { "<Leader>H", toggle("harpoon"), "󰢷 show items" },
+          { "<Leader>ha", "<Cmd>lua require('harpoon'):list():add()<CR>", "󰢷 register item" },
+          { "<Leader>fa", "<Cmd>Telescope worktab<CR>", " worktab" },
+          { "<Leader>ff", "<Cmd>Telescope live_grep_args<CR>", " livegrep" },
+          { "<Leader>fp", "<Cmd>Telescope find_files find_command=rg,--files,--hidden,-g,!.git<CR>", " files" },
+          { "<Leader>Ff", "<Cmd>Telescope live_grep_args cwd=~/ghq<CR>", " livegrep (ghq)" },
+          { "<Leader>Fp", "<Cmd>Telescope find_files cwd=~/ghq<CR>", " files (ghq)" },
+          { "<Leader>fP", "<Cmd>Telescope ghq previewer=false<CR>", " project files" },
+          { "<Leader>fb", "<Cmd>TelescopeBuffer<CR>", " buffer" },
+          { "<Leader>fB", "<Cmd>TelescopeBufferName<CR>", " buffer" },
+          { "<Leader>ft", "<Cmd>Telescope pterm<CR>", " terminal" },
+          { "<Leader>fT", "<Cmd>Telescope sonictemplate templates<CR>", " template" },
+          { "<Leader>fn", "<Cmd>NeorgFuzzySearch<CR>", " fuzzy search" },
+          { "<Leader>fN", "<Cmd>NeorgFindFile<CR>", " find file" },
+          { "<Leader>G", "<Cmd>Gitu<CR>", " client" },
+          { "<Leader>go", "<Cmd>TracePR<CR>", " open PR" },
+          { "<Leader>N", "<Cmd>Neorg<CR>", " enter" },
+          { "<Leader>ny", "<Cmd>Neorg journal yesterday<CR>", " yesterday" },
+          { "<Leader>nt", "<Cmd>Neorg journal today<CR>", " today" },
+          { "<Leader>nT", "<Cmd>Neorg journal tomorrow<CR>", " tomorrow" },
+          { "<Leader>nn", "<Cmd>NeorgScratch<CR>", " scratch" },
+          { "<Leader>ngg", "<Cmd>NeorgGit<CR>", " Git" },
+          { "<Leader>ngb", "<Cmd>NeorgGitBranch<CR>", " Git (branch)" },
+          { "<Leader>aa", "<Cmd>AvanteAsk<CR>" },
+          { "<Leader>at", "<Cmd>AvanteToggle<CR>" },
+          { "<Leader>tt", "<Cmd>Track today<CR>", " journal today" },
+          { "<Leader>tn", "<Cmd>Track open<CR>", " open note" },
+          { "<Leader>tf", "<Cmd>Track search_body<CR>", " find note (body)" },
+          { "<Leader>tg", open_workdir_note, " open workdir note" },
+          { "<Leader>tF", "<Cmd>Track search_title<CR>", " find note (title)" },
+          { "<Leader>ot", "<Cmd>Obsidian today<CR>", " journal today" },
+          { "<Leader>oy", "<Cmd>Obsidian yesterday<CR>", " journal yesterday" },
+          { "<Leader>oo", "<Cmd>ObsidianScratch<CR>", " new note" },
+          { "<Leader>ogg", "<Cmd>ObsidianGit<CR>", " Git" },
+          { "<Leader>ogb", "<Cmd>ObsidianGitBranch<CR>", " Git branch" },
+          { "<Leader>on", "<Cmd>Obsidian new<CR>", " new note" },
+          { "<Leader>fo", "<Cmd>Obsidian search<CR>", " fuzzy search" },
+        }) do
+          vim.keymap.set("n", mapping[1], mapping[2], {
+            noremap = true,
+            silent = true,
+            desc = mapping[3],
+          })
+        end
+        vim.keymap.set({ "n", "i", "c", "t", "v" }, "¥", "\\", { noremap = true, silent = true })
+        vim.keymap.set("t", "<S-Space>", "<Space>", { noremap = true, silent = true })
+        for i = 0, 9 do
+          vim.keymap.set({ "n", "t", "i" }, "<C-" .. i .. ">", toggle("term" .. i), {
+            noremap = true,
+            silent = true,
+          })
+        end
+        for lhs, rhs in pairs({
+          ["<C-Space>"] = "<C-n>",
+          ["<C-S-Space>"] = "<C-p>",
+          ["<C-a>"] = "<Home>",
+          ["<C-e>"] = "<End>",
+        }) do
+          vim.keymap.set("i", lhs, rhs, { noremap = true })
+        end
+
+        require("config-local").setup({ silent = true })
       '';
     doc = ''
       Core owns editor options, mappings, Neovide settings, remote editor wrappers,
       and the native after/ftplugin and after/lsp runtime tree. Root startupConfig
       establishes leaders and netrw globals before any plugin executes; this
-      cartridge's config runs after the default profile's plugin dependencies.
-      Lua configuration is owned here; no legacy files are read at evaluation or
-      runtime. Java and ESLint receive their original per-file args as local Lua
-      tables, including the packaged JDK 25 launcher and owned LSP attach helper.
+      cartridge's config runs after its explicit setup dependencies.
+      Lua configuration is handwritten from the original Fennel behavior; no
+      generated Lua or legacy files are read at evaluation or runtime. Java and
+      ESLint receive their original per-file args as local Lua tables, including
+      the packaged JDK 25 launcher and owned LSP attach helper.
 
       EDITOR, VISUAL and TIG_EDITOR use the existing Neovim server when available;
       GIT_EDITOR waits for the buffer to close. +N and file:N positions work both
@@ -640,6 +801,12 @@ in
               assert nvim.vars["mapleader"] == " "
               assert nvim.vars["maplocalleader"] == ","
               assert nvim.vars["colors_name"] == "sorairo"
+              # Theme-dependent plugin setup and later Meian appearance changes
+              # must read the current palette, never snapshot an unset color.
+              initial_background = nvim.options["background"]
+              for background in ["light", "dark", initial_background]:
+                  nvim.options["background"] = background
+                  assert lua('return vim.api.nvim_get_hl(0, {name="HLChunk1", link=false}).fg == tonumber(vim.g.terminal_color_8:sub(2), 16)')
               assert nvim.options["splitbelow"] and nvim.options["splitright"]
               assert nvim.current.window.options["foldmethod"] == "expr"
               assert nvim.options["winborder"] == "single"
@@ -719,30 +886,82 @@ in
               assert nvim.current.buffer.options["bufhidden"] == "delete"
               assert lua('local c = dofile("${runtime}/after/lsp/eslint.lua"); return c.cmd_env.NODE_PATH == "${pkgs.eslint}/lib/node_modules"')
 
-              # Exercise real terminal callbacks and the migrated Goda popup,
-              # using only local cat. Do not launch configured AI terminals.
+              # Attach callbacks may target a buffer that is not current.
+              lua("""
+                local current = vim.api.nvim_get_current_buf()
+                local hidden = vim.api.nvim_create_buf(false, true)
+                local attach = dofile("${./lsp-attach.lua}")
+                attach({ buf = hidden })
+                assert(vim.b[hidden].lsp_attached and not vim.b[current].lsp_attached)
+                local count = #vim.api.nvim_buf_get_keymap(hidden, "n")
+                assert(count > 0 and vim.api.nvim_get_current_buf() == current)
+                attach({ buf = hidden })
+                assert(#vim.api.nvim_buf_get_keymap(hidden, "n") == count)
+                vim.api.nvim_buf_delete(hidden, { force = true })
+              """)
+              lua("""
+                local method = "textDocument/publishDiagnostics"
+                local handler = dofile("${runtime}/after/lsp/vtsls.lua").handlers[method]
+                local native = vim.lsp.handlers[method]
+                local received
+                vim.lsp.handlers[method] = function(err, result)
+                  received = result
+                  return "forwarded"
+                end
+                local payload = {
+                  uri = "file:///fixture.js", version = 2,
+                  diagnostics = { { code = 80001 }, { code = "80001" }, { code = 6133 } },
+                }
+                local result = handler(nil, payload, {}, {})
+                vim.lsp.handlers[method] = native
+                assert(result == "forwarded" and #payload.diagnostics == 3)
+                assert(received ~= payload and received.uri == payload.uri and received.version == 2)
+                assert(#received.diagnostics == 1 and received.diagnostics[1].code == 6133)
+              """)
+
+              # Exercise real terminal callbacks and the migrated Goda popup.
+              # Goda's silent! cleanup can leave E716 in v:errmsg even when no
+              # error is shown. Check visible errors and behavior, without
+              # clearing v:errmsg or weakening the strict startup check above.
+              visible_messages = nvim.command_output("messages")
+              lua("""
+                _G.core_test_errors = {}
+                _G.core_test_notify = vim.notify
+                vim.notify = function(message, level, options)
+                  if level == vim.log.levels.ERROR then
+                    table.insert(_G.core_test_errors, tostring(message))
+                  end
+                  return _G.core_test_notify(message, level, options)
+                end
+              """)
               nvim.command("enew")
               nvim.command("terminal " + os.environ["CORE_TEST_CAT"])
               terminal = nvim.current.buffer
               send("i")
               wait(lambda: nvim.eval("mode()") == "t", "enter terminal")
               assert nvim.call("maparg", "<C-g>", "t", False, True).get("desc") == "SKK input helper"
-              send("<C-g>")
-              wait(lambda: nvim.current.buffer.options["filetype"] == "skk-terminal-input", "open terminal input popup")
-              wait(lambda: nvim.call("goda_skk#is_enabled"), "enable Goda in popup")
-              nvim.current.buffer[:] = ["migration-terminal-ok"]
-              send("<C-s>")
-              assert nvim.eval("v:errmsg") == "", nvim.eval("v:errmsg")
-              wait(lambda: nvim.current.buffer.number == terminal.number, "close and send popup")
-              wait(lambda: "migration-terminal-ok" in "\n".join(terminal[:]), "terminal receives popup input")
-              wait(lambda: nvim.eval("mode()") == "t", "restore terminal focus")
-              send("<C-g>")
-              wait(lambda: nvim.current.buffer.options["filetype"] == "skk-terminal-input", "reopen terminal input")
-              send("<C-c>")
-              assert nvim.eval("v:errmsg") == "", nvim.eval("v:errmsg")
-              wait(lambda: nvim.current.buffer.number == terminal.number, "cancel terminal popup")
+              for action in ["send", "cancel"]:
+                  send("<C-g>")
+                  wait(lambda: nvim.current.buffer.options["filetype"] == "skk-terminal-input", "open terminal input popup")
+                  popup = nvim.current.buffer.number
+                  wait(lambda: nvim.call("goda_skk#is_enabled"), "enable Goda in popup")
+                  send("kanji")
+                  wait(lambda: "かんじ" in "\n".join(nvim.current.buffer[:]), "convert kana in popup")
+                  payload = "migration-terminal-" + action
+                  nvim.current.buffer[:] = [payload]
+                  send("<C-s>" if action == "send" else "<C-c>")
+                  wait(lambda: nvim.current.buffer.number == terminal.number, "close popup on " + action)
+                  wait(lambda: nvim.eval("mode()") == "t", "restore terminal focus on " + action)
+                  assert not lua('return vim.api.nvim_buf_is_valid(...)', popup), action
+                  assert not nvim.call("goda_skk#is_enabled"), action
+                  if action == "send":
+                      wait(lambda: payload in "\n".join(terminal[:]), "terminal receives popup input")
+                  else:
+                      assert payload not in "\n".join(terminal[:]), "cancelled input was sent"
+                  assert nvim.command_output("messages") == visible_messages, nvim.command_output("messages")
+                  assert lua('return #_G.core_test_errors == 0'), lua('return _G.core_test_errors')
               send("<C-\\><C-n>")
-              assert nvim.eval("v:errmsg") == "", (nvim.eval("v:errmsg"), nvim.command_output("messages"))
+              lua('vim.notify = _G.core_test_notify; _G.core_test_notify = nil; _G.core_test_errors = nil')
               print("Full profile: core, commands, cmp, Lua LSP, SFCC, parser, Codewindow, ftplugins and terminal popup passed")
           finally:
               try:
