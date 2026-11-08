@@ -4,6 +4,7 @@
   sources,
   definitions,
   luaConfig,
+  luaCheck,
   inputs',
 }:
 with sources;
@@ -61,7 +62,7 @@ in
         biome # WEB
         fantomas # F#
         fnlfmt # Fennel
-        go-tools # Go
+        gotools # Go (goimports)
         gofumpt # Go
         google-java-format # Java
         html-tidy # HTML
@@ -213,4 +214,8 @@ in
       idea_formatter_path = ../support/idea-format.lua;
     };
   });
+  tests.goimports-formatting = luaCheck {
+    name = "goimports-formatting";
+    script = builtins.readFile ../checks/goimports.lua;
+  };
 }
