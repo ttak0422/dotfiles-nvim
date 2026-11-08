@@ -46,6 +46,12 @@
       flake = false;
     };
 
+    divine = {
+      url = "github:ttak0422/divine";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs-stable";
+    };
+
     # v2
     v2-mcp-hub = {
       url = "github:ravitemer/mcp-hub";
@@ -85,7 +91,19 @@
           lib,
           ...
         }:
+        let
+          v3Configuration = import ./v3/default { inherit pkgs; };
+          v3Bundle = inputs.divine.lib.mkBundle {
+            inherit pkgs;
+            configuration = v3Configuration;
+          };
+          v3Neovim = pkgs.writeShellScriptBin "nvim" ''
+            export NVIM_APPNAME=nvim-v3-default
+            exec ${pkgs.neovim-unwrapped}/bin/nvim -u ${v3Bundle}/init.lua "$@"
+          '';
+        in
         {
+          packages."v3/default" = v3Neovim;
           _module.args.pkgs = import inputs.nixpkgs {
             inherit system;
             overlays = import ./overlays.nix { inherit inputs inputs'; };
@@ -108,7 +126,14 @@
               inherit inputs';
               inherit pkgs;
             });
-          checks = import ./tests/checks.nix { inherit pkgs; };
+          checks =
+            (import ./tests/checks.nix { inherit pkgs; })
+            // (inputs.divine.lib.mkChecks {
+              inherit pkgs;
+              configuration = v3Configuration;
+              bundle = v3Bundle;
+              neovim = v3Neovim;
+            });
         }
         // import ./apps.nix { inherit pkgs; };
     };

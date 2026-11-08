@@ -1,0 +1,37 @@
+{
+  "pins": {
+    "goda-skk.vim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Shougo",
+        "repo": "goda-skk.vim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.3.3",
+      "revision": "b138f25d97610f8dc5cd644fc05797728ecf62f4",
+      "url": "https://api.github.com/repos/Shougo/goda-skk.vim/tarball/refs/tags/v0.3.3",
+      "hash": "sha256-fAbj82ZOCbgmUjWB15e/hzabsME/8OB5Wg4DzJm9HMs="
+    },
+    "goda.vim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Shougo",
+        "repo": "goda.vim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.7.2",
+      "revision": "8399891df7fd77eee0473003201f9960dfbd8ebb",
+      "url": "https://api.github.com/repos/Shougo/goda.vim/tarball/refs/tags/v0.7.2",
+      "hash": "sha256-o/mmMjAEQ14jYYj0SNc//QKh7i/MniMayClJtVtAqiI="
+    }
+  },
+  "version": 8
+}
