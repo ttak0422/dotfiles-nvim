@@ -69,6 +69,18 @@ in
           tag = "v${version}";
           hash = srcHash;
         };
+        # Keep upstream's executable lookup and missing-core behavior intact.
+        # Install the shared native binary in the standard wheel layout instead
+        # of rewriting Python sources to return its Nix store path unconditionally.
+        postPatch = "";
+        postInstall = (old.postInstall or "") + ''
+          coreDir="$out/${pythonPackages.python.sitePackages}/semgrep/bin"
+          mkdir -p "$coreDir"
+          ln -s ${lib.getExe semgrepCore} "$coreDir/semgrep-core"
+          if [ -d ${semgrepCore}/bin/libs ]; then
+            ln -s ${semgrepCore}/bin/libs "$coreDir/libs"
+          fi
+        '';
         pythonRelaxDeps = lib.remove "mcp" old.pythonRelaxDeps;
         dependencies = old.dependencies ++ [
           pythonPackages.certifi
