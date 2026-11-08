@@ -29,6 +29,13 @@ with sources;
   '';
 
   plugin = sources.nvim-aibo;
+  lazy = true;
+  # Keep all exported commands available before the first load.
+  onCommands = [
+    "Aibo"
+    "AiboSend"
+  ];
+  onModules = [ "aibo" ];
   config = luaConfig (
     # lua
     ''

@@ -28,6 +28,9 @@ with sources;
     [固定リビジョンの README](https://github.com/nvzone/timerly/blob/1c78999480af0e4f8201fe6bfa1e5e0b70a59acf/README.md)
   '';
   plugin = sources.timerly;
+  lazy = true;
+  onCommands = [ "TimerlyToggle" ];
+  onModules = [ "timerly" ];
   dependPlugins = [
     definitions.volt
   ];

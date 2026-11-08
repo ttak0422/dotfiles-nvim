@@ -27,6 +27,13 @@ with sources;
     ## 出典
     [固定リビジョンの README](https://github.com/ahmedkhalf/project.nvim/blob/8c6bad7d22eef1b71144b401c9f74ed01526a4fb/README.md)
   '';
+  # Telescope owns its command; this genuine prerequisite loads with its group.
+  lazy = true;
+  onCommands = [
+    "ProjectRoot"
+    "AddProject"
+  ];
+  onModules = [ "project_nvim" ];
   plugin = sources.project-nvim;
   config = luaConfig (
     # lua

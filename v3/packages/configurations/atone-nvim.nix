@@ -29,6 +29,9 @@ with sources;
   '';
 
   plugin = sources.atone-nvim;
+  lazy = true;
+  onCommands = [ "Atone" ];
+  onModules = [ "atone" ];
   config = luaConfig (
     # lua
     ''

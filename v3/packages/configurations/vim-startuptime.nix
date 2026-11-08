@@ -28,4 +28,6 @@ with sources;
     [固定リビジョンの README](https://github.com/dstein64/vim-startuptime/blob/b2de50f190c8139d70d36d82157dd9c1a8212579/README.md)
   '';
   plugin = sources.vim-startuptime;
+  lazy = true;
+  onCommands = [ "StartupTime" ];
 }

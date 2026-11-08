@@ -27,6 +27,11 @@ with sources;
     ## 出典
     [固定リビジョンの README](https://github.com/benomahony/uv.nvim/blob/b0bce1b61584fde99c316aa0587a4996c52df206/README.md)
   '';
+  # setup probes Telescope immediately; retain v2's Python entry point so the
+  # optional picker does not defeat Telescope's command/module lazy loading.
+  lazy = true;
+  onFiletypes = [ "python" ];
+  onModules = [ "uv" ];
   plugin = sources.uv-nvim;
   config = luaConfig (
     # lua

@@ -29,6 +29,27 @@ with sources;
     [固定リビジョンの README](https://github.com/delphinus/md-render.nvim/blob/4f6d73a276356bc23dbffa594d2a54dc978e98bb/README.md)
   '';
   plugin = sources.md-render-nvim;
+  lazy = true;
+  # Keep all exported commands available before the first load.
+  onCommands = [
+    "MdRender"
+    "MdRenderTab"
+    "MdRenderToggle"
+    "MdRenderSplit"
+    "MdRenderPager"
+    "MdRenderDemo"
+    "MdRenderAuto"
+  ];
+  onModules = [ "md-render" ];
+  # Upstream <Plug> mappings must also work as the first entrypoint.
+  onKeys = [
+    "<Plug>(md-render-preview)"
+    "<Plug>(md-render-preview-tab)"
+    "<Plug>(md-render-toggle)"
+    "<Plug>(md-render-auto)"
+    "<Plug>(md-render-split)"
+    "<Plug>(md-render-demo)"
+  ];
   dependPlugins = [
     definitions.nvim-web-devicons
     definitions.budoux-lua

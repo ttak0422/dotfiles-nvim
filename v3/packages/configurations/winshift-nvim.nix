@@ -28,6 +28,9 @@ with sources;
     [固定リビジョンの README](https://github.com/sindrets/winshift.nvim/blob/37468ed6f385dfb50402368669766504c0e15583/README.md)
   '';
   plugin = sources.winshift-nvim;
+  lazy = true;
+  onCommands = [ "WinShift" ];
+  onModules = [ "winshift" ];
   config = luaConfig (
     # lua
     ''

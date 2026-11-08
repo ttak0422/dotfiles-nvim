@@ -28,6 +28,23 @@ with sources;
     [固定リビジョンの README](https://github.com/dlyongemallo/diffview.nvim/blob/fae72d6c981075dce2e0f946f002382ce0cb44e1/README.md)
   '';
   plugin = sources.diffview-nvim;
+  lazy = true;
+  # Keep all exported commands available before the first load.
+  onCommands = [
+    "DiffviewOpen"
+    "DiffviewToggleFiles"
+    "DiffviewToggle"
+    "DiffviewDiffFiles"
+    "DiffviewMergeFiles"
+    "DiffviewDiffDirs"
+    "DiffviewFileHistory"
+    "DiffviewClose"
+    "DiffviewWorktreeOverview"
+    "DiffviewFocusFiles"
+    "DiffviewRefresh"
+    "DiffviewLog"
+  ];
+  onModules = [ "diffview" ];
   dependPlugins = [
     definitions.nvim-web-devicons
   ];

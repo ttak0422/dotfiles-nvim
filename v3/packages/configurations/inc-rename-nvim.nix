@@ -28,6 +28,11 @@ with sources;
     [固定リビジョンの README](https://github.com/smjonas/inc-rename.nvim/blob/ddff8bd3eccedf043bd73f5bf89cf90d2d6d8105/README.md)
   '';
   plugin = sources.inc-rename-nvim;
+  lazy = true;
+  onCommands = [ "IncRename" ];
+  onModules = [ "inc_rename" ];
+  # Install the preview callback before command-line editing begins.
+  onEvents = [ "CmdlineEnter" ];
   config = luaConfig (
     # lua
     ''

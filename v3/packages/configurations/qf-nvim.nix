@@ -28,6 +28,38 @@ with sources;
     [固定リビジョンの README](https://github.com/ten3roberts/qf.nvim/blob/c16efebc2a4967251d34630c7f5beee25ca8a9ba/README.md)
   '';
   plugin = sources.qf-nvim;
+  lazy = true;
+  # Keep all exported commands available before the first load.
+  onCommands = [
+    "Qnext"
+    "Qprev"
+    "Lnext"
+    "Lprev"
+    "Qclose"
+    "Qabove"
+    "Qbelow"
+    "Qsave"
+    "Qload"
+    "Lclose"
+    "Labove"
+    "Lbelow"
+    "Lsave"
+    "Lload"
+    "Vclose"
+    "Vnext"
+    "Vprev"
+    "Vabove"
+    "Vbelow"
+    "Vsave"
+    "Vload"
+  ];
+  onModules = [ "qf" ];
+  # Preserve the quickfix group events from v2, including direct :copen.
+  onEvents = [
+    "QuickFixCmdPost"
+    "CmdlineEnter"
+  ];
+  onFiletypes = [ "qf" ];
   config = luaConfig (
     # lua
     ''

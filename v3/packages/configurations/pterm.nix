@@ -4,9 +4,38 @@
   sources,
   definitions,
   luaConfig,
+  luaCheck,
   inputs',
 }:
 with sources;
+let
+  commandPreInit = ''
+    local original_require = require
+    local wrapped = false
+    _G.pterm_test_calls = { setup = 0, list = 0, kills = {} }
+    _G.require = function(name)
+      local module = original_require(name)
+      if name == "pterm" and not wrapped then
+        wrapped = true
+        local setup = module.setup
+        module.setup = function(...)
+          _G.pterm_test_calls.setup = _G.pterm_test_calls.setup + 1
+          return setup(...)
+        end
+        -- Exercise the pinned plugin's real command/parser/completion. Only
+        -- session side effects are spies; daemon behavior is tested separately.
+        module.list = function()
+          _G.pterm_test_calls.list = _G.pterm_test_calls.list + 1
+          return { "fixture/dev", "fixture/test session" }
+        end
+        module.kill = function(name)
+          table.insert(_G.pterm_test_calls.kills, name)
+        end
+      end
+      return module
+    end
+  '';
+in
 {
   doc = ''
     # pterm
@@ -28,71 +57,60 @@ with sources;
     [固定バージョンの README](https://github.com/ttak0422/pterm/blob/76663a45224c33f5b420485a6f1b92b96f2c3af7/README.md)
   '';
 
+  lazy = true;
+  # Current pterm uses list/kill subcommands, not the old PtermList/PtermKill.
+  onCommands = [ "Pterm" ];
+  onModules = [ "pterm" ];
   plugin = sources.pterm;
-  dependPlugins = [
-    definitions.telescope-nvim
-    definitions.telescope-live-grep-args-nvim
-  ];
   config = luaConfig (
     # lua
     ''
-      local pterm = require("pterm")
-      local telescope = require("telescope")
-      local actions = require("telescope.actions")
-      local action_state = require("telescope.actions.state")
-      local parser = require("telescope-live-grep-args.prompt_parser")
-
-      -- Telescope is configured by the dependency before registering this extension.
-      pterm.setup({})
-      telescope.load_extension("pterm")
-
-      local function create_session(prompt_bufnr)
-        local prompt = vim.trim(action_state.get_current_line())
-        local names = pterm.list()
-        -- Preserve existing names containing spaces instead of parsing them as commands.
-        local argv = vim.tbl_contains(names, prompt) and { prompt } or parser.parse(prompt, false)
-        local name, command = argv[1], argv[2]
-        if not name or name == "" then
-          actions.close(prompt_bufnr)
-          return
-        end
-        if command and vim.tbl_contains(names, name) then
-          vim.notify("Session '" .. name .. "' already exists; select it without a command", vim.log.levels.ERROR)
-          return
-        end
-        if command and vim.fn.executable(command) == 0 then
-          vim.notify("Executable not found: " .. command, vim.log.levels.ERROR)
-          return
-        end
-        actions.close(prompt_bufnr)
-        local ok, err = pcall(pterm.open, name, argv)
-        if not ok then
-          vim.notify("Failed to open session '" .. name .. "': " .. tostring(err), vim.log.levels.ERROR)
-        end
-      end
-
-      local extension = telescope.extensions.pterm
-      local sessions = extension.sessions
-      local function configured_sessions(opts)
-        opts = vim.tbl_extend("force", {}, opts or {})
-        local attach = opts.attach_mappings
-        opts.prompt_title = opts.prompt_title or "pterm sessions | new: name [command args...]"
-        opts.attach_mappings = function(prompt_bufnr, map)
-          actions.select_default:replace_if(function()
-            return action_state.get_selected_entry() == nil
-          end, function()
-            create_session(prompt_bufnr)
-          end)
-          if attach then
-            return attach(prompt_bufnr, map)
-          end
-          return true
-        end
-        return sessions(opts)
-      end
-      extension.sessions = configured_sessions
-      extension.pterm = configured_sessions
+      require("pterm").setup({})
     ''
   );
   extraPackages = with pkgs; [ pterm-daemon ];
+  tests.pterm-command-lazy-routing = luaCheck {
+    name = "pterm-command-lazy-routing";
+    preInit = commandPreInit;
+    script = ''
+      local calls = _G.pterm_test_calls
+      assert(not package.loaded.pterm and calls.setup == 0, "pterm must stay unloaded at startup")
+      assert(not package.loaded.telescope, "Telescope must stay unloaded at startup")
+      assert(vim.fn.exists(":Pterm") == 2, "the lazy Pterm command is missing")
+      assert(vim.fn.exists(":PtermList") == 0 and vim.fn.exists(":PtermKill") == 0,
+        "obsolete commands must not leave dead lazy stubs")
+      vim.cmd("Pterm list")
+      assert(calls.setup == 1 and calls.list == 1, "first command did not reach real Pterm list routing")
+      assert(not package.loaded.telescope, "standalone Pterm must not load Telescope")
+      local completion = vim.fn.getcompletion("Pterm ", "cmdline")
+      for _, name in ipairs({ "new", "list", "redraw", "dump", "kill" }) do
+        assert(vim.tbl_contains(completion, name), "missing subcommand completion: " .. name)
+      end
+      assert(vim.deep_equal(vim.fn.getcompletion("Pterm kill fixture/d", "cmdline"), { "fixture/dev" }),
+        "session completion lost filtering or arguments")
+      vim.cmd([[Pterm kill fixture/test\ session]])
+      assert(vim.deep_equal(calls.kills, { "fixture/test session" }), "kill lost its escaped session argument")
+      vim.cmd("Pterm kill")
+      assert(#calls.kills == 1, "missing session must not reach kill")
+      vim.cmd("Pterm list")
+      assert(calls.setup == 1 and calls.list >= 3, "repeat commands must reuse setup and preserve list routing")
+      assert(not package.loaded.telescope, "Pterm completions must not load Telescope")
+    '';
+  };
+  tests.pterm-completion-lazy-routing = luaCheck {
+    name = "pterm-completion-lazy-routing";
+    preInit = commandPreInit;
+    script = ''
+      local calls = _G.pterm_test_calls
+      assert(not package.loaded.pterm and calls.setup == 0, "pterm must stay unloaded at startup")
+      local completion = vim.fn.getcompletion("Pterm ki", "cmdline")
+      assert(vim.deep_equal(completion, { "kill" }), "first completion did not reach the real Pterm completer")
+      assert(calls.setup == 1 and calls.list == 0, "subcommand completion must set up once without listing sessions")
+      vim.cmd([[Pterm kill fixture/test\ session]])
+      assert(vim.deep_equal(calls.kills, { "fixture/test session" }), "command after first completion lost arguments")
+      vim.fn.getcompletion("Pterm ", "cmdline")
+      assert(calls.setup == 1 and not package.loaded.telescope,
+        "completion and commands must reuse setup without loading Telescope")
+    '';
+  };
 }

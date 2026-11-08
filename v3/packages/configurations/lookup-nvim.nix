@@ -27,6 +27,9 @@ with sources;
     ## 出典
     [固定リビジョンの README](https://github.com/srcrip/lookup.nvim/blob/671af22ca582c3cc74a6e6e18426b407e85e6958/README.md)
   '';
+  # Preserve the v2 module entry point without eagerly loading Telescope.
+  lazy = true;
+  onModules = [ "lookup" ];
   plugin = sources.lookup-nvim;
   dependPlugins = [
     definitions.telescope-nvim

@@ -28,6 +28,9 @@ with sources;
     [固定リビジョンの README](https://github.com/FabijanZulj/blame.nvim/blob/179da7aaacce7c52874af636255ede72dd6fe796/README.md)
   '';
   plugin = sources.blame-nvim;
+  lazy = true;
+  onCommands = [ "BlameToggle" ];
+  onModules = [ "blame" ];
   config = luaConfig (
     # lua
     ''

@@ -9,6 +9,12 @@
 with sources;
 {
   plugin = sources.minty;
+  lazy = true;
+  onCommands = [
+    "Shades"
+    "Huefy"
+  ];
+  onModules = [ "minty" ];
   doc = ''
     # Minty
 

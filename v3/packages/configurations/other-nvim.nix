@@ -9,6 +9,16 @@
 with sources;
 {
   plugin = sources.other-nvim;
+  lazy = true;
+  # Keep all exported commands available before the first load.
+  onCommands = [
+    "Other"
+    "OtherTabNew"
+    "OtherSplit"
+    "OtherVSplit"
+    "OtherClear"
+  ];
+  onModules = [ "other-nvim" ];
   doc = ''
     # other.nvim
 

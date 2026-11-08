@@ -29,6 +29,14 @@ with sources;
   '';
 
   plugin = sources.img-clip-nvim;
+  lazy = true;
+  # Keep all exported commands available before the first load.
+  onCommands = [
+    "PasteImage"
+    "ImgClipDebug"
+    "ImgClipConfig"
+  ];
+  onModules = [ "img-clip" ];
   config = luaConfig (
     # lua
     ''

@@ -28,6 +28,9 @@ with sources;
     [固定バージョンの README](https://github.com/rachartier/tiny-code-action.nvim/blob/91a9c32228e9a7761d241023d9ebb9d11d8fb10d/README.md)
   '';
 
+  # Preserve the v2 module entry point without eagerly loading Telescope.
+  lazy = true;
+  onModules = [ "tiny-code-action" ];
   plugin = sources.tiny-code-action-nvim.overrideAttrs {
     runtimeDeps = with pkgs; [ delta ];
   };

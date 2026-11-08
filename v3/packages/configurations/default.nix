@@ -214,9 +214,11 @@ let
       dependPlugins = [ memberDefinitions.nvim-cmp ];
     };
     telescope-nvim = {
+      lazy = true;
       plugin = sources.telescope-nvim;
     };
     telescope-live-grep-args-nvim = {
+      lazy = true;
       plugin = sources.telescope-live-grep-args-nvim;
       dependPlugins = [ memberDefinitions.telescope-nvim ];
     };
@@ -239,6 +241,7 @@ let
   # so there is no cycle and divine loads each member's scripts only once.
   groupDefinitions = lib.genAttrs [ "nvim-cmp" "telescope-nvim" ] (name: {
     plugin = sources.${name};
+    lazy = pluginDefinitions.${name}.lazy or false;
     dependPlugins = [ pluginDefinitions.${name} ];
   });
 

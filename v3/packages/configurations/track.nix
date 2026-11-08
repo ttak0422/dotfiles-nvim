@@ -27,17 +27,18 @@ with sources;
     ## 出典
     [固定リビジョンの README](https://github.com/ttak0422/track/blob/8a7ed55ee32d4ff7f9dbfb4620e60fea81bdb0fc/README.md)
   '';
+  lazy = true;
+  onCommands = [ "Track" ];
+  onModules = [ "track" ];
   plugin = sources.track;
   dependPlugins = [
     definitions.plenary-nvim
-    definitions.telescope-nvim
   ];
   extraPackages = with pkgs; [ track-cli ];
   config = luaConfig (
     # lua
     ''
       require("track").setup({ vault_dir = os.getenv("HOME") .. "/track/" })
-      require("telescope").load_extension("track")
     ''
   );
 }

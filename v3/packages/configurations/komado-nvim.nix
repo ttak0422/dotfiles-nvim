@@ -12,6 +12,22 @@ let
 in
 {
   plugin = sources.komado-nvim;
+  lazy = true;
+  onCommands = [
+    "KomadoToggle"
+    "MimoriAll"
+    "MimoriRefresh"
+    "MimoriStatus"
+    "PomodoroStart"
+    "PomodoroStop"
+    "PomodoroPause"
+    "PomodoroSkip"
+    "PomodoroReset"
+  ];
+  onModules = [
+    "komado"
+    "mimori"
+  ];
   doc = ''
     # komado.nvim
 

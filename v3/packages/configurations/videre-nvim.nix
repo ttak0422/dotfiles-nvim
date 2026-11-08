@@ -9,6 +9,9 @@
 with sources;
 {
   plugin = sources.videre-nvim;
+  lazy = true;
+  onCommands = [ "Videre" ];
+  onModules = [ "videre" ];
   doc = ''
     # videre.nvim
 

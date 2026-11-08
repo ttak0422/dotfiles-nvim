@@ -536,6 +536,13 @@ in
       vim.env[name] = vim.g._editor_open_cmd
     end
     vim.env.GIT_EDITOR = vim.g._editor_open_cmd_wait
+    -- Match v2: the first UI selection activates the configured Telescope picker.
+    local function lazy_ui_select(...)
+      require("telescope")
+      assert(vim.ui.select ~= lazy_ui_select, "Telescope ui-select did not install its handler")
+      return vim.ui.select(...)
+    end
+    vim.ui.select = lazy_ui_select
     vim.cmd("language messages en_US.UTF-8")
     pcall(dofile, vim.fn.expand("$HOME/config.lua"))
 
@@ -745,8 +752,8 @@ in
 
       Denops-dependent Telescope MR mappings are intentionally omitted. Existing
       Neorg and Avante mappings are retained for compatibility although those
-      plugins were not enabled by the source profile. Eager Telescope ui-select
-      registers the real handler directly, replacing the legacy lazy trampoline.
+      plugins were not enabled by the source profile. The first vim.ui.select
+      loads Telescope and delegates to its installed ui-select handler.
       Deno LSP is retained: it is not a Denops dependency.
     '';
     tests.core-runtime =

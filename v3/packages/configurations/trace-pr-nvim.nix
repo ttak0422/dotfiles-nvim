@@ -29,6 +29,9 @@ with sources;
   '';
 
   plugin = sources.trace-pr-nvim;
+  lazy = true;
+  onCommands = [ "TracePR" ];
+  onModules = [ "trace-pr" ];
   extraPackages = with pkgs; [ gh ];
   config = luaConfig (
     # lua

@@ -28,6 +28,9 @@ with sources;
     [固定リビジョンの README](https://github.com/nvzone/showkeys/blob/cb0a50296f11f1e585acffba8c253b9e8afc1f84/README.md)
   '';
   plugin = sources.showkeys;
+  lazy = true;
+  onCommands = [ "ShowkeysToggle" ];
+  onModules = [ "showkeys" ];
   dependPlugins = [
     definitions.volt
   ];

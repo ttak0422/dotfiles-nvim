@@ -29,6 +29,9 @@ with sources;
   '';
 
   plugin = sources.glance-nvim;
+  lazy = true;
+  onCommands = [ "Glance" ];
+  onModules = [ "glance" ];
   dependPlugins = [
     definitions.trouble-nvim
   ];

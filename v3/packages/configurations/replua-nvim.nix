@@ -9,6 +9,14 @@
 with sources;
 {
   plugin = sources.replua-nvim;
+  lazy = true;
+  # Keep all exported commands available before the first load.
+  onCommands = [
+    "RepluaOpen"
+    "RepluaEval"
+    "RepluaReset"
+  ];
+  onModules = [ "replua" ];
   doc = ''
     # replua.nvim
 

@@ -9,6 +9,14 @@
 with sources;
 {
   plugin = sources.obsidian-nvim;
+  lazy = true;
+  onCommands = [
+    "Obsidian"
+    "ObsidianScratch"
+    "ObsidianGit"
+    "ObsidianGitBranch"
+  ];
+  onModules = [ "obsidian" ];
   doc = ''
     # obsidian.nvim
 

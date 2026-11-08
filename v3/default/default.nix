@@ -44,7 +44,9 @@ in
           revisions/hashes, and README are unchanged. The shared npins helper
           only uses GitHub's official archive host; package outputs are identical.
 
-          Every plugin is eager. There are no lazy flags or loader triggers.
+          Plugins with enabled v2 command hooks load lazily from their commands.
+          Required module, key and native event entry points remain available.
+          Other plugins remain eager; this does not restore old timing-only groups.
           Native filetype behavior, such as Java/Kotlin attachment and
           SFCC's JavaScript-only gf mapping, remains scoped to the matching
           buffer. Completion and Telescope each use one packages unit for their
@@ -77,7 +79,7 @@ in
           macOS defaults executable is available through the wrapper's
           /usr/bin PATH fallback, after existing Nix tools. Kitty image
           initialization waits for UIEnter if a remote UI attaches later,
-          and stays disabled in Neovide. Plugin loading remains eager.
+          and stays disabled in Neovide.
           Python3 provider support is preserved, and external editor
           fallback starts this same v3 init rather than a bare isolated
           NVIM_APPNAME.

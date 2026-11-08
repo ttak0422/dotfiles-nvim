@@ -29,6 +29,19 @@ with sources;
   '';
 
   plugin = sources.no-neck-pain-nvim;
+  lazy = true;
+  # Keep all exported commands available before the first load.
+  onCommands = [
+    "NoNeckPain"
+    "NoNeckPainToggleLeftSide"
+    "NoNeckPainToggleRightSide"
+    "NoNeckPainResize"
+    "NoNeckPainWidthUp"
+    "NoNeckPainWidthDown"
+    "NoNeckPainScratchPad"
+    "NoNeckPainDebug"
+  ];
+  onModules = [ "no-neck-pain" ];
   config = luaConfig (
     # lua
     ''

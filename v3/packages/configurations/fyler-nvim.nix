@@ -9,6 +9,9 @@
 with sources;
 {
   plugin = sources.fyler-nvim;
+  lazy = true;
+  onCommands = [ "Fyler" ];
+  onModules = [ "fyler" ];
   doc = ''
     # Fyler.nvim
 

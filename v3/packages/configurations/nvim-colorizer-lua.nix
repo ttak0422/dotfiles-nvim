@@ -28,6 +28,15 @@ with sources;
     [固定リビジョンの README](https://github.com/norcalli/nvim-colorizer.lua/blob/a065833f35a3a7cc3ef137ac88b5381da2ba302e/README.md)
   '';
   plugin = sources.nvim-colorizer-lua;
+  lazy = true;
+  # Keep all exported commands available before the first load.
+  onCommands = [
+    "ColorizerToggle"
+    "ColorizerAttachToBuffer"
+    "ColorizerDetachFromBuffer"
+    "ColorizerReloadAllBuffers"
+  ];
+  onModules = [ "colorizer" ];
   config = luaConfig (
     # lua
     ''

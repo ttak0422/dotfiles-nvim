@@ -9,6 +9,9 @@
 with sources;
 {
   plugin = sources.translate-nvim;
+  lazy = true;
+  onCommands = [ "Translate" ];
+  onModules = [ "translate" ];
   doc = ''
     # translate.nvim
 

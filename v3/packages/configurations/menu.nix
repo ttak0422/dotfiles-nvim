@@ -28,6 +28,9 @@ with sources;
     [固定リビジョンの README](https://github.com/nvzone/menu/blob/7a0a4a2896b715c066cfbe320bdc048091874cc6/README.md)
   '';
   plugin = sources.menu;
+  lazy = true;
+  onCommands = [ "OpenMenu" ];
+  onModules = [ "menu" ];
   dependPlugins = [
     definitions.volt
   ];

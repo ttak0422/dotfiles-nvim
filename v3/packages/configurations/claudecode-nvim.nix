@@ -28,6 +28,26 @@ with sources;
     [固定リビジョンの README](https://github.com/coder/claudecode.nvim/blob/af04fbf9c27c5c06b4d1ff022b551aa94e1df4aa/README.md)
   '';
   plugin = sources.claudecode-nvim;
+  lazy = true;
+  # Keep all exported commands available before the first load.
+  onCommands = [
+    "ClaudeCode"
+    "ClaudeCodeStart"
+    "ClaudeCodeStop"
+    "ClaudeCodeStatus"
+    "ClaudeCodeSend"
+    "ClaudeCodeTreeAdd"
+    "ClaudeCodeAdd"
+    "ClaudeCodeFocus"
+    "ClaudeCodeOpen"
+    "ClaudeCodeClose"
+    "ClaudeCodeSendText"
+    "ClaudeCodeDiffAccept"
+    "ClaudeCodeDiffDeny"
+    "ClaudeCodeCloseAllDiffs"
+    "ClaudeCodeSelectModel"
+  ];
+  onModules = [ "claudecode" ];
   dependPlugins = [ definitions.snacks-nvim ];
   config = luaConfig (
     # lua

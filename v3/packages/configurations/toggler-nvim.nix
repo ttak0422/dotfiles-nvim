@@ -27,6 +27,9 @@ with sources;
     ## 出典
     [固定リビジョンの README](https://github.com/ttak0422/toggler-nvim/blob/5d88c18bdac51f454af9cb3343391b2051a10dad/README.md)
   '';
+  # Preserve the v2 module entry point without eagerly loading Telescope.
+  lazy = true;
+  onModules = [ "toggler" ];
   plugin = sources.toggler-nvim;
   dependPlugins = [
     definitions.telescope-nvim

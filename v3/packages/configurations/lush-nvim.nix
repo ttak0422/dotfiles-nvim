@@ -29,4 +29,12 @@ with sources;
   '';
 
   plugin = sources.lush-nvim;
+  lazy = true;
+  # Keep all exported commands available before the first load.
+  onCommands = [
+    "Lushify"
+    "LushRunTutorial"
+    "LushImport"
+  ];
+  onModules = [ "lush" ];
 }

@@ -3,6 +3,7 @@
   name,
   script,
   preInit ? "",
+  ui ? false,
 }:
 {
   pkgs,
@@ -35,6 +36,8 @@ let
         assert nvim.exec_lua('return package.loaded.divine ~= nil')
         assert nvim.exec_lua('return vim.tbl_contains(vim.v.argv, vim.env.PLUGIN_TEST_BUNDLE .. "/init.lua")')
         assert nvim.eval("v:errmsg") == "", (nvim.eval("v:errmsg"), nvim.command_output("messages"))
+        if ${if ui then "True" else "False"}:
+            nvim.ui_attach(220, 60, rgb=True)
         nvim.exec_lua(pathlib.Path(sys.argv[2]).read_text())
         print("${name}: configured behavior passed")
     finally:
