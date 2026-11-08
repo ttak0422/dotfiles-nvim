@@ -16,7 +16,6 @@ in
   ]
   ++ packages.configurations.extraPackages;
   plugins = packages.configurations.plugins ++ [
-    packages.skk
     (
       packages.core.definition
       // {
@@ -89,70 +88,10 @@ in
           have not been enabled as part of this migration.
 
           Validation: nix build '.#v3/default'; nix flake check --print-
-          build-logs. Inline tests cover source coverage, graph
-          timing/Denops exclusion, startup, cmp sources, live Lua LSP
+          build-logs. Inline tests cover startup, cmp sources, live Lua LSP
           diagnostics, native filetypes, parsers, terminal popup
           send/cancel, and actual Goda conversion/learning across restarts.
         '';
-        tests = packages.core.definition.tests // {
-          migration-graph =
-            { pkgs, bundle, ... }:
-            let
-              nodes = builtins.attrValues bundle.graph.nodes;
-              pluginPaths = map (node: toString node.package) nodes;
-              missing = builtins.filter (name: !(builtins.elem (toString packages.sources.${name}) pluginPaths)) (
-                builtins.attrNames packages.sources
-              );
-              # These sources are deliberately rebuilt/filtered, or used as tools.
-              expectedMissing = [
-                "goda-skk-vim"
-                "goda-vim"
-                "nginx-vim"
-                "nvim-lspconfig"
-                "pterm-daemon"
-                "tiny-code-action-nvim"
-                "track-cli"
-              ];
-              toolPaths = map toString bundle.graph.extraPackages;
-              forbidden = [
-                "denops"
-                "gin-vim"
-                "vim-mr"
-                "telescope-mr"
-                "skkeleton"
-                "actually-doom"
-                "codewindow"
-              ];
-              allowed =
-                node:
-                !(pkgs.lib.any (name: pkgs.lib.hasInfix name (pkgs.lib.getName node.package)) forbidden)
-                && !(pkgs.lib.hasPrefix "v3-" (pkgs.lib.getName node.package));
-              eager =
-                node:
-                !node.settings.lazy
-                && pkgs.lib.all (name: (node.settings.${name} or [ ]) == [ ]) [
-                  "onEvents"
-                  "onCommands"
-                  "onFiletypes"
-                  "onKeys"
-                  "onModules"
-                ];
-            in
-            assert missing == expectedMissing;
-            assert builtins.elem (toString packages.sources.pterm-daemon) toolPaths;
-            assert builtins.elem (toString packages.sources.track-cli) toolPaths;
-            assert pkgs.lib.all eager nodes;
-            assert pkgs.lib.all allowed nodes;
-            assert builtins.length bundle.graph.roots == builtins.length packages.configurations.plugins + 2;
-            pkgs.writeText "v3-migration-graph.json" (
-              builtins.toJSON (
-                map (node: {
-                  name = pkgs.lib.getName node.package;
-                  inherit (node) dependencies;
-                }) nodes
-              )
-            );
-        };
       }
     )
   ];

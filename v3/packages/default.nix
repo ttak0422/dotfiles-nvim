@@ -9,8 +9,4 @@ let
 in
 {
   inherit core configurations sources;
-  skk = import ./skk {
-    inherit pkgs;
-    sources = import ../npins;
-  };
 }

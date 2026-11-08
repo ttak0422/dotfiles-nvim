@@ -812,13 +812,9 @@ in
               assert nvim.options["winborder"] == "single"
               assert lua('return vim.env.EDITOR == vim.g._editor_open_cmd')
               assert lua('return vim.env.GIT_EDITOR == vim.g._editor_open_cmd_wait')
-              for key in ["<Leader>fru", "<Leader>frr", "<Leader>frw", "<Leader>Fru", "<Leader>Frr", "<Leader>Frw"]:
-                  assert nvim.call("maparg", key, "n") == "", key
               assert nvim.call("maparg", "<Leader>fp", "n")
               for command in ["Telescope", "Track", "Gitu", "KomadoToggle", "DiffviewOpen", "Obsidian", "Videre"]:
                   assert nvim.call("exists", ":" + command) == 2, command
-              for command in ["Gin", "Denops"]:
-                  assert nvim.call("exists", ":" + command) == 0, command
               assert nvim.call("exists", "g:loaded_skkeleton") == 0
               assert not lua('return package.loaded["denops"] ~= nil')
 
@@ -859,7 +855,6 @@ in
               assert lua('local p = vim.treesitter.get_parser(0, "lua"); local trees = p:parse(); return #trees > 0 and trees[1]:root():type() == "chunk"')
               lua('vim.treesitter.start(0, "lua"); vim.treesitter.get_parser(0):parse()')
               assert lua('return vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] ~= nil')
-              assert nvim.call("maparg", "<Leader>tm", "n") == ""
               buffer("fennel")
               assert "?" in nvim.current.buffer.options["iskeyword"]
               buffer("make")

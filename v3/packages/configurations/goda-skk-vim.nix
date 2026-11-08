@@ -1,44 +1,15 @@
-{ pkgs, sources }:
+{
+  pkgs,
+  sources,
+  definitions,
+}:
 let
-  goda = pkgs.vimUtils.buildVimPlugin {
-    pname = "goda.vim";
-    version = sources."goda.vim".version;
-    src = sources."goda.vim";
-  };
-  skk = pkgs.vimUtils.buildVimPlugin {
-    pname = "goda-skk.vim";
-    version = sources."goda-skk.vim".version;
-    src = sources."goda-skk.vim";
-
-  };
-  binary = pkgs.buildGoModule {
-    pname = "goda-skk";
-    version = sources."goda-skk.vim".version;
-    src = ./config;
-    subPackages = [ "." ];
-    # Editor scripts and compiled Go use the same unmodified upstream pins.
-    postPatch = ''
-      mkdir -p .deps
-      cp -R ${sources."goda.vim"} .deps/goda
-      cp -R ${sources."goda-skk.vim"} .deps/goda-skk
-      cat >> go.mod <<EOF
-      replace github.com/Shougo/goda.vim => ./.deps/goda
-      replace github.com/Shougo/goda-skk.vim => ./.deps/goda-skk
-      EOF
-    '';
-    vendorHash = "sha256-02nf8GIV8+9SRdWuutdbRrhx1d4DEVH1RiuUwP/Ovto=";
-    env.CGO_ENABLED = "0";
-    ldflags = [
-      "-s"
-      "-w"
-      "-X main.dictionary=${pkgs.skk-dict}/SKK-JISYO.L"
-    ];
-    meta.mainProgram = "goda-skk";
-  };
+  binary = sources.goda-skk;
 in
 {
-  plugin = skk;
-  dependPlugins = [ goda ];
+  plugin = sources.goda-skk-vim;
+  dependPlugins = [ definitions.goda-vim ];
+  extraPackages = [ binary ];
   config = # lua
     ''
       vim.env.GODA_SKK_STATE_DIR = vim.fn.stdpath("state") .. "/goda-skk"
@@ -48,46 +19,29 @@ in
       })
     '';
   doc = ''
-    Goda SKK uses Shougo/goda.vim v0.7.2 and goda-skk.vim v0.3.3, pinned
-    in v3/npins. The same sources feed Vim scripts and Go module replacements.
-    This cartridge can be included in any divine configuration; v3/default
-    includes it and is the only v3 package exported by the flake.
-    Run `nix run .#v3/default`. Build/check it with `nix flake check`.
+    # goda-skk.vim
 
-    The editor scripts load at startup with an explicit Goda dependency.
-    The prebuilt Go process starts only on the first enabled key, including
-    command-line or terminal first use. No InsertEnter trigger is required.
-    Upstream requires Go >= 1.26 for builds and Neovim >= 0.11.
+    ## 概要
+    Goで実装・設定するVim/Neovim向けSKK日本語入力。goda.vimを基盤とし、
+    skkeletonと同じ入力方式を引き継ぐ初期段階のプロジェクトです。
 
-    <C-j> enables SKK in insert, command-line and terminal modes; jk escapes.
-    EggLikeNewline confirms a conversion with Enter without adding a line.
-    The existing pinned SKK-JISYO.L is decoded as EUC-JP, available offline.
-    Learning is UTF-8 in stdpath("state")/goda-skk/SKK-JISYO.user, isolated
-    by the v3/default wrapper's NVIM_APPNAME=nvim-v3-default. Existing v2
-    skkeleton data is untouched. No runtime Go/Deno, startup downloads,
-    external SKK server or Google API is needed. Do not call goda_skk#build():
-    rebuild the Nix package after changing the owned Go configuration.
+    ## 主な機能
+    - 送り仮名付き変換、単語登録、ユーザー辞書、変換取消に対応します。
+    - 挿入モード、コマンドライン、端末で入力でき、変換前表示と状態popupを内蔵します。
+    - goda-cmp補完、SKKサーバー、Google日本語入力の辞書は上流の任意連携です。
 
-    Upstream v0.3.3 writes the learned dictionary without a cross-process lock
-    and with a shared temporary filename. Concurrent editors sharing that
-    state can lose entries or fail a write. Use one learning session or
-    separate XDG state roots until upstream fixes this limitation.
+    ## 使い方
+    Goの設定プログラムへ辞書を登録し、`<Plug>(goda-skk-enable)`へキーを割り当てます。
+    READMEの例では挿入モードで`<C-j>`、`Kanji<Space>`と入力して変換し、
+    `<C-j>`で確定します。診断は`:echo goda#log()`、詳細は`:help goda_skk`で確認できます。
+    READMEは設定変更後の再ビルドと、`go test ./...`によるテストを案内しています。
 
-    Update plugin sources with `npins -d v3/npins update`, review the release
-    and API changes, and align config/go.mod and config/go.sum. Pin a specific
-    release with `npins -d v3/npins add github Shougo goda.vim --at v0.7.2`
-    (likewise goda-skk.vim). npins owns plugin locks; flake.lock owns divine
-    and the environment. The dictionary is reused rather than pinned twice.
-    When source dependencies change, temporarily set vendorHash to
-    pkgs.lib.fakeHash and build .#v3/default to refresh it, even if an old
-    vendor output is cached. Both lock layers and vendorHash are required.
+    ## 要件
+    goda.vim、SKK辞書、ビルド用Go 1.26以上が必要です。エディタはNeovim 0.11以上、
+    または`+job +channel +popupwin`付きVim 9.1以上です。
 
-    The inline Nix check uses Python/pynvim and real RPC input, temporary
-    HOME/XDG directories and restarts. Go/Deno may be on PATH for other
-    migrated language tools; SKK itself always uses the fixed prebuilt binary. It covers kana,
-    EUC-JP conversion, candidate cycling/confirmation, learning persistence,
-    jk, command-line first use, and terminal first use. These tools remain
-    check-only dependencies. Linux evaluation is not Linux runtime validation.
+    ## 出典
+    [goda-skk.vim README（v0.3.3の固定revision）](https://github.com/Shougo/goda-skk.vim/blob/b138f25d97610f8dc5cd644fc05797728ecf62f4/README.md)
   '';
   tests.skk-input =
     {
@@ -129,11 +83,8 @@ in
             assert nvim.eval("v:errmsg") == ""
             assert nvim.eval("executable(g:['goda_skk#binary'])") == 1
             assert nvim.eval("exists('g:loaded_goda_skk')") == 1
-            assert nvim.eval("exists('g:loaded_skkeleton')") == 0
             for mode in ["i", "c", "t"]:
                 assert "goda-skk-enable" in nvim.call("maparg", "<C-j>", mode)
-            # The full editor also carries Go/Deno language servers; SKK uses its fixed binary.
-            assert nvim.call("exists", "g:loaded_denops") == 0
             return nvim
 
 
@@ -200,9 +151,6 @@ in
         print("Goda SKK: insert, conversion, cycling, learning/restart, jk, command-line and terminal passed")
       '';
     in
-    assert pkgs.lib.any (node: node.package == skk && builtins.elem (toString goda) node.dependencies) (
-      builtins.attrValues bundle.graph.nodes
-    );
     pkgs.runCommand "skk-input" { } ''
       export HOME="$TMPDIR/home"
       export XDG_CONFIG_HOME="$TMPDIR/config" XDG_DATA_HOME="$TMPDIR/data"

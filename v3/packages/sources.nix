@@ -20,6 +20,7 @@ lib.mapAttrs' buildPlugin sources
     runtimeDeps = [ pkgs.tree-sitter ];
   };
   cmp_luasnip = pkgs.vimPlugins.cmp_luasnip;
+  goda-skk = import ./skk/package.nix { inherit pkgs sources; };
 
   LuaSnip = vimUtils.buildVimPlugin rec {
     pname = "LuaSnip";

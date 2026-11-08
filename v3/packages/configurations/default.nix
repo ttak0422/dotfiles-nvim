@@ -14,21 +14,27 @@ let
       "vim.cmd(" + lib.generators.toLua { } value.code + ")"
     else
       "local args = " + lib.generators.toLua { } (value.args or { }) + "\n" + value.code;
+  luaCheck = import ../plugin-check.nix;
   load =
     path:
-    import path {
-      inherit
-        pkgs
-        lib
-        sources
-        definitions
-        luaConfig
-        inputs'
-        ;
-    };
+    let
+      module = import path;
+      args = {
+        inherit
+          pkgs
+          lib
+          sources
+          definitions
+          luaConfig
+          luaCheck
+          inputs'
+          ;
+      };
+    in
+    module (builtins.intersectAttrs (builtins.functionArgs module) args);
 
   # Each definition owns one actual plugin. Edges express runtime dependencies only.
-  definitions = {
+  pluginDefinitions = {
     Comment-nvim = load ./Comment-nvim.nix;
     Ionide-vim = load ./Ionide-vim.nix;
     LuaSnip = load ./LuaSnip.nix;
@@ -66,6 +72,8 @@ let
     gitsigns-nvim = load ./gitsigns-nvim.nix;
     glance-nvim = load ./glance-nvim.nix;
     go-impl-nvim = load ./go-impl-nvim.nix;
+    goda-vim = load ./goda-vim.nix;
+    goda-skk-vim = load ./goda-skk-vim.nix;
     gopher-nvim = load ./gopher-nvim.nix;
     goplements-nvim = load ./goplements-nvim.nix;
     goto-preview = load ./goto-preview.nix;
@@ -205,6 +213,16 @@ let
     zen-nvim = load ./zen-nvim.nix;
   };
 
+  # Register each plugin's tests once at the profile root. Dependency references
+  # retain runtime configuration, but must not register the same test again.
+  definitions = lib.mapAttrs (
+    _: definition:
+    builtins.removeAttrs definition [
+      "test"
+      "tests"
+    ]
+  ) pluginDefinitions;
+
   # User-owned editor features are core configuration, not synthetic plugins.
   editorDefinitions = {
     buffer = load ./editor-buffer.nix;
@@ -224,8 +242,8 @@ let
     ) editorValues;
 in
 {
-  inherit definitions editorDefinitions;
-  plugins = builtins.attrValues definitions;
+  inherit definitions pluginDefinitions editorDefinitions;
+  plugins = builtins.attrValues pluginDefinitions;
   editorPreConfig = editorCode "preConfig";
   editorConfig = editorCode "config";
   extraPackages = lib.concatMap (value: value.extraPackages or [ ]) editorValues;
