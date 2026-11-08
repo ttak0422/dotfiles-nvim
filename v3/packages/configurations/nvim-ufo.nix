@@ -36,7 +36,10 @@ with sources;
     ''
       local ufo = require("ufo")
       ufo.setup({
-        provider_selector = function()
+        provider_selector = function(_, filetype)
+          if filetype == "markdown" then
+            return "indent"
+          end
           return { "treesitter", "indent" }
         end,
       })

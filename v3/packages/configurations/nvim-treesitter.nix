@@ -4,6 +4,7 @@
   sources,
   definitions,
   luaConfig,
+  luaCheck,
   inputs',
 }:
 with sources;
@@ -28,6 +29,15 @@ with sources;
     [固定リビジョンの README](https://github.com/nvim-treesitter/nvim-treesitter/blob/29212d826054bb2948fa9d3a99eca9bf6a050eb2/README.md)
   '';
   plugin = sources.nvim-treesitter;
+  preConfig = luaConfig {
+    code = ''
+      assert(loadfile("${../support/markdown-fences/setup.lua}"))(args)
+    '';
+    args = {
+      injections = builtins.readFile ../support/markdown-fences/injections.scm;
+      highlights = builtins.readFile ../support/markdown-fences/highlights.scm;
+    };
+  };
   config = luaConfig (
     let
       inherit (pkgs.tree-sitter) buildGrammar version;
@@ -98,11 +108,15 @@ with sources;
         ''
           require("nvim-treesitter").setup({ install_dir = args.install_dir })
           vim.opt.foldmethod = "expr"
-          vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+          vim.opt.foldexpr = "&filetype ==# 'markdown' ? 0 : v:lua.vim.treesitter.foldexpr()"
           vim.api.nvim_create_autocmd("FileType", {
             callback = function()
               pcall(vim.treesitter.start)
-              if vim.bo.indentexpr == "" then
+              if vim.bo.filetype == "markdown" then
+                if vim.bo.indentexpr == "v:lua.require'nvim-treesitter'.indentexpr()" then
+                  vim.bo.indentexpr = ""
+                end
+              elseif vim.bo.indentexpr == "" then
                 vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
               end
             end,
@@ -111,4 +125,9 @@ with sources;
       args.install_dir = toString parserDrv;
     }
   );
+  tests.markdown-fences = luaCheck {
+    name = "markdown-fences";
+    ui = true;
+    script = builtins.readFile ../support/markdown-fences/check.lua;
+  };
 }

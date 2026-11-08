@@ -50,7 +50,8 @@ with sources;
               only_render_image_at_cursor = true,
               only_render_image_at_cursor_mode = "popup",
               floating_windows = false,
-              filetypes = { "markdown", "vimwiki" },
+              -- Markdown deliberately skips inline parsing, including images.
+              filetypes = { "vimwiki" },
             },
           },
           max_height = 20,
