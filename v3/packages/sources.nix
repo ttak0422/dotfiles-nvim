@@ -1,7 +1,7 @@
 { pkgs, inputs' }:
 let
   inherit (pkgs) lib stdenv vimUtils;
-  sources = import ../npins { };
+  sources = import ../../npins-sources.nix ../npins;
   getSrc = name: builtins.getAttr name sources;
   buildPlugin = name: source: {
     name = builtins.replaceStrings [ "." ] [ "-" ] name;

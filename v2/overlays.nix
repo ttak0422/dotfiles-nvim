@@ -8,7 +8,7 @@ let
     lib
     vimUtils
     ;
-  getSrc = name: getAttr name (import ./npins);
+  getSrc = name: getAttr name (import ../npins-sources.nix ./npins);
 in
 {
   nvim-treesitter = prev.vimPlugins.nvim-treesitter.overrideAttrs {
