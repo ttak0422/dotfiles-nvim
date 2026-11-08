@@ -102,8 +102,7 @@
           '';
         in
         {
-          packages.v3-default = v3Neovim;
-          packages.v3-default-bundle = v3Default;
+          packages."v3/default" = v3Neovim;
           _module.args.pkgs = import inputs.nixpkgs {
             inherit system;
             overlays = import ./overlays.nix { inherit inputs inputs'; };
