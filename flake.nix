@@ -134,7 +134,9 @@
               bundle = v3Bundle;
               neovim = v3Neovim;
             });
-        }
-        // import ./apps.nix { inherit pkgs; };
+          devShells.default = pkgs.mkShell {
+            packages = [ pkgs.npins ];
+          };
+        };
     };
 }
