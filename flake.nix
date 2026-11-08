@@ -103,6 +103,7 @@
           v3Pkgs = import inputs.v3-nixpkgs {
             inherit system;
             overlays = (import ./overlays.nix { inherit inputs inputs'; }) ++ [
+              (import ./v3/dependencies.nix)
               (_: _: {
                 # v3 uses current nixpkgs recipes, not v2's version overrides.
                 inherit (v3Base) neovim-unwrapped jdt-language-server;
