@@ -119,7 +119,7 @@
                 "terraform"
               ];
           };
-          v3Configuration = import ./v3/default {
+          v3Configuration = import ./v3 {
             pkgs = v3Pkgs;
             inherit inputs';
           };
