@@ -28,13 +28,20 @@ in
     ## 主な機能
     - 送り仮名付き変換、単語登録、ユーザー辞書、変換取消に対応します。
     - 挿入モード、コマンドライン、端末で入力でき、変換前表示と状態popupを内蔵します。
-    - goda-cmp補完、SKKサーバー、Google日本語入力の辞書は上流の任意連携です。
+    - Goda起動時、TCP 1178で待受中のyaskkservを検出するとサーバーを使い、未検出なら同梱辞書を使います。
+    - サーバー選択後に接続できなくなった場合は同梱辞書へ退避し、再接続できればサーバーへ戻ります。
+    - goda-cmp補完とGoogle日本語入力の辞書は上流の任意連携です。
 
     ## 使い方
     Goの設定プログラムへ辞書を登録し、`<Plug>(goda-skk-enable)`へキーを割り当てます。
     READMEの例では挿入モードで`<C-j>`、`Kanji<Space>`と入力して変換し、
     `<C-j>`で確定します。診断は`:echo goda#log()`、詳細は`:help goda_skk`で確認できます。
     READMEは設定変更後の再ビルドと、`go test ./...`によるテストを案内しています。
+
+    サーバーは`127.0.0.1:1178`、EUC-JPを使用します。正常なサーバーの候補と同梱辞書は混ぜません。
+    応答待ちは上流の既定値1秒、接続失敗後の再試行間隔は5秒です。最初の選択で未検出だった
+    サーバーを後から起動した場合はNeovimを再起動してください。`GODA_SKK_SERVER=off`で
+    検出せず同梱辞書に固定できます。サーバーの起動・管理はこの設定では行いません。
 
     ## 要件
     goda.vim、SKK辞書、ビルド用Go 1.26以上が必要です。エディタはNeovim 0.11以上、
@@ -155,6 +162,7 @@ in
       export HOME="$TMPDIR/home"
       export XDG_CONFIG_HOME="$TMPDIR/config" XDG_DATA_HOME="$TMPDIR/data"
       export XDG_STATE_HOME="$TMPDIR/state" XDG_CACHE_HOME="$TMPDIR/cache"
+      export GODA_SKK_SERVER=off
       export SKK_TEST_CAT=${pkgs.coreutils}/bin/cat
       export SKK_TEST_BUNDLE=${bundle}
       mkdir -p "$HOME"
