@@ -1711,6 +1711,19 @@
       "url": "https://github.com/nvim-telescope/telescope-live-grep-args.nvim/archive/53e9df55b3651dd7cf77e172f1e8c9a17407acca.tar.gz",
       "hash": "sha256-kGGVegympVG4lzJ0zdFjsjiioy0gSQbJuENjll3jNlQ="
     },
+    "telescope-mr": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ttak0422",
+        "repo": "telescope-mr"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "eea3fd6ae1eb41c306321d0ac3dfcbf2ad666558",
+      "url": "https://github.com/ttak0422/telescope-mr/archive/eea3fd6ae1eb41c306321d0ac3dfcbf2ad666558.tar.gz",
+      "hash": "sha256-gZIWNIhzYl7bmyDjLk02SC1YJ9NabLSq46ciaM9zWpA="
+    },
     "telescope-sonictemplate.nvim": {
       "type": "Git",
       "repository": {
@@ -2035,6 +2048,19 @@
       "revision": "e58cb0df716d3c88605ae49db5c4741db8b48aa9",
       "url": "https://github.com/farmergreg/vim-lastplace/archive/e58cb0df716d3c88605ae49db5c4741db8b48aa9.tar.gz",
       "hash": "sha256-6/Gl7l3ImGqfKkOp0kkHdSQhRCw3jM2NyzRuQfAqAh4="
+    },
+    "vim-mr": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "lambdalisue",
+        "repo": "vim-mr"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "2602c0bea2066afbc6cc5cc27ea99f2f51c66893",
+      "url": "https://github.com/lambdalisue/vim-mr/archive/2602c0bea2066afbc6cc5cc27ea99f2f51c66893.tar.gz",
+      "hash": "sha256-VHVkCSBrcBVkOq98V0pvxFwgGkoS1rE4xlR46R4LLRo="
     },
     "vim-nix": {
       "type": "Git",

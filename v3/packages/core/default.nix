@@ -256,6 +256,14 @@ in
             desc = mapping[3],
           })
         end
+        for key, kind in pairs({ u = "mru", r = "mrr", w = "mrw" }) do
+          vim.keymap.set("n", "<Leader>fr" .. key, function()
+            require("telescope").extensions.mr[kind]({ cwd = vim.fn.getcwd() })
+          end, { silent = true, desc = " " .. kind:upper() })
+          vim.keymap.set("n", "<Leader>Fr" .. key, function()
+            require("telescope").extensions.mr[kind]()
+          end, { silent = true, desc = " " .. kind:upper() })
+        end
         vim.keymap.set({ "n", "i", "c", "t", "v" }, "¥", "\\", { noremap = true, silent = true })
         vim.keymap.set("t", "<S-Space>", "<Space>", { noremap = true, silent = true })
         for i = 0, 9 do
@@ -290,7 +298,7 @@ in
       remotely and in a new editor. Personal ~/config.lua and config-local remain
       enabled, so reproducible checks use an isolated HOME.
 
-      Denops-dependent Telescope MR mappings are intentionally omitted. Existing
+      Telescope MR uses vim-mr’s Vimscript API without Denops. Existing
       Neorg and Avante mappings are retained for compatibility although those
       plugins were not enabled by the source profile. The first vim.ui.select
       loads Telescope and delegates to its installed ui-select handler.
