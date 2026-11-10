@@ -190,6 +190,7 @@ let
     vim-nix = load ./vim-nix.nix;
     vim-qfreplace = load ./vim-qfreplace.nix;
     vim-repeat = load ./vim-repeat.nix;
+    vim-mr = load ./vim-mr.nix;
     vim-sonictemplate = load ./vim-sonictemplate.nix;
     vim-startuptime = load ./vim-startuptime.nix;
     vimdoc-ja = load ./vimdoc-ja.nix;

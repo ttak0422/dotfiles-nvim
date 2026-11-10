@@ -10,7 +10,7 @@
 with sources;
 {
   doc = ''
-    Telescope 本体と 5 つの拡張をまとめ、picker と選択 UI の設定を共有する。
+    Telescope 本体と 6 つの拡張をまとめ、picker と選択 UI の設定を共有する。
 
     # telescope.nvim
 
@@ -101,6 +101,22 @@ with sources;
     ## 出典
     [固定リビジョンの README](https://github.com/tamago324/telescope-sonictemplate.nvim/blob/9edeeea022d9e35287fa80a91ed5bffb950cc096/README.md)
 
+    # telescope-mr
+
+    ## 概要
+    vim-mr の履歴を Telescope で選択する。
+
+    ## 使い方
+    `:Telescope mr mru` / `mrw` / `mrr` / `mrd` で利用する。
+    `<Leader>fru` / `frr` / `frw` は現在のディレクトリ内、
+    `<Leader>Fru` / `Frr` / `Frw` は全体の履歴を表示する。
+
+    ## 要件
+    Telescope と vim-mr の Vimscript API を使用する。Denops / Deno は不要。
+
+    ## 出典
+    [固定リビジョンの実装](https://github.com/ttak0422/telescope-mr/blob/eea3fd6ae1eb41c306321d0ac3dfcbf2ad666558/lua/telescope/_extensions/mr.lua)
+
     # telescope-ui-select.nvim
 
     ## 概要
@@ -129,6 +145,7 @@ with sources;
   onModules = [ "telescope" ];
   packages = with sources; [
     telescope-nvim
+    telescope-mr
     telescope-fzf-native-nvim
     telescope-ghq-nvim
     telescope-live-grep-args-nvim
@@ -136,6 +153,7 @@ with sources;
     telescope-ui-select-nvim
   ];
   dependPlugins = [
+    definitions.vim-mr
     definitions.plenary-nvim
     definitions.project-nvim
     definitions.vim-sonictemplate
@@ -192,7 +210,7 @@ with sources;
           },
         },
       })
-      for _, extension in ipairs({ "ui-select", "live_grep_args", "sonictemplate", "projects", "ghq", "worktab", "track" }) do
+      for _, extension in ipairs({ "mr", "ui-select", "live_grep_args", "sonictemplate", "projects", "ghq", "worktab", "track" }) do
         telescope.load_extension(extension)
       end
       -- Telescope owns its pterm picker integration; standalone Pterm needs no picker.
@@ -290,6 +308,7 @@ with sources;
         projects = "projects",
         ghq = "ghq",
         worktab = "worktab",
+        mr = "mru",
       }) do
         assert(package.loaded["telescope._extensions." .. extension], extension .. " was not loaded by the profile")
         assert(type(telescope.extensions[extension][api]) == "function", extension .. " picker API is missing")
@@ -354,6 +373,111 @@ with sources;
       vim.wait(50, function() return false end)
       assert(#calls == 1 and #cancelled == 1, "selection callbacks ran more than once")
       assert(_G.telescope_test_setup_calls == 1, "using pickers must not repeat Telescope setup")
+    '';
+  };
+  tests.telescope-mr-without-denops = luaCheck {
+    name = "telescope-mr-without-denops";
+    preInit = ''
+      vim.g["mr#delay"] = 20
+    '';
+    script = ''
+      -- Exercise the real profile, recorders, mappings and pickers with isolated state.
+      local function no_denops()
+        assert(#vim.api.nvim_get_runtime_file('plugin/denops.vim', true) == 0)
+        assert(vim.fn.exists('*denops#request') == 0)
+        for _, script in ipairs(vim.fn.getscriptinfo()) do
+          assert(not script.name:find('/denops[/.]'), script.name)
+        end
+      end
+      no_denops()
+      assert(vim.g.loaded_mr == 1, 'MR must record eagerly')
+      assert(not package.loaded.telescope, 'recording must not load Telescope')
+      -- Remove Deno's executable directory while preserving the other profile tools.
+      vim.env.PATH = table.concat(vim.tbl_filter(function(dir)
+        return vim.fn.executable(dir .. '/deno') == 0
+      end, vim.split(vim.env.PATH, ':', { plain = true })), ':')
+      assert(vim.fn.executable('deno') == 0)
+      local root = assert(vim.uv.fs_realpath(vim.env.HOME)) .. '/MR-fixtures'
+      local repo, other = root .. '/repo', root .. '/repo-other'
+      for _, dir in ipairs({ repo .. '/.git', repo .. '/space dir', other .. '/.git' }) do
+        vim.fn.mkdir(dir, 'p')
+      end
+      local file, outside = repo .. '/space dir/file with spaces.txt', other .. '/outside.txt'
+      vim.fn.writefile({ 'inside' }, file)
+      vim.fn.writefile({ 'repository marker' }, repo .. '/plain.txt')
+      vim.fn.writefile({ 'outside' }, outside)
+      local function list(kind) return vim.fn['mr#' .. kind .. '#list']() end
+      local function wait(predicate, message)
+        assert(vim.wait(3000, predicate, 10), message)
+      end
+      local function visit(path)
+        vim.cmd.edit(vim.fn.fnameescape(path))
+        vim.api.nvim_buf_set_lines(0, 0, -1, false, { 'saved' })
+        vim.cmd.write()
+      end
+      vim.cmd.cd(vim.fn.fnameescape(other))
+      visit(outside)
+      -- Upstream MRR's finddir search does not escape spaces in parent paths.
+      -- Record the repository from a plain path; exercise space-safe MRU/MRW below.
+      visit(repo .. '/plain.txt')
+      vim.cmd.cd(vim.fn.fnameescape(repo .. '/space dir'))
+      visit(file)
+      local wanted = { mru = file, mrw = file, mrr = repo, mrd = repo .. '/space dir' }
+      for kind, path in pairs(wanted) do
+        wait(function() return vim.tbl_contains(list(kind), path) end, kind .. ': missing automatic record')
+      end
+      assert(not package.loaded.telescope, 'file events must not activate Telescope')
+      -- Stop writers before checking persisted stale entries and deletion.
+      for kind in pairs(wanted) do vim.fn['mr#' .. kind .. '#stop_recording']() end
+      local filename = vim.fn.expand(vim.g['mr#mru#filename'])
+      vim.fn.writefile({ file, outside, root .. '/missing.txt' }, filename)
+      assert(vim.deep_equal(list('mru'), { file, outside }), 'stale files must be filtered')
+      vim.cmd.cd(vim.fn.fnameescape(repo))
+      vim.o.lines, vim.o.columns = 60, 220
+      local function check_picker(open, expected, rejected)
+        vim.cmd.stopinsert()
+        open()
+        local prompt = vim.api.nvim_get_current_buf()
+        assert(vim.bo[prompt].filetype == 'TelescopePrompt', 'MR entry point did not open Telescope')
+        local picker = require('telescope.actions.state').get_current_picker(prompt)
+        wait(function() return picker.manager and picker.manager:num_results() > 0 end, 'MR picker has no entries')
+        local values = {}
+        for entry in picker.manager:iter() do values[#values + 1] = entry.value end
+        for _, value in ipairs(expected) do
+          assert(vim.tbl_contains(values, value), 'missing picker entry: ' .. value)
+        end
+        for _, value in ipairs(rejected or {}) do
+          assert(not vim.tbl_contains(values, value), 'unexpected picker entry: ' .. value)
+        end
+        require('telescope.actions').close(prompt)
+      end
+      local function mapping(lhs)
+        local map = vim.fn.maparg(lhs, 'n', false, true)
+        assert(type(map.callback) == 'function', 'missing mapping: ' .. lhs)
+        return map.callback
+      end
+      -- The first MR mapping activates the lazy Telescope cartridge. Lua options keep
+      -- spaces in cwd intact and avoid command-line escaping/parsing differences.
+      for key, kind in pairs({ u = 'mru', w = 'mrw', r = 'mrr' }) do
+        vim.cmd.cd(vim.fn.fnameescape(kind == 'mrr' and repo or repo .. '/space dir'))
+        local inside = kind == 'mrr' and repo or file
+        local elsewhere = kind == 'mrr' and other or outside
+        check_picker(mapping('<Leader>fr' .. key), { inside }, { elsewhere, root .. '/missing.txt' })
+        check_picker(mapping('<Leader>Fr' .. key), { inside, elsewhere })
+      end
+      local telescope = require('telescope')
+      for kind, path in pairs(wanted) do
+        check_picker(function() telescope.extensions.mr[kind]({ previewer = false }) end, { path })
+      end
+      vim.cmd('Telescope mr mru previewer=false')
+      assert(vim.bo.filetype == 'TelescopePrompt', 'Telescope MR command failed')
+      require('telescope.actions').close(vim.api.nvim_get_current_buf())
+      for kind, path in pairs(wanted) do
+        vim.fn['mr#' .. kind .. '#delete'](path)
+        wait(function() return not vim.tbl_contains(list(kind), path) end, kind .. ': delete failed')
+      end
+      no_denops()
+      assert(vim.fn.executable('deno') == 0)
     '';
   };
   tests.telescope-first-ui-select = luaCheck {
