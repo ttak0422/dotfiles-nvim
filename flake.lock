@@ -53,11 +53,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794148959,
-        "narHash": "sha256-EJGO2u4NW0TuCcJACMREsHFNhXCWLjw6llFXVHiNqpM=",
+        "lastModified": 1794323990,
+        "narHash": "sha256-PI9bevqcrDnILMcdWzsDx/rCvepnP+bE3xkG+WhKCzg=",
         "owner": "ttak0422",
         "repo": "divine",
-        "rev": "91011f843b67575a0af145d26674cd49ee8173c9",
+        "rev": "fdd6e9f88d2578862c31ca22f88495051d7b0b02",
         "type": "github"
       },
       "original": {
@@ -1171,11 +1171,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1794065797,
-        "narHash": "sha256-jxi5tcr77PvJXuml6GELMrmi8eBQZMtiDzLSEF+QNUw=",
+        "lastModified": 1794317391,
+        "narHash": "sha256-csBBlJNWxC6nUlchv89WIF2MTj7xUW20Ef/RbZj2CzQ=",
         "owner": "ttak0422",
         "repo": "pterm",
-        "rev": "76663a45224c33f5b420485a6f1b92b96f2c3af7",
+        "rev": "f05c4a20abacc3046c7168f5aa210504d1f4dd69",
         "type": "github"
       },
       "original": {
