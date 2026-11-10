@@ -4,6 +4,7 @@
   sources,
   definitions,
   luaConfig,
+  luaCheck,
   inputs',
 }:
 with sources;
@@ -192,4 +193,108 @@ with sources;
       })
     ''
   );
+  tests.hud-path = luaCheck {
+    name = "hud-path";
+    ui = true;
+    script = ''
+      local api, hud = vim.api, require('hud')
+      local base, cwd = vim.fn.tempname(), vim.fn.getcwd()
+      local repository, plain = base .. '/repository', base .. '/plain'
+      local find_root = vim.fs.root
+      -- Keep unrelated ancestor markers outside the test fixture out of non-Git cases.
+      vim.fs.root = function(...)
+        local root = find_root(...)
+        return root and vim.startswith(root, base .. '/') and root or nil
+      end
+      local content = {}
+      for line = 1, 50 do content[line] = 'source line ' .. line end
+      local function rows(win)
+        for _, candidate in ipairs(api.nvim_list_wins()) do
+          local buf = api.nvim_win_get_buf(candidate)
+          if vim.b[buf].hud_source_win == (win or api.nvim_get_current_win()) then
+            return api.nvim_buf_get_lines(buf, 0, -1, false)
+          end
+        end
+      end
+      local function header(location, filename, win)
+        assert(vim.wait(2000, function()
+          local lines = rows(win)
+          return lines and vim.trim(lines[1]) == location and vim.trim(lines[2] or ''') == filename
+        end, 10), 'HUD header: ' .. vim.inspect(rows(win)))
+      end
+      local function edit(name)
+        vim.fn.mkdir(vim.fn.fnamemodify(name, ':h'), 'p')
+        vim.fn.writefile(content, name)
+        vim.cmd.edit(vim.fn.fnameescape(name))
+        vim.bo.filetype = 'text'
+        api.nvim_win_set_cursor(0, { 20, 0 })
+        api.nvim_exec_autocmds('CursorMoved', {})
+      end
+      local function resized(width)
+        api.nvim_win_set_width(0, width)
+        api.nvim_exec_autocmds('WinResized', {})
+      end
+      local ok, err = xpcall(function()
+        assert(#api.nvim_get_autocmds({ group = 'hud-config' }) > 0, 'profile must configure HUD')
+        vim.o.winminwidth, vim.o.winwidth = 1, 1
+        vim.wo.number, vim.wo.relativenumber, vim.wo.wrap = false, false, false
+        vim.wo.signcolumn, vim.wo.foldcolumn, vim.wo.winbar = 'no', '0', '''
+        vim.fn.mkdir(repository, 'p')
+        local result = vim.system({ '${pkgs.git}/bin/git', '-C', repository, 'init', '--quiet' }, { text = true }):wait()
+        assert(result.code == 0, result.stderr)
+        edit(repository .. '/src/example/Example.txt')
+        header('repository src/example', 'Example.txt')
+        api.nvim_buf_set_lines(0, 0, 1, false, { 'changed' })
+        api.nvim_exec_autocmds('BufModifiedSet', {})
+        header('repository src/example', ' Example.txt')
+        vim.bo.modified = false
+        api.nvim_exec_autocmds('BufModifiedSet', {})
+        local source = api.nvim_get_current_win()
+        vim.cmd.vsplit()
+        resized(80)
+        header('repository s/example', 'Example.txt')
+        header('repository src/example', 'Example.txt', source)
+        resized(18)
+        header('repository', 'Example.txt')
+        vim.cmd.only()
+        api.nvim_exec_autocmds('WinResized', {})
+        api.nvim_buf_set_name(0, repository .. '/Renamed.txt')
+        api.nvim_exec_autocmds('BufFilePost', {})
+        header('repository .', 'Renamed.txt')
+
+        vim.fn.mkdir(plain, 'p')
+        vim.cmd.cd(vim.fn.fnameescape(plain))
+        edit(plain .. '/notes/Notes.txt')
+        header('notes', 'Notes.txt')
+        vim.cmd.cd(vim.fn.fnameescape(plain .. '/notes'))
+        header('.', 'Notes.txt')
+        vim.cmd.cd(vim.fn.fnameescape(repository))
+        header(plain .. '/notes', 'Notes.txt')
+        vim.cmd.cd(vim.fn.fnameescape(plain))
+        local directory = 'directory-that-does-not-fit'
+        edit(plain .. '/' .. directory .. '/Clipped.txt')
+        header(directory, 'Clipped.txt')
+        vim.cmd.vsplit()
+        resized(18)
+        assert(vim.wait(2000, function()
+          local lines = rows()
+          local path = lines and vim.trim(lines[1]) or '''
+          return path ~= ''' and #path < #directory and vim.startswith(directory, path)
+            and vim.trim(lines[2] or ''') == 'Clipped.txt'
+        end, 10), 'non-Git directory must clip instead of disappearing')
+        vim.cmd.only()
+        vim.cmd.enew()
+        api.nvim_buf_set_lines(0, 0, -1, false, content)
+        vim.bo.modified = false
+        api.nvim_win_set_cursor(0, { 20, 0 })
+        api.nvim_exec_autocmds('CursorMoved', {})
+        header('.', '[No Name]')
+      end, debug.traceback)
+      hud.disable()
+      vim.fs.root = find_root
+      vim.cmd.cd(vim.fn.fnameescape(cwd))
+      vim.fn.delete(base, 'rf')
+      assert(ok, err)
+    '';
+  };
 }
