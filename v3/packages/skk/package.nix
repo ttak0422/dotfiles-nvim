@@ -14,12 +14,13 @@ pkgs.buildGoModule {
     replace github.com/Shougo/goda-skk.vim => ./.deps/goda-skk
     EOF
   '';
-  vendorHash = "sha256-02nf8GIV8+9SRdWuutdbRrhx1d4DEVH1RiuUwP/Ovto=";
+  vendorHash = "sha256-kn6Z6MBjprv4R0DATvaGstGwo8PNbbObYRUWy1EMIgM=";
   env.CGO_ENABLED = "0";
   ldflags = [
     "-s"
     "-w"
     "-X main.dictionary=${pkgs.skk-dict}/SKK-JISYO.L"
+    "-X main.lsof=${pkgs.lsof}/bin/lsof"
   ];
   meta.mainProgram = "goda-skk";
 }
