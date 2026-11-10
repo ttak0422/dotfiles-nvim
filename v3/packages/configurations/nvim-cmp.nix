@@ -139,6 +139,15 @@ with sources;
       local cmp = require("cmp")
       local luasnip = require("luasnip")
       local lspkind = require("lspkind")
+      local lsp_source = {
+        name = "nvim_lsp",
+        option = {
+          markdown_oxide = {
+            -- Keep spaces, paths and heading fragments in Markdown link queries.
+            keyword_pattern = [[\(\k\| \|\/\|#\)\+]],
+          },
+        },
+      }
 
       lspkind.setup({
         symbol_map = {
@@ -227,14 +236,14 @@ with sources;
             cmp.complete({
               config = {
                 sources = {
-                  { name = "nvim_lsp" },
+                  lsp_source,
                 },
               },
             })
           end,
         }),
         sources = cmp.config.sources({
-          { name = "nvim_lsp" },
+          lsp_source,
           { name = "luasnip" },
         }, {
           { name = "buffer" },
