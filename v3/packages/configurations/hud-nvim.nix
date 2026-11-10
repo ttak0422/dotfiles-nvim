@@ -16,6 +16,7 @@ with sources;
 
     ## 主な機能
     - 文字列・関数・入れ子の部品で行を構成する。
+    - 1 行目にリポジトリ名と相対ディレクトリ、2 行目にファイル名を表示する。Git 管理外ではリポジトリ名を表示しない。
     - イベント単位の更新キャッシュ、幅不足時の優先度、カーソルとの重なり回避を扱う。
 
     ## 使い方
@@ -51,18 +52,21 @@ with sources;
       }
 
       -- Keep Incline's path formatting, but never walk the filesystem on cursor moves.
-      local file = {
-        -- Keep the row padding with the filename when lower-priority parts yield.
+      local location = {
         priority = 20,
         update = { 'BufEnter', 'FileType', 'WinResized', 'VimResized', 'OptionSet' },
         provider = function(ctx)
           local name = api.nvim_buf_get_name(ctx.buf)
           local cached = git_roots[ctx.buf]
           if not cached or cached.name ~= name then
-            cached = { name = name, root = name ~= ''' and vim.fs.root(name, { '.git' }) or false }
+            cached = {
+              name = name,
+              root = name ~= ''' and vim.bo[ctx.buf].buftype == '''
+                and not name:match('^%w+://') and vim.fs.root(name, { '.git' }) or false,
+            }
             git_roots[ctx.buf] = cached
           end
-          local filename = vim.fn.fnamemodify(name, ':t')
+          local repository = cached.root and vim.fn.fnamemodify(cached.root, ':t') or '''
           local relative = cached.root and name:sub(#cached.root + 2) or vim.fn.fnamemodify(name, ':.')
           local path = vim.fn.fnamemodify(relative, ':h')
           for _, prefix in ipairs(maven_prefixes[vim.bo[ctx.buf].filetype] or {}) do
@@ -75,9 +79,25 @@ with sources;
           end
           return {
             ' ',
+            { provider = repository, hl = 'WinBar' },
+            {
+              provider = (repository ~= ''' and ' ' or ''') .. (path ~= ''' and path or '.'),
+              hl = 'WinBar',
+              priority = repository ~= ''' and 0 or nil,
+            },
+          }
+        end,
+      }
+      local file = {
+        -- Keep the row padding with the filename when lower-priority parts yield.
+        priority = 20,
+        update = { 'BufEnter' },
+        provider = function(ctx)
+          local filename = vim.fn.fnamemodify(api.nvim_buf_get_name(ctx.buf), ':t')
+          return {
+            ' ',
             indicator,
             { provider = filename ~= ''' and filename or '[No Name]', hl = 'Title' },
-            { provider = path ~= ''' and path ~= '.' and (' ' .. path) or ''', hl = 'WinBar', priority = 0 },
           }
         end,
       }
@@ -131,8 +151,8 @@ with sources;
           return #result > 1 and result or nil
         end,
       }
-      local active = { file, { git_diff, branch }, ruler, diagnostics }
-      local inactive = { active[1], branch }
+      local active = { location, file, { git_diff, branch }, ruler, diagnostics }
+      local inactive = { location, file, branch }
       local group = api.nvim_create_augroup('hud-config', { clear = true })
       local function highlights()
         for _, item in ipairs({ { 'Added', 10 }, { 'Changed', 12 }, { 'Removed', 9 } }) do

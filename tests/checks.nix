@@ -120,6 +120,16 @@
         HUD_TEST_PLUGIN = pkgs.vimPlugins.v2.hud-nvim;
         HUD_TEST_GITSIGNS = pkgs.vimPlugins.v2.gitsigns-nvim;
         HUD_TEST_THEME = pkgs.vimPlugins.v2.sorairo;
+        HUD_TEST_CONFIG = pkgs.writeText "hud-v3-config.lua" (
+          (import ../v3/packages/configurations/hud-nvim.nix {
+            inherit pkgs;
+            inherit (pkgs) lib;
+            sources = { };
+            definitions = { };
+            luaConfig = script: script;
+            inputs' = { };
+          }).config
+        );
       }
       ''
         cp -R ${../.} source
@@ -128,6 +138,7 @@
         export HOME="$TMPDIR/home"
         mkdir -p "$HOME"
         nvim -n --headless -u NONE -i NONE -l tests/hud.lua
+        nvim -n --headless -u NONE -i NONE -l tests/hud-path.lua
         touch "$out"
       '';
 
