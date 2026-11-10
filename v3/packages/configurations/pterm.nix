@@ -46,6 +46,7 @@ in
     ## 主な機能
     - 常駐する PTY プロセスへ接続し、Neovim 標準端末で描画する。
     - 名前付き・階層型セッションと、任意の Telescope 検索に対応する。
+    - v2.4.0 の差分描画と、Telescope grep の ANSI 色付きプレビューを利用する。
 
     ## 使い方
     `:Pterm new dev` で開き、`:Pterm list` で一覧、`:Pterm redraw dev` で再描画する。`:Pterm kill dev` はセッションを終了する。Telescope 連携は `:Telescope pterm sessions` / `:Telescope pterm grep`。
@@ -54,7 +55,7 @@ in
     Neovim 0.10 以上と flakes 有効の Nix。対応環境は x86_64 / aarch64 Linux と Apple Silicon macOS。管理接続には protocol version 2 が必要。
 
     ## 出典
-    [固定バージョンの README](https://github.com/ttak0422/pterm/blob/76663a45224c33f5b420485a6f1b92b96f2c3af7/README.md)
+    [固定バージョンの README](https://github.com/ttak0422/pterm/blob/f05c4a20abacc3046c7168f5aa210504d1f4dd69/README.md)
   '';
 
   lazy = true;
@@ -66,7 +67,8 @@ in
     # lua
     ''
       require("pterm").setup({})
-    '');
+    ''
+  );
   extraPackages = with pkgs; [ pterm-daemon ];
   tests.pterm-command-lazy-routing = luaCheck {
     name = "pterm-command-lazy-routing";
@@ -110,6 +112,37 @@ in
       vim.fn.getcompletion("Pterm ", "cmdline")
       assert(calls.setup == 1 and not package.loaded.telescope,
         "completion and commands must reuse setup without loading Telescope")
+    '';
+  };
+
+  tests.pterm-colored-text-api = luaCheck {
+    name = "pterm-colored-text-api";
+    script = ''
+      local pterm = require("pterm")
+      assert(vim.fn.executable("pterm") == 1, "the matching daemon must be on PATH")
+      local system = vim.system
+      local calls = {}
+      local output = "\27[31mred\27[0m"
+      vim.system = function(argv, opts)
+        calls[#calls + 1] = argv
+        assert(opts.text == true)
+        return { wait = function() return { code = 0, stdout = output .. "\n", stderr = "" } end }
+      end
+      local ok, err = pcall(function()
+        assert(pterm.full_text_ansi("fixture/test session") == output, "colored output must preserve ANSI")
+        local binary = calls[1][1]
+        assert(vim.uv.fs_realpath(vim.fn.exepath(binary)) == vim.uv.fs_realpath(vim.fn.exepath("pterm")),
+          "the plugin and PATH must use the same pinned daemon")
+        assert(vim.deep_equal(calls[1], { binary, "full-text", "fixture/test session", "--ansi" }),
+          "colored full-text must pass --ansi as its own argument")
+        output = "plain text"
+        assert(pterm.full_text("fixture/test session") == output)
+        assert(vim.deep_equal(calls[2], { binary, "full-text", "fixture/test session" }),
+          "plain full-text must remain backward compatible")
+        assert(pterm.full_text_ansi("fixture/test session") == output, "old daemon plain-text fallback must work")
+      end)
+      vim.system = system
+      assert(ok, err)
     '';
   };
 }

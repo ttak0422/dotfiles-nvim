@@ -127,6 +127,35 @@
             pkgs = v3Pkgs;
             configuration = v3Configuration;
           };
+          v3Graph = inputs.divine.lib.mkGraph {
+            pkgs = v3Pkgs;
+            configuration = v3Configuration;
+          };
+          v3GraphApp = v3Pkgs.writeShellApplication {
+            name = "v3-default-graph";
+            runtimeInputs = [ v3Pkgs.coreutils ];
+            text = ''
+              if [[ "''${1:-}" == "--help" || "''${1:-}" == "-h" ]]; then
+                printf 'Usage: nix run .#v3/graph -- [OUTPUT.html]\n'
+                printf 'Write the v3/default dependency graph (default: v3-default-graph.html).\n'
+                printf 'Existing files are never overwritten. No browser is opened.\n'
+                exit 0
+              fi
+              if (( $# > 1 )); then
+                echo "Expected at most one output path; see --help." >&2
+                exit 2
+              fi
+              output="''${1:-v3-default-graph.html}"
+              if [[ -e "$output" || -L "$output" ]]; then
+                printf 'Refusing to overwrite: %s\n' "$output" >&2
+                exit 1
+              fi
+              # Keep the regular-file race protected after the explicit path check.
+              set -o noclobber
+              cat ${v3Graph} > "$output"
+              printf '%s\n' "$output"
+            '';
+          };
           v3Neovim = v3Pkgs.writeShellScriptBin "nvim" ''
             # Meian uses macOS defaults; retain Nix tools before the OS fallback.
             export PATH="$PATH:/usr/bin"
@@ -138,6 +167,15 @@
         {
           packages = lib.optionalAttrs (system == "aarch64-darwin") {
             "v3/default" = v3Neovim;
+            "v3/graph" = v3Graph;
+          };
+          # The graph uses the same complete, macOS-only configuration as v3/default.
+          apps = lib.optionalAttrs (system == "aarch64-darwin") {
+            "v3/graph" = {
+              type = "app";
+              program = lib.getExe v3GraphApp;
+              meta.description = "Generate the v3/default offline dependency graph";
+            };
           };
           _module.args.pkgs = import inputs.nixpkgs {
             inherit system;
