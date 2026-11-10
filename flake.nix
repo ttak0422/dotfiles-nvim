@@ -174,7 +174,6 @@
             "v3/graph" = {
               type = "app";
               program = lib.getExe v3GraphApp;
-              meta.description = "Generate the v3/default offline dependency graph";
             };
           };
           _module.args.pkgs = import inputs.nixpkgs {
