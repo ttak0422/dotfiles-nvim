@@ -8,7 +8,7 @@
 }:
 with sources;
 let
-  mimori = inputs'.v2-mimori.packages.default;
+  mimori = inputs'.v3-mimori.packages.default;
 in
 {
   plugin = sources.komado-nvim;

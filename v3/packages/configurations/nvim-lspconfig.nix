@@ -132,7 +132,7 @@ with sources;
     taplo
     terraform-ls
     typescript
-    v2.kotlin-lsp
+    kotlin-lsp
     vscode-langservers-extracted
     vtsls
     yaml-language-server

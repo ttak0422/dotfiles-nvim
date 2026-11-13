@@ -32,7 +32,7 @@ with sources;
   plugin = sources.mcphub-nvim;
   extraPackages = with pkgs; [
     nodejs
-    v2.mcp-hub
+    mcp-hub
     uv
   ];
   dependPlugins = [

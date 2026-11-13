@@ -58,8 +58,8 @@ lib.mapAttrs' buildPlugin sources
     buildPhase = "make";
   };
 
-  # Native packages have independent v3 inputs so updates leave v2 unchanged.
+  # Native packages use the pinned v3 inputs.
   inherit (inputs'.v3-pterm.packages) pterm pterm-daemon;
-  inherit (inputs'.v2-meian.packages) meian;
+  inherit (inputs'.v3-meian.packages) meian;
   inherit (inputs'.v3-track.packages) track track-cli;
 }

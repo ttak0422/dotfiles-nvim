@@ -29,7 +29,6 @@ with sources;
   '';
   plugin = sources.rustowl.overrideAttrs {
     # WIP: use `cargo binstall rustowl`
-    # runtimeDeps = with pkgs.v2; [ rustowl ];
   };
   config = luaConfig (
     # lua
