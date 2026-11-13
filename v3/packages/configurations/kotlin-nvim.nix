@@ -43,6 +43,6 @@ with sources;
           kotlin.setup_kotlin_lsp(options)
         end
       '';
-    args.kotlin_lsp_dir = "${pkgs.v2.kotlin-lsp}/libexec/kotlin-lsp";
+    args.kotlin_lsp_dir = "${pkgs.kotlin-lsp}/libexec/kotlin-lsp";
   });
 }

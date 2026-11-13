@@ -1,4 +1,0 @@
--- [nfnl] v2/fnl/after/lsp/efm.fnl
-local languages = {}
-local init_options = {documentFormatting = true, documentRangeFormatting = true}
-return {single_file_support = true, filetypes = vim.tbl_keys(languages), settings = {rootMarkers = {".git/"}, languages = languages}, init_options = init_options}

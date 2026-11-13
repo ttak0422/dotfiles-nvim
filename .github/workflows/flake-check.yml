@@ -28,7 +28,7 @@ jobs:
           skipPush: ${{ github.event_name == 'pull_request' }}
           authToken: "${{ github.event_name != 'pull_request' && secrets.CACHIX_AUTH_TOKEN || '' }}"
 
-      # Keep the focused regression suite. Full v2/v3 packages and the v3 inline
+      # Keep the focused regression suite. Full v3 packages and the v3 inline
       # package tests are evaluated and run locally, not by this CI target.
       - name: Run focused regression checks
         run: nix build .#legacyPackages.${{ matrix.system }}.ci-checks --no-link --print-build-logs

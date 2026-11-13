@@ -24,13 +24,6 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    bundler = {
-      url = "github:ttak0422/bundler/v3";
-      inputs.nixpkgs.follows = "nixpkgs";
-      # url = "path:/Users/tak/ghq/github.com/ttak0422/bundler";
-      # url = "path:/home/ttak0422/ghq/github.com/ttak0422/bundler";
-    };
-
     skk-dict = {
       url = "github:skk-dev/dict";
       flake = false;
@@ -52,44 +45,30 @@
       inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
 
-    # v2
-    v2-mcp-hub = {
+    v3-mcp-hub = {
       url = "github:ravitemer/mcp-hub";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    v2-blink-cmp = {
-      url = "github:Saghen/blink.cmp/v1";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-    v2-pterm.url = "github:ttak0422/pterm";
-    v2-meian = {
-      url = "github:ttak0422/meian.nvim";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-    v2-track = {
-      url = "github:ttak0422/track";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    v2-mimori = {
+    v3-mimori = {
       url = "github:ttak0422/mimori";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # v3 dependencies update independently of the existing v2 profile.
+    v3-meian = {
+      url = "github:ttak0422/meian.nvim";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
     v3-nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     v3-pterm.url = "github:ttak0422/pterm";
     v3-track = {
       url = "github:ttak0422/track";
       inputs.nixpkgs.follows = "v3-nixpkgs";
     };
-    # WIP
-    # v2-rustowl.url = "github:nix-community/rustowl-flake";
   };
 
   outputs =
     inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = builtins.filter (system: system != "x86_64-darwin") (import inputs.systems);
-      imports = [ inputs.bundler.flakeModules.neovim ];
       perSystem =
         {
           inputs',
@@ -106,7 +85,7 @@
             overlays = (import ./overlays.nix { inherit inputs inputs'; }) ++ [
               (import ./v3/dependencies.nix)
               (_: _: {
-                # v3 uses current nixpkgs recipes, not v2's version overrides.
+                # Keep editor and language-server closures on the pinned upstream recipes.
                 inherit (v3Base) neovim-unwrapped jdt-language-server;
               })
             ];
@@ -187,19 +166,8 @@
                 "terraform"
               ];
           };
-          # The full configuration includes macOS-only meian and Kotlin LSP.
-          bundler-nvim =
-            lib.optionalAttrs (system == "aarch64-darwin") {
-              v2 = import ./v2 {
-                inherit inputs' pkgs lib;
-              };
-            }
-            // (import ./tests {
-              inherit inputs';
-              inherit pkgs;
-            });
           # CI selects only these pre-existing focused checks. Keeping a separate
-          # output avoids evaluating the full v2/v3 packages or v3 inline checks.
+          # output avoids evaluating the full v3 packages or v3 inline checks.
           legacyPackages.ci-checks = pkgs.linkFarm "dotfiles-nvim-ci-checks" (
             lib.mapAttrsToList (name: path: { inherit name path; }) regressionChecks
           );

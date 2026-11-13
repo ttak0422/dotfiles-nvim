@@ -3,8 +3,7 @@
 This v3-only configuration keeps Neovim's real Markdown **block** parser to find
 CommonMark code fences. It suppresses host Markdown highlights and non-fence
 injections, especially `markdown_inline`, while retaining normal Tree-sitter
-highlighting inside language-labelled fences. It adds no plugin and does not
-change v2.
+highlighting inside language-labelled fences. It adds no plugin.
 
 ## Behavior and trade-offs
 
