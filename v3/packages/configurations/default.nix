@@ -109,6 +109,7 @@ let
     neogen = load ./neogen.nix;
     nfnl = load ./nfnl.nix;
     nginx-vim = load ./nginx-vim.nix;
+    nix-inline = load ./nix-inline.nix;
     no-neck-pain-nvim = load ./no-neck-pain-nvim.nix;
     none-ls-nvim = load ./none-ls-nvim.nix;
     nui-nvim = load ./nui-nvim.nix;
