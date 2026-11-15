@@ -4,6 +4,7 @@
   sources,
   definitions,
   luaConfig,
+  luaCheck,
   inputs',
 }:
 with sources;
@@ -15,6 +16,7 @@ in
   lazy = true;
   onCommands = [
     "KomadoToggle"
+    "KomadoTimeline"
     "MimoriAll"
     "MimoriRefresh"
     "MimoriStatus"
@@ -41,13 +43,16 @@ in
     ## 使い方
     `require("komado").setup({ root = ... })` で内容を定義し、`open()`・`close()`・`toggle()`・`redraw()` で操作する。README のキーマップやコマンドは設定例であり、標準では登録されない。
 
+    `:KomadoTimeline [project-id]` selects a Track project from the configured vault (`~/track/`). In the sidebar, `t` selects, `T` opens the full timeline, and `r` refreshes. Updates run every five seconds only while the sidebar is open. No project is created or changed automatically.
+
     ## 要件
-    追加プラグインは不要。README の上流回帰テスト対象は Neovim 0.11.4・0.12.5・0.12.6 で、それより古い版の互換性は未確認。
+    This configuration uses Track and its bundled CLI. README の上流回帰テスト対象は Neovim 0.11.4・0.12.5・0.12.6 で、それより古い版の互換性は未確認。
 
     ## 出典
     - [上流 README（固定リビジョン）](https://github.com/ttak0422/komado.nvim/blob/5f392f172f28b5212899b19877ce74e2a85fda7e/README.md)
   '';
   dependPlugins = [
+    definitions.track
     definitions.worktab-nvim
   ];
   extraPackages = [ mimori ];
@@ -670,6 +675,97 @@ in
         }
       end
 
+      local timeline_model = require("track.agent_timeline")
+      local timeline, timeline_open, timeline_buffer = nil, false, nil
+      local timeline_options = { vault_dir = require("track.config").options.vault_dir }
+
+      local function refresh_timeline()
+        if timeline and timeline_open then timeline.refresh() end
+      end
+
+      local function select_timeline(id)
+        if not id or id == "" then
+          timeline_model.list(timeline_options, function(err, data)
+            if err then vim.notify(err, vim.log.levels.ERROR); return end
+            if #data.projects == 0 then
+              vim.notify("No timeline projects. Create one with :Track timeline.")
+              return
+            end
+            vim.ui.select(data.projects, {
+              prompt = "Sidebar timeline",
+              format_item = function(project) return project.title .. " (" .. project.project_id .. ")" end,
+            }, function(project)
+              if project then select_timeline(project.project_id) end
+            end)
+          end)
+          return
+        end
+        local ok, next_view = pcall(timeline_model.new, id, timeline_options)
+        if not ok then vim.notify(tostring(next_view), vim.log.levels.ERROR); return end
+        if timeline then timeline.dispose() end
+        timeline = next_view
+        komado.open()
+        refresh_timeline()
+        timeline.watch(5000)
+      end
+
+      local Timeline = {
+        update = { "User", pattern = "TrackTimelineChanged" },
+        Line({ provider = "Timeline  [t: select, T: open]", hl = "Title" }),
+        utils.mapped_list(function()
+          return timeline and timeline.rows() or { "Select a project with :KomadoTimeline" }
+        end, function(row) return Line({ provider = row }) end),
+      }
+
+      local timeline_group = vim.api.nvim_create_augroup("DotfilesKomadoTimeline", { clear = true })
+      vim.api.nvim_create_autocmd("User", {
+        group = timeline_group, pattern = "KomadoWindowAfterOpen",
+        callback = function(event)
+          timeline_buffer = event.data.bufnr
+          timeline_open = true
+          if timeline then refresh_timeline(); timeline.watch(5000) end
+        end,
+      })
+      vim.api.nvim_create_autocmd("User", {
+        group = timeline_group, pattern = "KomadoWindowAfterClose",
+        callback = function()
+          timeline_open, timeline_buffer = false, nil
+          if timeline then timeline.dispose() end
+        end,
+      })
+      -- Native :close/:only bypass Komado's close event. Defer visibility checks
+      -- until tab switches finish their temporary detach/reattach cycle.
+      local visibility_pending = false
+      vim.api.nvim_create_autocmd({ "WinClosed", "BufWinEnter", "TabEnter" }, {
+        group = timeline_group,
+        callback = function()
+          if visibility_pending then return end
+          visibility_pending = true
+          vim.schedule(function()
+            visibility_pending = false
+            local visible = timeline_buffer ~= nil
+              and vim.api.nvim_buf_is_valid(timeline_buffer)
+              and #vim.fn.win_findbuf(timeline_buffer) > 0
+            if visible == timeline_open then return end
+            timeline_open = visible
+            if not timeline then return end
+            if visible then
+              refresh_timeline()
+              timeline.watch(5000)
+            else
+              timeline.dispose()
+            end
+          end)
+        end,
+      })
+      vim.api.nvim_create_autocmd("VimLeavePre", {
+        group = timeline_group,
+        callback = function() if timeline then timeline.dispose() end end,
+      })
+      vim.api.nvim_create_user_command("KomadoTimeline", function(opts)
+        select_timeline(opts.args)
+      end, { nargs = "?", desc = "Select a Track project for the sidebar" })
+
       local MimoriStatus = require("mimori.komado").setup()
 
       komado.setup({
@@ -678,13 +774,20 @@ in
           q = function()
             komado.close()
           end,
+          t = function() select_timeline() end,
+          T = function()
+            require("track.timeline_view").open(timeline and timeline.project_id or nil, timeline_options)
+          end,
           r = function()
+            refresh_timeline()
             require("mimori.client").refresh()
             komado.redraw()
           end,
         },
         root = {
           CurrentTab,
+          Separator,
+          Timeline,
           Separator,
           MimoriStatus,
           Separator,
@@ -708,4 +811,88 @@ in
       vim.api.nvim_create_user_command("PomodoroReset", pomodoro.reset, {})
     ''
   );
+  tests.komado-timeline-lifecycle = luaCheck {
+    name = "komado-timeline-lifecycle";
+    preInit = ''
+      _G.timeline_test = { views = {}, lists = 0 }
+      package.preload["track.agent_timeline"] = function()
+        return {
+          list = function(_, callback)
+            timeline_test.lists = timeline_test.lists + 1
+            callback(nil, { projects = { { project_id = "fixture", title = "Fixture" } } })
+          end,
+          new = function(id, options)
+            assert(options.vault_dir == os.getenv("HOME") .. "/track/")
+            local view = { project_id = id, reads = 0, watches = 0, disposals = 0 }
+            view.refresh = function() view.reads = view.reads + 1 end
+            view.watch = function(interval)
+              assert(interval == 5000)
+              view.watches = view.watches + 1
+            end
+            view.dispose = function() view.disposals = view.disposals + 1 end
+            view.rows = function() return { "Fixture  50%" } end
+            table.insert(timeline_test.views, view)
+            return view
+          end,
+        }
+      end
+    '';
+    script = ''
+      vim.cmd("KomadoToggle")
+      assert(#timeline_test.views == 0, "opening must not choose or create a project")
+      local select = vim.ui.select
+      vim.ui.select = function(items, _, callback) callback(items[1]) end
+      vim.cmd("KomadoTimeline")
+      vim.ui.select = select
+      local first = timeline_test.views[1]
+      assert(timeline_test.lists == 1 and first.project_id == "fixture")
+      assert(first.reads > 0 and first.watches > 0)
+      local komado = require("komado")
+      local reads = first.reads
+      komado.redraw()
+      komado.redraw()
+      assert(first.reads == reads, "render providers must only read cached rows")
+      komado.close()
+      assert(first.disposals > 0, "closing must stop polling and cancel reads")
+      local watches = first.watches
+      komado.open()
+      assert(first.watches > watches and first.reads > reads, "reopening must resume updates")
+      local disposals = first.disposals
+      vim.cmd("KomadoTimeline other")
+      assert(first.disposals > disposals, "selection must dispose the previous view")
+      assert(timeline_test.views[2].project_id == "other")
+      komado.close()
+      assert(timeline_test.views[2].disposals > 0)
+
+      for _, close in ipairs({
+        function() vim.cmd("close") end,
+        function() vim.cmd("wincmd c") end,
+        function()
+          vim.cmd("wincmd p")
+          vim.cmd("only")
+        end,
+      }) do
+        vim.cmd("KomadoTimeline native-close")
+        local view = timeline_test.views[#timeline_test.views]
+        vim.api.nvim_set_current_win(require("komado.state").get().winid)
+        close()
+        assert(vim.wait(1000, function() return view.disposals > 0 end),
+          "native window closing must dispose polling and in-flight reads")
+        local reads = view.reads
+        komado.redraw()
+        assert(view.reads == reads, "hidden redraw must not resume reads")
+        komado.open()
+        assert(view.reads > reads, "opening after native close must resume reads")
+        local disposals, watches = view.disposals, view.watches
+        vim.cmd("tabnew")
+        vim.wait(50, function() return false end)
+        assert(view.disposals == disposals and view.watches == watches,
+          "temporary tab detach/reattach must preserve the watcher")
+        vim.cmd("tabclose")
+        vim.wait(50, function() return false end)
+        assert(view.disposals == disposals, "returning tabs must preserve the watcher")
+        komado.close()
+      end
+    '';
+  };
 }
