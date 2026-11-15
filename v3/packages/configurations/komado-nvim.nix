@@ -676,7 +676,7 @@ in
       end
 
       local timeline_model = require("track.agent_timeline")
-      local timeline, timeline_open = nil, false
+      local timeline, timeline_open, timeline_buffer = nil, false, nil
       local timeline_options = { vault_dir = require("track.config").options.vault_dir }
 
       local function refresh_timeline()
@@ -720,7 +720,8 @@ in
       local timeline_group = vim.api.nvim_create_augroup("DotfilesKomadoTimeline", { clear = true })
       vim.api.nvim_create_autocmd("User", {
         group = timeline_group, pattern = "KomadoWindowAfterOpen",
-        callback = function()
+        callback = function(event)
+          timeline_buffer = event.data.bufnr
           timeline_open = true
           if timeline then refresh_timeline(); timeline.watch(5000) end
         end,
@@ -728,8 +729,33 @@ in
       vim.api.nvim_create_autocmd("User", {
         group = timeline_group, pattern = "KomadoWindowAfterClose",
         callback = function()
-          timeline_open = false
+          timeline_open, timeline_buffer = false, nil
           if timeline then timeline.dispose() end
+        end,
+      })
+      -- Native :close/:only bypass Komado's close event. Defer visibility checks
+      -- until tab switches finish their temporary detach/reattach cycle.
+      local visibility_pending = false
+      vim.api.nvim_create_autocmd({ "WinClosed", "BufWinEnter", "TabEnter" }, {
+        group = timeline_group,
+        callback = function()
+          if visibility_pending then return end
+          visibility_pending = true
+          vim.schedule(function()
+            visibility_pending = false
+            local visible = timeline_buffer ~= nil
+              and vim.api.nvim_buf_is_valid(timeline_buffer)
+              and #vim.fn.win_findbuf(timeline_buffer) > 0
+            if visible == timeline_open then return end
+            timeline_open = visible
+            if not timeline then return end
+            if visible then
+              refresh_timeline()
+              timeline.watch(5000)
+            else
+              timeline.dispose()
+            end
+          end)
         end,
       })
       vim.api.nvim_create_autocmd("VimLeavePre", {
@@ -837,6 +863,36 @@ in
       assert(timeline_test.views[2].project_id == "other")
       komado.close()
       assert(timeline_test.views[2].disposals > 0)
+
+      for _, close in ipairs({
+        function() vim.cmd("close") end,
+        function() vim.cmd("wincmd c") end,
+        function()
+          vim.cmd("wincmd p")
+          vim.cmd("only")
+        end,
+      }) do
+        vim.cmd("KomadoTimeline native-close")
+        local view = timeline_test.views[#timeline_test.views]
+        vim.api.nvim_set_current_win(require("komado.state").get().winid)
+        close()
+        assert(vim.wait(1000, function() return view.disposals > 0 end),
+          "native window closing must dispose polling and in-flight reads")
+        local reads = view.reads
+        komado.redraw()
+        assert(view.reads == reads, "hidden redraw must not resume reads")
+        komado.open()
+        assert(view.reads > reads, "opening after native close must resume reads")
+        local disposals, watches = view.disposals, view.watches
+        vim.cmd("tabnew")
+        vim.wait(50, function() return false end)
+        assert(view.disposals == disposals and view.watches == watches,
+          "temporary tab detach/reattach must preserve the watcher")
+        vim.cmd("tabclose")
+        vim.wait(50, function() return false end)
+        assert(view.disposals == disposals, "returning tabs must preserve the watcher")
+        komado.close()
+      end
     '';
   };
 }
