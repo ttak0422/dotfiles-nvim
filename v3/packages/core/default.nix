@@ -128,7 +128,7 @@ in
         neovide_hide_mouse_when_typing = true,
         neovide_input_ime = false,
         neovide_macos_simple_fullscreen = false,
-        neovide_opacity = 0.9,
+        neovide_opacity = 1.0,
         neovide_padding_bottom = 5,
         neovide_padding_left = 5,
         neovide_padding_right = 5,
