@@ -22,10 +22,10 @@ with sources;
     `require("kotlin").setup()` 後に Kotlin ファイルを開く。`:KotlinRunMain` で実行し、デバッグ連携には `:KotlinDebugMain` / `:KotlinDebug` を使う。サーバーは Mason または `KOTLIN_LSP_DIR` から探索する。
 
     ## 要件
-    Neovim 0.11 以上と kotlin-lsp v262.4739.0 以上。README 推奨は v263.7084.0。サーバーは Java ランタイムを同梱する。
+    Neovim 0.11 以上と kotlin-lsp v271.2085.0 以上。サーバーは Java ランタイムを同梱する。
 
     ## 出典
-    [固定バージョンの README](https://github.com/AlexandrosAlexiou/kotlin.nvim/blob/bc8ed5523db7e0ec2c00e26a17858e4c54d86072/README.md)
+    [固定バージョンの README](https://github.com/AlexandrosAlexiou/kotlin.nvim/blob/1082a1570138fd97f0ad3f28f0f9e830b1989c9e/README.md)
   '';
 
   plugin = sources.kotlin-nvim;

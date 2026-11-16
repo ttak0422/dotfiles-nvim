@@ -765,9 +765,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "bc8ed5523db7e0ec2c00e26a17858e4c54d86072",
-      "url": "https://github.com/AlexandrosAlexiou/kotlin.nvim/archive/bc8ed5523db7e0ec2c00e26a17858e4c54d86072.tar.gz",
-      "hash": "sha256-zQseFftmVSDV7S9YnF/eNutK4vhB91IuR9ycJBxwh6g="
+      "revision": "1082a1570138fd97f0ad3f28f0f9e830b1989c9e",
+      "url": "https://github.com/AlexandrosAlexiou/kotlin.nvim/archive/1082a1570138fd97f0ad3f28f0f9e830b1989c9e.tar.gz",
+      "hash": "sha256-raEIjlUDJKMFw31DVvsv7FJJ+2GUke5qV8IPAga9EcM="
     },
     "leap.nvim": {
       "type": "Git",
