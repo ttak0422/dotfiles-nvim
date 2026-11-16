@@ -25,20 +25,23 @@ with inputs;
 
       kotlin-lsp = mkDerivation rec {
         pname = "kotlin-lsp";
-        version = "263.7084.0";
-        src = final.fetchzip {
+        version = "271.2085.0";
+        src = final.fetchurl {
           url = "https://download.jetbrains.com/language-server/kotlin-server/${version}/kotlin-server-${version}-aarch64.sit";
-          hash = "sha256-wD4BU8Be6pLOmrnaojm7EHr+lfYAp5NjCoPC+M3deHM=";
-          extension = "zip";
+          hash = "sha256-LSI4j1i+b036eo8YweIxhxFk3KzBbkB1WQKdcjKBa0o=";
         };
-        dontUnpack = true;
+        nativeBuildInputs = [ final.unzip ];
+        unpackCmd = "unzip -q $curSrc";
         dontBuild = true;
+        # Keep the signed native launcher and bundled runtime unmodified.
+        dontFixup = true;
         installPhase = ''
           runHook preInstall
 
           # Preserve the native launcher's layout, including its bundled JBR.
-          mkdir -p "$out/libexec" "$out/bin"
-          ln -s "$src" "$out/libexec/kotlin-lsp"
+          test -x bin/intellij-server
+          mkdir -p "$out/libexec/kotlin-lsp" "$out/bin"
+          cp -a . "$out/libexec/kotlin-lsp/"
           ln -s "$out/libexec/kotlin-lsp/bin/intellij-server" "$out/bin/kotlin-lsp"
 
           runHook postInstall
