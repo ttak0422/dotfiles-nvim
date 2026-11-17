@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"context"
 	"net"
+	"net/http"
+	"net/http/httptest"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -355,11 +357,29 @@ func TestDictionariesPhraseOptIn(t *testing.T) {
 				t.Fatal("phrase conversion replaced local dictionary")
 			}
 			if phrase {
-				wantPhrase := engine.Fallback(engine.NoLearn(karukan.New(karukan.Params{ContextLength: new(0)})))
+				wantPhrase := engine.Fallback(engine.NoLearn(karukan.New(karukan.Params{ContextLength: new(0), Client: phraseHTTPClient})))
 				if !reflect.DeepEqual(got[1], wantPhrase) {
 					t.Fatal("phrase policy must be fallback, no-learn, no surrounding text")
 				}
 			}
 		}
+	}
+}
+
+func TestPhraseHTTPClientRefusesRedirects(t *testing.T) {
+	var reached atomic.Bool
+	destination := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) { reached.Store(true) }))
+	defer destination.Close()
+	origin := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, destination.URL, http.StatusTemporaryRedirect)
+	}))
+	defer origin.Close()
+	response, err := phraseHTTPClient.Post(origin.URL, "application/json", strings.NewReader(`{"hiragana":"かな"}`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer response.Body.Close()
+	if response.StatusCode != http.StatusTemporaryRedirect || reached.Load() {
+		t.Fatal("model request followed a redirect")
 	}
 }

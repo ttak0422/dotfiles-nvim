@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"errors"
+	"net/http"
 	"os/exec"
 	"strings"
 	"sync"
@@ -100,6 +101,11 @@ var (
 	_ engine.Initializer = (*serverOrLocal)(nil)
 )
 
+// Never follow redirects from the local model server to another destination.
+var phraseHTTPClient = &http.Client{
+	CheckRedirect: func(_ *http.Request, _ []*http.Request) error { return http.ErrUseLastResponse },
+}
+
 // Phrase conversion is optional and separate from the existing SKK server.
 // Keep ordinary/user candidates first; do not learn one-off model phrases.
 // Never start a server, download a model, or send surrounding buffer text here.
@@ -108,6 +114,7 @@ func dictionaries(local engine.Dictionary, serverRunning, phraseConversion bool)
 	if phraseConversion {
 		result = append(result, engine.Fallback(engine.NoLearn(karukan.New(karukan.Params{
 			ContextLength: new(0),
+			Client:        phraseHTTPClient,
 		}))))
 	}
 	return result
