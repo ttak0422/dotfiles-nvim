@@ -23,6 +23,6 @@
     READMEは同名の別ツールとの衝突を避けるため、プラグインバイナリを`goda`と命名しないよう案内しています。
 
     ## 出典
-    [goda.vim README（v0.7.2の固定revision）](https://github.com/Shougo/goda.vim/blob/8399891df7fd77eee0473003201f9960dfbd8ebb/README.md)
+    [goda.vim README（v0.9.0の固定revision）](https://github.com/Shougo/goda.vim/blob/3596da14b0539fea957e3eed792a2315ca6b58bd/README.md)
   '';
 }

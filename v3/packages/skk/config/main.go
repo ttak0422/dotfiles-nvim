@@ -23,7 +23,7 @@ func main() {
 	// Tests and explicitly offline sessions can avoid probing the host daemon.
 	serverRunning := os.Getenv("GODA_SKK_SERVER") != "off" && yaskkservRunning(context.Background(), lsof)
 	engine.Main(engine.Config{
-		Dictionaries:   []engine.Dictionary{selectDictionary(engine.NewJisyo(dictionary, "euc-jp"), serverRunning)},
+		Dictionaries:   dictionaries(engine.NewJisyo(dictionary, "euc-jp"), serverRunning, os.Getenv("GODA_SKK_KARUKAN") == "on"),
 		UserDictionary: filepath.Join(state, "SKK-JISYO.user"),
 		KanaTable:      engine.RomTable.With(engine.Rule{From: "jk", Func: "escape"}),
 		EggLikeNewline: true,

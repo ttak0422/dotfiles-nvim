@@ -43,12 +43,19 @@ in
     サーバーを後から起動した場合はNeovimを再起動してください。`GODA_SKK_SERVER=off`で
     検出せず同梱辞書に固定できます。サーバーの起動・管理はこの設定では行いません。
 
+    `GODA_SKK_KARUKAN=on`でkarukanによる一括変換を追加できます。別途起動した
+    ローカルのkarukan-server（127.0.0.1:3000）が必要です。yaskkservとは別プロトコルです。
+    ユーザー辞書・既存のサーバーまたは同梱辞書に候補がない場合だけ問い合わせます。
+    送り仮名なしの読みを一括変換し、補完は行いません。モデル候補は自動学習せず、
+    周辺のバッファ本文も送信しません。未起動・応答失敗でも既存の辞書経路は維持します。
+    既定では無効です。この設定はサーバー導入・起動やモデル取得を行いません。
+
     ## 要件
     goda.vim、SKK辞書、ビルド用Go 1.26以上が必要です。エディタはNeovim 0.11以上、
     または`+job +channel +popupwin`付きVim 9.1以上です。
 
     ## 出典
-    [goda-skk.vim README（v0.3.3の固定revision）](https://github.com/Shougo/goda-skk.vim/blob/b138f25d97610f8dc5cd644fc05797728ecf62f4/README.md)
+    [goda-skk.vim README（v0.10.0の固定revision）](https://github.com/Shougo/goda-skk.vim/blob/8c332b30461ea479904f2d6db8a3d16caa36cee6/README.md)
   '';
   tests.skk-input =
     {

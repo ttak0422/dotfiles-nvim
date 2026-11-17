@@ -15,6 +15,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Shougo/goda-skk.vim/dictionary/karukan"
 	"github.com/Shougo/goda-skk.vim/dictionary/skkserv"
 	"github.com/Shougo/goda-skk.vim/engine"
 	"golang.org/x/text/encoding/japanese"
@@ -329,5 +330,36 @@ func TestServerClose(t *testing.T) {
 			t.Fatal("server connection remains open")
 		}
 		time.Sleep(time.Millisecond)
+	}
+}
+
+func TestDictionariesPhraseOptIn(t *testing.T) {
+	for _, server := range []bool{false, true} {
+		for _, phrase := range []bool{false, true} {
+			local := localDictionary(t)
+			got := dictionaries(local, server, phrase)
+			want := 1
+			if phrase {
+				want++
+			}
+			if len(got) != want {
+				t.Fatalf("server=%v phrase=%v: %d dictionaries", server, phrase, len(got))
+			}
+			if server {
+				d, ok := got[0].(*serverOrLocal)
+				if !ok || d.local != local {
+					t.Fatal("phrase conversion replaced SKK server/fallback")
+				}
+				defer d.Close()
+			} else if got[0] != local {
+				t.Fatal("phrase conversion replaced local dictionary")
+			}
+			if phrase {
+				wantPhrase := engine.Fallback(engine.NoLearn(karukan.New(karukan.Params{ContextLength: new(0)})))
+				if !reflect.DeepEqual(got[1], wantPhrase) {
+					t.Fatal("phrase policy must be fallback, no-learn, no surrounding text")
+				}
+			}
+		}
 	}
 }

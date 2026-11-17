@@ -8,6 +8,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/Shougo/goda-skk.vim/dictionary/karukan"
 	"github.com/Shougo/goda-skk.vim/dictionary/skkserv"
 	"github.com/Shougo/goda-skk.vim/engine"
 )
@@ -98,3 +99,16 @@ var (
 	_ engine.Dictionary  = (*serverOrLocal)(nil)
 	_ engine.Initializer = (*serverOrLocal)(nil)
 )
+
+// Phrase conversion is optional and separate from the existing SKK server.
+// Keep ordinary/user candidates first; do not learn one-off model phrases.
+// Never start a server, download a model, or send surrounding buffer text here.
+func dictionaries(local engine.Dictionary, serverRunning, phraseConversion bool) []engine.Dictionary {
+	result := []engine.Dictionary{selectDictionary(local, serverRunning)}
+	if phraseConversion {
+		result = append(result, engine.Fallback(engine.NoLearn(karukan.New(karukan.Params{
+			ContextLength: new(0),
+		}))))
+	}
+	return result
+}
