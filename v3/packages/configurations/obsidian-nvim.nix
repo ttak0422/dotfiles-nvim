@@ -40,8 +40,7 @@ with sources;
     definitions.nvim-cmp
     definitions.plenary-nvim
     definitions.telescope-nvim
-    definitions.image-nvim
-  ];
+  ] ++ lib.optional (definitions ? image-nvim) definitions.image-nvim;
   extraPackages = with pkgs; [
     pngpaste
     ripgrep

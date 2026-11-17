@@ -2,6 +2,7 @@
   pkgs,
   sources,
   inputs',
+  environment ? "default",
 }:
 let
   lib = pkgs.lib;
@@ -28,6 +29,7 @@ let
           luaConfig
           luaCheck
           inputs'
+          environment
           ;
       };
     in
@@ -43,7 +45,6 @@ let
     atone-nvim = load ./atone-nvim.nix;
     auto-save-nvim = load ./auto-save-nvim.nix;
     better-escape-nvim = load ./better-escape-nvim.nix;
-    bg-nvim = load ./bg-nvim.nix;
     blame-nvim = load ./blame-nvim.nix;
     budoux-lua = load ./budoux-lua.nix;
     capture-vim = load ./capture-vim.nix;
@@ -81,7 +82,6 @@ let
     hlchunk-nvim = load ./hlchunk-nvim.nix;
     hud-nvim = load ./hud-nvim.nix;
     hydra-nvim = load ./hydra-nvim.nix;
-    image-nvim = load ./image-nvim.nix;
     img-clip-nvim = load ./img-clip-nvim.nix;
     inc-rename-nvim = load ./inc-rename-nvim.nix;
     kanagawa-nvim = load ./kanagawa-nvim.nix;
@@ -201,6 +201,9 @@ let
     winshift-nvim = load ./winshift-nvim.nix;
     worktab-nvim = load ./worktab-nvim.nix;
     zen-nvim = load ./zen-nvim.nix;
+  } // lib.optionalAttrs (environment == "default") {
+    bg-nvim = load ./bg-nvim.nix;
+    image-nvim = load ./image-nvim.nix;
   };
 
   # Consumers reference real member packages, never another occurrence of the
