@@ -92,7 +92,7 @@ function M.pick(opts)
   local actions = require('telescope.actions')
   local state = require('telescope.actions.state')
   require('telescope.pickers').new(opts, {
-    prompt_title = 'gtr worktrees | Enter: files · Ctrl-g: grep · Ctrl-o: cd',
+    prompt_title = 'gtr worktrees | Enter: files · Ctrl-g: grep',
     finder = require('telescope.finders').new_table({
       results = entries,
       entry_maker = function(entry)
@@ -110,15 +110,13 @@ function M.pick(opts)
           vim.notify('Worktree no longer exists: ' .. path, vim.log.levels.ERROR); return
         end
         actions.close(buf)
-        if kind == 'cd' then vim.cmd.cd(vim.fn.fnameescape(path))
-        elseif kind == 'grep' then
+        if kind == 'grep' then
           require('telescope').extensions.live_grep_args.live_grep_args({ cwd = path })
         else require('telescope.builtin').find_files({ cwd = path }) end
       end
       actions.select_default:replace(function() select('files') end)
       for _, mode in ipairs({ 'i', 'n' }) do
         map(mode, '<C-g>', function() select('grep') end)
-        map(mode, '<C-o>', function() select('cd') end)
       end
       return true
     end,

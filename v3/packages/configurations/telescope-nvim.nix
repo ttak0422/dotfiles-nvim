@@ -13,7 +13,7 @@ with sources;
     Telescope 本体と 6 つの拡張をまとめ、picker と選択 UI の設定を共有する。
 
     通常の files / grep では登録済みの子 worktree を除外する（選択中の worktree 自体は検索可能）。
-    `<Leader>fw` / `:TelescopeWorktrees` は `git gtr list --porcelain` から選択し、Enter でファイル、Ctrl-g で本文検索、Ctrl-o で移動する。
+    `<Leader>fw` / `:TelescopeWorktrees` は `git gtr list --porcelain` から選択し、Enter でファイル、Ctrl-g で本文検索する。cwd の切替は既存の project.nvim によるファイル選択時の自動移動に任せる。
     ghq 配下の検索では ghq 登録リポジトリも確認する。gtr は PATH 上に必要。
 
     # telescope.nvim
@@ -347,6 +347,11 @@ with sources;
         prompt = vim.api.nvim_get_current_buf()
         return vim.bo[prompt].filetype == 'TelescopePrompt' and state.get_selected_entry() ~= nil
       end, 10))
+      for _, mode in ipairs({ 'i', 'n' }) do
+        for _, mapping in ipairs(vim.api.nvim_buf_get_keymap(prompt, mode)) do
+          assert(mapping.lhs ~= '<C-O>', 'worktree picker must not map Ctrl-o to cwd changes')
+        end
+      end
       actions.select_default(prompt)
       assert(selected == wt and vim.fn.getcwd() == cwd)
       worktrees.pick({ cwd = repo })
