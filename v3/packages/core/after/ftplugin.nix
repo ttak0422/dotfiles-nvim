@@ -15,7 +15,7 @@ let
       java_path = "${jdk25}/bin/java";
       jdtls_jar_pattern = "${jdtls}/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*.jar";
       jdtls_config_path = "${jdtls}/share/java/jdtls/${
-        if stdenv.isDarwin then "config_mac" else "config_linux"
+        if stdenv.hostPlatform.isDarwin then "config_mac" else "config_linux"
       }";
       java_debug_jar_pattern = "${vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server/com.microsoft.java.debug.plugin-*.jar";
       java_test_jar_pattern = "${vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server/*.jar";

@@ -28,7 +28,7 @@ lib.mapAttrs' buildPlugin sources
     src = getSrc pname;
     nativeBuildInputs = [ pkgs.gcc ];
     buildPhase = ''
-      ${lib.optionalString stdenv.isDarwin "LUA_LDLIBS='-undefined dynamic_lookup -all_load'"}
+      ${lib.optionalString stdenv.hostPlatform.isDarwin "LUA_LDLIBS='-undefined dynamic_lookup -all_load'"}
       JSREGEXP_PATH=deps/jsregexp
       make "INCLUDE_DIR=-I $PWD/deps/lua51_include" LDLIBS="$LUA_LDLIBS" -C $JSREGEXP_PATH
       cp $JSREGEXP_PATH/jsregexp.so lua/luasnip-jsregexp.so

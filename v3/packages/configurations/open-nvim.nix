@@ -31,7 +31,7 @@ with sources;
   config = luaConfig (''
     require("open").setup({
       system_open = {
-        cmd = "${if pkgs.stdenv.isDarwin then "open" else "xdg-open"}",
+        cmd = "${if pkgs.stdenv.hostPlatform.isDarwin then "open" else "xdg-open"}",
         args = {},
       }
     })
