@@ -79,6 +79,21 @@ function M.parse(output)
   return entries
 end
 
+local function worktree_sorter(opts)
+  local sorter = require('telescope.config').values.generic_sorter(opts)
+  local score = sorter.scoring_function
+  sorter.scoring_function = function(self, prompt, line, entry, ...)
+    local value = score(self, prompt, line, entry, ...)
+    -- Keep the configured sorter's filtering, highlighting and lifecycle. Map
+    -- matched scores into disjoint bands so fuzzy matches cannot lift stale
+    -- registrations above other entries, even with a non-empty prompt.
+    if value < 0 then return value end
+    local rank = value == math.huge and 1 or value / (1 + value)
+    return rank / 4 + (entry.value.status == 'prunable' and 0.5 or 0)
+  end
+  return sorter
+end
+
 function M.pick(opts)
   opts = opts or {}
   local cwd = opts.cwd or vim.fn.getcwd()
@@ -101,7 +116,7 @@ function M.pick(opts)
           display = entry.branch .. ' [' .. entry.status .. ']  ' .. entry.path }
       end,
     }),
-    sorter = require('telescope.config').values.generic_sorter(opts),
+    sorter = worktree_sorter(opts),
     attach_mappings = function(buf)
       local function select()
         local entry = state.get_selected_entry()
