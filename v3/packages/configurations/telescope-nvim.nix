@@ -385,7 +385,7 @@ with sources;
       end
       builtin.find_files = function(opts) selected = opts.cwd end
       local before = run({ 'git', 'worktree', 'list', '--porcelain' }, repo)
-      enter_missing('')
+      enter_missing("")
       assert(run({ 'git', 'worktree', 'list', '--porcelain' }, repo) == before)
       for _, invalid in ipairs({ '-bad-option', 'bad name', '@{-1}', '$(touch injected)' }) do
         enter_missing(invalid)
@@ -414,7 +414,7 @@ with sources;
       local count = #notices
       vim.system = function(args, opts, callback)
         if args[2] == 'gtr' and args[3] == 'new' then
-          callback({ code = 1, stderr = 'creation denied', stdout = '' })
+          callback({ code = 1, stderr = 'creation denied', stdout = "" })
           return {}
         end
         return original_system(args, opts, callback)
