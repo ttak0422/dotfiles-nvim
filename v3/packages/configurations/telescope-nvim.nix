@@ -14,6 +14,7 @@ with sources;
 
     通常の files / grep では登録済みの子 worktree を除外する（選択中の worktree 自体は検索可能）。
     `<Leader>fw` / `:TelescopeWorktrees` は `git gtr list --porcelain` から選択し、Enter でファイル検索する。候補がない場合は入力したブランチ名で `git gtr new --yes` を実行し、作成先のファイル検索を開く（空入力は閉じる）。cwd の切替は既存の project.nvim によるファイル選択時の自動移動に任せる。
+    `<Leader>fP` の ghq プロジェクト一覧では、名前が `-worktrees` で終わるディレクトリとその配下を非表示にする。worktree 専用 picker は対象外。
     ghq 配下の検索では ghq 登録リポジトリも確認する。git-gtr は extraPackages に同梱する。`git gtr new` では標準の隣接 `<repo>-worktrees/` 配下に作成し、既存の `gtr.worktrees.dir` 設定は尊重する。
 
     # telescope.nvim
@@ -224,6 +225,21 @@ with sources;
       for _, extension in ipairs({ "mr", "ui-select", "live_grep_args", "sonictemplate", "projects", "ghq", "worktab", "track" }) do
         telescope.load_extension(extension)
       end
+      -- Keep ghq's native display/actions; filter only its project list, not
+      -- project.nvim root detection or the dedicated worktree picker.
+      local ghq = telescope.extensions.ghq
+      local ghq_list = ghq.list
+      local function configured_ghq(opts)
+        opts = vim.tbl_extend("force", {}, opts or {})
+        opts.file_ignore_patterns = vim.list_extend(
+          vim.deepcopy(opts.file_ignore_patterns or require("telescope.config").values.file_ignore_patterns or {}),
+          { "%-worktrees/", "%-worktrees$" }
+        )
+        return ghq_list(opts)
+      end
+      ghq.ghq = configured_ghq
+      ghq.list = configured_ghq
+
       -- Telescope owns its pterm picker integration; standalone Pterm needs no picker.
       local pterm = require("pterm")
       local actions = require("telescope.actions")
@@ -289,6 +305,67 @@ with sources;
       end, {})
     ''
   );
+  tests.telescope-ghq-worktree-filter = luaCheck {
+    name = "telescope-ghq-worktree-filter";
+    script = ''
+      local telescope = require('telescope')
+      local root = vim.fn.tempname()
+      vim.fn.mkdir(root, 'p')
+      local bin = root .. '/ghq-fixture'
+      vim.fn.writefile({
+        '#!/bin/sh',
+        [[printf '%s\n' '/projects/main' '/projects/repo-worktrees' '/projects/repo-worktrees/feature' '/projects/nested/repo-worktrees/a/b' '/projects/repo-worktrees-backup' '/projects/worktrees' '/projects/ignored/repo']],
+      }, bin)
+      vim.fn.setfperm(bin, 'rwx------')
+      local state, actions = require('telescope.actions.state'), require('telescope.actions')
+      local builtin = require('telescope.builtin')
+      local original_files, selected = builtin.git_files, nil
+      builtin.git_files = function(opts) selected = opts.cwd end
+      local original_patterns = require('telescope.config').values.file_ignore_patterns
+      require('telescope.config').values.file_ignore_patterns = { '/ignored/' }
+      local worktree_picker = require('config.telescope_worktrees').pick
+      vim.o.columns, vim.o.lines = 120, 40
+      for _, alias in ipairs({ 'ghq', 'list' }) do
+        local opts = { bin = bin, previewer = false }
+        if alias == 'list' then opts.file_ignore_patterns = { '/ignored/' } end
+        telescope.extensions.ghq[alias](opts)
+        local picker, prompt
+        assert(vim.wait(3000, function()
+          if vim.bo.filetype ~= 'TelescopePrompt' then return false end
+          prompt = vim.api.nvim_get_current_buf()
+          picker = state.get_current_picker(prompt)
+          return picker.manager and picker.manager:num_results() == 3 and state.get_selected_entry() ~= nil
+        end, 10))
+        local results = {}
+        for entry in picker.manager:iter() do results[entry.value] = true end
+        assert(results['/projects/main'])
+        assert(results['/projects/repo-worktrees-backup'])
+        assert(results['/projects/worktrees'])
+        assert(opts.file_ignore_patterns == nil or #opts.file_ignore_patterns == 1, 'caller options mutated')
+        assert(#require('telescope.config').values.file_ignore_patterns == 1, 'global filters mutated')
+        -- Selection still calls the upstream git-files action.
+        selected = nil
+        actions.select_default(prompt)
+        assert(selected and results[selected], 'native ghq selection changed')
+        if vim.bo.filetype == 'TelescopePrompt' then actions.close(vim.api.nvim_get_current_buf()) end
+      end
+      assert(require('config.telescope_worktrees').pick == worktree_picker, 'worktree picker changed')
+      -- The same path remains visible in an ordinary picker without the local ghq filter.
+      require('telescope.pickers').new({}, {
+        finder = require('telescope.finders').new_table({ results = { '/projects/repo-worktrees/feature' } }),
+        sorter = require('telescope.config').values.generic_sorter({}),
+      }):find()
+      assert(vim.wait(3000, function()
+        local entry = state.get_selected_entry()
+        return vim.bo.filetype == 'TelescopePrompt' and entry and entry.value == '/projects/repo-worktrees/feature'
+      end, 10))
+      actions.close(vim.api.nvim_get_current_buf())
+      builtin.git_files = original_files
+      require('telescope.config').values.file_ignore_patterns = original_patterns
+      vim.fn.delete(root, 'rf')
+      print('project worktree filter tests passed')
+    '';
+  };
   tests.telescope-gtr-worktrees = luaCheck {
     name = "telescope-gtr-worktrees";
     script = ''
