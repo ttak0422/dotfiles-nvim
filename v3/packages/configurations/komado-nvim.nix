@@ -787,9 +787,9 @@ in
         root = {
           CurrentTab,
           Separator,
-          Timeline,
-          Separator,
           MimoriStatus,
+          Separator,
+          Timeline,
           Separator,
           GitStatus,
           utils.vertical_align(),
@@ -839,6 +839,17 @@ in
     '';
     script = ''
       vim.cmd("KomadoToggle")
+      local lines = vim.api.nvim_buf_get_lines(require("komado.state").get().bufnr, 0, -1, false)
+      local positions = {}
+      for index, line in ipairs(lines) do
+        for _, label in ipairs({ "Claude", "Codex", "Timeline", "" }) do
+          if not positions[label] and line:find(label, 1, true) then positions[label] = index end
+        end
+      end
+      assert(positions.Claude and positions.Codex and positions.Timeline and positions[""],
+        "sidebar must render agent, timeline and Git sections")
+      assert(positions.Claude < positions.Codex and positions.Codex < positions.Timeline
+        and positions.Timeline < positions[""], "sidebar sections must follow Claude, Codex, Timeline, Git")
       assert(#timeline_test.views == 0, "opening must not choose or create a project")
       local select = vim.ui.select
       vim.ui.select = function(items, _, callback) callback(items[1]) end
