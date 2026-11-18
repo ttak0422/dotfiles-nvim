@@ -1574,9 +1574,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "7814c7bee01e5f3fce745ac23e859bd8ab91b53c",
-      "url": "https://github.com/ttak0422/sfcc.nvim/archive/7814c7bee01e5f3fce745ac23e859bd8ab91b53c.tar.gz",
-      "hash": "sha256-PKqIa9XWFwiAz0WfLEiHM/t8k2OfieJqGdMRbv6BSS4="
+      "revision": "a950a3ac70ebe01c19a4a1cb69b80b445cc6baa5",
+      "url": "https://github.com/ttak0422/sfcc.nvim/archive/a950a3ac70ebe01c19a4a1cb69b80b445cc6baa5.tar.gz",
+      "hash": "sha256-cJUeY5v6snyYeQpUv/8CCPj79gFeegir4iAyNL4LQ1M="
     },
     "showkeys": {
       "type": "Git",
