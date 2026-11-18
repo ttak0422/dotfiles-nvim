@@ -24,6 +24,11 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
+    git-worktree-runner = {
+      url = "github:coderabbitai/git-worktree-runner";
+      flake = false;
+    };
+
     skk-dict = {
       url = "github:skk-dev/dict";
       flake = false;
@@ -155,7 +160,11 @@
 
         in
         {
-          packages = lib.optionalAttrs (system == "aarch64-darwin") {
+          packages = {
+            # Also expose the CLI to flakes consuming dotfiles-nvim, on every
+            # supported system, independently of the macOS-only Neovim profile.
+            inherit (v3Pkgs) git-gtr;
+          } // lib.optionalAttrs (system == "aarch64-darwin") {
             "v3/default" = v3Neovim;
             "v3/neovide" = v3Editors.neovide;
             "v3/graph" = v3Graph;
