@@ -13,7 +13,7 @@ with sources;
     Telescope 本体と 6 つの拡張をまとめ、picker と選択 UI の設定を共有する。
 
     通常の files / grep では登録済みの子 worktree を除外する（選択中の worktree 自体は検索可能）。
-    `<Leader>fw` / `:TelescopeWorktrees` は `git gtr list --porcelain` から選択し、Enter でファイル検索する。cwd の切替は既存の project.nvim によるファイル選択時の自動移動に任せる。
+    `<Leader>fw` / `:TelescopeWorktrees` は `git gtr list --porcelain` から選択し、Enter でファイル検索する。候補がない場合は入力したブランチ名で `git gtr new --yes` を実行し、作成先のファイル検索を開く（空入力は閉じる）。cwd の切替は既存の project.nvim によるファイル選択時の自動移動に任せる。
     ghq 配下の検索では ghq 登録リポジトリも確認する。git-gtr は extraPackages に同梱する。`git gtr new` では標準の隣接 `<repo>-worktrees/` 配下に作成し、既存の `gtr.worktrees.dir` 設定は尊重する。
 
     # telescope.nvim
@@ -366,6 +366,64 @@ with sources;
       actions.close(vim.api.nvim_get_current_buf())
       assert(vim.fn.getcwd() == cwd)
       vim.system, builtin.find_files = original_system, original_files
+      -- Match existing pterm semantics: only no candidate + Enter creates a named item.
+      local remote = root .. '/remote.git'
+      run({ 'git', 'init', '--bare', '-q', remote })
+      run({ 'git', 'remote', 'add', 'origin', remote }, repo)
+      run({ 'git', 'push', '-q', 'origin', 'HEAD:main' }, repo)
+      run({ 'git', 'symbolic-ref', 'HEAD', 'refs/heads/main' }, remote)
+      local get_entry, get_line = state.get_selected_entry, state.get_current_line
+      local notify, notices = vim.notify, {}
+      vim.notify = function(message) notices[#notices + 1] = message end
+      local function enter_missing(name)
+        worktrees.pick({ cwd = repo })
+        assert(vim.wait(3000, function() return vim.bo.filetype == 'TelescopePrompt' end, 10))
+        state.get_selected_entry = function() return nil end
+        state.get_current_line = function() return name end
+        actions.select_default(vim.api.nvim_get_current_buf())
+        state.get_selected_entry, state.get_current_line = get_entry, get_line
+      end
+      builtin.find_files = function(opts) selected = opts.cwd end
+      local before = run({ 'git', 'worktree', 'list', '--porcelain' }, repo)
+      enter_missing('')
+      assert(run({ 'git', 'worktree', 'list', '--porcelain' }, repo) == before)
+      for _, invalid in ipairs({ '-bad-option', 'bad name', '@{-1}', '$(touch injected)' }) do
+        enter_missing(invalid)
+        assert(vim.bo.filetype == 'TelescopePrompt')
+        actions.close(vim.api.nvim_get_current_buf())
+      end
+      assert(run({ 'git', 'worktree', 'list', '--porcelain' }, repo) == before)
+      selected = nil
+      -- A shell metacharacter is a literal ref character, never shell syntax.
+      worktrees.pick({ cwd = repo })
+      assert(vim.wait(3000, function() return vim.bo.filetype == 'TelescopePrompt' end, 10))
+      local create_prompt = vim.api.nvim_get_current_buf()
+      state.get_current_picker(create_prompt):set_prompt('new;literal')
+      assert(vim.wait(3000, function() return state.get_current_line() == 'new;literal' and state.get_selected_entry() == nil end, 10))
+      actions.select_default(create_prompt)
+      assert(vim.wait(10000, function() return selected ~= nil end, 10), vim.inspect(notices))
+      assert(selected == vim.trim(run({ 'git', 'gtr', 'go', 'new;literal' }, repo)))
+      assert(vim.fn.isdirectory(selected) == 1)
+      -- An existing local branch without a worktree is supported by gtr.
+      run({ 'git', 'branch', 'existing-local' }, repo)
+      selected = nil
+      enter_missing('existing-local')
+      assert(vim.wait(10000, function() return selected ~= nil end, 10), vim.inspect(notices))
+      assert(selected == vim.trim(run({ 'git', 'gtr', 'go', 'existing-local' }, repo)))
+      -- A native gtr failure must not open a file picker or report success.
+      local count = #notices
+      vim.system = function(args, opts, callback)
+        if args[2] == 'gtr' and args[3] == 'new' then
+          callback({ code = 1, stderr = 'creation denied', stdout = '' })
+          return {}
+        end
+        return original_system(args, opts, callback)
+      end
+      selected = nil
+      enter_missing('will-fail')
+      assert(vim.wait(3000, function() return #notices >= count + 2 end, 10))
+      assert(selected == nil and notices[#notices]:find('creation failed', 1, true))
+      vim.system, builtin.find_files, vim.notify = original_system, original_files, notify
       vim.fn.delete(root, 'rf')
     '';
   };

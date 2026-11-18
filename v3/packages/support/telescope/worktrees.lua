@@ -81,7 +81,8 @@ end
 
 function M.pick(opts)
   opts = opts or {}
-  local output, err = run({ 'git', 'gtr', 'list', '--porcelain' }, opts.cwd or vim.fn.getcwd())
+  local cwd = opts.cwd or vim.fn.getcwd()
+  local output, err = run({ 'git', 'gtr', 'list', '--porcelain' }, cwd)
   if not output then
     vim.notify('gtr worktrees: ' .. (err or 'git gtr is unavailable'), vim.log.levels.ERROR)
     return
@@ -92,7 +93,7 @@ function M.pick(opts)
   local actions = require('telescope.actions')
   local state = require('telescope.actions.state')
   require('telescope.pickers').new(opts, {
-    prompt_title = 'gtr worktrees',
+    prompt_title = 'gtr worktrees | new: branch name',
     finder = require('telescope.finders').new_table({
       results = entries,
       entry_maker = function(entry)
@@ -104,7 +105,33 @@ function M.pick(opts)
     attach_mappings = function(buf)
       local function select()
         local entry = state.get_selected_entry()
-        if not entry then return end
+        if not entry then
+          local branch = vim.trim(state.get_current_line())
+          if branch == '' then actions.close(buf); return end
+          local valid, validation_error = run({ 'git', 'check-ref-format', '--branch', branch }, cwd)
+          -- Refuse Git's previous-checkout shorthand: the prompt is a literal branch name.
+          if not valid or branch:match('^@{') then
+            vim.notify('Invalid branch name: ' .. branch .. '\n' .. (validation_error or ''), vim.log.levels.ERROR)
+            return
+          end
+          actions.close(buf)
+          vim.notify('Creating worktree: ' .. branch)
+          -- Keep Neovim responsive during fetch/hooks. Use argv, never a shell command.
+          vim.system({ 'git', 'gtr', 'new', branch, '--yes' }, { cwd = cwd, text = true }, vim.schedule_wrap(function(result)
+            if result.code ~= 0 then
+              vim.notify('gtr worktree creation failed: ' .. vim.trim((result.stderr or '') .. '\n' .. (result.stdout or '')), vim.log.levels.ERROR)
+              return
+            end
+            local path, resolve_error = run({ 'git', 'gtr', 'go', branch }, cwd)
+            path = path and vim.trim(path)
+            if not path or vim.fn.isdirectory(path) ~= 1 then
+              vim.notify('Worktree created but its path could not be resolved: ' .. (resolve_error or branch), vim.log.levels.ERROR)
+              return
+            end
+            require('telescope.builtin').find_files({ cwd = path })
+          end))
+          return
+        end
         local path = entry.value.path
         if vim.fn.isdirectory(path) ~= 1 then
           vim.notify('Worktree no longer exists: ' .. path, vim.log.levels.ERROR); return
