@@ -256,6 +256,18 @@ in
             desc = mapping[3],
           })
         end
+        -- Stay on the Visual selection and refresh search lenses explicitly.
+        -- Keep the plugin's existing characterwise/linewise search semantics.
+        for lhs, suffix in pairs({
+          ["*"] = "z*",
+          ["#"] = "z#",
+          ["g*"] = "gz*",
+          ["g#"] = "gz#",
+        }) do
+          vim.keymap.set("x", lhs,
+            "<Plug>(asterisk-" .. suffix .. ")<Cmd>lua require('hlslens').start()<CR>",
+            { silent = true, desc = "search selection without moving" })
+        end
         for key, kind in pairs({ u = "mru", r = "mrr", w = "mrw" }) do
           vim.keymap.set("n", "<Leader>fr" .. key, function()
             require("telescope").extensions.mr[kind]({ cwd = vim.fn.getcwd() })
