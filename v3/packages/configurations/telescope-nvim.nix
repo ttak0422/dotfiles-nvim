@@ -183,7 +183,7 @@ with sources;
       local lga_actions = require("telescope-live-grep-args.actions")
       telescope.setup({
         defaults = {
-          path_display = { "truncate" },
+          path_display = { "filename_first" },
           prompt_prefix = " ",
           selection_caret = " ",
           sorting_strategy = "ascending",
