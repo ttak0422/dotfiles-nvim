@@ -103,14 +103,18 @@
                 "terraform"
               ];
           };
-          v3Configuration = import ./v3 {
+          v3Configurations = lib.genAttrs [ "default" "neovide" ] (environment:
+            import (./v3/environments + "/${environment}.nix") {
+              pkgs = v3Pkgs;
+              inherit inputs';
+            }
+          );
+          v3Bundles = lib.mapAttrs (_: configuration: inputs.divine.lib.mkBundle {
             pkgs = v3Pkgs;
-            inherit inputs';
-          };
-          v3Bundle = inputs.divine.lib.mkBundle {
-            pkgs = v3Pkgs;
-            configuration = v3Configuration;
-          };
+            inherit configuration;
+          }) v3Configurations;
+          v3Configuration = v3Configurations.default;
+          v3Bundle = v3Bundles.default;
           v3Graph = inputs.divine.lib.mkGraph {
             pkgs = v3Pkgs;
             configuration = v3Configuration;
@@ -140,13 +144,20 @@
               printf '%s\n' "$output"
             '';
           };
-          v3Neovim = v3Pkgs.writeShellScriptBin "nvim" ''
-            # Meian uses macOS defaults; retain Nix tools before the OS fallback.
-            export PATH="$PATH:/usr/bin"
-            export NVIM_APPNAME=nvim-v3-default
-            export NVIM_V3_INIT=${v3Bundle}/init.lua
-            exec ${v3Pkgs.neovim-unwrapped}/bin/nvim -u ${v3Bundle}/init.lua "$@"
+          v3Editors = lib.mapAttrs (environment: bundle:
+            v3Pkgs.writeShellScriptBin "nvim" ''
+              # Meian uses macOS defaults; retain Nix tools before the OS fallback.
+              export PATH="$PATH:/usr/bin"
+              export NVIM_APPNAME=nvim-v3-${environment}
+              export NVIM_V3_INIT=${bundle}/init.lua
+              exec ${v3Pkgs.neovim-unwrapped}/bin/nvim -u ${bundle}/init.lua "$@"
+            ''
+          ) v3Bundles;
+          v3Neovim = v3Editors.default;
+          v3Neovide = v3Pkgs.writeShellScript "neovide-v3" ''
+            exec ${v3Pkgs.neovide}/bin/neovide --neovim-bin ${v3Editors.neovide}/bin/nvim "$@"
           '';
+
         in
         {
           packages = {
@@ -155,10 +166,15 @@
             inherit (v3Pkgs) git-gtr;
           } // lib.optionalAttrs (system == "aarch64-darwin") {
             "v3/default" = v3Neovim;
+            "v3/neovide" = v3Editors.neovide;
             "v3/graph" = v3Graph;
           };
           # The graph uses the same complete, macOS-only configuration as v3/default.
           apps = lib.optionalAttrs (system == "aarch64-darwin") {
+            "v3/neovide" = {
+              type = "app";
+              program = "${v3Neovide}";
+            };
             "v3/graph" = {
               type = "app";
               program = lib.getExe v3GraphApp;
@@ -183,12 +199,16 @@
           checks =
             regressionChecks
             // (lib.optionalAttrs (system == "aarch64-darwin") (
-              inputs.divine.lib.mkChecks {
-                pkgs = v3Pkgs;
-                configuration = v3Configuration;
-                bundle = v3Bundle;
-                neovim = v3Neovim;
-              }
+              lib.foldlAttrs (checks: environment: configuration:
+                checks // lib.mapAttrs' (name: value:
+                  lib.nameValuePair (if environment == "default" then name else "${environment}-${name}") value
+                ) (inputs.divine.lib.mkChecks {
+                  pkgs = v3Pkgs;
+                  inherit configuration;
+                  bundle = v3Bundles.${environment};
+                  neovim = v3Editors.${environment};
+                })
+              ) {} v3Configurations
             ));
           devShells.default = pkgs.mkShell {
             packages = [ pkgs.npins ];

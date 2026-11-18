@@ -1,7 +1,11 @@
-{ pkgs, inputs' }:
+{
+  pkgs,
+  inputs',
+  environment ? "default",
+}:
 let
   sources = import ./sources.nix { inherit pkgs inputs'; };
-  configurations = import ./configurations { inherit pkgs sources inputs'; };
+  configurations = import ./configurations { inherit pkgs sources inputs' environment; };
   core = import ./core {
     inherit pkgs;
     nginxPlugin = sources.nginx-vim;
