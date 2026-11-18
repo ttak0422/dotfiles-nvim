@@ -12,6 +12,10 @@ with sources;
   doc = ''
     Telescope 本体と 6 つの拡張をまとめ、picker と選択 UI の設定を共有する。
 
+    通常の files / grep では登録済みの子 worktree を除外する（選択中の worktree 自体は検索可能）。
+    `<Leader>fw` / `:TelescopeWorktrees` は `git gtr list --porcelain` から選択し、Enter でファイル、Ctrl-g で本文検索、Ctrl-o で移動する。
+    ghq 配下の検索では ghq 登録リポジトリも確認する。gtr は PATH 上に必要。
+
     # telescope.nvim
 
     ## 概要
@@ -141,6 +145,7 @@ with sources;
     "Telescope"
     "TelescopeBuffer"
     "TelescopeBufferName"
+    "TelescopeWorktrees"
   ];
   onModules = [ "telescope" ];
   packages = with sources; [
@@ -168,6 +173,8 @@ with sources;
   config = luaConfig (
     # lua
     ''
+      local worktrees = dofile("${../support/telescope/worktrees.lua}")
+      package.loaded["config.telescope_worktrees"] = worktrees
       local telescope = require("telescope")
       local builtin = require("telescope.builtin")
       local actions = require("telescope.actions")
@@ -195,6 +202,11 @@ with sources;
             },
           },
         },
+        pickers = {
+          find_files = { find_command = worktrees.find_command },
+          live_grep = { additional_args = worktrees.grep_args },
+          grep_string = { additional_args = worktrees.grep_args },
+        },
         extensions = {
           live_grep_args = {
             auto_quoting = true,
@@ -204,9 +216,7 @@ with sources;
                 ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
               },
             },
-            additional_args = function()
-              return { "--hidden", "--glob", "!.git/**" }
-            end,
+            additional_args = worktrees.grep_args,
           },
         },
       })
@@ -268,6 +278,8 @@ with sources;
       extension.sessions = configured_sessions
       extension.pterm = configured_sessions
 
+      vim.api.nvim_create_user_command("TelescopeWorktrees", function() worktrees.pick() end, {})
+
       vim.api.nvim_create_user_command("TelescopeBuffer", function()
         builtin.live_grep({ grep_open_files = true })
       end, {})
@@ -276,6 +288,75 @@ with sources;
       end, {})
     ''
   );
+  tests.telescope-gtr-worktrees = luaCheck {
+    name = "telescope-gtr-worktrees";
+    script = ''
+      require("telescope")
+      local worktrees = require('config.telescope_worktrees')
+      local root = vim.fn.tempname()
+      vim.fn.mkdir(root, 'p')
+      local function run(args, cwd)
+        local result = vim.system(args, { cwd = cwd, text = true }):wait()
+        assert(result.code == 0, result.stderr)
+        return result.stdout
+      end
+      local repo = root .. '/repo space'
+      run({ 'git', 'init', '-q', repo })
+      run({ 'git', '-c', 'user.name=Test', '-c', 'user.email=test@example.invalid', 'commit', '--allow-empty', '-qm', 'initial' }, repo)
+      local wt = repo .. '/custom[tree]$HOME/feature'
+      run({ 'git', 'worktree', 'add', '-qb', 'feature', wt }, repo)
+      vim.fn.writefile({ 'needle' }, repo .. '/main.txt')
+      vim.fn.writefile({ 'needle' }, wt .. '/linked.txt')
+      vim.fn.mkdir(repo .. '/ordinary-worktrees', 'p')
+      vim.fn.writefile({ 'needle' }, repo .. '/ordinary-worktrees/keep.txt')
+      local files = run(worktrees.find_command({ cwd = repo }), repo)
+      assert(files:find('main.txt', 1, true) and files:find('keep.txt', 1, true))
+      assert(not files:find('linked.txt', 1, true), files)
+      assert(run(worktrees.find_command({ cwd = wt }), wt):find('linked.txt', 1, true))
+      local grep = { 'rg', '--files-with-matches', 'needle' }
+      vim.list_extend(grep, worktrees.grep_args({ cwd = repo }))
+      assert(not run(grep, repo):find('linked.txt', 1, true))
+      -- Enumerate global ghq roots without directory naming assumptions.
+      local original_system, original_executable = vim.system, vim.fn.executable
+      vim.fn.executable = function(name) if name == 'ghq' then return 1 end; return original_executable(name) end
+      vim.system = function(args, opts)
+        if args[1] == 'ghq' then return { wait = function() return { code = 0, stdout = repo .. '\n' } end } end
+        return original_system(args, opts)
+      end
+      assert(not run(worktrees.find_command({ cwd = root }), root):find('linked.txt', 1, true))
+      vim.system, vim.fn.executable = original_system, original_executable
+      local _, slash = worktrees.roots('/')
+      assert(slash == '/')
+      local entries = assert(worktrees.parse(repo .. '\tmain\tmain\n' .. wt .. '\tfeature\tclean\n'))
+      assert(#entries == 2 and entries[2].path == wt)
+      assert(worktrees.parse('/bad\tpath\tbranch\tclean\n') == nil)
+      -- Exercise the real picker without depending on an installed gtr.
+      vim.o.columns, vim.o.lines = 120, 40
+      local builtin = require('telescope.builtin')
+      local original_files, selected = builtin.find_files, nil
+      builtin.find_files = function(opts) selected = opts.cwd end
+      vim.system = function(args, opts)
+        if args[2] == 'gtr' then return { wait = function() return { code = 0, stdout = wt .. '\tfeature\tclean\n' } end } end
+        return original_system(args, opts)
+      end
+      local cwd = vim.fn.getcwd()
+      worktrees.pick({ cwd = repo })
+      local state, actions = require('telescope.actions.state'), require('telescope.actions')
+      local prompt
+      assert(vim.wait(3000, function()
+        prompt = vim.api.nvim_get_current_buf()
+        return vim.bo[prompt].filetype == 'TelescopePrompt' and state.get_selected_entry() ~= nil
+      end, 10))
+      actions.select_default(prompt)
+      assert(selected == wt and vim.fn.getcwd() == cwd)
+      worktrees.pick({ cwd = repo })
+      assert(vim.wait(3000, function() return vim.bo.filetype == 'TelescopePrompt' end, 10))
+      actions.close(vim.api.nvim_get_current_buf())
+      assert(vim.fn.getcwd() == cwd)
+      vim.system, builtin.find_files = original_system, original_files
+      vim.fn.delete(root, 'rf')
+    '';
+  };
   tests.telescope-extensions-and-ui-select = luaCheck {
     name = "telescope-extensions-and-ui-select";
     preInit = ''
