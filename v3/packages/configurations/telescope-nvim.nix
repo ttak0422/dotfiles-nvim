@@ -14,7 +14,7 @@ with sources;
 
     通常の files / grep では登録済みの子 worktree を除外する（選択中の worktree 自体は検索可能）。
     `<Leader>fw` / `:TelescopeWorktrees` は `git gtr list --porcelain` から選択し、Enter でファイル、Ctrl-g で本文検索する。cwd の切替は既存の project.nvim によるファイル選択時の自動移動に任せる。
-    ghq 配下の検索では ghq 登録リポジトリも確認する。gtr は PATH 上に必要。
+    ghq 配下の検索では ghq 登録リポジトリも確認する。git-gtr は extraPackages に同梱する。`git gtr new` では標準の隣接 `<repo>-worktrees/` 配下に作成し、既存の `gtr.worktrees.dir` 設定は尊重する。
 
     # telescope.nvim
 
@@ -169,6 +169,7 @@ with sources;
   extraPackages = with pkgs; [
     ripgrep
     ghq
+    git-gtr
   ];
   config = luaConfig (
     # lua
@@ -330,7 +331,12 @@ with sources;
       local entries = assert(worktrees.parse(repo .. '\tmain\tmain\n' .. wt .. '\tfeature\tclean\n'))
       assert(#entries == 2 and entries[2].path == wt)
       assert(worktrees.parse('/bad\tpath\tbranch\tclean\n') == nil)
-      -- Exercise the real picker without depending on an installed gtr.
+      -- The Telescope package must supply gtr, not rely on a user's shell PATH.
+      assert(vim.fn.executable('git-gtr') == 1, 'git-gtr must be bundled in extraPackages')
+      local registered = assert(worktrees.parse(run({ 'git', 'gtr', 'list', '--porcelain' }, repo)))
+      assert(#registered == 2)
+      assert(vim.tbl_contains(vim.tbl_map(function(entry) return entry.path end, registered), wt))
+      -- Isolate picker selection from gtr ordering while exercising real Telescope.
       vim.o.columns, vim.o.lines = 120, 40
       local builtin = require('telescope.builtin')
       local original_files, selected = builtin.find_files, nil

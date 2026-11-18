@@ -24,6 +24,11 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
+    git-worktree-runner = {
+      url = "github:coderabbitai/git-worktree-runner";
+      flake = false;
+    };
+
     skk-dict = {
       url = "github:skk-dev/dict";
       flake = false;

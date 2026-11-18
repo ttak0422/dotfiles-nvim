@@ -258,6 +258,22 @@
         "type": "github"
       }
     },
+    "git-worktree-runner": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778607508,
+        "narHash": "sha256-WlpJz0MCf6TU/YGERHgGOxKvdt27sLand9lpKanApSI=",
+        "owner": "coderabbitai",
+        "repo": "git-worktree-runner",
+        "rev": "828413f69f750c51b7c67e9ebcabb2e7c901227b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "coderabbitai",
+        "repo": "git-worktree-runner",
+        "type": "github"
+      }
+    },
     "gitignore_3": {
       "inputs": {
         "nixpkgs": [
@@ -455,6 +471,7 @@
       "inputs": {
         "divine": "divine",
         "flake-parts": "flake-parts_2",
+        "git-worktree-runner": "git-worktree-runner",
         "jol": "jol",
         "junit-console": "junit-console",
         "nix-filter": "nix-filter_2",

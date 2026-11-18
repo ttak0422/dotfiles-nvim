@@ -10,6 +10,10 @@ with inputs;
       inherit (prev.stdenv) mkDerivation;
     in
     {
+      git-gtr = final.callPackage ./nix/packages/git-gtr.nix {
+        src = inputs.git-worktree-runner;
+      };
+
       # Keep the agent compatible with the Eclipse internals in JDT LS.
       lombok = prev.lombok.overrideAttrs (_: rec {
         version = "1.18.48";
