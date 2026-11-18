@@ -149,7 +149,11 @@
           '';
         in
         {
-          packages = lib.optionalAttrs (system == "aarch64-darwin") {
+          packages = {
+            # Also expose the CLI to flakes consuming dotfiles-nvim, on every
+            # supported system, independently of the macOS-only Neovim profile.
+            inherit (v3Pkgs) git-gtr;
+          } // lib.optionalAttrs (system == "aarch64-darwin") {
             "v3/default" = v3Neovim;
             "v3/graph" = v3Graph;
           };

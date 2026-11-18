@@ -36,3 +36,20 @@ The graph uses exactly the same pinned package set and configuration as
 `v3/default`. It describes configured dependencies and load units, not a live
 runtime trace. The HTML includes inline docs, Nix store paths, and declaration
 locations; review it before sharing. Graphviz is a build-time dependency only.
+
+## git-gtr package
+
+`packages.${system}.git-gtr` is available on this flake's supported systems,
+independently of the macOS-only Neovim profile. Telescope's `extraPackages` uses
+the same package.
+
+```sh
+nix build .#git-gtr
+nix run .#git-gtr -- version
+```
+
+A consuming flake can reference it directly, for example in Home Manager:
+
+```nix
+home.packages = [ inputs.dotfiles-nvim.packages.${pkgs.system}.git-gtr ];
+```

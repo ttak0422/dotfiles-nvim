@@ -32,3 +32,7 @@ jobs:
       # package tests are evaluated and run locally, not by this CI target.
       - name: Run focused regression checks
         run: nix build .#legacyPackages.${{ matrix.system }}.ci-checks --no-link --print-build-logs
+
+      # Test the exported CLI without building the full Neovim profile.
+      - name: Build exported git-gtr package
+        run: nix build .#git-gtr --no-link --print-build-logs
