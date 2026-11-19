@@ -35,22 +35,6 @@ lib.mapAttrs' buildPlugin sources
     '';
   };
 
-  vim-sonictemplate =
-    let
-      root = getSrc "vim-sonictemplate";
-    in
-    vimUtils.buildVimPlugin {
-      pname = "vim-sonictemplate";
-      version = root.revision;
-      src = pkgs.nix-filter {
-        inherit root;
-        exclude = [
-          "template/java"
-          "template/make"
-        ];
-      };
-    };
-
   telescope-fzf-native-nvim = vimUtils.buildVimPlugin rec {
     pname = "telescope-fzf-native-nvim";
     version = src.revision;

@@ -1724,19 +1724,6 @@
       "url": "https://github.com/ttak0422/telescope-mr/archive/eea3fd6ae1eb41c306321d0ac3dfcbf2ad666558.tar.gz",
       "hash": "sha256-gZIWNIhzYl7bmyDjLk02SC1YJ9NabLSq46ciaM9zWpA="
     },
-    "telescope-sonictemplate.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "tamago324",
-        "repo": "telescope-sonictemplate.nvim"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "9edeeea022d9e35287fa80a91ed5bffb950cc096",
-      "url": "https://github.com/tamago324/telescope-sonictemplate.nvim/archive/9edeeea022d9e35287fa80a91ed5bffb950cc096.tar.gz",
-      "hash": "sha256-IbMIPEcHC8j+t4XUS6TFFGWNSCCd5LpsG/n1FPQQzmc="
-    },
     "telescope-ui-select.nvim": {
       "type": "Git",
       "repository": {
@@ -2100,19 +2087,6 @@
       "revision": "65846025c15494983dafe5e3b46c8f88ab2e9635",
       "url": "https://github.com/tpope/vim-repeat/archive/65846025c15494983dafe5e3b46c8f88ab2e9635.tar.gz",
       "hash": "sha256-G/dmkq1KtSHIl+I5p3LfO6mGPS3eyLRbEEsuLbTpGlk="
-    },
-    "vim-sonictemplate": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "mattn",
-        "repo": "vim-sonictemplate"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "050450414ca69885df7c26936821d74678ff4904",
-      "url": "https://github.com/mattn/vim-sonictemplate/archive/050450414ca69885df7c26936821d74678ff4904.tar.gz",
-      "hash": "sha256-QhKWAyCFp1XWn8/kMPPjHahPeL7bkgsI5l3XofhKhCg="
     },
     "vim-startuptime": {
       "type": "Git",
