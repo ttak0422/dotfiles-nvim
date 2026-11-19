@@ -411,7 +411,7 @@ with sources;
         assert(vim.wait(3000, function() return vim.bo.filetype == 'TelescopePrompt' and state.get_selected_entry() ~= nil end, 10))
         local prompt = vim.api.nvim_get_current_buf()
         local picker = state.get_current_picker(prompt)
-        for _, case in ipairs({ { '', 4 }, { 'match', 2 }, { 'onlystale', 1 }, { 'zzzznonexistent', 0 }, { '', 4 } }) do
+        for _, case in ipairs({ { "", 4 }, { 'match', 2 }, { 'onlystale', 1 }, { 'zzzznonexistent', 0 }, { "", 4 } }) do
           picker:set_prompt(case[1])
           assert(vim.wait(3000, function()
             return state.get_current_line() == case[1] and picker.manager and picker.manager:num_results() == case[2]
