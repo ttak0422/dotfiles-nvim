@@ -15,6 +15,7 @@ with sources;
     通常の files / grep では登録済みの子 worktree を除外する（選択中の worktree 自体は検索可能）。
     `<Leader>fw` / `:TelescopeWorktrees` は `git gtr list --porcelain` から選択し、Enter でファイル検索する。候補がない場合は入力したブランチ名で `git gtr new --yes` を実行し、作成先のファイル検索を開く（空入力は閉じる）。cwd の切替は既存の project.nvim によるファイル選択時の自動移動に任せる。
     `<Leader>fP` の ghq プロジェクト一覧では、名前が `-worktrees` で終わるディレクトリとその配下を非表示にする。worktree 専用 picker は対象外。
+    worktree 一覧では `prunable` を他の一致候補より下に表示する（検索中も同様）。登録の削除は行わない。
     ghq 配下の検索では ghq 登録リポジトリも確認する。git-gtr は extraPackages に同梱する。`git gtr new` では標準の隣接 `<repo>-worktrees/` 配下に作成し、既存の `gtr.worktrees.dir` 設定は尊重する。
 
     # telescope.nvim
@@ -364,6 +365,85 @@ with sources;
       require('telescope.config').values.file_ignore_patterns = original_patterns
       vim.fn.delete(root, 'rf')
       print('project worktree filter tests passed')
+    '';
+  };
+  tests.telescope-worktree-order = luaCheck {
+    name = "telescope-worktree-order";
+    script = ''
+      require('telescope')
+      local worktrees = require('config.telescope_worktrees')
+      local root = vim.fn.tempname()
+      vim.fn.mkdir(root, 'p')
+      local repo = root .. '/repo'
+      local function run(args, cwd)
+        local result = vim.system(args, { cwd = cwd, text = true }):wait()
+        assert(result.code == 0, result.stderr)
+        return result.stdout
+      end
+      run({ 'git', 'init', '-qb', 'main', repo })
+      run({ 'git', '-c', 'user.name=Test', '-c', 'user.email=test@example.invalid', 'commit', '--allow-empty', '-qm', 'initial' }, repo)
+      local live = root .. '/z-live'
+      run({ 'git', 'worktree', 'add', '-qb', 'match-live', live }, repo)
+      for _, name in ipairs({ 'match', 'onlystale' }) do
+        local path = root .. '/a-' .. name
+        run({ 'git', 'worktree', 'add', '-qb', name, path }, repo)
+        vim.fn.delete(path, 'rf')
+      end
+      local entries = assert(worktrees.parse(run({ 'git', 'gtr', 'list', '--porcelain' }, repo)))
+      local stale = 0
+      for _, entry in ipairs(entries) do if entry.status == 'prunable' then stale = stale + 1 end end
+      assert(stale == 2, 'pinned gtr must expose Git prunable status')
+      local conf = require('telescope.config').values
+      local original_sorter = conf.generic_sorter
+      local factories = { original_sorter }
+      require('telescope').load_extension('fzf')
+      factories[#factories + 1] = conf.generic_sorter
+      local state, actions = require('telescope.actions.state'), require('telescope.actions')
+      local builtin = require('telescope.builtin')
+      local original_files, opened = builtin.find_files, nil
+      builtin.find_files = function(opts) opened = opts.cwd end
+      local notify, notices = vim.notify, {}
+      vim.notify = function(message) notices[#notices + 1] = message end
+      vim.o.columns, vim.o.lines = 140, 40
+      for _, factory in ipairs(factories) do
+        conf.generic_sorter = factory
+        worktrees.pick({ cwd = repo, sorting_strategy = 'ascending' })
+        assert(vim.wait(3000, function() return vim.bo.filetype == 'TelescopePrompt' and state.get_selected_entry() ~= nil end, 10))
+        local prompt = vim.api.nvim_get_current_buf()
+        local picker = state.get_current_picker(prompt)
+        for _, case in ipairs({ { '', 4 }, { 'match', 2 }, { 'onlystale', 1 }, { 'zzzznonexistent', 0 }, { '', 4 } }) do
+          picker:set_prompt(case[1])
+          assert(vim.wait(3000, function()
+            return state.get_current_line() == case[1] and picker.manager and picker.manager:num_results() == case[2]
+          end, 10), 'unexpected match count for ' .. case[1])
+          local seen_stale = false
+          for entry in picker.manager:iter() do
+            if entry.value.status == 'prunable' then seen_stale = true
+            else assert(not seen_stale, 'healthy entry ranked below prunable') end
+          end
+          if case[1] == 'match' then
+            assert(state.get_selected_entry().value.path == live, 'strong stale match outranked healthy match')
+          elseif case[1] == 'onlystale' then
+            opened = nil
+            actions.select_default(prompt)
+            assert(opened == nil and vim.bo.filetype == 'TelescopePrompt')
+            assert(notices[#notices]:find('Worktree no longer exists:', 1, true))
+          elseif case[2] == 0 then
+            assert(state.get_selected_entry() == nil, 'no-match must remain eligible for creation')
+          end
+        end
+        picker:set_prompt('match-live')
+        assert(vim.wait(3000, function()
+          local entry = state.get_selected_entry()
+          return picker.manager:num_results() == 1 and entry and entry.value.path == live
+        end, 10))
+        opened = nil
+        actions.select_default(prompt)
+        assert(opened == live, 'healthy selection changed')
+      end
+      conf.generic_sorter, builtin.find_files, vim.notify = original_sorter, original_files, notify
+      assert(run({ 'git', 'worktree', 'list', '--porcelain' }, repo):find('prunable', 1, true), 'sorting must not prune registrations')
+      vim.fn.delete(root, 'rf')
     '';
   };
   tests.telescope-gtr-worktrees = luaCheck {
