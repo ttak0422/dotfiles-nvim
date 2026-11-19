@@ -8,9 +8,75 @@
   inputs',
 }:
 with sources;
+let
+  ptermMappingCheck = key: picker: luaCheck {
+    name = "telescope-first-pterm-${picker}";
+    preInit = ''
+      local original_require = require
+      local wrapped = false
+      _G.require = function(name)
+        local module = original_require(name)
+        if name == "pterm" and not wrapped then
+          wrapped = true
+          -- Keep the real lazy loader, commands and pickers; isolate daemon IO.
+          module.list = function() return { "fixture/test session" } end
+          module.is_connected = function() return false end
+          module.display_name = function(name) return name end
+          module.full_text_ansi = function() return "fixture grep line" end
+          module.snapshot_ansi_async = function(_, callback)
+            vim.schedule(function() callback("fixture preview") end)
+            return { kill = function() end }
+          end
+        end
+        return module
+      end
+    '';
+    script = ''
+      assert(not package.loaded.telescope and not package.loaded.pterm,
+        "pterm mappings must leave Telescope and pterm cold at startup")
+      vim.o.columns, vim.o.lines = 120, 40
+      local function open(key, expected)
+        vim.cmd.stopinsert()
+        local mapping = vim.fn.maparg("<Leader>" .. key, "n", false, true)
+        assert(mapping.rhs == "<Cmd>Telescope pterm " .. expected .. "<CR>", "wrong pterm mapping: " .. key)
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Leader>" .. key, true, false, true), "xt", false)
+        local prompt, picker
+        assert(vim.wait(5000, function()
+          prompt = vim.api.nvim_get_current_buf()
+          if vim.bo[prompt].filetype ~= "TelescopePrompt" then return false end
+          picker = require("telescope.actions.state").get_current_picker(prompt)
+          return picker and picker.manager and picker.manager:num_results() == 1
+        end, 10), "mapping did not open populated pterm " .. expected)
+        assert(picker.prompt_title:find("pterm " .. expected, 1, true), "mapping opened the wrong picker")
+        local entry = picker.manager:get_entry(1)
+        assert(entry.value == "fixture/test session", "session name changed")
+        assert((entry.grep_line == "fixture grep line") == (expected == "grep"), "wrong picker entries")
+        require("telescope.actions").close(prompt)
+      end
+      -- Each check starts with a different mapping before any completion/require.
+      open("${key}", "${picker}")
+      open("ft", "grep")
+      open("fT", "sessions")
+      assert(vim.fn.exists(":Template") == 0, "retired Template command is still registered")
+      assert(not vim.tbl_contains(vim.fn.getcompletion("Template", "command"), "Template"))
+      assert(not vim.tbl_contains(vim.fn.getcompletion("Telescope ", "cmdline"), "sonictemplate"),
+        "retired Telescope extension is still offered")
+      assert(#vim.api.nvim_get_runtime_file("plugin/sonictemplate.vim", true) == 0)
+      assert(#vim.api.nvim_get_runtime_file("lua/telescope/_extensions/sonictemplate.lua", true) == 0)
+      for _, command in ipairs({ "grep", "sessions" }) do
+        assert(vim.tbl_contains(vim.fn.getcompletion("Telescope pterm ", "cmdline"), command))
+        vim.cmd("Telescope pterm " .. command .. " previewer=false")
+        assert(vim.bo.filetype == "TelescopePrompt", "existing pterm command stopped opening its picker")
+        require("telescope.actions").close(vim.api.nvim_get_current_buf())
+      end
+    '';
+  };
+in
 {
   doc = ''
-    Telescope 本体と 6 つの拡張をまとめ、picker と選択 UI の設定を共有する。
+    Telescope 本体と拡張をまとめ、picker と選択 UI の設定を共有する。
+
+    `<Leader>ft` は `:Telescope pterm grep`、`<Leader>fT` は `:Telescope pterm sessions` を開く。
 
     通常の files / grep では登録済みの子 worktree を除外する（選択中の worktree 自体は検索可能）。
     `<Leader>fw` / `:TelescopeWorktrees` は `git gtr list --porcelain` から選択し、Enter でファイル検索する。候補がない場合は入力したブランチ名で `git gtr new --yes` を実行し、作成先のファイル検索を開く（空入力は閉じる）。cwd の切替は既存の project.nvim によるファイル選択時の自動移動に任せる。
@@ -90,23 +156,6 @@ with sources;
     ## 出典
     - [上流 README（固定リビジョン）](https://github.com/nvim-telescope/telescope-live-grep-args.nvim/blob/53e9df55b3651dd7cf77e172f1e8c9a17407acca/README.md)
 
-    # telescope-sonictemplate.nvim
-
-    ## 概要
-    vim-sonictemplate のテンプレートを Telescope から選ぶための統合。
-
-    ## 主な機能
-    - Telescope picker でテンプレートを選択。
-
-    ## 使い方
-    extension の読込後、`:Telescope sonictemplate templates` または `require("telescope").extensions.sonictemplate.templates{}` を実行する。
-
-    ## 要件
-    telescope.nvim、vim-sonictemplate。最低バージョンは README 未記載。
-
-    ## 出典
-    [固定リビジョンの README](https://github.com/tamago324/telescope-sonictemplate.nvim/blob/9edeeea022d9e35287fa80a91ed5bffb950cc096/README.md)
-
     # telescope-mr
 
     ## 概要
@@ -156,14 +205,12 @@ with sources;
     telescope-fzf-native-nvim
     telescope-ghq-nvim
     telescope-live-grep-args-nvim
-    telescope-sonictemplate-nvim
     telescope-ui-select-nvim
   ];
   dependPlugins = [
     definitions.vim-mr
     definitions.plenary-nvim
     definitions.project-nvim
-    definitions.vim-sonictemplate
     definitions.worktab-nvim
     definitions.pterm
     definitions.track
@@ -227,7 +274,7 @@ with sources;
           },
         },
       })
-      for _, extension in ipairs({ "mr", "ui-select", "live_grep_args", "sonictemplate", "projects", "ghq", "worktab", "track" }) do
+      for _, extension in ipairs({ "mr", "ui-select", "live_grep_args", "projects", "ghq", "worktab", "track" }) do
         telescope.load_extension(extension)
       end
       -- Keep ghq's native display/actions; filter only its project list, not
@@ -310,6 +357,8 @@ with sources;
       end, {})
     ''
   );
+  tests.telescope-first-pterm-grep = ptermMappingCheck "ft" "grep";
+  tests.telescope-first-pterm-sessions = ptermMappingCheck "fT" "sessions";
   tests.telescope-path-display-scope = luaCheck {
     name = "telescope-path-display-scope";
     script = builtins.readFile ../checks/telescope-path-display-scope.lua;
@@ -620,7 +669,6 @@ with sources;
       local telescope = require("telescope")
       for extension, api in pairs({
         live_grep_args = "live_grep_args",
-        sonictemplate = "templates",
         projects = "projects",
         ghq = "ghq",
         worktab = "worktab",
