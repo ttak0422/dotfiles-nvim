@@ -184,7 +184,7 @@ with sources;
       local lga_actions = require("telescope-live-grep-args.actions")
       telescope.setup({
         defaults = {
-          path_display = { "filename_first" },
+          path_display = { "truncate" },
           prompt_prefix = " ",
           selection_caret = " ",
           sorting_strategy = "ascending",
@@ -206,7 +206,11 @@ with sources;
           },
         },
         pickers = {
-          find_files = { find_command = worktrees.find_command },
+          -- Filename-first belongs to filename searches, not repositories or grep.
+          find_files = { find_command = worktrees.find_command, path_display = { "filename_first" } },
+          git_files = { path_display = { "filename_first" } },
+          oldfiles = { path_display = { "filename_first" } },
+          buffers = { path_display = { "filename_first" } },
           live_grep = { additional_args = worktrees.grep_args },
           grep_string = { additional_args = worktrees.grep_args },
         },
@@ -306,6 +310,10 @@ with sources;
       end, {})
     ''
   );
+  tests.telescope-path-display-scope = luaCheck {
+    name = "telescope-path-display-scope";
+    script = builtins.readFile ../checks/telescope-path-display-scope.lua;
+  };
   tests.telescope-ghq-worktree-filter = luaCheck {
     name = "telescope-ghq-worktree-filter";
     script = ''
