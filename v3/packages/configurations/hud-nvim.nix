@@ -17,7 +17,7 @@ with sources;
 
     ## 主な機能
     - 文字列・関数・入れ子の部品で行を構成する。
-    - リポジトリ名とブランチ、相対ディレクトリ、ファイル名、診断と Git 差分、ruler の順に最大 5 行で表示する。情報のない行は省略する。
+    - リポジトリ名とブランチ、ファイル名と控えめな相対ディレクトリ、診断と Git 差分、ruler の順に最大 4 行で表示する。情報のない行は省略する。
     - ruler は以前の `%4d,%-3d` 形式を使い、カラムの桁数が変わっても 3 桁までは表示幅を保つ。
     - イベント単位の更新キャッシュ、幅不足時の優先度、カーソルとの重なり回避を扱う。
 
@@ -92,7 +92,7 @@ with sources;
           if api.nvim_win_get_width(ctx.win) < 100 then
             path = vim.fn.pathshorten(path)
           end
-          return { ' ', { provider = path ~= ''' and path or '.', hl = 'WinBar' } }
+          return { ' ', { provider = path ~= ''' and path or '.', hl = 'HudPath' } }
         end,
       }
       local file = {
@@ -158,10 +158,13 @@ with sources;
           return #result > 1 and result or nil
         end,
       }
-      local active = { { repository, branch }, location, file, { diagnostics, git_diff }, ruler }
-      local inactive = { active[1], location, file }
+      -- Equal-priority trailing parts yield first when the combined row does not fit.
+      local active = { { repository, branch }, { file, location }, { diagnostics, git_diff }, ruler }
+      local inactive = { active[1], active[2] }
       local group = api.nvim_create_augroup('hud-config', { clear = true })
       local function highlights()
+        local path = api.nvim_get_hl(0, { name = 'TelescopeResultsComment', link = false, create = false })
+        api.nvim_set_hl(0, 'HudPath', { link = path.fg and 'TelescopeResultsComment' or 'Comment' })
         for _, item in ipairs({ { 'Added', 10 }, { 'Changed', 12 }, { 'Removed', 9 } }) do
           api.nvim_set_hl(0, 'HudGit' .. item[1], { fg = vim.g['terminal_color_' .. item[2]], bold = true })
         end
@@ -231,8 +234,31 @@ with sources;
             and api.nvim_win_get_config(float).height == #expected
         end, 10), 'HUD rows: ' .. vim.inspect((rows(win))) .. ', expected: ' .. vim.inspect(expected))
       end
+      local function segments(filename, directory, win)
+        local lines, float = rows(win)
+        local row = lines[2] and vim.trim(lines[1]):match('^repository') and 2 or 1
+        local text = lines[row]
+        local first = assert(text:find(filename, 1, true)) - 1
+        local marks = api.nvim_buf_get_extmarks(api.nvim_win_get_buf(float),
+          api.nvim_create_namespace('hud.nvim'), { row - 1, 0 }, { row - 1, -1 }, { details = true })
+        local title, path = false, false
+        for _, mark in ipairs(marks) do
+          local detail = mark[4]
+          if detail.hl_group == 'Title' then
+            assert(mark[3] == first and detail.end_col == first + #filename, 'filename highlight leaked')
+            title = true
+          elseif detail.hl_group == 'HudPath' then
+            assert(directory and mark[3] == first + #filename + 1
+              and detail.end_col == #text, 'directory highlight leaked')
+            path = true
+          end
+        end
+        assert(title and path == (directory ~= nil), 'missing or unexpected filename/path highlight')
+        assert(text:sub(-1) ~= ' ', 'file row has a stray separator')
+      end
       local function header(repository_name, directory, filename, win)
-        local expected = repository_name and { repository_name, directory, filename } or { directory, filename }
+        local row = filename .. (directory and ' ' .. directory or ''')
+        local expected = repository_name and { repository_name, row } or { row }
         assert(vim.wait(2000, function()
           local lines = rows(win)
           if not lines then return false end
@@ -241,6 +267,7 @@ with sources;
           end
           return true
         end, 10), 'HUD header: ' .. vim.inspect((rows(win))))
+        segments(filename:gsub('^ ', '''), directory, win)
       end
       local function status(value)
         vim.b.gitsigns_status_dict = value
@@ -275,6 +302,22 @@ with sources;
         assert(result.code == 0, result.stderr)
         edit(repository .. '/src/example/Example.txt')
         header('repository', 'src/example', 'Example.txt')
+        -- Follow the theme's muted-path role when present; Comment is visible without Telescope.
+        api.nvim_set_hl(0, 'TelescopeResultsComment', {})
+        api.nvim_exec_autocmds('ColorScheme', {})
+        assert(api.nvim_get_hl(0, { name = 'HudPath' }).link == 'Comment')
+        assert(api.nvim_get_hl(0, { name = 'HudPath', link = false }).fg)
+        api.nvim_set_hl(0, 'TelescopeResultsComment', { fg = '#567890' })
+        api.nvim_exec_autocmds('ColorScheme', {})
+        assert(api.nvim_get_hl(0, { name = 'HudPath' }).link == 'TelescopeResultsComment')
+        assert(api.nvim_get_hl(0, { name = 'HudPath', link = false }).fg == 0x567890)
+        header('repository', 'src/example', 'Example.txt')
+        for _, background in ipairs({ 'light', 'dark' }) do
+          vim.o.background = background
+          vim.cmd.colorscheme('sorairo')
+          assert(api.nvim_get_hl(0, { name = 'HudPath', link = false }).fg)
+          header('repository', 'src/example', 'Example.txt')
+        end
         api.nvim_buf_set_lines(0, 0, 1, false, { 'changed' })
         api.nvim_exec_autocmds('BufModifiedSet', {})
         header('repository', 'src/example', ' Example.txt')
@@ -282,32 +325,36 @@ with sources;
         api.nvim_exec_autocmds('BufModifiedSet', {})
         status({ head = 'hud-test', added = 2, changed = 3, removed = 4 })
         diagnostics(true)
-        expect({ 'repository  hud-test', 'src/example', 'Example.txt', ' 1  1   2  3  4', '20,1' })
+        expect({ 'repository  hud-test', 'Example.txt src/example', ' 1  1   2  3  4', '20,1' })
         diagnostics(false)
-        expect({ 'repository  hud-test', 'src/example', 'Example.txt', ' 2  3  4', '20,1' })
+        expect({ 'repository  hud-test', 'Example.txt src/example', ' 2  3  4', '20,1' })
         status({ head = 'hud-next' })
         diagnostics(true)
-        expect({ 'repository  hud-next', 'src/example', 'Example.txt', ' 1  1', '20,1' })
+        expect({ 'repository  hud-next', 'Example.txt src/example', ' 1  1', '20,1' })
         diagnostics(false)
-        expect({ 'repository  hud-next', 'src/example', 'Example.txt', '20,1' })
+        expect({ 'repository  hud-next', 'Example.txt src/example', '20,1' })
         -- Restore both providers and verify they share one row after repeated updates.
         diagnostics(true)
         status({ head = 'hud-test', changed = 1 })
-        expect({ 'repository  hud-test', 'src/example', 'Example.txt', ' 1  1   1', '20,1' })
+        expect({ 'repository  hud-test', 'Example.txt src/example', ' 1  1   1', '20,1' })
         local source = api.nvim_get_current_win()
         vim.cmd.vsplit()
         resized(80)
-        expect({ 'repository  hud-test', 's/example', 'Example.txt', ' 1  1   1', '20,1' })
-        expect({ 'repository  hud-test', 'src/example', 'Example.txt' }, source)
+        expect({ 'repository  hud-test', 'Example.txt s/example', ' 1  1   1', '20,1' })
+        expect({ 'repository  hud-test', 'Example.txt src/example' }, source)
+        segments('Example.txt', 'src/example', source)
         resized(18)
-        header('repository', 's/example', 'Example.txt')
+        header('repository', nil, 'Example.txt')
         vim.cmd.only()
         api.nvim_exec_autocmds('WinResized', {})
         diagnostics(false)
         status({})
         api.nvim_buf_set_name(0, repository .. '/Renamed.txt')
         api.nvim_exec_autocmds('BufFilePost', {})
-        expect({ 'repository', '.', 'Renamed.txt', '20,1' })
+        expect({ 'repository', 'Renamed.txt .', '20,1' })
+        segments('Renamed.txt', '.')
+        edit(repository .. '/日本語/例.txt')
+        header('repository', '日本語', '例.txt')
         edit(repository .. '/src/main/java/org/example/Example.java')
         vim.bo.filetype = 'java'
         header('repository', 'org/example', 'Example.java')
@@ -315,7 +362,7 @@ with sources;
         vim.fn.mkdir(plain, 'p')
         vim.cmd.cd(vim.fn.fnameescape(plain))
         edit(plain .. '/notes/Notes.txt')
-        expect({ 'notes', 'Notes.txt', '20,1' })
+        expect({ 'Notes.txt notes', '20,1' })
         vim.cmd.cd(vim.fn.fnameescape(plain .. '/notes'))
         header(nil, '.', 'Notes.txt')
         vim.cmd.cd(vim.fn.fnameescape(repository))
@@ -328,16 +375,15 @@ with sources;
         resized(18)
         assert(vim.wait(2000, function()
           local lines = rows()
-          local path = lines and vim.trim(lines[1]) or '''
-          return path ~= ''' and #path < #directory and vim.startswith(directory, path)
-            and vim.trim(lines[2] or ''') == 'Clipped.txt'
-        end, 10), 'non-Git directory must clip instead of disappearing')
+          return lines and vim.trim(lines[1]) == 'Clipped.txt'
+            and lines[1]:sub(-1) ~= ' '
+        end, 10), 'filename must keep its padding without a stray path separator when space is tight')
         vim.cmd.only()
         api.nvim_exec_autocmds('WinResized', {})
 
         -- Let the ruler determine the width, then cross 1/2/3-digit column boundaries.
         edit(plain .. '/x')
-        expect({ '.', 'x', '20,1' })
+        expect({ 'x .', '20,1' })
         local _, float = rows()
         local before = api.nvim_win_get_config(float)
         local scans = root_calls
@@ -345,7 +391,7 @@ with sources;
           api.nvim_win_set_cursor(0, { 20, column - 1 })
           api.nvim_exec_autocmds('CursorMoved', {})
           local formatted = ('%4d,%-3d'):format(20, column)
-          expect({ '.', 'x', vim.trim(formatted) })
+          expect({ 'x .', vim.trim(formatted) })
           local lines, current = rows()
           local after = api.nvim_win_get_config(current)
           assert(lines[#lines] == ' ' .. formatted, 'ruler lost fixed-width padding')
@@ -357,7 +403,11 @@ with sources;
         vim.bo.modified = false
         api.nvim_win_set_cursor(0, { 20, 0 })
         api.nvim_exec_autocmds('CursorMoved', {})
-        expect({ '.', '[No Name]', '20,1' })
+        expect({ '[No Name] .', '20,1' })
+        segments('[No Name]', '.')
+        vim.bo.buftype = 'nofile'
+        hud.refresh()
+        assert(vim.wait(2000, function() return rows() == nil end, 10), 'special buffer must stay hidden')
       end, debug.traceback)
       hud.disable()
       vim.diagnostic.reset(ns)
