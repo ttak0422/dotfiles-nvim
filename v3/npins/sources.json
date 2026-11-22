@@ -1539,6 +1539,19 @@
       "url": "https://github.com/mghaight/replua.nvim/archive/8ed56f58aaec2d22e61907c46fbbc2a1d15b2ffd.tar.gz",
       "hash": "sha256-gptddyPsSCjWRG/YIN/LBVKgF0XoIUcblaj4NTfL2zA="
     },
+    "resession.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "stevearc",
+        "repo": "resession.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "0983fbdd3fe938c80fb7dd33817f08f428426ac8",
+      "url": "https://github.com/stevearc/resession.nvim/archive/0983fbdd3fe938c80fb7dd33817f08f428426ac8.tar.gz",
+      "hash": "sha256-uvKyEgd/tnRZvYS/+vR5airpgE8cFo5CqGxNWBKbMdQ="
+    },
     "rustowl": {
       "type": "Git",
       "repository": {

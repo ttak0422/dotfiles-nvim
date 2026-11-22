@@ -151,6 +151,7 @@ let
     pterm = load ./pterm.nix;
     qf-nvim = load ./qf-nvim.nix;
     replua-nvim = load ./replua-nvim.nix;
+    resession-nvim = load ./resession-nvim.nix;
     rustaceanvim = load ./rustaceanvim.nix;
     rustowl = load ./rustowl.nix;
     scope-nvim = load ./scope-nvim.nix;
