@@ -1,0 +1,66 @@
+name: Divine graph Pages
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+# Serialize main builds as well as deployments so a slower old build cannot
+# publish after a newer one. PRs have their own ref and never deploy.
+concurrency:
+  group: divine-graph-pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: macos-15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: cachix/install-nix-action@v31.11.3
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ github.token }}
+
+      - name: Build and check the static graph
+        shell: bash
+        run: |
+          graph="$(nix build '.#v3/graph' --no-link --print-out-paths)"
+          test -s "$graph"
+          grep -Fq 'id="graph-data"' "$graph"
+          grep -Fq '<svg' "$graph"
+          if grep -Eq '(/Users/|/home/|/private/(tmp|var/))' "$graph"; then
+            echo "::error::The graph contains a host-specific path."
+            exit 1
+          fi
+          mkdir "$RUNNER_TEMP/divine-graph-site"
+          install -m 0644 "$graph" "$RUNNER_TEMP/divine-graph-site/index.html"
+
+      - name: Upload only the generated graph
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/divine-graph-site
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy the graph
+        id: deployment
+        uses: actions/deploy-pages@v4
