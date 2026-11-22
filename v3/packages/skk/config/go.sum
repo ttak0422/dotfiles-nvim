@@ -1,2 +1,6 @@
-golang.org/x/text v0.43.0 h1:1QivrlhwAsnMOcqgOdl9my7s9OyZl8O5/UGUTJVXoWc=
-golang.org/x/text v0.43.0/go.mod h1:hbSIYA/amXcRXTFSZqh8tWHEoqRvvbKPJ2uz/KU+a+s=
+github.com/Shougo/goda-skk.vim v0.12.0 h1:PmybNY/hYzIzIB2YjV7PlRyIzYcOU63LFuAl2A9FG6c=
+github.com/Shougo/goda-skk.vim v0.12.0/go.mod h1:g3rH9VrErP3Dw46TyVngTPlFKQ1SZwUGheyXMccEv5w=
+github.com/Shougo/goda.vim v0.12.0 h1:Dr0Ljy4J/oxA8xeMMo7NXdFiiDf1krq1H2v1xPDxNO0=
+github.com/Shougo/goda.vim v0.12.0/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
+golang.org/x/text v0.44.0 h1:YItdp/mQNGnsmrgpcdA5yQ3bnRxCfo/Tj/iByGW9GGo=
+golang.org/x/text v0.44.0/go.mod h1:S4FR1waQ9LbjQTls97SyRjDaUUVkaM+cXwwuG/G+MwY=

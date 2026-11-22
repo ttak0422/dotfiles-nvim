@@ -482,10 +482,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v0.3.3",
-      "revision": "b138f25d97610f8dc5cd644fc05797728ecf62f4",
-      "url": "https://api.github.com/repos/Shougo/goda-skk.vim/tarball/refs/tags/v0.3.3",
-      "hash": "sha256-fAbj82ZOCbgmUjWB15e/hzabsME/8OB5Wg4DzJm9HMs="
+      "version": "v0.12.0",
+      "revision": "110511bfd50e4718cb3b4f7f7a2a8e2bc89f6f7a",
+      "url": "https://api.github.com/repos/Shougo/goda-skk.vim/tarball/refs/tags/v0.12.0",
+      "hash": "sha256-UVLam1d3iCuSEVhKvJglWdKwMgPQRPBF3XFoF+9Fn5A="
     },
     "goda.vim": {
       "type": "GitRelease",
@@ -498,10 +498,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v0.7.2",
-      "revision": "8399891df7fd77eee0473003201f9960dfbd8ebb",
-      "url": "https://api.github.com/repos/Shougo/goda.vim/tarball/refs/tags/v0.7.2",
-      "hash": "sha256-o/mmMjAEQ14jYYj0SNc//QKh7i/MniMayClJtVtAqiI="
+      "version": "v0.12.0",
+      "revision": "dbaf180e128608146ab0e4176860b5f7ed15a90e",
+      "url": "https://api.github.com/repos/Shougo/goda.vim/tarball/refs/tags/v0.12.0",
+      "hash": "sha256-O/DGGOWdCVQSFoZ2KH0WYALdYpQ3AUvuwv+UoRkx4Zw="
     },
     "gopher.nvim": {
       "type": "Git",
