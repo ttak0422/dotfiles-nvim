@@ -189,7 +189,8 @@ with sources;
         inactive_hl = 'WinBarNC',
         filter = function(ctx)
           local ft = vim.bo[ctx.buf].filetype
-          return not ignored_buftypes[vim.bo[ctx.buf].buftype]
+          return not vim.w[ctx.win].dotfiles_startup_banner
+            and not ignored_buftypes[vim.bo[ctx.buf].buftype]
             and not vim.wo[ctx.win].previewwindow
             and not vim.startswith(ft, 'git')
             and ft ~= 'Trouble'

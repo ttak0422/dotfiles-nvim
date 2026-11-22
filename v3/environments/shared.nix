@@ -29,6 +29,13 @@ with packages;
         end
 
         vim.opt.shortmess:append("I")
+        local group = vim.api.nvim_create_augroup("DotfilesStartupMessage", { clear = true })
+        local function refresh_hud()
+          local hud = package.loaded.hud
+          if hud then
+            hud.refresh()
+          end
+        end
         local banner = require("snacks").win({
           relative = "win",
           win = win,
@@ -39,14 +46,21 @@ with packages;
           backdrop = false,
           focusable = false,
           wo = { wrap = false, winhighlight = "NormalFloat:Normal" },
+          on_close = function()
+            vim.api.nvim_del_augroup_by_id(group)
+            if vim.api.nvim_win_is_valid(win) then
+              vim.w[win].dotfiles_startup_banner = nil
+            end
+            refresh_hud()
+          end,
         })
-        local group = vim.api.nvim_create_augroup("DotfilesStartupMessage", { clear = true })
+        vim.w[win].dotfiles_startup_banner = true
+        refresh_hud()
         -- :edit can reload the same buffer and clear its buffer-local autocmds.
         vim.api.nvim_create_autocmd({ "BufLeave", "BufReadPost", "BufNewFile", "WinLeave", "InsertEnter", "TextChanged" }, {
           group = group,
           callback = function(event)
             if event.buf == buf then
-              vim.api.nvim_del_augroup_by_id(group)
               banner:close()
             end
           end,
