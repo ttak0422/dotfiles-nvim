@@ -14,7 +14,7 @@ pkgs.buildGoModule {
     replace github.com/Shougo/goda-skk.vim => ./.deps/goda-skk
     EOF
   '';
-  vendorHash = "sha256-kn6Z6MBjprv4R0DATvaGstGwo8PNbbObYRUWy1EMIgM=";
+  vendorHash = "sha256-/kRCb0I8GWrf8Yz/ffJ+1xjE+uFqbbNqbnP0ACrLPOI=";
   env.CGO_ENABLED = "0";
   ldflags = [
     "-s"
