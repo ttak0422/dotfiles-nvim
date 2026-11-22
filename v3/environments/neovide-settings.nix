@@ -17,6 +17,9 @@
         neovide_padding_left = 5,
         neovide_padding_right = 5,
         neovide_padding_top = 10,
+        neovide_position_animation_length = 0,
+        neovide_scroll_animation_far_lines = 0,
+        neovide_scroll_animation_length = 0,
         neovide_window_blurred = true,
       }) do
         vim.g[name] = value
