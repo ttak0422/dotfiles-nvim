@@ -28,55 +28,26 @@ with packages;
           return
         end
 
-        local message = "vNext"
-        local function geometry()
-          local width = vim.api.nvim_win_get_width(win)
-          local height = vim.api.nvim_win_get_height(win)
-          local text_width = math.min(width, vim.fn.strdisplaywidth(message))
-          return {
-            relative = "win",
-            win = win,
-            row = math.floor((height - 1) / 2),
-            col = math.floor((width - text_width) / 2),
-            width = text_width,
-            height = 1,
-          }
-        end
-
-        local banner = vim.api.nvim_create_buf(false, true)
-        vim.bo[banner].bufhidden = "wipe"
-        vim.api.nvim_buf_set_lines(banner, 0, -1, false, { message })
         vim.opt.shortmess:append("I")
-        local floating = vim.api.nvim_open_win(banner, false, vim.tbl_extend("force", geometry(), {
+        local banner = require("snacks").win({
+          relative = "win",
+          win = win,
+          text = "vNext",
+          width = 5,
+          height = 1,
           border = "none",
+          backdrop = false,
           focusable = false,
-          mouse = false,
-          style = "minimal",
-        }))
-        vim.wo[floating].wrap = false
-        vim.wo[floating].winhighlight = "NormalFloat:Normal"
-
+          wo = { wrap = false, winhighlight = "NormalFloat:Normal" },
+        })
         local group = vim.api.nvim_create_augroup("DotfilesStartupMessage", { clear = true })
-        local function dismiss()
-          vim.api.nvim_del_augroup_by_id(group)
-          if vim.api.nvim_win_is_valid(floating) then
-            vim.api.nvim_win_close(floating, true)
-          end
-        end
         -- :edit can reload the same buffer and clear its buffer-local autocmds.
         vim.api.nvim_create_autocmd({ "BufLeave", "BufReadPost", "BufNewFile", "WinLeave", "InsertEnter", "TextChanged" }, {
           group = group,
           callback = function(event)
-            if event.buf == buf then dismiss() end
-          end,
-        })
-        vim.api.nvim_create_autocmd("VimResized", {
-          group = group,
-          callback = function()
-            if vim.api.nvim_win_is_valid(floating) and vim.api.nvim_win_is_valid(win) then
-              vim.api.nvim_win_set_config(floating, geometry())
-            else
-              dismiss()
+            if event.buf == buf then
+              vim.api.nvim_del_augroup_by_id(group)
+              banner:close()
             end
           end,
         })
