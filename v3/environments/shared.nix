@@ -15,6 +15,44 @@ with packages;
     vim.api.nvim_create_augroup("FileExplorer", { clear = false })
     vim.g.python3_host_prog = "${pkgs.python3.withPackages (ps: [ ps.pynvim ])}/bin/python3"
     ${core.startupConfig}
+    vim.api.nvim_create_autocmd("VimEnter", {
+      once = true,
+      desc = "Show the vNext message on empty startup",
+      callback = function()
+        local win = vim.api.nvim_get_current_win()
+        local buf = vim.api.nvim_get_current_buf()
+        if vim.fn.argc(-1) > 0 or #vim.api.nvim_list_uis() == 0
+          or #vim.api.nvim_list_wins() ~= 1 or #vim.fn.getbufinfo({ buflisted = 1 }) ~= 1
+          or vim.api.nvim_buf_get_name(buf) ~= "" or vim.bo[buf].buftype ~= "" or vim.bo[buf].modified
+          or vim.api.nvim_buf_line_count(buf) ~= 1 or vim.api.nvim_get_current_line() ~= "" then
+          return
+        end
+
+        vim.opt.shortmess:append("I")
+        local banner = require("snacks").win({
+          relative = "win",
+          win = win,
+          text = "vNext",
+          width = 5,
+          height = 1,
+          border = "none",
+          backdrop = false,
+          focusable = false,
+          wo = { wrap = false, winhighlight = "NormalFloat:Normal" },
+        })
+        local group = vim.api.nvim_create_augroup("DotfilesStartupMessage", { clear = true })
+        -- :edit can reload the same buffer and clear its buffer-local autocmds.
+        vim.api.nvim_create_autocmd({ "BufLeave", "BufReadPost", "BufNewFile", "WinLeave", "InsertEnter", "TextChanged" }, {
+          group = group,
+          callback = function(event)
+            if event.buf == buf then
+              vim.api.nvim_del_augroup_by_id(group)
+              banner:close()
+            end
+          end,
+        })
+      end,
+    })
   '';
   extraPackages = with pkgs; [
     jq
