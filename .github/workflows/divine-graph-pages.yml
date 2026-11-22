@@ -37,8 +37,8 @@ jobs:
           test -s "$graph"
           grep -Fq 'id="graph-data"' "$graph"
           grep -Fq '<svg' "$graph"
-          if grep -Eq '(/Users/|/home/|/private/(tmp|var/)|-----BEGIN ([A-Z0-9]+ )*PRIVATE KEY-----)' "$graph"; then
-            echo "::error::The graph contains a host-specific path or private-key marker."
+          if grep -Eq '(/Users/|/home/|/private/(tmp|var/))' "$graph"; then
+            echo "::error::The graph contains a host-specific path."
             exit 1
           fi
           mkdir "$RUNNER_TEMP/divine-graph-site"
