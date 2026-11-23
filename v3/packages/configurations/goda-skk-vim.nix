@@ -47,6 +47,9 @@ in
     karukanには別途karukan-serverが必要で、既存のyaskkservとは別プロトコルです。
     更新だけで外部APIへの送信やモデル取得、サーバー起動が追加されることはありません。
 
+    かな入力中に「jk」を押すとSKKだけを解除してASCII入力に戻ります。
+    挿入モード・検索欄・端末モードはそのままです。
+
     ## 要件
     goda.vim、SKK辞書、ビルド用Go 1.26以上が必要です。エディタはNeovim 0.11以上、
     または`+job +channel +popupwin`付きVim 9.1以上です。
@@ -131,8 +134,12 @@ in
             assert str(user_dict).startswith(os.environ["XDG_STATE_HOME"])
             nvim.current.buffer[:] = [""]
             send(nvim, "i<C-j>aiujk")
-            wait(nvim, lambda: nvim.current.line == "あいう" and nvim.eval("mode()") == "n", "jk escape rule")
-            assert not nvim.call("goda_skk#is_enabled")
+            wait(nvim, lambda: nvim.current.line == "あいう" and nvim.eval("mode()") == "i"
+                 and not nvim.call("goda_skk#is_enabled"), "jk disables SKK without leaving insert mode")
+            send(nvim, "abc")
+            wait(nvim, lambda: nvim.current.line == "あいうabc", "ASCII input after insert-mode jk")
+            send(nvim, "jk")
+            wait(nvim, lambda: nvim.eval("mode()") == "n", "ordinary insert jk still escapes")
         finally:
             stop(nvim)
 
@@ -140,6 +147,11 @@ in
         try:
             send(nvim, "/<C-j>aiueo")
             wait(nvim, lambda: nvim.call("getcmdline") == "あいうえお", "command-line first use")
+            send(nvim, "jk")
+            wait(nvim, lambda: nvim.eval("mode()") == "c" and nvim.call("getcmdtype") == "/"
+                 and not nvim.call("goda_skk#is_enabled"), "jk disables SKK without leaving search")
+            send(nvim, "abc")
+            wait(nvim, lambda: nvim.call("getcmdline") == "あいうえおabc", "ASCII input after search jk")
             send(nvim, "<Esc>")
             wait(nvim, lambda: nvim.eval("mode()") == "n", "leave command line")
             send(nvim, "i<C-j>Kanji<Space>")
@@ -153,6 +165,14 @@ in
             nvim.command("terminal " + os.environ["SKK_TEST_CAT"])
             send(nvim, "i<C-j>aiueo")
             wait(nvim, lambda: "あいうえお" in "\n".join(nvim.current.buffer[:]), "terminal first use")
+            send(nvim, "jk")
+            wait(nvim, lambda: nvim.eval("mode()") == "t" and not nvim.call("goda_skk#is_enabled"),
+                 "jk disables SKK without leaving terminal mode")
+            send(nvim, "abc")
+            # A canonical cat PTY can echo j plus Goda's pre-edit erase as
+            # j^H (as with the old escape rule). Neither case sends a literal k.
+            wait(nvim, lambda: any(line in ("あいうえおabc", "あいうえおj^Habc")
+                                  for line in nvim.current.buffer[:]), "ASCII input after terminal jk")
             send(nvim, "<C-\\><C-n>")
             wait(nvim, lambda: nvim.eval("mode()") == "n", "leave terminal")
             assert not nvim.call("goda_skk#is_enabled")
@@ -166,10 +186,12 @@ in
       export HOME="$TMPDIR/home"
       export XDG_CONFIG_HOME="$TMPDIR/config" XDG_DATA_HOME="$TMPDIR/data"
       export XDG_STATE_HOME="$TMPDIR/state" XDG_CACHE_HOME="$TMPDIR/cache"
+      export XDG_RUNTIME_DIR="$TMPDIR/runtime"
       export GODA_SKK_SERVER=off
       export SKK_TEST_CAT=${pkgs.coreutils}/bin/cat
       export SKK_TEST_BUNDLE=${bundle}
       mkdir -p "$HOME"
+      mkdir -m 0700 "$XDG_RUNTIME_DIR"
       ${python}/bin/python ${script} ${neovim}/bin/nvim
       touch "$out"
     '';

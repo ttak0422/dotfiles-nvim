@@ -25,7 +25,7 @@ func main() {
 	engine.Main(engine.Config{
 		Dictionaries:   []engine.Dictionary{selectDictionary(engine.NewJisyo(dictionary, "euc-jp"), serverRunning)},
 		UserDictionary: filepath.Join(state, "SKK-JISYO.user"),
-		KanaTable:      engine.RomTable.With(engine.Rule{From: "jk", Func: "escape"}),
+		KanaTable:      engine.RomTable.With(engine.Rule{From: "jk", Func: "disable"}),
 		EggLikeNewline: true,
 	})
 }
