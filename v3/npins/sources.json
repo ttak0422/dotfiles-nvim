@@ -224,19 +224,6 @@
       "url": "https://github.com/hrsh7th/cmp-path/archive/c642487086dbd9a93160e1679a1327be111cbc25.tar.gz",
       "hash": "sha256-e4Rd2y1Wekp7aobpTGaUeoSBnlfIASDaBR8js5dh2Vw="
     },
-    "colorful-winsep.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "nvim-zh",
-        "repo": "colorful-winsep.nvim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "7a8664fb8e91bd3435b3128c18dc814b3ddb11f5",
-      "url": "https://github.com/nvim-zh/colorful-winsep.nvim/archive/7a8664fb8e91bd3435b3128c18dc814b3ddb11f5.tar.gz",
-      "hash": "sha256-Pq0H0AbkVg8yvUDPYs0do7g/K6Ne51UWjQ58HYMbZqI="
-    },
     "conjure": {
       "type": "Git",
       "repository": {
@@ -716,19 +703,6 @@
       "revision": "bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3",
       "url": "https://github.com/rebelot/kanagawa.nvim/archive/bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3.tar.gz",
       "hash": "sha256-fMP4NUCKD1ZcNkaHy6SuNm020ECXpBOihGv2n1wyTN4="
-    },
-    "keep-split-ratio.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "adlrwbr",
-        "repo": "keep-split-ratio.nvim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "906aa5196e194dca12c7729069760d42e77ddcff",
-      "url": "https://github.com/adlrwbr/keep-split-ratio.nvim/archive/906aa5196e194dca12c7729069760d42e77ddcff.tar.gz",
-      "hash": "sha256-zrCiYlGOMmAM91VY6g2iWPmgnggfo3YvVOqkjm2l35Q="
     },
     "koe.nvim": {
       "type": "Git",
@@ -1396,19 +1370,6 @@
       "url": "https://api.github.com/repos/nvim-tree/nvim-web-devicons/tarball/v0.100",
       "hash": "sha256-DSUTxUFCesXuaJjrDNvurILUt1IrO5MI5ukbZ8D87zQ="
     },
-    "nvim-window": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "yorickpeterse",
-        "repo": "nvim-window"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "48e44d492d2adaf9aac72a0f4ff21d6caae1b6a2",
-      "url": "https://github.com/yorickpeterse/nvim-window/archive/48e44d492d2adaf9aac72a0f4ff21d6caae1b6a2.tar.gz",
-      "hash": "sha256-TUD+5yVFf0yjG/eGP7AAq0NX+XlGs0RGz5GRlkStoKg="
-    },
     "nvim_context_vt": {
       "type": "Git",
       "repository": {
@@ -1603,19 +1564,6 @@
       "revision": "cb0a50296f11f1e585acffba8c253b9e8afc1f84",
       "url": "https://github.com/nvzone/showkeys/archive/cb0a50296f11f1e585acffba8c253b9e8afc1f84.tar.gz",
       "hash": "sha256-mn/SBtk9YbYZRTJZ054IVsSVOlrry5gsHOXQEnd3b7M="
-    },
-    "smart-splits.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "mrjones2014",
-        "repo": "smart-splits.nvim"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "fdd0142633ae78b175ff29043953e701215a34dd",
-      "url": "https://github.com/mrjones2014/smart-splits.nvim/archive/fdd0142633ae78b175ff29043953e701215a34dd.tar.gz",
-      "hash": "sha256-7l6FSXo/OsvfqEKf0mfLVtnMUZgCki5Th+mgwD+MZ+Q="
     },
     "snacks.nvim": {
       "type": "GitRelease",
@@ -2166,31 +2114,18 @@
       "url": "https://github.com/folke/which-key.nvim/archive/3aab2147e74890957785941f0c1ad87d0a44c15a.tar.gz",
       "hash": "sha256-rKaYnXM4gRkkF/+xIFm2oCZwtAU6CeTdRWU93N+Jmbc="
     },
-    "winresizer": {
+    "win-box.nvim": {
       "type": "Git",
       "repository": {
         "type": "GitHub",
-        "owner": "simeji",
-        "repo": "winresizer"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "299076f7f79e2e2f7706b2dfacbb3c074ce53257",
-      "url": "https://github.com/simeji/winresizer/archive/299076f7f79e2e2f7706b2dfacbb3c074ce53257.tar.gz",
-      "hash": "sha256-rTTe6hFgEz9CFPJFDUjoD3SQr97V5E5Lg6J4c8mU+6s="
-    },
-    "winshift.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "sindrets",
-        "repo": "winshift.nvim"
+        "owner": "ttak0422",
+        "repo": "win-box.nvim"
       },
       "branch": "main",
       "submodules": false,
-      "revision": "37468ed6f385dfb50402368669766504c0e15583",
-      "url": "https://github.com/sindrets/winshift.nvim/archive/37468ed6f385dfb50402368669766504c0e15583.tar.gz",
-      "hash": "sha256-mW3kaducHWRlDx18WcwcbWDlNnAyHgELS3XjpeFFCgs="
+      "revision": "01574f7fc4529fb449cd17640c8aec873ad69f61",
+      "url": "https://github.com/ttak0422/win-box.nvim/archive/01574f7fc4529fb449cd17640c8aec873ad69f61.tar.gz",
+      "hash": "sha256-Jx8rWI35qnEciko1/qQuWioD6Cy3JRGgRqQQZAtefFI="
     },
     "worktab.nvim": {
       "type": "Git",

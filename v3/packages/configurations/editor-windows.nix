@@ -11,21 +11,18 @@ with sources;
   config = luaConfig (
     # lua
     ''
-      for key, direction in pairs({
-        H = "left",
-        J = "down",
-        K = "up",
-        L = "right",
-        ["<C-w>"] = "swap",
-      }) do
-        vim.keymap.set("n", "<C-w>" .. key, "<Cmd>WinShift " .. direction .. "<CR>", {
-          noremap = true,
-          silent = true,
-        })
+      local function box()
+        return require("win_box")
       end
-      vim.keymap.set("n", "<C-w>p", function()
-        require("nvim-window").pick()
-      end, { noremap = true, silent = true, desc = "pick window" })
+      local function map(key, callback, description)
+        vim.keymap.set("n", "<C-w>" .. key, callback, { silent = true, desc = description })
+      end
+      for key, direction in pairs({ H = "left", J = "down", K = "up", L = "right" }) do
+        map(key, function() box().move(direction) end, "Move window " .. direction)
+      end
+      map("<C-w>", function() box().swap() end, "Swap windows")
+      map("p", function() box().pick() end, "Pick window")
+      map("e", function() box().adjust() end, "Adjust window")
     ''
   );
 }

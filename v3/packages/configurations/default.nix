@@ -49,7 +49,6 @@ let
     budoux-lua = load ./budoux-lua.nix;
     capture-vim = load ./capture-vim.nix;
     claudecode-nvim = load ./claudecode-nvim.nix;
-    colorful-winsep-nvim = load ./colorful-winsep-nvim.nix;
     conjure = load ./conjure.nix;
     crates-nvim = load ./crates-nvim.nix;
     csvview-nvim = load ./csvview-nvim.nix;
@@ -85,7 +84,6 @@ let
     img-clip-nvim = load ./img-clip-nvim.nix;
     inc-rename-nvim = load ./inc-rename-nvim.nix;
     kanagawa-nvim = load ./kanagawa-nvim.nix;
-    keep-split-ratio-nvim = load ./keep-split-ratio-nvim.nix;
     koe-nvim = load ./koe-nvim.nix;
     komado-nvim = load ./komado-nvim.nix;
     kotlin-nvim = load ./kotlin-nvim.nix;
@@ -139,7 +137,6 @@ let
     nvim-ts-context-commentstring = load ./nvim-ts-context-commentstring.nix;
     nvim-ufo = load ./nvim-ufo.nix;
     nvim-web-devicons = load ./nvim-web-devicons.nix;
-    nvim-window = load ./nvim-window.nix;
     nvim_context_vt = load ./nvim_context_vt.nix;
     obsidian-nvim = load ./obsidian-nvim.nix;
     oil-nvim = load ./oil-nvim.nix;
@@ -157,7 +154,6 @@ let
     scope-nvim = load ./scope-nvim.nix;
     sfcc-nvim = load ./sfcc-nvim.nix;
     showkeys = load ./showkeys.nix;
-    smart-splits-nvim = load ./smart-splits-nvim.nix;
     snacks-nvim = load ./snacks-nvim.nix;
     sorairo = load ./sorairo.nix;
     stickybuf-nvim = load ./stickybuf-nvim.nix;
@@ -197,8 +193,7 @@ let
     visual-whitespace-nvim = load ./visual-whitespace-nvim.nix;
     volt = load ./volt.nix;
     which-key-nvim = load ./which-key-nvim.nix;
-    winresizer = load ./winresizer.nix;
-    winshift-nvim = load ./winshift-nvim.nix;
+    win-box-nvim = load ./win-box-nvim.nix;
     worktab-nvim = load ./worktab-nvim.nix;
     zen-nvim = load ./zen-nvim.nix;
   } // lib.optionalAttrs (environment == "default") {
