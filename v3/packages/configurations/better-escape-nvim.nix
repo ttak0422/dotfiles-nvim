@@ -64,8 +64,12 @@ with sources;
             local context = type(pterm) == "table"
               and type(pterm.buffer_context) == "function"
               and pterm.buffer_context(bufnr)
-            local passthrough = type(context) == "table"
-              and ignored_foregrounds[context.foreground] == true
+            local owned_gitu = vim.b[bufnr].gitu_pterm_session
+            local passthrough = (type(owned_gitu) == "string"
+                and type(pterm) == "table"
+                and type(pterm.is_connected) == "function"
+                and pterm.is_connected(owned_gitu))
+              or (type(context) == "table" and ignored_foregrounds[context.foreground] == true)
             local previous = previous_terminal_key
             previous_terminal_key = { bufnr = bufnr, passthrough = passthrough }
             if passthrough then
