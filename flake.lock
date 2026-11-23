@@ -11,11 +11,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795016436,
-        "narHash": "sha256-tMAANkT+87SUlWZZzJ8zJOzvugC6lgiBqlBiFAGb144=",
+        "lastModified": 1795393404,
+        "narHash": "sha256-wp2RBRhvJtTArALOvugADdNoi2p8cCsian+18hsOuaU=",
         "owner": "ttak0422",
         "repo": "divine",
-        "rev": "8a76c2d122e34ad86d980d0a4333421a5089d54e",
+        "rev": "d22e03a48eabc54a13d591e732edc0a9eee9997d",
         "type": "github"
       },
       "original": {
