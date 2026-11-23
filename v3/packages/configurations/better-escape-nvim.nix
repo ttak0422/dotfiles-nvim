@@ -48,6 +48,7 @@ with sources;
       -- Bypass its terminal callbacks instead: a TUI has already consumed `j`.
       -- Consult only the live, cached pterm context; never load pterm here.
       local ignored_foregrounds = {
+        gitu = true,
         tig = true,
         [".tig-wrapped"] = true, -- Nixpkgs wrapper target
       }
@@ -131,15 +132,17 @@ with sources;
         end,
       }
       vim.bo.filetype = "unrelated" -- bypass does not inspect or change filetype
-      for _, executable in ipairs({ "tig", ".tig-wrapped" }) do
+      for _, executable in ipairs({ "gitu", "tig", ".tig-wrapped" }) do
         foreground = executable
         clear()
         assert(press("j") == "j" and press("k") == "k")
         assert(#emitted == 0, executable .. " bypass must not send Backspace or escape")
         assert(vim.bo.filetype == "unrelated")
       end
-      foreground = "tig-wrapped"
-      escape_pair() -- similarly named executables are not tig
+      for _, executable in ipairs({ "gitu-helper", "tig-wrapped" }) do
+        foreground = executable
+        escape_pair() -- similarly named executables are not excluded
+      end
       foreground = "tig"
       clear()
       assert(press("j") == "j")
