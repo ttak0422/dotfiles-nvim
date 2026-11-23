@@ -66,7 +66,7 @@ in
   config = luaConfig (
     # lua
     ''
-      require("pterm").setup({})
+      require("pterm").setup({ sync_cwd = true, track_foreground = true })
     ''
   );
   extraPackages = with pkgs; [ pterm-daemon ];
