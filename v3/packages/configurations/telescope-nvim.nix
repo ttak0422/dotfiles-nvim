@@ -76,7 +76,7 @@ in
   doc = ''
     Telescope 本体と拡張をまとめ、picker と選択 UI の設定を共有する。
 
-    `<Leader>ft` は `:Telescope pterm grep`、`<Leader>fT` は `:Telescope pterm sessions` を開く。
+    `<Leader>ft` は `:Telescope pterm sessions`、`<Leader>fT` は `:Telescope pterm grep` を開く。
 
     通常の files / grep では登録済みの子 worktree を除外する（選択中の worktree 自体は検索可能）。
     `<Leader>fw` / `:TelescopeWorktrees` は `git gtr list --porcelain` から選択し、Enter でファイル検索する。候補がない場合は入力したブランチ名で `git gtr new --yes` を実行し、作成先のファイル検索を開く（空入力は閉じる）。cwd の切替は既存の project.nvim によるファイル選択時の自動移動に任せる。
