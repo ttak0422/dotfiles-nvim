@@ -166,6 +166,7 @@
             inherit (v3Pkgs) git-gtr;
           } // lib.optionalAttrs (system == "aarch64-darwin") {
             "v3/default" = v3Neovim;
+            "v3/bundle" = v3Bundle;
             "v3/neovide" = v3Editors.neovide;
             "v3/graph" = v3Graph;
           };

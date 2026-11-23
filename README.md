@@ -10,6 +10,26 @@
 
 ![image](./assets/v1.0.png)
 
+## Run v3 with your own Neovim
+
+On Apple Silicon macOS, run this from the repository with Nix and Neovim 0.12
+installed. Use a regular `nvim` executable rather than the `v3/default` wrapper;
+if the wrapper is already on your PATH, replace `nvim` below with the full
+path to your own binary.
+
+```sh
+bundle=$(nix build '.#v3/bundle' --no-link --print-out-paths) &&
+  NVIM_APPNAME=nvim-v3-default NVIM_V3_INIT="$bundle/init.lua" PATH="$PATH:/usr/bin" \
+  nvim -u "$bundle/init.lua"
+```
+
+Nix still prepares the pinned configuration, plugins and helper tools. The
+command starts your local Neovim, not the flake's editor wrapper. It shares the
+`nvim-v3-default` data and state directories with `nix run '.#v3/default'`.
+Use a different `NVIM_APPNAME` if you want separate state.
+For the most predictable compatibility, match the Neovim version pinned by
+the flake.
+
 ## v3/default dependency graph
 
 The complete v3 profile and graph are available on `aarch64-darwin` (Apple Silicon
