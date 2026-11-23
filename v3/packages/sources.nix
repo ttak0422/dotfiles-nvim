@@ -1,7 +1,11 @@
 { pkgs, inputs' }:
 let
   inherit (pkgs) lib stdenv vimUtils;
-  sources = import ../../npins-sources.nix ../npins;
+  # Keep pinned source downloads in fixed-output derivations, not evaluation.
+  # The graph and editor profiles use the same plugin output identities.
+  sources = builtins.mapAttrs (_: source: source { inherit pkgs; }) (
+    import ../../npins-sources.nix ../npins
+  );
   getSrc = name: builtins.getAttr name sources;
   buildPlugin = name: source: {
     name = builtins.replaceStrings [ "." ] [ "-" ] name;
