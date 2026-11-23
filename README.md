@@ -18,9 +18,7 @@ if the wrapper is already on your PATH, replace `nvim` below with the full
 path to your own binary.
 
 ```sh
-bundle=$(nix build '.#v3/bundle' --no-link --print-out-paths) &&
-  NVIM_APPNAME=nvim-v3-default NVIM_V3_INIT="$bundle/init.lua" PATH="$PATH:/usr/bin" \
-  nvim -u "$bundle/init.lua"
+(bundle=$(nix build '.#v3/bundle' --no-link --print-out-paths) && NVIM_APPNAME=nvim-v3-default NVIM_V3_INIT="$bundle/init.lua" PATH="$PATH:/usr/bin" nvim -u "$bundle/init.lua")
 ```
 
 Nix still prepares the pinned configuration, plugins and helper tools. The
