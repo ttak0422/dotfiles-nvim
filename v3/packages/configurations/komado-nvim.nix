@@ -43,7 +43,7 @@ in
     ## 使い方
     `require("komado").setup({ root = ... })` で内容を定義し、`open()`・`close()`・`toggle()`・`redraw()` で操作する。README のキーマップやコマンドは設定例であり、標準では登録されない。
 
-    `:KomadoTimeline [project-id]` selects a Track project from the configured vault (`~/track/`). In the sidebar, `t` selects, `T` opens the full timeline, and `r` refreshes. Updates run every five seconds only while the sidebar is open. No project is created or changed automatically.
+    `:KomadoTimeline [project-id]` selects a Track project from the configured vault (`~/track/`). In the sidebar, `t` selects a project, `T` jumps to the Timeline section (or selects a project first), and `r` refreshes. Updates run every five seconds only while the sidebar is open. No project is created or changed automatically.
 
     ## 要件
     This configuration uses Track and its bundled CLI. README の上流回帰テスト対象は Neovim 0.11.4・0.12.5・0.12.6 で、それより古い版の互換性は未確認。
@@ -683,7 +683,20 @@ in
         if timeline and timeline_open then timeline.refresh() end
       end
 
-      local function select_timeline(id)
+      local timeline_heading = "Timeline  [t:select T:open]"
+      local function focus_timeline()
+        local state = komado.open({ focus = true })
+        if not state.winid or not vim.api.nvim_win_is_valid(state.winid) then return end
+        vim.api.nvim_set_current_win(state.winid)
+        for index, line in ipairs(vim.api.nvim_buf_get_lines(state.bufnr, 0, -1, false)) do
+          if vim.trim(line) == timeline_heading then
+            vim.api.nvim_win_set_cursor(state.winid, { index, 0 })
+            break
+          end
+        end
+      end
+
+      local function select_timeline(id, focus)
         if not id or id == "" then
           timeline_model.list(timeline_options, function(err, data)
             if err then vim.notify(err, vim.log.levels.ERROR); return end
@@ -695,7 +708,7 @@ in
               prompt = "Sidebar timeline",
               format_item = function(project) return project.title .. " (" .. project.project_id .. ")" end,
             }, function(project)
-              if project then select_timeline(project.project_id) end
+              if project then select_timeline(project.project_id, focus) end
             end)
           end)
           return
@@ -704,14 +717,15 @@ in
         if not ok then vim.notify(tostring(next_view), vim.log.levels.ERROR); return end
         if timeline then timeline.dispose() end
         timeline = next_view
-        komado.open()
+        vim.api.nvim_exec_autocmds("User", { pattern = "TrackTimelineChanged", modeline = false })
+        if focus then focus_timeline() else komado.open() end
         refresh_timeline()
         timeline.watch(5000)
       end
 
       local Timeline = {
         update = { "User", pattern = "TrackTimelineChanged" },
-        Line({ provider = "Timeline  [t: select, T: open]", hl = "Title" }),
+        Line({ provider = timeline_heading, hl = "Title" }),
         utils.mapped_list(function()
           return timeline and timeline.rows() or { "Select a project with :KomadoTimeline" }
         end, function(row) return Line({ provider = row }) end),
@@ -776,7 +790,12 @@ in
           end,
           t = function() select_timeline() end,
           T = function()
-            require("track.timeline_view").open(timeline and timeline.project_id or nil, timeline_options)
+            if timeline then
+              focus_timeline()
+              refresh_timeline()
+            else
+              select_timeline(nil, true)
+            end
           end,
           r = function()
             refresh_timeline()
@@ -824,7 +843,12 @@ in
           new = function(id, options)
             assert(options.vault_dir == os.getenv("HOME") .. "/track/")
             local view = { project_id = id, reads = 0, watches = 0, disposals = 0 }
-            view.refresh = function() view.reads = view.reads + 1 end
+            view.refresh = function()
+              view.reads = view.reads + 1
+              vim.schedule(function()
+                vim.api.nvim_exec_autocmds("User", { pattern = "TrackTimelineChanged", modeline = false })
+              end)
+            end
             view.watch = function(interval)
               assert(interval == 5000)
               view.watches = view.watches + 1
@@ -853,11 +877,30 @@ in
       assert(#timeline_test.views == 0, "opening must not choose or create a project")
       local select = vim.ui.select
       vim.ui.select = function(items, _, callback) callback(items[1]) end
-      vim.cmd("KomadoTimeline")
+      local sidebar = require("komado.state").get()
+      local sidebar_win, sidebar_buf = sidebar.winid, sidebar.bufnr
+      local windows = vim.api.nvim_list_wins()
+      vim.api.nvim_set_current_win(sidebar_win)
+      local function open_inline()
+        vim.api.nvim_win_set_cursor(sidebar_win, { 1, 0 })
+        vim.api.nvim_feedkeys("T", "mx", false)
+        assert(vim.deep_equal(vim.api.nvim_list_wins(), windows), "Timeline must not open another window")
+        assert(vim.api.nvim_get_current_win() == sidebar_win
+          and vim.api.nvim_get_current_buf() == sidebar_buf, "Timeline must stay inside Komado")
+        assert(vim.trim(vim.api.nvim_get_current_line()) == "Timeline  [t:select T:open]",
+          "Open must focus the Timeline section")
+      end
+      open_inline()
       vim.ui.select = select
       local first = timeline_test.views[1]
       assert(timeline_test.lists == 1 and first.project_id == "fixture")
       assert(first.reads > 0 and first.watches > 0)
+      assert(vim.wait(1000, function()
+        local rows = vim.api.nvim_buf_get_lines(sidebar_buf, 0, -1, false)
+        return vim.iter(rows):any(function(line) return line:find("Fixture  50%", 1, true) end)
+      end), "Selected project rows must render in the Komado buffer")
+      open_inline()
+      assert(timeline_test.lists == 1 and #timeline_test.views == 1, "Opening again must reuse the selected project")
       local komado = require("komado")
       local reads = first.reads
       komado.redraw()
