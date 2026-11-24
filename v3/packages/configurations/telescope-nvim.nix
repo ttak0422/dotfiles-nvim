@@ -201,7 +201,9 @@ in
   onModules = [ "telescope" ];
   packages = with sources; [
     telescope-nvim
-    telescope-mr
+    (telescope-mr.overrideAttrs (old: {
+      patches = (old.patches or [ ]) ++ [ ../support/telescope/mr-filename-first.patch ];
+    }))
     telescope-fzf-native-nvim
     telescope-ghq-nvim
     telescope-live-grep-args-nvim
@@ -798,7 +800,7 @@ in
       assert(vim.deep_equal(list('mru'), { file, outside }), 'stale files must be filtered')
       vim.cmd.cd(vim.fn.fnameescape(repo))
       vim.o.lines, vim.o.columns = 60, 220
-      local function check_picker(open, expected, rejected)
+      local function check_picker(open, expected, rejected, kind)
         vim.cmd.stopinsert()
         open()
         local prompt = vim.api.nvim_get_current_buf()
@@ -806,7 +808,22 @@ in
         local picker = require('telescope.actions.state').get_current_picker(prompt)
         wait(function() return picker.manager and picker.manager:num_results() > 0 end, 'MR picker has no entries')
         local values = {}
-        for entry in picker.manager:iter() do values[#values + 1] = entry.value end
+        for entry in picker.manager:iter() do
+          values[#values + 1] = entry.value
+          assert(entry.ordinal == entry.value, 'MR search ordinal must remain the full path')
+          if kind == 'mru' or kind == 'mrw' then
+            local display, highlights = entry:display()
+            local basename = vim.fn.fnamemodify(entry.value, ':t')
+            assert(vim.startswith(display, basename), 'MR basename must be first: ' .. display)
+            if entry.value == file then
+              assert(display == basename .. ' space dir', 'MR dirname must follow basename: ' .. display)
+              assert(vim.deep_equal(highlights, { { { #basename, #display }, 'TelescopeResultsComment' } }),
+                'MR directory styling must cover the visible directory')
+            end
+          elseif kind then
+            assert(entry.display == entry.value, 'MR repository/directory display must not change')
+          end
+        end
         for _, value in ipairs(expected) do
           assert(vim.tbl_contains(values, value), 'missing picker entry: ' .. value)
         end
@@ -823,15 +840,15 @@ in
       -- The first MR mapping activates the lazy Telescope cartridge. Lua options keep
       -- spaces in cwd intact and avoid command-line escaping/parsing differences.
       for key, kind in pairs({ u = 'mru', w = 'mrw', r = 'mrr' }) do
-        vim.cmd.cd(vim.fn.fnameescape(kind == 'mrr' and repo or repo .. '/space dir'))
+        vim.cmd.cd(vim.fn.fnameescape(repo))
         local inside = kind == 'mrr' and repo or file
         local elsewhere = kind == 'mrr' and other or outside
-        check_picker(mapping('<Leader>fr' .. key), { inside }, { elsewhere, root .. '/missing.txt' })
-        check_picker(mapping('<Leader>Fr' .. key), { inside, elsewhere })
+        check_picker(mapping('<Leader>fr' .. key), { inside }, { elsewhere, root .. '/missing.txt' }, kind)
+        check_picker(mapping('<Leader>Fr' .. key), { inside, elsewhere }, nil, kind)
       end
       local telescope = require('telescope')
       for kind, path in pairs(wanted) do
-        check_picker(function() telescope.extensions.mr[kind]({ previewer = false }) end, { path })
+        check_picker(function() telescope.extensions.mr[kind]({ previewer = false }) end, { path }, nil, kind)
       end
       vim.cmd('Telescope mr mru previewer=false')
       assert(vim.bo.filetype == 'TelescopePrompt', 'Telescope MR command failed')

@@ -1,0 +1,56 @@
+diff --git a/lua/telescope/_extensions/mr.lua b/lua/telescope/_extensions/mr.lua
+index c6c3626..4e2fba6 100644
+--- a/lua/telescope/_extensions/mr.lua
++++ b/lua/telescope/_extensions/mr.lua
+@@ -3,9 +3,10 @@ local finders = require("telescope.finders")
+ local sorters = require("telescope.sorters")
+ local pickers = require("telescope.pickers")
+ local conf = require("telescope.config").values
++local utils = require("telescope.utils")
+ 
+ -- Common picker function for MR (mr.vim) integration
+-local function create_mr_picker(opts, title, list_function)
++local function create_mr_picker(opts, title, list_function, files)
+ 	opts = opts or {}
+ 	local results = list_function()
+ 
+@@ -18,11 +19,23 @@ local function create_mr_picker(opts, title, list_function)
+ 		end, results)
+ 	end
+ 
++	local entry_maker
++	if files then
++		opts = vim.tbl_extend("keep", {}, opts, { path_display = { "filename_first" } })
++		local function display(entry)
++			return utils.transform_path(opts, entry.value)
++		end
++		entry_maker = function(path)
++			return { value = path, ordinal = path, display = display }
++		end
++	end
++
+ 	pickers
+ 			.new(opts, {
+ 				prompt_title = title,
+ 				finder = finders.new_table({
+ 					results = results,
++					entry_maker = entry_maker,
+ 				}),
+ 				sorter = sorters.get_substr_matcher(),
+ 				previewer = conf.file_previewer(opts),
+@@ -33,13 +46,13 @@ end
+ return telescope.register_extension({
+ 	exports = {
+ 		mru = function(opts)
+-			create_mr_picker(opts, "MRU", vim.fn["mr#mru#list"])
++			create_mr_picker(opts, "MRU", vim.fn["mr#mru#list"], true)
+ 		end,
+ 		mrr = function(opts)
+ 			create_mr_picker(opts, "MRR", vim.fn["mr#mrr#list"])
+ 		end,
+ 		mrw = function(opts)
+-			create_mr_picker(opts, "MRW", vim.fn["mr#mrw#list"])
++			create_mr_picker(opts, "MRW", vim.fn["mr#mrw#list"], true)
+ 		end,
+ 		mrd = function(opts)
+ 			create_mr_picker(opts, "MRD", vim.fn["mr#mrd#list"])
