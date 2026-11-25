@@ -43,7 +43,7 @@ in
     ## 使い方
     `require("komado").setup({ root = ... })` で内容を定義し、`open()`・`close()`・`toggle()`・`redraw()` で操作する。README のキーマップやコマンドは設定例であり、標準では登録されない。
 
-    `:KomadoTimeline [project-id]` selects a Track project from the configured vault (`~/track/`). In the sidebar, `t` selects a project, `T` expands or collapses tasks and recent updates in Komado (selecting a project first if needed), and `r` refreshes. Updates run every five seconds only while the sidebar is open. No project is created or changed automatically.
+    `:KomadoTimeline [project-id]` selects a Track project from the configured vault (`~/track/`). In the sidebar, `t` selects a project, `K` previews the current Timeline row, and `r` refreshes. Tasks and recent updates are always shown for the selected project, with timestamps in the local time zone. Updates run every five seconds only while the sidebar is open. No project is created or changed automatically.
 
     ## 要件
     This configuration uses Track and its bundled CLI. README の上流回帰テスト対象は Neovim 0.11.4・0.12.5・0.12.6 で、それより古い版の互換性は未確認。
@@ -73,6 +73,12 @@ in
 
       local Spacer = Line({ provider = "" })
       local Separator = utils.separator("─", "Comment")
+
+      local function sidebar_width(self)
+        local sb = self._sidebar
+        local st = sb and sb._state
+        return st and st._content_width or 0
+      end
 
       local function emitter(pattern)
         return function()
@@ -614,12 +620,6 @@ in
           return { bg = track_bg }
         end
 
-        local function sidebar_width(self)
-          local sb = self._sidebar
-          local st = sb and sb._state
-          return st and st._content_width or 0
-        end
-
         local function progress_value()
           if state.phase == "idle" then
             return 1
@@ -678,21 +678,20 @@ in
       local timeline_model = require("track.agent_timeline")
       local timeline_render = dofile("${../support/track-timeline.lua}")
       local timeline, timeline_open, timeline_buffer = nil, false, nil
-      local timeline_expanded = false
       local timeline_options = { vault_dir = require("track.config").options.vault_dir }
 
       local function refresh_timeline()
         if timeline and timeline_open then timeline.refresh() end
       end
 
-      local timeline_heading = "Timeline  [t:select T:detail]"
+      local timeline_heading = "Timeline  [t:select K:detail]"
       local timeline_update = emitter("TrackTimelineChanged")
       local function focus_timeline()
         local state = komado.open({ focus = true })
         if not state.winid or not vim.api.nvim_win_is_valid(state.winid) then return end
         vim.api.nvim_set_current_win(state.winid)
         for index, line in ipairs(vim.api.nvim_buf_get_lines(state.bufnr, 0, -1, false)) do
-          if vim.trim(line) == timeline_heading then
+          if vim.startswith(vim.trim(line), "Timeline  [") then
             vim.api.nvim_win_set_cursor(state.winid, { index, 0 })
             break
           end
@@ -720,7 +719,6 @@ in
         if not ok then vim.notify(tostring(next_view), vim.log.levels.ERROR); return end
         if timeline then timeline.dispose() end
         timeline = next_view
-        timeline_expanded = true
         timeline_update()
         if focus then focus_timeline() else komado.open() end
         refresh_timeline()
@@ -728,16 +726,33 @@ in
       end
 
       local Timeline = {
-        update = { "User", pattern = "TrackTimelineChanged" },
-        Line({ provider = timeline_heading, hl = "Title" }),
-        utils.mapped_list(function()
-          if not timeline then return { "Select a timeline with t or T" } end
-          -- The minimum sidebar width is 32 cells including padding.
-          return timeline_render.rows(timeline, 30, timeline_expanded)
-        end, function(row) return Line({ provider = row }) end),
+        -- Don't freeze this subtree: Komado also redraws it on resize.
+        Line({ provider = function(self)
+          return timeline_render.fit(timeline_heading, sidebar_width(self))
+        end, hl = "Title" }),
+        utils.mapped_list(function(self)
+          local width = sidebar_width(self)
+          if not timeline then
+            return { { text = timeline_render.fit("Select a timeline with t", width) } }
+          end
+          return timeline_render.rows(timeline, width)
+        end, function(row)
+          return Line({
+            mappings = row.detail and { K = function() timeline_render.preview(row.detail) end } or nil,
+            { provider = row.prefix or "" },
+            { provider = row.icon or "", hl = row.hl },
+            { provider = row.text },
+          })
+        end),
       }
 
       local timeline_group = vim.api.nvim_create_augroup("DotfilesKomadoTimeline", { clear = true })
+      vim.api.nvim_create_autocmd("User", {
+        group = timeline_group, pattern = "TrackTimelineChanged",
+        callback = function()
+          if timeline_open then vim.schedule(komado.redraw) end
+        end,
+      })
       vim.api.nvim_create_autocmd("User", {
         group = timeline_group, pattern = "KomadoWindowAfterOpen",
         callback = function(event)
@@ -794,17 +809,7 @@ in
           q = function()
             komado.close()
           end,
-          t = function() select_timeline() end,
-          T = function()
-            if timeline then
-              timeline_expanded = not timeline_expanded
-              timeline_update()
-              focus_timeline()
-              if timeline_expanded then refresh_timeline() end
-            else
-              select_timeline(nil, true)
-            end
-          end,
+          t = function() select_timeline(nil, true) end,
           r = function()
             refresh_timeline()
             require("mimori.client").refresh()
@@ -860,6 +865,7 @@ in
                     { id = "task-a", title = "Task fixture", status = "active", owner = "codex",
                       priority = 1, weight = 2, mode = "serial", done_minutes = 3,
                       remaining_minutes = 12, detail = "詳細" .. string.rep("検", 30) },
+                    { id = "task-b", title = "長いタイトル" .. string.rep("続", 26), status = "pending" },
                   },
                   task_progress = { ["task-a"] = { fraction = 0.25 } },
                   reports = { { id = "report-a", author = "codex", summary = "Report fixture",
@@ -919,11 +925,11 @@ in
       vim.api.nvim_set_current_win(sidebar_win)
       local function open_inline()
         vim.api.nvim_win_set_cursor(sidebar_win, { 1, 0 })
-        vim.api.nvim_feedkeys("T", "mx", false)
+        vim.api.nvim_feedkeys("t", "mx", false)
         assert(vim.deep_equal(split_windows(), windows), "Timeline must not open another split")
         assert(vim.api.nvim_get_current_win() == sidebar_win
           and vim.api.nvim_get_current_buf() == sidebar_buf, "Timeline must stay inside Komado")
-        assert(vim.trim(vim.api.nvim_get_current_line()) == "Timeline  [t:select T:detail]",
+        assert(vim.trim(vim.api.nvim_get_current_line()) == "Timeline  [t:select K:detail]",
           "Open must focus the Timeline section")
       end
       open_inline()
@@ -934,23 +940,70 @@ in
       local function rendered()
         return table.concat(vim.api.nvim_buf_get_lines(sidebar_buf, 0, -1, false), "\n")
       end
-      assert(vim.wait(1000, function() return rendered():find("14:15  Report fixture", 1, true) end),
+      local report_time = os.date("%H:%M", 1795443300) -- 2026-11-23 14:15 UTC
+      local start_time = os.date("%H:%M", 1795442460)
+      assert(vim.wait(1000, function() return rendered():find(report_time .. "  Report fixture", 1, true) end),
         "Timeline overview must render in the Komado buffer")
       local detail = rendered()
-      for _, wanted in ipairs({ "50%", "━━", "──", "● Task fixture", "最近の更新 (UTC)", "14:01  開始: Task fixture" }) do
+      for _, wanted in ipairs({ "50%", "━━", "──", "● Task fixture", "最近の更新", start_time .. "  開始: Task fixture" }) do
         assert(detail:find(wanted, 1, true), "Missing Timeline overview: " .. wanted)
       end
-      assert(detail:find("14:15", 1, true) < detail:find("14:01", 1, true), "Show newest update first")
+      assert(detail:find(report_time .. "  Report", 1, true) < detail:find(start_time .. "  開始", 1, true),
+        "Show newest update first")
+      assert(vim.fn.maparg("T", "n", false, true).buffer ~= 1, "No sidebar detail toggle")
       for _, hidden in ipairs({ "Revision 7", "ID: task-a", "event-a", "Recorded events", "Payload:",
         "Discussion fixture", "Receipt fixture", "詳細", "Review fixture" }) do
         assert(not detail:find(hidden, 1, true), "Leaked Timeline detail: " .. hidden)
       end
-      open_inline()
-      assert(vim.wait(1000, function() return not rendered():find("最近の更新", 1, true) end),
-        "Collapsing must hide tasks and recent updates")
-      assert(rendered():find("50%", 1, true), "Collapsing must keep the project progress")
-      open_inline()
-      assert(timeline_test.lists == 1 and #timeline_test.views == 1, "Opening again must reuse the selected project")
+      local function find_line(needle)
+        for index, line in ipairs(vim.api.nvim_buf_get_lines(sidebar_buf, 0, -1, false)) do
+          if line:find(needle, 1, true) then return index, line end
+        end
+      end
+      local task_row, task_line = find_line("○ 長いタイトル")
+      assert(task_row and task_line:find("…", 1, true))
+      assert(vim.wo[sidebar_win].wrap == false)
+      assert(find_line("最近の更新") == task_row + 2, "Each task occupies one buffer row")
+      local function has_icon_hl(row, icon)
+        local icon_start = assert(vim.api.nvim_buf_get_lines(sidebar_buf, row - 1, row, false)[1]:find(icon, 1, true))
+        for _, mark in ipairs(vim.api.nvim_buf_get_extmarks(sidebar_buf, -1, { row - 1, 0 }, { row - 1, -1 },
+          { details = true })) do
+          if mark[3] == icon_start - 1 and mark[4].end_col == icon_start - 1 + #icon then return true end
+        end
+      end
+      assert(has_icon_hl(task_row, "○") and has_icon_hl(find_line("● Task fixture"), "●"),
+        "Status highlight must cover the icon only")
+
+      local function preview(needle, wanted)
+        vim.api.nvim_win_set_cursor(sidebar_win, { find_line(needle), 0 })
+        vim.api.nvim_feedkeys("K", "mx", false)
+        local float = vim.b[sidebar_buf].lsp_floating_preview
+        assert(float and vim.api.nvim_win_is_valid(float), "K did not open row detail")
+        local cfg = vim.api.nvim_win_get_config(float)
+        assert(cfg.relative ~= "" and cfg.relative ~= "editor" and cfg.win == sidebar_win,
+          "Detail must be positioned relative to the sidebar cursor")
+        local lines = vim.api.nvim_buf_get_lines(vim.api.nvim_win_get_buf(float), 0, -1, false)
+        assert(table.concat(lines, "\n"):find(wanted, 1, true))
+        assert(vim.api.nvim_get_current_win() == sidebar_win and vim.deep_equal(split_windows(), windows))
+        vim.api.nvim_win_close(float, true)
+      end
+      preview("○ 長いタイトル", "長いタイトル" .. string.rep("続", 26))
+      preview("● Task fixture", "詳細" .. string.rep("検", 30))
+      preview("Report fixture", report_time .. "  Report fixture")
+
+      local _, before_bar = find_line("━━")
+      vim.api.nvim_win_set_width(sidebar_win, vim.api.nvim_win_get_width(sidebar_win) + 8)
+      -- The check runs in one Lua RPC call, before the UI loop emits WinResized.
+      vim.api.nvim_exec_autocmds("WinResized", {})
+      assert(vim.wait(1000, function()
+        local _, bar = find_line("━━")
+        return vim.fn.strdisplaywidth(bar) > vim.fn.strdisplaywidth(before_bar)
+      end), "Progress bar must follow Komado resize")
+      local _, wider_task = find_line("○ 長いタイトル")
+      assert(#wider_task > #task_line, "Text truncation must also follow Komado resize")
+      local _, wider_bar = find_line("━━")
+      assert(vim.fn.strdisplaywidth(wider_bar) == vim.api.nvim_win_get_width(sidebar_win) - 1,
+        "Progress bar must use the padded content width")
       local komado = require("komado")
       local reads = first.reads
       komado.redraw()
