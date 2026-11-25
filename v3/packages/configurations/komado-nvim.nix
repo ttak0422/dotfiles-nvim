@@ -43,7 +43,7 @@ in
     ## 使い方
     `require("komado").setup({ root = ... })` で内容を定義し、`open()`・`close()`・`toggle()`・`redraw()` で操作する。README のキーマップやコマンドは設定例であり、標準では登録されない。
 
-    `:KomadoTimeline [project-id]` selects a Track project from the configured vault (`~/track/`). In the sidebar, `t` selects a project, `T` expands or collapses read-only timeline details in Komado (selecting a project first if needed), and `r` refreshes. Updates run every five seconds only while the sidebar is open. No project is created or changed automatically.
+    `:KomadoTimeline [project-id]` selects a Track project from the configured vault (`~/track/`). In the sidebar, `t` selects a project, `T` expands or collapses tasks and recent updates in Komado (selecting a project first if needed), and `r` refreshes. Updates run every five seconds only while the sidebar is open. No project is created or changed automatically.
 
     ## 要件
     This configuration uses Track and its bundled CLI. README の上流回帰テスト対象は Neovim 0.11.4・0.12.5・0.12.6 で、それより古い版の互換性は未確認。
@@ -720,7 +720,7 @@ in
         if not ok then vim.notify(tostring(next_view), vim.log.levels.ERROR); return end
         if timeline then timeline.dispose() end
         timeline = next_view
-        if focus then timeline_expanded = true end
+        timeline_expanded = true
         timeline_update()
         if focus then focus_timeline() else komado.open() end
         refresh_timeline()
@@ -732,11 +732,8 @@ in
         Line({ provider = timeline_heading, hl = "Title" }),
         utils.mapped_list(function()
           if not timeline then return { "Select a timeline with t or T" } end
-          if timeline_expanded then
-            -- The minimum sidebar width is 32 cells including padding.
-            return timeline_render.details(timeline, 30)
-          end
-          return timeline.rows()
+          -- The minimum sidebar width is 32 cells including padding.
+          return timeline_render.rows(timeline, 30, timeline_expanded)
         end, function(row) return Line({ provider = row }) end),
       }
 
@@ -866,13 +863,19 @@ in
                   },
                   task_progress = { ["task-a"] = { fraction = 0.25 } },
                   reports = { { id = "report-a", author = "codex", summary = "Report fixture",
-                    event_sequences = { 1, 2 }, period_start = "2026-11-23", period_end = "2026-11-24",
+                    event_sequences = { 1, 2 }, period_start = "2026-11-23T14:00:00Z", period_end = "2026-11-23T14:15:00Z",
                     uncertainty = "Review fixture", user_action = "Reply fixture" } },
                   discussions = { { author = "user", target_type = "task", target_id = "task-a", text = "Discussion fixture" } },
                   controls = { { id = "ctrl-a", action = "pause", owner = "codex",
                     status = "acknowledged", result = "Receipt fixture" } },
-                  events = { { sequence = 7, at = "2026-11-23", kind = "task.upsert", source = "nvim",
-                    event_id = "event-a", payload = { title = "evt-data" } } },
+                  events = {
+                    { sequence = 2, at = "2026-11-23T14:00:00Z", kind = "task.upsert", source = "nvim",
+                      event_id = "event-a", payload = { id = "task-a", title = "Task fixture", status = "pending" } },
+                    { sequence = 3, at = "2026-11-23T14:01:00Z", kind = "task.upsert", source = "nvim",
+                      event_id = "event-b", payload = { id = "task-a", title = "Task fixture", status = "active" } },
+                    { sequence = 4, at = "2026-11-23T14:15:00Z", kind = "report.add", source = "codex",
+                      event_id = "event-c", payload = { summary = "Report fixture" } },
+                  },
                 }
                 vim.api.nvim_exec_autocmds("User", { pattern = "TrackTimelineChanged", modeline = false })
               end)
@@ -882,7 +885,6 @@ in
               view.watches = view.watches + 1
             end
             view.dispose = function() view.disposals = view.disposals + 1 end
-            view.rows = function() return { "Fixture  50%" } end
             table.insert(timeline_test.views, view)
             return view
           end,
@@ -932,23 +934,21 @@ in
       local function rendered()
         return table.concat(vim.api.nvim_buf_get_lines(sidebar_buf, 0, -1, false), "\n")
       end
-      assert(vim.wait(1000, function() return rendered():find("evt-data", 1, true) end),
-        "Full Timeline must render in the Komado buffer")
+      assert(vim.wait(1000, function() return rendered():find("14:15  Report fixture", 1, true) end),
+        "Timeline overview must render in the Komado buffer")
       local detail = rendered()
-      for _, wanted in ipairs({
-        "Revision 7", "12.0 min remaining", "Tasks", "ID: task-a", "Owner: codex",
-        "Priority: P1", "Progress: 25%", "Effort: 3/12 min", "Reports", "Review fixture",
-        "Reply fixture", "Discussion fixture", "Cooperative controls", "Receipt fixture",
-        "Recorded events", "event-a", "詳細",
-      }) do
-        assert(detail:find(wanted, 1, true), "Missing Timeline detail: " .. wanted)
+      for _, wanted in ipairs({ "50%", "━━", "──", "● Task fixture", "最近の更新 (UTC)", "14:01  開始: Task fixture" }) do
+        assert(detail:find(wanted, 1, true), "Missing Timeline overview: " .. wanted)
       end
-      local _, wrapped_chars = detail:gsub("検", "")
-      assert(wrapped_chars == 30, "Long multibyte detail must not be truncated")
+      assert(detail:find("14:15", 1, true) < detail:find("14:01", 1, true), "Show newest update first")
+      for _, hidden in ipairs({ "Revision 7", "ID: task-a", "event-a", "Recorded events", "Payload:",
+        "Discussion fixture", "Receipt fixture", "詳細", "Review fixture" }) do
+        assert(not detail:find(hidden, 1, true), "Leaked Timeline detail: " .. hidden)
+      end
       open_inline()
-      assert(vim.wait(1000, function() return rendered():find("Fixture  50%", 1, true) end),
-        "Collapsing must restore the summary")
-      assert(not rendered():find("Recorded events", 1, true), "Collapsed view must hide the detail")
+      assert(vim.wait(1000, function() return not rendered():find("最近の更新", 1, true) end),
+        "Collapsing must hide tasks and recent updates")
+      assert(rendered():find("50%", 1, true), "Collapsing must keep the project progress")
       open_inline()
       assert(timeline_test.lists == 1 and #timeline_test.views == 1, "Opening again must reuse the selected project")
       local komado = require("komado")
