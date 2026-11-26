@@ -149,7 +149,7 @@ function M.preview(detail)
   local lines = vim.split(detail:gsub("\r\n", "\n"):gsub("\r", "\n"), "\n", { plain = true })
   lines = vim.tbl_map(clean, lines)
   local origin = vim.api.nvim_get_current_win()
-  local cursor_col = vim.fn.wincol() - 1
+  local cursor_col = vim.fn.win_screenpos(origin)[2] + vim.fn.wincol() - 2
   local max_width = math.max(1, math.min(80, vim.o.columns - 2))
   -- Use the editor width for sizing, then anchor the new float to the cursor.
   local _, float = vim.lsp.util.open_floating_preview(lines, "text", {

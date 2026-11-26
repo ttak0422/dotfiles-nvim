@@ -916,10 +916,12 @@ in
       local sidebar = require("komado.state").get()
       local sidebar_win, sidebar_buf = sidebar.winid, sidebar.bufnr
       local function split_windows()
-        return vim.tbl_filter(function(win)
+        local splits = vim.tbl_filter(function(win)
           local config = vim.api.nvim_win_get_config(win)
           return config.relative == "" and not config.external
         end, vim.api.nvim_list_wins())
+        table.sort(splits)
+        return splits
       end
       local windows = split_windows()
       vim.api.nvim_set_current_win(sidebar_win)
@@ -980,6 +982,9 @@ in
         local float = vim.b[sidebar_buf].lsp_floating_preview
         assert(float and vim.api.nvim_win_is_valid(float), "K did not open row detail")
         local cfg = vim.api.nvim_win_get_config(float)
+        local left = vim.fn.win_screenpos(sidebar_win)[2] + vim.fn.wincol() - 2 + cfg.col
+        assert(left >= 0 and left + cfg.width + 2 <= vim.o.columns,
+          "Rounded preview must fit within the editor, including both borders")
         assert(cfg.relative ~= "" and cfg.relative ~= "editor" and cfg.win == sidebar_win,
           "Detail must be positioned relative to the sidebar cursor")
         if width then
@@ -1008,6 +1013,10 @@ in
       local _, wider_bar = find_line("━━")
       assert(vim.fn.strdisplaywidth(wider_bar) == vim.api.nvim_win_get_width(sidebar_win) - 1,
         "Progress bar must use the padded content width")
+      vim.cmd("wincmd L")
+      assert(vim.fn.win_screenpos(sidebar_win)[2] > 1, "Test an offset sidebar")
+      preview("● Task fixture", "詳細" .. string.rep("検", 55), math.min(80, vim.o.columns - 2))
+      vim.cmd("wincmd H")
       local komado = require("komado")
       local reads = first.reads
       komado.redraw()
