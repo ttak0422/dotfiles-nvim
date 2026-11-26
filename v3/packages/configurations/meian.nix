@@ -16,6 +16,7 @@ with sources;
 
     ## 主な機能
     - 共有の Swift 監視プロセスから各 Neovim に外観変更を通知する。
+    - ユーザーのランタイムディレクトリに購読情報を置き、ビルド環境とは分離する。
     - `background` の更新後に `on_change` コールバックを実行する。
 
     ## 使い方
@@ -25,7 +26,7 @@ with sources;
     macOS と Neovim 0.10 以上。macOS 以外では自動的に無効になる。
 
     ## 出典
-    [固定バージョンの README](https://github.com/ttak0422/meian.nvim/blob/000a25009be81247c191e2b0ac5ce93ff67560fe/README.md)
+    [固定バージョンの README](https://github.com/ttak0422/meian.nvim/blob/c4550cc1158fb94dfda89dc388371d3e57391ac8/README.md)
   '';
 
   plugin = sources.meian;

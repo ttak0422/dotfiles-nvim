@@ -565,11 +565,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778332995,
-        "narHash": "sha256-UBLTpcTAQ0fw/jb+7y2WAMzPZRzyfJ9TEjqJgD+oqGw=",
+        "lastModified": 1795699994,
+        "narHash": "sha256-KQlwNKFZow/jdNJSDU9HqeJPUHWYXvNzgsQSbmhJEtI=",
         "owner": "ttak0422",
         "repo": "meian.nvim",
-        "rev": "000a25009be81247c191e2b0ac5ce93ff67560fe",
+        "rev": "c4550cc1158fb94dfda89dc388371d3e57391ac8",
         "type": "github"
       },
       "original": {
