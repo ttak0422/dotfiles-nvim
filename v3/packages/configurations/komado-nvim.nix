@@ -864,7 +864,7 @@ in
                   tasks = {
                     { id = "task-a", title = "Task fixture", status = "active", owner = "codex",
                       priority = 1, weight = 2, mode = "serial", done_minutes = 3,
-                      remaining_minutes = 12, detail = "詳細" .. string.rep("検", 30) },
+                      remaining_minutes = 12, detail = "詳細" .. string.rep("検", 55) },
                     { id = "task-b", title = "長いタイトル" .. string.rep("続", 26), status = "pending" },
                   },
                   task_progress = { ["task-a"] = { fraction = 0.25 } },
@@ -974,7 +974,7 @@ in
       assert(has_icon_hl(task_row, "○") and has_icon_hl(find_line("● Task fixture"), "●"),
         "Status highlight must cover the icon only")
 
-      local function preview(needle, wanted)
+      local function preview(needle, wanted, width)
         vim.api.nvim_win_set_cursor(sidebar_win, { find_line(needle), 0 })
         vim.api.nvim_feedkeys("K", "mx", false)
         local float = vim.b[sidebar_buf].lsp_floating_preview
@@ -982,13 +982,17 @@ in
         local cfg = vim.api.nvim_win_get_config(float)
         assert(cfg.relative ~= "" and cfg.relative ~= "editor" and cfg.win == sidebar_win,
           "Detail must be positioned relative to the sidebar cursor")
+        if width then
+          assert(cfg.width == width, ("Expected preview width %d, got %d"):format(width, cfg.width))
+          assert(vim.wo[float].wrap and cfg.height >= 2, "Long detail must wrap in the preview")
+        end
         local lines = vim.api.nvim_buf_get_lines(vim.api.nvim_win_get_buf(float), 0, -1, false)
         assert(table.concat(lines, "\n"):find(wanted, 1, true))
         assert(vim.api.nvim_get_current_win() == sidebar_win and vim.deep_equal(split_windows(), windows))
         vim.api.nvim_win_close(float, true)
       end
       preview("○ 長いタイトル", "長いタイトル" .. string.rep("続", 26))
-      preview("● Task fixture", "詳細" .. string.rep("検", 30))
+      preview("● Task fixture", "詳細" .. string.rep("検", 55), math.min(80, vim.o.columns - 2))
       preview("Report fixture", report_time .. "  Report fixture")
 
       local _, before_bar = find_line("━━")
