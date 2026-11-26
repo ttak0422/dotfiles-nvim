@@ -103,9 +103,9 @@ function M.rows(view, width)
   else
     add(percent, title .. "  " .. percent)
   end
-  local bar_width = math.floor(width / math.max(cells("━"), cells("─")))
+  local bar_width = math.floor(width / math.max(cells("█"), cells("░")))
   local filled = math.floor(fraction * bar_width + 0.5)
-  add(string.rep("━", filled) .. string.rep("─", bar_width - filled))
+  add(string.rep("█", filled) .. string.rep("░", bar_width - filled))
 
   local children = {}
   for _, task in ipairs(snapshot.tasks or {}) do
