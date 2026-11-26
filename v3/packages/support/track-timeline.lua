@@ -148,8 +148,20 @@ end
 function M.preview(detail)
   local lines = vim.split(detail:gsub("\r\n", "\n"):gsub("\r", "\n"), "\n", { plain = true })
   lines = vim.tbl_map(clean, lines)
-  vim.lsp.util.open_floating_preview(lines, "text", {
-    border = "rounded", focus_id = "komado_timeline_detail", max_height = 12,
+  local origin = vim.api.nvim_get_current_win()
+  local cursor_col = vim.fn.win_screenpos(origin)[2] + vim.fn.wincol() - 2
+  local max_width = math.max(1, math.min(80, vim.o.columns - 2))
+  -- Use the editor width for sizing, then anchor the new float to the cursor.
+  local _, float = vim.lsp.util.open_floating_preview(lines, "text", {
+    relative = "editor", border = "rounded", focus_id = "komado_timeline_detail",
+    max_width = max_width, wrap_at = max_width, max_height = 12,
+  })
+  if vim.api.nvim_get_current_win() ~= origin then return end -- Repeated K focuses the existing preview.
+  local config = vim.api.nvim_win_get_config(float)
+  local left = math.min(cursor_col, math.max(0, vim.o.columns - config.width - 2))
+  vim.api.nvim_win_set_config(float, {
+    relative = "cursor", anchor = config.anchor:sub(1, 1) .. "W",
+    row = config.row, col = left - cursor_col,
   })
 end
 
