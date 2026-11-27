@@ -17,6 +17,16 @@ in
       vim.keymap.set({ "i", "c", "t" }, "<C-j>", "<Plug>(goda-skk-enable)", {
         silent = true, desc = "Enable Goda SKK",
       })
+      local group = vim.api.nvim_create_augroup("GodaSkkFocus", { clear = true })
+      vim.api.nvim_create_autocmd("FocusGained", {
+        group = group,
+        desc = "Return Goda SKK to ASCII when Neovim regains focus",
+        callback = function()
+          if vim.g["goda_skk#enabled"] then
+            vim.fn["goda_skk#disable"]()
+          end
+        end,
+      })
     '';
   doc = ''
     # goda-skk.vim
@@ -140,6 +150,16 @@ in
             wait(nvim, lambda: nvim.current.line == "あいうabc", "ASCII input after insert-mode jk")
             send(nvim, "jk")
             wait(nvim, lambda: nvim.eval("mode()") == "n", "ordinary insert jk still escapes")
+            nvim.current.buffer[:] = [""]
+            send(nvim, "i<C-j>Kanji<Space>")
+            wait(nvim, lambda: nvim.current.line.startswith("▼"), "preedit before regaining focus")
+            chosen = nvim.current.line.removeprefix("▼")
+            nvim.exec_lua("vim.api.nvim_exec_autocmds('FocusLost', {})")
+            assert nvim.call("goda_skk#is_enabled")
+            nvim.exec_lua("vim.api.nvim_exec_autocmds('FocusGained', {})")
+            send(nvim, "abc")
+            wait(nvim, lambda: nvim.current.line == chosen + "abc" and nvim.eval("mode()") == "i"
+                 and not nvim.call("goda_skk#is_enabled"), "focus return commits preedit and switches to ASCII")
         finally:
             stop(nvim)
 
@@ -152,6 +172,12 @@ in
                  and not nvim.call("goda_skk#is_enabled"), "jk disables SKK without leaving search")
             send(nvim, "abc")
             wait(nvim, lambda: nvim.call("getcmdline") == "あいうえおabc", "ASCII input after search jk")
+            send(nvim, "<C-j>ai")
+            wait(nvim, lambda: nvim.call("getcmdline") == "あいうえおabcあい", "kana before search focus return")
+            nvim.exec_lua("vim.api.nvim_exec_autocmds('FocusGained', {})")
+            send(nvim, "z")
+            wait(nvim, lambda: nvim.call("getcmdline") == "あいうえおabcあいz" and nvim.eval("mode()") == "c"
+                 and not nvim.call("goda_skk#is_enabled"), "search focus return stays in command-line mode")
             send(nvim, "<Esc>")
             wait(nvim, lambda: nvim.eval("mode()") == "n", "leave command line")
             send(nvim, "i<C-j>Kanji<Space>")
@@ -173,13 +199,20 @@ in
             # j^H (as with the old escape rule). Neither case sends a literal k.
             wait(nvim, lambda: any(line in ("あいうえおabc", "あいうえおj^Habc")
                                   for line in nvim.current.buffer[:]), "ASCII input after terminal jk")
+            send(nvim, "<C-j>ai")
+            wait(nvim, lambda: any(line.endswith("あい") for line in nvim.current.buffer[:]), "terminal kana before focus return")
+            nvim.exec_lua("vim.api.nvim_exec_autocmds('FocusGained', {})")
+            send(nvim, "z")
+            wait(nvim, lambda: any(line.endswith("あいz") for line in nvim.current.buffer[:])
+                 and nvim.eval("mode()") == "t" and not nvim.call("goda_skk#is_enabled"),
+                 "terminal focus return stays in terminal mode")
             send(nvim, "<C-\\><C-n>")
             wait(nvim, lambda: nvim.eval("mode()") == "n", "leave terminal")
             assert not nvim.call("goda_skk#is_enabled")
         finally:
             stop(nvim)
 
-        print("Goda SKK: insert, conversion, cycling, learning/restart, jk, command-line and terminal passed")
+        print("Goda SKK: insert, conversion, cycling, learning/restart, jk, command-line, terminal and focus reset passed")
       '';
     in
     pkgs.runCommand "skk-input" { } ''
