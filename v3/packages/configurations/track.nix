@@ -39,6 +39,7 @@ with sources;
     # lua
     ''
       require("track").setup({ vault_dir = os.getenv("HOME") .. "/track/" })
+      dofile("${../support/telescope/open-from-prompt.lua}").setup_track()
     ''
   );
 }
