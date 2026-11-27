@@ -92,4 +92,18 @@ selected(function(value) return value.handle == longer end)
 press("<CR>")
 assert(vim.api.nvim_get_current_tabpage() == longer and #vim.api.nvim_list_tabpages() == count)
 
+vim.cmd("Telescope worktab default_text=foo123")
+local stale_prompt, closing_tabs = picker()
+selected(function(value) return value.handle == longer end)
+closing_tabs:set_prompt("unmatched")
+press("<C-x>")
+assert(vim.api.nvim_get_current_buf() == stale_prompt and vim.api.nvim_tabpage_is_valid(longer))
+closing_tabs:set_prompt("foo123")
+assert(vim.wait(5000, function()
+  return require("telescope.actions.state").get_current_line() == "foo123"
+end, 10))
+selected(function(value) return value.handle == longer end)
+press("<C-x>", "n")
+assert(not vim.api.nvim_tabpage_is_valid(longer) and vim.api.nvim_tabpage_is_valid(exact))
+
 vim.fn.delete(tmp, "rf")

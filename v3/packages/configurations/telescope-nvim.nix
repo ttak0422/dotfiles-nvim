@@ -23,6 +23,7 @@ let
             -- Keep the real lazy loader, commands and pickers; isolate daemon IO.
             module.list = function() return { "fixture/test session" } end
             module.open = function(name, argv) _G.pterm_created = { name, argv } end
+            module.kill = function(name) _G.pterm_killed = name end
             module.is_connected = function() return false end
             module.display_name = function(name) return name end
             module.full_text_ansi = function() return "fixture grep line" end
@@ -79,6 +80,24 @@ let
         callback()
         assert(vim.deep_equal(_G.pterm_created, { "fixture", { "fixture" } }),
           "Ctrl-o must use the prompt instead of opening the fuzzy match")
+        require("telescope").extensions.pterm.sessions({ previewer = false, default_text = "fixture" })
+        prompt = vim.api.nvim_get_current_buf()
+        assert(vim.wait(3000, function()
+          local entry = state.get_selected_entry()
+          return state.get_current_line() == "fixture" and entry and entry.value == "fixture/test session"
+        end, 10))
+        local close = assert(vim.fn.maparg("<C-x>", "n", false, true).callback)
+        local confirm = vim.fn.confirm
+        vim.fn.confirm = function(message, _, default)
+          assert(message:find("fixture/test session", 1, true) and default == 2)
+          return 2
+        end
+        close()
+        assert(not _G.pterm_killed and vim.api.nvim_get_current_buf() == prompt)
+        vim.fn.confirm = function() return 1 end
+        close()
+        vim.fn.confirm = confirm
+        assert(_G.pterm_killed == "fixture/test session")
         for _, command in ipairs({ "grep", "sessions" }) do
           assert(vim.tbl_contains(vim.fn.getcompletion("Telescope pterm ", "cmdline"), command))
           vim.cmd("Telescope pterm " .. command .. " previewer=false")
@@ -94,7 +113,8 @@ in
 
     `<Leader>ft` は `:Telescope pterm sessions`、`<Leader>fT` は `:Telescope pterm grep` を開く。
     pterm のセッション一覧、worktab、Track のタイトル・本文検索では、`<C-o>` で候補ではなく入力欄を使う。
-    pterm は `name command args...` にも対応する。
+    pterm では `name command args...` も使える。worktab と pterm のセッション一覧では `<C-x>` で選択中の項目を閉じる。
+    pterm のセッション終了は実行中のプロセスも止めるので確認を表示する。
 
     通常の files / grep では登録済みの子 worktree を除外する（選択中の worktree 自体は検索可能）。
     `<Leader>fw` / `:TelescopeWorktrees` は `git gtr list --porcelain` から選択し、Enter でファイル検索する。候補がない場合は入力したブランチ名で `git gtr new --yes` を実行し、作成先のファイル検索を開く（空入力は閉じる）。cwd の切替は既存の project.nvim によるファイル選択時の自動移動に任せる。
