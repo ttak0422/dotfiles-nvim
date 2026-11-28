@@ -88,16 +88,20 @@ let
         end, 10))
         local close = assert(vim.fn.maparg("<C-x>", "n", false, true).callback)
         local confirm = vim.fn.confirm
+        local prompted = false
         vim.fn.confirm = function(message, _, default)
+          prompted = true
           assert(message:find("fixture/test session", 1, true) and default == 2)
           return 2
         end
         close()
+        assert(not prompted, "close confirmation must be dispatched")
+        assert(vim.wait(3000, function() return prompted end, 10))
         assert(not _G.pterm_killed and vim.api.nvim_get_current_buf() == prompt)
         vim.fn.confirm = function() return 1 end
         close()
+        assert(vim.wait(3000, function() return _G.pterm_killed == "fixture/test session" end, 10))
         vim.fn.confirm = confirm
-        assert(_G.pterm_killed == "fixture/test session")
         for _, command in ipairs({ "grep", "sessions" }) do
           assert(vim.tbl_contains(vim.fn.getcompletion("Telescope pterm ", "cmdline"), command))
           vim.cmd("Telescope pterm " .. command .. " previewer=false")

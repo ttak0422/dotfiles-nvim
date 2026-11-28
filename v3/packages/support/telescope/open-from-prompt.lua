@@ -7,26 +7,58 @@ local function prompt_text(buf)
   return line:sub(#picker.prompt_prefix + 1)
 end
 
+-- Telescope's current_line is set before the new results are selected.
+-- Track completed results on this picker, not the global action state.
+local function dispatch_close(buf, close)
+  local picker = require("telescope.actions.state").get_current_picker(buf)
+  local get_completor = picker.get_result_completor
+  local completed
+  picker.get_result_completor = function(self, results_buf, find_id, prompt, update_status)
+    completed = nil
+    local tick = vim.api.nvim_buf_get_changedtick(buf)
+    local manager = self.manager
+    return get_completor(self, results_buf, find_id, prompt, function(status)
+      update_status(status)
+      if not status.completed then return end
+      completed = nil
+      if find_id == self._find_id and manager == self.manager then
+        completed = { tick = tick, id = find_id, manager = manager }
+      end
+    end)
+  end
+  local function selected()
+    if not completed or completed.id ~= picker._find_id or completed.manager ~= picker.manager
+        or completed.tick ~= vim.api.nvim_buf_get_changedtick(buf) then
+      return
+    end
+    local entry = picker:get_selection()
+    if entry and completed.manager:find_entry(entry) then return entry end
+  end
+  return function()
+    local entry = selected()
+    if not entry then return end
+    local generation = completed
+    vim.schedule(function()
+      if not vim.api.nvim_buf_is_valid(buf) or vim.api.nvim_get_current_buf() ~= buf then return end
+      -- A stale dispatch is dropped, never redirected to a different result.
+      if completed == generation and selected() == entry then close(buf, entry.value) end
+    end)
+  end
+end
+
 local function with_mapping(pick, open, close, configure)
   return function(opts)
     opts = vim.tbl_extend("force", {}, opts or {})
     if configure then configure(opts) end
     local attach = opts.attach_mappings
     opts.attach_mappings = function(buf, map)
+      local on_close = close and dispatch_close(buf, close)
       for _, mode in ipairs({ "i", "n" }) do
         map(mode, "<C-o>", function()
           local prompt = prompt_text(buf)
           if prompt:find("%S") then open(buf, prompt) end
         end)
-        if close then
-          map(mode, "<C-x>", function()
-            local state = require("telescope.actions.state")
-            -- Do not close a result left over while Telescope processes a new prompt.
-            if (state.get_current_line() or "") ~= prompt_text(buf) then return end
-            local entry = state.get_selected_entry()
-            if entry then close(buf, entry.value) end
-          end)
-        end
+        if on_close then map(mode, "<C-x>", on_close) end
       end
       if attach then return attach(buf, map) end
       return true

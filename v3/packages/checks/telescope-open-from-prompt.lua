@@ -95,15 +95,40 @@ assert(vim.api.nvim_get_current_tabpage() == longer and #vim.api.nvim_list_tabpa
 vim.cmd("Telescope worktab default_text=foo123")
 local stale_prompt, closing_tabs = picker()
 selected(function(value) return value.handle == longer end)
+local state = require("telescope.actions.state")
+local completor = closing_tabs.get_result_completor
+local during_search = false
+closing_tabs.get_result_completor = function(self, results_buf, find_id, prompt, update_status)
+  if prompt == "unmatched" and not during_search then
+    assert(state.get_current_line() == prompt)
+    assert(state.get_selected_entry().value.handle == longer)
+    press("<C-x>")
+    during_search = true
+  end
+  return completor(self, results_buf, find_id, prompt, update_status)
+end
 closing_tabs:set_prompt("unmatched")
 press("<C-x>")
+assert(vim.wait(5000, function() return during_search and closing_tabs:get_selection() == nil end, 10))
 assert(vim.api.nvim_get_current_buf() == stale_prompt and vim.api.nvim_tabpage_is_valid(longer))
+
+local function ready()
+  return state.get_current_line() == "foo123" and closing_tabs:get_selection()
+    and closing_tabs:get_selection().value.handle == longer
+end
 closing_tabs:set_prompt("foo123")
-assert(vim.wait(5000, function()
-  return require("telescope.actions.state").get_current_line() == "foo123"
-end, 10))
-selected(function(value) return value.handle == longer end)
+assert(vim.wait(5000, ready, 10))
 press("<C-x>", "n")
-assert(not vim.api.nvim_tabpage_is_valid(longer) and vim.api.nvim_tabpage_is_valid(exact))
+assert(vim.api.nvim_tabpage_is_valid(longer), "close must be dispatched")
+closing_tabs:set_prompt("unmatched")
+assert(vim.wait(5000, function()
+  return state.get_current_line() == "unmatched" and closing_tabs:get_selection() == nil
+end, 10))
+assert(vim.api.nvim_tabpage_is_valid(longer), "dispatch must not close after a prompt change")
+closing_tabs:set_prompt("foo123")
+assert(vim.wait(5000, ready, 10))
+press("<C-x>", "n")
+assert(vim.wait(5000, function() return not vim.api.nvim_tabpage_is_valid(longer) end, 10))
+assert(vim.api.nvim_tabpage_is_valid(exact))
 
 vim.fn.delete(tmp, "rf")
