@@ -159,6 +159,16 @@ let
       dependPlugins = [ definitions.goda-vim definitions.telescope-nvim ];
       config = ''
         vim.g.slackbuf_confirm_send = false
+        require("slackbuf").setup({
+          reactions = {
+            ["+1"] = " ",
+            ["-1"] = " ",
+            tada = "󱁖 ",
+            white_check_mark = " ",
+            fire = " ",
+            rocket = " ",
+          },
+        })
       '';
     };
     snacks-nvim = load ./snacks-nvim.nix;
