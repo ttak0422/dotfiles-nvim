@@ -682,11 +682,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795847495,
-        "narHash": "sha256-HMCA57aviQaNPE+C6WZ7Nd5LpuEm9LaSH8TXpdf0liQ=",
+        "lastModified": 1795874438,
+        "narHash": "sha256-AImNA3lGBkBFQHk0BJoahXMQc+GDPitOSwsoMdEj1hc=",
         "owner": "ttak0422",
         "repo": "slackbuf.nvim",
-        "rev": "ffc6b0725cb5535cf5114a1e1fc4634dc06d9415",
+        "rev": "44bd77bb8d7c8292d9de485b64bc6778ad4e655c",
         "type": "github"
       },
       "original": {
