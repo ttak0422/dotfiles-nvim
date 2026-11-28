@@ -49,5 +49,6 @@ lib.mapAttrs' buildPlugin sources
   # Native packages use the pinned v3 inputs.
   inherit (inputs'.v3-pterm.packages) pterm pterm-daemon;
   inherit (inputs'.v3-meian.packages) meian;
+  inherit (inputs'.v3-slackbuf.packages) slackbuf;
   inherit (inputs'.v3-track.packages) track track-cli;
 }

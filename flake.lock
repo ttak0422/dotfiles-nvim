@@ -95,6 +95,22 @@
         "type": "github"
       }
     },
+    "flake-compat_4": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767039857,
+        "narHash": "sha256-vNpUSpF5Nuw8xvDLj2KCwwksIbjua2LZCqhV1LNRDns=",
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "rev": "5edf11c44bc78a0d334f6334cdaf7d60d732daab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -238,6 +254,28 @@
     "git-hooks_3": {
       "inputs": {
         "flake-compat": "flake-compat_3",
+        "nixpkgs": [
+          "v3-slackbuf",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793686154,
+        "narHash": "sha256-Zb/0L3soxrkfcrywpfp0J++0WFLB3tzh0Xtx9up+VNc=",
+        "owner": "cachix",
+        "repo": "git-hooks.nix",
+        "rev": "204b6977e00caac19e2313015a598543ca7be150",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "git-hooks.nix",
+        "type": "github"
+      }
+    },
+    "git-hooks_4": {
+      "inputs": {
+        "flake-compat": "flake-compat_4",
         "gitignore": "gitignore",
         "nixpkgs": [
           "v3-track",
@@ -485,6 +523,7 @@
         "v3-mimori": "v3-mimori",
         "v3-nixpkgs": "v3-nixpkgs",
         "v3-pterm": "v3-pterm",
+        "v3-slackbuf": "v3-slackbuf",
         "v3-track": "v3-track"
       }
     },
@@ -635,10 +674,31 @@
         "type": "github"
       }
     },
+    "v3-slackbuf": {
+      "inputs": {
+        "git-hooks": "git-hooks_3",
+        "nixpkgs": [
+          "v3-nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1795847495,
+        "narHash": "sha256-HMCA57aviQaNPE+C6WZ7Nd5LpuEm9LaSH8TXpdf0liQ=",
+        "owner": "ttak0422",
+        "repo": "slackbuf.nvim",
+        "rev": "ffc6b0725cb5535cf5114a1e1fc4634dc06d9415",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ttak0422",
+        "repo": "slackbuf.nvim",
+        "type": "github"
+      }
+    },
     "v3-track": {
       "inputs": {
         "flake-parts": "flake-parts_5",
-        "git-hooks": "git-hooks_3",
+        "git-hooks": "git-hooks_4",
         "nixpkgs": [
           "v3-nixpkgs"
         ]

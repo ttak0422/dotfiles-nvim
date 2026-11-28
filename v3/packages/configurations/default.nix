@@ -154,6 +154,13 @@ let
     scope-nvim = load ./scope-nvim.nix;
     sfcc-nvim = load ./sfcc-nvim.nix;
     showkeys = load ./showkeys.nix;
+    slackbuf = {
+      plugin = sources.slackbuf;
+      dependPlugins = [ definitions.goda-vim definitions.telescope-nvim ];
+      config = ''
+        vim.g.slackbuf_confirm_send = false
+      '';
+    };
     snacks-nvim = load ./snacks-nvim.nix;
     sorairo = load ./sorairo.nix;
     stickybuf-nvim = load ./stickybuf-nvim.nix;

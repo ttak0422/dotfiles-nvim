@@ -64,6 +64,10 @@
     };
     v3-nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     v3-pterm.url = "github:ttak0422/pterm";
+    v3-slackbuf = {
+      url = "github:ttak0422/slackbuf.nvim";
+      inputs.nixpkgs.follows = "v3-nixpkgs";
+    };
     v3-track = {
       url = "github:ttak0422/track";
       inputs.nixpkgs.follows = "v3-nixpkgs";
