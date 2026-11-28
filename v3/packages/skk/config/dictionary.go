@@ -38,7 +38,7 @@ func selectDictionary(local engine.Dictionary, serverRunning bool) engine.Dictio
 		return local
 	}
 	return &serverOrLocal{
-		server: skkserv.New(skkserv.Params{Addr: "127.0.0.1:1178"}),
+		server: skkserv.New(skkserv.Params{Addr: "127.0.0.1:1178", Encoding: "utf-8"}),
 		local:  local,
 	}
 }

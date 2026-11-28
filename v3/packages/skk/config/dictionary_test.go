@@ -17,7 +17,7 @@ import (
 
 	"github.com/Shougo/goda-skk.vim/dictionary/skkserv"
 	"github.com/Shougo/goda-skk.vim/engine"
-	"golang.org/x/text/encoding/japanese"
+	"unicode/utf8"
 )
 
 // Reuse the test executable as lsof, without depending on a system shell.
@@ -163,8 +163,8 @@ func (s *fakeServer) serve(conn net.Conn) {
 		if s.stall.Load() {
 			continue
 		}
-		cmd, err := japanese.EUCJP.NewDecoder().String(strings.TrimSuffix(string(b), " "))
-		if err != nil || len(cmd) < 2 {
+		cmd := strings.TrimSuffix(string(b), " ")
+		if !utf8.ValidString(cmd) || len(cmd) < 2 {
 			return
 		}
 		answer := "4" + cmd[1:] + " "
@@ -183,11 +183,7 @@ func (s *fakeServer) serve(conn net.Conn) {
 			slices.Sort(words)
 			answer = "1/" + strings.Join(words, "/") + "/"
 		}
-		out, err := japanese.EUCJP.NewEncoder().String(answer + "\n")
-		if err != nil {
-			return
-		}
-		if _, err := conn.Write([]byte(out)); err != nil {
+		if _, err := conn.Write([]byte(answer + "\n")); err != nil {
 			return
 		}
 	}
@@ -207,7 +203,7 @@ func (s *fakeServer) stop() {
 func testDictionary(t *testing.T, s *fakeServer) *serverOrLocal {
 	t.Helper()
 	d := &serverOrLocal{
-		server: skkserv.New(skkserv.Params{Addr: s.ln.Addr().String(), Timeout: 100 * time.Millisecond}),
+		server: skkserv.New(skkserv.Params{Addr: s.ln.Addr().String(), Encoding: "utf-8", Timeout: 100 * time.Millisecond}),
 		local:  localDictionary(t),
 	}
 	t.Cleanup(func() { d.Close() })
