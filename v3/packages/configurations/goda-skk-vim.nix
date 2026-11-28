@@ -12,7 +12,6 @@ in
   extraPackages = [ binary ];
   config = # lua
     ''
-      vim.env.GODA_SKK_STATE_DIR = vim.fn.stdpath("state") .. "/goda-skk"
       vim.g["goda_skk#binary"] = "${binary}/bin/goda-skk"
       vim.keymap.set({ "i", "c", "t" }, "<C-j>", "<Plug>(goda-skk-enable)", {
         silent = true, desc = "Enable Goda SKK",
@@ -39,6 +38,7 @@ in
     - 送り仮名付き変換、単語登録、ユーザー辞書、変換取消に対応します。
     - 挿入モード、コマンドライン、端末で入力でき、変換前表示と状態popupを内蔵します。
     - Goda起動時、TCP 1178で待受中のyaskkservを検出するとサーバーを使い、未検出なら同梱辞書を使います。
+    - Godaの学習辞書は無効です。既存の学習辞書は読み書きせず、削除もしません。
     - SKKサーバーへはUTF-8で問い合わせ、UTF-8で候補を受信します。同梱辞書のEUC-JPとは独立しています。
     - サーバー選択後に接続できなくなった場合は同梱辞書へ退避し、再接続できればサーバーへ戻ります。
     - goda-cmp補完とGoogle日本語入力の辞書は上流の任意連携です。
@@ -125,6 +125,10 @@ in
         # Each mode is the first SKK use in a new editor, not masked by InsertEnter.
         nvim = start()
         try:
+            user_dict = pathlib.Path(nvim.call("stdpath", "state")) / "goda-skk" / "SKK-JISYO.user"
+            user_dict.parent.mkdir(parents=True, exist_ok=True)
+            learned = ";; okuri-ari entries.\n;; okuri-nasi entries.\nかんじ /�����/\n"
+            user_dict.write_text(learned, encoding="utf-8")
             send(nvim, "i<C-j>aiueo")
             wait(nvim, lambda: nvim.current.line == "あいうえお", "hiragana input")
             send(nvim, "<Esc>")
@@ -134,15 +138,14 @@ in
             send(nvim, "i<C-j>Kanji<Space>")
             wait(nvim, lambda: nvim.current.line.startswith("▼") and len(nvim.current.line) > 1, "EUC-JP dictionary conversion")
             first = nvim.current.line
+            assert "�" not in first, "disabled learning must not read the stale candidate"
             send(nvim, "<Space>")
             wait(nvim, lambda: nvim.current.line != first, "next candidate")
             selected = nvim.current.line.removeprefix("▼")
             assert any("\u4e00" <= char <= "\u9fff" for char in selected), selected
             send(nvim, "<C-j><Esc>")
             wait(nvim, lambda: nvim.current.line == selected and nvim.eval("mode()") == "n", "confirm conversion")
-            user_dict = pathlib.Path(nvim.eval("$GODA_SKK_STATE_DIR")) / "SKK-JISYO.user"
-            wait(nvim, lambda: user_dict.exists() and selected in user_dict.read_text(), "persist learned candidate")
-            assert str(user_dict).startswith(os.environ["XDG_STATE_HOME"])
+            assert user_dict.read_text(encoding="utf-8") == learned, "disabled learning must not write the user dictionary"
             nvim.current.buffer[:] = [""]
             send(nvim, "i<C-j>aiujk")
             wait(nvim, lambda: nvim.current.line == "あいう" and nvim.eval("mode()") == "i"
@@ -182,7 +185,7 @@ in
             send(nvim, "<Esc>")
             wait(nvim, lambda: nvim.eval("mode()") == "n", "leave command line")
             send(nvim, "i<C-j>Kanji<Space>")
-            wait(nvim, lambda: nvim.current.line == "▼" + selected, "reload learned candidate")
+            wait(nvim, lambda: nvim.current.line == first, "restart preserves the read-only dictionary order")
             send(nvim, "<C-g><Esc>")
         finally:
             stop(nvim)
