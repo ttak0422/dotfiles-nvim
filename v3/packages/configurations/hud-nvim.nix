@@ -122,7 +122,7 @@ with sources;
           if not status or not status.head or status.head == ''' then
             return '''
           end
-          return '  ' .. status.head
+          return '  ' .. status.head
         end,
         priority = 0,
       }
@@ -326,23 +326,23 @@ with sources;
         api.nvim_exec_autocmds('BufModifiedSet', {})
         status({ head = 'hud-test', added = 2, changed = 3, removed = 4 })
         diagnostics(true)
-        expect({ 'repository  hud-test', 'Example.txt src/example', ' 1  1   2  3  4', '20,1' })
+        expect({ 'repository  hud-test', 'Example.txt src/example', ' 1  1   2  3  4', '20,1' })
         diagnostics(false)
-        expect({ 'repository  hud-test', 'Example.txt src/example', ' 2  3  4', '20,1' })
+        expect({ 'repository  hud-test', 'Example.txt src/example', ' 2  3  4', '20,1' })
         status({ head = 'hud-next' })
         diagnostics(true)
-        expect({ 'repository  hud-next', 'Example.txt src/example', ' 1  1', '20,1' })
+        expect({ 'repository  hud-next', 'Example.txt src/example', ' 1  1', '20,1' })
         diagnostics(false)
-        expect({ 'repository  hud-next', 'Example.txt src/example', '20,1' })
+        expect({ 'repository  hud-next', 'Example.txt src/example', '20,1' })
         -- Restore both providers and verify they share one row after repeated updates.
         diagnostics(true)
         status({ head = 'hud-test', changed = 1 })
-        expect({ 'repository  hud-test', 'Example.txt src/example', ' 1  1   1', '20,1' })
+        expect({ 'repository  hud-test', 'Example.txt src/example', ' 1  1   1', '20,1' })
         local source = api.nvim_get_current_win()
         vim.cmd.vsplit()
         resized(80)
-        expect({ 'repository  hud-test', 'Example.txt s/example', ' 1  1   1', '20,1' })
-        expect({ 'repository  hud-test', 'Example.txt src/example' }, source)
+        expect({ 'repository  hud-test', 'Example.txt s/example', ' 1  1   1', '20,1' })
+        expect({ 'repository  hud-test', 'Example.txt src/example' }, source)
         segments('Example.txt', 'src/example', source)
         resized(18)
         header('repository', nil, 'Example.txt')
