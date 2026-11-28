@@ -9,74 +9,116 @@
 }:
 with sources;
 let
-  ptermMappingCheck = key: picker: luaCheck {
-    name = "telescope-first-pterm-${picker}";
-    preInit = ''
-      local original_require = require
-      local wrapped = false
-      _G.require = function(name)
-        local module = original_require(name)
-        if name == "pterm" and not wrapped then
-          wrapped = true
-          -- Keep the real lazy loader, commands and pickers; isolate daemon IO.
-          module.list = function() return { "fixture/test session" } end
-          module.is_connected = function() return false end
-          module.display_name = function(name) return name end
-          module.full_text_ansi = function() return "fixture grep line" end
-          module.snapshot_ansi_async = function(_, callback)
-            vim.schedule(function() callback("fixture preview") end)
-            return { kill = function() end }
+  ptermMappingCheck =
+    key: picker:
+    luaCheck {
+      name = "telescope-first-pterm-${picker}";
+      preInit = ''
+        local original_require = require
+        local wrapped = false
+        _G.require = function(name)
+          local module = original_require(name)
+          if name == "pterm" and not wrapped then
+            wrapped = true
+            -- Keep the real lazy loader, commands and pickers; isolate daemon IO.
+            module.list = function() return { "fixture/test session" } end
+            module.open = function(name, argv) _G.pterm_created = { name, argv } end
+            module.kill = function(name) _G.pterm_killed = name end
+            module.is_connected = function() return false end
+            module.display_name = function(name) return name end
+            module.full_text_ansi = function() return "fixture grep line" end
+            module.snapshot_ansi_async = function(_, callback)
+              vim.schedule(function() callback("fixture preview") end)
+              return { kill = function() end }
+            end
           end
+          return module
         end
-        return module
-      end
-    '';
-    script = ''
-      assert(not package.loaded.telescope and not package.loaded.pterm,
-        "pterm mappings must leave Telescope and pterm cold at startup")
-      vim.o.columns, vim.o.lines = 120, 40
-      local function open(key, expected)
-        vim.cmd.stopinsert()
-        local mapping = vim.fn.maparg("<Leader>" .. key, "n", false, true)
-        assert(mapping.rhs == "<Cmd>Telescope pterm " .. expected .. "<CR>", "wrong pterm mapping: " .. key)
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Leader>" .. key, true, false, true), "xt", false)
-        local prompt, picker
-        assert(vim.wait(5000, function()
-          prompt = vim.api.nvim_get_current_buf()
-          if vim.bo[prompt].filetype ~= "TelescopePrompt" then return false end
-          picker = require("telescope.actions.state").get_current_picker(prompt)
-          return picker and picker.manager and picker.manager:num_results() == 1
-        end, 10), "mapping did not open populated pterm " .. expected)
-        assert(picker.prompt_title:find("pterm " .. expected, 1, true), "mapping opened the wrong picker")
-        local entry = picker.manager:get_entry(1)
-        assert(entry.value == "fixture/test session", "session name changed")
-        assert((entry.grep_line == "fixture grep line") == (expected == "grep"), "wrong picker entries")
-        require("telescope.actions").close(prompt)
-      end
-      -- Each check starts with a different mapping before any completion/require.
-      open("${key}", "${picker}")
-      open("ft", "grep")
-      open("fT", "sessions")
-      assert(vim.fn.exists(":Template") == 0, "retired Template command is still registered")
-      assert(not vim.tbl_contains(vim.fn.getcompletion("Template", "command"), "Template"))
-      assert(not vim.tbl_contains(vim.fn.getcompletion("Telescope ", "cmdline"), "sonictemplate"),
-        "retired Telescope extension is still offered")
-      assert(#vim.api.nvim_get_runtime_file("plugin/sonictemplate.vim", true) == 0)
-      assert(#vim.api.nvim_get_runtime_file("lua/telescope/_extensions/sonictemplate.lua", true) == 0)
-      for _, command in ipairs({ "grep", "sessions" }) do
-        assert(vim.tbl_contains(vim.fn.getcompletion("Telescope pterm ", "cmdline"), command))
-        vim.cmd("Telescope pterm " .. command .. " previewer=false")
-        assert(vim.bo.filetype == "TelescopePrompt", "existing pterm command stopped opening its picker")
-        require("telescope.actions").close(vim.api.nvim_get_current_buf())
-      end
-    '';
-  };
+      '';
+      script = ''
+        assert(not package.loaded.telescope and not package.loaded.pterm,
+          "pterm mappings must leave Telescope and pterm cold at startup")
+        vim.o.columns, vim.o.lines = 120, 40
+        local function open(key, expected)
+          vim.cmd.stopinsert()
+          local mapping = vim.fn.maparg("<Leader>" .. key, "n", false, true)
+          assert(mapping.rhs == "<Cmd>Telescope pterm " .. expected .. "<CR>", "wrong pterm mapping: " .. key)
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Leader>" .. key, true, false, true), "xt", false)
+          local prompt, picker
+          assert(vim.wait(5000, function()
+            prompt = vim.api.nvim_get_current_buf()
+            if vim.bo[prompt].filetype ~= "TelescopePrompt" then return false end
+            picker = require("telescope.actions.state").get_current_picker(prompt)
+            return picker and picker.manager and picker.manager:num_results() == 1
+          end, 10), "mapping did not open populated pterm " .. expected)
+          assert(picker.prompt_title:find("pterm " .. expected, 1, true), "mapping opened the wrong picker")
+          local entry = picker.manager:get_entry(1)
+          assert(entry.value == "fixture/test session", "session name changed")
+          assert((entry.grep_line == "fixture grep line") == (expected == "grep"), "wrong picker entries")
+          require("telescope.actions").close(prompt)
+        end
+        -- Each check starts with a different mapping before any completion/require.
+        open("${key}", "${picker}")
+        open("fT", "grep")
+        open("ft", "sessions")
+        assert(vim.fn.exists(":Template") == 0, "retired Template command is still registered")
+        assert(not vim.tbl_contains(vim.fn.getcompletion("Template", "command"), "Template"))
+        assert(not vim.tbl_contains(vim.fn.getcompletion("Telescope ", "cmdline"), "sonictemplate"),
+          "retired Telescope extension is still offered")
+        assert(#vim.api.nvim_get_runtime_file("plugin/sonictemplate.vim", true) == 0)
+        assert(#vim.api.nvim_get_runtime_file("lua/telescope/_extensions/sonictemplate.lua", true) == 0)
+        local state = require("telescope.actions.state")
+        require("telescope").extensions.pterm.sessions({ previewer = false })
+        local prompt = vim.api.nvim_get_current_buf()
+        local picker = state.get_current_picker(prompt)
+        picker:set_prompt("fixture")
+        assert(vim.wait(3000, function()
+          local entry = state.get_selected_entry()
+          return state.get_current_line() == "fixture" and entry and entry.value == "fixture/test session"
+        end, 10), "fuzzy session fixture did not match")
+        local callback = assert(vim.fn.maparg("<C-o>", "i", false, true).callback)
+        callback()
+        assert(vim.deep_equal(_G.pterm_created, { "fixture", { "fixture" } }),
+          "Ctrl-o must use the prompt instead of opening the fuzzy match")
+        require("telescope").extensions.pterm.sessions({ previewer = false, default_text = "fixture" })
+        prompt = vim.api.nvim_get_current_buf()
+        assert(vim.wait(3000, function()
+          local entry = state.get_selected_entry()
+          return state.get_current_line() == "fixture" and entry and entry.value == "fixture/test session"
+        end, 10))
+        local close = assert(vim.fn.maparg("<C-x>", "n", false, true).callback)
+        local confirm = vim.fn.confirm
+        local prompted = false
+        vim.fn.confirm = function(message, _, default)
+          prompted = true
+          assert(message:find("fixture/test session", 1, true) and default == 2)
+          return 2
+        end
+        close()
+        assert(not prompted, "close confirmation must be dispatched")
+        assert(vim.wait(3000, function() return prompted end, 10))
+        assert(not _G.pterm_killed and vim.api.nvim_get_current_buf() == prompt)
+        vim.fn.confirm = function() return 1 end
+        close()
+        assert(vim.wait(3000, function() return _G.pterm_killed == "fixture/test session" end, 10))
+        vim.fn.confirm = confirm
+        for _, command in ipairs({ "grep", "sessions" }) do
+          assert(vim.tbl_contains(vim.fn.getcompletion("Telescope pterm ", "cmdline"), command))
+          vim.cmd("Telescope pterm " .. command .. " previewer=false")
+          assert(vim.bo.filetype == "TelescopePrompt", "existing pterm command stopped opening its picker")
+          require("telescope.actions").close(vim.api.nvim_get_current_buf())
+        end
+      '';
+    };
 in
 {
   doc = ''
     Telescope 本体と拡張をまとめ、picker と選択 UI の設定を共有する。
 
     `<Leader>ft` は `:Telescope pterm sessions`、`<Leader>fT` は `:Telescope pterm grep` を開く。
+    pterm のセッション一覧、worktab、Track のタイトル・本文検索では、`<C-o>` で候補ではなく入力欄を使う。
+    pterm では `name command args...` も使える。worktab と pterm のセッション一覧では `<C-x>` で選択中の項目を閉じる。
+    pterm のセッション終了は実行中のプロセスも止めるので確認を表示する。
 
     通常の files / grep では登録済みの子 worktree を除外する（選択中の worktree 自体は検索可能）。
     `<Leader>fw` / `:TelescopeWorktrees` は `git gtr list --porcelain` から選択し、Enter でファイル検索する。候補がない場合は入力したブランチ名で `git gtr new --yes` を実行し、作成先のファイル検索を開く（空入力は閉じる）。cwd の切替は既存の project.nvim によるファイル選択時の自動移動に任せる。
@@ -294,60 +336,8 @@ in
       ghq.ghq = configured_ghq
       ghq.list = configured_ghq
 
-      -- Telescope owns its pterm picker integration; standalone Pterm needs no picker.
-      local pterm = require("pterm")
-      local actions = require("telescope.actions")
-      local action_state = require("telescope.actions.state")
-      local parser = require("telescope-live-grep-args.prompt_parser")
-
       telescope.load_extension("pterm")
-
-      local function create_session(prompt_bufnr)
-        local prompt = vim.trim(action_state.get_current_line())
-        local names = pterm.list()
-        -- Preserve existing names containing spaces instead of parsing them as commands.
-        local argv = vim.tbl_contains(names, prompt) and { prompt } or parser.parse(prompt, false)
-        local name, command = argv[1], argv[2]
-        if not name or name == "" then
-          actions.close(prompt_bufnr)
-          return
-        end
-        if command and vim.tbl_contains(names, name) then
-          vim.notify("Session '" .. name .. "' already exists; select it without a command", vim.log.levels.ERROR)
-          return
-        end
-        if command and vim.fn.executable(command) == 0 then
-          vim.notify("Executable not found: " .. command, vim.log.levels.ERROR)
-          return
-        end
-        actions.close(prompt_bufnr)
-        local ok, err = pcall(pterm.open, name, argv)
-        if not ok then
-          vim.notify("Failed to open session '" .. name .. "': " .. tostring(err), vim.log.levels.ERROR)
-        end
-      end
-
-      local extension = telescope.extensions.pterm
-      local sessions = extension.sessions
-      local function configured_sessions(opts)
-        opts = vim.tbl_extend("force", {}, opts or {})
-        local attach = opts.attach_mappings
-        opts.prompt_title = opts.prompt_title or "pterm sessions | new: name [command args...]"
-        opts.attach_mappings = function(prompt_bufnr, map)
-          actions.select_default:replace_if(function()
-            return action_state.get_selected_entry() == nil
-          end, function()
-            create_session(prompt_bufnr)
-          end)
-          if attach then
-            return attach(prompt_bufnr, map)
-          end
-          return true
-        end
-        return sessions(opts)
-      end
-      extension.sessions = configured_sessions
-      extension.pterm = configured_sessions
+      dofile("${../support/telescope/open-from-prompt.lua}").setup(telescope)
 
       vim.api.nvim_create_user_command("TelescopeWorktrees", function() worktrees.pick() end, {})
 
@@ -359,8 +349,12 @@ in
       end, {})
     ''
   );
-  tests.telescope-first-pterm-grep = ptermMappingCheck "ft" "grep";
-  tests.telescope-first-pterm-sessions = ptermMappingCheck "fT" "sessions";
+  tests.telescope-first-pterm-grep = ptermMappingCheck "fT" "grep";
+  tests.telescope-first-pterm-sessions = ptermMappingCheck "ft" "sessions";
+  tests.telescope-open-from-prompt = luaCheck {
+    name = "telescope-open-from-prompt";
+    script = builtins.readFile ../checks/telescope-open-from-prompt.lua;
+  };
   tests.telescope-path-display-scope = luaCheck {
     name = "telescope-path-display-scope";
     script = builtins.readFile ../checks/telescope-path-display-scope.lua;
